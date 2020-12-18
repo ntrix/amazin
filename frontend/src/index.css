@@ -13,7 +13,9 @@ body {
 #root {
   height: 100%;
 }
-
+* {
+  user-select: none;
+}
 /* Layout */
 .grid-container {
   display: grid;
@@ -366,9 +368,11 @@ img.large {
   flex: 1;
 }
 .search button {
+  width: 5rem;
   border-radius: 0 0.5rem 0.5rem 0;
   border-right: none;
   margin-right: 0.5rem;
+  width: 5rem;
 }
 .search input {
   flex:1;
