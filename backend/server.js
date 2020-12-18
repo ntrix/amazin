@@ -13,15 +13,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(
-  process.env.MONGODB_URL ||
-    "mongodb+srv://nt1:khigio2kDBfcc1@fccdb0.avkln.mongodb.net/amazin?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  }
-);
+mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/amazin", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 app.use("/api/uploads", uploadRoute);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);

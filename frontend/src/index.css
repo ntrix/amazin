@@ -22,12 +22,13 @@ body {
     'main'
     'footer';
   grid-template-columns: 1fr;
-  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-rows: 7rem 1fr 5rem;
   height: 100%;
 }
 header {
   grid-area: header;
-  background-color: #203040;
+  min-width: 667px;
+  background-color: #131921;
 }
 main {
   grid-area: main;
@@ -35,7 +36,7 @@ main {
 }
 footer {
   grid-area: footer;
-  background-color: #203040;
+  background-color: #131921;
   color: #ffffff;
 }
 /* Common */
@@ -94,9 +95,38 @@ button.small {
   font-size: 1.2rem;
 }
 /* Header */
+
+.header__option {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: white;
+}
+.header__optionLineOne {
+  font-size: 12px;
+}
+
+.header__optionLineTwo {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.header__basketCount {
+  margin-left: auto;
+  margin-right: auto;
+}
+.header__basket i {
+  font-size: 36px;
+}
 header a {
   color: #ffffff;
   padding: 1rem;
+}
+img.logo {
+  width: 4rem;
+  object-fit: cover;
+  margin: 0 0 -1rem 0;
 }
 a.brand {
   color: #ffffff;
@@ -263,6 +293,17 @@ img.large {
   display: inline-block;
   position: relative;
 }
+.dropdown-content:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: -2rem 0 0 6rem;
+  border: 0 solid transparent;
+  border-right-width: 1rem;
+  border-left-width: 1rem;
+  border-bottom: 1rem solid #f0f0f0;
+}
 .dropdown-content {
   position: absolute;
   display: none;
@@ -270,14 +311,22 @@ img.large {
   min-width: 12rem;
   padding: 1rem;
   z-index: 1;
-  background-color: #203040;
+  background-color: #f0f0f0;
   margin: 0;
-  margin-top: 0.4rem;
+  margin-top: 1rem;
   border-radius: 0.5rem;
+  box-shadow: 0 0 2rem #131921;
 }
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.dropdown-content a {
+  color: #131921;
+  font-size: 14px;
+}
+.dropdown-content a:hover {
+  color: #ff8000;
+  }
 /* Checkout Steps */
 .checkout-steps > div {
   border-top: 0.3rem #c0c0c0 solid;
@@ -313,12 +362,16 @@ img.large {
 }
 
 /* Search */
+.search-box {
+  flex: 1;
+}
 .search button {
   border-radius: 0 0.5rem 0.5rem 0;
   border-right: none;
   margin-right: 0.5rem;
 }
 .search input {
+  flex:1;
   border-radius: 0.5rem 0 0 0.5rem;
   border-right: none;
   margin-left: 0.5rem;
