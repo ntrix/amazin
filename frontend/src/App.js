@@ -28,7 +28,8 @@ import { listProductCategories } from "./actions/productActions";
 import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
 import MapScreen from "./screens/MapScreen";
-import Logo from "./a.svg";
+import Logo from "./img/a.svg";
+import Cart from "./img/cart.png";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -151,7 +152,7 @@ function App() {
                   {cartItems.length}
                 </span>
                 <span className="header__optionLineTwo header__basket">
-                  <i className="fa fa-cart-arrow-down"></i>{" "}
+                  <img className="cart" src={Cart} alt=""></img>
                 </span>
               </div>
             </Link>
