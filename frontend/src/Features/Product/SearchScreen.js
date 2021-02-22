@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 
-import { listProducts } from '../../actions/productActions';
+import { listProducts } from "../../Dux/actions/productActions";
 
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
-import Product from '../../components/Product';
-import Rating from '../../components/Rating';
-import { prices, ratings } from '../../utils';
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import Product from "../../components/Product";
+import Rating from "../../components/Rating";
+import { prices, ratings } from "../../utils";
 
 export default function SearchScreen(props) {
   const {
-    name = 'all',
-    category = 'all',
+    name = "all",
+    category = "all",
     min = 0,
     max = 0,
     rating = 0,
-    order = 'newest',
+    order = "newest",
     pageNumber = 1,
   } = useParams();
   const dispatch = useDispatch();
@@ -34,8 +34,8 @@ export default function SearchScreen(props) {
     dispatch(
       listProducts({
         pageNumber,
-        name: name !== 'all' ? name : '',
-        category: category !== 'all' ? category : '',
+        name: name !== "all" ? name : "",
+        category: category !== "all" ? category : "",
         min,
         max,
         rating,
@@ -65,7 +65,7 @@ export default function SearchScreen(props) {
           <div>{products.length} Results</div>
         )}
         <div>
-          Sort by{' '}
+          Sort by{" "}
           <select
             value={order}
             onChange={(e) => {
@@ -91,8 +91,8 @@ export default function SearchScreen(props) {
               <ul>
                 <li>
                   <Link
-                    className={'all' === category ? 'active' : ''}
-                    to={getFilterUrl({ category: 'all' })}
+                    className={"all" === category ? "active" : ""}
+                    to={getFilterUrl({ category: "all" })}
                   >
                     Any
                   </Link>
@@ -100,7 +100,7 @@ export default function SearchScreen(props) {
                 {categories.map((c) => (
                   <li key={c}>
                     <Link
-                      className={c === category ? 'active' : ''}
+                      className={c === category ? "active" : ""}
                       to={getFilterUrl({ category: c })}
                     >
                       {c}
@@ -118,7 +118,7 @@ export default function SearchScreen(props) {
                   <Link
                     to={getFilterUrl({ min: p.min, max: p.max })}
                     className={
-                      `${p.min}-${p.max}` === `${min}-${max}` ? 'active' : ''
+                      `${p.min}-${p.max}` === `${min}-${max}` ? "active" : ""
                     }
                   >
                     {p.name}
@@ -134,9 +134,9 @@ export default function SearchScreen(props) {
                 <li key={r.name}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` ? 'active' : ''}
+                    className={`${r.rating}` === `${rating}` ? "active" : ""}
                   >
-                    <Rating caption={' & up'} rating={r.rating}></Rating>
+                    <Rating caption={" & up"} rating={r.rating}></Rating>
                   </Link>
                 </li>
               ))}
@@ -161,7 +161,7 @@ export default function SearchScreen(props) {
               <div className="row center pagination">
                 {[...Array(pages).keys()].map((x) => (
                   <Link
-                    className={x + 1 === page ? 'active' : ''}
+                    className={x + 1 === page ? "active" : ""}
                     key={x + 1}
                     to={getFilterUrl({ page: x + 1 })}
                   >

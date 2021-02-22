@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { signin } from '../../actions/userActions';
+import { signin } from "../../Dux/actions/userActions";
 
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
 
 export default function SigninScreen(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const redirect = props.location.search
-    ? props.location.search.split('=')[1]
-    : '/';
+    ? props.location.search.split("=")[1]
+    : "/";
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
@@ -65,7 +65,7 @@ export default function SigninScreen(props) {
         <div>
           <label />
           <div>
-            New customer?{' '}
+            New customer?{" "}
             <Link to={`/register?redirect=${redirect}`}>
               Create your account
             </Link>

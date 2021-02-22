@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
-import { signout } from "./actions/userActions";
-import { listProductCategories } from "./actions/productActions";
+import { signout } from "./Dux/actions/userActions";
+import { listProductCategories } from "./Dux/actions/productActions";
 
 import SigninScreen from "./Features/Auth/SigninScreen";
 import RegisterScreen from "./Features/Auth/RegisterScreen";
