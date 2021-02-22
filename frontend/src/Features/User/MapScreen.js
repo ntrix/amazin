@@ -1,14 +1,16 @@
+import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   LoadScript,
   GoogleMap,
   StandaloneSearchBox,
   Marker,
 } from '@react-google-maps/api';
-import LoadingBox from '../components/LoadingBox';
-import Axios from 'axios';
-import { USER_ADDRESS_MAP_CONFIRM } from '../constants/userConstants';
-import { useDispatch } from 'react-redux';
+
+import { USER_ADDRESS_MAP_CONFIRM } from '../../constants/userConstants';
+
+import LoadingBox from '../../components/LoadingBox';
 
 const libs = ['places'];
 const defaultLocation = { lat: 45.516, lng: -73.56 };
