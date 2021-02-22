@@ -1,33 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
+
 import { signout } from "./actions/userActions";
-import AdminRoute from "./components/AdminRoute";
-import PrivateRoute from "./components/PrivateRoute";
-import CartScreen from "./screens/CartScreen";
-import HomeScreen from "./screens/HomeScreen";
-import OrderHistoryScreen from "./screens/OrderHistoryScreen";
-import OrderScreen from "./screens/OrderScreen";
-import PaymentMethodScreen from "./screens/PaymentMethodScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import ProductListScreen from "./screens/ProductListScreen";
-import ProductScreen from "./screens/ProductScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ShippingAddressScreen from "./screens/ShippingAddressScreen";
-import SigninScreen from "./screens/SigninScreen";
-import ProductEditScreen from "./screens/ProductEditScreen";
-import OrderListScreen from "./screens/OrderListScreen";
-import UserListScreen from "./screens/UserListScreen";
-import UserEditScreen from "./screens/UserEditScreen";
-import SellerRoute from "./components/SellerRoute";
-import SellerScreen from "./screens/SellerScreen";
-import SearchBox from "./components/SearchBox";
-import SearchScreen from "./screens/SearchScreen";
 import { listProductCategories } from "./actions/productActions";
+
+import SigninScreen from "./Features/Auth/SigninScreen";
+import RegisterScreen from "./Features/Auth/RegisterScreen";
+
+import AdminRoute from "./Features/Route/AdminRoute";
+import PrivateRoute from "./Features/Route/PrivateRoute";
+import SellerRoute from "./Features/Route/SellerRoute";
+
+import CartScreen from "./Features/Checkout/CartScreen";
+import PaymentMethodScreen from "./Features/Checkout/PaymentMethodScreen";
+import PlaceOrderScreen from "./Features/Checkout/PlaceOrderScreen";
+import ShippingAddressScreen from "./Features/Checkout/ShippingAddressScreen";
+
+import OrderHistoryScreen from "./Features/Order/OrderHistoryScreen";
+import OrderScreen from "./Features/Order/OrderScreen";
+import OrderListScreen from "./Features/Order/OrderListScreen";
+
+import ProductEditScreen from "./Features/Product/ProductEditScreen";
+import ProductListScreen from "./Features/Product/ProductListScreen";
+import ProductScreen from "./Features/Product/ProductScreen";
+import SearchScreen from "./Features/Product/SearchScreen";
+
+import MapScreen from "./Features/User/MapScreen";
+import ProfileScreen from "./Features/User/ProfileScreen";
+import UserEditScreen from "./Features/User/UserEditScreen";
+import UserListScreen from "./Features/User/UserListScreen";
+
+import HomeScreen from "./Features/HomeScreen";
+import SellerScreen from "./Features/SellerScreen";
+
+import SearchBox from "./components/SearchBox";
 import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
-import MapScreen from "./screens/MapScreen";
 import Logo from "./img/a.svg";
 import Cart from "./img/cart.png";
 
