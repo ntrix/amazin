@@ -29,7 +29,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_RESET,
   USER_UPDATE_SUCCESS,
-} from '../constants/userConstants';
+} from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {

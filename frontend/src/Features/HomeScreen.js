@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
-import { listProducts } from '../actions/productActions';
-import { listTopSellers } from '../actions/userActions';
+import { listProducts } from "../Dux/actions/productActions";
+import { listTopSellers } from "../Dux/actions/userActions";
 
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import Product from '../components/Product';
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import Product from "../components/Product";
 
 export default function HomeScreen() {
   const dispatch = useDispatch();

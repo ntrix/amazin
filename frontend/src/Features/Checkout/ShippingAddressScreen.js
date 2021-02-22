@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { saveShippingAddress } from '../../actions/cartActions';
+import { saveShippingAddress } from '../../Dux/actions/cartActions';
 
 import CheckoutSteps from './CheckoutSteps';
 

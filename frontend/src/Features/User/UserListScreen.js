@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { USER_DETAILS_RESET } from '../../constants/userConstants';
-import { deleteUser, listUsers } from '../../actions/userActions';
+import { USER_DETAILS_RESET } from "../../Dux/constants/userConstants";
+import { deleteUser, listUsers } from "../../Dux/actions/userActions";
 
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
 
 export default function UserListScreen(props) {
   const userList = useSelector((state) => state.userList);
@@ -26,7 +26,7 @@ export default function UserListScreen(props) {
     });
   }, [dispatch, successDelete]);
   const deleteHandler = (user) => {
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm("Are you sure?")) {
       dispatch(deleteUser(user._id));
     }
   };
@@ -60,8 +60,8 @@ export default function UserListScreen(props) {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isSeller ? 'YES' : ' NO'}</td>
-                <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+                <td>{user.isSeller ? "YES" : " NO"}</td>
+                <td>{user.isAdmin ? "YES" : "NO"}</td>
                 <td>
                   <button
                     type="button"

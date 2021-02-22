@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ORDER_DELETE_RESET } from '../../constants/orderConstants';
-import { deleteOrder, listOrders } from '../../actions/orderActions';
+import { ORDER_DELETE_RESET } from '../../Dux/constants/orderConstants';
+import { deleteOrder, listOrders } from '../../Dux/actions/orderActions';
 
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';

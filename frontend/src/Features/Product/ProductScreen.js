@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { PRODUCT_REVIEW_CREATE_RESET } from '../../constants/productConstants';
-import { createReview, detailsProduct } from '../../actions/productActions';
+import { PRODUCT_REVIEW_CREATE_RESET } from "../../Dux/constants/productConstants";
+import { createReview, detailsProduct } from "../../Dux/actions/productActions";
 
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
-import Rating from '../../components/Rating';
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import Rating from "../../components/Rating";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
@@ -26,13 +26,13 @@ export default function ProductScreen(props) {
   } = productReviewCreate;
 
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     if (successReviewCreate) {
-      window.alert('Review Submitted Successfully');
-      setRating('');
-      setComment('');
+      window.alert("Review Submitted Successfully");
+      setRating("");
+      setComment("");
       dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
     }
     dispatch(detailsProduct(productId));
@@ -47,7 +47,7 @@ export default function ProductScreen(props) {
         createReview(productId, { rating, comment, name: userInfo.name })
       );
     } else {
-      alert('Please enter comment and rating');
+      alert("Please enter comment and rating");
     }
   };
   return (
@@ -89,7 +89,7 @@ export default function ProductScreen(props) {
               <div className="card card-body">
                 <ul>
                   <li>
-                    Seller{' '}
+                    Seller{" "}
                     <h2>
                       <Link to={`/seller/${product.seller._id}`}>
                         {product.seller.seller.name}

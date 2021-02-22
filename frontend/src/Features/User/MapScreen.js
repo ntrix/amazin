@@ -8,7 +8,7 @@ import {
   Marker,
 } from '@react-google-maps/api';
 
-import { USER_ADDRESS_MAP_CONFIRM } from '../../constants/userConstants';
+import { USER_ADDRESS_MAP_CONFIRM } from '../../Dux/constants/userConstants';
 
 import LoadingBox from '../../components/LoadingBox';
 

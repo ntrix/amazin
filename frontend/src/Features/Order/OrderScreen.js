@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
-} from '../../constants/orderConstants';
-import { deliverOrder, detailsOrder, payOrder } from '../../actions/orderActions';
+} from '../../Dux/constants/orderConstants';
+import { deliverOrder, detailsOrder, payOrder } from '../../Dux/actions/orderActions';
 
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';

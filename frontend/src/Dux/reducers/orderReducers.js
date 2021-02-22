@@ -24,7 +24,7 @@ import {
   ORDER_DELIVER_SUCCESS,
   ORDER_DELIVER_FAIL,
   ORDER_DELIVER_RESET,
-} from '../constants/orderConstants';
+} from "../constants/orderConstants";
 
 export const orderCreateReducer = (state = {}, action) => {
   switch (action.type) {
