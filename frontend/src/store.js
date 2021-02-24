@@ -18,7 +18,7 @@ import {
   productListReducer,
   productReviewCreateReducer,
   productUpdateReducer,
-} from "./Dux/reducers/productReducers";
+} from "./Features/Product/ProductSlice";
 import {
   userAddressMapReducer,
   userDeleteReducer,

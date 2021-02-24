@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { PRODUCT_UPDATE_RESET } from "../../Dux/constants/productConstants";
+import { PRODUCT_UPDATE_RESET } from "./ProductSlice";
 import {
   detailsProduct,
   updateProduct,
@@ -37,7 +37,7 @@ export default function ProductEditScreen(props) {
       props.history.push("/productlist");
     }
     if (!product || product._id !== productId || successUpdate) {
-      dispatch({ type: PRODUCT_UPDATE_RESET });
+      dispatch(PRODUCT_UPDATE_RESET());
       dispatch(detailsProduct(productId));
     } else {
       setName(product.name);

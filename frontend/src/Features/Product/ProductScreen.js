@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { PRODUCT_REVIEW_CREATE_RESET } from "../../Dux/constants/productConstants";
+import { PRODUCT_REVIEW_CREATE_RESET } from "./ProductSlice";
 import { createReview, detailsProduct } from "../../Dux/actions/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
@@ -33,7 +33,7 @@ export default function ProductScreen(props) {
       window.alert("Review Submitted Successfully");
       setRating("");
       setComment("");
-      dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
+      dispatch(PRODUCT_REVIEW_CREATE_RESET());
     }
     dispatch(detailsProduct(productId));
   }, [dispatch, productId, successReviewCreate]);

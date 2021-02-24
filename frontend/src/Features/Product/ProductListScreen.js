@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
-import {
-  PRODUCT_CREATE_RESET,
-  PRODUCT_DELETE_RESET,
-} from "../../Dux/constants/productConstants";
+import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from "./ProductSlice";
 import {
   createProduct,
   deleteProduct,
@@ -41,11 +38,11 @@ export default function ProductListScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (successCreate) {
-      dispatch({ type: PRODUCT_CREATE_RESET });
+      dispatch(PRODUCT_CREATE_RESET());
       props.history.push(`/product/${createdProduct._id}/edit`);
     }
     if (successDelete) {
-      dispatch({ type: PRODUCT_DELETE_RESET });
+      dispatch(PRODUCT_DELETE_RESET());
     }
     dispatch(
       listProducts({ seller: sellerMode ? userInfo._id : "", pageNumber })
