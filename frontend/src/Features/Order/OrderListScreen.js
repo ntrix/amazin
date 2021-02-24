@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { ORDER_DELETE_RESET } from '../../Dux/constants/orderConstants';
-import { deleteOrder, listOrders } from '../../Dux/actions/orderActions';
+import { ORDER_DELETE_RESET } from "../Order/OrderSlice";
+import { deleteOrder, listOrders } from "../../Dux/actions/orderActions";
 
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
 
 export default function OrderListScreen(props) {
-  const sellerMode = props.match.path.indexOf('/seller') >= 0;
+  const sellerMode = props.match.path.indexOf("/seller") >= 0;
   const orderList = useSelector((state) => state.orderList);
   const { loading, error, orders } = orderList;
   const orderDelete = useSelector((state) => state.orderDelete);
@@ -22,11 +22,11 @@ export default function OrderListScreen(props) {
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: ORDER_DELETE_RESET });
-    dispatch(listOrders({ seller: sellerMode ? userInfo._id : '' }));
+    dispatch(ORDER_DELETE_RESET());
+    dispatch(listOrders({ seller: sellerMode ? userInfo._id : "" }));
   }, [dispatch, sellerMode, successDelete, userInfo._id]);
   const deleteHandler = (order) => {
-    if (window.confirm('Are you sure to delete?')) {
+    if (window.confirm("Are you sure to delete?")) {
       dispatch(deleteOrder(order._id));
     }
   };
@@ -59,11 +59,11 @@ export default function OrderListScreen(props) {
                 <td>{order.user.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice.toFixed(2)}</td>
-                <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
+                <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
                 <td>
                   {order.isDelivered
                     ? order.deliveredAt.substring(0, 10)
-                    : 'No'}
+                    : "No"}
                 </td>
                 <td>
                   <button

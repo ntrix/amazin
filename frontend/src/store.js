@@ -9,7 +9,7 @@ import {
   orderListReducer,
   orderMineListReducer,
   orderPayReducer,
-} from "./Dux/reducers/orderReducers";
+} from "./Features/Order/OrderSlice";
 import {
   productCategoryListReducer,
   productCreateReducer,
