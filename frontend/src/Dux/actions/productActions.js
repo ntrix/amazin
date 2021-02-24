@@ -33,9 +33,7 @@ export const listProducts = ({
   max = 0,
   rating = 0,
 }) => async (dispatch) => {
-  dispatch({
-    type: PRODUCT_LIST_REQUEST,
-  });
+  dispatch(PRODUCT_LIST_REQUEST());
   try {
     const { data } = await Axios.get(
       `/api/products?pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
@@ -47,9 +45,7 @@ export const listProducts = ({
 };
 
 export const listProductCategories = () => async (dispatch) => {
-  dispatch({
-    type: PRODUCT_CATEGORY_LIST_REQUEST,
-  });
+  dispatch(PRODUCT_CATEGORY_LIST_REQUEST());
   try {
     const { data } = await Axios.get(`/api/products/categories`);
     dispatch(PRODUCT_CATEGORY_LIST_SUCCESS(data));
@@ -64,13 +60,13 @@ export const detailsProduct = (productId) => async (dispatch) => {
     const { data } = await Axios.get(`/api/products/${productId}`);
     dispatch(PRODUCT_DETAILS_SUCCESS(data));
   } catch (error) {
-    dispatch({
-      type: PRODUCT_DETAILS_FAIL,
-      payload:
+    dispatch(
+      PRODUCT_DETAILS_FAIL(
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message,
-    });
+          : error.message
+      )
+    );
   }
 };
 export const createProduct = () => async (dispatch, getState) => {
@@ -86,10 +82,7 @@ export const createProduct = () => async (dispatch, getState) => {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       }
     );
-    dispatch({
-      type: PRODUCT_CREATE_SUCCESS,
-      payload: data.product,
-    });
+    dispatch(PRODUCT_CREATE_SUCCESS(data.product));
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -150,10 +143,7 @@ export const createReview = (productId, review) => async (
         headers: { Authorization: `Bearer ${userInfo.token}` },
       }
     );
-    dispatch({
-      type: PRODUCT_REVIEW_CREATE_SUCCESS,
-      payload: data.review,
-    });
+    dispatch(PRODUCT_REVIEW_CREATE_SUCCESS(data.review));
   } catch (error) {
     const message =
       error.response && error.response.data.message

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { USER_DETAILS_RESET } from "../../Dux/constants/userConstants";
+import { USER_DETAILS_RESET } from "./UserSlice";
 import { deleteUser, listUsers } from "../../Dux/actions/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
@@ -21,9 +21,7 @@ export default function UserListScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listUsers());
-    dispatch({
-      type: USER_DETAILS_RESET,
-    });
+    dispatch(USER_DETAILS_RESET());
   }, [dispatch, successDelete]);
   const deleteHandler = (user) => {
     if (window.confirm("Are you sure?")) {

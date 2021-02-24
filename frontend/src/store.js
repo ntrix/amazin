@@ -29,7 +29,7 @@ import {
   userTopSellerListReducer,
   userUpdateProfileReducer,
   userUpdateReducer,
-} from "./Dux/reducers/userReducers";
+} from "./Features/User/UserSlice.js";
 
 const initialState = {
   userSignin: {
