@@ -100,7 +100,7 @@ function App() {
               <div className="header__nav dropdown">
                 <div className="header__option">
                   <span className="header__optionLineOne">
-                    Hello, {userInfo.name}
+                    Hello, {userInfo.name.split(" ")[0]}
                   </span>
                   <span className="header__optionLineTwo">
                     Account<span className="tablet"> & Lists</span>{" "}
