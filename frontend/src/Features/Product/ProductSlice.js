@@ -17,6 +17,7 @@ const productListSlice = createSlice({
     }),
   },
 });
+
 const {
   actions: productListActions,
   reducer: productListReducer,
@@ -45,6 +46,7 @@ const productCategoryListSlice = createSlice({
     }),
   },
 });
+
 const {
   actions: productCategoryListActions,
   reducer: productCategoryListReducer,
@@ -73,6 +75,7 @@ const productDetailsSlice = createSlice({
     }),
   },
 });
+
 const {
   actions: productDetailsActions,
   reducer: productDetailsReducer,
@@ -88,7 +91,6 @@ const productCreateSlice = createSlice({
   name: "productCreate",
   initialState: {},
   reducers: {
-    abc: (state, action) => ({}),
     PRODUCT_CREATE_REQUEST: (state, action) => ({
       loading: true,
     }),
@@ -104,6 +106,7 @@ const productCreateSlice = createSlice({
     PRODUCT_CREATE_RESET: (state, action) => ({}),
   },
 });
+
 const {
   actions: productCreateActions,
   reducer: productCreateReducer,
@@ -120,7 +123,6 @@ const productUpdateSlice = createSlice({
   name: "productUpdate",
   initialState: {},
   reducers: {
-    abc: (state, action) => ({}),
     PRODUCT_UPDATE_REQUEST: (state, action) => ({
       loading: true,
     }),
@@ -135,6 +137,7 @@ const productUpdateSlice = createSlice({
     PRODUCT_UPDATE_RESET: (state, action) => ({}),
   },
 });
+
 const {
   actions: productUpdateActions,
   reducer: productUpdateReducer,
@@ -165,6 +168,7 @@ const productDeleteSlice = createSlice({
     PRODUCT_DELETE_RESET: (state, action) => ({}),
   },
 });
+
 const {
   actions: productDeleteActions,
   reducer: productDeleteReducer,
@@ -196,6 +200,7 @@ const productReviewCreateSlice = createSlice({
     PRODUCT_REVIEW_CREATE_RESET: (state, action) => ({}),
   },
 });
+
 const {
   actions: productReviewCreateActions,
   reducer: productReviewCreateReducer,

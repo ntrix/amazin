@@ -72,6 +72,7 @@ export const signout = () => (dispatch) => {
   dispatch(USER_SIGNOUT());
   document.location.href = "/signin";
 };
+
 export const detailsUser = (userId) => async (dispatch, getState) => {
   dispatch(USER_DETAILS_REQUEST(userId));
   const {
@@ -90,6 +91,7 @@ export const detailsUser = (userId) => async (dispatch, getState) => {
     dispatch(USER_DETAILS_FAIL(message));
   }
 };
+
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   dispatch(USER_UPDATE_PROFILE_REQUEST(user));
   const {
@@ -110,6 +112,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     dispatch(USER_UPDATE_PROFILE_FAIL(message));
   }
 };
+
 export const updateUser = (user) => async (dispatch, getState) => {
   dispatch(USER_UPDATE_PROFILE_REQUEST(user));
   const {
@@ -128,6 +131,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
     dispatch(USER_UPDATE_FAIL(message));
   }
 };
+
 export const listUsers = () => async (dispatch, getState) => {
   dispatch(USER_LIST_REQUEST());
   try {
@@ -148,6 +152,7 @@ export const listUsers = () => async (dispatch, getState) => {
     dispatch(USER_LIST_FAIL(message));
   }
 };
+
 export const deleteUser = (userId) => async (dispatch, getState) => {
   dispatch(USER_DELETE_REQUEST(userId));
   const {
@@ -166,6 +171,7 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
     dispatch(USER_DELETE_FAIL(message));
   }
 };
+
 export const listTopSellers = () => async (dispatch) => {
   dispatch(USER_TOPSELLERS_LIST_REQUEST());
   try {

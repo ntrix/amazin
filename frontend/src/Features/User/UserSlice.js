@@ -17,6 +17,7 @@ const userRegisterSlice = createSlice({
     }),
   },
 });
+
 const {
   actions: userRegisterActions,
   reducer: userRegisterReducer,
@@ -46,6 +47,7 @@ const userSigninSlice = createSlice({
     USER_SIGNOUT: (state, action) => ({}),
   },
 });
+
 const {
   actions: userSigninActions,
   reducer: userSigninReducer,
@@ -78,6 +80,7 @@ const userDetailsSlice = createSlice({
     }),
   },
 });
+
 const {
   actions: userDetailsActions,
   reducer: userDetailsReducer,
@@ -108,6 +111,7 @@ const userUpdateProfileSlice = createSlice({
     USER_UPDATE_PROFILE_RESET: (state, action) => ({}),
   },
 });
+
 const {
   actions: userUpdateProfileActions,
   reducer: userUpdateProfileReducer,
@@ -138,6 +142,7 @@ const userUpdateSlice = createSlice({
     USER_UPDATE_RESET: (state, action) => ({}),
   },
 });
+
 const {
   actions: userUpdateActions,
   reducer: userUpdateReducer,
@@ -167,6 +172,7 @@ const userListSlice = createSlice({
     }),
   },
 });
+
 const { actions: userListActions, reducer: userListReducer } = userListSlice;
 export const {
   USER_LIST_REQUEST,
@@ -193,6 +199,7 @@ const userDeleteSlice = createSlice({
     USER_DELETE_RESET: (state, action) => ({}),
   },
 });
+
 const {
   actions: userDeleteActions,
   reducer: userDeleteReducer,
@@ -222,6 +229,7 @@ const userTopSellerListSlice = createSlice({
     }),
   },
 });
+
 const {
   actions: userTopSellerListActions,
   reducer: userTopSellerListReducer,
@@ -242,6 +250,7 @@ const userAddressMapSlice = createSlice({
     }),
   },
 });
+
 const {
   actions: userAddressMapActions,
   reducer: userAddressMapReducer,
