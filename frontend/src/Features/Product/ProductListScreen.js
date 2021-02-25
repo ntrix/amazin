@@ -7,7 +7,7 @@ import {
   createProduct,
   deleteProduct,
   listProducts,
-} from "../../Dux/actions/productActions";
+} from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";

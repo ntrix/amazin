@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { CART_EMPTY } from "../../Features/Checkout/CartSlice.js";
+import { CART_EMPTY } from "../Features/Checkout/CartSlice.js";
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
@@ -22,7 +22,7 @@ import {
   ORDER_DELIVER_REQUEST,
   ORDER_DELIVER_SUCCESS,
   ORDER_DELIVER_FAIL,
-} from "../../Features/Order/OrderSlice";
+} from "../Features/Order/OrderSlice";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   dispatch(ORDER_CREATE_REQUEST(order));

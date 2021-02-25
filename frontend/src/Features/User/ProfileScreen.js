@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { USER_UPDATE_PROFILE_RESET } from "./UserSlice";
-import { detailsUser, updateUserProfile } from "../../Dux/actions/userActions";
+import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";

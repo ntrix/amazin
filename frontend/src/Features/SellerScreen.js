@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { listProducts } from "../Dux/actions/productActions";
-import { detailsUser } from "../Dux/actions/userActions";
+import { listProducts } from "../Controllers/productActions";
+import { detailsUser } from "../Controllers/userActions";
 
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";

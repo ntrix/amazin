@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { addToCart, removeFromCart } from "../../Dux/actions/cartActions";
+import { addToCart, removeFromCart } from "../../Controllers/cartActions";
 
 import MessageBox from "../../components/MessageBox";
 

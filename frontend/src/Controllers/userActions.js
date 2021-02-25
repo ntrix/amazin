@@ -24,7 +24,7 @@ import {
   USER_TOPSELLERS_LIST_REQUEST,
   USER_TOPSELLERS_LIST_SUCCESS,
   USER_TOPSELLERS_LIST_FAIL,
-} from "../../Features/User/UserSlice.js";
+} from "../Features/User/UserSlice";
 
 export const register = (name, email, password) => async (dispatch) => {
   dispatch(USER_REGISTER_REQUEST({ email, password }));

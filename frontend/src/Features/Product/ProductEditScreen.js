@@ -6,7 +6,7 @@ import { PRODUCT_UPDATE_RESET } from "./ProductSlice";
 import {
   detailsProduct,
   updateProduct,
-} from "../../Dux/actions/productActions";
+} from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";

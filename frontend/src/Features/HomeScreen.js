@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import { listProducts } from "../Dux/actions/productActions";
-import { listTopSellers } from "../Dux/actions/userActions";
+import { listProducts } from "../Controllers/productActions";
+import { listTopSellers } from "../Controllers/userActions";
 
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";

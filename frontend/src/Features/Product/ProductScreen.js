@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { PRODUCT_REVIEW_CREATE_RESET } from "./ProductSlice";
-import { createReview, detailsProduct } from "../../Dux/actions/productActions";
+import { createReview, detailsProduct } from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";

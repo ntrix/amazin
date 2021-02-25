@@ -9,7 +9,7 @@ import {
   deliverOrder,
   detailsOrder,
   payOrder,
-} from "../../Dux/actions/orderActions";
+} from "../../Controllers/orderActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";

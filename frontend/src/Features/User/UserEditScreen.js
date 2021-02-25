@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { USER_UPDATE_RESET } from "./UserSlice";
-import { detailsUser, updateUser } from "../../Dux/actions/userActions";
+import { detailsUser, updateUser } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ORDER_DELETE_RESET } from "../Order/OrderSlice";
-import { deleteOrder, listOrders } from "../../Dux/actions/orderActions";
+import { deleteOrder, listOrders } from "../../Controllers/orderActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
