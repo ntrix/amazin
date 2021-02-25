@@ -80,7 +80,7 @@ function App() {
             </Link>
             <Link to="/map" className="header__nav flex">
               <div className="header__option">
-                <i class="fa fa-map-marker brand" aria-hidden="true"></i>
+                <i className="fa fa-map-marker brand" aria-hidden="true"></i>
               </div>
               <div className="header__option tablet">
                 <span className="header__optionLineOne">° Deliver to</span>
@@ -230,7 +230,7 @@ function App() {
         </aside>
         <label
           className={sidebarIsOpen ? "click-catcher" : ""}
-          for="close-sidebar-btn"
+          htmlFor="close-sidebar-btn"
         ></label>
         <main>
           <Route path="/seller/:id" component={SellerScreen}></Route>

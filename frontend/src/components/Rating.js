@@ -14,6 +14,7 @@ export default function Rating(props) {
                   : "fa fa-star"
                 : "fa fa-star-o"
             }
+            key={star}
           ></i>
         ))}
       </span>
