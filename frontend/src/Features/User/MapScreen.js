@@ -11,6 +11,7 @@ import {
 import { USER_ADDRESS_MAP_CONFIRM } from "./UserSlice";
 
 import LoadingBox from "../../components/LoadingBox";
+import { Redirect } from "react-router-dom";
 
 const libs = ["places"];
 const defaultLocation = { lat: 45.516, lng: -73.56 };
@@ -92,6 +93,10 @@ export default function MapScreen(props) {
     }
   };
 
+  const redirectBack = () => {
+    props.history.push("/signin?redirect=shipping");
+  };
+
   return googleApiKey ? (
     <div className="full-container">
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
@@ -108,8 +113,19 @@ export default function MapScreen(props) {
             onPlacesChanged={onPlacesChanged}
           >
             <div className="map-input-box">
+              <button
+                type="button"
+                className="danger left"
+                onClick={redirectBack}
+              >
+                Cancel
+              </button>
               <input type="text" placeholder="Enter your address"></input>
-              <button type="button" className="primary" onClick={onConfirm}>
+              <button
+                type="button"
+                className="primary right"
+                onClick={onConfirm}
+              >
                 Confirm
               </button>
             </div>

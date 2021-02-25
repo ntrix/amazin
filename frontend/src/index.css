@@ -399,10 +399,16 @@ img.large {
   border-radius: 1rem 0 0 1rem;
   border-right: 0;
 }
-.map-input-box button {
+.map-input-box button.right {
   border-radius: 0 1rem 1rem 0;
   border-left: 0;
 }
+.map-input-box button.left {
+  border-radius: 1rem;
+  margin-left: -8rem;
+  margin-right: 2rem;
+}
+
 /* Pagination */
 .pagination a {
   padding: 1rem;
