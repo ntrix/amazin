@@ -12,7 +12,7 @@ import MessageBox from "../../components/MessageBox";
 export default function PlaceOrderScreen(props) {
   const tax = 0.19;
   const ship = 10;
-  const cart = useSelector((state) => state.cart);
+  const cart = { ...useSelector((state) => state.cart) }; //fixes cart object is not extensible
   if (!cart.paymentMethod) {
     props.history.push("/payment");
   }
