@@ -189,11 +189,19 @@ aside {
   height: 100%;
   background-color: #efefef;
   z-index: 1000;
-  transform: translateX(-30rem);
+  transform: translate3D(-30rem,0,0);
   transition: all 0.5s;
 }
 aside.open {
-  transform: translateX(0);
+  transform: translate3D(0,0,0);
+}
+.click-catcher {
+  display:block;
+  position:fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0008;
+  z-index: 99;
 }
 button.open-sidebar {
   font-size: 3rem;

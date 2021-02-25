@@ -203,6 +203,7 @@ function App() {
               <strong>Categories</strong>
               <button
                 onClick={() => setSidebarIsOpen(false)}
+                id="close-sidebar-btn"
                 className="close-sidebar"
                 type="button"
               >
@@ -227,6 +228,10 @@ function App() {
             )}
           </ul>
         </aside>
+        <label
+          className={sidebarIsOpen ? "click-catcher" : ""}
+          for="close-sidebar-btn"
+        ></label>
         <main>
           <Route path="/seller/:id" component={SellerScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>
@@ -299,7 +304,9 @@ function App() {
 
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
-        <footer className="row center">All right reserved</footer>
+        <footer className="row center">
+          Amazin' eCommerce platform, all right reserved
+        </footer>
       </div>
     </BrowserRouter>
   );
