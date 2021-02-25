@@ -247,7 +247,6 @@ function App() {
           <Route path="/payment" component={PaymentMethodScreen}></Route>
           <Route path="/placeorder" component={PlaceOrderScreen}></Route>
           <Route path="/order/:id" component={OrderScreen}></Route>
-          <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
           <Route
             path="/search/name/:name?"
             component={SearchScreen}
@@ -268,6 +267,10 @@ function App() {
             component={SearchScreen}
             exact
           ></Route>
+          <PrivateRoute
+            path="/orderhistory"
+            component={OrderHistoryScreen}
+          ></PrivateRoute>
           <PrivateRoute
             path="/profile"
             component={ProfileScreen}

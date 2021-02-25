@@ -35,7 +35,7 @@ export default function CartScreen(props) {
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         {cartItems.length === 0 ? (
           <MessageBox>
-            Cart is empty. <Link to="/">Go Shopping</Link>
+            Your cart is still empty. <Link to="/">Let's go shopping</Link>
           </MessageBox>
         ) : (
           <ul>
