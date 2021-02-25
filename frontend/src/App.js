@@ -64,7 +64,7 @@ function App() {
     <BrowserRouter>
       <div className="grid-container">
         <header className="row">
-          <div>
+          <div className="flex">
             <button
               type="button"
               className="open-sidebar"
@@ -72,9 +72,20 @@ function App() {
             >
               <i className="fa fa-bars"></i>
             </button>
-            <Link className="header__nav brand" to="/">
-              <img className="logo" src={Logo} alt="logo" />
-              <span>mazin'</span>
+            <Link className="header__nav mobile-s" to="/">
+              <div className="brand">
+                <img className="logo" src={Logo} alt="logo" />
+                <span className="mobile">mazin'</span>
+              </div>
+            </Link>
+            <Link to="/map" className="header__nav flex">
+              <div className="header__option">
+                <i class="fa fa-map-marker brand" aria-hidden="true"></i>
+              </div>
+              <div className="header__option tablet">
+                <span className="header__optionLineOne">° Deliver to</span>
+                <span className="header__optionLineTwo">Your Location</span>
+              </div>
             </Link>
           </div>
           <div className="header__nav search-box">
@@ -89,10 +100,11 @@ function App() {
               <div className="header__nav dropdown">
                 <div className="header__option">
                   <span className="header__optionLineOne">
-                    Hello {userInfo.name}
+                    Hello, {userInfo.name}
                   </span>
                   <span className="header__optionLineTwo">
-                    Account & Lists <i className="fa fa-caret-down"></i>{" "}
+                    Account<span className="tablet"> & Lists</span>{" "}
+                    <i className="fa fa-caret-down"></i>{" "}
                   </span>
                 </div>
                 <ul className="dropdown-content">
@@ -163,11 +175,13 @@ function App() {
                 </ul>
               </div>
             )}
-            <div className="header__nav header__option">
-              <span className="header__optionLineOne disabled">Return</span>
-              <span className="header__optionLineTwo disabled">& Orders</span>
-            </div>
-            <Link to="/cart" className="header__nav basket">
+            <Link to="/orderhistory" className="header__nav return tablet">
+              <div className="header__option">
+                <span className="header__optionLineOne disabled">Return</span>
+                <span className="header__optionLineTwo disabled">& Orders</span>
+              </div>
+            </Link>
+            <Link to="/cart" className="header__nav basket flex">
               <div className="header__option">
                 <span className="header__optionLineOne header__basketCount">
                   {cartItems.length}
@@ -176,8 +190,8 @@ function App() {
                   <img className="cart" src={Cart} alt="Basket"></img>
                 </span>
               </div>
-              <div className="header__option">
-                <span className="header__optionLineOne">Shopping</span>
+              <div className="header__option pc">
+                <span className="header__optionLineOne">Shopping-</span>
                 <span className="header__optionLineTwo">Basket</span>
               </div>
             </Link>
