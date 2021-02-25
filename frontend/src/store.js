@@ -1,5 +1,6 @@
-import { createStore, compose, applyMiddleware, combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
+
 import cartReducer from "./Features/Checkout/CartSlice";
 import {
   orderCreateReducer,
@@ -31,7 +32,7 @@ import {
   userUpdateReducer,
 } from "./Features/User/UserSlice.js";
 
-const initialState = {
+const preloadedState = {
   userSignin: {
     userInfo: localStorage.getItem("userInfo")
       ? JSON.parse(localStorage.getItem("userInfo"))
@@ -47,37 +48,36 @@ const initialState = {
     paymentMethod: "PayPal",
   },
 };
-const reducer = combineReducers({
-  productList: productListReducer,
-  productDetails: productDetailsReducer,
-  cart: cartReducer,
-  userSignin: userSigninReducer,
-  userRegister: userRegisterReducer,
-  orderCreate: orderCreateReducer,
-  orderDetails: orderDetailsReducer,
-  orderPay: orderPayReducer,
-  orderMineList: orderMineListReducer,
-  userDetails: userDetailsReducer,
-  userUpdateProfile: userUpdateProfileReducer,
-  userUpdate: userUpdateReducer,
-  productCreate: productCreateReducer,
-  productUpdate: productUpdateReducer,
-  productDelete: productDeleteReducer,
-  orderList: orderListReducer,
-  orderDelete: orderDeleteReducer,
-  orderDeliver: orderDeliverReducer,
-  userList: userListReducer,
-  userDelete: userDeleteReducer,
-  userTopSellersList: userTopSellerListReducer,
-  productCategoryList: productCategoryListReducer,
-  productReviewCreate: productReviewCreateReducer,
-  userAddressMap: userAddressMapReducer,
+const store = configureStore({
+  reducer: {
+    productList: productListReducer,
+    productDetails: productDetailsReducer,
+    cart: cartReducer,
+    userSignin: userSigninReducer,
+    userRegister: userRegisterReducer,
+    orderCreate: orderCreateReducer,
+    orderDetails: orderDetailsReducer,
+    orderPay: orderPayReducer,
+    orderMineList: orderMineListReducer,
+    userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer,
+    userUpdate: userUpdateReducer,
+    productCreate: productCreateReducer,
+    productUpdate: productUpdateReducer,
+    productDelete: productDeleteReducer,
+    orderList: orderListReducer,
+    orderDelete: orderDeleteReducer,
+    orderDeliver: orderDeliverReducer,
+    userList: userListReducer,
+    userDelete: userDeleteReducer,
+    userTopSellersList: userTopSellerListReducer,
+    productCategoryList: productCategoryListReducer,
+    productReviewCreate: productReviewCreateReducer,
+    userAddressMap: userAddressMapReducer,
+  },
+  preloadedState,
+  middleware: [thunk],
+  devTools: process.env.NODE_ENV !== "production",
 });
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  reducer,
-  initialState,
-  composeEnhancer(applyMiddleware(thunk))
-);
 
 export default store;
