@@ -26,12 +26,15 @@ export default function MapScreen(props) {
   const markerRef = useRef(null);
 
   useEffect(() => {
-    const fetch = async () => {
-      const { data } = await Axios("/api/config/google");
-      setGoogleApiKey(data);
-      getUserCurrentLocation();
-    };
-    fetch();
+    try {
+      (async () => {
+        const { data } = await Axios("/api/config/google");
+        setGoogleApiKey(data);
+        getUserCurrentLocation();
+      })();
+    } catch (err) {
+      //console.log(err);
+    }
   }, []);
 
   const onLoad = (map) => {
@@ -51,9 +54,13 @@ export default function MapScreen(props) {
     });
   };
   const onPlacesChanged = () => {
-    const place = placeRef.current.getPlaces()[0].geometry.location;
-    setCenter({ lat: place.lat(), lng: place.lng() });
-    setLocation({ lat: place.lat(), lng: place.lng() });
+    try {
+      const place = placeRef.current.getPlaces()[0].geometry.location;
+      setCenter({ lat: place.lat(), lng: place.lng() });
+      setLocation({ lat: place.lat(), lng: place.lng() });
+    } catch (err) {
+      //console.log(err);
+    }
   };
   const dispatch = useDispatch();
   const onConfirm = () => {

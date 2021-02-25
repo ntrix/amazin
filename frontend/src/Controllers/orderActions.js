@@ -118,7 +118,6 @@ export const listOrders = ({ seller = "" }) => async (dispatch, getState) => {
     const { data } = await Axios.get(`/api/orders?seller=${seller}`, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
-    console.log(data);
     dispatch(ORDER_LIST_SUCCESS(data));
   } catch (error) {
     const message =
