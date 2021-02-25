@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
-import { signout } from "./Dux/actions/userActions";
-import { listProductCategories } from "./Dux/actions/productActions";
+import { signout } from "./Controllers/userActions";
+import { listProductCategories } from "./Controllers/productActions";
 
 import SigninScreen from "./Features/Auth/SigninScreen";
 import RegisterScreen from "./Features/Auth/RegisterScreen";
@@ -14,12 +14,12 @@ import SellerRoute from "./Features/Route/SellerRoute";
 
 import CartScreen from "./Features/Checkout/CartScreen";
 import PaymentMethodScreen from "./Features/Checkout/PaymentMethodScreen";
-import PlaceOrderScreen from "./Features/Checkout/PlaceOrderScreen";
 import ShippingAddressScreen from "./Features/Checkout/ShippingAddressScreen";
 
 import OrderHistoryScreen from "./Features/Order/OrderHistoryScreen";
-import OrderScreen from "./Features/Order/OrderScreen";
 import OrderListScreen from "./Features/Order/OrderListScreen";
+import OrderScreen from "./Features/Order/OrderScreen";
+import PlaceOrderScreen from "./Features/Order/PlaceOrderScreen";
 
 import ProductEditScreen from "./Features/Product/ProductEditScreen";
 import ProductListScreen from "./Features/Product/ProductListScreen";
@@ -72,12 +72,12 @@ function App() {
             >
               <i className="fa fa-bars"></i>
             </button>
-            <Link className="brand" to="/">
+            <Link className="header__nav brand" to="/">
               <img className="logo" src={Logo} alt="logo" />
-              mazin'
+              <span>mazin'</span>
             </Link>
           </div>
-          <div className="search-box">
+          <div className="header__nav search-box">
             <Route
               render={({ history }) => (
                 <SearchBox history={history}></SearchBox>
@@ -86,7 +86,7 @@ function App() {
           </div>
           <>
             {userInfo ? (
-              <div className="dropdown">
+              <div className="header__nav dropdown">
                 <div className="header__option">
                   <span className="header__optionLineOne">
                     Hello {userInfo.name}
@@ -99,9 +99,14 @@ function App() {
                   <li>
                     <Link to="/profile">User Profile</Link>
                   </li>
+                  <div className="trend-line"></div>
                   <li>
                     <Link to="/orderhistory">Order History</Link>
                   </li>
+                  <li>
+                    <Link to="/">Returns</Link>
+                  </li>
+                  <div className="trend-line"></div>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
@@ -128,6 +133,7 @@ function App() {
                   <li>
                     <Link to="/productlist/seller">Products</Link>
                   </li>
+                  <div className="trend-line"></div>
                   <li>
                     <Link to="/orderlist/seller">Orders</Link>
                   </li>
@@ -143,26 +149,36 @@ function App() {
                   <li>
                     <Link to="/dashboard">Dashboard</Link>
                   </li>
+                  <div className="trend-line"></div>
                   <li>
                     <Link to="/productlist">Products</Link>
                   </li>
                   <li>
                     <Link to="/orderlist">Orders</Link>
                   </li>
+                  <div className="trend-line"></div>
                   <li>
                     <Link to="/userlist">Users</Link>
                   </li>
                 </ul>
               </div>
             )}
-            <Link to="/cart">
+            <div className="header__nav header__option">
+              <span className="header__optionLineOne disabled">Return</span>
+              <span className="header__optionLineTwo disabled">& Orders</span>
+            </div>
+            <Link to="/cart" className="header__nav basket">
               <div className="header__option">
                 <span className="header__optionLineOne header__basketCount">
                   {cartItems.length}
                 </span>
                 <span className="header__optionLineTwo header__basket">
-                  <img className="cart" src={Cart} alt=""></img>
+                  <img className="cart" src={Cart} alt="Basket"></img>
                 </span>
+              </div>
+              <div className="header__option">
+                <span className="header__optionLineOne">Shopping</span>
+                <span className="header__optionLineTwo">Basket</span>
               </div>
             </Link>
           </>

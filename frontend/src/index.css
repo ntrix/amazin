@@ -1,6 +1,7 @@
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
+  background-color: #eaeded;
 }
 body {
   margin: 0;
@@ -29,7 +30,7 @@ body {
 }
 header {
   grid-area: header;
-  min-width: 667px;
+  min-width: 576px;
   background-color: #131921;
 }
 main {
@@ -112,10 +113,22 @@ a.brand {
   font-size: 3rem;
   font-weight: bold;
 }
+.header__nav {
+  margin: 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.header__nav:hover {
+  outline: white solid thin;
+}
+.header__nav.basket {
+  display: flex;
+  padding: 0.65rem 0 0.65rem 1.3rem;
+  margin-right: 1rem;
+}
 .header__option {
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
   margin-right: 1rem;
   font-weight: 800;
   color: white;
@@ -296,11 +309,20 @@ img.large {
   position: absolute;
   width: 0;
   height: 0;
-  margin: -2rem 0 0 6rem;
+  top: -1rem;
+  right: 1.5rem;
   border: 0 solid transparent;
   border-right-width: 1rem;
   border-left-width: 1rem;
   border-bottom: 1rem solid #f0f0f0;
+}
+.dropdown-content:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  top: -1rem;
+  right: 0;
 }
 .dropdown-content {
   position: absolute;
@@ -325,6 +347,13 @@ img.large {
 .dropdown-content a:hover {
   color: #ff8000;
   }
+.trend-line {
+  width: 100%;
+  height: 1px;
+  margin-top: 1rem;
+  background: #bbb;
+}
+
 /* Checkout Steps */
 .checkout-steps > div {
   border-top: 0.3rem #c0c0c0 solid;
@@ -438,18 +467,15 @@ img.large {
   background-color: white;
   z-index: 1;
 }
-
 .product__rating {
   display: flex;
 }
-
 .product > img {
   max-height: 200px;
   width: 100%;
   object-fit: contain;
   margin-bottom: 15px;
 }
-
 .product > button {
   background: #f0c14b;
   border: 1px solid;
@@ -457,13 +483,34 @@ img.large {
   border-color: #a88734 #9c7e31 #846a29;
   color: #111;
 }
-
 .product__price {
   margin-top: 5px;
 }
-
 .product__info {
   height: 100px;
   margin-bottom: 15px;
 }
 
+/* Tablet - PC low resolution */
+@media (max-width: 1023px) {
+  .basket .header__option +.header__option {
+    display: none;
+  }
+}
+/* >= Tablet */
+@media (max-width: 839px) {
+  .header__nav.header__option {
+    display: none;
+  }
+}
+/* Mobile */
+@media (max-width: 739px) {
+  .header__nav.brand span {
+    display: none;
+  }
+}/* Mobile */
+@media (max-width: 639px) {
+  .header__nav.brand {
+    display: none;
+  }
+}
