@@ -145,10 +145,14 @@ userRoute.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      user.isSeller = Boolean(req.body.isSeller);
+
       user.isAdmin = Boolean(req.body.isAdmin);
-      user.seller.name = user.seller.name || user.name;
       // user.isAdmin = req.body.isAdmin || user.isAdmin;
+
+      user.isSeller = Boolean(req.body.isSeller);
+      user.seller.name = user.seller.name || user.name;
+      user.seller.logo = user.seller.logo || "/images/default-logo.png";
+
       const updatedUser = await user.save();
       res.send({ message: "User Updated", user: updatedUser });
     } else {
