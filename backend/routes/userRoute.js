@@ -89,7 +89,7 @@ userRoute.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       if (user.isSeller) {
-        user.seller.name = req.body.sellerName || user.seller.name;
+        user.seller.name = req.body.sellerName || user.seller.name || user.name;
         user.seller.logo = req.body.sellerLogo || user.seller.logo;
         user.seller.description =
           req.body.sellerDescription || user.seller.description;
@@ -147,6 +147,7 @@ userRoute.put(
       user.email = req.body.email || user.email;
       user.isSeller = Boolean(req.body.isSeller);
       user.isAdmin = Boolean(req.body.isAdmin);
+      user.seller.name = user.seller.name || user.name;
       // user.isAdmin = req.body.isAdmin || user.isAdmin;
       const updatedUser = await user.save();
       res.send({ message: "User Updated", user: updatedUser });
