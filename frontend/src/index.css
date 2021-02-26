@@ -565,6 +565,10 @@ input.search-icon-place {
   height: 100px;
   margin-bottom: 15px;
 }
+.actions-btn-group {
+  width: 12rem;
+  min-width: 11rem;
+}
 
 /* Tablet - PC low resolution */
 @media (max-width: 1123px) {

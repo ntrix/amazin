@@ -94,7 +94,7 @@ export default function ProductListScreen(props) {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
-                <th>ACTIONS</th>
+                <th className="actions-btn-group">ACTIONS</th>
               </tr>
             </thead>
             <tbody>

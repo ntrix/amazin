@@ -49,7 +49,7 @@ export default function OrderListScreen(props) {
               <th>TOTAL</th>
               <th>PAID</th>
               <th>DELIVERED</th>
-              <th>ACTIONS</th>
+              <th className="actions-btn-group">ACTIONS</th>
             </tr>
           </thead>
           <tbody>
@@ -73,7 +73,7 @@ export default function OrderListScreen(props) {
                       props.history.push(`/order/${order._id}`);
                     }}
                   >
-                    Details
+                    Info
                   </button>
                   <button
                     type="button"
