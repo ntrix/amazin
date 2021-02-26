@@ -120,6 +120,9 @@ function App() {
                   </li>
                   <div className="trend-line"></div>
                   <li>
+                    <Link to="/customer-service">FAQ & Contact</Link>
+                  </li>
+                  <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
                     </Link>
@@ -147,11 +150,14 @@ function App() {
                 </div>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/productlist/seller">Products</Link>
+                    <Link to="/profile">Seller Profile</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
-                    <Link to="/orderlist/seller">Sell Orders</Link>
+                    <Link to="/productlist/seller">Products List</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderlist/seller">Selling List</Link>
                   </li>
                 </ul>
               </div>
@@ -167,18 +173,18 @@ function App() {
                 </div>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/userlist">Users</Link>
+                    <Link to="/userlist">Administration</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
-                    <Link to="/productlist">Products</Link>
+                    <Link to="/productlist">Products DB</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist">Order Lists</Link>
+                    <Link to="/orderlist">Orders DB</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
-                    <Link to="/dashboard">Help</Link>
+                    <Link to="/dashboard">Quick Help!</Link>
                   </li>
                 </ul>
               </div>
@@ -263,7 +269,7 @@ function App() {
             </li>
             <li>
               <Link to="/profile" onClick={() => setSidebarIsOpen(false)}>
-                Your Profile
+                My Profile
               </Link>
             </li>
             <li>
@@ -278,10 +284,10 @@ function App() {
             </li>
             <li>
               <Link
-                to="/customerservice"
+                to="/customer-service"
                 onClick={() => setSidebarIsOpen(false)}
               >
-                Customer Service
+                FAQ & Customer Service
               </Link>
             </li>
             <div className="trend-line"></div>
