@@ -58,8 +58,16 @@ export default function UserListScreen({ history }) {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isSeller ? "YES" : " NO"}</td>
-                <td>{user.isAdmin ? "YES" : "NO"}</td>
+                <td className="text-center">
+                  {user.isSeller && (
+                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                  )}
+                </td>
+                <td className="text-center">
+                  {user.isAdmin && (
+                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                  )}
+                </td>
                 <td>
                   <button
                     type="button"

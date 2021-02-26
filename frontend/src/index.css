@@ -29,6 +29,9 @@ body {
 .mr-1 {margin-right:1rem}
 .mb-1 {margin-bottom:1rem}
 .ml-1 {margin-left:1rem}
+.text-center {
+  text-align: center;
+}
 /* Layout */
 .grid-container {
   display: grid;
@@ -449,7 +452,7 @@ a:hover {
 .table tbody tr:nth-of-type(odd) {
   background-color: #f4f4f4;
 }
-.table td,
+table td,
 .table th {
   text-align: left;
   border: 0.1rem solid #e4e4e4;
