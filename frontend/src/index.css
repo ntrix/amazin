@@ -43,7 +43,7 @@ body {
 header {
   grid-area: header;
   min-width: 576px;
-  background-color: #131921;
+  background-color: #111;
 }
 main {
   grid-area: main;
@@ -51,7 +51,7 @@ main {
 }
 footer {
   grid-area: footer;
-  background-color: #131921;
+  background-color: #111;
   color: #ffffff;
 }
 /* Common */
@@ -314,7 +314,7 @@ img.large {
 }
 /* Rating */
 a {
-  color: #0f1111;
+  color: #111;
 }
 a:hover {
   color: #c45500;
@@ -324,7 +324,7 @@ a:hover {
   margin: 0.1rem;
 }
 .rating span:last-child {
-  color: #0f1111;
+  color: #111;
 }
 .rating:hover span:last-child {
   color: #c45500;
@@ -381,7 +381,7 @@ a:hover {
   width: 0;
   height: 0;
   top: -1rem;
-  right: 1.5rem;
+  right: 0.7rem;
   border: 0 solid transparent;
   border-right-width: 1rem;
   border-left-width: 1rem;
@@ -398,21 +398,24 @@ a:hover {
 .dropdown-content {
   position: absolute;
   display: none;
-  right: 0;
-  min-width: 12rem;
+  right: -1rem;
+  min-width: 14rem;
   padding: 1rem;
   z-index: 1;
   background-color: #f0f0f0;
   margin: 0;
   margin-top: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 2rem #131921;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 2rem #111;
 }
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.dropdown-content li {
+  margin: 1rem;
+}
 .dropdown-content a {
-  color: #131921;
+  color: #111;
   font-size: 14px;
 }
 .dropdown-content a:hover {
