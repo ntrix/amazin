@@ -7,7 +7,7 @@ import { deleteUser, listUsers } from "../../Controllers/userActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
-export default function UserListScreen(props) {
+export default function UserListScreen({ history }) {
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
@@ -64,7 +64,7 @@ export default function UserListScreen(props) {
                   <button
                     type="button"
                     className="small"
-                    onClick={() => props.history.push(`/user/${user._id}/edit`)}
+                    onClick={() => history.push(`/user/${user._id}/edit`)}
                   >
                     Edit
                   </button>

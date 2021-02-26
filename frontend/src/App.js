@@ -123,7 +123,7 @@ function App() {
                     <Link to="/orderhistory">Order History</Link>
                   </li>
                   <li>
-                    <Link to="/">Returns</Link>
+                    <Link to="">Returns</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
