@@ -15,7 +15,9 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
   if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     dispatch(
       CART_ADD_ITEM_FAIL(
-        `Can't Add To Cart. Buy only from ${cartItems[0].seller.seller.name} in this order`
+        `Can't Add To Cart. Buy only from ${
+          cartItems[0].seller.seller.name || "Anonymous Seller"
+        } in this order`
       )
     );
   } else {
