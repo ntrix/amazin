@@ -116,19 +116,21 @@ function App() {
                 </div>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/profile">User Profile</Link>
+                    <Link to="/profile">Your Account</Link>
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/orderhistory">Order History</Link>
+                    <Link to="/orderhistory">Your Orders</Link>
                   </li>
                   <li>
                     <Link className="disabled">Returns</Link>
                   </li>
-                  <div className="separator"></div>
                   <li>
-                    <Link to="/customer-service">FAQ & Contact</Link>
+                    <a href="https://ntien.com" target="_blank">
+                      Contact Us
+                    </a>
                   </li>
+                  <div className="separator"></div>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
@@ -164,7 +166,11 @@ function App() {
                     <Link to="/productlist/seller">Products List</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist/seller">Selling List</Link>
+                    <Link to="/orderlist/seller">Sold Orders</Link>
+                  </li>
+                  <div className="separator"></div>
+                  <li>
+                    <Link className="disabled">Sell Statistics</Link>
                   </li>
                 </ul>
               </div>
@@ -191,7 +197,7 @@ function App() {
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/dashboard">Quick Help!</Link>
+                    <Link className="disabled">Quick Tutor!</Link>
                   </li>
                 </ul>
               </div>
@@ -242,7 +248,7 @@ function App() {
                 to="/search/category/all"
                 onClick={() => setSidebarIsOpen(false)}
               >
-                View All
+                New Releases
               </Link>
             </li>
             <li>
@@ -290,15 +296,12 @@ function App() {
               </Link>
             </li>
             <li>
-              <Link className="disabled">Data & Analytics</Link>
+              <Link className="disabled">Statistics (Beta Testing)</Link>
             </li>
             <li>
-              <Link
-                to="/customer-service"
-                onClick={() => setSidebarIsOpen(false)}
-              >
-                FAQ & Customer Service
-              </Link>
+              <a href="https://ntien.com" target="_blank">
+                FAQ & Contact ntien.com
+              </a>
             </li>
             <div className="separator"></div>
             <li>
@@ -320,11 +323,6 @@ function App() {
                   Sign In
                 </Link>
               )}
-            </li>
-            <li>
-              <a href="https://ntien.com" target="_blank">
-                Contact ntien.com
-              </a>
             </li>
           </ul>
         </aside>
