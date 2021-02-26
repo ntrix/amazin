@@ -133,6 +133,10 @@ a .brand {
   font-weight: 800;
   color: white;
 }
+.map .header__option {
+  margin-right: 0.5rem;
+  font-size: 2.4rem;
+}
 .header__optionLineOne {
   font-size: 12px;
 }
@@ -185,15 +189,30 @@ img.cart {
 /* Aside */
 aside {
   position: fixed;
-  width: 30rem;
+  width: 35rem;
   height: 100%;
-  background-color: #efefef;
+  background-color: #fff;
   z-index: 1000;
-  transform: translate3D(-30rem,0,0);
-  transition: all 0.5s;
+  transform: translate3D(-40rem,0,0);
+  transition: all 0.3s ease;
 }
-aside.open {
+aside.open, aside.open button.close-sidebar {
   transform: translate3D(0,0,0);
+}
+button.close-sidebar {
+  position: absolute;
+  padding: 0.3rem 0.8rem;
+  font-size: 3rem;
+  top: 0.5rem;
+  right: -4rem;
+  background: none;
+  color: #fff;
+  border: none;
+  transform: translate3D(-10rem,0,0);
+  transition: all 0.3s ease;
+}
+button.close-sidebar:focus {
+  outline: none;
 }
 .click-catcher {
   display:block;
@@ -202,9 +221,10 @@ aside.open {
   height: 100vh;
   background-color: #0008;
   z-index: 99;
+  cursor: pointer;
 }
 button.open-sidebar {
-  font-size: 3rem;
+  font-size: 2.4rem;
   padding: 0.2rem 0.5rem;
   margin: 0 0.5rem;
   background: none;
@@ -214,6 +234,12 @@ button.open-sidebar {
 button.open-sidebar:hover {
   border-color: #ffffff;
 }
+aside .header #sidebar-user{
+  color:#fff;
+  background-color: #232f3e;
+  font-size: 2.1rem;
+  font-weight: bold;
+}
 aside ul {
   padding: 0;
   list-style: none;
@@ -221,10 +247,20 @@ aside ul {
 aside li {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  margin: 0;
 }
-button.close-sidebar {
-  padding: 0.3rem 0.8rem;
+aside li > a,
+aside li > strong {
+  display: block;
+  width: 100%;
+  padding: 1.2rem 4rem;
+}
+aside li > a {
+  color: #111;
+}
+aside li > a:hover {
+  color: #111;
+  background-color: #eaeded;
 }
 
 /* Image */

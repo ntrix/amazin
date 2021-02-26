@@ -78,13 +78,13 @@ function App() {
                 <span className="mobile">mazin'</span>
               </div>
             </Link>
-            <Link to="/map" className="header__nav flex">
+            <Link to="/map" className="header__nav map flex">
               <div className="header__option">
-                <i className="fa fa-map-marker brand" aria-hidden="true"></i>
+                <i className="fa fa-map-marker" aria-hidden="true"></i>
               </div>
               <div className="header__option tablet">
-                <span className="header__optionLineOne">° Deliver to</span>
-                <span className="header__optionLineTwo">Your Location</span>
+                <span className="header__optionLineOne">Deliver to your</span>
+                <span className="header__optionLineTwo">Location?</span>
               </div>
             </Link>
           </div>
@@ -198,17 +198,40 @@ function App() {
           </>
         </header>
         <aside className={sidebarIsOpen ? "open" : ""}>
+          <button
+            onClick={() => setSidebarIsOpen(false)}
+            id="close-sidebar-btn"
+            className="close-sidebar"
+            type="button"
+          >
+            <i className="fa fa-times"></i>
+          </button>
           <ul className="categories">
+            <li className="header">
+              <Link to="/profile" id="sidebar-user">
+                <i className="fa fa-user-circle" aria-hidden="true"></i> Hello,
+                {" " + (userInfo ? userInfo.name.split(" ")[0] : "Sign in")}
+              </Link>
+            </li>
+            <li>
+              <strong>Trending</strong>
+            </li>
+            <li>
+              <Link
+                to="/search/category/all"
+                onClick={() => setSidebarIsOpen(false)}
+              >
+                View All
+              </Link>
+            </li>
+            <li>
+              <Link to="/" onClick={() => setSidebarIsOpen(false)}>
+                Top Sellers
+              </Link>
+            </li>
+            <div className="trend-line"></div>
             <li>
               <strong>Categories</strong>
-              <button
-                onClick={() => setSidebarIsOpen(false)}
-                id="close-sidebar-btn"
-                className="close-sidebar"
-                type="button"
-              >
-                <i className="fa fa-close"></i>
-              </button>
             </li>
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
@@ -226,6 +249,59 @@ function App() {
                 </li>
               ))
             )}
+            <div className="trend-line"></div>
+            <li>
+              <strong>Help & Setting</strong>
+            </li>
+            <li>
+              <Link to="/profile" onClick={() => setSidebarIsOpen(false)}>
+                Your Profile
+              </Link>
+            </li>
+            <li>
+              <Link to="/shipping" onClick={() => setSidebarIsOpen(false)}>
+                Shipping Address
+              </Link>
+            </li>
+            <li>
+              <Link to="/orderhistory" onClick={() => setSidebarIsOpen(false)}>
+                Orders & Returns
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/customerservice"
+                onClick={() => setSidebarIsOpen(false)}
+              >
+                Customer Service
+              </Link>
+            </li>
+            <div className="trend-line"></div>
+            <li>
+              <strong>Account</strong>
+            </li>
+            <li>
+              {userInfo ? (
+                <Link
+                  to="#signout"
+                  onClick={() => {
+                    setSidebarIsOpen(false);
+                    signoutHandler();
+                  }}
+                >
+                  Sign Out
+                </Link>
+              ) : (
+                <Link to="/signin" onClick={() => setSidebarIsOpen(false)}>
+                  Sign In
+                </Link>
+              )}
+            </li>
+            <li>
+              <a href="https://ntien.com" target="_blank">
+                Contact ntien.com
+              </a>
+            </li>
           </ul>
         </aside>
         <label
