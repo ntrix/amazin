@@ -150,7 +150,7 @@ function App() {
                 </div>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/profile">Seller Profile</Link>
+                    <Link to="/profile/seller">Seller Profile</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
@@ -360,6 +360,11 @@ function App() {
           <PrivateRoute
             path="/orderhistory"
             component={OrderHistoryScreen}
+          ></PrivateRoute>
+          <PrivateRoute
+            path="/profile/seller"
+            component={ProfileScreen}
+            exact
           ></PrivateRoute>
           <PrivateRoute
             path="/profile"
