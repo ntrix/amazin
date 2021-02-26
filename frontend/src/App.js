@@ -118,14 +118,14 @@ function App() {
                   <li>
                     <Link to="/profile">User Profile</Link>
                   </li>
-                  <div className="trend-line"></div>
+                  <div className="separator"></div>
                   <li>
                     <Link to="/orderhistory">Order History</Link>
                   </li>
                   <li>
-                    <Link to="">Returns</Link>
+                    <Link className="disabled">Returns</Link>
                   </li>
-                  <div className="trend-line"></div>
+                  <div className="separator"></div>
                   <li>
                     <Link to="/customer-service">FAQ & Contact</Link>
                   </li>
@@ -159,7 +159,7 @@ function App() {
                   <li>
                     <Link to="/profile/seller">Seller Profile</Link>
                   </li>
-                  <div className="trend-line"></div>
+                  <div className="separator"></div>
                   <li>
                     <Link to="/productlist/seller">Products List</Link>
                   </li>
@@ -182,24 +182,24 @@ function App() {
                   <li>
                     <Link to="/userlist">Administration</Link>
                   </li>
-                  <div className="trend-line"></div>
+                  <div className="separator"></div>
                   <li>
                     <Link to="/productlist">Products DB</Link>
                   </li>
                   <li>
                     <Link to="/orderlist">Orders DB</Link>
                   </li>
-                  <div className="trend-line"></div>
+                  <div className="separator"></div>
                   <li>
                     <Link to="/dashboard">Quick Help!</Link>
                   </li>
                 </ul>
               </div>
             )}
-            <Link to="/orderhistory" className="header__nav return tablet">
+            <Link className="header__nav return tablet disabled">
               <div className="header__option">
-                <span className="header__optionLineOne disabled">Return</span>
-                <span className="header__optionLineTwo disabled">& Orders</span>
+                <span className="header__optionLineOne">Return</span>
+                <span className="header__optionLineTwo">& Orders</span>
               </div>
             </Link>
             <Link to="/cart" className="header__nav basket flex">
@@ -228,7 +228,7 @@ function App() {
             <i className="fa fa-times"></i>
           </button>
           <ul className="categories">
-            <li className="header">
+            <li className="header mb-1">
               <Link to="/profile" id="sidebar-user">
                 <i className="fa fa-user-circle" aria-hidden="true"></i> Hello,
                 {" " + getShortenName(userInfo, 14)}
@@ -250,7 +250,7 @@ function App() {
                 Top Sellers
               </Link>
             </li>
-            <div className="trend-line"></div>
+            <div className="separator"></div>
             <li>
               <strong>Categories</strong>
             </li>
@@ -270,7 +270,7 @@ function App() {
                 </li>
               ))
             )}
-            <div className="trend-line"></div>
+            <div className="separator"></div>
             <li>
               <strong>Help & Setting</strong>
             </li>
@@ -290,6 +290,9 @@ function App() {
               </Link>
             </li>
             <li>
+              <Link className="disabled">Data & Analytics</Link>
+            </li>
+            <li>
               <Link
                 to="/customer-service"
                 onClick={() => setSidebarIsOpen(false)}
@@ -297,7 +300,7 @@ function App() {
                 FAQ & Customer Service
               </Link>
             </li>
-            <div className="trend-line"></div>
+            <div className="separator"></div>
             <li>
               <strong>Account</strong>
             </li>
