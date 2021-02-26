@@ -57,6 +57,13 @@ function App() {
     error: errorCategories,
     categories,
   } = productCategoryList;
+
+  function getShortenName(user, length) {
+    const shortName = user?.name ? user.name.split(" ")[0] : "sign in";
+    return !length
+      ? shortName
+      : shortName.slice(0, length) + (shortName.slice(length) ? ".." : "");
+  }
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
@@ -100,7 +107,7 @@ function App() {
               <div className="header__nav dropdown">
                 <div className="header__option">
                   <span className="header__optionLineOne">
-                    Hello, {userInfo.name.split(" ")[0]}
+                    Hi, {getShortenName(userInfo, 7)}
                   </span>
                   <span className="header__optionLineTwo">
                     Account<span className="pc"> & Lists</span>{" "}
@@ -132,7 +139,7 @@ function App() {
             ) : (
               <Link to="/signin">
                 <div className="header__option">
-                  <span className="header__optionLineOne">Hello, sign in</span>
+                  <span className="header__optionLineOne">Hi, sign in</span>
                   <span className="header__optionLineTwo">
                     Account & Lists <i className="fa fa-caret-down"></i>{" "}
                   </span>
@@ -224,7 +231,7 @@ function App() {
             <li className="header">
               <Link to="/profile" id="sidebar-user">
                 <i className="fa fa-user-circle" aria-hidden="true"></i> Hello,
-                {" " + (userInfo ? userInfo.name.split(" ")[0] : "Sign in")}
+                {" " + getShortenName(userInfo, 14)}
               </Link>
             </li>
             <li>
