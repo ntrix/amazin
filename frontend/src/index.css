@@ -313,12 +313,21 @@ img.large {
   font-size: 2rem;
 }
 /* Rating */
+a {
+  color: #0f1111;
+}
+a:hover {
+  color: #c45500;
+}
 .rating span {
   color: #f0c040;
   margin: 0.1rem;
 }
 .rating span:last-child {
-  color: #404040;
+  color: #0f1111;
+}
+.rating:hover span:last-child {
+  color: #c45500;
 }
 /* Alert */
 .loading {
