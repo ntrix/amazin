@@ -56,7 +56,7 @@ productRoute.get(
       .sort(sortOrder)
       .skip(pageSize * (page - 1))
       .limit(pageSize);
-    res.send({ products, page, pages: Math.ceil(count / pageSize) });
+    res.send({ products, page, pages: Math.ceil(count / pageSize), count });
   })
 );
 
