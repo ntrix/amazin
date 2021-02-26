@@ -78,7 +78,7 @@ function App() {
                 <span className="mobile">mazin'</span>
               </div>
             </Link>
-            <Link to="/map" className="header__nav map flex">
+            <Link to="/map" className="header__nav location flex">
               <div className="header__option">
                 <i className="fa fa-map-marker" aria-hidden="true"></i>
               </div>
@@ -103,7 +103,7 @@ function App() {
                     Hello, {userInfo.name.split(" ")[0]}
                   </span>
                   <span className="header__optionLineTwo">
-                    Account<span className="tablet"> & Lists</span>{" "}
+                    Account<span className="pc"> & Lists</span>{" "}
                     <i className="fa fa-caret-down"></i>{" "}
                   </span>
                 </div>
@@ -137,40 +137,48 @@ function App() {
               </Link>
             )}
             {userInfo && userInfo.isSeller && (
-              <div className="dropdown">
-                <Link to="#admin">
-                  Seller <i className="fa fa-caret-down"></i>
-                </Link>
+              <div className="header__nav dropdown">
+                <div className="header__option">
+                  <span className="header__optionLineOne">Seller</span>
+                  <span className="header__optionLineTwo">
+                    Desk
+                    <i className="fa fa-caret-down"></i>
+                  </span>
+                </div>
                 <ul className="dropdown-content">
                   <li>
                     <Link to="/productlist/seller">Products</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
-                    <Link to="/orderlist/seller">Orders</Link>
+                    <Link to="/orderlist/seller">Sell Orders</Link>
                   </li>
                 </ul>
               </div>
             )}
             {userInfo && userInfo.isAdmin && (
-              <div className="dropdown">
-                <Link to="#admin">
-                  Admin <i className="fa fa-caret-down"></i>
-                </Link>
+              <div className="header__nav dropdown">
+                <div className="header__option">
+                  <span className="header__optionLineOne">Dashboard</span>
+                  <span className="header__optionLineTwo">
+                    Admin
+                    <i className="fa fa-caret-down"></i>
+                  </span>
+                </div>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/userlist">Users</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
                     <Link to="/productlist">Products</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist">Orders</Link>
+                    <Link to="/orderlist">Order Lists</Link>
                   </li>
                   <div className="trend-line"></div>
                   <li>
-                    <Link to="/userlist">Users</Link>
+                    <Link to="/dashboard">Help</Link>
                   </li>
                 </ul>
               </div>
