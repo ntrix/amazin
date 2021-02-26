@@ -7,8 +7,8 @@ import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
-export default function ProfileScreen({ path }) {
-  const isSellerProfile = path?.split("/")[2] === "seller";
+export default function ProfileScreen({ location }) {
+  const isSellerProfile = location.pathname?.split("/")[2] === "seller";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +35,7 @@ export default function ProfileScreen({ path }) {
     } else {
       setName(user.name);
       setEmail(user.email);
-      if (isSellerProfile && user.seller) {
+      if (user.seller) {
         setSellerName(user.seller.name);
         setSellerLogo(user.seller.logo);
         setSellerDescription(user.seller.description);

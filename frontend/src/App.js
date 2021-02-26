@@ -376,6 +376,7 @@ function App() {
           <PrivateRoute
             path="/profile"
             component={ProfileScreen}
+            exact
           ></PrivateRoute>
           <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
           <AdminRoute
