@@ -56,17 +56,17 @@ export default function SearchScreen(props) {
   };
   return (
     <div>
-      <div className="row">
+      <div className="row search__banner">
         {loading ? (
           <LoadingBox></LoadingBox>
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <div>
+          <div className="search__count">
             {products.length} of {count} Results
           </div>
         )}
-        <div>
+        <div className="sort-dropdown">
           Sort by{" "}
           <select
             value={order}
@@ -77,12 +77,12 @@ export default function SearchScreen(props) {
             <option value="newest">Newest Arrivals</option>
             <option value="lowest">Price: Low to High</option>
             <option value="highest">Price: High to Low</option>
-            <option value="toprated">Avg. Customer Reviews</option>
+            <option value="toprated">Avg. Reviews</option>
           </select>
         </div>
       </div>
       <div className="row top">
-        <div className="col-1">
+        <div className="col-1 filter">
           <h3>Department</h3>
           <div>
             {loadingCategories ? (
@@ -145,7 +145,7 @@ export default function SearchScreen(props) {
             </ul>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-3 mt-1">
           {loading ? (
             <LoadingBox></LoadingBox>
           ) : error ? (
@@ -155,7 +155,7 @@ export default function SearchScreen(props) {
               {products.length === 0 && (
                 <MessageBox>No Product Found</MessageBox>
               )}
-              <div className="row center">
+              <div className="row center mt-1">
                 {products.map((product) => (
                   <Product key={product._id} product={product}></Product>
                 ))}

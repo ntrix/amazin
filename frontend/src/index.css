@@ -6,7 +6,7 @@ html {
 body {
   margin: 0;
   height: 100vh;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -521,17 +521,28 @@ input.search-icon-place {
 
 /* Pagination */
 .pagination a {
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   margin: 0.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   border: 0.1rem #a4a4a4 solid;
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
+  background-color: #F2F2F2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #111;
+}
+.pagination a:hover {
+  font-weight: bold;
+  color: #000;
+  background: #E3E6E6;
 }
 .pagination a.active {
   font-weight: bold;
+  color: #c45629;
+
+  border: thin solid #c45629;
+  background: #fff;
 }
 
 /*product*/
@@ -576,6 +587,52 @@ input.search-icon-place {
   min-width: 11rem;
 }
 
+/* searchScreen */
+.search__banner {
+  padding: 0.5rem 0;
+  margin: -0.5rem -1rem;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(15,17,17,.15);
+}
+.search__count {
+  margin-left: 2rem;
+}
+.sort-dropdown {
+  margin-right: 2rem;
+  padding-left: 2rem;
+  padding-right: 1rem;
+  border: thin solid #ccc;
+  border-radius: 1.5rem;
+  background: #F2F2F2;
+  box-shadow: 0 2px 5px rgba(15,17,17,.15);
+  cursor: pointer;
+}
+.sort-dropdown select {
+  width: 13rem;
+  padding: 0.25rem;
+  font-size: 1.3rem;
+  outline: none;
+  border: none;
+  background: #F2F2F2;
+  cursor: pointer;
+}
+.sort-dropdown:hover,
+.sort-dropdown:hover select {
+  background: #E3E6E6;
+}
+.row.search__banner + .row {
+  background: #fff;
+  margin: 2rem -2rem;
+}
+.filter {
+  margin: 2rem 3rem;
+  border-right: #0004 2px solid;
+}
+
+.rating .fa {
+  font-size: 2rem;
+  color: #f3a333;
+}
 /* Tablet - PC low resolution */
 @media (max-width: 1123px) {
   .pc {
