@@ -77,7 +77,7 @@ export default function OrderListScreen(props) {
                   </button>
                   <button
                     type="button"
-                    className="small"
+                    className="small danger"
                     onClick={() => deleteHandler(order)}
                   >
                     Delete

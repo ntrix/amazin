@@ -78,7 +78,7 @@ export default function UserListScreen({ history }) {
                   </button>
                   <button
                     type="button"
-                    className="small"
+                    className="small danger"
                     onClick={() => deleteHandler(user)}
                   >
                     Delete
