@@ -113,6 +113,7 @@ export default function SearchScreen(props) {
             )}
           </div>
           <div>
+            <br />
             <h3>Price</h3>
             <ul>
               {prices.map((p) => (
@@ -130,6 +131,7 @@ export default function SearchScreen(props) {
             </ul>
           </div>
           <div>
+            <br />
             <h3>Avg. Customer Review</h3>
             <ul>
               {ratings.map((r) => (
