@@ -30,7 +30,7 @@ export default function UserEditScreen(props) {
   useEffect(() => {
     if (successUpdate) {
       dispatch(USER_UPDATE_RESET());
-      props.history.push("/userlist");
+      props.history.push("/user-list");
     }
     if (!user) {
       dispatch(detailsUser(userId));

@@ -119,7 +119,7 @@ function App() {
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/orderhistory">Your Order History</Link>
+                    <Link to="/order-history">Your Order History</Link>
                   </li>
                   <li>
                     <Link className="disabled">Returns</Link>
@@ -162,10 +162,10 @@ function App() {
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/productlist/seller">Product List</Link>
+                    <Link to="/product-list/seller">Product List</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist/seller">Sold Order List</Link>
+                    <Link to="/order-list/seller">Sold Order List</Link>
                   </li>
                   <div className="separator"></div>
                   <li>
@@ -185,14 +185,14 @@ function App() {
                 </div>
                 <ul className="dropdown__menu">
                   <li>
-                    <Link to="/userlist">Administration</Link>
+                    <Link to="/user-list">Administration</Link>
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/productlist">Products Database</Link>
+                    <Link to="/product-list">Products Database</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist">Orders Database</Link>
+                    <Link to="/order-list">Orders Database</Link>
                   </li>
                   <div className="separator"></div>
                   <li>
@@ -290,7 +290,7 @@ function App() {
               </Link>
             </li>
             <li>
-              <Link to="/orderhistory" onClick={() => setSidebarIsOpen(false)}>
+              <Link to="/order-history" onClick={() => setSidebarIsOpen(false)}>
                 Orders & Returns
               </Link>
             </li>
@@ -342,7 +342,7 @@ function App() {
           <Route path="/register" component={RegisterScreen}></Route>
           <Route path="/shipping" component={ShippingAddressScreen}></Route>
           <Route path="/payment" component={PaymentMethodScreen}></Route>
-          <Route path="/placeorder" component={PlaceOrderScreen}></Route>
+          <Route path="/place-order" component={PlaceOrderScreen}></Route>
           <Route path="/order/:id" component={OrderScreen}></Route>
           <Route
             path="/search/name/:name?"
@@ -365,7 +365,7 @@ function App() {
             exact
           ></Route>
           <PrivateRoute
-            path="/orderhistory"
+            path="/order-history"
             component={OrderHistoryScreen}
           ></PrivateRoute>
           <PrivateRoute
@@ -380,31 +380,31 @@ function App() {
           ></PrivateRoute>
           <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
           <AdminRoute
-            path="/productlist"
+            path="/product-list"
             component={ProductListScreen}
             exact
           ></AdminRoute>
           <AdminRoute
-            path="/productlist/pageNumber/:pageNumber"
+            path="/product-list/pageNumber/:pageNumber"
             component={ProductListScreen}
             exact
           ></AdminRoute>
           <AdminRoute
-            path="/orderlist"
+            path="/order-list"
             component={OrderListScreen}
             exact
           ></AdminRoute>
-          <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
+          <AdminRoute path="/user-list" component={UserListScreen}></AdminRoute>
           <AdminRoute
             path="/user/:id/edit"
             component={UserEditScreen}
           ></AdminRoute>
           <SellerRoute
-            path="/productlist/seller"
+            path="/product-list/seller"
             component={ProductListScreen}
           ></SellerRoute>
           <SellerRoute
-            path="/orderlist/seller"
+            path="/order-list/seller"
             component={OrderListScreen}
           ></SellerRoute>
 
