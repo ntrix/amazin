@@ -278,14 +278,19 @@ a .brand {
   cursor: pointer;
 }
 aside {
-  position: absolute;
-  overflow-y: scroll;
+  position: fixed;
   width: 35rem;
   height: 100%;
   background-color: #fff;
   z-index: 1000;
   transform: translate3D(-40rem,0,0);
   transition: all 0.3s ease;
+}
+.categories {
+  position: absolute;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
 }
 aside.open, aside.open button.close-sidebar {
   transform: translate3D(0,0,0);

@@ -232,13 +232,13 @@ function App() {
           >
             <i className="fa fa-times"></i>
           </button>
+          <li className="header mb-1">
+            <Link to="/profile" id="sidebar-user">
+              <i className="fa fa-user-circle" aria-hidden="true"></i> Hello,
+              {" " + getShortenName(userInfo, 14)}
+            </Link>
+          </li>
           <ul className="categories">
-            <li className="header mb-1">
-              <Link to="/profile" id="sidebar-user">
-                <i className="fa fa-user-circle" aria-hidden="true"></i> Hello,
-                {" " + getShortenName(userInfo, 14)}
-              </Link>
-            </li>
             <li>
               <strong>Trending</strong>
             </li>
