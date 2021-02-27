@@ -69,7 +69,7 @@ function App() {
   }, [dispatch]);
   return (
     <BrowserRouter>
-      <div className="grid-container">
+      <div className={"grid-container" + (sidebarIsOpen ? " no-scroll" : "")}>
         <header className="row">
           <div className="flex">
             <button

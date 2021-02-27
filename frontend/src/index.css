@@ -230,6 +230,9 @@ button.close-sidebar {
 button.close-sidebar:focus {
   outline: none;
 }
+.no-scroll {
+  overflow-y: hidden;
+}
 .click-catcher {
   display:block;
   position:fixed;
