@@ -49,7 +49,7 @@ export default function UserListScreen({ history }) {
               <th>EMAIL</th>
               <th>IS SELLER</th>
               <th>IS ADMIN</th>
-              <th className="actions-btn-group">ACTIONS</th>
+              <th className="btn-group__width12">ACTIONS</th>
             </tr>
           </thead>
           <tbody>

@@ -71,31 +71,30 @@ function App() {
     <BrowserRouter>
       <div className={"grid-container" + (sidebarIsOpen ? " no-scroll" : "")}>
         <header className="row">
-          <div className="flex">
-            <button
-              type="button"
-              className="open-sidebar"
-              onClick={() => setSidebarIsOpen(true)}
-            >
-              <i className="fa fa-bars"></i>
-            </button>
-            <Link className="header__nav mobile-s" to="/">
-              <div className="brand">
-                <img className="logo" src={Logo} alt="logo" />
-                <span className="mobile">mazin'</span>
-              </div>
-            </Link>
-            <Link to="/map" className="header__nav location flex">
-              <div className="header__option">
-                <i className="fa fa-map-marker" aria-hidden="true"></i>
-              </div>
-              <div className="header__option tablet">
-                <span className="header__optionLineOne">Deliver to your</span>
-                <span className="header__optionLineTwo">Location?</span>
-              </div>
-            </Link>
-          </div>
-          <div className="header__nav search-box">
+          <button
+            type="button"
+            className="open-sidebar"
+            onClick={() => setSidebarIsOpen(true)}
+          >
+            <i className="fa fa-bars"></i>
+          </button>
+          <Link className="nav-item mobile-s" to="/">
+            <div className="brand">
+              <img className="logo" src={Logo} alt="logo" />
+              <span className="mobile">mazin'</span>
+            </div>
+          </Link>
+          <Link to="/map" className="nav-item location flex">
+            <div className="nav-item__col">
+              <i className="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+            <div className="nav-item__col tablet">
+              <span className="nav-item__line-1">Deliver to your</span>
+              <span className="nav-item__line-2">Location?</span>
+            </div>
+          </Link>
+
+          <div className="nav-item search-box">
             <Route
               render={({ history }) => (
                 <SearchBox history={history}></SearchBox>
@@ -104,17 +103,17 @@ function App() {
           </div>
           <>
             {userInfo ? (
-              <div className="header__nav dropdown">
-                <div className="header__option">
-                  <span className="header__optionLineOne">
+              <div className="nav-item dropdown">
+                <div className="nav-item__col">
+                  <span className="nav-item__line-1">
                     Hi, {getShortenName(userInfo, 7)}
                   </span>
-                  <span className="header__optionLineTwo">
+                  <span className="nav-item__line-2">
                     Account<span className="pc"> & Lists</span>{" "}
                     <i className="fa fa-caret-down"></i>{" "}
                   </span>
                 </div>
-                <ul className="dropdown-content">
+                <ul className="dropdown__menu">
                   <li>
                     <Link to="/profile">Your Profile</Link>
                   </li>
@@ -140,24 +139,24 @@ function App() {
               </div>
             ) : (
               <Link to="/signin">
-                <div className="header__option">
-                  <span className="header__optionLineOne">Hi, Sign in</span>
-                  <span className="header__optionLineTwo">
+                <div className="nav-item__col">
+                  <span className="nav-item__line-1">Hi, Sign in</span>
+                  <span className="nav-item__line-2">
                     Account & Lists <i className="fa fa-caret-down"></i>{" "}
                   </span>
                 </div>
               </Link>
             )}
             {userInfo && userInfo.isSeller && (
-              <div className="header__nav dropdown">
-                <div className="header__option">
-                  <span className="header__optionLineOne">Seller</span>
-                  <span className="header__optionLineTwo">
+              <div className="nav-item dropdown">
+                <div className="nav-item__col">
+                  <span className="nav-item__line-1">Seller</span>
+                  <span className="nav-item__line-2">
                     Desk
                     <i className="fa fa-caret-down"></i>
                   </span>
                 </div>
-                <ul className="dropdown-content">
+                <ul className="dropdown__menu">
                   <li>
                     <Link to="/profile/seller">Seller Profile</Link>
                   </li>
@@ -176,15 +175,15 @@ function App() {
               </div>
             )}
             {userInfo && userInfo.isAdmin && (
-              <div className="header__nav dropdown">
-                <div className="header__option">
-                  <span className="header__optionLineOne">Admin</span>
-                  <span className="header__optionLineTwo">
+              <div className="nav-item dropdown">
+                <div className="nav-item__col">
+                  <span className="nav-item__line-1">Admin</span>
+                  <span className="nav-item__line-2">
                     Tools
                     <i className="fa fa-caret-down"></i>
                   </span>
                 </div>
-                <ul className="dropdown-content">
+                <ul className="dropdown__menu">
                   <li>
                     <Link to="/userlist">Administration</Link>
                   </li>
@@ -202,24 +201,24 @@ function App() {
                 </ul>
               </div>
             )}
-            <Link className="header__nav return tablet disabled">
-              <div className="header__option">
-                <span className="header__optionLineOne">Return</span>
-                <span className="header__optionLineTwo">& Orders</span>
+            <Link className="nav-item dropdown tablet disabled">
+              <div className="nav-item__col">
+                <span className="nav-item__line-1">Return</span>
+                <span className="nav-item__line-2">& Orders</span>
               </div>
             </Link>
-            <Link to="/cart" className="header__nav basket flex">
-              <div className="header__option">
-                <span className="header__optionLineOne header__basketCount">
+            <Link to="/cart" className="nav-item nav-item__cart flex">
+              <div className="nav-item__col">
+                <span className="nav-item__line-1 cart--count">
                   {cartItems.length}
                 </span>
-                <span className="header__optionLineTwo header__basket">
-                  <img className="cart" src={Cart} alt="Basket"></img>
+                <span className="nav-item__line-2">
+                  <img src={Cart} alt="Cart"></img>
                 </span>
               </div>
-              <div className="header__option pc">
-                <span className="header__optionLineOne">Shopping-</span>
-                <span className="header__optionLineTwo">Basket</span>
+              <div className="nav-item__col pc">
+                <span className="nav-item__line-1">Shopping-</span>
+                <span className="nav-item__line-2">Basket</span>
               </div>
             </Link>
           </>

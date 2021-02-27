@@ -108,7 +108,7 @@ export default function MapScreen(props) {
     <div className="full-container">
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
-          id="smaple-map"
+          id="sample-map"
           mapContainerStyle={{ height: "100%", width: "100%" }}
           center={center}
           zoom={15}
@@ -119,10 +119,10 @@ export default function MapScreen(props) {
             onLoad={onLoadPlaces}
             onPlacesChanged={onPlacesChanged}
           >
-            <div className="map-input-box">
+            <div className="address-box">
               <button
                 type="button"
-                className="danger left"
+                className="danger btn-left"
                 onClick={redirectBack}
               >
                 Cancel
@@ -130,7 +130,7 @@ export default function MapScreen(props) {
               <input type="text" placeholder="Enter your address"></input>
               <button
                 type="button"
-                className="primary right"
+                className="primary btn-right"
                 onClick={onConfirm}
               >
                 Confirm
