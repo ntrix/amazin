@@ -154,20 +154,20 @@ a .brand {
   margin-left: 0.5rem;
 }
 .header__optionLineOne {
-  font-size: 12px;
+  font-size: 1.2rem;
 }
 .header__optionLineTwo {
-  font-size: 15px;
+  font-size: 1.5rem;
 }
 .header__basketCount {
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
-  font-size: 18px;
+  font-size: 1.8rem;
   color: #ff8000;
 }
 .header__basket i {
-  font-size: 36px;
+  font-size: 3.6rem;
 }
 img.cart {
   margin-top: -2rem;
@@ -188,13 +188,13 @@ img.cart {
   justify-content: flex-start;
 }
 .col-1 {
-  flex: 1 1 25rem;
+  flex: 1 1 20rem;
 }
 .col-2 {
   flex: 2 1 50rem;
 }
 .col-3 {
-  flex: 32 1 75rem;
+  flex: 97 1 80rem;
 }
 .min-30 {
   min-width: 30rem;
@@ -422,7 +422,7 @@ a:hover {
 }
 .dropdown-content a {
   color: #111;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 .dropdown-content a:hover {
   color: #ff8000;
@@ -554,11 +554,11 @@ input.search-icon-place {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  margin: 10px;
-  padding: 20px;
+  margin: 1rem;
+  padding: 2rem;
   width: 100%;
-  max-height: 400px;
-  min-width: 100px;
+  max-height: 40rem;
+  min-width: 10rem;
   background-color: white;
   z-index: 1;
 }
@@ -566,24 +566,23 @@ input.search-icon-place {
   display: flex;
 }
 .product > img {
-  max-height: 200px;
+  max-height: 20rem;
   width: 100%;
   object-fit: contain;
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 .product > button {
-  background: #f0c14b;
-  border: 1px solid;
-  margin-top: 10px;
-  border-color: #a88734 #9c7e31 #846a29;
+  margin-top: 1rem;
   color: #111;
+  background: #f0c14b;
+  border: thin solid #a88734 #9c7e31 #846a29;
 }
 .product__price {
-  margin-top: 5px;
+  margin-top: 0.5rem;
 }
 .product__info {
-  height: 100px;
-  margin-bottom: 15px;
+  height: 10rem;
+  margin-bottom: 1.5rem;
 }
 .actions-btn-group {
   width: 12rem;
@@ -627,11 +626,13 @@ input.search-icon-place {
   background: #fff;
   margin: 2rem -2rem;
 }
-.filter {
-  margin: 2rem 3rem;
-  border-right: #0004 2px solid;
+.search__filter {
+  margin-left: 3rem;
 }
-
+.search__results {
+  margin-top: 2rem;
+  border-left: #0003 2px solid;
+}
 .rating .fa {
   font-size: 2rem;
   color: #f3a333;

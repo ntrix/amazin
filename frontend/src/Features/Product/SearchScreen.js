@@ -82,8 +82,8 @@ export default function SearchScreen(props) {
         </div>
       </div>
       <div className="row top">
-        <div className="col-1 filter">
-          <h3>Department</h3>
+        <div className="col-1 search__filter">
+          <h4>Department</h4>
           <div>
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
@@ -114,7 +114,7 @@ export default function SearchScreen(props) {
           </div>
           <div>
             <br />
-            <h3>Price</h3>
+            <h4>Price</h4>
             <ul>
               {prices.map((p) => (
                 <li key={p.name}>
@@ -132,7 +132,7 @@ export default function SearchScreen(props) {
           </div>
           <div>
             <br />
-            <h3>Avg. Customer Review</h3>
+            <h4>Avg. Customer Review</h4>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -147,7 +147,7 @@ export default function SearchScreen(props) {
             </ul>
           </div>
         </div>
-        <div className="col-3 mt-1">
+        <div className="col-3">
           {loading ? (
             <LoadingBox></LoadingBox>
           ) : error ? (
@@ -157,7 +157,7 @@ export default function SearchScreen(props) {
               {products.length === 0 && (
                 <MessageBox>No Product Found</MessageBox>
               )}
-              <div className="row center mt-1">
+              <div className="row center search__results">
                 {products.map((product) => (
                   <Product key={product._id} product={product}></Product>
                 ))}
