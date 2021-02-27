@@ -59,7 +59,7 @@ function App() {
   } = productCategoryList;
 
   function getShortenName(user, length) {
-    const shortName = user?.name ? user.name.split(" ")[0] : "sign in";
+    const shortName = user?.name ? user.name.split(" ")[0] : "Sign in";
     return !length
       ? shortName
       : shortName.slice(0, length) + (shortName.slice(length) ? ".." : "");
@@ -116,11 +116,11 @@ function App() {
                 </div>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/profile">Your Account</Link>
+                    <Link to="/profile">Your Profile</Link>
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/orderhistory">Your Orders</Link>
+                    <Link to="/orderhistory">Your Order History</Link>
                   </li>
                   <li>
                     <Link className="disabled">Returns</Link>
@@ -141,7 +141,7 @@ function App() {
             ) : (
               <Link to="/signin">
                 <div className="header__option">
-                  <span className="header__optionLineOne">Hi, sign in</span>
+                  <span className="header__optionLineOne">Hi, Sign in</span>
                   <span className="header__optionLineTwo">
                     Account & Lists <i className="fa fa-caret-down"></i>{" "}
                   </span>
@@ -163,10 +163,10 @@ function App() {
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/productlist/seller">Products List</Link>
+                    <Link to="/productlist/seller">Product List</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist/seller">Sold Orders</Link>
+                    <Link to="/orderlist/seller">Sold Order List</Link>
                   </li>
                   <div className="separator"></div>
                   <li>
@@ -178,9 +178,9 @@ function App() {
             {userInfo && userInfo.isAdmin && (
               <div className="header__nav dropdown">
                 <div className="header__option">
-                  <span className="header__optionLineOne">Dashboard</span>
+                  <span className="header__optionLineOne">Admin</span>
                   <span className="header__optionLineTwo">
-                    Admin
+                    Tools
                     <i className="fa fa-caret-down"></i>
                   </span>
                 </div>
@@ -190,10 +190,10 @@ function App() {
                   </li>
                   <div className="separator"></div>
                   <li>
-                    <Link to="/productlist">Products DB</Link>
+                    <Link to="/productlist">Products Database</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist">Orders DB</Link>
+                    <Link to="/orderlist">Orders Database</Link>
                   </li>
                   <div className="separator"></div>
                   <li>

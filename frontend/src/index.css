@@ -405,7 +405,7 @@ a:hover {
   position: absolute;
   display: none;
   right: -1rem;
-  min-width: 14rem;
+  min-width: 16rem;
   padding: 1rem;
   z-index: 1;
   background-color: #f0f0f0;
