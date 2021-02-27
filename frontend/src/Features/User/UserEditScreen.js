@@ -84,7 +84,7 @@ export default function UserEditScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="isSeller">Is Seller</label>
+              <label htmlFor="isSeller">Seller Account</label>
               <input
                 id="isSeller"
                 type="checkbox"
@@ -93,7 +93,7 @@ export default function UserEditScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="isAdmin">Is Admin</label>
+              <label htmlFor="isAdmin">Administrator</label>
               <input
                 id="isAdmin"
                 type="checkbox"

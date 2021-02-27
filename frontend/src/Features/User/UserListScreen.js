@@ -47,8 +47,8 @@ export default function UserListScreen({ history }) {
               <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>IS SELLER</th>
-              <th>IS ADMIN</th>
+              <th>SELLER</th>
+              <th>ADMIN</th>
               <th className="btn-group__width12">ACTIONS</th>
             </tr>
           </thead>
@@ -58,14 +58,14 @@ export default function UserListScreen({ history }) {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td className="text-center">
+                <td className="text-center success">
                   {user.isSeller && (
-                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    <i class="fa fa-check" aria-hidden="true"></i>
                   )}
                 </td>
-                <td className="text-center">
+                <td className="text-center success">
                   {user.isAdmin && (
-                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    <i class="fa fa-check" aria-hidden="true"></i>
                   )}
                 </td>
                 <td>
