@@ -58,9 +58,15 @@ export default function ProductScreen(props) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div>
-          <Link to="/">Back to result</Link>
-          <div className="row top mt-1">
-            <div className="col-2">
+          <div>
+            <div className="row search__banner">
+              <Link to="/" className="ml-1">
+                Back to result
+              </Link>
+            </div>
+          </div>
+          <div className="row top">
+            <div className="col-2 card">
               <img
                 className="large"
                 src={product.image}

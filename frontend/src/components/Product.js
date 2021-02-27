@@ -6,7 +6,7 @@ export default function Product({ product }) {
   return (
     <div key={product._id} className="card">
       <Link to={`/product/${product._id}`}>
-        <img className="medium" src={product.image} alt={product.name} />
+        <img className="thumbnail" src={product.image} alt={product.name} />
       </Link>
       <div className="card-body">
         <Link to={`/product/${product._id}`}>
@@ -16,11 +16,17 @@ export default function Product({ product }) {
           rating={product.rating}
           numReviews={product.numReviews}
         ></Rating>
-        <div className="row">
-          <div className="price">${product.price}</div>
+        <div className="">
+          <div className="price">
+            <sup>$</sup>
+            {product.price}
+            <sup>99</sup>
+          </div>
+          <br />
+          <sup>Shipping exklusive</sup>
           <div>
-            <Link to={`/seller/${product.seller._id}`}>
-              {product?.seller?.seller?.name || "Anonymous Seller"}
+            <Link to={`/seller/${product.seller._id}`} className="row end">
+              By Seller: {product?.seller?.seller?.name || "Anonymous Seller"}
             </Link>
           </div>
         </div>

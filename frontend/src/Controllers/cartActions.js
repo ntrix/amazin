@@ -15,7 +15,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
   if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     dispatch(
       CART_ADD_ITEM_FAIL(
-        `Can't Add Item Of Other Handler. Buy Only From The Same Seller(${
+        `Can't Add Item Of Other Supplier. Buy Only From The Same Seller (${
           cartItems[0].seller.seller.name || "Anonymous Seller"
         }) in this order`
       )
