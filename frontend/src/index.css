@@ -261,10 +261,11 @@ a .brand {
   height: 1px;
   margin-top: 0.3rem;
   margin-bottom: 0.7rem;
-  background: #bbb;
+  background: #c8c8c8;
 }
 /* Aside */
 .no-scroll {
+  width: 100vw;
   overflow-y: hidden;
   position:fixed;
 }
