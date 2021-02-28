@@ -66,7 +66,7 @@ function App() {
       ? shortName
       : shortName.slice(0, length) + (shortName.slice(length) ? ".." : "");
   }
-  const createMenu = (setMenu) => ([text, link, className, action]) => {
+  const addMenuItem = (setMenu) => ([text, link, className, action]) => {
     if (text == "separator") return <div className="separator"></div>;
     const inner = () =>
       !link && !className ? (
@@ -91,8 +91,8 @@ function App() {
       );
     return <li key={text}>{inner()}</li>;
   };
-  const createSideMenu = createMenu(setSidebar);
-  const createDropMenu = createMenu(setDropdown);
+  const addSideMenuItem = addMenuItem(setSidebar);
+  const addDropMenuItem = addMenuItem(setDropdown);
 
   useEffect(() => {
     dispatch(listProductCategories());
@@ -162,7 +162,7 @@ function App() {
                       ["Contact Us", "https://ntien.com"],
                       ["separator"],
                       ["Sign Out", "#signout", , signoutHandler],
-                    ].map(createDropMenu)}
+                    ].map(addDropMenuItem)}
                   </ul>
                 )}
               </div>
@@ -203,7 +203,7 @@ function App() {
                       ["Sold Order List", "/order-list/seller"],
                       ["separator"],
                       ["Sell Statistics", "disabled"],
-                    ].map(createDropMenu)}
+                    ].map(addDropMenuItem)}
                   </ul>
                 )}
               </div>
@@ -235,7 +235,7 @@ function App() {
                       ["Orders Database", "/order-list"],
                       ["separator"],
                       ["Quick Tutor!", "disabled"],
-                    ].map(createDropMenu)}
+                    ].map(addDropMenuItem)}
                   </ul>
                 )}
               </div>
@@ -284,14 +284,14 @@ function App() {
               ["Top Sellers", "/"],
               ["separator"],
               ["Categories"],
-            ].map(createSideMenu)}
+            ].map(addSideMenuItem)}
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
               categories.map((c) =>
-                createSideMenu([c, "/search/category/" + c])
+                addSideMenuItem([c, "/search/category/" + c])
               )
             )}
             {[
@@ -304,10 +304,10 @@ function App() {
               ["FAQ & Contact ntien.com", "https://ntien.com"],
               ["separator"],
               ["Account"],
-            ].map(createSideMenu)}
+            ].map(addSideMenuItem)}
             {userInfo
-              ? createSideMenu(["Sign Out", "#signout", , signoutHandler])
-              : createSideMenu(["Sign In", "/signin"])}
+              ? addSideMenuItem(["Sign Out", "#signout", , signoutHandler])
+              : addSideMenuItem(["Sign In", "/signin"])}
           </ul>
         </aside>
         <label
