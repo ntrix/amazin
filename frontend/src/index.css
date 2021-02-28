@@ -506,10 +506,11 @@ table th {
   flex: 1;
 }
 .search button {
-  width: 5rem;
+  width: 4.5rem;
   border-radius: 0 0.5rem 0.5rem 0;
   border-right: none;
-  margin-left: -3em;
+  margin-left: -2.8em;
+  background-color: #f6bd68;
 }
 input.search-box__icon {
   padding-right: 5.5rem;
