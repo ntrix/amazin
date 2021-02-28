@@ -58,6 +58,12 @@ footer {
   background-color: #111;
   color: #ffffff;
 }
+.container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1500px;
+  justify-content: center;
+}
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -83,7 +89,7 @@ footer {
   flex: 2 1 50rem;
 }
 .col-3 {
-  flex: 97 1 80rem;
+  flex: 17 1 30rem;
 }
 .min-30 {
   min-width: 30rem;
@@ -388,11 +394,13 @@ img.large {
 
 /* Card */
 .card {
-  border-bottom: 0.2rem solid #c8c8c8;
+  flex: 1 1 22%;
   margin: 2rem;
-  background: #fff;
+  min-width: 20rem;
   padding: 1rem;
   border-radius: 0.3rem;
+  background: #fff;
+  border-bottom: 0.2rem solid #c8c8c8;
 }
 .card-body {
   margin-bottom: 2rem;
@@ -453,7 +461,7 @@ a:hover {
 }
 /* Form */
 .form {
-  max-width: 60rem;
+  width: 56rem;
   margin: 0 auto;
 }
 .form > div {

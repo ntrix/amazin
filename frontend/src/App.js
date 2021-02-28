@@ -314,7 +314,7 @@ function App() {
           className={hasSidebar ? "click-catcher" : ""}
           htmlFor="close-sidebar-btn"
         ></label>
-        <main>
+        <main className="container">
           <Route path="/seller/:id" component={SellerScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>
           <Route path="/product/:id" component={ProductScreen} exact></Route>
