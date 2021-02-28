@@ -354,12 +354,12 @@ function App() {
             component={OrderHistoryScreen}
           ></PrivateRoute>
           <PrivateRoute
-            path="/profile/seller"
+            path="/profile"
             component={ProfileScreen}
             exact
           ></PrivateRoute>
           <PrivateRoute
-            path="/profile"
+            path="/profile/seller"
             component={ProfileScreen}
             exact
           ></PrivateRoute>
