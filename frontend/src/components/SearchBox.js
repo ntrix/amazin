@@ -10,7 +10,9 @@ export default function SearchBox(props) {
     <form className="search" onSubmit={submitHandler}>
       <div className="row">
         <input
-          type="text"
+          type="search"
+          results="5"
+          autocomplete="on"
           name="q"
           id="q"
           className="search-box__icon"
