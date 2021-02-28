@@ -250,11 +250,13 @@ a .brand {
   display: block;
 }
 .dropdown__menu li {
-  margin: 1rem;
+  margin: 0;
 }
 .dropdown__menu a {
-  color: #111;
+  display: block;
+  padding: 0.5rem 1rem;
   font-size: 1.4rem;
+  color: #111;
 }
 .dropdown__menu a:hover {
   color: #ff8000;

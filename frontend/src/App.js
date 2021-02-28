@@ -42,7 +42,8 @@ import Cart from "./img/cart.png";
 
 function App() {
   const cart = useSelector((state) => state.cart);
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+  const [hasSidebar, setSidebar] = useState(false);
+  const [hasDropdown, setDropdown] = useState(false);
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -64,7 +65,7 @@ function App() {
       ? shortName
       : shortName.slice(0, length) + (shortName.slice(length) ? ".." : "");
   }
-  function createMenu([text, link, className = "", func = 0]) {
+  const createMenu = (setMenu) => ([text, link, className, action]) => {
     if (text == "separator") return <div className="separator"></div>;
     const inner = () =>
       !link && !className ? (
@@ -80,26 +81,29 @@ function App() {
           to={link}
           className={className}
           onClick={() => {
-            setSidebarIsOpen(false);
-            if (func) func();
+            setMenu(false);
+            if (action) action();
           }}
         >
           {text}
         </Link>
       );
     return <li key={text}>{inner()}</li>;
-  }
+  };
+  const createSideMenu = createMenu(setSidebar);
+  const createDropMenu = createMenu(setDropdown);
+
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
   return (
     <BrowserRouter>
-      <div className={"grid-container" + (sidebarIsOpen ? " no-scroll" : "")}>
+      <div className={"grid-container" + (hasSidebar ? " no-scroll" : "")}>
         <header className="row">
           <button
             type="button"
             className="open-sidebar"
-            onClick={() => setSidebarIsOpen(true)}
+            onClick={() => setSidebar(true)}
           >
             <i className="fa fa-bars"></i>
           </button>
@@ -128,7 +132,10 @@ function App() {
           </div>
           <>
             {userInfo ? (
-              <div className="nav-item dropdown">
+              <div
+                className="nav-item dropdown"
+                onMouseEnter={() => setDropdown(true)}
+              >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">
                     Hi, {getShortenName(userInfo, 7)}
@@ -138,17 +145,19 @@ function App() {
                     <i className="fa fa-caret-down"></i>{" "}
                   </span>
                 </div>
-                <ul className="dropdown__menu">
-                  {[
-                    ["Your Profile", "/profile"],
-                    ["separator"],
-                    ["Your Order History", "/order-history"],
-                    ["Returns", "disabled"],
-                    ["Contact Us", "https://ntien.com"],
-                    ["separator"],
-                    ["Sign Out", "#signout", , signoutHandler],
-                  ].map(createMenu)}
-                </ul>
+                {hasDropdown && (
+                  <ul className="dropdown__menu">
+                    {[
+                      ["Your Profile", "/profile"],
+                      ["separator"],
+                      ["Your Order History", "/order-history"],
+                      ["Returns", "disabled"],
+                      ["Contact Us", "https://ntien.com"],
+                      ["separator"],
+                      ["Sign Out", "#signout", , signoutHandler],
+                    ].map(createDropMenu)}
+                  </ul>
+                )}
               </div>
             ) : (
               <Link to="/signin">
@@ -161,7 +170,10 @@ function App() {
               </Link>
             )}
             {userInfo && userInfo.isSeller && (
-              <div className="nav-item dropdown">
+              <div
+                className="nav-item dropdown"
+                onMouseEnter={() => setDropdown(true)}
+              >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">Seller</span>
                   <span className="nav-item__line-2">
@@ -169,20 +181,25 @@ function App() {
                     <i className="fa fa-caret-down"></i>
                   </span>
                 </div>
-                <ul className="dropdown__menu">
-                  {[
-                    ["Seller Profile", "/profile/seller"],
-                    ["separator"],
-                    ["Product List", "/product-list/seller"],
-                    ["Sold Order List", "/order-list/seller"],
-                    ["separator"],
-                    ["Sell Statistics", "disabled"],
-                  ].map(createMenu)}
-                </ul>
+                {hasDropdown && (
+                  <ul className="dropdown__menu">
+                    {[
+                      ["Seller Profile", "/profile/seller"],
+                      ["separator"],
+                      ["Product List", "/product-list/seller"],
+                      ["Sold Order List", "/order-list/seller"],
+                      ["separator"],
+                      ["Sell Statistics", "disabled"],
+                    ].map(createDropMenu)}
+                  </ul>
+                )}
               </div>
             )}
             {userInfo && userInfo.isAdmin && (
-              <div className="nav-item dropdown">
+              <div
+                className="nav-item dropdown"
+                onMouseEnter={() => setDropdown(true)}
+              >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">Admin</span>
                   <span className="nav-item__line-2">
@@ -190,16 +207,18 @@ function App() {
                     <i className="fa fa-caret-down"></i>
                   </span>
                 </div>
-                <ul className="dropdown__menu">
-                  {[
-                    ["Administration", "/user-list"],
-                    ["separator"],
-                    ["Products Database", "/product-list"],
-                    ["Orders Database", "/order-list"],
-                    ["separator"],
-                    ["Quick Tutor!", "disabled"],
-                  ].map(createMenu)}
-                </ul>
+                {hasDropdown && (
+                  <ul className="dropdown__menu">
+                    {[
+                      ["Administration", "/user-list"],
+                      ["separator"],
+                      ["Products Database", "/product-list"],
+                      ["Orders Database", "/order-list"],
+                      ["separator"],
+                      ["Quick Tutor!", "disabled"],
+                    ].map(createDropMenu)}
+                  </ul>
+                )}
               </div>
             )}
             <Link className="nav-item dropdown tablet disabled">
@@ -224,9 +243,9 @@ function App() {
             </Link>
           </>
         </header>
-        <aside className={sidebarIsOpen ? "open" : ""}>
+        <aside className={hasSidebar ? "open" : ""}>
           <button
-            onClick={() => setSidebarIsOpen(false)}
+            onClick={() => setSidebar(false)}
             id="close-sidebar-btn"
             className="close-sidebar"
             type="button"
@@ -246,13 +265,15 @@ function App() {
               ["Top Sellers", "/"],
               ["separator"],
               ["Categories"],
-            ].map(createMenu)}
+            ].map(createSideMenu)}
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
-              categories.map((c) => createMenu([c, "/search/category/" + c]))
+              categories.map((c) =>
+                createSideMenu([c, "/search/category/" + c])
+              )
             )}
             {[
               ["separator"],
@@ -264,14 +285,14 @@ function App() {
               ["FAQ & Contact ntien.com", "https://ntien.com"],
               ["separator"],
               ["Account"],
-            ].map(createMenu)}
+            ].map(createSideMenu)}
             {userInfo
-              ? createMenu(["Sign Out", "#signout", , signoutHandler])
-              : createMenu(["Sign In", "/signin"])}
+              ? createSideMenu(["Sign Out", "#signout", , signoutHandler])
+              : createSideMenu(["Sign In", "/signin"])}
           </ul>
         </aside>
         <label
-          className={sidebarIsOpen ? "click-catcher" : ""}
+          className={hasSidebar ? "click-catcher" : ""}
           htmlFor="close-sidebar-btn"
         ></label>
         <main>
