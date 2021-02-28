@@ -44,6 +44,7 @@ function App() {
   const cart = useSelector((state) => state.cart);
   const [hasSidebar, setSidebar] = useState(false);
   const [hasDropdown, setDropdown] = useState(false);
+  let timeoutId = 0;
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -134,7 +135,13 @@ function App() {
             {userInfo ? (
               <div
                 className="nav-item dropdown"
-                onMouseEnter={() => setDropdown(true)}
+                onMouseEnter={() =>
+                  (timeoutId = setTimeout(() => setDropdown(true), 500))
+                }
+                onMouseLeave={() => {
+                  clearTimeout(timeoutId);
+                  setDropdown(false);
+                }}
               >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">
@@ -172,7 +179,13 @@ function App() {
             {userInfo && userInfo.isSeller && (
               <div
                 className="nav-item dropdown"
-                onMouseEnter={() => setDropdown(true)}
+                onMouseEnter={() =>
+                  (timeoutId = setTimeout(() => setDropdown(true), 500))
+                }
+                onMouseLeave={() => {
+                  clearTimeout(timeoutId);
+                  setDropdown(false);
+                }}
               >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">Seller</span>
@@ -198,7 +211,13 @@ function App() {
             {userInfo && userInfo.isAdmin && (
               <div
                 className="nav-item dropdown"
-                onMouseEnter={() => setDropdown(true)}
+                onMouseEnter={() =>
+                  (timeoutId = setTimeout(() => setDropdown(true), 500))
+                }
+                onMouseLeave={() => {
+                  clearTimeout(timeoutId);
+                  setDropdown(false);
+                }}
               >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">Admin</span>
