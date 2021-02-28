@@ -60,12 +60,12 @@ export default function UserListScreen({ history }) {
                 <td>{user.email}</td>
                 <td className="text-center success">
                   {user.isSeller && (
-                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <i className="fa fa-check" aria-hidden="true"></i>
                   )}
                 </td>
                 <td className="text-center success">
                   {user.isAdmin && (
-                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <i className="fa fa-check" aria-hidden="true"></i>
                   )}
                 </td>
                 <td>
