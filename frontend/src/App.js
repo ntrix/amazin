@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
@@ -42,9 +42,9 @@ import Cart from "./img/cart.png";
 
 function App() {
   const cart = useSelector((state) => state.cart);
+  const timeout = useRef({});
   const [hasSidebar, setSidebar] = useState(false);
   const [hasDropdown, setDropdown] = useState(false);
-  let timeoutId = 0;
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -136,10 +136,10 @@ function App() {
               <div
                 className="nav-item dropdown"
                 onMouseEnter={() =>
-                  (timeoutId = setTimeout(() => setDropdown(true), 500))
+                  (timeout.current = setTimeout(() => setDropdown(true), 500))
                 }
                 onMouseLeave={() => {
-                  clearTimeout(timeoutId);
+                  clearTimeout(timeout.current);
                   setDropdown(false);
                 }}
               >
@@ -180,10 +180,10 @@ function App() {
               <div
                 className="nav-item dropdown"
                 onMouseEnter={() =>
-                  (timeoutId = setTimeout(() => setDropdown(true), 500))
+                  (timeout.current = setTimeout(() => setDropdown(true), 500))
                 }
                 onMouseLeave={() => {
-                  clearTimeout(timeoutId);
+                  clearTimeout(timeout.current);
                   setDropdown(false);
                 }}
               >
@@ -212,10 +212,10 @@ function App() {
               <div
                 className="nav-item dropdown"
                 onMouseEnter={() =>
-                  (timeoutId = setTimeout(() => setDropdown(true), 500))
+                  (timeout.current = setTimeout(() => setDropdown(true), 500))
                 }
                 onMouseLeave={() => {
-                  clearTimeout(timeoutId);
+                  clearTimeout(timeout.current);
                   setDropdown(false);
                 }}
               >
