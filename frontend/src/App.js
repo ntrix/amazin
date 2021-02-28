@@ -271,10 +271,10 @@ function App() {
           >
             <i className="fa fa-times"></i>
           </button>
-          <li className="header mb-1">
-            <Link to="/profile" id="sidebar-user">
-              <i className="fa fa-user-circle" aria-hidden="true"></i> Hello,
-              {" " + getShortenName(userInfo, 14)}
+          <li onClick={() => setSidebar(false)}>
+            <Link to="/profile" className="sidebar-user">
+              <i className="fa fa-user-circle" aria-hidden="true"></i>
+              {" Hello, " + getShortenName(userInfo, 14)}
             </Link>
           </li>
           <ul className="categories">
@@ -300,7 +300,7 @@ function App() {
               ["My (Seller) Profile", "/profile/seller"],
               ["Shipping Address", "/shipping"],
               ["Orders & Returns", "/order-history"],
-              ["Statistics (Beta Testing)", "disabled"],
+              ["Statistics (AB Testing)", "disabled"],
               ["FAQ & Contact ntien.com", "https://ntien.com"],
               ["separator"],
               ["Account"],
