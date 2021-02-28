@@ -64,6 +64,27 @@ function App() {
       ? shortName
       : shortName.slice(0, length) + (shortName.slice(length) ? ".." : "");
   }
+  function side(text, link, className = "", func = 0) {
+    if (text == "separator") return <div className="separator"></div>;
+    const inner = () =>
+      link == "disabled" ? (
+        <Link className="disabled">{text}</Link>
+      ) : !link && !className ? (
+        <strong>{text}</strong>
+      ) : (
+        <Link
+          to={link}
+          className={className}
+          onClick={() => {
+            setSidebarIsOpen(false);
+            if (func) func();
+          }}
+        >
+          {text}
+        </Link>
+      );
+    return <li key={text}>{inner()}</li>;
+  }
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
@@ -239,89 +260,37 @@ function App() {
             </Link>
           </li>
           <ul className="categories">
-            <li>
-              <strong>Trending</strong>
-            </li>
-            <li>
-              <Link
-                to="/search/category/all"
-                onClick={() => setSidebarIsOpen(false)}
-              >
-                New Releases
-              </Link>
-            </li>
-            <li>
-              <Link to="/" onClick={() => setSidebarIsOpen(false)}>
-                Top Sellers
-              </Link>
-            </li>
-            <div className="separator"></div>
-            <li>
-              <strong>Categories</strong>
-            </li>
+            {[
+              ["Trending"],
+              ["New Releases", "/search/category/all"],
+              ["Top Sellers", "/"],
+              ["separator"],
+              ["Categories"],
+            ].map((a) => side(...a))}
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
-              categories.map((c) => (
-                <li key={c}>
-                  <Link
-                    to={`/search/category/${c}`}
-                    onClick={() => setSidebarIsOpen(false)}
-                  >
-                    {c}
-                  </Link>
-                </li>
-              ))
+              categories.map((c) => side(c, "/search/category/" + c))
             )}
-            <div className="separator"></div>
-            <li>
-              <strong>Help & Setting</strong>
-            </li>
-            <li>
-              <Link to="/profile" onClick={() => setSidebarIsOpen(false)}>
-                My Profile
-              </Link>
-            </li>
-            <li>
-              <Link to="/shipping" onClick={() => setSidebarIsOpen(false)}>
-                Shipping Address
-              </Link>
-            </li>
-            <li>
-              <Link to="/order-history" onClick={() => setSidebarIsOpen(false)}>
-                Orders & Returns
-              </Link>
-            </li>
-            <li>
-              <Link className="disabled">Statistics (Beta Testing)</Link>
-            </li>
+            {[
+              ["separator"],
+              ["Help & Setting"],
+              ["My (Seller) Profile", "/profile/seller"],
+              ["Shipping Address", "/shipping"],
+              ["Orders & Returns", "/order-history"],
+              ["Statistics (Beta Testing)", "disabled"],
+              ["separator"],
+              ["Account"],
+            ].map((a) => side(...a))}
+            {userInfo
+              ? side("Sign Out", "#signout", "", signoutHandler)
+              : side("Sign In", "/signin")}
             <li>
               <a href="https://ntien.com" target="_blank">
                 FAQ & Contact ntien.com
               </a>
-            </li>
-            <div className="separator"></div>
-            <li>
-              <strong>Account</strong>
-            </li>
-            <li>
-              {userInfo ? (
-                <Link
-                  to="#signout"
-                  onClick={() => {
-                    setSidebarIsOpen(false);
-                    signoutHandler();
-                  }}
-                >
-                  Sign Out
-                </Link>
-              ) : (
-                <Link to="/signin" onClick={() => setSidebarIsOpen(false)}>
-                  Sign In
-                </Link>
-              )}
             </li>
           </ul>
         </aside>
