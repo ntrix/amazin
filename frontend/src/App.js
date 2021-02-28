@@ -64,13 +64,17 @@ function App() {
       ? shortName
       : shortName.slice(0, length) + (shortName.slice(length) ? ".." : "");
   }
-  function side(text, link, className = "", func = 0) {
+  function createMenu([text, link, className = "", func = 0]) {
     if (text == "separator") return <div className="separator"></div>;
     const inner = () =>
-      link == "disabled" ? (
-        <Link className="disabled">{text}</Link>
-      ) : !link && !className ? (
+      !link && !className ? (
         <strong>{text}</strong>
+      ) : link == "disabled" ? (
+        <Link className="disabled">{text}</Link>
+      ) : link.startsWith("https://") ? (
+        <a href={link} target="_blank">
+          {text}
+        </a>
       ) : (
         <Link
           to={link}
@@ -135,27 +139,15 @@ function App() {
                   </span>
                 </div>
                 <ul className="dropdown__menu">
-                  <li>
-                    <Link to="/profile">Your Profile</Link>
-                  </li>
-                  <div className="separator"></div>
-                  <li>
-                    <Link to="/order-history">Your Order History</Link>
-                  </li>
-                  <li>
-                    <Link className="disabled">Returns</Link>
-                  </li>
-                  <li>
-                    <a href="https://ntien.com" target="_blank">
-                      Contact Us
-                    </a>
-                  </li>
-                  <div className="separator"></div>
-                  <li>
-                    <Link to="#signout" onClick={signoutHandler}>
-                      Sign Out
-                    </Link>
-                  </li>
+                  {[
+                    ["Your Profile", "/profile"],
+                    ["separator"],
+                    ["Your Order History", "/order-history"],
+                    ["Returns", "disabled"],
+                    ["Contact Us", "https://ntien.com"],
+                    ["separator"],
+                    ["Sign Out", "#signout", , signoutHandler],
+                  ].map(createMenu)}
                 </ul>
               </div>
             ) : (
@@ -178,20 +170,14 @@ function App() {
                   </span>
                 </div>
                 <ul className="dropdown__menu">
-                  <li>
-                    <Link to="/profile/seller">Seller Profile</Link>
-                  </li>
-                  <div className="separator"></div>
-                  <li>
-                    <Link to="/product-list/seller">Product List</Link>
-                  </li>
-                  <li>
-                    <Link to="/order-list/seller">Sold Order List</Link>
-                  </li>
-                  <div className="separator"></div>
-                  <li>
-                    <Link className="disabled">Sell Statistics</Link>
-                  </li>
+                  {[
+                    ["Seller Profile", "/profile/seller"],
+                    ["separator"],
+                    ["Product List", "/product-list/seller"],
+                    ["Sold Order List", "/order-list/seller"],
+                    ["separator"],
+                    ["Sell Statistics", "disabled"],
+                  ].map(createMenu)}
                 </ul>
               </div>
             )}
@@ -205,20 +191,14 @@ function App() {
                   </span>
                 </div>
                 <ul className="dropdown__menu">
-                  <li>
-                    <Link to="/user-list">Administration</Link>
-                  </li>
-                  <div className="separator"></div>
-                  <li>
-                    <Link to="/product-list">Products Database</Link>
-                  </li>
-                  <li>
-                    <Link to="/order-list">Orders Database</Link>
-                  </li>
-                  <div className="separator"></div>
-                  <li>
-                    <Link className="disabled">Quick Tutor!</Link>
-                  </li>
+                  {[
+                    ["Administration", "/user-list"],
+                    ["separator"],
+                    ["Products Database", "/product-list"],
+                    ["Orders Database", "/order-list"],
+                    ["separator"],
+                    ["Quick Tutor!", "disabled"],
+                  ].map(createMenu)}
                 </ul>
               </div>
             )}
@@ -266,13 +246,13 @@ function App() {
               ["Top Sellers", "/"],
               ["separator"],
               ["Categories"],
-            ].map((a) => side(...a))}
+            ].map(createMenu)}
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
-              categories.map((c) => side(c, "/search/category/" + c))
+              categories.map((c) => createMenu([c, "/search/category/" + c]))
             )}
             {[
               ["separator"],
@@ -281,17 +261,13 @@ function App() {
               ["Shipping Address", "/shipping"],
               ["Orders & Returns", "/order-history"],
               ["Statistics (Beta Testing)", "disabled"],
+              ["FAQ & Contact ntien.com", "https://ntien.com"],
               ["separator"],
               ["Account"],
-            ].map((a) => side(...a))}
+            ].map(createMenu)}
             {userInfo
-              ? side("Sign Out", "#signout", "", signoutHandler)
-              : side("Sign In", "/signin")}
-            <li>
-              <a href="https://ntien.com" target="_blank">
-                FAQ & Contact ntien.com
-              </a>
-            </li>
+              ? createMenu(["Sign Out", "#signout", , signoutHandler])
+              : createMenu(["Sign In", "/signin"])}
           </ul>
         </aside>
         <label
