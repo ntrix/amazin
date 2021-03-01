@@ -301,7 +301,7 @@ function App() {
                 ...categories.map((c) => [c, "/search/category/" + c]),
                 ["separator"],
                 ["Help & Setting"],
-                ["My (Seller) Profile", "/profile/seller"],
+                ["(Seller) Profile", "/profile/seller"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
