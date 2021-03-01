@@ -238,11 +238,11 @@ function App() {
                       ["Admin"],
                       ["User List", "/user-list"],
                       ["separator"],
-                      ["Database"],
-                      ["Product Catalogue", "/product-list"],
-                      ["All Order List", "/order-list"],
+                      ["Warehouse"],
+                      ["Product Catalogues", "/product-list"],
+                      ["Order Database", "/order-list"],
                       ["separator"],
-                      ["Help"],
+                      ["Instruction"],
                       ["Quick Tutor!", "disabled"],
                     ].map(addDropMenuItem)}
                   </ul>
