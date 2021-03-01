@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
@@ -42,7 +42,7 @@ import Cart from "./img/cart.png";
 
 function App() {
   const cart = useSelector((state) => state.cart);
-  const timeout = useRef({});
+  const [dropTimeout, setDropTimeout] = useState(0);
   const [hasSidebar, setSidebar] = useState(false);
   const [hasDropdown, setDropdown] = useState(false);
   const { cartItems } = cart;
@@ -136,10 +136,10 @@ function App() {
               <div
                 className="nav-item dropdown"
                 onMouseEnter={() =>
-                  (timeout.current = setTimeout(() => setDropdown(true), 500))
+                  setDropTimeout(setTimeout(() => setDropdown(true), 350))
                 }
                 onMouseLeave={() => {
-                  clearTimeout(timeout.current);
+                  clearTimeout(dropTimeout);
                   setDropdown(false);
                 }}
               >
@@ -155,12 +155,15 @@ function App() {
                 {hasDropdown && (
                   <ul className="dropdown__menu">
                     {[
+                      ["Informations"],
                       ["Your Profile", "/profile"],
                       ["separator"],
+                      ["Orders"],
                       ["Your Order History", "/order-history"],
                       ["Returns", "disabled"],
                       ["Contact Us", "https://ntien.com"],
                       ["separator"],
+                      ["Account"],
                       ["Sign Out", "#signout", , signoutHandler],
                     ].map(addDropMenuItem)}
                   </ul>
@@ -180,10 +183,10 @@ function App() {
               <div
                 className="nav-item dropdown"
                 onMouseEnter={() =>
-                  (timeout.current = setTimeout(() => setDropdown(true), 500))
+                  setDropTimeout(setTimeout(() => setDropdown(true), 350))
                 }
                 onMouseLeave={() => {
-                  clearTimeout(timeout.current);
+                  clearTimeout(dropTimeout);
                   setDropdown(false);
                 }}
               >
@@ -197,11 +200,14 @@ function App() {
                 {hasDropdown && (
                   <ul className="dropdown__menu">
                     {[
+                      ["Profile"],
                       ["Seller Profile", "/profile/seller"],
                       ["separator"],
+                      ["Listing"],
                       ["Product List", "/product-list/seller"],
                       ["Sold Order List", "/order-list/seller"],
                       ["separator"],
+                      ["Assistant"],
                       ["Sell Statistics", "disabled"],
                     ].map(addDropMenuItem)}
                   </ul>
@@ -212,10 +218,10 @@ function App() {
               <div
                 className="nav-item dropdown"
                 onMouseEnter={() =>
-                  (timeout.current = setTimeout(() => setDropdown(true), 500))
+                  setDropTimeout(setTimeout(() => setDropdown(true), 350))
                 }
                 onMouseLeave={() => {
-                  clearTimeout(timeout.current);
+                  clearTimeout(dropTimeout);
                   setDropdown(false);
                 }}
               >
@@ -229,11 +235,14 @@ function App() {
                 {hasDropdown && (
                   <ul className="dropdown__menu">
                     {[
-                      ["Administration", "/user-list"],
+                      ["Admin"],
+                      ["User List", "/user-list"],
                       ["separator"],
-                      ["Products Database", "/product-list"],
-                      ["Orders Database", "/order-list"],
+                      ["Database"],
+                      ["Product Catalogue", "/product-list"],
+                      ["All Order List", "/order-list"],
                       ["separator"],
+                      ["Help"],
                       ["Quick Tutor!", "disabled"],
                     ].map(addDropMenuItem)}
                   </ul>
