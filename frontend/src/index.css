@@ -280,7 +280,7 @@ a .brand {
 /* Aside */
 .no-scroll {
   width: 100vw;
-  overflow-y: hidden;
+  overflow: hidden;
   position:fixed;
 }
 .click-catcher {
