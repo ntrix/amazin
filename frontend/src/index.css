@@ -532,7 +532,7 @@ table th {
   width: 4.5rem;
   border-radius: 0 0.5rem 0.5rem 0;
   border: none;
-  margin-left: -2.9em;
+  margin-left: -4.5rem;
   background-color: #f6bd68;
 }
 .search button:hover {
@@ -546,7 +546,12 @@ input.search-box__icon {
   border-radius: 0.5rem;
 }
 .search input:focus {
-  outline: #f3a847 auto thick;
+  margin: -.5rem;
+  outline: none;
+  border: solid .5rem #f3a847;
+}
+.search input:focus + button {
+  border-radius: 0;
 }
 
 /* Map */
@@ -725,7 +730,7 @@ textarea#comment {
   .search button {
     width: 3rem;
     font-size: 1.2rem;
-    margin-left: -2.55em;
+    margin-left: -3rem;
   }
   aside {
     width: 32rem;

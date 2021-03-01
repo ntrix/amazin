@@ -170,7 +170,7 @@ function App() {
                 )}
               </div>
             ) : (
-              <Link to="/signin">
+              <Link to="/signin" className="nav-item dropdown">
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">Hi, Sign in</span>
                   <span className="nav-item__line-2">
