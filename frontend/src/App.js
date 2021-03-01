@@ -278,36 +278,38 @@ function App() {
             </Link>
           </li>
           <ul className="categories">
-            {[
-              ["Trending"],
-              ["New Releases", "/search/category/all"],
-              ["Top Sellers", "/"],
-              ["separator"],
-              ["Categories"],
-            ].map(addSideMenuItem)}
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
-              categories.map((c) =>
-                addSideMenuItem([c, "/search/category/" + c])
-              )
+              [
+                ["Trending"],
+                ["New Releases", "/search/category/all"],
+                ["Top Sellers", "/"],
+                ["separator"],
+                ["Categories"],
+                ...categories.map((c) => [c, "/search/category/" + c]),
+                ["separator"],
+                ["Help & Setting"],
+                ["My (Seller) Profile", "/profile/seller"],
+                ["Shipping Address", "/shipping"],
+                ["Orders & Returns", "/order-history"],
+                ["Statistics (AB Testing)", "disabled"],
+                ["FAQ & Contact", "https://ntien.com"],
+                ["separator"],
+                ["Account"],
+                userInfo
+                  ? ["Sign Out", "#signout", , signoutHandler]
+                  : ["Sign In", "/signin"],
+                [""],
+                ["separator"],
+                ["separator"],
+                ["ntien.com 2020", "disabled"],
+                ["separator"],
+                ["separator"],
+              ].map(addSideMenuItem)
             )}
-            {[
-              ["separator"],
-              ["Help & Setting"],
-              ["My (Seller) Profile", "/profile/seller"],
-              ["Shipping Address", "/shipping"],
-              ["Orders & Returns", "/order-history"],
-              ["Statistics (AB Testing)", "disabled"],
-              ["FAQ & Contact ntien.com", "https://ntien.com"],
-              ["separator"],
-              ["Account"],
-            ].map(addSideMenuItem)}
-            {userInfo
-              ? addSideMenuItem(["Sign Out", "#signout", , signoutHandler])
-              : addSideMenuItem(["Sign In", "/signin"])}
           </ul>
         </aside>
         <label
