@@ -294,7 +294,7 @@ a .brand {
 }
 aside {
   position: fixed;
-  width: 35rem;
+  width: 30rem;
   height: 100%;
   background-color: #fff;
   z-index: 1000;

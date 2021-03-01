@@ -295,7 +295,7 @@ function App() {
                 ["My (Seller) Profile", "/profile/seller"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
-                ["Statistics (AB Testing)", "disabled"],
+                ["Statistics / AB Testing", "disabled"],
                 ["FAQ & Contact", "https://ntien.com"],
                 ["separator"],
                 ["Account"],
