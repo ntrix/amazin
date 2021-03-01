@@ -525,12 +525,18 @@ table th {
 .search-box {
   flex: 1;
 }
+.search-box:hover {
+  border-color: transparent;
+}
 .search button {
   width: 4.5rem;
   border-radius: 0 0.5rem 0.5rem 0;
-  border-right: none;
+  border: none;
   margin-left: -2.9em;
   background-color: #f6bd68;
+}
+.search button:hover {
+  background-color: #f3a847;
 }
 input.search-box__icon {
   padding-right: 5.5rem;
@@ -538,6 +544,9 @@ input.search-box__icon {
 .search input {
   flex:1;
   border-radius: 0.5rem;
+}
+.search input:focus {
+  outline: #f3a847 auto thick;
 }
 
 /* Map */
