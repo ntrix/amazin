@@ -18,7 +18,7 @@ export default function SearchBox(props) {
           className="search-box__icon"
           onChange={(e) => setName(e.target.value)}
         ></input>
-        <button className="primary mobile-s" type="submit">
+        <button className="primary" type="submit">
           <i className="fa fa-search"></i>
         </button>
       </div>
