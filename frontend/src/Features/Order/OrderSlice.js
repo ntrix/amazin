@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Reducer } from "../RTKClient";
 
 export const {
   actions: orderCreateActions,
@@ -6,19 +6,7 @@ export const {
 } = createSlice({
   name: "orderCreate",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-      order: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer("order"),
 });
 
 export const {
@@ -27,17 +15,7 @@ export const {
 } = createSlice({
   name: "orderDetails",
   initialState: { loading: true },
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      order: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("order"),
 });
 
 export const {
@@ -46,15 +24,7 @@ export const {
 } = createSlice({
   name: "orderPay",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({ loading: false, success: true }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });
 
 export const {
@@ -63,17 +33,7 @@ export const {
 } = createSlice({
   name: "orderMineList",
   initialState: { orders: [] },
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      orders: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("orders"),
 });
 
 export const {
@@ -82,17 +42,7 @@ export const {
 } = createSlice({
   name: "orderList",
   initialState: { orders: [] },
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      orders: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("orders"),
 });
 
 export const {
@@ -101,18 +51,7 @@ export const {
 } = createSlice({
   name: "orderDelete",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });
 
 export const {
@@ -121,16 +60,5 @@ export const {
 } = createSlice({
   name: "orderDeliver",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });

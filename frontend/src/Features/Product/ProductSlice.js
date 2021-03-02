@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Reducer } from "../RTKClient";
 
 export const {
   actions: productListAllActions,
@@ -6,17 +6,7 @@ export const {
 } = createSlice({
   name: "productListAll",
   initialState: { loading: true, productList: [] },
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      ...action.payload,
-      loading: false,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("..."),
 });
 
 export const {
@@ -25,17 +15,7 @@ export const {
 } = createSlice({
   name: "productList",
   initialState: { loading: true, products: [] },
-  reducers: {
-    _REQUEST: (state, action) => ({ loading: true }),
-    _SUCCESS: (state, action) => ({
-      ...action.payload,
-      loading: false,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("..."),
 });
 
 export const {
@@ -44,19 +24,7 @@ export const {
 } = createSlice({
   name: "productCategoryList",
   initialState: { loading: true, products: [] },
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      categories: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("categories"),
 });
 
 export const {
@@ -65,19 +33,7 @@ export const {
 } = createSlice({
   name: "productDetails",
   initialState: { loading: true },
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      product: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("product"),
 });
 
 export const {
@@ -86,21 +42,7 @@ export const {
 } = createSlice({
   name: "productCreate",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-      product: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer("product"),
 });
 
 export const {
@@ -109,20 +51,7 @@ export const {
 } = createSlice({
   name: "productUpdate",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });
 
 export const {
@@ -131,20 +60,7 @@ export const {
 } = createSlice({
   name: "productDelete",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });
 
 export const {
@@ -153,19 +69,5 @@ export const {
 } = createSlice({
   name: "productReviewCreate",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-      review: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer("review"),
 });
