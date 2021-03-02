@@ -13,7 +13,10 @@ productRoute.get(
     let pageSize = Number(req.query.pageSize) || 6;
     if (pageSize > 200) {
       const list = await Product.find({});
-      const productList = list.map((p) => p.name);
+      const productList = list.map((p) => ({
+        name: p.name,
+        _id: p._id,
+      }));
       res.send({ productList });
       return;
     }
