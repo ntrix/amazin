@@ -44,7 +44,7 @@ function App() {
   const cart = useSelector((state) => state.cart);
   const [dropTimeout, setDropTimeout] = useState(0);
   const [hasSidebar, setSidebar] = useState(false);
-  const [hasDropdown, setDropdown] = useState(false);
+  const [hasDropdown, setDropdown] = useState(true);
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
