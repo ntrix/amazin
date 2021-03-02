@@ -1,7 +1,7 @@
 import Axios from "axios";
 import {
-  productListActions,
   productListAllActions,
+  productListActions,
   productCategoryListActions,
   productDetailsActions,
   productCreateActions,

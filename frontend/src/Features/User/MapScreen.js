@@ -8,7 +8,7 @@ import {
   Marker,
 } from "@react-google-maps/api";
 
-import { USER_ADDRESS_MAP_CONFIRM } from "./UserSlice";
+import { userAddressMapActions } from "./UserSlice";
 
 import LoadingBox from "../../components/LoadingBox";
 import { Redirect } from "react-router-dom";
@@ -67,7 +67,7 @@ export default function MapScreen(props) {
     const places = placeRef.current.getPlaces();
     if (places && places.length === 1) {
       dispatch(
-        USER_ADDRESS_MAP_CONFIRM({
+        userAddressMapActions._CONFIRM({
           lat: location.lat,
           lng: location.lng,
           address: places[0].formatted_address,

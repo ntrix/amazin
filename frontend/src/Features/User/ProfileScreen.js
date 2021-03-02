@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { USER_UPDATE_PROFILE_RESET } from "./UserSlice";
+import { userUpdateProfileActions } from "./UserSlice";
 import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
@@ -30,7 +30,7 @@ export default function ProfileScreen({ location }) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!user) {
-      dispatch(USER_UPDATE_PROFILE_RESET());
+      dispatch(userUpdateProfileActions._RESET());
       dispatch(detailsUser(userInfo._id));
     } else {
       setName(user.name);

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const {
-  actions: productListActions,
-  reducer: productListReducer,
+  actions: productListAllActions,
+  reducer: productListAllReducer,
 } = createSlice({
-  name: "productList",
-  initialState: { loading: true, products: [] },
+  name: "productListAll",
+  initialState: { loading: true, productList: [] },
   reducers: {
     _REQUEST: (state, action) => ({ loading: true }),
     _SUCCESS: (state, action) => ({
@@ -20,11 +20,11 @@ export const {
 });
 
 export const {
-  actions: productListAllActions,
-  reducer: productListAllReducer,
+  actions: productListActions,
+  reducer: productListReducer,
 } = createSlice({
-  name: "productListAll",
-  initialState: { loading: true, productList: [] },
+  name: "productList",
+  initialState: { loading: true, products: [] },
   reducers: {
     _REQUEST: (state, action) => ({ loading: true }),
     _SUCCESS: (state, action) => ({
@@ -154,18 +154,18 @@ export const {
   name: "productReviewCreate",
   initialState: {},
   reducers: {
-    PRODUCT_REVIEW_CREATE_REQUEST: (state, action) => ({
+    _REQUEST: (state, action) => ({
       loading: true,
     }),
-    PRODUCT_REVIEW_CREATE_SUCCESS: (state, action) => ({
+    _SUCCESS: (state, action) => ({
       loading: false,
       success: true,
       review: action.payload,
     }),
-    PRODUCT_REVIEW_CREATE_FAIL: (state, action) => ({
+    _FAIL: (state, action) => ({
       loading: false,
       error: action.payload,
     }),
-    PRODUCT_REVIEW_CREATE_RESET: (state, action) => ({}),
+    _RESET: (state, action) => ({}),
   },
 });

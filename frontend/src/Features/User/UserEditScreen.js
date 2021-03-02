@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { USER_UPDATE_RESET } from "./UserSlice";
+import { userUpdateActions } from "./UserSlice";
 import { detailsUser, updateUser } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
@@ -29,7 +29,7 @@ export default function UserEditScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (successUpdate) {
-      dispatch(USER_UPDATE_RESET());
+      dispatch(userUpdateActions._RESET());
       props.history.push("/user-list");
     }
     if (!user) {
