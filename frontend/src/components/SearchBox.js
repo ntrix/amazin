@@ -5,22 +5,22 @@ import { listAllProducts } from "../Controllers/productActions";
 
 export default function SearchBox(props) {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [term, setTerm] = useState("");
   const [suggests, setSuggests] = useState([]);
+  const [isFocus, setFocus] = useState(false);
   const { productList: list } = useSelector((state) => state.productListAll);
 
-  const groupLeft = "<b>";
-  const groupRight = "</b>";
   useEffect(() => {
     dispatch(listAllProducts({ pageSize: 999 }));
   }, []);
-
   const submitHandler = (e) => {
     e.preventDefault();
-    props.history.push(`/search/name/${name}`);
+    props.history.push(`/search/name/${term}`);
   };
 
   const findSuggest = (() => {
+    const groupLeft = "<b>";
+    const groupRight = "</b>";
     const validate = (reg) =>
       reg.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
 
@@ -55,30 +55,32 @@ export default function SearchBox(props) {
 
     return {
       search(list, keyword) {
+        keyword = keyword.slice(0, 40);
         let kr = keyReg(keyword);
         let result = [];
         for (let e of list) {
           if (kr.regexp.test(e.name)) {
-            //console.log({ e, kr, groupReg });
             result.push({
               name: e.name
                 .replace(kr.regexp, kr.replacement)
                 .replace(groupReg, ""),
               _id: e._id,
             });
-            //console.log(result[result.length - 1]);
           }
         }
-        //console.log(`result::::`, result);
         return result.sort(
           (a, b) => findMax(b.name, keyword) - findMax(a.name, keyword)
-        ); //result.map((el) => `${el}`);
+        );
       },
     };
   })();
 
   return (
     <div className="nav-item__col">
+      <label
+        className={isFocus && term ? "click-catcher" : ""}
+        onClick={() => setFocus(false)}
+      ></label>
       <form className="search" onSubmit={submitHandler}>
         <div className="row">
           <input
@@ -86,30 +88,24 @@ export default function SearchBox(props) {
             name="q"
             autoComplete="off"
             id="q"
-            className="enter-key"
-            value={name}
+            value={term}
             tabIndex="1"
-            onFocus={(e) =>
-              setSuggests(
-                e.target.value ? findSuggest.search(list, e.target.value) : []
-              )
-            }
-            onChange={(e) => setName(e.target.value)}
-            onKeyUp={(e) =>
-              setSuggests(
-                e.target.value ? findSuggest.search(list, e.target.value) : []
-              )
-            }
-            onBlur={(e) => {
-              setSuggests([]);
+            onFocus={(e) => {
+              setFocus(true);
+              setSuggests(findSuggest.search(list, term));
             }}
+            onChange={(e) => setTerm(e.target.value)}
+            onKeyUp={(e) =>
+              setSuggests(findSuggest.search(list, e.target.value))
+            }
+            onBlur={() => setFocus(true)}
           ></input>
           <button className="primary" type="submit">
             <i className="fa fa-search"></i>
           </button>
         </div>
       </form>
-      {suggests && (
+      {isFocus && term && (
         <div className="search__suggest">
           <ul>
             {suggests.slice(0, 12).map((p) => (
@@ -118,10 +114,7 @@ export default function SearchBox(props) {
                   to={`/product/${p._id}`}
                   dangerouslySetInnerHTML={{ __html: p.name }}
                   onClick={(e) => {
-                    e.stopPropagation();
-                    setName(
-                      p.name.replace(groupLeft, "").replace(groupRight, "")
-                    );
+                    setTerm(p.name.replace(/(<b>)|(<\/b>)/g, ""));
                     setSuggests([]);
                   }}
                 ></Link>
