@@ -3,6 +3,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_LIST_ALL_FAIL,
+  PRODUCT_LIST_ALL_REQUEST,
+  PRODUCT_LIST_ALL_SUCCESS,
   PRODUCT_CATEGORY_LIST_SUCCESS,
   PRODUCT_CATEGORY_LIST_REQUEST,
   PRODUCT_CATEGORY_LIST_FAIL,
@@ -23,7 +26,18 @@ import {
   PRODUCT_REVIEW_CREATE_FAIL,
 } from "../Features/Product/ProductSlice";
 
+export const listAllProducts = ({}) => async (dispatch) => {
+  dispatch(PRODUCT_LIST_ALL_REQUEST());
+  try {
+    const { data } = await Axios.get(`/api/products?pageSize=999`);
+    dispatch(PRODUCT_LIST_ALL_SUCCESS(data));
+  } catch (error) {
+    dispatch(PRODUCT_LIST_ALL_FAIL(error.message));
+  }
+};
+
 export const listProducts = ({
+  pageSize = 6,
   pageNumber = "",
   seller = "",
   name = "",
@@ -36,7 +50,7 @@ export const listProducts = ({
   dispatch(PRODUCT_LIST_REQUEST());
   try {
     const { data } = await Axios.get(
-      `/api/products?pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
+      `/api/products?pageSize=${pageSize}&pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
     );
     dispatch(PRODUCT_LIST_SUCCESS(data));
   } catch (error) {

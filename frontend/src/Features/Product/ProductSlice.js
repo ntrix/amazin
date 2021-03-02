@@ -27,6 +27,33 @@ export const {
 } = productListActions;
 export { productListReducer };
 
+const productListAllSlice = createSlice({
+  name: "productListAll",
+  initialState: { loading: true, productList: [] },
+  reducers: {
+    PRODUCT_LIST_ALL_REQUEST: (state, action) => ({ loading: true }),
+    PRODUCT_LIST_ALL_SUCCESS: (state, action) => ({
+      ...action.payload,
+      loading: false,
+    }),
+    PRODUCT_LIST_ALL_FAIL: (state, action) => ({
+      loading: false,
+      error: action.payload,
+    }),
+  },
+});
+
+const {
+  actions: productListAllActions,
+  reducer: productListAllReducer,
+} = productListAllSlice;
+export const {
+  PRODUCT_LIST_ALL_FAIL,
+  PRODUCT_LIST_ALL_REQUEST,
+  PRODUCT_LIST_ALL_SUCCESS,
+} = productListAllActions;
+export { productListAllReducer };
+
 const productCategoryListSlice = createSlice({
   name: "productCategoryList",
   initialState: { loading: true, products: [] },

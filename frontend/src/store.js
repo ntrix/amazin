@@ -17,6 +17,7 @@ import {
   productDeleteReducer,
   productDetailsReducer,
   productListReducer,
+  productListAllReducer,
   productReviewCreateReducer,
   productUpdateReducer,
 } from "./Features/Product/ProductSlice";
@@ -51,6 +52,7 @@ const preloadedState = {
 const store = configureStore({
   reducer: {
     productList: productListReducer,
+    productListAll: productListAllReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
     userSignin: userSigninReducer,

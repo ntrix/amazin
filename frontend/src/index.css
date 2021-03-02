@@ -525,6 +525,7 @@ table th {
 /* Search */
 .search-box {
   flex: 1;
+  position: relative;
 }
 .search-box:hover {
   border-color: transparent;
@@ -539,11 +540,9 @@ table th {
 .search button:hover {
   background-color: #f3a847;
 }
-input.search-box__icon {
-  padding-right: 5.5rem;
-}
 .search input {
   flex:1;
+  padding-right: 5.5rem;
   border-radius: 0.5rem;
 }
 .search input:focus {
@@ -553,6 +552,27 @@ input.search-box__icon {
 }
 .search input:focus + button {
   border-radius: 0;
+}
+.search__suggest {
+  position: absolute;
+  left: 0;
+  top: 4rem;
+  width: 100%;
+  z-index: 999;
+}
+.search__suggest ul:not(:empty) {
+  border: 1px solid #c8c8c8;
+  margin: 2px 4px;
+  outline: none;
+}
+.search__suggest li {
+  padding: 1rem;
+  margin: 0;
+  color: #111;
+  background: #fff;
+}
+.search__suggest li b {
+  color: #456;
 }
 
 /* Map */
@@ -724,7 +744,7 @@ textarea#comment {
   .mobile-s {
     display: none;
   }
-  input.search-box__icon {
+  .search input {
     padding-right: 2rem;
     font-size: 1.2rem;
   }
