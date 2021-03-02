@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from "../Order/OrderSlice";
+import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
 import {
   deliverOrder,
   detailsOrder,
@@ -53,8 +53,8 @@ export default function OrderScreen(props) {
       successDeliver ||
       (order && order._id !== orderId)
     ) {
-      dispatch(ORDER_PAY_RESET());
-      dispatch(ORDER_DELIVER_RESET());
+      dispatch(orderPayActions._RESET());
+      dispatch(orderDeliverActions._RESET());
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -86,7 +86,7 @@ export default function OrderScreen(props) {
           <ul>
             <li>
               <div className="card card-body">
-                <h2>Shippring</h2>
+                <h2>Shipping</h2>
                 <p>
                   <strong>Name:</strong> {order.shippingAddress.fullName} <br />
                   <strong>Address: </strong> {order.shippingAddress.address},

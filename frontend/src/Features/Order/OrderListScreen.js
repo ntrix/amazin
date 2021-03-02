@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ORDER_DELETE_RESET } from "../Order/OrderSlice";
+import { orderDeleteActions } from "../Order/OrderSlice";
 import { deleteOrder, listOrders } from "../../Controllers/orderActions";
 
 import LoadingBox from "../../components/LoadingBox";
@@ -22,7 +22,7 @@ export default function OrderListScreen(props) {
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(ORDER_DELETE_RESET());
+    dispatch(orderDeleteActions._RESET());
     dispatch(listOrders({ seller: sellerMode ? userInfo._id : "" }));
   }, [dispatch, sellerMode, successDelete, userInfo._id]);
   const deleteHandler = (order) => {
