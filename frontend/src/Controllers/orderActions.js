@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { CART_EMPTY } from "../Features/Checkout/CartSlice.js";
+import { cartActions } from "../Features/Checkout/CartSlice.js";
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
@@ -36,7 +36,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     });
     dispatch(ORDER_CREATE_SUCCESS(data.order));
-    dispatch(CART_EMPTY());
+    dispatch(cartActions._EMPTY());
     localStorage.removeItem("cartItems");
   } catch (error) {
     dispatch(

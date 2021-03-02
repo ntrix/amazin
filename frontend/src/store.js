@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 
-import cartReducer from "./Features/Checkout/CartSlice";
+import { cartReducer } from "./Features/Checkout/CartSlice";
 import {
   orderCreateReducer,
   orderDeleteReducer,
