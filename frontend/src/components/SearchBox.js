@@ -19,52 +19,45 @@ export default function SearchBox(props) {
   };
 
   const findSuggest = (() => {
-    const groupLeft = "<b>";
-    const groupRight = "</b>";
-    const validate = (reg) =>
-      reg.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
-
-    let groupReg = new RegExp(validate(groupRight + groupLeft), "g");
-    let groupExtractReg = new RegExp(
-      "(" + validate(groupLeft) + "[\\s\\S]+?" + validate(groupRight) + ")",
-      "g"
-    );
-    const findMax = (str, keyword) => {
+    const LL = "<b>";
+    const RR = "</b>";
+    const rep = (r) => r.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
+    const combine_R_L = new RegExp(rep(RR + LL), "g");
+    const group = new RegExp("(" + rep(LL) + "[\\s\\S]+?" + rep(RR) + ")", "g");
+    const findMax = (string, word) => {
       let max = 0;
-      keyword = groupLeft + keyword + groupRight;
-      str.replace(groupExtractReg, (m) => {
-        if (keyword == m) {
-          max = 999;
-        } else if (m.length > max) {
-          max = m.length;
-        }
+      word = LL + word + RR;
+      string.replace(group, (found) => {
+        if (word == found) max = 999;
+        else if (found.length > max) max = found.length;
       });
       return max;
     };
-    const keyReg = (key) => {
-      let source = "(.*?)";
-      key.split("").forEach((k) => (source += "(" + validate(k) + ")(.*?)"));
+    const regExpKey = (key) => {
+      const source = key
+        .split("")
+        .reduce((acc, k) => acc + "(" + rep(k) + ")(.*?)", "(.*?)");
       let replacer = "";
       for (var i = 1, len = key.length; len > 0; len--)
-        replacer += "$" + i++ + groupLeft + "$" + i++ + groupRight;
+        replacer += "$" + i++ + LL + "$" + i++ + RR;
       return {
-        regexp: new RegExp(source, "i"),
-        replacement: replacer + "$" + i,
+        regEx: new RegExp(source, "i"),
+        replacer: replacer + "$" + i,
       };
     };
 
     return {
       search(list, keyword) {
-        keyword = keyword.slice(0, 40);
-        let kr = keyReg(keyword);
-        let result = [];
-        for (let e of list) {
-          if (kr.regexp.test(e.name)) {
+        keyword = keyword.slice(0, 49);
+        const keyReg = regExpKey(keyword);
+        const result = [];
+        for (let el of list) {
+          if (keyReg.regEx.test(el.name)) {
             result.push({
-              name: e.name
-                .replace(kr.regexp, kr.replacement)
-                .replace(groupReg, ""),
-              _id: e._id,
+              name: el.name
+                .replace(keyReg.regEx, keyReg.replacer)
+                .replace(combine_R_L, ""),
+              _id: el._id,
             });
           }
         }
