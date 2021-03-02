@@ -1,5 +1,5 @@
 import express from "express";
-import expressAsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
 import { isAdmin, isAuth, isSellerOrAdmin } from "../utils.js";
 
@@ -10,7 +10,7 @@ orderRoute.use(isAuth);
 orderRoute.get(
   "/",
   isSellerOrAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const seller = req.query.seller || "";
     const sellerFilter = seller ? { seller } : {};
 
@@ -24,7 +24,7 @@ orderRoute.get(
 
 orderRoute.get(
   "/mine",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const orders = await Order.find({ user: req.user._id });
     res.send(orders);
   })
@@ -32,7 +32,7 @@ orderRoute.get(
 
 orderRoute.post(
   "/",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     if (req.body.orderItems.length === 0) {
       res.status(400).send({ message: "Cart is empty" });
     } else {
@@ -57,7 +57,7 @@ orderRoute.post(
 
 orderRoute.get(
   "/:id",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       res.send(order);
@@ -69,7 +69,7 @@ orderRoute.get(
 
 orderRoute.put(
   "/:id/pay",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isPaid = true;
@@ -91,7 +91,7 @@ orderRoute.put(
 orderRoute.delete(
   "/:id",
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       const deleteOrder = await order.remove();
@@ -105,7 +105,7 @@ orderRoute.delete(
 orderRoute.put(
   "/:id/deliver",
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isDelivered = true;

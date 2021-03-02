@@ -1,5 +1,5 @@
 import express from "express";
-import expressAsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import data from "../data.js";
 import User from "../models/userModel.js";
@@ -9,7 +9,7 @@ const userRoute = express.Router();
 
 userRoute.get(
   "/top-sellers",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const topSellers = await User.find({ isSeller: true })
       .sort({ "seller.rating": -1 })
       .limit(3);
@@ -19,7 +19,7 @@ userRoute.get(
 
 userRoute.get(
   "/seed",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     // await User.remove({});
     const createdUsers = await User.insertMany(data.users);
     res.send({ createdUsers });
@@ -28,7 +28,7 @@ userRoute.get(
 
 userRoute.post(
   "/signin",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
@@ -49,7 +49,7 @@ userRoute.post(
 
 userRoute.post(
   "/register",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const user = new User({
       name: req.body.name,
       email: req.body.email,
@@ -69,7 +69,7 @@ userRoute.post(
 
 userRoute.get(
   "/:id",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
       res.send(user);
@@ -83,7 +83,7 @@ userRoute.use(isAuth);
 
 userRoute.put(
   "/profile",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
     if (user) {
       user.name = req.body.name || user.name;
@@ -113,7 +113,7 @@ userRoute.put(
 userRoute.get(
   "/",
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const users = await User.find({});
     res.send(users);
   })
@@ -122,7 +122,7 @@ userRoute.get(
 userRoute.delete(
   "/:id",
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
       if (user.email === "admin@example.com") {
@@ -140,7 +140,7 @@ userRoute.delete(
 userRoute.put(
   "/:id",
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
       user.name = req.body.name || user.name;
