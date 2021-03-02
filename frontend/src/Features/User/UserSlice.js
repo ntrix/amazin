@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Reducer } from "../RTKClient";
 
 export const {
   actions: userRegisterActions,
@@ -6,19 +6,7 @@ export const {
 } = createSlice({
   name: "userRegister",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      userInfo: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("userInfo"),
 });
 
 export const {
@@ -27,20 +15,7 @@ export const {
 } = createSlice({
   name: "userSignin",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      userInfo: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _SIGNOUT: (state, action) => ({}),
-  },
+  reducers: Reducer("userInfo"),
 });
 
 export const {
@@ -49,22 +24,7 @@ export const {
 } = createSlice({
   name: "userDetails",
   initialState: { loading: true },
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      user: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({
-      loading: true,
-    }),
-  },
+  reducers: { ...Reducer("user"), _RESET: () => ({ loading: true }) },
 });
 
 export const {
@@ -73,20 +33,7 @@ export const {
 } = createSlice({
   name: "userUpdateProfile",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });
 
 export const {
@@ -95,20 +42,7 @@ export const {
 } = createSlice({
   name: "userUpdate",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });
 
 export const {
@@ -117,19 +51,7 @@ export const {
 } = createSlice({
   name: "userList",
   initialState: { loading: true },
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      users: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("users"),
 });
 
 export const {
@@ -138,20 +60,7 @@ export const {
 } = createSlice({
   name: "userDelete",
   initialState: {},
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      success: true,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-    _RESET: (state, action) => ({}),
-  },
+  reducers: Reducer(),
 });
 
 export const {
@@ -160,19 +69,7 @@ export const {
 } = createSlice({
   name: "userTopSellerList",
   initialState: { loading: true },
-  reducers: {
-    _REQUEST: (state, action) => ({
-      loading: true,
-    }),
-    _SUCCESS: (state, action) => ({
-      loading: false,
-      users: action.payload,
-    }),
-    _FAIL: (state, action) => ({
-      loading: false,
-      error: action.payload,
-    }),
-  },
+  reducers: Reducer("users"),
 });
 
 export const {
