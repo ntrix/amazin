@@ -49,7 +49,7 @@ export default function OrderListScreen(props) {
               <th>TOTAL</th>
               <th>PAID</th>
               <th>DELIVERED</th>
-              <th className="btn-group__width12">ACTIONS</th>
+              <th className="tab__w12">ACTIONS</th>
             </tr>
           </thead>
           <tbody>

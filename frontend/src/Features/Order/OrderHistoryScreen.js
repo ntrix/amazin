@@ -29,7 +29,7 @@ export default function OrderHistoryScreen(props) {
               <th>TOTAL</th>
               <th>PAID</th>
               <th>DELIVERED</th>
-              <th className="btn-group__width12">ACTIONS</th>
+              <th className="tab__w6">ACTIONS</th>
             </tr>
           </thead>
           <tbody>

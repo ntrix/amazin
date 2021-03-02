@@ -250,7 +250,7 @@ a .brand {
   right: -1rem;
   min-width: 14rem;
   padding: 2rem;
-  z-index: 1;
+  z-index: 9999;
   background-color: #f0f0f0;
   margin-top: 1rem;
   border-radius: 0.3rem;
@@ -293,7 +293,7 @@ a .brand {
   width: 100vw;
   height: 100vh;
   background-color: #0008;
-  z-index: 99;
+  z-index: 1990;
   cursor: pointer;
 }
 aside {
@@ -301,7 +301,7 @@ aside {
   width: 35rem;
   height: 100%;
   background-color: #fff;
-  z-index: 1000;
+  z-index: 1999;
   transform: translate3D(-40rem,0,0);
   transition: all 0.3s ease;
 }
@@ -507,7 +507,6 @@ a:hover {
 table td,
 table th {
   text-align: left;
-  border: 0.1rem solid #e4e4e4;
   padding: 0.5rem;
 }
 .table tr td:first-child,
@@ -517,6 +516,23 @@ table th {
 .table button {
   margin: 0 0.2rem;
 }
+.tab__w12 {
+  width: 12rem;
+  min-width: 11.5rem;
+}
+.tab__w9 {
+  width: 9rem;
+  min-width: 8.5rem;
+}
+.tab__w6 {
+  width: 6rem;
+  min-width: 5.5rem;
+}
+.tab__rest {
+  flex: 1 1 30rem;
+  min-width: 6rem;
+}
+
 
 /* Carousel */
 .carousel .slide img {
@@ -559,7 +575,7 @@ table th {
   left: 0;
   top: 4rem;
   width: 100%;
-  z-index: 999;
+  z-index: 9990;
 }
 .search__suggest ul:not(:empty) {
   border: 1px solid #ccc;
@@ -576,7 +592,7 @@ table th {
   color: #000;
 }
 .search__suggest li b {
-  color: #232f3e;
+  color: #c45629;
 }
 
 /* Map */
@@ -673,11 +689,6 @@ textarea#comment {
   height: 10rem;
   resize: vertical;
 }
-.btn-group__width12 {
-  width: 12rem;
-  min-width: 11rem;
-}
-
 /* searchScreen */
 .search__banner {
   padding: 0.5rem 0;

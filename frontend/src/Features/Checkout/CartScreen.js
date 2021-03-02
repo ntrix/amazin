@@ -38,22 +38,24 @@ export default function CartScreen(props) {
             Your cart is still empty. <Link to="/">Let's go shopping</Link>
           </MessageBox>
         ) : (
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.product}>
-                <div className="row">
-                  <div>
+          <table className="table">
+            <thead></thead>
+            <tbody>
+              {cartItems.map((item) => (
+                <tr className="row" key={item.product}>
+                  <td className="tab__w6">
                     <img
                       src={item.image}
                       alt={item.name}
                       className="small"
                     ></img>
-                  </div>
-                  <div className="min-30">
+                  </td>
+                  <td className="tab__rest">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
-                  </div>
-                  <div>
+                  </td>
+                  <td className="tab__w9">
                     <select
+                      className="tab__w6"
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
@@ -67,20 +69,20 @@ export default function CartScreen(props) {
                         </option>
                       ))}
                     </select>
-                  </div>
-                  <div>${item.price}</div>
-                  <div>
+                  </td>
+                  <td className="tab__w6">${item.price}</td>
+                  <td className="tab__w9">
                     <button
                       type="button"
                       onClick={() => removeFromCartHandler(item.product)}
                     >
                       Delete
                     </button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
       <div className="col-1">
