@@ -279,7 +279,7 @@ a .brand {
   width: 100%;
   height: 1px;
   margin: 0.5rem 0;
-  background: #c8c8c8;
+  background: #ccc;
 }
 /* Aside */
 .no-scroll {
@@ -374,6 +374,7 @@ aside li > a {
   font-size: 1.4rem;
   color: #111;
 }
+.search__suggest li > a:hover,
 aside ul li > a:hover {
   color: #111;
   background-color: #eaeded;
@@ -409,7 +410,7 @@ img.large {
   padding: 1rem;
   border-radius: 0.3rem;
   background: #fff;
-  border-bottom: 0.2rem solid #c8c8c8;
+  border-bottom: 0.2rem solid #ccc;
 }
 .card-body {
   margin-bottom: 2rem;
@@ -429,7 +430,7 @@ a {
   color: #111;
 }
 a:hover {
-  color: #c45500;
+  color: #c45629;
 }
 .rating span {
   color: #f0c040;
@@ -439,7 +440,7 @@ a:hover {
   color: #0066c0;
 }
 .rating:hover span:last-child {
-  color: #c45500;
+  color: #c45629;
 }
 /* Alert */
 .loading {
@@ -484,15 +485,15 @@ a:hover {
 
 /* Checkout Steps */
 .checkout__steps > div {
-  border-top: 0.3rem #c0c0c0 solid;
-  color: #c0c0c0;
+  border-top: 0.3rem #ccc solid;
+  color: #ccc;
   flex: 1;
   padding: 1rem;
   font-weight: bold;
 }
 .checkout__steps > div.active {
-  border-top-color: #f08000;
-  color: #f08000;
+  border-top-color: #ff8000;
+  color: #ff8000;
 }
 
 /* Table */
@@ -561,18 +562,21 @@ table th {
   z-index: 999;
 }
 .search__suggest ul:not(:empty) {
-  border: 1px solid #c8c8c8;
+  border: 1px solid #ccc;
   margin: 2px 4px;
   outline: none;
 }
 .search__suggest li {
-  padding: 1rem;
   margin: 0;
-  color: #111;
   background: #fff;
 }
+.search__suggest li a{
+  display:block;
+  height: 100%;
+  color: #000;
+}
 .search__suggest li b {
-  color: #456;
+  color: #232f3e;
 }
 
 /* Map */
@@ -679,7 +683,7 @@ textarea#comment {
   padding: 0.5rem 0;
   margin: -0.5rem -1rem;
   background: #fff;
-  box-shadow: 0 2px 5px rgba(15,17,17,.15);
+  box-shadow: 0 2px 5px #1111;
 }
 .search__count {
   margin-left: 2rem;
@@ -691,7 +695,7 @@ textarea#comment {
   border: thin solid #ccc;
   border-radius: 1.5rem;
   background: #F2F2F2;
-  box-shadow: 0 2px 5px rgba(15,17,17,.15);
+  box-shadow: 0 2px 5px #1111;
 }
 .sort-dropdown select {
   width: 13rem;
@@ -719,7 +723,7 @@ textarea#comment {
 }
 .rating .fa {
   font-size: 2rem;
-  color: #f3a333;
+  color: #f3a847;
 }
 
 /* Tablet - PC low resolution */
