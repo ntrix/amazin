@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
 
 export default function SearchBox(props) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
+  const [suggests, setSuggests] = useState([]);
   const { productList: list } = useSelector((state) => state.productListAll);
 
+  const groupLeft = "<b>";
+  const groupRight = "</b>";
   useEffect(() => {
     dispatch(listAllProducts({ pageSize: 999 }));
   }, []);
@@ -16,12 +20,10 @@ export default function SearchBox(props) {
     props.history.push(`/search/name/${name}`);
   };
 
-  const suggest = (() => {
+  const findSuggest = (() => {
     const validate = (reg) =>
       reg.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
 
-    let groupLeft = "<b>";
-    let groupRight = "</b>";
     let groupReg = new RegExp(validate(groupRight + groupLeft), "g");
     let groupExtractReg = new RegExp(
       "(" + validate(groupLeft) + "[\\s\\S]+?" + validate(groupRight) + ")",
@@ -56,24 +58,25 @@ export default function SearchBox(props) {
         let kr = keyReg(keyword);
         let result = [];
         for (let e of list) {
-          if (kr.regexp.test(e)) {
-            console.log({ e, kr, groupReg });
-            result.push(
-              e.replace(kr.regexp, kr.replacement).replace(groupReg, "")
-            );
-            console.log(result[result.length - 1]);
+          if (kr.regexp.test(e.name)) {
+            //console.log({ e, kr, groupReg });
+            result.push({
+              name: e.name
+                .replace(kr.regexp, kr.replacement)
+                .replace(groupReg, ""),
+              _id: e._id,
+            });
+            //console.log(result[result.length - 1]);
           }
         }
-        result = result.sort(
-          (a, b) => findMax(b, keyword) - findMax(a, keyword)
-        );
         //console.log(`result::::`, result);
-        return result.map((el) => `${el}`);
+        return result.sort(
+          (a, b) => findMax(b.name, keyword) - findMax(a.name, keyword)
+        ); //result.map((el) => `${el}`);
       },
     };
   })();
 
-  const [rs, setRs] = useState([]);
   return (
     <div className="nav-item__col">
       <form className="search" onSubmit={submitHandler}>
@@ -84,23 +87,45 @@ export default function SearchBox(props) {
             autoComplete="off"
             id="q"
             className="enter-key"
-            text=""
+            value={name}
             tabIndex="1"
+            onFocus={(e) =>
+              setSuggests(
+                e.target.value ? findSuggest.search(list, e.target.value) : []
+              )
+            }
             onChange={(e) => setName(e.target.value)}
             onKeyUp={(e) =>
-              setRs(e.target.value ? suggest.search(list, e.target.value) : [])
+              setSuggests(
+                e.target.value ? findSuggest.search(list, e.target.value) : []
+              )
             }
+            onBlur={(e) => {
+              setSuggests([]);
+            }}
           ></input>
           <button className="primary" type="submit">
             <i className="fa fa-search"></i>
           </button>
         </div>
       </form>
-      {rs && (
+      {suggests && (
         <div className="search__suggest">
           <ul>
-            {rs.slice(0, 12).map((s) => (
-              <li dangerouslySetInnerHTML={{ __html: s }}></li>
+            {suggests.slice(0, 12).map((p) => (
+              <li>
+                <Link
+                  to={`/product/${p._id}`}
+                  dangerouslySetInnerHTML={{ __html: p.name }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setName(
+                      p.name.replace(groupLeft, "").replace(groupRight, "")
+                    );
+                    setSuggests([]);
+                  }}
+                ></Link>
+              </li>
             ))}
           </ul>
         </div>
