@@ -20,10 +20,8 @@ export default function Product({ product }) {
           <div className="price">
             <sup>$</sup>
             {product.price}
-            <sup>99</sup>
           </div>
-          <br />
-          <sup>Shipping exklusive</sup>
+          <sub>Shipping exklusive</sub>
           <div>
             <Link to={`/seller/${product.seller._id}`} className="row end">
               By Seller: {product?.seller?.seller?.name || "Anonymous Seller"}

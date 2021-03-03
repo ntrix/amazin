@@ -199,11 +199,15 @@ textarea,
 button {
   padding: 1rem;
   border-radius: 3px;
-  border: thin solid #a4a4a4;
+  border: thin #a4a4a4 solid;
+  border-color: #adb1b8 #a2a6ac #8d9096;
   font-weight: 500;
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #e7e9ec;
+  background: -webkit-linear-gradient(top, #fff, #f7f8fa);
+  background: linear-gradient(to bottom, #fff, #f7f8fa);
 }
 button {
   display: inline-block;
@@ -211,17 +215,16 @@ button {
   text-decoration: none !important;
   vertical-align: middle;
   outline: none;
-  border: thin #a4a4a4 solid;
-  border-radius: 3px;
-  border-color: #adb1b8 #a2a6ac #8d9096;
+  cursor: pointer;
   background: #eff1f3;
   background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
   background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
-  cursor: pointer;
 }
 select:hover,
 button:hover {
-  background: #e3e6e6;
+  background: #e0e3e8;
+  background: -webkit-linear-gradient(top, #e7eaf0, #d9dce1);
+  background: linear-gradient(to bottom, #e7eaf0, #d9dce1);
   cursor: pointer;
 }
 input:focus,
@@ -240,6 +243,8 @@ button.primary {
 }
 button.primary:hover {
   background: #f0c14b;
+  background: -webkit-linear-gradient(top, #f7dfa5, #f3a847);
+  background: linear-gradient(to bottom, #f7dfa5, #f3a847);
   border-color: #a88734 #9c7e31 #846a29;
 }
 button.block {
