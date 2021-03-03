@@ -560,7 +560,10 @@ a:hover {
   margin: 0.1rem;
 }
 .rating span:last-child {
-  color: #0066c0;
+  color: #111;
+}
+.card .rating span:last-child {
+  color: #0066c0; /*reviews*/
 }
 .rating:hover span:last-child {
   color: #c45629;
