@@ -109,6 +109,7 @@ export default function SearchBox(props) {
                   onClick={(e) => {
                     setTerm(p.name.replace(/(<b>)|(<\/b>)/g, ""));
                     setSuggests([]);
+                    setFocus(false);
                   }}
                 ></Link>
               </li>
