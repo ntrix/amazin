@@ -565,12 +565,14 @@ a:hover {
   margin: 0.1rem;
 }
 .rating span:last-child {
-  color: #111;
-}
-.card .rating span:last-child {
   color: #0066c0; /*reviews*/
+  cursor: default;
 }
-.rating:hover span:last-child {
+.search__filter .rating span:last-child {
+  color: #111;
+  cursor: pointer;
+}
+.search__filter .rating:hover span:last-child {
   color: #c45629;
 }
 /* Alert */
