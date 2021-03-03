@@ -61,10 +61,10 @@ function App() {
   } = productCategoryList;
 
   function getShortenName(user, length) {
-    const shortName = user?.name ? user.name.split(" ")[0] : "Sign in";
-    return !length
-      ? shortName
-      : shortName.slice(0, length) + (shortName.slice(length) ? ".." : "");
+    if (!user) return "Sign In";
+    if (!length) return user.name;
+    const name = user.name.split(" ")[0];
+    return name.slice(0, length) + (name.length > length ? ".." : "");
   }
   const addMenuItem = (setMenu) => ([text, link, className, action]) => {
     if (text == "separator") return <div className="separator"></div>;
@@ -77,7 +77,7 @@ function App() {
         <a href={link} target="_blank">
           {text}
         </a>
-      ) : (
+      ) : link ? (
         <Link
           to={link}
           className={className}
@@ -88,6 +88,8 @@ function App() {
         >
           {text}
         </Link>
+      ) : (
+        <div>{text}</div>
       );
     return <li key={text}>{inner()}</li>;
   };
@@ -145,7 +147,9 @@ function App() {
               >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">
-                    Hi, {getShortenName(userInfo, 7)}
+                    H<span className="mobile--off">i, </span>
+                    <span className="mobile">ello, </span>
+                    {getShortenName(userInfo, 9)}
                   </span>
                   <span className="nav-item__line-2">
                     Account<span className="pc"> & Lists</span>{" "}
@@ -274,16 +278,16 @@ function App() {
         <aside className={hasSidebar ? "open" : ""}>
           <button
             onClick={() => setSidebar(false)}
-            id="close-sidebar-btn"
-            className="close-sidebar"
+            id="sidebar__close-btn"
+            className="sidebar--close"
             type="button"
           >
             <i className="fa fa-times"></i>
           </button>
           <li onClick={() => setSidebar(false)}>
-            <Link to="/profile" className="sidebar-user">
+            <Link to="/profile" className="sidebar__header">
               <i className="fa fa-user-circle" aria-hidden="true"></i>
-              {" Hello, " + getShortenName(userInfo, 14)}
+              {"Hello, " + getShortenName(userInfo)}
             </Link>
           </li>
           <ul className="categories">
@@ -323,7 +327,7 @@ function App() {
         </aside>
         <label
           className={hasSidebar ? "click-catcher" : ""}
-          htmlFor="close-sidebar-btn"
+          htmlFor="sidebar__close-btn"
         ></label>
         <main className="container">
           <Route path="/seller/:id" component={SellerScreen}></Route>

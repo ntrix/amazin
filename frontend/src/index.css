@@ -1,22 +1,43 @@
+@font-face {
+  font-family: "Amazon Ember Heavy";
+  src: url("./fonts/AmazonEmber_W_He.eot");
+  src: url("./fonts/AmazonEmber_W_He.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_He.woff") format("woff");
+}
+@font-face {
+  font-family: "Amazon Ember Bold";
+  src: url("./fonts/AmazonEmber_W_Bd.eot");
+  src: url("./fonts/AmazonEmber_W_Bd.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_Bd.woff") format("woff");
+}
+@font-face {
+  font-family: "Amazon Ember";
+  src: url("./fonts/AmazonEmber_W_Rg.eot");
+  src: url("./fonts/AmazonEmber_W_Rg.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_Rg.woff") format("woff");
+}
+/*@font-face {font-family: "Amazon Ember"; src: url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.eot"); src: url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.woff") format("woff"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.svg#Amazon Ember") format("svg"); }
+@font-face {font-family: "Amazon Ember Bold"; src: url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.eot"); src: url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.woff") format("woff"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.svg#Amazon Ember") format("svg"); }*/
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
   background-color: #eaeded;
   --inner-focus-color: #e77600;
   --outer-focus-color: rgba(228, 121, 17, 0.5);
+  -webkit-text-size-adjust: 100%;
 }
 body {
   margin: 0;
   height: 100vh;
   font-size: 1.4rem;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Amazon Ember", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 #root {
   height: 100%;
 }
-*:not(input,textarea) {
+*:not(input, textarea) {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -26,7 +47,9 @@ body {
 .active {
   font-weight: bold;
 }
-.disabled, .disabled *, .disabled:hover {
+.disabled,
+.disabled *,
+.disabled:hover {
   cursor: default;
   color: #888 !important;
   outline: none !important;
@@ -39,9 +62,9 @@ body {
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header'
-    'main'
-    'footer';
+    "header"
+    "main"
+    "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 6rem 1fr 6rem;
   height: 100%;
@@ -98,12 +121,24 @@ footer {
 .min-30 {
   min-width: 30rem;
 }
-.p-1 { padding: 1rem}
-.mt-1 {margin-top:1rem}
-.mr-1 {margin-right:1rem}
-.mb-1 {margin-bottom:1rem}
-.ml-1 {margin-left:1rem}
-.mh-2 {margin:0 2rem}
+.p-1 {
+  padding: 1rem;
+}
+.mt-1 {
+  margin-top: 1rem;
+}
+.mr-1 {
+  margin-right: 1rem;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.ml-1 {
+  margin-left: 1rem;
+}
+.mh-2 {
+  margin: 0 2rem;
+}
 .text-center {
   text-align: center;
 }
@@ -145,18 +180,18 @@ button {
 button {
   display: inline-block;
   text-align: center;
-  text-decoration: none!important;
+  text-decoration: none !important;
   vertical-align: middle;
   outline: none;
   border: thin #a4a4a4 solid;
   border-radius: 3px;
-  border-color: #ADB1B8 #A2A6AC #8D9096;
-  background: #F2F2F2;
+  border-color: #adb1b8 #a2a6ac #8d9096;
+  background: #f2f2f2;
   cursor: pointer;
 }
 select:hover,
 button:hover {
-  background: #E3E6E6;
+  background: #e3e6e6;
   cursor: pointer;
 }
 input:focus,
@@ -169,8 +204,8 @@ button:focus {
 }
 button.primary {
   background: #f4d078;
-  background: -webkit-linear-gradient(top,#f7dfa5,#f0c14b);
-  background: linear-gradient(to bottom,#f7dfa5,#f0c14b);
+  background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b);
+  background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
   color: #111;
 }
 button.primary:hover {
@@ -230,14 +265,20 @@ a .brand {
 }
 .nav-item__line-1 {
   font-size: 1.2rem;
+  line-height: 1.4rem;
+  height: 1.4rem;
+  font-weight: 400;
 }
 .nav-item__line-2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  font-family: "Amazon Ember Heavy";
+  padding-bottom: 0.5rem;
 }
 .nav-item__cart .cart--count {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 3px auto;
   padding-left: 1rem;
+  font-family: "Amazon Ember Heavy";
   font-size: 1.8rem;
   color: #f80;
 }
@@ -248,10 +289,10 @@ a .brand {
 .dropdown {
   display: inline-block;
   position: relative;
-  padding: .75rem 0.4rem;
+  padding: 0.75rem 0.4rem;
 }
 .dropdown__menu:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 0;
@@ -263,7 +304,7 @@ a .brand {
   border-bottom: 1rem solid #fff;
 }
 .dropdown__menu:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 2rem;
@@ -300,7 +341,7 @@ a .brand {
 }
 .dropdown__menu a:hover {
   color: #f80;
-  }
+}
 .separator {
   width: 100%;
   height: 1px;
@@ -311,26 +352,26 @@ a .brand {
 .no-scroll {
   width: 100vw;
   overflow: hidden;
-  position:fixed;
+  position: fixed;
 }
 .click-catcher {
-  display:block;
-  position:fixed;
+  display: block;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: #0008;
+  background-color: #000b;
   z-index: 9000;
   cursor: pointer;
 }
 aside {
   position: fixed;
-  width: 35rem;
+  width: 36rem;
   height: 100%;
   background-color: #fff;
   z-index: 9005;
-  transform: translate3D(-40rem,0,0);
+  transform: translate3D(-40rem, 0, 0);
   transition: all 0.3s ease;
 }
 .categories {
@@ -339,10 +380,11 @@ aside {
   width: 100%;
   height: 100%;
 }
-aside.open, aside.open button.close-sidebar {
-  transform: translate3D(0,0,0);
+aside.open,
+aside.open button.sidebar--close {
+  transform: translate3D(0, 0, 0);
 }
-button.close-sidebar {
+button.sidebar--close {
   position: absolute;
   padding: 0.3rem 0.8rem;
   font-size: 3rem;
@@ -351,10 +393,10 @@ button.close-sidebar {
   background: none;
   color: #fff;
   border: none;
-  transform: translate3D(-10rem,0,0);
+  transform: translate3D(-10rem, 0, 0);
   transition: all 0.3s ease;
 }
-button.close-sidebar:focus {
+button.sidebar--close:focus {
   outline: none;
 }
 button.open-sidebar {
@@ -368,16 +410,6 @@ button.open-sidebar {
 button.open-sidebar:hover {
   border-color: #fff;
 }
-aside .sidebar-user{
-  font-size: 2.1rem;
-  font-weight: bold;
-  line-height: 1.75;
-  color:#fff;
-  background-color: #232f3e;
-}
-aside .sidebar-user:hover{
-  color:#fff;
-}
 aside ul {
   padding: 0;
   list-style: none;
@@ -389,25 +421,45 @@ aside li {
   line-height: 1;
   font-size: 1.8rem;
 }
-aside li > a,
-aside li > strong {
+aside li > * {
   display: block;
   width: 100%;
-  padding: 1.2rem 4rem;
+  padding: 1.3rem 2rem 1.3rem 3.6rem;
 }
 aside li > strong {
   margin-top: 1rem;
 }
 aside li > a {
   font-size: 1.4rem;
+  line-height: 1.6rem;
   color: #111;
 }
 .search__suggest li > a:hover,
-aside ul li > a:hover {
+aside li > a:hover {
   color: #111;
   background-color: #eaeded;
 }
-
+aside .sidebar__header {
+  font-family: "Amazon Ember Heavy";
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: #fff;
+  background: #232f3e;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+aside .sidebar__header,
+aside .sidebar__header:hover {
+  color: #fff;
+  background: #232f3e;
+}
+.sidebar__header i {
+  font-size: 2.4rem;
+  margin-right: 1rem;
+}
 /* Image */
 img {
   border-radius: 3px;
@@ -451,7 +503,7 @@ img.large {
   font-weight: bold;
 }
 .price sup {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 /* Rating */
 a {
@@ -561,7 +613,6 @@ table th {
   min-width: 6rem;
 }
 
-
 /* Carousel */
 .carousel .slide img {
   max-width: 30rem;
@@ -584,7 +635,7 @@ table th {
   z-index: 9000;
 }
 .search input {
-  flex:1;
+  flex: 1;
   padding-right: 5.5rem;
   border-radius: 5px;
   border: 2px solid #131a21;
@@ -610,13 +661,14 @@ table th {
   margin: 0;
   background: #fff;
 }
-.search__suggest li a{
-  display:block;
+.search__suggest li a {
+  display: block;
   height: 100%;
   color: #000;
 }
 .search__suggest li b {
-  color: #c45629;
+  color: #232f3e;
+  font-weight: normal;
 }
 
 /* Map */
@@ -655,7 +707,7 @@ table th {
   border: thin #a4a4a4 solid;
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #111;
@@ -663,7 +715,7 @@ table th {
 .pagination a:hover {
   font-weight: bold;
   color: #000;
-  background: #E3E6E6;
+  background: #e3e6e6;
 }
 .pagination a.active {
   font-weight: bold;
@@ -729,7 +781,7 @@ textarea#comment {
   padding-right: 1rem;
   border: thin solid #ccc;
   border-radius: 1.5rem;
-  background: #F2F2F2;
+  background: #f2f2f2;
   box-shadow: 0 1px 5px #1115;
 }
 .sort-dropdown select {
@@ -738,12 +790,12 @@ textarea#comment {
   font-size: 1.3rem;
   outline: none;
   border: none;
-  background: #F2F2F2;
+  background: #f2f2f2;
   cursor: pointer;
 }
 .sort-dropdown:hover,
 .sort-dropdown:hover select {
-  background: #E3E6E6;
+  background: #e3e6e6;
 }
 .row.search__banner + .row {
   background: #fff;
@@ -761,6 +813,9 @@ textarea#comment {
   color: #f3a847;
 }
 
+.mobile--off {
+  display: none;
+}
 /* Tablet - PC low resolution */
 @media (max-width: 1123px) {
   .pc {
@@ -778,7 +833,10 @@ textarea#comment {
   .mobile {
     display: none;
   }
-}/* Mobile-s lanscape*/
+  .mobile--off {
+    display: initial;
+  }
+} /* Mobile-s lanscape*/
 @media (max-width: 679px) {
   .mobile-s {
     display: none;
