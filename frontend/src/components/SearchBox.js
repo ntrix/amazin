@@ -94,7 +94,7 @@ export default function SearchBox(props) {
             onBlur={() => setFocus(true)}
           ></input>
           <button className="primary" type="submit">
-            <i className="fa fa-search"></i>
+            <div className="sprite__search-btn"></div>
           </button>
         </div>
       </form>

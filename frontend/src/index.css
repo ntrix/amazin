@@ -1,36 +1,61 @@
 @font-face {
-  font-family: "Amazon Ember Heavy";
-  src: url("./fonts/AmazonEmber_W_He.eot");
-  src: url("./fonts/AmazonEmber_W_He.woff2") format("woff2"),
-    url("./fonts/AmazonEmber_W_He.woff") format("woff");
+  font-family: "Amazon Ember";
+  font-weight: 200;
+  src: url("./fonts/AmazonEmber_W_Th.eot");
+  src: url("./fonts/AmazonEmber_W_Th.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_Th.woff") format("woff");
 }
 @font-face {
-  font-family: "Amazon Ember Bold";
+  font-family: "Amazon Ember";
+  font-weight: 300;
+  src: url("./fonts/AmazonEmber_W_Lt.eot");
+  src: url("./fonts/AmazonEmber_W_Lt.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_Lt.woff") format("woff");
+}
+@font-face {
+  font-family: "Amazon Ember";
+  font-weight: 400;
+  src: url("./fonts/AmazonEmber_W_Rg.eot");
+  src: url("./fonts/AmazonEmber_W_Rg.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_Rg.woff") format("woff");
+}
+@font-face {
+  font-family: "Amazon Ember";
+  font-weight: 500;
+  src: url("./fonts/AmazonEmber_W_SBd.eot");
+  src: url("./fonts/AmazonEmber_W_SBd.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_SBd.woff") format("woff");
+}
+@font-face {
+  font-family: "Amazon Ember";
+  font-weight: 600;
   src: url("./fonts/AmazonEmber_W_Bd.eot");
   src: url("./fonts/AmazonEmber_W_Bd.woff2") format("woff2"),
     url("./fonts/AmazonEmber_W_Bd.woff") format("woff");
 }
 @font-face {
   font-family: "Amazon Ember";
-  src: url("./fonts/AmazonEmber_W_Rg.eot");
-  src: url("./fonts/AmazonEmber_W_Rg.woff2") format("woff2"),
-    url("./fonts/AmazonEmber_W_Rg.woff") format("woff");
+  font-weight: 700;
+  src: url("./fonts/AmazonEmber_W_He.eot");
+  src: url("./fonts/AmazonEmber_W_He.woff2") format("woff2"),
+    url("./fonts/AmazonEmber_W_He.woff") format("woff");
 }
-/*@font-face {font-family: "Amazon Ember"; src: url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.eot"); src: url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.woff") format("woff"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/02fcddff61b677f4989d2933d574ca89.svg#Amazon Ember") format("svg"); }
-@font-face {font-family: "Amazon Ember Bold"; src: url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.eot"); src: url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.woff") format("woff"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/157c6cc36dd65b1b2adc9e7f3329c761.svg#Amazon Ember") format("svg"); }*/
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  font-weight: 400;
   background-color: #eaeded;
   --inner-focus-color: #e77600;
   --outer-focus-color: rgba(228, 121, 17, 0.5);
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 body {
   margin: 0;
   height: 100vh;
   font-size: 1.4rem;
-  font-family: "Amazon Ember", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -45,7 +70,7 @@ body {
   user-select: none;
 }
 .active {
-  font-weight: bold;
+  font-weight: 700;
 }
 .disabled,
 .disabled *,
@@ -165,6 +190,9 @@ ul {
 li {
   margin-top: 1rem;
 }
+li a {
+  font-weight: 500;
+}
 input,
 select,
 textarea,
@@ -172,8 +200,8 @@ button {
   padding: 1rem;
   border-radius: 3px;
   border: thin solid #a4a4a4;
+  font-weight: 500;
   font-size: 1.6rem;
-  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -186,7 +214,9 @@ button {
   border: thin #a4a4a4 solid;
   border-radius: 3px;
   border-color: #adb1b8 #a2a6ac #8d9096;
-  background: #f2f2f2;
+  background: #eff1f3;
+  background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
+  background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
   cursor: pointer;
 }
 select:hover,
@@ -233,7 +263,7 @@ img.logo {
 }
 a .brand {
   font-size: 3rem;
-  font-weight: bold;
+  font-weight: 600;
   line-height: 4rem;
   color: #fff;
 }
@@ -249,19 +279,16 @@ a .brand {
 .nav-item__col {
   display: flex;
   flex-direction: column;
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
 }
 .location {
   padding-top: 1rem;
 }
-.location .nav-item__col:first-child {
-  font-size: 2.1rem;
-  height: 3.4rem;
-  transform: translateY(8px);
-}
-.location .nav-item__col:nth-child(2) {
-  margin-left: 0.5rem;
+.sprite__locator {
+  width: 20px;
+  height: 34px;
+  background: url("./img/nav-sprite.png") -60px -120px;
 }
 .nav-item__line-1 {
   font-size: 1.2rem;
@@ -270,21 +297,28 @@ a .brand {
   font-weight: 400;
 }
 .nav-item__line-2 {
+  font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.5rem;
-  font-family: "Amazon Ember Heavy";
-  padding-bottom: 0.5rem;
 }
 .nav-item__cart .cart--count {
-  margin: 3px auto;
-  padding-left: 1rem;
-  font-family: "Amazon Ember Heavy";
+  margin: -2px auto 8px auto;
+  padding-left: 8px;
+  font-weight: 700;
   font-size: 1.8rem;
   color: #f80;
 }
-.nav-item__cart img {
-  margin-top: -2rem;
+.nav-item__cart {
+  padding: 7px;
 }
+.sprite__cart {
+  width: 40px;
+  height: 30px;
+  background: url("./img/nav-sprite.png") 0 -88px;
+  margin-top: -20px;
+  margin-right: -2px;
+}
+
 /* Dropdown */
 .dropdown {
   display: inline-block;
@@ -367,18 +401,23 @@ a .brand {
 }
 aside {
   position: fixed;
-  width: 36rem;
+  width: 35rem;
   height: 100%;
   background-color: #fff;
   z-index: 9005;
   transform: translate3D(-40rem, 0, 0);
   transition: all 0.3s ease;
 }
-.categories {
-  position: absolute;
-  overflow-y: auto;
-  width: 100%;
-  height: 100%;
+button.open-sidebar {
+  font-size: 2.4rem;
+  padding: 0.2rem 0.5rem;
+  margin: 0 0.2rem;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+button.open-sidebar:hover {
+  border-color: #fff;
 }
 aside.open,
 aside.open button.sidebar--close {
@@ -399,16 +438,17 @@ button.sidebar--close {
 button.sidebar--close:focus {
   outline: none;
 }
-button.open-sidebar {
-  font-size: 2.4rem;
-  padding: 0.2rem 0.5rem;
-  margin: 0 0.2rem;
-  background: none;
-  color: #fff;
-  cursor: pointer;
+.sprite__close-btn {
+  width: 20px;
+  height: 20px;
+  background: url("./img/nav-sprite.png") -180px -40px;
+  margin-top: 13px;
 }
-button.open-sidebar:hover {
-  border-color: #fff;
+.categories {
+  position: absolute;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
 }
 aside ul {
   padding: 0;
@@ -440,25 +480,28 @@ aside li > a:hover {
   background-color: #eaeded;
 }
 aside .sidebar__header {
-  font-family: "Amazon Ember Heavy";
-  font-size: 1.9rem;
-  font-weight: bold;
-  color: #fff;
-  background: #232f3e;
   display: inline-block;
-  white-space: nowrap;
   max-width: 90%;
+  padding-bottom: 17px;
+  font-weight: 700;
+  font-size: 1.9rem;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #fff;
+  background: #232f3e;
 }
 aside .sidebar__header,
 aside .sidebar__header:hover {
   color: #fff;
   background: #232f3e;
 }
-.sidebar__header i {
-  font-size: 2.4rem;
-  margin-right: 1rem;
+.sprite__user {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url("./img/nav-sprite.png") -125px -88px;
+  margin: -3px 9px -8px -2px;
 }
 /* Image */
 img {
@@ -500,7 +543,7 @@ img.large {
 }
 .price {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 700;
 }
 .price sup {
   font-size: 1rem;
@@ -569,7 +612,7 @@ a:hover {
   color: #ccc;
   flex: 1;
   padding: 1rem;
-  font-weight: bold;
+  font-weight: 700;
 }
 .checkout__steps > div.active {
   border-top-color: #f80;
@@ -628,11 +671,30 @@ table th {
   border-color: transparent;
 }
 .search button {
-  width: 4.5rem;
+  height: 38px;
   border-radius: 0 5px 5px 0;
   border: none;
+  background: #f3a847;
+  background: -webkit-linear-gradient(top, #f3a847, #f0c14b);
+  background: linear-gradient(to bottom, #f3a847, #f0c14b);
   margin-left: -4.5rem;
   z-index: 9000;
+}
+.search button:hover {
+  background: #f80;
+  background: -webkit-linear-gradient(top, #f80, #f0c14b);
+  background: linear-gradient(to bottom, #f80, #f0c14b);
+}
+.sprite__search-btn {
+  width: 25px;
+  height: 21px;
+  background: url("./img/nav-sprite.png") 3px -41px;
+  object-fit: cover;
+}
+.search button:hover,
+.sprite__search-btn:hover {
+  border-color: transparent;
+  outline: none;
 }
 .search input {
   flex: 1;
@@ -664,11 +726,14 @@ table th {
 .search__suggest li a {
   display: block;
   height: 100%;
+  font-weight: 600;
+  font-size: 1.5rem;
   color: #000;
 }
 .search__suggest li b {
   color: #232f3e;
-  font-weight: normal;
+  font-weight: 500;
+  opacity: 0.85;
 }
 
 /* Map */
@@ -706,19 +771,21 @@ table th {
   border-radius: 3px;
   border: thin #a4a4a4 solid;
   font-size: 1.6rem;
-  font-family: Helvetica, Arial, sans-serif;
-  background-color: #f2f2f2;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-weight: 500;
+  border-color: #adb1b8 #a2a6ac #8d9096;
+  background: #eff1f3;
+  background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
+  background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
   color: #111;
 }
 .pagination a:hover {
-  font-weight: bold;
+  font-weight: 600;
   color: #000;
   background: #e3e6e6;
+  cursor: pointer;
 }
 .pagination a.active {
-  font-weight: bold;
+  font-weight: 700;
   color: #c45629;
 
   border: thin solid #c45629;
@@ -843,12 +910,17 @@ textarea#comment {
   }
   .search input {
     padding-right: 2rem;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    height: 1.5rem; /*for safari*/
   }
   .search button {
     width: 3rem;
-    font-size: 1.2rem;
+    height: 3.5rem;
     margin-left: -3rem;
+  }
+  .sprite__search-btn {
+    margin-left: -8px;
+    margin-top: -4px;
   }
   aside {
     width: 32rem;

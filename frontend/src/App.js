@@ -118,7 +118,7 @@ function App() {
           </Link>
           <Link to="/map" className="nav-item location flex">
             <div className="nav-item__col">
-              <i className="fa fa-map-marker" aria-hidden="true"></i>
+              <div className="sprite__locator"></div>
             </div>
             <div className="nav-item__col tablet">
               <span className="nav-item__line-1">Deliver to your</span>
@@ -265,7 +265,7 @@ function App() {
                   {cartItems.length}
                 </span>
                 <span className="nav-item__line-2">
-                  <img src={Cart} alt="Cart"></img>
+                  <div className="sprite__cart"></div>
                 </span>
               </div>
               <div className="nav-item__col pc">
@@ -280,13 +280,12 @@ function App() {
             onClick={() => setSidebar(false)}
             id="sidebar__close-btn"
             className="sidebar--close"
-            type="button"
           >
-            <i className="fa fa-times"></i>
+            <div className="sprite__close-btn"></div>
           </button>
           <li onClick={() => setSidebar(false)}>
             <Link to="/profile" className="sidebar__header">
-              <i className="fa fa-user-circle" aria-hidden="true"></i>
+              <div className="sprite__user"></div>
               {"Hello, " + getShortenName(userInfo)}
             </Link>
           </li>
