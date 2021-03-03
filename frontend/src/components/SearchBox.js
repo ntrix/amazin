@@ -104,7 +104,7 @@ export default function SearchBox(props) {
             {suggests.slice(0, 12).map((p) => (
               <li>
                 <Link
-                  to={`/product/${p._id}`}
+                  to={`/search/name/${p.name.replace(/(<b>)|(<\/b>)/g, "")}`}
                   dangerouslySetInnerHTML={{ __html: p.name }}
                   onClick={(e) => {
                     setTerm(p.name.replace(/(<b>)|(<\/b>)/g, ""));
