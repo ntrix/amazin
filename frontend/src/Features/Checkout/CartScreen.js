@@ -35,7 +35,10 @@ export default function CartScreen(props) {
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         {cartItems.length === 0 ? (
           <MessageBox>
-            Your cart is still empty. <Link to="/">Let's go shopping</Link>
+            Your cart is still empty.{" "}
+            <Link to="/">
+              <b>Let's go back and shopping something first.</b>
+            </Link>
           </MessageBox>
         ) : (
           <table className="table">
@@ -98,7 +101,9 @@ export default function CartScreen(props) {
               <button
                 type="button"
                 onClick={checkoutHandler}
-                className="primary block"
+                className={
+                  "primary block" + (!cartItems.length ? " disabled" : "")
+                }
                 disabled={cartItems.length === 0}
               >
                 Proceed to Buy
