@@ -48,10 +48,11 @@ export default function SearchBox(props) {
 
     return {
       search(list, keyword) {
+        if (!list || !keyword) return [];
         keyword = keyword.slice(0, 49);
         const keyReg = regExpKey(keyword);
         const result = [];
-        for (let el of list) {
+        for (let el of [...list]) {
           if (keyReg.regEx.test(el.name)) {
             result.push({
               name: el.name
