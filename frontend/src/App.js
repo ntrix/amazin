@@ -220,7 +220,7 @@ function App() {
             )}
             {userInfo && userInfo.isAdmin && (
               <div
-                className="nav-item dropdown"
+                className="nav-item dropdown phone--off"
                 onMouseEnter={() =>
                   setDropTimeout(setTimeout(() => setDropdown(true), 350))
                 }
