@@ -101,7 +101,7 @@ function App() {
   }, [dispatch]);
   return (
     <BrowserRouter>
-      <div className={"grid-container" + (hasSidebar ? " no-scroll" : "")}>
+      <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
         <header className="row">
           <button
             type="button"
@@ -110,23 +110,23 @@ function App() {
           >
             <i className="fa fa-bars"></i>
           </button>
-          <Link className="nav-item mobile-s" to="/">
+          <Link className="nav-item phone--off" to="/">
             <div className="brand">
               <img className="logo" src={Logo} alt="logo" />
-              <span className="mobile">mazin'</span>
+              <span className="mobile--off">mazin'</span>
             </div>
           </Link>
           <Link to="/map" className="nav-item location flex">
             <div className="nav-item__col">
               <div className="sprite__locator"></div>
             </div>
-            <div className="nav-item__col tablet">
+            <div className="nav-item__col tablet--off">
               <span className="nav-item__line-1">Deliver to your</span>
               <span className="nav-item__line-2">Location?</span>
             </div>
           </Link>
 
-          <div className="nav-item search-box">
+          <div className="nav-item nav__search">
             <Route
               render={({ history }) => (
                 <SearchBox history={history}></SearchBox>
@@ -147,12 +147,12 @@ function App() {
               >
                 <div className="nav-item__col">
                   <span className="nav-item__line-1">
-                    H<span className="mobile--off">i, </span>
-                    <span className="mobile">ello, </span>
+                    H<span className="mobile--only">i, </span>
+                    <span className="mobile--off">ello, </span>
                     {getShortenName(userInfo, 9)}
                   </span>
                   <span className="nav-item__line-2">
-                    Account<span className="pc"> & Lists</span>{" "}
+                    Account<span className="pc-low--off"> & Lists</span>{" "}
                     <i className="fa fa-caret-down"></i>{" "}
                   </span>
                 </div>
@@ -253,7 +253,7 @@ function App() {
                 )}
               </div>
             )}
-            <Link className="nav-item dropdown tablet disabled">
+            <Link className="nav-item dropdown tablet--off disabled">
               <div className="nav-item__col">
                 <span className="nav-item__line-1">Return</span>
                 <span className="nav-item__line-2">& Orders</span>
@@ -261,26 +261,22 @@ function App() {
             </Link>
             <Link to="/cart" className="nav-item nav-item__cart flex">
               <div className="nav-item__col">
-                <span className="nav-item__line-1 cart--count">
+                <span className="nav-item__line-1 cart__counter">
                   {cartItems.length}
                 </span>
                 <span className="nav-item__line-2">
                   <div className="sprite__cart"></div>
                 </span>
               </div>
-              <div className="nav-item__col pc">
+              <div className="nav-item__col pc-low--off">
                 <span className="nav-item__line-1">Shopping-</span>
                 <span className="nav-item__line-2">Basket</span>
               </div>
             </Link>
           </>
         </header>
-        <aside className={hasSidebar ? "open" : ""}>
-          <button
-            onClick={() => setSidebar(false)}
-            id="sidebar__close-btn"
-            className="sidebar--close"
-          >
+        <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
+          <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
             <div className="sprite__close-btn"></div>
           </button>
           <li onClick={() => setSidebar(false)}>
@@ -326,9 +322,9 @@ function App() {
         </aside>
         <label
           className={hasSidebar ? "click-catcher" : ""}
-          htmlFor="sidebar__close-btn"
+          htmlFor="btn--close-sidebar"
         ></label>
-        <main className="container">
+        <main className="container--flex">
           <Route path="/seller/:id" component={SellerScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>
           <Route path="/product/:id" component={ProductScreen} exact></Route>

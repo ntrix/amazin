@@ -74,7 +74,7 @@ export default function SearchBox(props) {
         className={isFocus && term ? "click-catcher" : ""}
         onClick={() => setFocus(false)}
       ></label>
-      <form className="search" onSubmit={submitHandler}>
+      <form className="search__form" onSubmit={submitHandler}>
         <div className="row">
           <input
             type="text"

@@ -62,11 +62,11 @@ export default function SearchScreen(props) {
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <div className="search__count">
+          <div className="search__counter">
             {products.length} of {count} Results
           </div>
         )}
-        <div className="sort-dropdown">
+        <div className="sort__filter">
           Sort by{" "}
           <select
             value={order}
