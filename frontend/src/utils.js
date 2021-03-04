@@ -1,30 +1,11 @@
-export const prices = [
-  {
-    name: "Any",
-    min: 0,
-    max: 0,
-  },
-  {
-    name: `$1 to $10`,
-    min: 1,
-    max: 10,
-  },
-  {
-    name: `$10 to $100`,
-    min: 10,
-    max: 100,
-  },
-  {
-    name: `$100 to $1000`,
-    min: 100,
-    max: 1000,
-  },
-  {
-    name: `$1000 to $10000`,
-    min: 1000,
-    max: 10000,
-  },
-];
+export const prices = [20, 50, 100, 200, 500, 1000, 2000, 5000].map(
+  (max, i, arr) => ({
+    min: arr[i - 1] || 0,
+    max,
+    name: arr[i - 1] ? `${arr[i - 1]} to ${max} EUR` : "Any",
+  })
+);
+
 export const ratings = [
   {
     name: "4stars & up",
