@@ -80,9 +80,6 @@ body {
   outline: none !important;
   border-color: transparent !important;
 }
-.disabled:hover {
-  background: none !important;
-}
 /* Layout */
 .container--grid {
   display: grid;
@@ -179,9 +176,6 @@ h2 {
 a {
   text-decoration: none;
 }
-a:hover {
-  color: #f80;
-}
 ul {
   padding: 0;
   margin: 0;
@@ -220,8 +214,8 @@ button {
   background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
   background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
 }
-select:hover,
-button:hover {
+select:not(.disabled):hover,
+button:not(.disabled):hover {
   background: #e0e3e8;
   background: -webkit-linear-gradient(top, #e7eaf0, #d9dce1);
   background: linear-gradient(to bottom, #e7eaf0, #d9dce1);
@@ -241,7 +235,7 @@ button.primary {
   background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
   color: #111;
 }
-button.primary:hover {
+button.primary:not(.disabled):hover {
   background: #f0c14b;
   background: -webkit-linear-gradient(top, #f7dfa5, #f3a847);
   background: linear-gradient(to bottom, #f7dfa5, #f3a847);
@@ -486,8 +480,8 @@ button.open-sidebar:hover {
   line-height: 1.6rem;
   color: #111;
 }
-.search__suggest li > a:hover,
-.sidebar li > a:hover {
+.search__suggest li > a:not(.disabled):hover,
+.sidebar li > a:not(.disabled):hover {
   color: #111;
   background-color: #eaeded;
 }
@@ -565,12 +559,6 @@ img.large {
   font-size: 1rem;
 }
 /* Rating */
-a {
-  color: #111;
-}
-a:hover {
-  color: #c45629;
-}
 .rating span {
   color: #f0c040;
   margin: 0.1rem;
@@ -650,7 +638,7 @@ a:hover {
   background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
   color: #111;
 }
-.pagination a:hover {
+.pagination a:not(.disabled):hover {
   font-weight: 600;
   color: #000;
   background: #e3e6e6;
