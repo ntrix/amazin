@@ -19,8 +19,9 @@ export default function Product({ product }) {
           ></Rating>
           <div className="">
             <div className="price">
-              <sup>$</sup>
+              <sup>€</sup>
               {product.price}
+              <sup>00</sup>
             </div>
             <sub>Shipping exklusive</sub>
             <div>
