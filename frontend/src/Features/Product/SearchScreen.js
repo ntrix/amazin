@@ -147,14 +147,11 @@ export default function SearchScreen(props) {
         </div>
         <div className="col-3">
           <div className="row center search__results">
+            {(!products || products.length < 2) && (
+              <div className="placeholder"></div>
+            )}
             {loading ? (
               <>
-                <div className="placeholder">
-                  <LoadingBox />
-                </div>
-                <div className="placeholder">
-                  <LoadingBox />
-                </div>
                 <div className="placeholder">
                   <LoadingBox />
                 </div>
@@ -162,27 +159,32 @@ export default function SearchScreen(props) {
             ) : error ? (
               <MessageBox variant="danger">{error}</MessageBox>
             ) : !products.length ? (
-              <MessageBox>No Product Found</MessageBox>
+              <>
+                <div className="placeholder">
+                  <MessageBox>No Product Found</MessageBox>
+                </div>
+              </>
             ) : (
               <>
-                {products.length < 3 && <div className="placeholder"></div>}
                 {products.map((product) => (
                   <Product key={product._id} product={product}></Product>
                 ))}
-                {products.length < 3 && <div className="placeholder"></div>}
-                <div className="row center pagination">
-                  {[...Array(pages).keys()].map((x) => (
-                    <Link
-                      className={x + 1 === page ? "active" : ""}
-                      key={x + 1}
-                      to={getFilterUrl({ page: x + 1 })}
-                    >
-                      {x + 1}
-                    </Link>
-                  ))}
-                </div>
               </>
             )}
+            {(!products || products.length < 3) && (
+              <div className="placeholder"></div>
+            )}
+            <div className="row center pagination">
+              {[...Array(pages || 0).keys()].map((x) => (
+                <Link
+                  className={x + 1 === page ? "active" : ""}
+                  key={x + 1}
+                  to={getFilterUrl({ page: x + 1 })}
+                >
+                  {x + 1}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

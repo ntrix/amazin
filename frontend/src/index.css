@@ -531,24 +531,25 @@ img.large {
 }
 
 /* Card */
-.placeholder {
-  flex: 1 1 22%;
-  min-width: 20rem;
-  padding: 3rem;
-}
+.placeholder,
 .card {
   flex: 1 1 22%;
   margin: 2rem;
   min-width: 20rem;
   padding: 1rem;
+}
+.card {
   border-radius: 3px;
   background: #fff;
   border-bottom: 2px solid #ccc;
 }
-.card-body {
+.card__center {
+  margin: 0 auto;
+}
+.card__body {
   margin-bottom: 2rem;
 }
-.card-body > * {
+.card__body > * {
   margin-bottom: 1rem;
 }
 .price {
