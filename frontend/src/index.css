@@ -404,16 +404,22 @@ button.open-sidebar:hover {
   overflow: hidden;
   position: fixed;
 }
+.underlay,
 .click-catcher {
   display: block;
   position: fixed;
   width: 100vw;
   height: 100vh;
-  top: 0;
+  top: 6rem;
   left: 0;
-  background-color: #000b;
+  background-color: #0008;
   z-index: 9000;
-  cursor: pointer;
+}
+.sidebar .click-catcher {
+  background-color: #000b;
+}
+.click-catcher {
+  top: 0;
 }
 .sidebar {
   position: fixed;

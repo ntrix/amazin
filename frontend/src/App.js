@@ -44,7 +44,7 @@ function App() {
   const cart = useSelector((state) => state.cart);
   const [dropTimeout, setDropTimeout] = useState(0);
   const [hasSidebar, setSidebar] = useState(false);
-  const [hasDropdown, setDropdown] = useState(true);
+  const [hasDropdown, setDropdown] = useState(false);
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -321,7 +321,9 @@ function App() {
           </ul>
         </aside>
         <label
-          className={hasSidebar ? "click-catcher" : ""}
+          className={
+            hasSidebar ? "click-catcher" : hasDropdown ? "underlay" : ""
+          }
           htmlFor="btn--close-sidebar"
         ></label>
         <main className="container--flex">
