@@ -102,7 +102,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
-        <header className="row">
+        <header id="navbar" className="row">
           <button
             type="button"
             className="open-sidebar"
@@ -125,7 +125,7 @@ function App() {
               <span className="nav-item__line-2">Location?</span>
             </div>
           </Link>
-          <div className="nav-item nav__search">
+          <div className="nav-item nav__search flex col-fill">
             <SearchBox />
           </div>
           <>

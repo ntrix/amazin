@@ -93,7 +93,7 @@ body {
 }
 header {
   grid-area: header;
-  min-width: 460px;
+  min-width: 400px;
   background-color: #131a21;
 }
 main {
@@ -249,6 +249,10 @@ button.small {
   font-size: 1.2rem;
 }
 .flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 /* Header */
@@ -685,7 +689,7 @@ img.large {
 }
 /* Form */
 .form {
-  min-width: 42rem;
+  min-width: 400px;
   margin: 0 auto;
 }
 .form > div {
@@ -751,19 +755,41 @@ table th {
 .carousel .slide img {
   max-width: 30rem;
 }
-
+.col-fill {
+  position: static;
+  float: none;
+  -webkit-box: 1;
+  -moz-box: 1;
+  -webkit-flex: 1 1 0px;
+  -ms-flex: 1 1 0px;
+  flex: 1 1 0px;
+}
+#navbar {
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 12px;
+  line-height: 1em;
+  zoom: 1;
+}
+#navbar * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
 /* Nav Search Box*/
 .nav__search {
-  flex: 1;
-  position: relative;
+  flex: 1 1 0px;
   z-index: 9000;
 }
 .nav__search:hover {
   border-color: transparent;
 }
 .search__form button {
-  height: 38px;
-  border-radius: 0 2px 2px 0;
+  height: 40px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
   border: none;
   background: #f3a847;
   background: -webkit-linear-gradient(top, #f3a847, #f0c14b);
@@ -784,13 +810,19 @@ table th {
 }
 .search__form button:hover,
 .sprite__search-btn:hover {
+  -webkit-border-radius: 0 2px 2px 0;
+  -moz-border-radius: 0 2px 2px 0;
+  border-radius: 0 2px 2px 0;
   border-color: transparent;
   outline: none;
 }
 .search__form input {
   flex: 1;
-  padding-right: 5.5rem;
-  border-radius: 5px;
+  padding-right: 52px;
+  height: 44px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
   border: 2px solid #131a21;
   z-index: 9000;
 }
@@ -933,29 +965,25 @@ textarea#comment {
   .phone--off {
     display: none;
   }
-  .search__form input {
-    padding-right: 2rem;
-    font-size: 1.3rem;
-    height: 1.5rem; /*for safari*/
-  }
-  .search__form button {
-    width: 3rem;
-    height: 3.5rem;
-    margin-left: -32px;
-  }
-  .sprite__search-btn {
-    margin-left: -8px;
-    margin-top: -4px;
-  }
   .sidebar {
     width: 32rem;
   }
+}
+/* Mobile-xs portrait*/
+@media (max-width: 400px) {
   .nav-item.dropdown {
     order: 1;
   }
-}
-/* Mobile-xs portrait*/
-@media (max-width: 375px) {
+  .search__form input {
+    padding-right: 37px;
+  }
+  .search__form button {
+    width: 30px;
+    margin-left: -32px;
+  }
+  .sprite__search-btn {
+    margin: 0 -8px;
+  }
   .sidebar {
     width: 28rem;
   }
