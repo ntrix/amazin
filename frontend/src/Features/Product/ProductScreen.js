@@ -53,7 +53,7 @@ export default function ProductScreen(props) {
   return (
     <div>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <LoadingBox size="xl" />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -163,7 +163,7 @@ export default function ProductScreen(props) {
               </div>
             </div>
           </div>
-          <div>
+          <div className="mh-3">
             <h2 id="reviews">Reviews</h2>
             {product.reviews.length === 0 && (
               <MessageBox>There is no review</MessageBox>
@@ -213,7 +213,7 @@ export default function ProductScreen(props) {
                       </button>
                     </div>
                     <div>
-                      {loadingReviewCreate && <LoadingBox></LoadingBox>}
+                      {loadingReviewCreate && <LoadingBox />}
                       {errorReviewCreate && (
                         <MessageBox variant="danger">
                           {errorReviewCreate}

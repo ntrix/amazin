@@ -75,7 +75,7 @@ export default function OrderScreen(props) {
   };
 
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <LoadingBox size="xl" />
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
@@ -186,13 +186,13 @@ export default function OrderScreen(props) {
               {!order.isPaid && (
                 <li>
                   {!sdkReady ? (
-                    <LoadingBox></LoadingBox>
+                    <LoadingBox />
                   ) : (
                     <>
                       {errorPay && (
                         <MessageBox variant="danger">{errorPay}</MessageBox>
                       )}
-                      {loadingPay && <LoadingBox></LoadingBox>}
+                      {loadingPay && <LoadingBox />}
 
                       <PayPalButton
                         amount={order.totalPrice}
@@ -204,7 +204,7 @@ export default function OrderScreen(props) {
               )}
               {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                 <li>
-                  {loadingDeliver && <LoadingBox></LoadingBox>}
+                  {loadingDeliver && <LoadingBox />}
                   {errorDeliver && (
                     <MessageBox variant="danger">{errorDeliver}</MessageBox>
                   )}

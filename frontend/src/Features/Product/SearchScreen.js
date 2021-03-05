@@ -58,7 +58,7 @@ export default function SearchScreen(props) {
     <div>
       <div className="row search__banner">
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -87,7 +87,7 @@ export default function SearchScreen(props) {
             <h4>Department</h4>
             <div>
               {loadingCategories ? (
-                <LoadingBox></LoadingBox>
+                <LoadingBox />
               ) : errorCategories ? (
                 <MessageBox variant="danger">{errorCategories}</MessageBox>
               ) : (
@@ -153,7 +153,7 @@ export default function SearchScreen(props) {
             {loading ? (
               <>
                 <div className="placeholder">
-                  <LoadingBox />
+                  <LoadingBox size="xl" />
                 </div>
               </>
             ) : error ? (
@@ -185,6 +185,16 @@ export default function SearchScreen(props) {
                 </Link>
               ))}
             </div>
+            <p className="separator"></p>
+            <p className="separator"></p>
+            <div>
+              <h2>Do you need help?</h2>
+              <p>
+                Visit the <Link to="/help">help section</Link> or{" "}
+                <a href="#contact">contact us</a>
+              </p>
+            </div>
+            <p className="separator"></p>
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ export default function SigninScreen({ location, history }) {
         <div>
           <h1>Sign In</h1>
         </div>
-        {loading && <LoadingBox></LoadingBox>}
+        {loading && <LoadingBox />}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
           <label htmlFor="email">Email address</label>

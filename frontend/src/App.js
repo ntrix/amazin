@@ -160,7 +160,7 @@ function App() {
                       ["Orders"],
                       ["Your Order History", "/order-history"],
                       ["Returns", "disabled"],
-                      ["Contact Us", "https://ntien.com"],
+                      ["Contact Us", "#contact"],
                       ["separator"],
                       ["Account"],
                       ["Sign Out", "#signout", , signoutHandler],
@@ -282,7 +282,7 @@ function App() {
           </li>
           <ul className="categories">
             {loadingCategories ? (
-              <LoadingBox></LoadingBox>
+              <LoadingBox />
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
@@ -299,7 +299,7 @@ function App() {
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["FAQ & Contact", "https://ntien.com"],
+                ["FAQ & Contact", "#contact"],
                 ["separator"],
                 ["Account"],
                 userInfo
@@ -308,7 +308,7 @@ function App() {
                 [""],
                 ["separator"],
                 ["separator"],
-                ["ntien.com 2020", "disabled"],
+                ["#contact 2020", "disabled"],
                 ["separator"],
                 ["separator"],
               ].map(addSideMenuItem)

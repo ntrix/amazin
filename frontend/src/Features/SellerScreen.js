@@ -30,7 +30,7 @@ export default function SellerScreen(props) {
     <div className="row top">
       <div className="col-1">
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -64,7 +64,7 @@ export default function SellerScreen(props) {
       </div>
       <div className="col-3">
         {loadingProducts ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox size="xl" />
         ) : errorProducts ? (
           <MessageBox variant="danger">{errorProducts}</MessageBox>
         ) : (

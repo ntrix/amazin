@@ -1,9 +1,19 @@
-import React from 'react';
+import React from "react";
 
-export default function LoadingBox() {
+export default function LoadingBox({ size = "" }) {
   return (
     <div className="loading">
-      <i className="fa fa-spinner fa-spin"></i> Loading...
+      {!size && (
+        <>
+          Loading . . . <div className="sprite__loading"></div>
+        </>
+      )}
+      {size && (
+        <div class="sprite__loading--xl">
+          <br />
+          <b>LOADING</b>
+        </div>
+      )}
     </div>
   );
 }

@@ -38,7 +38,7 @@ export default function RegisterScreen({ location, history }) {
         <div>
           <h1>Create Account</h1>
         </div>
-        {loading && <LoadingBox></LoadingBox>}
+        {loading && <LoadingBox />}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
           <label htmlFor="name">Name</label>
