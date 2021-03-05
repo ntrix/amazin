@@ -44,7 +44,7 @@ export default function UserListScreen({ history }) {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>USER_ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
               <th>SELLER</th>

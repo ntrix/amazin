@@ -25,8 +25,13 @@ export default function Product({ product }) {
             </div>
             <sub>Shipping exklusive</sub>
             <div>
-              <Link to={`/seller/${product.seller._id}`} className="row end">
-                By Seller: {product?.seller?.seller?.name || "Anonymous Seller"}
+              <Link
+                to={`/seller/${product.seller._id}`}
+                className="row end text-right"
+              >
+                Seller & Store
+                <br />
+                {product?.seller?.seller?.name || "Anonymous Seller"}
               </Link>
             </div>
           </div>

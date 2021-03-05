@@ -165,6 +165,9 @@ footer {
 .text-center {
   text-align: center;
 }
+.text-right {
+  text-align: right;
+}
 /* Common */
 h1 {
   font-size: 1.8rem;
@@ -175,6 +178,7 @@ h2 {
   padding: 1rem 0;
 }
 a {
+  color: #111;
   text-decoration: none;
 }
 ul {

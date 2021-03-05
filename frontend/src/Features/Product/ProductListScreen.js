@@ -89,7 +89,7 @@ export default function ProductListScreen(props) {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>USER_ID</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>

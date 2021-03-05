@@ -43,7 +43,7 @@ export default function OrderListScreen(props) {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>USER_ID</th>
               <th>USER</th>
               <th>DATE</th>
               <th>TOTAL</th>
