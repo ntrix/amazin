@@ -796,15 +796,15 @@ table th {
   border-radius: 0 4px 4px 0;
   border: none;
   background: #f3a847;
-  background: -webkit-linear-gradient(top, #f3a847, #f0c14b);
-  background: linear-gradient(to bottom, #f3a847, #f0c14b);
+  background: -webkit-linear-gradient(top, #f0c14b, #f3a847);
+  background: linear-gradient(to bottom, #f0c14b, #f3a847);
   margin-left: -47px;
   z-index: 9000;
 }
-.search__form button:hover {
+.search__form button:not(.disabled):hover {
   background: #f80;
-  background: -webkit-linear-gradient(top, #f80, #f0c14b);
-  background: linear-gradient(to bottom, #f80, #f0c14b);
+  background: -webkit-linear-gradient(top, #f2b649, #f80);
+  background: linear-gradient(to bottom, #f2b649, #f80);
 }
 .sprite__search-btn {
   width: 25px;
@@ -812,8 +812,7 @@ table th {
   background: url("./img/nav-sprite.png") 3px -41px;
   object-fit: cover;
 }
-.search__form button:hover,
-.sprite__search-btn:hover {
+.search__form input:focus + button {
   -webkit-border-radius: 0 2px 2px 0;
   -moz-border-radius: 0 2px 2px 0;
   border-radius: 0 2px 2px 0;
