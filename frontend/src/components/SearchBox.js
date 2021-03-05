@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
 
-export default function SearchBox(props) {
+export default function SearchBox() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [term, setTerm] = useState("");
   const [suggests, setSuggests] = useState([]);
-  const [isFocus, setFocus] = useState(false);
+  const [isFocus, setFocus] = useState(0);
   const { productList: list } = useSelector((state) => state.productListAll);
 
   useEffect(() => {
     dispatch(listAllProducts({ pageSize: 999 }));
-  }, []);
+  }, [history]);
   const submitHandler = (e) => {
     e.preventDefault();
-    props.history.push(`/search/name/${term}`);
+    setFocus(-1); //for absorbing a keypress on submit instead setFocus(0)
+    history.push(`/search/name/${term}`);
   };
 
   const findSuggest = (() => {
@@ -72,8 +74,8 @@ export default function SearchBox(props) {
   return (
     <div className="nav-item__col">
       <label
-        className={isFocus && term ? "click-catcher" : ""}
-        onClick={() => setFocus(false)}
+        className={isFocus > 0 && term ? "click-catcher" : ""}
+        onClick={() => setFocus(0)}
       ></label>
       <form className="search__form" onSubmit={submitHandler}>
         <div className="row">
@@ -84,22 +86,27 @@ export default function SearchBox(props) {
             id="q"
             value={term}
             tabIndex="1"
+            onClick={(e) => {
+              setFocus(1);
+              setSuggests(findSuggest.search(list, term));
+            }}
             onFocus={(e) => {
-              setFocus(true);
+              setFocus(1);
               setSuggests(findSuggest.search(list, term));
             }}
             onChange={(e) => setTerm(e.target.value)}
-            onKeyUp={(e) =>
-              setSuggests(findSuggest.search(list, e.target.value))
-            }
-            onBlur={() => setFocus(true)}
+            onKeyUp={(e) => {
+              setFocus(isFocus + 1);
+              setSuggests(findSuggest.search(list, e.target.value));
+            }}
+            onBlur={() => setFocus(1)}
           ></input>
           <button className="primary" type="submit">
             <div className="sprite__search-btn"></div>
           </button>
         </div>
       </form>
-      {isFocus && term && (
+      {isFocus > 0 && term && (
         <div className="search__suggest">
           <ul>
             {suggests.slice(0, 12).map((p) => (
@@ -110,7 +117,7 @@ export default function SearchBox(props) {
                   onClick={(e) => {
                     setTerm(p.name.replace(/(<b>)|(<\/b>)/g, ""));
                     setSuggests([]);
-                    setFocus(false);
+                    setFocus(0);
                   }}
                 ></Link>
               </li>

@@ -125,13 +125,8 @@ function App() {
               <span className="nav-item__line-2">Location?</span>
             </div>
           </Link>
-
           <div className="nav-item nav__search">
-            <Route
-              render={({ history }) => (
-                <SearchBox history={history}></SearchBox>
-              )}
-            ></Route>
+            <SearchBox />
           </div>
           <>
             {userInfo ? (
