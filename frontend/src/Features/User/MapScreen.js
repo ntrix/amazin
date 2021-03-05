@@ -105,7 +105,7 @@ export default function MapScreen(props) {
   };
 
   return googleApiKey ? (
-    <div className="container--full">
+    <div className="container__map">
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="sample-map"

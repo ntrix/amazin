@@ -285,8 +285,11 @@ a .brand {
 .location {
   padding-top: 1rem;
 }
+.location .nav-item__col {
+  margin: 0 2px;
+}
 .sprite__locator {
-  width: 20px;
+  width: 16px;
   height: 34px;
   background: url("./img/nav-sprite.png") -60px -120px;
 }
@@ -760,12 +763,12 @@ table th {
 }
 .search__form button {
   height: 38px;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 2px 2px 0;
   border: none;
   background: #f3a847;
   background: -webkit-linear-gradient(top, #f3a847, #f0c14b);
   background: linear-gradient(to bottom, #f3a847, #f0c14b);
-  margin-left: -4.5rem;
+  margin-left: -47px;
   z-index: 9000;
 }
 .search__form button:hover {
@@ -825,9 +828,12 @@ table th {
 }
 
 /* Map */
-.container--full {
-  margin: -1rem;
-  height: calc(100% + 2rem);
+.container__map {
+  position: absolute;
+  top: 6rem;
+  right: 0;
+  width: 100%;
+  height: calc(100% - 6rem);
 }
 .address-box {
   box-sizing: border-box;
@@ -840,16 +846,17 @@ table th {
   display: flex;
 }
 .address-box input {
-  border-radius: 5px 0 0 5px;
+  border-radius: 3px 0 0 3px;
   border-right: 0;
 }
 .address-box .btn-right {
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 3px 3px 0;
   border-left: 0;
+  margin-left: -2px;
 }
 .address-box .btn-left {
-  border-radius: 5px;
-  margin: 0 2rem;
+  border-radius: 3px;
+  margin: 0 1rem 0 -10rem;
 }
 
 /*product*/
@@ -934,7 +941,7 @@ textarea#comment {
   .search__form button {
     width: 3rem;
     height: 3.5rem;
-    margin-left: -3rem;
+    margin-left: -32px;
   }
   .sprite__search-btn {
     margin-left: -8px;
