@@ -872,25 +872,28 @@ table th {
   position: absolute;
   left: 0;
   right: 0;
-  margin: 0.5rem auto;
-  width: 25rem;
-  height: 4rem;
+  margin: 5px auto;
+  width: 50%;
+  min-width: 300px;
+  height: 40px;
   display: flex;
+}
+.address-box .btn-left {
+  margin-right: 5px;
+  border-radius: 3px;
 }
 .address-box input {
   border-radius: 3px 0 0 3px;
   border-right: 0;
 }
 .address-box .btn-right {
+  margin-left: -2px;
   border-radius: 0 3px 3px 0;
   border-left: 0;
-  margin-left: -2px;
 }
-.address-box .btn-left {
-  border-radius: 3px;
-  margin: 0 1rem 0 -10rem;
+.address-box *:focus {
+  z-index: 1;
 }
-
 /*product*/
 .product {
   display: flex;

@@ -119,7 +119,7 @@ export default function MapScreen(props) {
             onLoad={onLoadPlaces}
             onPlacesChanged={onPlacesChanged}
           >
-            <div className="address-box">
+            <div className="address-box col-fill">
               <button
                 type="button"
                 className="danger btn-left"
@@ -127,7 +127,12 @@ export default function MapScreen(props) {
               >
                 Cancel
               </button>
-              <input type="text" placeholder="Enter your address"></input>
+              <input
+                type="text"
+                size="1"
+                placeholder="Enter your address"
+                className="col-fill"
+              ></input>
               <button
                 type="button"
                 className="primary btn-right"
