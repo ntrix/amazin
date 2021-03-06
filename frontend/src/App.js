@@ -52,8 +52,8 @@ function App() {
       <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
         <header id="navbar" className="row">
           <button
-            type="button"
             className="open-sidebar"
+            type="button"
             onClick={() => setSidebar(true)}
           >
             <i className="fa fa-bars"></i>
@@ -64,7 +64,7 @@ function App() {
               <span className="mobile--off">mazin'</span>
             </div>
           </Link>
-          <Link to="/map" className="nav-item location flex">
+          <Link className="nav-item location flex" to="/map">
             <div className="nav-item__col">
               <div className="sprite__locator"></div>
             </div>
@@ -77,7 +77,7 @@ function App() {
             <SearchBox />
           </div>
           {!userInfo && (
-            <Link to="/signin" className="nav-item dropdown mh-2">
+            <Link className="nav-item dropdown mh-2" to="/signin">
               <div className="nav-item__col mh-2">
                 <span className="nav-item__line-1">Hello, Sign in</span>
                 <span className="nav-item__line-2 disabled">
@@ -148,7 +148,7 @@ function App() {
             />
           )}
           <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
-          <Link to="/cart" className="nav-item nav-item__cart flex">
+          <Link className="nav-item nav-item__cart flex" to="/cart">
             <div className="nav-item__col">
               <span className="nav-item__line-1 cart__counter">
                 {cartItems.length}
