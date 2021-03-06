@@ -9,19 +9,42 @@ import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
 
-export function NavDropdown({ children, onEnterHandle, onLeaveHandle }) {
+export function NavDropdown({
+  children,
+  onEnterHandle,
+  onLeaveHandle,
+  attr,
+  text,
+}) {
+  const line = text.split("^");
   return (
     <div
-      className="nav-item dropdown"
+      className={"nav-item dropdown " + attr}
       onMouseEnter={onEnterHandle}
       onMouseLeave={onLeaveHandle}
     >
+      <div className="nav-item__col">
+        <span className="nav-item__line-1">{line[0]}</span>
+        <span className="nav-item__line-2">
+          {line[1]}
+          <span className="tablet--off">{line[2]}</span>
+          <span className="pull-right">
+            <i className="fa fa-caret-down"></i>
+          </span>
+        </span>
+      </div>
       {children}
     </div>
   );
 }
 
 function App() {
+  const cart = useSelector((state) => state.cart);
+  const [hasSidebar, setSidebar] = useState(false);
+  const { cartItems } = cart;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const dispatch = useDispatch();
   const timeoutId = useRef(0);
   const [hasDropdown, setDropdown] = useState(false);
   const onEnterHandle = () => {
@@ -31,12 +54,6 @@ function App() {
   const onLeaveHandle = () => {
     timeoutId.current = 99 + setTimeout(() => setDropdown(false), 500);
   };
-  const cart = useSelector((state) => state.cart);
-  const [hasSidebar, setSidebar] = useState(false);
-  const { cartItems } = cart;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const dispatch = useDispatch();
   const signoutHandler = () => {
     dispatch(signout());
   };
@@ -130,18 +147,10 @@ function App() {
             <NavDropdown
               onEnterHandle={onEnterHandle}
               onLeaveHandle={onLeaveHandle}
+              text={
+                "Hello, " + getShortenName(userInfo, 8) + "^Account^ & Lists"
+              }
             >
-              <div className="nav-item__col">
-                <span className="nav-item__line-1">
-                  H<span className="pc-low--only">i, </span>
-                  <span className="pc-low--off">ello, </span>
-                  {getShortenName(userInfo, 9)}
-                </span>
-                <span className="nav-item__line-2">
-                  Account<span className="pc-low--off"> & Lists</span>{" "}
-                  <i className="fa fa-caret-down"></i>{" "}
-                </span>
-              </div>
               <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
                 {[
                   ["Informations"],
@@ -162,14 +171,8 @@ function App() {
             <NavDropdown
               onEnterHandle={onEnterHandle}
               onLeaveHandle={onLeaveHandle}
+              text="Seller^Desk"
             >
-              <div className="nav-item__col">
-                <span className="nav-item__line-1">Seller</span>
-                <span className="nav-item__line-2">
-                  Desk
-                  <i className="fa fa-caret-down"></i>
-                </span>
-              </div>
               <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
                 {[
                   ["Profile"],
@@ -189,14 +192,8 @@ function App() {
             <NavDropdown
               onEnterHandle={onEnterHandle}
               onLeaveHandle={onLeaveHandle}
+              text="Admin^Tools"
             >
-              <div className="nav-item__col">
-                <span className="nav-item__line-1">Admin</span>
-                <span className="nav-item__line-2">
-                  Tools
-                  <i className="fa fa-caret-down"></i>
-                </span>
-              </div>
               <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
                 {[
                   ["Admin"],
@@ -212,12 +209,7 @@ function App() {
               </ul>
             </NavDropdown>
           )}
-          <Link className="nav-item dropdown tablet--off disabled">
-            <div className="nav-item__col">
-              <span className="nav-item__line-1">Return</span>
-              <span className="nav-item__line-2">& Orders</span>
-            </div>
-          </Link>
+          <NavDropdown attr="tablet--off disabled" text="Return^& Orders" />
           <Link to="/cart" className="nav-item nav-item__cart flex">
             <div className="nav-item__col">
               <span className="nav-item__line-1 cart__counter">

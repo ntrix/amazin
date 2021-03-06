@@ -168,6 +168,10 @@ footer {
 .text-right {
   text-align: right;
 }
+.pull-right {
+  float: right;
+  padding-left: 0.5rem;
+}
 /* Common */
 h1 {
   font-size: 1.8rem;
@@ -306,6 +310,8 @@ a .brand {
   line-height: 1.4rem;
   height: 1.4rem;
   font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .nav-item__line-2 {
   font-weight: 700;
@@ -387,7 +393,7 @@ a .brand {
     color: transparent;
     right: 50%;
   }
-  40% {
+  35% {
     color: transparent;
   }
   100% {
@@ -474,9 +480,11 @@ button.open-sidebar:hover {
   }
   25% {
     margin-left: 0;
+    -webkit-transform: translate3D(0, 0, 0);
     transform: translate3D(0, 0, 0);
   }
   50% {
+    -webkit-transform: translate3D(7rem, 0, 0) scaleX(1.2);
     transform: translate3D(7rem, 0, 0) scaleX(1.2);
   }
   60% {
@@ -484,6 +492,7 @@ button.open-sidebar:hover {
   }
   100% {
     color: #131a21;
+    -webkit-transform: translate3D(0, 0, 0) scaleX(1);
     transform: translate3D(0, 0, 0) scaleX(1);
   }
 }
