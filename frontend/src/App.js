@@ -68,8 +68,8 @@ function App() {
             <Link className="location flex" to="/map">
               <div className="sprite__locator"></div>
               <div className="tablet--off">
-                <div className="nav-item__line-1">Deliver to your</div>
-                <div className="nav-item__line-2">Location?</div>
+                <div className="nav__line-1">Deliver to your</div>
+                <div className="nav__line-2">Location?</div>
               </div>
             </Link>
             <div className="nav__search">
@@ -152,14 +152,14 @@ function App() {
               />
             )}
             <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
-            <Link className="nav-item__cart flex" to="/cart">
+            <Link className="nav__cart flex" to="/cart">
               <div>
                 <div className="cart__counter">{cartItems.length}</div>
                 <div className="sprite__cart"></div>
               </div>
               <div className="pc-low--off">
-                <div className="nav-item__line-1">Shopping-</div>
-                <div className="nav-item__line-2">Basket</div>
+                <div className="nav__line-1">Shopping-</div>
+                <div className="nav__line-2">Basket</div>
               </div>
             </Link>
           </div>

@@ -278,16 +278,6 @@ a .brand {
   line-height: 4rem;
   color: #fff;
 }
-.nav-belt > * {
-  margin: 2px;
-  padding: 4px;
-  border-radius: 2px;
-  color: #fff;
-}
-.nav-belt > *:hover {
-  margin: 1px;
-  border: thin solid #fff;
-}
 .location {
   padding-top: 1rem;
 }
@@ -299,7 +289,18 @@ a .brand {
   height: 34px;
   background: url("./img/nav-sprite.png") -60px -120px;
 }
-.nav-item__line-1 {
+/* NAV */
+.nav-belt > * {
+  margin: 2px;
+  padding: 4px;
+  border-radius: 2px;
+  color: #fff;
+}
+.nav-belt > *:hover {
+  margin: 1px;
+  border: thin solid #fff;
+}
+.nav-belt .nav__line-1 {
   font-size: 1.2rem;
   line-height: 1.4rem;
   height: 1.4rem;
@@ -307,19 +308,21 @@ a .brand {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.nav-item__line-2 {
+.nav-belt .nav__line-2 {
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.5rem;
 }
-.nav-item__cart .cart__counter {
+
+/* Cart */
+.nav__cart .cart__counter {
   margin: -1px auto 8px auto;
   padding-left: 18px;
   font-weight: 700;
   font-size: 1.8rem;
   color: #f80;
 }
-.nav-item__cart {
+.nav__cart {
   padding: 7px;
 }
 .sprite__cart {
@@ -484,8 +487,8 @@ button.open-sidebar:hover {
     transform: translate3D(0, 0, 0);
   }
   50% {
-    -webkit-transform: translate3D(7rem, 0, 0) scaleX(1.2);
-    transform: translate3D(7rem, 0, 0) scaleX(1.2);
+    -webkit-transform: translate3D(7rem, 0, 0) scaleX(1.15);
+    transform: translate3D(7rem, 0, 0) scaleX(1.15);
   }
   100% {
     color: #131a21;
