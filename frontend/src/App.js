@@ -3,40 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link } from "react-router-dom";
 import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
+import NavDropMenu, { addMenuItem } from "./components/NavMenu";
 import SearchBox from "./components/SearchBox";
 import { listProductCategories } from "./Controllers/productActions";
 import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
-
-export function NavDropdown({
-  children,
-  onEnterHandle,
-  onLeaveHandle,
-  attr,
-  text,
-}) {
-  const line = text.split("^");
-  return (
-    <div
-      className={"nav-item dropdown " + attr}
-      onMouseEnter={onEnterHandle}
-      onMouseLeave={onLeaveHandle}
-    >
-      <div className="nav-item__col">
-        <span className="nav-item__line-1">{line[0]}</span>
-        <span className="nav-item__line-2">
-          {line[1]}
-          <span className="tablet--off">{line[2]}</span>
-          <span className="pull-right">
-            <i className="fa fa-caret-down"></i>
-          </span>
-        </span>
-      </div>
-      {children}
-    </div>
-  );
-}
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -65,41 +37,12 @@ function App() {
     categories,
   } = productCategoryList;
 
-  function getShortenName(user, length) {
+  function shortName(user, length) {
     if (!user) return "Sign In";
     if (!length) return user.name;
     const name = user.name.split(" ")[0];
     return name.slice(0, length) + (name.length > length ? ".." : "");
   }
-  const addMenuItem = (setMenu) => ([text, link, className, action]) => {
-    if (text == "separator") return <div className="separator"></div>;
-    const inner = () =>
-      !link && !className ? (
-        <strong>{text}</strong>
-      ) : link == "disabled" ? (
-        <Link className="disabled">{text}</Link>
-      ) : link.startsWith("https://") ? (
-        <a href={link} target="_blank">
-          {text}
-        </a>
-      ) : link ? (
-        <Link
-          to={link}
-          className={className}
-          onClick={() => {
-            setMenu(false);
-            if (action) action();
-          }}
-        >
-          {text}
-        </Link>
-      ) : (
-        <div>{text}</div>
-      );
-    return <li key={text}>{inner()}</li>;
-  };
-  const addSideMenuItem = addMenuItem(setSidebar);
-  const addDropMenuItem = addMenuItem(setDropdown);
 
   useEffect(() => {
     dispatch(listProductCategories());
@@ -144,72 +87,67 @@ function App() {
             </Link>
           )}
           {userInfo && (
-            <NavDropdown
+            <NavDropMenu
+              label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
+              isDropped={hasDropdown}
               onEnterHandle={onEnterHandle}
               onLeaveHandle={onLeaveHandle}
-              text={
-                "Hello, " + getShortenName(userInfo, 8) + "^Account^ & Lists"
-              }
-            >
-              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
-                {[
-                  ["Informations"],
-                  ["Your Profile", "/profile"],
-                  ["separator"],
-                  ["Orders"],
-                  ["Your Order History", "/order-history"],
-                  ["Returns", "disabled"],
-                  ["Contact Us", "#contact"],
-                  ["separator"],
-                  ["Account"],
-                  ["Sign Out", "#signout", , signoutHandler],
-                ].map(addDropMenuItem)}
-              </ul>
-            </NavDropdown>
+              onClickItem={setDropdown}
+              dropMenu={[
+                ["Informations"],
+                ["Your Profile", "/profile"],
+                ["separator"],
+                ["Orders"],
+                ["Your Order History", "/order-history"],
+                ["Returns", "disabled"],
+                ["Contact Us", "#contact"],
+                ["separator"],
+                ["Account"],
+                ["Sign Out", "#signout", , signoutHandler],
+              ]}
+            />
           )}
           {userInfo?.isSeller && (
-            <NavDropdown
+            <NavDropMenu
+              label="Seller^Desk"
+              isDropped={hasDropdown}
               onEnterHandle={onEnterHandle}
               onLeaveHandle={onLeaveHandle}
-              text="Seller^Desk"
-            >
-              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
-                {[
-                  ["Profile"],
-                  ["Seller Profile", "/profile/seller"],
-                  ["separator"],
-                  ["Listing"],
-                  ["Product List", "/product-list/seller"],
-                  ["Sold Order List", "/order-list/seller"],
-                  ["separator"],
-                  ["Assistant"],
-                  ["Sell Statistics", "disabled"],
-                ].map(addDropMenuItem)}
-              </ul>
-            </NavDropdown>
+              onClickItem={setDropdown}
+              dropMenu={[
+                ["Profile"],
+                ["Seller Profile", "/profile/seller"],
+                ["separator"],
+                ["Listing"],
+                ["Product List", "/product-list/seller"],
+                ["Sold Order List", "/order-list/seller"],
+                ["separator"],
+                ["Assistant"],
+                ["Sell Statistics", "disabled"],
+              ]}
+            />
           )}
           {userInfo?.isAdmin && (
-            <NavDropdown
+            <NavDropMenu
+              label="Admin^Tools"
+              isDropped={hasDropdown}
               onEnterHandle={onEnterHandle}
               onLeaveHandle={onLeaveHandle}
-              text="Admin^Tools"
-            >
-              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
-                {[
-                  ["Admin"],
-                  ["User List", "/user-list"],
-                  ["separator"],
-                  ["Warehouse"],
-                  ["Product Catalogues", "/product-list"],
-                  ["Order Database", "/order-list"],
-                  ["separator"],
-                  ["Instruction"],
-                  ["Quick Tutor!", "disabled"],
-                ].map(addDropMenuItem)}
-              </ul>
-            </NavDropdown>
+              onClickItem={setDropdown}
+              dropMenu={[
+                ["Admin"],
+                ["User List", "/user-list"],
+                ["separator"],
+                ["Warehouse"],
+                ["Product Catalogues", "/product-list"],
+                ["Order Database", "/order-list"],
+                ["separator"],
+                ["Instruction"],
+                ["Quick Tutor!", "disabled"],
+              ]}
+            />
           )}
-          <NavDropdown attr="tablet--off disabled" text="Return^& Orders" />
+          <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
           <Link to="/cart" className="nav-item nav-item__cart flex">
             <div className="nav-item__col">
               <span className="nav-item__line-1 cart__counter">
@@ -232,7 +170,7 @@ function App() {
           <li onClick={() => setSidebar(false)}>
             <Link to="/profile" className="sidebar__header">
               <div className="sprite__user"></div>
-              {"Hello, " + getShortenName(userInfo)}
+              {"Hello, " + shortName(userInfo)}
             </Link>
           </li>
           <ul className="categories">
@@ -266,7 +204,7 @@ function App() {
                 ["#contact 2020", "disabled"],
                 ["separator"],
                 ["separator"],
-              ].map(addSideMenuItem)
+              ].map(addMenuItem(setSidebar))
             )}
           </ul>
         </aside>

@@ -483,12 +483,12 @@ button.open-sidebar:hover {
     -webkit-transform: translate3D(0, 0, 0);
     transform: translate3D(0, 0, 0);
   }
+  40% {
+    color: transparent;
+  }
   50% {
     -webkit-transform: translate3D(7rem, 0, 0) scaleX(1.2);
     transform: translate3D(7rem, 0, 0) scaleX(1.2);
-  }
-  60% {
-    color: transparent;
   }
   100% {
     color: #131a21;
@@ -900,9 +900,7 @@ table th {
 }
 .search__suggest {
   position: absolute;
-  left: 0;
-  top: 4rem;
-  width: 100%;
+  top: 5rem;
   z-index: 9000;
 }
 .search__suggest ul:not(:empty) {
