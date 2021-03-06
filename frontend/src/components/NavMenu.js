@@ -46,7 +46,7 @@ export default function NavDropMenu({
   const line = label.split("^");
   return (
     <div
-      className={"nav-item dropdown " + attr}
+      className={"dropdown " + attr}
       onMouseEnter={onEnterHandle}
       onMouseLeave={onLeaveHandle}
     >

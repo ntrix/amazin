@@ -278,13 +278,13 @@ a .brand {
   line-height: 4rem;
   color: #fff;
 }
-.nav-item {
+.nav-belt > * {
   margin: 2px;
   padding: 4px;
   border-radius: 2px;
   color: #fff;
 }
-.nav-item:hover {
+.nav-belt > *:hover {
   margin: 1px;
   border: thin solid #fff;
 }
@@ -379,21 +379,21 @@ a .brand {
   opacity: 1;
   -webkit-transform: scaleX(1.3);
   transform: scaleX(1.3);
-  -webkit-animation: sponge 0.5s forwards;
-  animation: sponge 0.5s forwards;
+  -webkit-animation: sponge 0.4s forwards;
+  animation: sponge 0.4s forwards;
 }
 .dropdown:hover > .dropdown__menu.show * {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
-  -webkit-animation: sponge 0.5s backwards;
-  animation: sponge 0.5s backwards;
+  -webkit-animation: sponge 0.4s backwards;
+  animation: sponge 0.4s backwards;
 }
 @keyframes sponge {
   0% {
     color: transparent;
     right: 50%;
   }
-  35% {
+  30% {
     color: transparent;
   }
   100% {
@@ -467,24 +467,21 @@ button.open-sidebar:hover {
   transform: translate3D(-120%, 0, 0);
 }
 .sidebar.opened {
-  -webkit-animation: side-sponge 0.5s forwards;
-  animation: side-sponge 0.5s forwards;
+  -webkit-animation: side-sponge 0.4s forwards;
+  animation: side-sponge 0.4s forwards;
 }
 .sidebar.opened ul > li * {
-  -webkit-animation: side-sponge 0.5s backwards;
-  animation: side-sponge 0.5s backwards;
+  -webkit-animation: side-sponge 0.4s backwards;
+  animation: side-sponge 0.4s backwards;
 }
 @keyframes side-sponge {
   0% {
-    color: transparent;
   }
-  25% {
+  30% {
     margin-left: 0;
+    color: transparent;
     -webkit-transform: translate3D(0, 0, 0);
     transform: translate3D(0, 0, 0);
-  }
-  40% {
-    color: transparent;
   }
   50% {
     -webkit-transform: translate3D(7rem, 0, 0) scaleX(1.2);

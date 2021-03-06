@@ -50,117 +50,119 @@ function App() {
   return (
     <BrowserRouter>
       <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
-        <header id="navbar" className="row">
-          <button
-            className="open-sidebar"
-            type="button"
-            onClick={() => setSidebar(true)}
-          >
-            <i className="fa fa-bars"></i>
-          </button>
-          <Link className="nav-item phone--off" to="/">
-            <div className="brand">
-              <img className="logo" src={Logo} alt="logo" />
-              <span className="mobile--off">mazin'</span>
+        <header id="navbar">
+          <div className="nav-belt row">
+            <button
+              className="open-sidebar"
+              type="button"
+              onClick={() => setSidebar(true)}
+            >
+              <i className="fa fa-bars"></i>
+            </button>
+            <Link className="phone--off" to="/">
+              <div className="brand">
+                <img className="logo" src={Logo} alt="logo" />
+                <span className="mobile--off">mazin'</span>
+              </div>
+            </Link>
+            <Link className="location flex" to="/map">
+              <div className="sprite__locator"></div>
+              <div className="tablet--off">
+                <div className="nav-item__line-1">Deliver to your</div>
+                <div className="nav-item__line-2">Location?</div>
+              </div>
+            </Link>
+            <div className="nav__search">
+              <SearchBox />
             </div>
-          </Link>
-          <Link className="nav-item location flex" to="/map">
-            <div className="sprite__locator"></div>
-            <div className="tablet--off">
-              <div className="nav-item__line-1">Deliver to your</div>
-              <div className="nav-item__line-2">Location?</div>
-            </div>
-          </Link>
-          <div className="nav-item nav__search">
-            <SearchBox />
+            {!userInfo && (
+              <NavDropMenu
+                label="Hello, Sign in^Account^ & Lists"
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Account"],
+                  ["Sign In", "/signin"],
+                  ["separator"],
+                  ["New customer? Start here.", "/register"],
+                ]}
+              />
+            )}
+            {userInfo && (
+              <NavDropMenu
+                label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Informations"],
+                  ["Your Profile", "/profile"],
+                  ["separator"],
+                  ["Orders"],
+                  ["Your Order History", "/order-history"],
+                  ["Returns", "disabled"],
+                  ["Contact Us", "#contact"],
+                  ["separator"],
+                  ["Account"],
+                  ["Sign Out", "#signout", , signoutHandler],
+                ]}
+              />
+            )}
+            {userInfo?.isSeller && (
+              <NavDropMenu
+                label="Seller^Desk"
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Profile"],
+                  ["Seller Profile", "/profile/seller"],
+                  ["separator"],
+                  ["Listing"],
+                  ["Product List", "/product-list/seller"],
+                  ["Sold Order List", "/order-list/seller"],
+                  ["separator"],
+                  ["Assistant"],
+                  ["Sell Statistics", "disabled"],
+                ]}
+              />
+            )}
+            {userInfo?.isAdmin && (
+              <NavDropMenu
+                label="Admin^Tools"
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Admin"],
+                  ["User List", "/user-list"],
+                  ["separator"],
+                  ["Warehouse"],
+                  ["Product Catalogues", "/product-list"],
+                  ["Order Database", "/order-list"],
+                  ["separator"],
+                  ["Instruction"],
+                  ["Quick Tutor!", "disabled"],
+                ]}
+              />
+            )}
+            <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
+            <Link className="nav-item__cart flex" to="/cart">
+              <div>
+                <div className="cart__counter">{cartItems.length}</div>
+                <div className="sprite__cart"></div>
+              </div>
+              <div className="pc-low--off">
+                <div className="nav-item__line-1">Shopping-</div>
+                <div className="nav-item__line-2">Basket</div>
+              </div>
+            </Link>
           </div>
-          {!userInfo && (
-            <NavDropMenu
-              label="Hello, Sign in^Account^ & Lists"
-              isDropped={hasDropdown}
-              onEnterHandle={onEnterHandle}
-              onLeaveHandle={onLeaveHandle}
-              onClickItem={setDropdown}
-              dropMenu={[
-                ["Account"],
-                ["Sign In", "/signin"],
-                ["separator"],
-                ["New customer? Start here.", "/register"],
-              ]}
-            />
-          )}
-          {userInfo && (
-            <NavDropMenu
-              label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
-              isDropped={hasDropdown}
-              onEnterHandle={onEnterHandle}
-              onLeaveHandle={onLeaveHandle}
-              onClickItem={setDropdown}
-              dropMenu={[
-                ["Informations"],
-                ["Your Profile", "/profile"],
-                ["separator"],
-                ["Orders"],
-                ["Your Order History", "/order-history"],
-                ["Returns", "disabled"],
-                ["Contact Us", "#contact"],
-                ["separator"],
-                ["Account"],
-                ["Sign Out", "#signout", , signoutHandler],
-              ]}
-            />
-          )}
-          {userInfo?.isSeller && (
-            <NavDropMenu
-              label="Seller^Desk"
-              isDropped={hasDropdown}
-              onEnterHandle={onEnterHandle}
-              onLeaveHandle={onLeaveHandle}
-              onClickItem={setDropdown}
-              dropMenu={[
-                ["Profile"],
-                ["Seller Profile", "/profile/seller"],
-                ["separator"],
-                ["Listing"],
-                ["Product List", "/product-list/seller"],
-                ["Sold Order List", "/order-list/seller"],
-                ["separator"],
-                ["Assistant"],
-                ["Sell Statistics", "disabled"],
-              ]}
-            />
-          )}
-          {userInfo?.isAdmin && (
-            <NavDropMenu
-              label="Admin^Tools"
-              isDropped={hasDropdown}
-              onEnterHandle={onEnterHandle}
-              onLeaveHandle={onLeaveHandle}
-              onClickItem={setDropdown}
-              dropMenu={[
-                ["Admin"],
-                ["User List", "/user-list"],
-                ["separator"],
-                ["Warehouse"],
-                ["Product Catalogues", "/product-list"],
-                ["Order Database", "/order-list"],
-                ["separator"],
-                ["Instruction"],
-                ["Quick Tutor!", "disabled"],
-              ]}
-            />
-          )}
-          <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
-          <Link className="nav-item nav-item__cart flex" to="/cart">
-            <div>
-              <div className="cart__counter">{cartItems.length}</div>
-              <div className="sprite__cart"></div>
-            </div>
-            <div className="pc-low--off">
-              <div className="nav-item__line-1">Shopping-</div>
-              <div className="nav-item__line-2">Basket</div>
-            </div>
-          </Link>
         </header>
         <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
           <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
