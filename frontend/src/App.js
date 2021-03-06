@@ -65,10 +65,10 @@ function App() {
             </div>
           </Link>
           <Link className="nav-item location flex" to="/map">
-            <div className="nav-item__col">
+            <div className="flex-col">
               <div className="sprite__locator"></div>
             </div>
-            <div className="nav-item__col tablet--off">
+            <div className="flex-col tablet--off">
               <span className="nav-item__line-1">Deliver to your</span>
               <span className="nav-item__line-2">Location?</span>
             </div>
@@ -78,7 +78,7 @@ function App() {
           </div>
           {!userInfo && (
             <Link className="nav-item dropdown mh-2" to="/signin">
-              <div className="nav-item__col mh-2">
+              <div className="flex-col mh-2">
                 <span className="nav-item__line-1">Hello, Sign in</span>
                 <span className="nav-item__line-2 disabled">
                   Account & Lists <i className="fa fa-caret-down"></i>
@@ -149,17 +149,17 @@ function App() {
           )}
           <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
           <Link className="nav-item nav-item__cart flex" to="/cart">
-            <div className="nav-item__col">
-              <span className="nav-item__line-1 cart__counter">
+            <div>
+              <div className="nav-item__line-1 cart__counter">
                 {cartItems.length}
-              </span>
-              <span className="nav-item__line-2">
+              </div>
+              <div className="nav-item__line-2">
                 <div className="sprite__cart"></div>
-              </span>
+              </div>
             </div>
-            <div className="nav-item__col pc-low--off">
-              <span className="nav-item__line-1">Shopping-</span>
-              <span className="nav-item__line-2">Basket</span>
+            <div className="pc-low--off">
+              <div className="nav-item__line-1">Shopping-</div>
+              <div className="nav-item__line-2">Basket</div>
             </div>
           </Link>
         </header>

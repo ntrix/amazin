@@ -168,10 +168,6 @@ footer {
 .text-right {
   text-align: right;
 }
-.pull-right {
-  float: right;
-  padding-left: 0.5rem;
-}
 /* Common */
 h1 {
   font-size: 1.8rem;
@@ -257,11 +253,14 @@ button.small {
   font-size: 1.2rem;
 }
 .flex {
-  display: -webkit-box;
-  display: -moz-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
+}
+.flex-col {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
 }
 /* Header */
 header a {
@@ -281,23 +280,18 @@ a .brand {
 }
 .nav-item {
   margin: 2px;
-  padding: 0.4rem;
+  padding: 4px;
   border-radius: 2px;
+  color: #fff;
 }
 .nav-item:hover {
   margin: 1px;
   border: thin solid #fff;
 }
-.nav-item__col {
-  display: flex;
-  flex-direction: column;
-  font-weight: 700;
-  color: #fff;
-}
 .location {
   padding-top: 1rem;
 }
-.location .nav-item__col {
+.location .flex-col {
   margin: 0 2px;
 }
 .sprite__locator {
@@ -319,8 +313,8 @@ a .brand {
   line-height: 1.5rem;
 }
 .nav-item__cart .cart__counter {
-  margin: -2px auto 8px auto;
-  padding-left: 8px;
+  margin: -3px auto 8px auto;
+  padding-left: 18px;
   font-weight: 700;
   font-size: 1.8rem;
   color: #f80;
@@ -342,6 +336,24 @@ a .brand {
   position: relative;
   padding: 0.75rem 0.4rem;
 }
+.dropdown .fa-caret-down {
+  float: right;
+  padding-left: 4px;
+  font-size: 12px;
+  color: #ccc;
+}
+.dropdown__menu {
+  position: absolute;
+  right: -9px;
+  min-width: 19rem;
+  padding: 1.5rem 2.5rem;
+  background-color: #fff;
+  margin-top: 7px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px #131a21;
+  z-index: -1;
+  opacity: 0;
+}
 .dropdown__menu:before {
   content: "";
   position: absolute;
@@ -361,18 +373,6 @@ a .brand {
   height: 2rem;
   top: -1rem;
   right: 0;
-}
-.dropdown__menu {
-  position: absolute;
-  right: -9px;
-  min-width: 19rem;
-  padding: 1.5rem 2.5rem;
-  background-color: #fff;
-  margin-top: 7px;
-  border-radius: 3px;
-  box-shadow: 0 0 2px #131a21;
-  z-index: -1;
-  opacity: 0;
 }
 .dropdown:hover > .dropdown__menu.show {
   z-index: 9006;

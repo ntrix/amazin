@@ -50,15 +50,13 @@ export default function NavDropMenu({
       onMouseEnter={onEnterHandle}
       onMouseLeave={onLeaveHandle}
     >
-      <div className="nav-item__col">
-        <span className="nav-item__line-1">{line[0]}</span>
-        <span className="nav-item__line-2">
+      <div>
+        <div className="nav-item__line-1">{line[0]}</div>
+        <div className="nav-item__line-2">
           {line[1]}
           <span className="tablet--off">{line[2]}</span>
-          <span className="pull-right">
-            <i className="fa fa-caret-down"></i>
-          </span>
-        </span>
+          <i className="fa fa-caret-down"></i>
+        </div>
       </div>
       {dropMenu && (
         <ul className={"dropdown__menu" + (isDropped ? " show" : "")}>
