@@ -97,147 +97,146 @@ function App() {
           <div className="nav-item nav__search flex col-fill">
             <SearchBox />
           </div>
-          <>
-            {userInfo ? (
-              <div
-                className="nav-item dropdown"
-                onMouseEnter={() =>
-                  setDropTimeout(setTimeout(() => setDropdown(true), 350))
-                }
-                onMouseLeave={() => {
-                  clearTimeout(dropTimeout);
-                  setDropdown(false);
-                }}
-              >
-                <div className="nav-item__col">
-                  <span className="nav-item__line-1">
-                    H<span className="mobile--only">i, </span>
-                    <span className="mobile--off">ello, </span>
-                    {getShortenName(userInfo, 9)}
-                  </span>
-                  <span className="nav-item__line-2">
-                    Account<span className="pc-low--off"> & Lists</span>{" "}
-                    <i className="fa fa-caret-down"></i>{" "}
-                  </span>
-                </div>
-                {hasDropdown && (
-                  <ul className="dropdown__menu">
-                    {[
-                      ["Informations"],
-                      ["Your Profile", "/profile"],
-                      ["separator"],
-                      ["Orders"],
-                      ["Your Order History", "/order-history"],
-                      ["Returns", "disabled"],
-                      ["Contact Us", "#contact"],
-                      ["separator"],
-                      ["Account"],
-                      ["Sign Out", "#signout", , signoutHandler],
-                    ].map(addDropMenuItem)}
-                  </ul>
-                )}
-              </div>
-            ) : (
-              <Link to="/signin" className="nav-item dropdown mh-2">
-                <div className="nav-item__col mh-2">
-                  <span className="nav-item__line-1">Hello, Sign in</span>
-                  <span className="nav-item__line-2 disabled">
-                    Account & Lists <i className="fa fa-caret-down"></i>
-                  </span>
-                </div>
-              </Link>
-            )}
-            {userInfo && userInfo.isSeller && (
-              <div
-                className="nav-item dropdown"
-                onMouseEnter={() =>
-                  setDropTimeout(setTimeout(() => setDropdown(true), 350))
-                }
-                onMouseLeave={() => {
-                  clearTimeout(dropTimeout);
-                  setDropdown(false);
-                }}
-              >
-                <div className="nav-item__col">
-                  <span className="nav-item__line-1">Seller</span>
-                  <span className="nav-item__line-2">
-                    Desk
-                    <i className="fa fa-caret-down"></i>
-                  </span>
-                </div>
-                {hasDropdown && (
-                  <ul className="dropdown__menu">
-                    {[
-                      ["Profile"],
-                      ["Seller Profile", "/profile/seller"],
-                      ["separator"],
-                      ["Listing"],
-                      ["Product List", "/product-list/seller"],
-                      ["Sold Order List", "/order-list/seller"],
-                      ["separator"],
-                      ["Assistant"],
-                      ["Sell Statistics", "disabled"],
-                    ].map(addDropMenuItem)}
-                  </ul>
-                )}
-              </div>
-            )}
-            {userInfo && userInfo.isAdmin && (
-              <div
-                className="nav-item dropdown phone--off"
-                onMouseEnter={() =>
-                  setDropTimeout(setTimeout(() => setDropdown(true), 350))
-                }
-                onMouseLeave={() => {
-                  clearTimeout(dropTimeout);
-                  setDropdown(false);
-                }}
-              >
-                <div className="nav-item__col">
-                  <span className="nav-item__line-1">Admin</span>
-                  <span className="nav-item__line-2">
-                    Tools
-                    <i className="fa fa-caret-down"></i>
-                  </span>
-                </div>
-                {hasDropdown && (
-                  <ul className="dropdown__menu">
-                    {[
-                      ["Admin"],
-                      ["User List", "/user-list"],
-                      ["separator"],
-                      ["Warehouse"],
-                      ["Product Catalogues", "/product-list"],
-                      ["Order Database", "/order-list"],
-                      ["separator"],
-                      ["Instruction"],
-                      ["Quick Tutor!", "disabled"],
-                    ].map(addDropMenuItem)}
-                  </ul>
-                )}
-              </div>
-            )}
-            <Link className="nav-item dropdown tablet--off disabled">
-              <div className="nav-item__col">
-                <span className="nav-item__line-1">Return</span>
-                <span className="nav-item__line-2">& Orders</span>
+          {!userInfo && (
+            <Link to="/signin" className="nav-item dropdown mh-2">
+              <div className="nav-item__col mh-2">
+                <span className="nav-item__line-1">Hello, Sign in</span>
+                <span className="nav-item__line-2 disabled">
+                  Account & Lists <i className="fa fa-caret-down"></i>
+                </span>
               </div>
             </Link>
-            <Link to="/cart" className="nav-item nav-item__cart flex">
+          )}
+          {userInfo && (
+            <div
+              className="nav-item dropdown"
+              onMouseEnter={() =>
+                setDropTimeout(setTimeout(() => setDropdown(true), 350))
+              }
+              onMouseLeave={() => {
+                clearTimeout(dropTimeout);
+                setDropdown(false);
+              }}
+            >
               <div className="nav-item__col">
-                <span className="nav-item__line-1 cart__counter">
-                  {cartItems.length}
+                <span className="nav-item__line-1">
+                  H<span className="mobile--only">i, </span>
+                  <span className="mobile--off">ello, </span>
+                  {getShortenName(userInfo, 9)}
                 </span>
                 <span className="nav-item__line-2">
-                  <div className="sprite__cart"></div>
+                  Account<span className="pc-low--off"> & Lists</span>{" "}
+                  <i className="fa fa-caret-down"></i>{" "}
                 </span>
               </div>
-              <div className="nav-item__col pc-low--off">
-                <span className="nav-item__line-1">Shopping-</span>
-                <span className="nav-item__line-2">Basket</span>
+              {hasDropdown && (
+                <ul className="dropdown__menu">
+                  {[
+                    ["Informations"],
+                    ["Your Profile", "/profile"],
+                    ["separator"],
+                    ["Orders"],
+                    ["Your Order History", "/order-history"],
+                    ["Returns", "disabled"],
+                    ["Contact Us", "#contact"],
+                    ["separator"],
+                    ["Account"],
+                    ["Sign Out", "#signout", , signoutHandler],
+                  ].map(addDropMenuItem)}
+                </ul>
+              )}
+            </div>
+          )}
+          {userInfo?.isSeller && (
+            <div
+              className="nav-item dropdown"
+              onMouseEnter={() =>
+                setDropTimeout(setTimeout(() => setDropdown(true), 350))
+              }
+              onMouseLeave={() => {
+                clearTimeout(dropTimeout);
+                setDropdown(false);
+              }}
+            >
+              <div className="nav-item__col">
+                <span className="nav-item__line-1">Seller</span>
+                <span className="nav-item__line-2">
+                  Desk
+                  <i className="fa fa-caret-down"></i>
+                </span>
               </div>
-            </Link>
-          </>
+              {hasDropdown && (
+                <ul className="dropdown__menu">
+                  {[
+                    ["Profile"],
+                    ["Seller Profile", "/profile/seller"],
+                    ["separator"],
+                    ["Listing"],
+                    ["Product List", "/product-list/seller"],
+                    ["Sold Order List", "/order-list/seller"],
+                    ["separator"],
+                    ["Assistant"],
+                    ["Sell Statistics", "disabled"],
+                  ].map(addDropMenuItem)}
+                </ul>
+              )}
+            </div>
+          )}
+          {userInfo?.isAdmin && (
+            <div
+              className="nav-item dropdown phone--off"
+              onMouseEnter={() =>
+                setDropTimeout(setTimeout(() => setDropdown(true), 350))
+              }
+              onMouseLeave={() => {
+                clearTimeout(dropTimeout);
+                setDropdown(false);
+              }}
+            >
+              <div className="nav-item__col">
+                <span className="nav-item__line-1">Admin</span>
+                <span className="nav-item__line-2">
+                  Tools
+                  <i className="fa fa-caret-down"></i>
+                </span>
+              </div>
+              {hasDropdown && (
+                <ul className="dropdown__menu">
+                  {[
+                    ["Admin"],
+                    ["User List", "/user-list"],
+                    ["separator"],
+                    ["Warehouse"],
+                    ["Product Catalogues", "/product-list"],
+                    ["Order Database", "/order-list"],
+                    ["separator"],
+                    ["Instruction"],
+                    ["Quick Tutor!", "disabled"],
+                  ].map(addDropMenuItem)}
+                </ul>
+              )}
+            </div>
+          )}
+          <Link className="nav-item dropdown tablet--off disabled">
+            <div className="nav-item__col">
+              <span className="nav-item__line-1">Return</span>
+              <span className="nav-item__line-2">& Orders</span>
+            </div>
+          </Link>
+          <Link to="/cart" className="nav-item nav-item__cart flex">
+            <div className="nav-item__col">
+              <span className="nav-item__line-1 cart__counter">
+                {cartItems.length}
+              </span>
+              <span className="nav-item__line-2">
+                <div className="sprite__cart"></div>
+              </span>
+            </div>
+            <div className="nav-item__col pc-low--off">
+              <span className="nav-item__line-1">Shopping-</span>
+              <span className="nav-item__line-2">Basket</span>
+            </div>
+          </Link>
         </header>
         <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
           <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
