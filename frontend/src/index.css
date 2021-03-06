@@ -825,7 +825,7 @@ table th {
   max-width: 30rem;
 }
 .col-fill {
-  position: static;
+  position: relative;
   float: none;
   -webkit-box: 1;
   -moz-box: 1;
@@ -900,7 +900,9 @@ table th {
 }
 .search__suggest {
   position: absolute;
-  top: 5rem;
+  top: 4rem;
+  left: -3px;
+  right: -5px;
   z-index: 9000;
 }
 .search__suggest ul:not(:empty) {
