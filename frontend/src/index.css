@@ -360,7 +360,7 @@ a .brand {
   position: absolute;
   display: none;
   right: -1rem;
-  min-width: 14rem;
+  min-width: 19rem;
   padding: 1.5rem 2.5rem;
   background-color: #fff;
   margin-top: 1rem;
@@ -667,6 +667,17 @@ img.large {
 /* Alert */
 .loading {
   display: block !important;
+}
+.sprite__loading {
+  display: inline-block;
+  height: 16px;
+  width: 48px;
+  background: url("./img/load-xs.gif");
+}
+.sprite__loading--xl {
+  height: 64px;
+  width: 64px;
+  background: url("./img/load.gif");
 }
 .success {
   color: #20a020;
@@ -992,5 +1003,10 @@ textarea#comment {
   }
   .sidebar {
     width: 28rem;
+  }
+  .sprite__loading--xl {
+    height: 16px;
+    width: 16px;
+    background: url("./img/load-xs.gif");
   }
 }
