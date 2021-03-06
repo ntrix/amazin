@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link } from "react-router-dom";
 import LoadingBox from "./components/LoadingBox";
@@ -9,11 +9,30 @@ import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
 
+export function NavDropdown({ children, onEnterHandle, onLeaveHandle }) {
+  return (
+    <div
+      className="nav-item dropdown"
+      onMouseEnter={onEnterHandle}
+      onMouseLeave={onLeaveHandle}
+    >
+      {children}
+    </div>
+  );
+}
+
 function App() {
-  const cart = useSelector((state) => state.cart);
-  const [dropTimeout, setDropTimeout] = useState(0);
-  const [hasSidebar, setSidebar] = useState(false);
+  const timeoutId = useRef(0);
   const [hasDropdown, setDropdown] = useState(false);
+  const onEnterHandle = () => {
+    clearTimeout(timeoutId.current - 99);
+    timeoutId.current = setTimeout(() => setDropdown(true), 500);
+  };
+  const onLeaveHandle = () => {
+    timeoutId.current = 99 + setTimeout(() => setDropdown(false), 500);
+  };
+  const cart = useSelector((state) => state.cart);
+  const [hasSidebar, setSidebar] = useState(false);
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -108,20 +127,14 @@ function App() {
             </Link>
           )}
           {userInfo && (
-            <div
-              className="nav-item dropdown"
-              onMouseEnter={() =>
-                setDropTimeout(setTimeout(() => setDropdown(true), 350))
-              }
-              onMouseLeave={() => {
-                clearTimeout(dropTimeout);
-                setDropdown(false);
-              }}
+            <NavDropdown
+              onEnterHandle={onEnterHandle}
+              onLeaveHandle={onLeaveHandle}
             >
               <div className="nav-item__col">
                 <span className="nav-item__line-1">
-                  H<span className="mobile--only">i, </span>
-                  <span className="mobile--off">ello, </span>
+                  H<span className="pc-low--only">i, </span>
+                  <span className="pc-low--off">ello, </span>
                   {getShortenName(userInfo, 9)}
                 </span>
                 <span className="nav-item__line-2">
@@ -129,34 +142,26 @@ function App() {
                   <i className="fa fa-caret-down"></i>{" "}
                 </span>
               </div>
-              {hasDropdown && (
-                <ul className="dropdown__menu">
-                  {[
-                    ["Informations"],
-                    ["Your Profile", "/profile"],
-                    ["separator"],
-                    ["Orders"],
-                    ["Your Order History", "/order-history"],
-                    ["Returns", "disabled"],
-                    ["Contact Us", "#contact"],
-                    ["separator"],
-                    ["Account"],
-                    ["Sign Out", "#signout", , signoutHandler],
-                  ].map(addDropMenuItem)}
-                </ul>
-              )}
-            </div>
+              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
+                {[
+                  ["Informations"],
+                  ["Your Profile", "/profile"],
+                  ["separator"],
+                  ["Orders"],
+                  ["Your Order History", "/order-history"],
+                  ["Returns", "disabled"],
+                  ["Contact Us", "#contact"],
+                  ["separator"],
+                  ["Account"],
+                  ["Sign Out", "#signout", , signoutHandler],
+                ].map(addDropMenuItem)}
+              </ul>
+            </NavDropdown>
           )}
           {userInfo?.isSeller && (
-            <div
-              className="nav-item dropdown"
-              onMouseEnter={() =>
-                setDropTimeout(setTimeout(() => setDropdown(true), 350))
-              }
-              onMouseLeave={() => {
-                clearTimeout(dropTimeout);
-                setDropdown(false);
-              }}
+            <NavDropdown
+              onEnterHandle={onEnterHandle}
+              onLeaveHandle={onLeaveHandle}
             >
               <div className="nav-item__col">
                 <span className="nav-item__line-1">Seller</span>
@@ -165,33 +170,25 @@ function App() {
                   <i className="fa fa-caret-down"></i>
                 </span>
               </div>
-              {hasDropdown && (
-                <ul className="dropdown__menu">
-                  {[
-                    ["Profile"],
-                    ["Seller Profile", "/profile/seller"],
-                    ["separator"],
-                    ["Listing"],
-                    ["Product List", "/product-list/seller"],
-                    ["Sold Order List", "/order-list/seller"],
-                    ["separator"],
-                    ["Assistant"],
-                    ["Sell Statistics", "disabled"],
-                  ].map(addDropMenuItem)}
-                </ul>
-              )}
-            </div>
+              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
+                {[
+                  ["Profile"],
+                  ["Seller Profile", "/profile/seller"],
+                  ["separator"],
+                  ["Listing"],
+                  ["Product List", "/product-list/seller"],
+                  ["Sold Order List", "/order-list/seller"],
+                  ["separator"],
+                  ["Assistant"],
+                  ["Sell Statistics", "disabled"],
+                ].map(addDropMenuItem)}
+              </ul>
+            </NavDropdown>
           )}
           {userInfo?.isAdmin && (
-            <div
-              className="nav-item dropdown phone--off"
-              onMouseEnter={() =>
-                setDropTimeout(setTimeout(() => setDropdown(true), 350))
-              }
-              onMouseLeave={() => {
-                clearTimeout(dropTimeout);
-                setDropdown(false);
-              }}
+            <NavDropdown
+              onEnterHandle={onEnterHandle}
+              onLeaveHandle={onLeaveHandle}
             >
               <div className="nav-item__col">
                 <span className="nav-item__line-1">Admin</span>
@@ -200,22 +197,20 @@ function App() {
                   <i className="fa fa-caret-down"></i>
                 </span>
               </div>
-              {hasDropdown && (
-                <ul className="dropdown__menu">
-                  {[
-                    ["Admin"],
-                    ["User List", "/user-list"],
-                    ["separator"],
-                    ["Warehouse"],
-                    ["Product Catalogues", "/product-list"],
-                    ["Order Database", "/order-list"],
-                    ["separator"],
-                    ["Instruction"],
-                    ["Quick Tutor!", "disabled"],
-                  ].map(addDropMenuItem)}
-                </ul>
-              )}
-            </div>
+              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
+                {[
+                  ["Admin"],
+                  ["User List", "/user-list"],
+                  ["separator"],
+                  ["Warehouse"],
+                  ["Product Catalogues", "/product-list"],
+                  ["Order Database", "/order-list"],
+                  ["separator"],
+                  ["Instruction"],
+                  ["Quick Tutor!", "disabled"],
+                ].map(addDropMenuItem)}
+              </ul>
+            </NavDropdown>
           )}
           <Link className="nav-item dropdown tablet--off disabled">
             <div className="nav-item__col">
