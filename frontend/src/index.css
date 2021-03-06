@@ -291,8 +291,8 @@ a .brand {
 .location {
   padding-top: 1rem;
 }
-.location .flex-col {
-  margin: 0 2px;
+.location > div + div {
+  margin-left: 4px;
 }
 .sprite__locator {
   width: 16px;

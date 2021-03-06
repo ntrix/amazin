@@ -65,26 +65,29 @@ function App() {
             </div>
           </Link>
           <Link className="nav-item location flex" to="/map">
-            <div className="flex-col">
-              <div className="sprite__locator"></div>
-            </div>
-            <div className="flex-col tablet--off">
-              <span className="nav-item__line-1">Deliver to your</span>
-              <span className="nav-item__line-2">Location?</span>
+            <div className="sprite__locator"></div>
+            <div className="tablet--off">
+              <div className="nav-item__line-1">Deliver to your</div>
+              <div className="nav-item__line-2">Location?</div>
             </div>
           </Link>
-          <div className="nav-item nav__search flex col-fill">
+          <div className="nav-item nav__search">
             <SearchBox />
           </div>
           {!userInfo && (
-            <Link className="nav-item dropdown mh-2" to="/signin">
-              <div className="flex-col mh-2">
-                <span className="nav-item__line-1">Hello, Sign in</span>
-                <span className="nav-item__line-2 disabled">
-                  Account & Lists <i className="fa fa-caret-down"></i>
-                </span>
-              </div>
-            </Link>
+            <NavDropMenu
+              label="Hello, Sign in^Account^ & Lists"
+              isDropped={hasDropdown}
+              onEnterHandle={onEnterHandle}
+              onLeaveHandle={onLeaveHandle}
+              onClickItem={setDropdown}
+              dropMenu={[
+                ["Account"],
+                ["Sign In", "/signin"],
+                ["separator"],
+                ["New customer? Start here.", "/register"],
+              ]}
+            />
           )}
           {userInfo && (
             <NavDropMenu
