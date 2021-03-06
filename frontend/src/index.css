@@ -458,12 +458,34 @@ button.open-sidebar:hover {
   height: 100%;
   background-color: #fff;
   z-index: 9005;
-  transform: translate3D(-40rem, 0, 0);
-  transition: all 0.3s ease;
+  transform: translate3D(-120%, 0, 0);
 }
-.sidebar.opened,
-.sidebar.opened #btn--close-sidebar {
-  transform: translate3D(0, 0, 0);
+.sidebar.opened {
+  -webkit-animation: side-sponge 0.5s forwards;
+  animation: side-sponge 0.5s forwards;
+}
+.sidebar.opened ul > li * {
+  -webkit-animation: side-sponge 0.5s backwards;
+  animation: side-sponge 0.5s backwards;
+}
+@keyframes side-sponge {
+  0% {
+    color: transparent;
+  }
+  25% {
+    margin-left: 0;
+    transform: translate3D(0, 0, 0);
+  }
+  50% {
+    transform: translate3D(7rem, 0, 0) scaleX(1.2);
+  }
+  60% {
+    color: transparent;
+  }
+  100% {
+    color: #131a21;
+    transform: translate3D(0, 0, 0) scaleX(1);
+  }
 }
 #btn--close-sidebar {
   position: absolute;
@@ -474,8 +496,6 @@ button.open-sidebar:hover {
   background: none;
   color: #fff;
   border: none;
-  transform: translate3D(-10rem, 0, 0);
-  transition: all 0.3s ease;
 }
 #btn--close-sidebar:focus {
   outline: none;
