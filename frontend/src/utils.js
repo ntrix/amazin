@@ -1,4 +1,4 @@
-export const prices = [0.1, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
+export const prices = ["0", 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
   (max, i, arr) => ({
     min: arr[i - 1] || 0,
     max,
