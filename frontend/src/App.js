@@ -153,12 +153,8 @@ function App() {
           <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
           <Link className="nav-item nav-item__cart flex" to="/cart">
             <div>
-              <div className="nav-item__line-1 cart__counter">
-                {cartItems.length}
-              </div>
-              <div className="nav-item__line-2">
-                <div className="sprite__cart"></div>
-              </div>
+              <div className="cart__counter">{cartItems.length}</div>
+              <div className="sprite__cart"></div>
             </div>
             <div className="pc-low--off">
               <div className="nav-item__line-1">Shopping-</div>

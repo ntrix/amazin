@@ -55,7 +55,7 @@ export default function NavDropMenu({
         <div className="nav-item__line-2">
           {line[1]}
           <span className="tablet--off">{line[2]}</span>
-          <i className="fa fa-caret-down"></i>
+          {dropMenu && <i className="fa fa-caret-down"></i>}
         </div>
       </div>
       {dropMenu && (
