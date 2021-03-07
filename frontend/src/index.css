@@ -864,7 +864,8 @@ img.large {
 }
 /* Form */
 .form {
-  min-width: 400px;
+  min-width: 40rem;
+  max-width: 68rem;
   margin: 0 auto;
 }
 .form > div {
