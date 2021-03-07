@@ -48,6 +48,7 @@ export default function NavDropMenu({
     <div
       className={"dropdown " + attr}
       onMouseEnter={onEnterHandle}
+      onClick={onEnterHandle}
       onMouseLeave={onLeaveHandle}
     >
       <div>
