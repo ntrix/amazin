@@ -196,7 +196,8 @@ function App() {
             <div className="nav__right">
               <div className="nav-main__item">
                 <a href="#">
-                  <sup>Advertisement</sup> here? Contact us for more information
+                  <sup>Advertisement</sup> here? Contact us for more
+                  informations
                 </a>
               </div>
             </div>

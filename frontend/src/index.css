@@ -357,7 +357,7 @@ a .brand {
   white-space: nowrap;
 }
 .nav__left {
-  flex: 1 0 6rem;
+  flex: 0 0 6rem;
 }
 .nav__fill {
   -webkit-flex: 1 1 auto;
@@ -367,8 +367,8 @@ a .brand {
   margin-right: 2rem;
 }
 .nav__right {
-  -webkit-flex: 0 0 30%;
-  flex: 0 0 30%;
+  -webkit-flex: 0 0 31%;
+  flex: 0 0 31%;
 }
 .nav-main__item {
   padding: 5px 1px;
@@ -406,15 +406,15 @@ a .brand {
   font-weight: 500;
 }
 .nav__right .nav-main__item {
-  margin-top: -3rem;
   display: block;
   width: 100%;
+  margin-top: -3rem;
 }
 .nav__right sup {
   font-size: 18px;
   font-weight: 700;
   line-height: 24px;
-  color: #fff;
+  color: #ccc;
 }
 .sprite__bars {
   display: inline-block;
