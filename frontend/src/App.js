@@ -44,6 +44,15 @@ function App() {
     return name.slice(0, length) + (name.length > length ? ".." : "");
   }
 
+  const navMainItem = ([label, linkTo, className]) => {
+    return (
+      <div key={label} className={className}>
+        <Link to={linkTo} onClick={() => setDropdown(false)}>
+          {label}
+        </Link>
+      </div>
+    );
+  };
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
@@ -52,13 +61,6 @@ function App() {
       <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
         <header id="navbar">
           <div className="nav-belt row">
-            <button
-              className="open-sidebar"
-              type="button"
-              onClick={() => setSidebar(true)}
-            >
-              <i className="fa fa-bars"></i>
-            </button>
             <Link className="phone--off" to="/">
               <div className="brand">
                 <img className="logo" src={Logo} alt="logo" />
@@ -134,6 +136,7 @@ function App() {
             {userInfo?.isAdmin && (
               <NavDropMenu
                 label="Admin^Tools"
+                attr="phone--off"
                 isDropped={hasDropdown}
                 onEnterHandle={onEnterHandle}
                 onLeaveHandle={onLeaveHandle}
@@ -162,6 +165,42 @@ function App() {
                 <div className="nav__line-2">Basket</div>
               </div>
             </Link>
+          </div>
+          <div className="nav-main row">
+            <div className="ml-1 nav__left">
+              <div
+                className="open-sidebar nav-main__item flex"
+                onClick={() => setSidebar(true)}
+              >
+                <div className="sprite__bars"></div>
+                <b>All</b>
+              </div>
+            </div>
+            <div className="nav__fill">
+              {loadingCategories ? (
+                <LoadingBox />
+              ) : errorCategories ? (
+                <MessageBox variant="danger">{errorCategories}</MessageBox>
+              ) : (
+                [
+                  ["New Releases", "/search/category/all", "nav-main__item"],
+                  ["Top Sellers", "/", "nav-main__item"],
+                  ...categories.map((c) => [
+                    c.slice(0, 20) + (c.length > 20 ? ".." : ""),
+                    "/search/category/" + c,
+                    "nav-main__item",
+                  ]),
+                ].map(navMainItem)
+              )}
+            </div>
+            <div className="nav__right">
+              <div className="nav-main__item">
+                <a href="#">
+                  <sup>Advertisement</sup> here? Contact us for more
+                  informations.
+                </a>
+              </div>
+            </div>
           </div>
         </header>
         <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
