@@ -82,7 +82,7 @@ export default function SearchScreen(props) {
         </div>
       </div>
       <div className="row top">
-        <div className="col-1 search__filter">
+        <div className="search__filter">
           <ul>
             <h4>Department</h4>
             <div>
@@ -145,7 +145,7 @@ export default function SearchScreen(props) {
             </div>
           </ul>
         </div>
-        <div className="col-3">
+        <div className="col-9">
           <div className="row center search__results">
             {(!products || products.length < 2) && (
               <div className="placeholder"></div>

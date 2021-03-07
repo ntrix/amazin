@@ -706,9 +706,9 @@ img.large {
 /* Card */
 .placeholder,
 .card {
-  flex: 1 1 22%;
+  flex: 1 1 26%;
   margin: 2rem;
-  min-width: 20rem;
+  max-width: 30rem;
   padding: 1rem;
 }
 .card {
@@ -718,12 +718,19 @@ img.large {
 }
 .card__center {
   margin: 0 auto;
+  width: 100%;
 }
 .card__body {
   margin-bottom: 2rem;
 }
 .card__body > * {
   margin-bottom: 1rem;
+}
+.card__body h2 {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .price {
   font-size: 2rem;
@@ -781,6 +788,7 @@ img.large {
   background: #fff;
 }
 .search__filter {
+  flex: 1 0 20rem;
   margin: 3rem;
   border-right: 2px solid #ccc;
 }
@@ -794,8 +802,12 @@ img.large {
 .search__filter .rating:hover span:last-child {
   color: #c45629;
 }
+.col-9 {
+  flex: 12 12 1%;
+}
 .search__results {
   margin-top: 2rem;
+  justify-content: center;
 }
 
 /* Pagination */
@@ -1121,6 +1133,11 @@ textarea#comment {
     width: 100%;
     padding: 0;
   }
+  .search__filter,
+  .search__results,
+  .card {
+    margin: 1rem;
+  }
 }
 /* >= cell-phone lanscape*/
 @media (max-width: 679px) {
@@ -1132,6 +1149,9 @@ textarea#comment {
   }
   .phone--off {
     display: none;
+  }
+  .card {
+    flex: 1 1 100%;
   }
   .sidebar {
     width: 32rem;

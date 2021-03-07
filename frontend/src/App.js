@@ -106,7 +106,7 @@ function App() {
                   ["Orders"],
                   ["Your Order History", "/order-history"],
                   ["Returns", "disabled"],
-                  ["Contact Us", "#contact"],
+                  ["Contact Us", "#contact", "disabled"],
                   ["separator"],
                   ["Account"],
                   ["Sign Out", "#signout", , signoutHandler],
@@ -232,7 +232,7 @@ function App() {
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["FAQ & Contact", "#contact"],
+                ["FAQ & Contact", "#contact", "disabled"],
                 ["separator"],
                 ["Account"],
                 userInfo
