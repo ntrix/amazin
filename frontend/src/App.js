@@ -177,20 +177,20 @@ function App() {
               </div>
             </div>
             <div className="nav__fill">
+              {[
+                ["New Releases", "/search/category/all", "nav-main__item"],
+                ["Top Sellers", "/", "nav-main__item"],
+              ].map(navMainItem)}
               {loadingCategories ? (
                 <LoadingBox />
               ) : errorCategories ? (
                 <MessageBox variant="danger">{errorCategories}</MessageBox>
               ) : (
-                [
-                  ["New Releases", "/search/category/all", "nav-main__item"],
-                  ["Top Sellers", "/", "nav-main__item"],
-                  ...categories.map((c) => [
-                    c,
-                    "/search/category/" + c,
-                    "nav-main__item",
-                  ]),
-                ].map(navMainItem)
+                categories
+                  .slice(0, 8)
+                  .map((c) =>
+                    navMainItem([c, "/search/category/" + c, "nav-main__item"])
+                  )
               )}
             </div>
             <div className="nav__right">
