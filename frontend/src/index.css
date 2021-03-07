@@ -407,6 +407,8 @@ a .brand {
 }
 .nav__right .nav-main__item {
   margin-top: -3rem;
+  display: block;
+  width: 100%;
 }
 .nav__right sup {
   font-size: 18px;
