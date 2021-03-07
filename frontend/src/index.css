@@ -831,12 +831,12 @@ img.large {
 .sprite__loading {
   display: inline-block;
   height: 16px;
-  width: 48px;
+  width: 32px;
   background: url("./img/load-xs.gif");
 }
 .sprite__loading--xl {
-  height: 64px;
-  width: 64px;
+  height: 32px;
+  width: 32px;
   background: url("./img/load.gif");
 }
 .success {
