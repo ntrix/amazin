@@ -186,7 +186,7 @@ function App() {
                   ["New Releases", "/search/category/all", "nav-main__item"],
                   ["Top Sellers", "/", "nav-main__item"],
                   ...categories.map((c) => [
-                    c.slice(0, 20) + (c.length > 20 ? ".." : ""),
+                    c,
                     "/search/category/" + c,
                     "nav-main__item",
                   ]),

@@ -362,24 +362,27 @@ a .brand {
 .nav__fill {
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
-  -webkit-overflow: clip;
-  overflow: clip;
-  margin-right: 3rem;
+  flex-wrap: wrap;
+  height: 29px;
+  margin-right: 2rem;
 }
 .nav__right {
   -webkit-flex: 0 0 30%;
   flex: 0 0 30%;
 }
 .nav-main__item {
-  margin: 6px 1px;
-  padding: 4px 0;
+  padding: 5px 1px;
+  align-self: center;
   border-radius: 2px;
   color: #fff;
   height: 28px;
 }
+.nav__fill .nav-main__item {
+  max-width: 18rem;
+}
 .nav__left .nav-main__item:hover,
 .nav__fill .nav-main__item:hover {
-  margin: 5px 0;
+  padding: 4px 0;
   border: thin solid #fff;
 }
 .nav__left .nav-main__item {
@@ -402,6 +405,9 @@ a .brand {
 .nav__right {
   font-weight: 500;
 }
+.nav__right .nav-main__item {
+  margin-top: -3rem;
+}
 .nav__right sup {
   font-size: 18px;
   font-weight: 700;
@@ -413,7 +419,7 @@ a .brand {
   width: 20px;
   height: 20px;
   background: url("./img/nav-sprite.png") -160px -180px;
-  margin: -1px 3px 0 7px;
+  margin: -2px 3px 0 7px;
 }
 
 /* Cart */
