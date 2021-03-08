@@ -409,6 +409,10 @@ a .brand {
   display: block;
   width: 100%;
   margin-top: -3rem;
+  cursor: default;
+}
+.nav__right .nav-main__item * {
+  cursor: default;
 }
 .nav__right sup {
   font-size: 18px;

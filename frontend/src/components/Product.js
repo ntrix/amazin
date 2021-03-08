@@ -7,7 +7,11 @@ export default function Product({ product }) {
     <div key={product._id} className="card flex">
       <div className="card__center">
         <Link to={`/product/${product._id}`}>
-          <img className="thumbnail" src={product.image} alt={product.name} />
+          <img
+            className="thumbnail"
+            src={product.image.split("^")[0]}
+            alt={product.name}
+          />
         </Link>
         <div className="card__body">
           <Link to={`/product/${product._id}`}>

@@ -69,7 +69,7 @@ export default function ProductScreen(props) {
             <div className="col-2 card">
               <img
                 className="large"
-                src={product.image}
+                src={product.image.split("^")[0]}
                 alt={product.name}
               ></img>
             </div>
