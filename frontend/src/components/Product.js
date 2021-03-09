@@ -29,7 +29,7 @@ export default function Product({ product }) {
             <div className="price">
               <sup>€</sup>
               {product.price | 0}
-              <sup>{(product.price * 100 + "").slice(-2)}</sup>
+              <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
             </div>
             <sub>Shipping exklusive</sub>
             <div>

@@ -132,7 +132,9 @@ export default function ProductScreen(props) {
                       <div className="price">
                         <sup>€</sup>
                         {product.price | 0}
-                        <sup>{(product.price * 100 + "").slice(-2)}</sup>
+                        <sup>
+                          {(((product.price * 100) | 0) + "").slice(-2)}
+                        </sup>
                       </div>
                     </div>
                   </li>
