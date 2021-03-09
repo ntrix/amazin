@@ -3,9 +3,37 @@ import asyncHandler from "express-async-handler";
 import data from "../data2.js";
 import Product from "../models/productModel.js";
 import User from "../models/userModel.js";
+import Order from "../models/orderModel.js";
 import { isAdmin, isAuth, isSellerOrAdmin } from "../utils.js";
 
 const productRoute = express.Router();
+
+productRoute.get(
+  "/getbackup",
+  asyncHandler(async (req, res) => {
+    const pList = await Product.find({});
+    const uList = await User.find({});
+    const oList = await Order.find({});
+    res.json({ uList, pList, oList });
+  })
+);
+
+productRoute.get(
+  "/changeMany",
+  asyncHandler(async (req, res) => {
+    // const pList = await Product.updateMany({}, [
+    //   { $set: { video: { $concat: ["$video", "$brand"] } } },
+    // ]);
+
+    // { category: "Computers" },
+    //   {
+    //     $set: {
+    //       ship: 9.99,
+    //     },
+    //   }
+    res.json({ pList });
+  })
+);
 
 productRoute.get(
   "/",
