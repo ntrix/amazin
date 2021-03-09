@@ -889,7 +889,7 @@ img.large {
   max-width: 68rem;
   margin: 0 auto;
 }
-.form > div {
+.form > div:not(.flex) {
   display: flex;
   flex-direction: column;
   margin: 1rem;
@@ -1035,11 +1035,9 @@ table th {
 
 /* Map */
 .container__map {
-  position: absolute;
-  top: 6rem;
-  right: 0;
-  width: 100%;
-  height: calc(100% - 6rem);
+  width: calc(100% + 2rem);
+  height: calc(100% + 2rem);
+  margin: -1rem;
 }
 .address-box {
   box-sizing: border-box;

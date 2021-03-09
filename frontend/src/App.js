@@ -255,7 +255,9 @@ function App() {
           htmlFor="btn--close-sidebar"
         ></label>
         <main className="container--flex">
-          <MainRoute />
+          <div className="col-fill">
+            <MainRoute />
+          </div>
         </main>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
