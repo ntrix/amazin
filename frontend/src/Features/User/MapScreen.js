@@ -101,7 +101,7 @@ export default function MapScreen(props) {
   };
 
   const redirectBack = () => {
-    props.history.push("/signin?redirect=shipping");
+    props.history.push(localStorage?.getItem("backToHistory") || "/");
   };
 
   return googleApiKey ? (

@@ -61,7 +61,10 @@ export default function ProductScreen(props) {
         <div className="col-fill">
           <div>
             <div className="row search__banner">
-              <Link to={localStorage.getItem("backToHistory")} className="ml-1">
+              <Link
+                to={localStorage?.getItem("backToHistory") || "/"}
+                className="ml-1"
+              >
                 Back to result
               </Link>
             </div>
