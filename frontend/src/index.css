@@ -153,6 +153,9 @@ footer {
 .p-1 {
   padding: 1rem;
 }
+.m-0 {
+  margin: 0 !important;
+}
 .mt-1 {
   margin-top: 1rem;
 }
@@ -1104,6 +1107,16 @@ table th {
 textarea#comment {
   height: 10rem;
   resize: vertical;
+}
+
+.product__thumbnail {
+  max-width: 5rem;
+  width: 100%;
+  border: thin solid #a4a4a4;
+  margin-bottom: 1rem;
+}
+img.active {
+  box-shadow: 0 0 3px 2px #f19833;
 }
 
 .pc-low--only,
