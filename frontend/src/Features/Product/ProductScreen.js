@@ -131,8 +131,8 @@ export default function ProductScreen(props) {
                       <div>Price</div>
                       <div className="price">
                         <sup>€</sup>
-                        {product.price}
-                        <sup>00</sup>
+                        {product.price | 0}
+                        <sup>{(product.price * 100 + "").slice(-2)}</sup>
                       </div>
                     </div>
                   </li>
