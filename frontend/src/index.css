@@ -557,7 +557,7 @@ a .brand {
   margin: 0.5rem 0;
   background: #ccc;
 }
-/* Sidebar menu */
+/* SIDEBAR MENU */
 button.open-sidebar {
   font-size: 2.4rem;
   padding: 0.2rem 0.5rem;
@@ -680,6 +680,9 @@ button.open-sidebar:hover {
 .sidebar li > a:hover {
   color: #111;
   background-color: #eaeded;
+}
+.sidebar li > a.disabled:hover {
+  background-color: transparent;
 }
 .sidebar .sidebar__header {
   display: inline-block;
