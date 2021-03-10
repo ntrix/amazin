@@ -35,7 +35,7 @@ export default function VideoScreen(props) {
     dispatch(listProducts({ seller: process.env.VIDEO_SELLER }));
   }, [dispatch]);
   return (
-    <div className="full-width video-screen">
+    <div className="container--fluid video-screen">
       {/* <Banner /> */}
       <Row
         title="NETFLIX ORIGINALS"
