@@ -2,11 +2,12 @@
   background-color: #0e171e;
   display: flex;
   flex-direction: column;
+  padding-bottom: 15rem;
 }
 
 .banner {
-  color: white;
-  object-fit: contain;
+  color: #fff;
+  object-fit: cover;
   height: 448px;
   position: relative;
 }
@@ -66,7 +67,7 @@
 .m-row {
   position: relative;
   color: white;
-  margin-left: 30px;
+  margin-left: 4rem;
   z-index: 0;
 }
 .m-row:hover {
@@ -98,8 +99,6 @@
   border: 2px solid #44a9e200;
   transition: border 0.01s linear, transform 0.2s ease-in;
   cursor: pointer;
-  -webkit-perspective: 2000;
-  -webkit-backface-visibility: hidden;
 }
 .m-card--xl {
   height: 380px;
@@ -212,4 +211,8 @@
 }
 .react-multi-carousel-list {
   overflow: visible !important;
+}
+
+.carousel-container {
+  direction: ltr;
 }

@@ -7,22 +7,22 @@ const movieTrailer = require("movie-trailer");
 
 const responsive = {
   superLargeDesktop: {
-    breakpoint: { max: 1500, min: 1334 },
+    breakpoint: { max: 1500, min: 1280 },
     items: 4,
     slidesToSlide: 3, // optional, default to 1.
   },
   desktop: {
-    breakpoint: { max: 1600, min: 1024 },
+    breakpoint: { max: 1280, min: 680 },
     items: 3,
     slidesToSlide: 2, // optional, default to 1.
   },
   tablet: {
-    breakpoint: { max: 1024, min: 680 },
+    breakpoint: { max: 680, min: 420 },
     items: 2,
     slidesToSlide: 1, // optional, default to 1.
   },
   mobile: {
-    breakpoint: { max: 680, min: 0 },
+    breakpoint: { max: 420, min: 0 },
     items: 1,
     slidesToSlide: 1, // optional, default to 1.
   },
@@ -94,7 +94,7 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
         customTransition="all .5"
         transitionDuration={500}
         containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
+        removeArrowOnDeviceType={["mobile"]}
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
@@ -109,7 +109,7 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
                     handleClick();
                     checkTrailer(movie);
                   }}
-                  className={`m-card ${isLargeRow && "m-card--xl"}`}
+                  className={"m-card" + (isLargeRow ? " m-card--xl" : "")}
                 >
                   <img
                     ref={ref}
