@@ -1038,7 +1038,7 @@ table th {
 }
 
 /* Map */
-.container__map {
+.container__main {
   width: calc(100% + 2rem);
   height: calc(100% + 2rem);
   margin: -1rem;
