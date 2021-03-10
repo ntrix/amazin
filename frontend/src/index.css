@@ -201,6 +201,9 @@ li {
 li a {
   font-weight: 400;
 }
+.strike {
+  text-decoration: line-through;
+}
 input,
 select,
 textarea,
