@@ -374,11 +374,12 @@ a .brand {
   flex: 0 0 31%;
 }
 .nav-main__item {
+  height: 28px;
+  margin-bottom: 3px;
   padding: 5px 1px;
   align-self: center;
   border-radius: 2px;
   color: #fff;
-  height: 28px;
 }
 .nav__fill .nav-main__item {
   max-width: 18rem;

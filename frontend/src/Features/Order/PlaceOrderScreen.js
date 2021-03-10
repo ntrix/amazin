@@ -21,9 +21,8 @@ export default function PlaceOrderScreen(props) {
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
-  console.log(cart.cartItems);
   let ship = 0;
-  cart.cartItems.map((i) => (ship = i.ship > ship ? i.ship : ship));
+  cart.cartItems.map((i) => (ship = i.ship > ship ? i.ship : ship)); //max ship price of any items
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(ship);
   cart.taxPrice = toPrice(tax * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
