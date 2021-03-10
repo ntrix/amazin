@@ -6,13 +6,13 @@ export default function LoadingBox({ size = "" }) {
       {!size && (
         <>
           Loading..
-          <div class="sprite__loading"></div>
+          <div className="sprite__loading"></div>
         </>
       )}
       {size && (
         <>
           <b>Loading..</b>
-          <div class="sprite__loading--xl"></div>
+          <div className="sprite__loading--xl"></div>
         </>
       )}
     </div>
