@@ -211,8 +211,8 @@
 }
 .react-multi-carousel-list {
   overflow: visible !important;
+  z-index: 0;
 }
-
-.carousel-container {
-  direction: ltr;
+.react-multi-carousel-item:hover {
+  z-index: 1;
 }
