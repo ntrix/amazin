@@ -11,7 +11,6 @@ import MessageBox from "../../components/MessageBox";
 
 export default function PlaceOrderScreen(props) {
   const tax = 0.19;
-  const ship = 10;
   const cart = { ...useSelector((state) => state.cart) }; //fixes cart object is not extensible
   if (!cart.paymentMethod) {
     props.history.push("/payment");
@@ -22,6 +21,9 @@ export default function PlaceOrderScreen(props) {
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
+  console.log(cart.cartItems);
+  let ship = 0;
+  cart.cartItems.map((i) => (ship = i.ship > ship ? i.ship : ship));
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(ship);
   cart.taxPrice = toPrice(tax * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
