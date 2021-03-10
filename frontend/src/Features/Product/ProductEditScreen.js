@@ -15,6 +15,9 @@ export default function ProductEditScreen(props) {
   const productId = props.match.params.id;
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [deal, setDeal] = useState("");
+  const [ship, setShip] = useState("");
+  const [video, setVideo] = useState("");
   const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
@@ -42,6 +45,9 @@ export default function ProductEditScreen(props) {
     } else {
       setName(product.name);
       setPrice(product.price);
+      setDeal(product.deal);
+      setShip(product.ship);
+      setVideo(product.video);
       setImage(product.image);
       setCategory(product.category);
       setCountInStock(product.countInStock);
@@ -57,6 +63,9 @@ export default function ProductEditScreen(props) {
         _id: productId,
         name,
         price,
+        deal,
+        ship,
+        video,
         image,
         category,
         brand,
@@ -125,6 +134,26 @@ export default function ProductEditScreen(props) {
               ></input>
             </div>
             <div>
+              <label htmlFor="ship">Ship</label>
+              <input
+                id="ship"
+                type="text"
+                placeholder="Enter shipping price"
+                value={ship}
+                onChange={(e) => setShip(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="deal">Deal</label>
+              <input
+                id="deal"
+                type="text"
+                placeholder="Enter deal"
+                value={deal}
+                onChange={(e) => setDeal(e.target.value)}
+              ></input>
+            </div>
+            <div>
               <label htmlFor="image">Image</label>
               <input
                 id="image"
@@ -146,6 +175,16 @@ export default function ProductEditScreen(props) {
               {errorUpload && (
                 <MessageBox variant="danger">{errorUpload}</MessageBox>
               )}
+            </div>
+            <div>
+              <label htmlFor="video">Video link/ Youtube VID</label>
+              <input
+                id="video"
+                type="text"
+                placeholder="Enter video link or Youtube video ID"
+                value={video}
+                onChange={(e) => setVideo(e.target.value)}
+              ></input>
             </div>
             <div>
               <label htmlFor="category">Category</label>
