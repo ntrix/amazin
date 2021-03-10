@@ -1,16 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { listProducts } from "../../../Controllers/productActions";
-import { detailsUser } from "../../../Controllers/userActions";
-
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import Product from "../../../components/Product";
-import Rating from "../../../components/Rating";
+import { listProducts } from "../../../Controllers/productActions";
+import axios from "./axios";
+import Row, { truncate } from "./Row";
+import "./videoScreen.css";
+
+const API_KEY = "f81980ff410e46f422d64ddf3a56dddd"; //process.env.API_KEY;
+
+const fetchTrending = `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  fetchNetflixOriginals = `/discover/tv?api_key=${API_KEY}&with_networks=213`,
+  fetchTopRated = `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
+  fetchActionMovies = `/discover/movie?api_key=${API_KEY}&with_genres=28`,
+  fetchComedyMovies = `/discover/movie?api_key=${API_KEY}&with_genres=35`,
+  fetchHorrorMovies = `/discover/movie?api_key=${API_KEY}&with_genres=27`,
+  fetchRomanceMovies = `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
+  fetchDocumentaries = `/discover/movie?api_key=${API_KEY}&with_genres=99`;
 
 export default function VideoScreen(props) {
-  const sellerId = "5fd969dd22625023c4a7c046";
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
@@ -23,61 +32,83 @@ export default function VideoScreen(props) {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(detailsUser(sellerId));
-    dispatch(listProducts({ seller: sellerId }));
-  }, [dispatch, sellerId]);
+    dispatch(listProducts({ seller: process.env.VIDEO_SELLER }));
+  }, [dispatch]);
   return (
-    <div className="row top">
-      <div className="col-1">
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-          <ul className="card card__body">
-            <li>
-              <div className="row start">
-                <div className="p-1">
-                  <img
-                    className="small"
-                    src={user.seller.logo}
-                    alt={user.seller.name}
-                  ></img>
-                </div>
-                <div className="p-1">
-                  <h1>{user.seller.name}</h1>
-                </div>
-              </div>
-            </li>
-            <li>
-              <Rating
-                rating={user.seller.rating}
-                numReviews={user.seller.numReviews}
-              ></Rating>
-            </li>
-            <li>
-              <a href={`mailto:${user.email}`}>Contact Seller</a>
-            </li>
-            <li>{user.seller.description}</li>
-          </ul>
-        )}
-      </div>
-      <div className="col-3">
-        {loadingProducts ? (
-          <LoadingBox size="xl" />
-        ) : errorProducts ? (
-          <MessageBox variant="danger">{errorProducts}</MessageBox>
-        ) : (
-          <>
-            {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-            <div className="row center">
-              {products.map((product) => (
-                <Product key={product._id} product={product}></Product>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+    <div className="full-width video-screen">
+      {/* <Banner /> */}
+      <Row
+        title="NETFLIX ORIGINALS"
+        fetchUrl={fetchNetflixOriginals}
+        isLargeRow
+      />
+      <Row title="Action Movies" fetchUrl={fetchActionMovies} />
+      {/* <Row title="Comedy Movies" fetchUrl={fetchComedyMovies} />
+      <Row title="Horror Movies" fetchUrl={fetchHorrorMovies} />
+      <Row title="Romance Movies" fetchUrl={fetchRomanceMovies} />
+      <Row title="Documentaries" fetchUrl={fetchDocumentaries} /> */}
+      {loadingProducts ? (
+        <LoadingBox size="xl" />
+      ) : errorProducts ? (
+        <MessageBox variant="danger">{errorProducts}</MessageBox>
+      ) : (
+        <>
+          {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
+          <div className="m-row center">
+            {products.map((product) => (
+              <Product key={product._id} product={product}></Product>
+            ))}
+          </div>
+        </>
+      )}
+      <Row title="Trending Now" fetchUrl={fetchTrending} />
+      <Row title="Top Rated" fetchUrl={fetchTopRated} />
     </div>
+  );
+}
+
+function Banner() {
+  const [movie, setMovie] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const request = await axios.get(fetchNetflixOriginals);
+      setMovie(request.data.results[Math.floor(Math.random() * 11)]);
+      return request;
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <header
+      className="banner"
+      style={{
+        backgroundSize: "cover",
+        backgroundImage: `url(
+          "https://image.tmdb.org/t/p/original/${
+            movie?.backdrop_path || movie?.poster_path || ""
+          }"
+        )`,
+        backgroundPosition: "center center",
+      }}
+    >
+      <div className="banner__contents">
+        <h1 className="banner__title">
+          {movie?.title ||
+            movie?.name ||
+            movie?.original_title ||
+            movie?.original_name}
+        </h1>
+        <div className="banner__buttons">
+          <button className="banner__button">Play</button>
+          <button className="banner__button">My List</button>
+        </div>
+        <h1 className="banner__description">
+          {truncate(movie?.overview, 150)}
+        </h1>
+      </div>
+
+      <div className="banner--fadeBottom" />
+    </header>
   );
 }

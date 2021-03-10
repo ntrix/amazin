@@ -1,0 +1,215 @@
+.video-screen {
+  background-color: #0e171e;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner {
+  color: white;
+  object-fit: contain;
+  height: 448px;
+  position: relative;
+}
+
+.banner__contents {
+  margin-left: 30px;
+  padding-top: 140px;
+  height: 190px;
+}
+
+.banner__title {
+  font-size: 48px;
+  font-weight: 800;
+  padding-bottom: 5px;
+}
+
+.banner__description {
+  width: 720px;
+  line-height: 1.3;
+  padding-top: 16px;
+  font-size: 13px;
+  max-width: 360px;
+  height: 80px;
+}
+
+.banner--fadeBottom {
+  height: 120px;
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    rgba(37, 37, 37, 0.61),
+    #111
+  );
+}
+
+.banner__button {
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 0.2vw;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-right: 16px;
+  padding-top: 8px;
+  background-color: rgba(51, 51, 51, 0.5);
+  padding-bottom: 8px;
+}
+
+.banner__button:hover {
+  color: #000;
+  background-color: #e6e6e6;
+  transition: all 0.2s;
+}
+
+.m-row {
+  position: relative;
+  color: white;
+  margin-left: 30px;
+  z-index: 0;
+}
+.m-row:hover {
+  z-index: 199;
+}
+.m-row h2 {
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 19px;
+}
+.m-row__posters::-webkit-scrollbar {
+  display: none;
+}
+
+.col__movie {
+  /*without carousel?*/
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding: 10px;
+  overflow: visible;
+}
+.m-card {
+  position: relative;
+  margin-right: 5px;
+  height: 180px;
+  width: 320px;
+  border-radius: 6px;
+  border: 2px solid #44a9e200;
+  transition: border 0.01s linear, transform 0.2s ease-in;
+  cursor: pointer;
+  -webkit-perspective: 2000;
+  -webkit-backface-visibility: hidden;
+}
+.m-card--xl {
+  height: 380px;
+  width: 253px;
+}
+.m-card:hover {
+  border: 2px solid #44a9e2;
+  border-bottom: transparent;
+  background: #44a9e2;
+  transition: all 0.2s ease-in;
+  opacity: 1;
+  z-index: 1;
+  width: 360px;
+  margin-left: -20px;
+}
+.m-card--xl:hover {
+  width: 293px;
+}
+.m-card__background {
+  position: relative;
+  height: 180px;
+  margin-top: -180px;
+  border-radius: 3px;
+  border: 2px solid #44a9e200;
+  border-top: none;
+  transition: all 0.21s ease-in;
+  opacity: 0;
+}
+.m-card--xl .m-card__background {
+  height: 380px;
+  margin-top: -380px;
+}
+.m-card:hover .m-card__background {
+  margin: -100px -2px 0 -2px;
+  border: 2px solid #44a9e2;
+  border-top: none;
+  background: linear-gradient(to bottom, #0000 0%, #0e171e 30%);
+  /* transition: opacity 0.15s cubic-bezier(.08,.82,.17,1),border 0.01s linear, margin 0.7s cubic-bezier(.68,-0.55,.27,1.55); */
+  /* transition: opacity 0.2s cubic-bezier(.08,.82,.17,1),border 0.6s cubic-bezier(.68,-0.55,.27,1.55), margin 0.7s cubic-bezier(.68,-0.55,.27,1.55); */
+  transition: opacity 0.5s linear,
+    border 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  opacity: 1;
+  z-index: 1;
+}
+.m-card--xl:hover .m-card__background {
+  height: 380px;
+  margin-top: -320px;
+  background: linear-gradient(to bottom, #0000 58%, #0e171e 68%);
+}
+.m-card:hover .m-card__text {
+  margin: 20px;
+  padding-top: 65px;
+  opacity: 1;
+  transition: opacity 2s ease-out;
+}
+.m-card--xl:hover .m-card__text {
+  padding-top: 265px;
+}
+.m-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+.m-card__info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
+.m-card__name {
+  position: relative;
+  z-index: 1;
+  margin-top: 45%;
+  font-weight: 700;
+  font-size: 15px;
+  text-shadow: 0 1px 2px #000, 0px 2px 4px #000, 0 4px 8px #000;
+}
+.m-card--xl .m-card__name {
+  margin-top: 130%;
+}
+.m-card__text {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  word-break: break-word;
+  opacity: 0;
+}
+
+.m-card__more {
+  display: flex;
+  justify-content: space-between;
+  margin: -10px 20px;
+}
+.m-card__rating {
+}
+.trailer__frame {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  justify-content: center;
+}
+.movie__trailer {
+  width: 640px;
+}
+.carousel-container {
+  overflow: visible;
+}
+.react-multi-carousel-list {
+  overflow: visible !important;
+}

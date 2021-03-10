@@ -126,6 +126,14 @@ footer {
   -webkit-flex: 1 1 0px;
   flex: 1 1 0px;
 }
+.full-width {
+  width: 100%;
+  flex: 1 1 100%;
+  max-width: 1500px;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
 .row.center {
   justify-content: center;
 }
