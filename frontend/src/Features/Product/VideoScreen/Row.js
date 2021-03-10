@@ -7,30 +7,35 @@ const movieTrailer = require("movie-trailer");
 
 const responsive = {
   superLargeDesktop: {
-    breakpoint: { max: 1500, min: 1280 },
+    breakpoint: { max: 4000, min: 1500 },
+    items: 5,
+    slidesToSlide: 4, // optional, default to 1.
+  },
+  largeDesktop: {
+    breakpoint: { max: 1500, min: 1080 },
     items: 4,
     slidesToSlide: 3, // optional, default to 1.
   },
   desktop: {
-    breakpoint: { max: 1280, min: 680 },
+    breakpoint: { max: 1080, min: 720 },
     items: 3,
     slidesToSlide: 2, // optional, default to 1.
   },
   tablet: {
-    breakpoint: { max: 680, min: 420 },
+    breakpoint: { max: 720, min: 480 },
     items: 2,
     slidesToSlide: 1, // optional, default to 1.
   },
   mobile: {
-    breakpoint: { max: 420, min: 0 },
+    breakpoint: { max: 480, min: 0 },
     items: 1,
     slidesToSlide: 1, // optional, default to 1.
   },
 };
 const base_url = "https://image.tmdb.org/t/p/original/";
 
-export const truncate = (str, n) =>
-  str?.length > n ? str.substr(0, n - 1) + "..." : str;
+export const truncate = (text, len) =>
+  text?.length > len ? text.substr(0, len - 1) + ".." : text;
 
 const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
   const [movies, setMovies] = useState([]);
@@ -88,7 +93,7 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
         draggable={true}
         showDots={false}
         responsive={responsive}
-        infinite={true}
+        infinite={false}
         autoPlay={false}
         keyBoardControl={true}
         customTransition="all .5"
@@ -98,50 +103,49 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {movies &&
-          movies.slice(0, 6).map(
-            (movie) =>
-              ((isLargeRow && movie.poster_path) ||
-                (!isLargeRow && movie.backdrop_path)) && (
-                <div
+        {movies.slice(0, 6).map(
+          (movie) =>
+            ((isLargeRow && movie.poster_path) ||
+              (!isLargeRow && movie.backdrop_path)) && (
+              <div
+                key={movie.id}
+                onClick={() => {
+                  handleClick();
+                  checkTrailer(movie);
+                }}
+                className={"m-card" + (isLargeRow ? " m-card--xl" : "")}
+              >
+                <img
+                  ref={ref}
                   key={movie.id}
-                  onClick={() => {
-                    handleClick();
-                    checkTrailer(movie);
-                  }}
-                  className={"m-card" + (isLargeRow ? " m-card--xl" : "")}
-                >
-                  <img
-                    ref={ref}
-                    key={movie.id}
-                    src={`${base_url}${
-                      isLargeRow ? movie.poster_path : movie.backdrop_path
-                    }`}
-                    alt={movie.title}
-                  />
-                  <div className="m-card__background">
-                    <div className="m-card__text">
-                      {truncate(movie?.overview, 100)}
-                      <p>
-                        <b>Rating: {movie?.vote_average / 2}</b>
-                      </p>
-                    </div>
-                    <div className="m-card__more">
-                      <div className="banner__button">Trailer</div>
-                      <div className="banner__button">Rent/Buy</div>
-                    </div>
+                  src={`${base_url}${
+                    isLargeRow ? movie.poster_path : movie.backdrop_path
+                  }`}
+                  alt={movie.title}
+                />
+                <div className="m-card__background">
+                  <div className="m-card__text">
+                    {truncate(movie?.overview, 100)}
+                    <p>
+                      <b>Rating: {movie?.vote_average / 2}</b>
+                    </p>
                   </div>
-                  <div className="m-card__info">
-                    <div className="m-card__name">
-                      {movie?.title ||
-                        movie?.name ||
-                        movie?.original_title ||
-                        movie?.original_name}
-                    </div>
+                  <div className="m-card__more">
+                    <div className="banner__button">Trailer</div>
+                    <div className="banner__button">Rent/Buy</div>
                   </div>
                 </div>
-              )
-          )}
+                <div className="m-card__info">
+                  <div className="m-card__name">
+                    {movie?.title ||
+                      movie?.name ||
+                      movie?.original_title ||
+                      movie?.original_name}
+                  </div>
+                </div>
+              </div>
+            )
+        )}
       </Carousel>
       {trailerUrl && (
         <div className="trailer__frame">
