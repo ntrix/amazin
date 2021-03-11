@@ -75,7 +75,11 @@ export default function VideoScreen(props) {
           {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
           <RowToBuy
             title="IN STOCK: READY TO BUY"
-            movies={products}
+            movies={products.reduce(
+              (acc, p) =>
+                p.video !== "no trailer" ? [p, ...acc] : [...acc, p],
+              []
+            )}
             large={
               /*if Netflix is there, only one large row*/
               genre !== "NETFLIX ORIGINALS"
@@ -158,6 +162,7 @@ function Banner({ source = "", products = [] }) {
         </h1>
         <div className="banner__buttons">
           <button className="banner__button">Trailer</button>
+          <button className="banner__button">Add to List</button>
           <button
             className={"banner__button" + (isAvailable ? "" : " disabled")}
           >

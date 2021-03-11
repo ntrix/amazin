@@ -187,7 +187,13 @@ export const RowToBuy = ({ title, movies, large = false }) => {
       >
         {movies.map((movie) => (
           <div key={movie} className={"m-card" + (large ? " m-card--xl" : "")}>
-            <img src={movie.image.split("^")[large ? 0 : 1]} alt={movie.name} />
+            <img
+              src={
+                movie.image.split("^")[large ? 0 : 1] ||
+                movie.image.split("^")[0]
+              }
+              alt={movie.name}
+            />
             <div className="m-card__background">
               <div className="m-card__text">
                 {truncate(movie.description, 100)}
