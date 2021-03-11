@@ -102,7 +102,7 @@ productRoute.get(
       .populate("seller", "seller.name seller.logo")
       .sort(sortOrder)
       .skip(pageSize > 500 ? 0 : pageSize * (page - 1)) /* > 500 = all */
-      .limit(pageSize);
+      .limit(pageSize > 500 ? 0 : pageSize);
     res.send({ products, page, pages: Math.ceil(count / pageSize), count });
   })
 );
