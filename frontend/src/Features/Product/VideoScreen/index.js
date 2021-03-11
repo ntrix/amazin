@@ -37,7 +37,7 @@ export default function VideoScreen(props) {
   const dispatch = useDispatch();
   const [genre, setGenre] = useState("STORE");
   useEffect(() => {
-    dispatch(listProducts({ seller: process.env.VIDEO_SELLER }));
+    dispatch(listProducts({ seller: process.env.VIDEO_SELLER, pageSize: 11 }));
   }, [dispatch]);
   return (
     <div className="container--fluid video-screen">
@@ -55,7 +55,8 @@ export default function VideoScreen(props) {
       </header>
       <Banner source={source[genre]} products={products} />
       {Object.keys(source).map((label) =>
-        ((genre === "Home" && label !== "Home") || label === genre) &&
+        label !== "Home" &&
+        (genre === label || genre === "Home") &&
         label !== "STORE" ? (
           <Row
             title={label}
