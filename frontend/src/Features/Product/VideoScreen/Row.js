@@ -122,7 +122,7 @@ const Row = forwardRef(({ title, source, large = false }, ref) => {
                 />
                 <div className="m-card__background">
                   <div className="m-card__text">
-                    {truncate(movie?.overview, 100)}
+                    {truncate(movie?.overview, 150)}
                     <p className="m-card__rating">
                       <b>Rating: {movie?.vote_average / 2}</b>
                     </p>
@@ -196,14 +196,17 @@ export const RowToBuy = ({ title, movies, large = false }) => {
             />
             <div className="m-card__background">
               <div className="m-card__text">
-                {truncate(movie.description, 100)}
+                {truncate(movie.description, 150)}
                 <p className="m-card__rating">
                   <b>Rating: {movie.rating}</b>
                 </p>
               </div>
               <div className="m-card__more">
                 <button
-                  className="banner__button"
+                  className={
+                    "banner__button" +
+                    (movie.video !== "no trailer" ? "" : " disabled")
+                  }
                   onClick={() => setTrailerUrl(trailerUrl ? "" : movie.video)}
                 >
                   Trailer

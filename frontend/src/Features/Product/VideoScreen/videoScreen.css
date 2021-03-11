@@ -147,51 +147,47 @@
   opacity: 1;
   z-index: 1;
   width: 380px;
+  height: auto;
   margin: -30px;
+  position: absolute;
 }
 .m-card--xl:hover {
   width: 313px;
 }
 .m-card__background {
   position: relative;
-  height: 180px;
-  margin-top: -180px;
-  border-radius: 3px;
-  border: 2px solid #44a9e200;
-  border-top: none;
+  height: 240px;
+  margin-top: -250px;
+  border-radius: 6px;
+  border-bottom: 2px solid transparent;
   transition: all 0.21s ease-in;
   opacity: 0;
 }
 .m-card--xl .m-card__background {
-  height: 380px;
+  height: 420px;
   margin-top: -380px;
 }
 .m-card:hover .m-card__background {
-  margin: -100px -2px 0 -2px;
-  border: 2px solid #44a9e2;
-  border-top: none;
+  margin-top: -100px;
   background: linear-gradient(to bottom, #0000 0%, #0e171e 30%);
   /* transition: opacity 0.15s cubic-bezier(.08,.82,.17,1),border 0.01s linear, margin 0.7s cubic-bezier(.68,-0.55,.27,1.55); */
-  /* transition: opacity 0.2s cubic-bezier(.08,.82,.17,1),border 0.6s cubic-bezier(.68,-0.55,.27,1.55), margin 0.7s cubic-bezier(.68,-0.55,.27,1.55); */
   transition: opacity 0.5s linear,
-    border 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
     margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   opacity: 1;
   z-index: 1;
 }
 .m-card--xl:hover .m-card__background {
-  height: 380px;
-  margin-top: -320px;
-  background: linear-gradient(to bottom, #0000 58%, #0e171e 68%);
+  margin-top: -350px;
+  background: linear-gradient(to bottom, #0000 35%, #0e171e 55%);
 }
 .m-card:hover .m-card__text {
   margin: 20px;
-  padding-top: 65px;
+  padding-top: 100px;
   opacity: 1;
   transition: opacity 2s ease-out;
 }
 .m-card--xl:hover .m-card__text {
-  padding-top: 254px;
+  padding-top: 265px;
 }
 .m-card img {
   width: 100%;
@@ -209,13 +205,19 @@
 .m-card__name {
   position: relative;
   z-index: 1;
-  margin-top: 45%;
+  margin-top: 150px;
   font-weight: 700;
   font-size: 15px;
   text-shadow: 0 1px 2px #000, 0px 2px 4px #000, 0 4px 8px #000;
 }
+.m-card:hover .m-card__name {
+  margin-top: 210px;
+}
+.m-card--xl:hover .m-card__name {
+  margin-top: 380px;
+}
 .m-card--xl .m-card__name {
-  margin-top: 130%;
+  margin-top: 350px;
 }
 .m-card__text {
   position: relative;
