@@ -53,7 +53,7 @@ export default function VideoScreen(props) {
           ))}
         </ul>
       </header>
-      <Banner source={source[genre]} />
+      <Banner source={source[genre]} products={products} />
       {Object.keys(source).map((label) =>
         ((genre === "Home" && label !== "Home") || label === genre) &&
         label !== "STORE" ? (
@@ -111,8 +111,9 @@ const placeholder = [
 ];
 /* dummy data for waiting at first load */
 
-function Banner({ source = "" }) {
+function Banner({ source = "", products = [] }) {
   const [movie, setMovie] = useState([]);
+  const [isAvailable, setAvailable] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -124,10 +125,16 @@ function Banner({ source = "" }) {
             ]
           : placeholder[(Math.random() * placeholder.length) | 0]
       );
+      const name =
+        movie?.title ||
+        movie?.name ||
+        movie?.original_title ||
+        movie?.original_name;
+      setAvailable(products.filter((p) => p.name === name).length);
       return request;
     }
     fetchData();
-  }, [source]);
+  }, [source, products]);
 
   return (
     <header
@@ -150,8 +157,12 @@ function Banner({ source = "" }) {
             movie?.original_name}
         </h1>
         <div className="banner__buttons">
-          <button className="banner__button">Play</button>
-          <button className="banner__button">My List</button>
+          <button className="banner__button">Trailer</button>
+          <button
+            className={"banner__button" + (isAvailable ? "" : " disabled")}
+          >
+            Rent/Buy
+          </button>
         </div>
         <h1 className="banner__description">
           {truncate(movie?.overview, 150)}

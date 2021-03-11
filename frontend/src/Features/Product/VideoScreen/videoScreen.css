@@ -93,6 +93,9 @@
   background-color: #e6e6e6;
   transition: all 0.2s;
 }
+.banner__button.disabled {
+  background-color: #e6e6e6;
+}
 
 .m-row {
   position: relative;
