@@ -4,6 +4,7 @@ import YouTube from "react-youtube";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
+import Rating from "../../../components/Rating";
 const movieTrailer = require("movie-trailer");
 
 const responsive = {
@@ -124,7 +125,11 @@ const Row = forwardRef(({ title, source, large = false }, ref) => {
                   <div className="m-card__text">
                     {truncate(movie?.overview, 150)}
                     <p className="m-card__rating">
-                      <b>Rating: {movie?.vote_average / 2}</b>
+                      <Rating
+                        rating={movie?.vote_average}
+                        steps={10}
+                        numReviews={movie?.vote_count}
+                      />
                     </p>
                   </div>
                   <div className="m-card__more">
@@ -198,7 +203,11 @@ export const RowToBuy = ({ title, movies, large = false }) => {
               <div className="m-card__text">
                 {truncate(movie.description, 150)}
                 <p className="m-card__rating">
-                  <b>Rating: {movie.rating}</b>
+                  <Rating
+                    rating={movie?.rating * 2}
+                    steps={10}
+                    numReviews={movie?.numReviews}
+                  />
                 </p>
               </div>
               <div className="m-card__more">

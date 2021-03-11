@@ -1,11 +1,10 @@
 import React from "react";
 
-export default function Rating(props) {
-  const { rating, numReviews, caption } = props;
+export default function Rating({ rating, numReviews, caption, steps = 5 }) {
   return (
     <div className="rating">
       <span>
-        {[1, 2, 3, 4, 5].map((star) => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].slice(0, steps).map((star) => (
           <i
             className={
               star <= rating + 0.5
@@ -21,7 +20,7 @@ export default function Rating(props) {
       {caption ? (
         <span>{caption}</span>
       ) : (
-        <span>{numReviews + " review" + (rating > 1 ? "s" : "")}</span>
+        <span>{" " + numReviews + " review" + (rating > 1 ? "s" : "")}</span>
       )}
     </div>
   );
