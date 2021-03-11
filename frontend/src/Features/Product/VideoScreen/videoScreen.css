@@ -4,7 +4,36 @@
   flex-direction: column;
   padding-bottom: 15rem;
 }
-
+.m-header {
+  color: #fff;
+  background: #1b2530;
+  height: 6rem;
+}
+.m-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin-top: 1rem;
+  font-size: 17px;
+  font-weight: 400;
+  color: #a4a4a4;
+}
+.m-nav li:first-child {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0.5rem 7rem 0 2rem;
+}
+.m-nav li {
+  padding: 0 2rem;
+  cursor: pointer;
+}
+.m-nav li:hover {
+  color: #fff;
+}
+.m-nav li.active {
+  color: #fff;
+  text-decoration: underline;
+}
 .banner {
   color: #fff;
   object-fit: cover;

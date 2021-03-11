@@ -11,12 +11,12 @@ import "./videoScreen.css";
 const API_KEY = "f81980ff410e46f422d64ddf3a56dddd"; //process.env.API_KEY;
 
 const fetchTrending = `/trending/all/week?api_key=${API_KEY}&language=en-US`,
-  fetchNetflixOriginals = `/discover/tv?api_key=${API_KEY}&with_networks=213`,
+  fetchNetflix = `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   fetchTopRated = `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
-  fetchActionMovies = `/discover/movie?api_key=${API_KEY}&with_genres=28`,
-  fetchComedyMovies = `/discover/movie?api_key=${API_KEY}&with_genres=35`,
-  fetchHorrorMovies = `/discover/movie?api_key=${API_KEY}&with_genres=27`,
-  fetchRomanceMovies = `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
+  fetchAction = `/discover/movie?api_key=${API_KEY}&with_genres=28`,
+  fetchComedy = `/discover/movie?api_key=${API_KEY}&with_genres=35`,
+  fetchHorror = `/discover/movie?api_key=${API_KEY}&with_genres=27`,
+  fetchRomance = `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
   fetchDocumentaries = `/discover/movie?api_key=${API_KEY}&with_genres=99`;
 
 export default function VideoScreen(props) {
@@ -31,12 +31,51 @@ export default function VideoScreen(props) {
   } = productList;
 
   const dispatch = useDispatch();
+  const [genre, setGenre] = useState("Netflix");
   useEffect(() => {
     dispatch(listProducts({ seller: process.env.VIDEO_SELLER }));
   }, [dispatch]);
   return (
     <div className="container--fluid video-screen">
-      <Banner />
+      <header className="m-header">
+        <ul className="m-nav">
+          {[
+            "Netflix",
+            "Home",
+            "Action",
+            "Romance",
+            "Comedy",
+            "Documentaries",
+            "Horror",
+          ].map((nav) => (
+            <li
+              className={nav === genre ? " active" : ""}
+              onClick={() => setGenre(nav)}
+            >
+              {nav}
+            </li>
+          ))}
+        </ul>
+      </header>
+      <Banner source={fetchNetflix} />
+      {genre === "Netflix" && (
+        <Row title="NETFLIX ORIGINALS" fetchUrl={fetchNetflix} isLargeRow />
+      )}
+      {genre === "Comedy" && (
+        <Row title="Comedy Movies" fetchUrl={fetchComedy} />
+      )}
+      {genre === "Action" && (
+        <Row title="Action Movies" fetchUrl={fetchAction} />
+      )}
+      {genre === "Horror" && (
+        <Row title="Horror Movies" fetchUrl={fetchHorror} />
+      )}
+      {genre === "Romance" && (
+        <Row title="Romance Movies" fetchUrl={fetchRomance} />
+      )}
+      {genre === "Documentaries" && (
+        <Row title="Documentaries" fetchUrl={fetchDocumentaries} />
+      )}
       {loadingProducts ? (
         <LoadingBox size="xl" />
       ) : errorProducts ? (
@@ -47,28 +86,18 @@ export default function VideoScreen(props) {
           <RowToBuy title="In Stock: Ready to Buy" movies={products} />
         </>
       )}
-      <Row title="Action Movies" fetchUrl={fetchActionMovies} />
-      <Row
-        title="NETFLIX ORIGINALS"
-        fetchUrl={fetchNetflixOriginals}
-        isLargeRow
-      />
-      {/* <Row title="Comedy Movies" fetchUrl={fetchComedyMovies} />
-      <Row title="Horror Movies" fetchUrl={fetchHorrorMovies} />
-      <Row title="Romance Movies" fetchUrl={fetchRomanceMovies} />
-      <Row title="Documentaries" fetchUrl={fetchDocumentaries} /> */}
       <Row title="Trending Now" fetchUrl={fetchTrending} />
       <Row title="Top Rated" fetchUrl={fetchTopRated} />
     </div>
   );
 }
 
-function Banner() {
+function Banner({ source }) {
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(fetchNetflixOriginals);
+      const request = await axios.get(source);
       setMovie(request.data.results[Math.floor(Math.random() * 11)]);
       return request;
     }

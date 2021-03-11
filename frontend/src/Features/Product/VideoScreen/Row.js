@@ -105,7 +105,7 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {movies.slice(0, 6).map(
+        {movies.slice(0, 20).map(
           (movie) =>
             ((isLargeRow && movie.poster_path) ||
               (!isLargeRow && movie.backdrop_path)) && (
