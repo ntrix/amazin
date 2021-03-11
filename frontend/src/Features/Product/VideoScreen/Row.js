@@ -1,39 +1,10 @@
-import React, { useEffect, useState, forwardRef } from "react";
-import axios from "./axios";
-import YouTube from "react-youtube";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import React, { forwardRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import YouTube from "react-youtube";
 import Rating from "../../../components/Rating";
+import Carousel, { responsive } from "../../../utils";
+import axios from "./axios";
 const movieTrailer = require("movie-trailer");
-
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 1500 },
-    items: 5,
-    slidesToSlide: 4, // optional, default to 1.
-  },
-  largeDesktop: {
-    breakpoint: { max: 1500, min: 1080 },
-    items: 4,
-    slidesToSlide: 3, // optional, default to 1.
-  },
-  desktop: {
-    breakpoint: { max: 1080, min: 720 },
-    items: 3,
-    slidesToSlide: 2, // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 720, min: 480 },
-    items: 2,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 480, min: 0 },
-    items: 1,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-};
 
 const opts = {
   height: "390",
