@@ -39,7 +39,8 @@ productRoute.get(
   "/",
   asyncHandler(async (req, res) => {
     let pageSize = Number(req.query.pageSize) || 6;
-    if (pageSize > 200) {
+    if (pageSize == 999) {
+      // only for Search functions
       const list = await Product.find({});
       const productList = list.map((p) => ({
         name: p.name,
@@ -53,6 +54,10 @@ productRoute.get(
     const category = req.query.category || "";
     const seller = req.query.seller || "";
     const order = req.query.order || "";
+    const deal =
+      req.query.deal && Number(req.query.deal) !== 0
+        ? Number(req.query.deal)
+        : 0;
     const min =
       req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0;
     const max =
@@ -65,6 +70,7 @@ productRoute.get(
     const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {};
     const sellerFilter = seller ? { seller } : {};
     const categoryFilter = category ? { category } : {};
+    const dealFilter = deal ? { deal: { $gte: deal } } : {};
     const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
     const ratingFilter = rating ? { rating: { $gte: rating } } : {};
     const sortOrder =
@@ -79,6 +85,7 @@ productRoute.get(
       ...sellerFilter,
       ...nameFilter,
       ...categoryFilter,
+      ...dealFilter,
       ...priceFilter,
       ...ratingFilter,
     });
@@ -86,6 +93,7 @@ productRoute.get(
       ...sellerFilter,
       ...nameFilter,
       ...categoryFilter,
+      ...dealFilter,
       ...priceFilter,
       ...ratingFilter,
     })
