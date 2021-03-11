@@ -47,11 +47,13 @@ export default function CartScreen(props) {
               {cartItems.map((item) => (
                 <tr className="row" key={item.product}>
                   <td className="tab__w6">
-                    <img
-                      src={item.image.split("^")[0]}
-                      alt={item.name}
-                      className="small"
-                    ></img>
+                    <Link to={`/product/${item.product}`}>
+                      <img
+                        src={item.image.split("^")[0]}
+                        alt={item.name}
+                        className="small"
+                      ></img>
+                    </Link>
                   </td>
                   <td className="tab__rest">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
