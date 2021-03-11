@@ -80,7 +80,9 @@ productRoute.get(
         ? { price: -1 }
         : order === "toprated"
         ? { rating: -1 }
-        : { _id: -1 };
+        : order === "bestseller"
+        ? { numReviews: -1 }
+        : { _id: -1 }; /* date */
     const count = await Product.count({
       ...sellerFilter,
       ...nameFilter,
@@ -99,7 +101,7 @@ productRoute.get(
     })
       .populate("seller", "seller.name seller.logo")
       .sort(sortOrder)
-      .skip(pageSize * (page - 1))
+      .skip(pageSize > 500 ? 0 : pageSize * (page - 1)) /* > 500 = all */
       .limit(pageSize);
     res.send({ products, page, pages: Math.ceil(count / pageSize), count });
   })

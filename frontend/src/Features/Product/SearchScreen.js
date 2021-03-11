@@ -77,7 +77,8 @@ export default function SearchScreen(props) {
             <option value="newest">Newest Arrivals</option>
             <option value="lowest">Price: Low to High</option>
             <option value="highest">Price: High to Low</option>
-            <option value="toprated">Avg. Reviews</option>
+            <option value="bestseller">Best Seller</option>
+            <option value="toprated">Avg. Rating</option>
           </select>
         </div>
       </div>
