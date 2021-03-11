@@ -172,7 +172,7 @@
   background: linear-gradient(to bottom, #0000 0%, #0e171e 30%);
   /* transition: opacity 0.15s cubic-bezier(.08,.82,.17,1),border 0.01s linear, margin 0.7s cubic-bezier(.68,-0.55,.27,1.55); */
   transition: opacity 0.5s linear,
-    margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), 1s;
   opacity: 1;
   z-index: 1;
 }
@@ -230,7 +230,10 @@
 .m-card__more {
   display: flex;
   justify-content: space-between;
-  margin: -10px 20px;
+  position: absolute;
+  bottom: 1rem;
+  left: 2rem;
+  right: 0.5rem;
 }
 .m-card__rating {
   color: #44a9e2;
