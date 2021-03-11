@@ -47,18 +47,18 @@ const base_url = "https://image.tmdb.org/t/p/original/";
 export const truncate = (text, len) =>
   text?.length > len ? text.substr(0, len - 1) + ".." : text;
 
-const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
+const Row = forwardRef(({ title, source, large = false }, ref) => {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
 
   useEffect(() => {
     async function fetchData() {
-      if (!fetchUrl) return;
-      const request = await axios.get(fetchUrl);
+      if (!source) return;
+      const request = await axios.get(source);
       setMovies(request.data.results);
     }
     fetchData();
-  }, [fetchUrl]);
+  }, [source]);
 
   const checkTrailer = (movie) => {
     const name =
@@ -107,17 +107,16 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
       >
         {movies.slice(0, 20).map(
           (movie) =>
-            ((isLargeRow && movie.poster_path) ||
-              (!isLargeRow && movie.backdrop_path)) && (
+            ((large && movie.poster_path) ||
+              (!large && movie.backdrop_path)) && (
               <div
                 key={movie.id}
-                className={"m-card" + (isLargeRow ? " m-card--xl" : "")}
+                className={"m-card" + (large ? " m-card--xl" : "")}
               >
                 <img
                   ref={ref}
-                  key={movie.id}
                   src={`${base_url}${
-                    isLargeRow ? movie.poster_path : movie.backdrop_path
+                    large ? movie.poster_path : movie.backdrop_path
                   }`}
                   alt={movie.title}
                 />
@@ -166,7 +165,7 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
   );
 });
 
-export const RowToBuy = ({ movies, title }) => {
+export const RowToBuy = ({ title, movies, large = false }) => {
   const [trailerUrl, setTrailerUrl] = useState("");
   return (
     <div className="m-row">
@@ -187,8 +186,8 @@ export const RowToBuy = ({ movies, title }) => {
         itemClass="carousel-item-padding-40-px"
       >
         {movies.map((movie) => (
-          <div key={movie} className="m-card m-card--xl">
-            <img src={movie.image.split("^")[0]} alt={movie.name} />
+          <div key={movie} className={"m-card" + (large ? " m-card--xl" : "")}>
+            <img src={movie.image.split("^")[large ? 0 : 1]} alt={movie.name} />
             <div className="m-card__background">
               <div className="m-card__text">
                 {truncate(movie.description, 100)}

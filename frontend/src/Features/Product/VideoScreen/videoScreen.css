@@ -13,24 +13,26 @@
   display: flex;
   justify-content: space-between;
   width: 50%;
-  margin-top: 1rem;
+  margin-top: 9px;
   font-size: 17px;
   font-weight: 400;
   color: #a4a4a4;
 }
+/* NEtflix */
 .m-nav li:first-child {
+  color: #eaeded;
   font-size: 20px;
   font-weight: 600;
-  margin: 0.5rem 7rem 0 2rem;
+  margin: 0.5rem 6rem 0 23px;
 }
 .m-nav li {
-  padding: 0 2rem;
+  padding: 0 1rem;
   cursor: pointer;
 }
 .m-nav li:hover {
   color: #fff;
 }
-.m-nav li.active {
+.m-nav li:not(:first-child).active {
   color: #fff;
   text-decoration: underline;
 }

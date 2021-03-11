@@ -10,14 +10,18 @@ import "./videoScreen.css";
 
 const API_KEY = "f81980ff410e46f422d64ddf3a56dddd"; //process.env.API_KEY;
 
-const fetchTrending = `/trending/all/week?api_key=${API_KEY}&language=en-US`,
-  fetchNetflix = `/discover/tv?api_key=${API_KEY}&with_networks=213`,
-  fetchTopRated = `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
-  fetchAction = `/discover/movie?api_key=${API_KEY}&with_genres=28`,
-  fetchComedy = `/discover/movie?api_key=${API_KEY}&with_genres=35`,
-  fetchHorror = `/discover/movie?api_key=${API_KEY}&with_genres=27`,
-  fetchRomance = `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
-  fetchDocumentaries = `/discover/movie?api_key=${API_KEY}&with_genres=99`;
+const source = {
+  "NETFLIX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
+  Home: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
+  Store: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  "Action Movies": `/discover/movie?api_key=${API_KEY}&with_genres=28`,
+  "Comedy Movies": `/discover/movie?api_key=${API_KEY}&with_genres=35`,
+  "Horror Movies": `/discover/movie?api_key=${API_KEY}&with_genres=27`,
+  "Romance Movies": `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
+  Documentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
+  "Trending Now": `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  "Top Rated": `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
+};
 
 export default function VideoScreen(props) {
   const userDetails = useSelector((state) => state.userDetails);
@@ -39,42 +43,28 @@ export default function VideoScreen(props) {
     <div className="container--fluid video-screen">
       <header className="m-header">
         <ul className="m-nav">
-          {[
-            "Netflix",
-            "Home",
-            "Action",
-            "Romance",
-            "Comedy",
-            "Documentaries",
-            "Horror",
-          ].map((nav) => (
+          {Object.keys(source).map((nav) => (
             <li
               className={nav === genre ? " active" : ""}
               onClick={() => setGenre(nav)}
             >
-              {nav}
+              {nav.split(" ")[0]}
             </li>
           ))}
         </ul>
       </header>
-      <Banner source={fetchNetflix} />
-      {genre === "Netflix" && (
-        <Row title="NETFLIX ORIGINALS" fetchUrl={fetchNetflix} isLargeRow />
-      )}
-      {genre === "Comedy" && (
-        <Row title="Comedy Movies" fetchUrl={fetchComedy} />
-      )}
-      {genre === "Action" && (
-        <Row title="Action Movies" fetchUrl={fetchAction} />
-      )}
-      {genre === "Horror" && (
-        <Row title="Horror Movies" fetchUrl={fetchHorror} />
-      )}
-      {genre === "Romance" && (
-        <Row title="Romance Movies" fetchUrl={fetchRomance} />
-      )}
-      {genre === "Documentaries" && (
-        <Row title="Documentaries" fetchUrl={fetchDocumentaries} />
+      <Banner source={source[genre]} />
+      {Object.keys(source).map((nav) =>
+        ((genre === "Home" && nav !== "Home") || nav === genre) &&
+        nav !== "Store" ? (
+          <Row
+            title={nav}
+            source={source[nav]}
+            large={nav === "NETFLIX ORIGINALS"}
+          />
+        ) : (
+          <></>
+        )
       )}
       {loadingProducts ? (
         <LoadingBox size="xl" />
@@ -83,11 +73,24 @@ export default function VideoScreen(props) {
       ) : (
         <>
           {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-          <RowToBuy title="In Stock: Ready to Buy" movies={products} />
+          <RowToBuy
+            title="IN STOCK: READY TO BUY"
+            movies={products}
+            large={
+              /*if Netflix is there, only one large row*/
+              genre !== "NETFLIX ORIGINALS"
+            }
+          />
         </>
       )}
-      <Row title="Trending Now" fetchUrl={fetchTrending} />
-      <Row title="Top Rated" fetchUrl={fetchTopRated} />
+      {
+        genre !== "Trending Now" && (
+          <Row title="Trending Now" source={source["Trending Now"]} />
+        ) /* no duplicated Trending Row*/
+      }
+      {genre !== "Top Rated" && (
+        <Row title="Top Rated" source={source["Top Rated"]} />
+      )}
     </div>
   );
 }
@@ -102,7 +105,7 @@ function Banner({ source }) {
       return request;
     }
     fetchData();
-  }, []);
+  }, [source]);
 
   return (
     <header
