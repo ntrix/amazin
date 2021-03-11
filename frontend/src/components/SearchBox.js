@@ -97,7 +97,8 @@ export default function SearchBox() {
             }}
             onChange={(e) => setTerm(e.target.value)}
             onKeyUp={(e) => {
-              setFocus(isFocus + 1);
+              // console.log(e.key, e.keyIdentifier, e.keyCode);
+              setFocus(e.key === "Escape" || e.keyCode == 27 ? 0 : isFocus + 1);
               setSuggests(findSuggest.search(list, e.target.value));
             }}
             onBlur={() => setFocus(1)}
