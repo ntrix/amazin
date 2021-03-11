@@ -54,7 +54,7 @@ const Row = forwardRef(({ title, source, large = false }, ref) => {
   useEffect(() => {
     async function fetchData() {
       if (!source) return;
-      const request = await axios.get(source);
+      const request = await axios.get(source).catch((e) => console.log(e));
       setMovies(request.data.results);
     }
     fetchData();

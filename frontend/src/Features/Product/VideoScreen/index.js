@@ -13,7 +13,7 @@ const API_KEY = "f81980ff410e46f422d64ddf3a56dddd"; //process.env.API_KEY;
 const source = {
   "NETFLIX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   Home: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
-  Store: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  STORE: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   "Action Movies": `/discover/movie?api_key=${API_KEY}&with_genres=28`,
   "Comedy Movies": `/discover/movie?api_key=${API_KEY}&with_genres=35`,
   "Horror Movies": `/discover/movie?api_key=${API_KEY}&with_genres=27`,
@@ -35,7 +35,7 @@ export default function VideoScreen(props) {
   } = productList;
 
   const dispatch = useDispatch();
-  const [genre, setGenre] = useState("Netflix");
+  const [genre, setGenre] = useState("STORE");
   useEffect(() => {
     dispatch(listProducts({ seller: process.env.VIDEO_SELLER }));
   }, [dispatch]);
@@ -43,24 +43,24 @@ export default function VideoScreen(props) {
     <div className="container--fluid video-screen">
       <header className="m-header">
         <ul className="m-nav">
-          {Object.keys(source).map((nav) => (
+          {Object.keys(source).map((label) => (
             <li
-              className={nav === genre ? " active" : ""}
-              onClick={() => setGenre(nav)}
+              className={label === genre ? " active" : ""}
+              onClick={() => setGenre(label)}
             >
-              {nav.split(" ")[0]}
+              {label.split(" ")[0]}
             </li>
           ))}
         </ul>
       </header>
       <Banner source={source[genre]} />
-      {Object.keys(source).map((nav) =>
-        ((genre === "Home" && nav !== "Home") || nav === genre) &&
-        nav !== "Store" ? (
+      {Object.keys(source).map((label) =>
+        ((genre === "Home" && label !== "Home") || label === genre) &&
+        label !== "STORE" ? (
           <Row
-            title={nav}
-            source={source[nav]}
-            large={nav === "NETFLIX ORIGINALS"}
+            title={label}
+            source={source[label]}
+            large={label === "NETFLIX ORIGINALS"}
           />
         ) : (
           <></>
@@ -95,13 +95,35 @@ export default function VideoScreen(props) {
   );
 }
 
-function Banner({ source }) {
+const placeholder = [
+  {
+    name: "Stranger Things",
+    poster_path: "56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
+    overview:
+      "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
+  },
+  {
+    name: "The Queen's Gambit",
+    poster_path: "34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg",
+    overview:
+      "In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.",
+  },
+];
+/* dummy data for waiting at first load */
+
+function Banner({ source = "" }) {
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(source);
-      setMovie(request.data.results[Math.floor(Math.random() * 11)]);
+      const request = await axios.get(source).catch((e) => "");
+      setMovie(
+        request
+          ? request.data.results[
+              (Math.random() * request.data.results.length) | 0
+            ]
+          : placeholder[(Math.random() * placeholder.length) | 0]
+      );
       return request;
     }
     fetchData();
