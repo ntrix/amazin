@@ -3,6 +3,7 @@ import axios from "./axios";
 import YouTube from "react-youtube";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom";
 const movieTrailer = require("movie-trailer");
 
 const responsive = {
@@ -30,6 +31,15 @@ const responsive = {
     breakpoint: { max: 480, min: 0 },
     items: 1,
     slidesToSlide: 1, // optional, default to 1.
+  },
+};
+
+const opts = {
+  height: "390",
+  width: "60%",
+  playerVars: {
+    // https://developers.google.com/youtube/player_parameters
+    autoplay: 1,
   },
 };
 const base_url = "https://image.tmdb.org/t/p/original/";
@@ -76,14 +86,6 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
     }
   };
   const handleClick = () => {};
-  const opts = {
-    height: "390",
-    width: "60%",
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-    },
-  };
 
   return (
     <div className="m-row">
@@ -109,10 +111,6 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
               (!isLargeRow && movie.backdrop_path)) && (
               <div
                 key={movie.id}
-                onClick={() => {
-                  handleClick();
-                  checkTrailer(movie);
-                }}
                 className={"m-card" + (isLargeRow ? " m-card--xl" : "")}
               >
                 <img
@@ -126,13 +124,21 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
                 <div className="m-card__background">
                   <div className="m-card__text">
                     {truncate(movie?.overview, 100)}
-                    <p>
+                    <p className="m-card__rating">
                       <b>Rating: {movie?.vote_average / 2}</b>
                     </p>
                   </div>
                   <div className="m-card__more">
-                    <div className="banner__button">Trailer</div>
-                    <div className="banner__button">Rent/Buy</div>
+                    <button
+                      className="banner__button"
+                      onClick={() => {
+                        handleClick();
+                        checkTrailer(movie);
+                      }}
+                    >
+                      Trailer
+                    </button>
+                    <button className="banner__button">Rent/Buy</button>
                   </div>
                 </div>
                 <div className="m-card__info">
@@ -159,5 +165,69 @@ const Row = forwardRef(({ title, fetchUrl, isLargeRow = false }, ref) => {
     </div>
   );
 });
+
+export const RowToBuy = ({ movies, title }) => {
+  const [trailerUrl, setTrailerUrl] = useState("");
+  return (
+    <div className="m-row">
+      <h2>{title}</h2>
+      <Carousel
+        swipeable={true}
+        draggable={true}
+        showDots={false}
+        responsive={responsive}
+        infinite={false}
+        autoPlay={false}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["mobile"]}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
+      >
+        {movies.map((movie) => (
+          <div key={movie} className="m-card m-card--xl">
+            <img src={movie.image.split("^")[0]} alt={movie.name} />
+            <div className="m-card__background">
+              <div className="m-card__text">
+                {truncate(movie.description, 100)}
+                <p className="m-card__rating">
+                  <b>Rating: {movie.rating}</b>
+                </p>
+              </div>
+              <div className="m-card__more">
+                <button
+                  className="banner__button"
+                  onClick={() => setTrailerUrl(trailerUrl ? "" : movie.video)}
+                >
+                  Trailer
+                </button>
+                <Link
+                  className="banner__button"
+                  to={`/cart/${movie._id}?qty=1`}
+                >
+                  Rent/Buy
+                </Link>
+              </div>
+            </div>
+            <div className="m-card__info">
+              <div className="m-card__name">{movie.name}</div>
+            </div>
+          </div>
+        ))}
+      </Carousel>
+      {trailerUrl && (
+        <div className="trailer__frame">
+          <YouTube
+            className="movie__trailer"
+            videoId={trailerUrl === "no trailer" ? "k4D7cuDAvXE" : trailerUrl}
+            opts={opts}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Row;

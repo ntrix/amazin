@@ -44,20 +44,19 @@
 }
 
 .banner__button {
+  font-weight: 700;
+  padding: 8px 32px;
+  margin-right: 16px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
   cursor: pointer;
   color: #fff;
-  outline: none;
-  border: none;
-  font-weight: 700;
-  border-radius: 0.2vw;
-  padding-left: 32px;
-  padding-right: 32px;
-  margin-right: 16px;
-  padding-top: 8px;
-  background-color: rgba(51, 51, 51, 0.5);
-  padding-bottom: 8px;
+  background: #000;
 }
-
+.banner__button + .banner__button {
+  margin-left: 10px;
+}
 .banner__button:hover {
   color: #000;
   background-color: #e6e6e6;
@@ -74,9 +73,11 @@
   z-index: 199;
 }
 .m-row h2 {
-  margin-top: 10px;
+  margin-top: 35px;
   font-weight: 700;
-  font-size: 19px;
+  font-size: 18px;
+  padding: 0;
+  line-height: 0;
 }
 .m-row__posters::-webkit-scrollbar {
   display: none;
@@ -111,11 +112,11 @@
   transition: all 0.2s ease-in;
   opacity: 1;
   z-index: 1;
-  width: 360px;
-  margin-left: -20px;
+  width: 380px;
+  margin: -30px;
 }
 .m-card--xl:hover {
-  width: 293px;
+  width: 313px;
 }
 .m-card__background {
   position: relative;
@@ -156,7 +157,7 @@
   transition: opacity 2s ease-out;
 }
 .m-card--xl:hover .m-card__text {
-  padding-top: 265px;
+  padding-top: 254px;
 }
 .m-card img {
   width: 100%;
@@ -196,6 +197,7 @@
   margin: -10px 20px;
 }
 .m-card__rating {
+  color: #44a9e2;
 }
 .trailer__frame {
   display: flex;
@@ -215,4 +217,19 @@
 }
 .react-multi-carousel-item:hover {
   z-index: 1;
+}
+.react-multiple-carousel__arrow--left {
+  left: -45px; /*5px more for safari hover*/
+}
+.react-multiple-carousel__arrow--right {
+  right: -5px; /*5px more for safari hover*/
+}
+.react-multiple-carousel__arrow {
+  height: 100%;
+  padding: 2rem;
+  border-radius: 0;
+}
+.react-multiple-carousel__arrow::before {
+  font-size: 36px;
+  font-weight: bold;
 }

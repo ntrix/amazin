@@ -5,7 +5,7 @@ import MessageBox from "../../../components/MessageBox";
 import Product from "../../../components/Product";
 import { listProducts } from "../../../Controllers/productActions";
 import axios from "./axios";
-import Row, { truncate } from "./Row";
+import Row, { RowToBuy, truncate } from "./Row";
 import "./videoScreen.css";
 
 const API_KEY = "f81980ff410e46f422d64ddf3a56dddd"; //process.env.API_KEY;
@@ -36,17 +36,7 @@ export default function VideoScreen(props) {
   }, [dispatch]);
   return (
     <div className="container--fluid video-screen">
-      {/* <Banner /> */}
-      <Row
-        title="NETFLIX ORIGINALS"
-        fetchUrl={fetchNetflixOriginals}
-        isLargeRow
-      />
-      <Row title="Action Movies" fetchUrl={fetchActionMovies} />
-      {/* <Row title="Comedy Movies" fetchUrl={fetchComedyMovies} />
-      <Row title="Horror Movies" fetchUrl={fetchHorrorMovies} />
-      <Row title="Romance Movies" fetchUrl={fetchRomanceMovies} />
-      <Row title="Documentaries" fetchUrl={fetchDocumentaries} /> */}
+      <Banner />
       {loadingProducts ? (
         <LoadingBox size="xl" />
       ) : errorProducts ? (
@@ -54,13 +44,19 @@ export default function VideoScreen(props) {
       ) : (
         <>
           {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-          <div className="m-row center">
-            {products.map((product) => (
-              <Product key={product._id} product={product}></Product>
-            ))}
-          </div>
+          <RowToBuy title="In Stock: Ready to Buy" movies={products} />
         </>
       )}
+      <Row title="Action Movies" fetchUrl={fetchActionMovies} />
+      <Row
+        title="NETFLIX ORIGINALS"
+        fetchUrl={fetchNetflixOriginals}
+        isLargeRow
+      />
+      {/* <Row title="Comedy Movies" fetchUrl={fetchComedyMovies} />
+      <Row title="Horror Movies" fetchUrl={fetchHorrorMovies} />
+      <Row title="Romance Movies" fetchUrl={fetchRomanceMovies} />
+      <Row title="Documentaries" fetchUrl={fetchDocumentaries} /> */}
       <Row title="Trending Now" fetchUrl={fetchTrending} />
       <Row title="Top Rated" fetchUrl={fetchTopRated} />
     </div>
