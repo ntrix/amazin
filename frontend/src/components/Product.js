@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Rating from "./Rating";
 
-export default function Product({ product }) {
+export default function Product({ product, deal = false }) {
   const location = useLocation();
   const saveHistory = () => {
     localStorage.setItem("backToHistory", location.pathname);
@@ -13,7 +13,10 @@ export default function Product({ product }) {
         <Link to={`/product/${product._id}`} onClick={saveHistory}>
           <img
             className="thumbnail"
-            src={product.image.split("^")[0]}
+            src={
+              product.image.split("^")[deal ? 1 : 0] ||
+              "images/no-default-thumbnail.png"
+            }
             alt={product.name}
           />
         </Link>
@@ -26,11 +29,28 @@ export default function Product({ product }) {
             numReviews={product.numReviews}
           ></Rating>
           <div className="">
-            <div className="price">
-              <sup>€</sup>
-              {product.price | 0}
-              <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
-            </div>
+            {!deal ? (
+              <div className="price">
+                <sup>€</sup>
+                {product.price | 0}
+                <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
+              </div>
+            ) : (
+              <>
+                <div className="price danger">
+                  <sup>€</sup>
+                  {product.price | 0}
+                  <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
+                </div>
+                <div>
+                  <b className="price strike">
+                    <sup>€</sup>
+                    {(product.price / (1 - product.deal / 100)).toFixed(2)}
+                  </b>
+                  <span> ({product.deal}%)</span>
+                </div>
+              </>
+            )}
             <sub>Shipping: €{product.ship} excl.</sub>
             <div>
               <Link
