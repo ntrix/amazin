@@ -466,6 +466,21 @@ a .brand {
 .dropdown {
   position: relative;
 }
+.underlay {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: -1rem;
+  right: -1rem;
+  background-color: #0008;
+  opacity: 0;
+  z-index: 9000;
+  -webkit-animation: dropAnimation 0s forwards;
+  animation: dropAnimation 0s forwards;
+  -webkit-animation-delay: 0.35s;
+  animation-delay: 0.35s;
+}
 .dropdown .fa-caret-down {
   float: right;
   padding-left: 4px;
@@ -509,16 +524,16 @@ a .brand {
   opacity: 1;
   -webkit-transform: scaleX(1.3);
   transform: scaleX(1.3);
-  -webkit-animation: sponge 0.4s forwards;
-  animation: sponge 0.4s forwards;
+  -webkit-animation: dropAnimation 0.4s forwards;
+  animation: dropAnimation 0.4s forwards;
 }
 .dropdown:hover > .dropdown__menu.show * {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
-  -webkit-animation: sponge 0.4s backwards;
-  animation: sponge 0.4s backwards;
+  -webkit-animation: dropAnimation 0.4s backwards;
+  animation: dropAnimation 0.4s backwards;
 }
-@keyframes sponge {
+@keyframes dropAnimation {
   0% {
     color: transparent;
     right: 50%;
@@ -530,6 +545,7 @@ a .brand {
     color: #131a21;
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
+    opacity: 1;
   }
 }
 .dropdown__menu li {
@@ -571,16 +587,6 @@ button.open-sidebar:hover {
   overflow: hidden;
   position: fixed;
 }
-.underlay {
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: -1rem;
-  right: -1rem;
-  background-color: #0008;
-  z-index: 9000;
-}
 .click-catcher {
   display: block;
   position: fixed;
@@ -606,14 +612,14 @@ button.open-sidebar:hover {
   transform: translate3D(-120%, 0, 0);
 }
 .sidebar.opened {
-  -webkit-animation: side-sponge 0.5s forwards;
-  animation: side-sponge 0.5s forwards;
+  -webkit-animation: sideAnimation 0.5s forwards;
+  animation: sideAnimation 0.5s forwards;
 }
 .sidebar.opened ul > li * {
-  -webkit-animation: side-sponge 0.5s backwards;
-  animation: side-sponge 0.5s backwards;
+  -webkit-animation: sideAnimation 0.5s backwards;
+  animation: sideAnimation 0.5s backwards;
 }
-@keyframes side-sponge {
+@keyframes sideAnimation {
   0% {
   }
   30% {
