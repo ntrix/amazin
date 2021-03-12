@@ -15,6 +15,7 @@ export default function Product({ product, deal = false }) {
             className="thumbnail"
             src={
               product.image.split("^")[deal ? 1 : 0] ||
+              product.image.split("^")[0] ||
               "images/no-default-thumbnail.png"
             }
             alt={product.name}
@@ -37,31 +38,37 @@ export default function Product({ product, deal = false }) {
               </div>
             ) : (
               <>
-                <div className="price danger">
-                  <sup>€</sup>
-                  {product.price | 0}
-                  <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
-                </div>
                 <div>
-                  <b className="price strike">
+                  <span className="price danger">
                     <sup>€</sup>
-                    {(product.price / (1 - product.deal / 100)).toFixed(2)}
-                  </b>
-                  <span> ({product.deal}%)</span>
+                    {product.price | 0}
+                    <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
+                  </span>
+                  <span className=" pull-right">
+                    <b className="price strike">
+                      <sup>€</sup>
+                      {(product.price / (1 - product.deal / 100)).toFixed(2)}
+                    </b>
+                    ({product.deal}%)
+                  </span>
                 </div>
               </>
             )}
-            <sub>Shipping: €{product.ship} excl.</sub>
-            <div>
-              <Link
-                to={`/seller/${product.seller._id}`}
-                className="row end text-right"
-              >
-                Seller & Store
-                <br />
-                {product?.seller?.seller?.name || "Anonymous Seller"}
-              </Link>
-            </div>
+            {!deal && (
+              <>
+                <sub>Shipping: €{product.ship} excl.</sub>
+                <div>
+                  <Link
+                    to={`/seller/${product.seller._id}`}
+                    className="row end text-right"
+                  >
+                    Seller & Store
+                    <br />
+                    {product?.seller?.seller?.name || "Anonymous Seller"}
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

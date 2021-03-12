@@ -1,0 +1,28 @@
+.deal-screen {
+  margin: 0 -1rem;
+}
+.deal-screen .carousel-container {
+  background: linear-gradient(to bottom, #fbf4e4 70%, #fbf4e400 100%);
+  height: 60rem;
+  padding-top: 6rem;
+}
+.deal-screen .react-multiple-carousel__arrow--left {
+  left: 0; /*5px more for safari hover*/
+}
+.deal-screen .react-multiple-carousel__arrow--right {
+  right: 0; /*5px more for safari hover*/
+}
+.deal-screen .react-multiple-carousel__arrow {
+  height: 17rem;
+  padding: 0 3rem;
+  border-radius: 0;
+  top: 1rem;
+  background: transparent;
+  text-shadow: 2px 2px 2px #111;
+}
+.deal-screen .react-multiple-carousel__arrow::before {
+  font-size: 4rem;
+}
+.deal-screen .row {
+  background: linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
+}

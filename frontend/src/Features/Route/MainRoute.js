@@ -60,9 +60,11 @@ export default function MainRoute() {
         component={SearchScreen}
         exact
       ></Route>
+      <Route path="/deal" component={DealScreen} exact></Route>
       <Route
         path="/deal/category/:category/order/:order/pageNumber/:pageNumber"
         component={DealScreen}
+        exact
       ></Route>
       <PrivateRoute
         path="/order-history"

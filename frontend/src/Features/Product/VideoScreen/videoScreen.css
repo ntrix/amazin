@@ -2,7 +2,7 @@
   background-color: #0e171e;
   display: flex;
   flex-direction: column;
-  padding-bottom: 15rem;
+  padding-bottom: 16rem;
 }
 .m-header {
   color: #fff;
@@ -247,28 +247,28 @@
 .movie__trailer {
   width: 640px;
 }
-.carousel-container {
+.m-row .carousel-container {
   overflow: visible;
 }
-.react-multi-carousel-list {
+.m-row .react-multi-carousel-list {
   overflow: visible !important;
   z-index: 0;
 }
-.react-multi-carousel-item:hover {
+.m-row .react-multi-carousel-item:hover {
   z-index: 1;
 }
-.react-multiple-carousel__arrow--left {
+.m-row .react-multiple-carousel__arrow--left {
   left: -45px; /*5px more for safari hover*/
 }
-.react-multiple-carousel__arrow--right {
+.m-row .react-multiple-carousel__arrow--right {
   right: -5px; /*5px more for safari hover*/
 }
-.react-multiple-carousel__arrow {
+.m-row .react-multiple-carousel__arrow {
   height: 100%;
   padding: 2rem;
   border-radius: 0;
 }
-.react-multiple-carousel__arrow::before {
+.m-row .react-multiple-carousel__arrow::before {
   font-size: 36px;
   font-weight: bold;
 }
