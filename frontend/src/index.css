@@ -420,19 +420,22 @@ a .brand {
   -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
   height: 100%;
-  margin: 1px;
+  margin: 0px;
+  padding: 1px;
+  border-radius: 0;
 }
 .nav__right .nav-main__item {
   display: block;
   width: 100%;
 }
 .nav__right .nav-main__item > a {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 400;
+  line-height: 10px;
   color: #eaeded;
 }
 .nav__right sup {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   color: #fff;
 }
