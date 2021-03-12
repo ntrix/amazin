@@ -98,6 +98,7 @@ header {
 }
 main {
   grid-area: main;
+  position: relative;
   padding: 1rem;
 }
 footer {
@@ -413,6 +414,7 @@ a .brand {
 .nav-main__item > a {
   display: block;
   margin-top: -2px;
+  padding-bottom: 18px;
   font-size: 15px;
   line-height: 0;
   align-items: center;
@@ -574,7 +576,16 @@ button.open-sidebar:hover {
   overflow: hidden;
   position: fixed;
 }
-.underlay,
+.underlay {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: -1rem;
+  right: -1rem;
+  background-color: #0008;
+  z-index: 9000;
+}
 .click-catcher {
   display: block;
   position: fixed;

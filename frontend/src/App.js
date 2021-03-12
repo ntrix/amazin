@@ -251,15 +251,14 @@ function App() {
           </ul>
         </aside>
         <label
-          className={
-            hasSidebar ? "click-catcher" : hasDropdown ? "underlay" : ""
-          }
+          className={hasSidebar ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
         ></label>
         <main className="container--flex">
           <div className="col-fill">
             <MainRoute />
           </div>
+          <div className={hasDropdown ? "underlay" : ""}></div>
         </main>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
