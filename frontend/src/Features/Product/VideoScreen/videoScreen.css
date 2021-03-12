@@ -133,6 +133,7 @@
   border-radius: 6px;
   border: 2px solid #44a9e200;
   transition: border 0.01s linear, transform 0.2s ease-in;
+  overflow: hidden;
   cursor: pointer;
 }
 .m-card--xl {
@@ -178,7 +179,7 @@
 }
 .m-card--xl:hover .m-card__background {
   margin-top: -350px;
-  background: linear-gradient(to bottom, #0000 35%, #0e171e 55%);
+  background: linear-gradient(to bottom, #0000 25%, #0e171e 58%);
 }
 .m-card:hover .m-card__text {
   margin: 20px;
