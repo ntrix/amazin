@@ -82,7 +82,7 @@ export default function SearchBox() {
         onSubmit={submitHandler}
       >
         <div className="row--fill">
-          <div class="search__input">
+          <div className="search__input">
             <input
               type="text"
               name="q"
@@ -112,7 +112,7 @@ export default function SearchBox() {
           </div>
         </div>
         <div className="row--right">
-          <div class="search__btn">
+          <div className="search__btn">
             <span className="sprite__search-btn" aria-label="Go">
               <input type="submit" value="Go" tabIndex={0}></input>
             </span>
