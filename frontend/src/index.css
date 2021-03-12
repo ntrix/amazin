@@ -989,6 +989,7 @@ table th {
   position: relative;
   border-radius: 4px;
   z-index: 9000;
+  background: #fff;
 }
 .search__form.focus {
   /* border: 2px solid #f19833;
@@ -1006,11 +1007,14 @@ table th {
   display: flex;
   flex: 1;
 }
+.search__input input:focus,
 .search__input input {
   display: flex;
   flex: 1;
-  border-radius: 4px 0 0 4px;
+  border-radius: 6px; /* safari problem, input default style override */
+  box-shadow: none;
   border: none;
+  outline: none;
 }
 .search__btn {
   display: flex;
@@ -1050,14 +1054,13 @@ table th {
 }
 .search__suggest {
   position: absolute;
-  top: 4rem;
-  left: -3px;
-  right: -5px;
+  left: 0;
+  right: 0;
   z-index: 9000;
 }
 .search__suggest ul:not(:empty) {
   border: thin solid #ccc;
-  margin: 1px 6px;
+  margin: 0 5px;
   outline: none;
 }
 .search__suggest li {
