@@ -80,7 +80,7 @@ productRoute.get(
         ? { price: -1 }
         : order === "toprated"
         ? { rating: -1 }
-        : order === "bestseller"
+        : order === "bestselling"
         ? { numReviews: -1 }
         : { _id: -1 }; /* date */
     const count = await Product.count({

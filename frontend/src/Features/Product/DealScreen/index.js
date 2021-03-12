@@ -14,7 +14,7 @@ export default function DealScreen() {
   const history = useHistory();
   const {
     category = "all",
-    order = "bestseller",
+    order = "bestselling",
     pageNumber = 1,
   } = useParams();
   const dispatch = useDispatch();
@@ -82,9 +82,9 @@ export default function DealScreen() {
               }
             >
               <option value="newest">Newest Arrivals</option>
+              <option value="bestselling">Best Selling</option>
               <option value="lowest">Price: Low to High</option>
               <option value="highest">Price: High to Low</option>
-              <option value="bestseller">Best Seller</option>
               <option value="toprated">Avg. Rating</option>
             </select>
           </div>
