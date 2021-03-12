@@ -178,9 +178,9 @@ function App() {
             </div>
             <div className="nav__fill">
               {[
-                ["New Releases", "/search/category/all", "nav-main__item"],
                 ["Netflix Video", "/video", "nav-main__item"],
                 ["Top Deals", "/deal", "nav-main__item"],
+                ["New Releases", "/search/category/all", "nav-main__item"],
                 ["Best Sellers", "/", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
@@ -198,8 +198,7 @@ function App() {
             <div className="nav__right">
               <div className="nav-main__item">
                 <a href="#">
-                  <sup>Advertisement</sup> here? Contact us for more
-                  informations
+                  <sup>Your Ads</sup> here on this place? Contact us
                 </a>
               </div>
             </div>
@@ -254,7 +253,7 @@ function App() {
           className={hasSidebar ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
         ></label>
-        <main className="container--flex">
+        <main className="container">
           <div className="col-fill">
             <MainRoute />
           </div>

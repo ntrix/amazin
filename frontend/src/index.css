@@ -106,7 +106,7 @@ footer {
   background-color: #131a21;
   color: #fff;
 }
-.container--flex {
+.container {
   /* display: flex; */
   /* width: 100%; */
   min-width: 375px;
@@ -356,17 +356,14 @@ a .brand {
   line-height: 1.5rem;
 }
 
-.nav-main * {
-  font-size: 15px;
-  font-weight: 500;
-}
 .nav-main,
 .nav__left,
 .nav__fill,
 .nav__right {
-  height: 39px;
+  height: 29px;
   display: -webkit-flex;
   display: flex;
+  margin-top: 2px;
   float: none;
   color: #fff;
   background: #232f3e;
@@ -374,78 +371,76 @@ a .brand {
   overflow: hidden;
   white-space: nowrap;
 }
+.nav-main {
+  height: 39px;
+  margin-top: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+}
 .nav__left {
   flex: 0 0 6rem;
-}
-.nav__fill {
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  height: 29px;
-  margin-right: 2rem;
-}
-.nav__right {
-  -webkit-flex: 0 0 31%;
-  flex: 0 0 31%;
+  margin-top: 2px;
+  margin-left: 15px;
 }
 .nav-main__item {
-  height: 28px;
-  margin-bottom: 3px;
+  height: 100%;
   padding: 5px 1px;
-  align-self: center;
   border-radius: 2px;
   color: #fff;
+  min-width: 6rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
-.nav__fill .nav-main__item {
-  max-width: 18rem;
-}
-.nav__left .nav-main__item:hover,
-.nav__fill .nav-main__item:hover {
-  padding: 4px 0;
-  border: thin solid #fff;
+.nav-main__item > a {
+  font-size: 14px;
+  line-height: 1.2;
 }
 .nav__left .nav-main__item {
   width: 100%;
 }
 .nav__left .nav-main__item b {
-  font-weight: 700;
-  line-height: 16px;
+  font-weight: 600;
 }
-.nav-main__item > a {
-  display: block;
-  margin-top: -2px;
-  padding-bottom: 18px;
-  font-size: 15px;
-  line-height: 0;
-  align-items: center;
-  min-width: 6rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.nav-main__item:hover {
+  padding: 4px 0;
+  border: thin solid #fff;
+}
+.nav__fill {
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  min-width: 32rem;
+  margin-right: 2rem;
+}
+.nav__fill .nav-main__item {
+  max-width: 18rem;
 }
 .nav__right {
-  font-weight: 500;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  height: 38px;
 }
 .nav__right .nav-main__item {
   display: block;
   width: 100%;
-  margin-top: -3rem;
-  cursor: default;
 }
-.nav__right .nav-main__item * {
-  cursor: default;
+.nav__right .nav-main__item > a {
+  font-size: 24px;
+  font-weight: 400;
+  color: #eaeded;
 }
 .nav__right sup {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 24px;
-  color: #ccc;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
 }
 .sprite__bars {
   display: inline-block;
   width: 20px;
   height: 20px;
   background: url("./img/nav-sprite.png") -160px -180px;
-  margin: -2px 3px 0 7px;
+  margin: -2px 5px 0 5px;
 }
 
 /* Cart */
@@ -1169,7 +1164,7 @@ img.active {
   .mobile--only {
     display: initial;
   }
-  .container--flex {
+  .container {
     width: 100%;
   }
   .search__filter,
