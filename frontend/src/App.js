@@ -87,7 +87,7 @@ function App() {
                 dropMenu={[
                   ["Account"],
                   ["Sign In", "/signin"],
-                  ["separator"],
+                  ["separator", "1"],
                   ["New customer? Start here.", "/register"],
                 ]}
               />
@@ -102,12 +102,12 @@ function App() {
                 dropMenu={[
                   ["Informations"],
                   ["Your Profile", "/profile"],
-                  ["separator"],
+                  ["separator", "2"],
                   ["Orders"],
                   ["Your Order History", "/order-history"],
                   ["Returns", "disabled"],
                   ["Contact Us", "#contact", "disabled"],
-                  ["separator"],
+                  ["separator", "3"],
                   ["Account"],
                   ["Sign Out", "#signout", , signoutHandler],
                 ]}
@@ -123,12 +123,12 @@ function App() {
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
-                  ["separator"],
+                  ["separator", "4"],
                   ["Listing"],
                   ["Product List", "/product-list/seller"],
                   ["Sold Order List", "/order-list/seller"],
-                  ["separator"],
-                  ["Assistant"],
+                  ["separator", "5"],
+                  ["Assistant", "6"],
                   ["Sell Statistics", "disabled"],
                 ]}
               />
@@ -144,11 +144,11 @@ function App() {
                 dropMenu={[
                   ["Admin"],
                   ["User List", "/user-list"],
-                  ["separator"],
+                  ["separator", "7"],
                   ["Warehouse"],
                   ["Product Catalogues", "/product-list"],
                   ["Order Database", "/order-list"],
-                  ["separator"],
+                  ["separator", "8"],
                   ["Instruction"],
                   ["Quick Tutor!", "disabled"],
                 ]}
@@ -224,27 +224,27 @@ function App() {
                 ["Trending"],
                 ["New Releases", "/search/category/all"],
                 ["Top Sellers", "/"],
-                ["separator"],
+                ["separator", "9"],
                 ["Categories"],
                 ...categories.map((c) => [c, "/search/category/" + c]),
-                ["separator"],
+                ["separator", "10"],
                 ["Help & Setting"],
                 ["(Seller) Profile", "/profile/seller"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
                 ["FAQ & Contact", "#contact", "disabled"],
-                ["separator"],
+                ["separator", "11"],
                 ["Account"],
                 userInfo
                   ? ["Sign Out", "#signout", , signoutHandler]
                   : ["Sign In", "/signin"],
                 [""],
-                ["separator"],
-                ["separator"],
+                ["separator", "12"],
+                ["separator", "13"],
                 ["#contact 2020", "disabled"],
-                ["separator"],
-                ["separator"],
+                ["separator", "14"],
+                ["separator", "15"],
               ].map(addMenuItem(setSidebar))
             )}
           </ul>
