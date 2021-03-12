@@ -8,7 +8,7 @@ import axios from "./axios";
 import Row, { RowToBuy, truncate } from "./Row";
 import "./videoScreen.css";
 
-const API_KEY = "f81980ff410e46f422d64ddf3a56dddd"; //process.env.API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const source = {
   "NETFLIX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
@@ -37,14 +37,17 @@ export default function VideoScreen(props) {
   const dispatch = useDispatch();
   const [genre, setGenre] = useState("STORE");
   useEffect(() => {
-    dispatch(listProducts({ seller: process.env.VIDEO_SELLER, pageSize: 11 }));
+    dispatch(
+      listProducts({ seller: process.env.REACT_APP_SELLER, pageSize: 11 })
+    );
   }, [dispatch]);
   return (
     <div className="container--fluid video-screen">
       <header className="m-header">
         <ul className="m-nav">
-          {Object.keys(source).map((label) => (
+          {Object.keys(source).map((label, idx) => (
             <li
+              key={idx}
               className={label === genre ? " active" : ""}
               onClick={() => setGenre(label)}
             >

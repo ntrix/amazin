@@ -26,7 +26,7 @@ const Row = forwardRef(({ title, source, large = false }, ref) => {
   useEffect(() => {
     async function fetchData() {
       if (!source) return;
-      const request = await axios.get(source).catch((e) => console.log(e));
+      const request = await axios.get(source).catch((e) => {});
       setMovies(request.data.results);
     }
     fetchData();
@@ -95,13 +95,13 @@ const Row = forwardRef(({ title, source, large = false }, ref) => {
                 <div className="m-card__background">
                   <div className="m-card__text">
                     {truncate(movie?.overview, 150)}
-                    <p className="m-card__rating">
+                    <div className="m-card__rating">
                       <Rating
                         rating={movie?.vote_average}
                         steps={10}
                         numReviews={movie?.vote_count}
                       />
-                    </p>
+                    </div>
                   </div>
                   <div className="m-card__more">
                     <button
@@ -173,13 +173,13 @@ export const RowToBuy = ({ title, movies, large = false }) => {
             <div className="m-card__background">
               <div className="m-card__text">
                 {truncate(movie.description, 150)}
-                <p className="m-card__rating">
+                <div className="m-card__rating">
                   <Rating
                     rating={movie?.rating * 2}
                     steps={10}
                     numReviews={movie?.numReviews}
                   />
-                </p>
+                </div>
               </div>
               <div className="m-card__more">
                 <button
