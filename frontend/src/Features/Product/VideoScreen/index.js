@@ -26,7 +26,6 @@ export default function VideoScreen() {
   const dispatch = useDispatch();
   const [genre, setGenre] = useState("STORE");
   const [movies, setMovies] = useState({});
-  const [stock, setStock] = useState([]);
   const {
     loading: loadingProducts,
     error: errorProducts,
@@ -65,7 +64,6 @@ export default function VideoScreen() {
     dispatch(
       listProducts({ seller: process.env.REACT_APP_SELLER, pageSize: 11 })
     );
-    if (products) setStock(products.map(adapter).reverse());
   }, [genre, dispatch]);
   return (
     <div className="container--fluid video-screen">
@@ -82,7 +80,9 @@ export default function VideoScreen() {
           ))}
         </ul>
       </header>
-      {movies[genre] && <Banner source={movies[genre]} stock={stock} />}
+      {movies[genre] && (
+        <Banner source={movies[genre]} stock={products?.map(adapter)} />
+      )}
       {movies[genre] &&
         Object.keys(sources).map((label) =>
           label !== "Home" &&
@@ -110,7 +110,7 @@ export default function VideoScreen() {
           )}
           <Row
             title="IN STOCK: READY TO BUY"
-            movies={stock}
+            movies={products?.map(adapter).reverse()}
             //if Netflix is there, only one large row
             large={genre !== "NETFLIX ORIGINALS"}
           />
