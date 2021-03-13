@@ -429,6 +429,7 @@ a .brand {
 }
 .nav-main .nav__right .nav-main__item:hover {
   outline: 1px solid #fff;
+  outline-offset: -1px;
 }
 .nav__right .nav-main__item > a {
   font-size: 22px;
