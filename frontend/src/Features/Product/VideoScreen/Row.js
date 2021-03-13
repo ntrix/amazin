@@ -22,20 +22,13 @@ export default function Row({ title, movies, large = false }) {
   const [trailerUrl, setTrailerUrl] = useState("");
 
   const checkTrailer = (movie) => {
-    try {
-      if (trailerUrl) return setTrailerUrl("");
-      movieTrailer(movie.name)
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
-        })
-        .catch((e) => {
-          console.log(e);
-          setTrailerUrl(-1);
-        });
-    } catch (e) {
-      setTrailerUrl(-1);
-    }
+    if (trailerUrl) return setTrailerUrl("");
+    movieTrailer(movie?.name)
+      .then((url) => {
+        const urlParams = new URLSearchParams(new URL(url).search);
+        setTrailerUrl(urlParams.get("v"));
+      })
+      .catch((e) => setTrailerUrl(-1));
   };
   const handleClick = () => {};
 
