@@ -32,19 +32,20 @@ export default function VideoScreen() {
     products,
   } = useSelector((state) => state.productList);
 
-  const adapter = (m) => ({
-    name: m.name || m.title || m.original_title || m.original_name || "",
-    images: [
-      m.backdrop_path ? baseURL + m.backdrop_path : m.image?.split("^")[1],
-      m.poster_path ? baseURL + m.poster_path : m.image?.split("^")[0],
-    ],
-    rating: m.rating * 2 || m.vote_average,
-    numReviews: m.numReviews || m.vote_count,
-    description: m.description || m.overview,
-    video: m.video,
-    seller: m.seller,
-    _id: m._id,
-  });
+  const adapter = (movies) =>
+    movies?.map((m) => ({
+      name: m.name || m.title || m.original_title || m.original_name || "",
+      images: [
+        m.backdrop_path ? baseURL + m.backdrop_path : m.image?.split("^")[1],
+        m.poster_path ? baseURL + m.poster_path : m.image?.split("^")[0],
+      ],
+      rating: m.rating * 2 || m.vote_average,
+      numReviews: m.numReviews || m.vote_count,
+      description: m.description || m.overview,
+      video: m.video,
+      seller: m.seller,
+      _id: m._id,
+    }));
 
   useEffect(() => {
     async function fetchData() {
@@ -57,7 +58,7 @@ export default function VideoScreen() {
         })
       );
       const movieObj = {};
-      movieArray.map(([genre, list]) => (movieObj[genre] = list.map(adapter)));
+      movieArray.map(([genre, list]) => (movieObj[genre] = adapter(list)));
       setMovies(movieObj);
     }
     if (!movies[genre]) fetchData(); // else shuffle random movies list :)
@@ -81,7 +82,7 @@ export default function VideoScreen() {
         </ul>
       </header>
       {movies[genre] && (
-        <Banner source={movies[genre]} stock={products?.map(adapter)} />
+        <Banner source={movies[genre]} stock={adapter(products)} />
       )}
       {movies[genre] &&
         Object.keys(sources).map((label) =>
@@ -110,7 +111,7 @@ export default function VideoScreen() {
           )}
           <Row
             title="IN STOCK: READY TO BUY"
-            movies={products?.map(adapter).reverse()}
+            movies={adapter(products).reverse()}
             //if Netflix is there, only one large row
             large={genre !== "NETFLIX ORIGINALS"}
           />

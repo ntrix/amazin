@@ -100,7 +100,7 @@ export default function Row({ title, movies, large = false }) {
                           checkTrailer(movie);
                         }}
                       >
-                        Find Trailer
+                        Check
                       </button>
                     )}
                     <Link
