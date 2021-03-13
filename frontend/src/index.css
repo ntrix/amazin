@@ -360,10 +360,9 @@ a .brand {
 .nav__left,
 .nav__fill,
 .nav__right {
-  height: 29px;
+  height: 28px;
   display: -webkit-flex;
   display: flex;
-  margin-top: 2px;
   float: none;
   color: #fff;
   background: #232f3e;
@@ -380,7 +379,6 @@ a .brand {
 }
 .nav__left {
   flex: 0 0 6rem;
-  margin-top: 2px;
   margin-left: 15px;
 }
 .nav-main__item {
@@ -402,7 +400,8 @@ a .brand {
 .nav__left .nav-main__item b {
   font-weight: 700;
 }
-.nav-main__item:hover {
+.nav__left .nav-main__item:hover,
+.nav__fill .nav-main__item:hover {
   padding: 4px 0;
   border: thin solid #fff;
 }
@@ -427,6 +426,9 @@ a .brand {
 .nav__right .nav-main__item {
   display: block;
   width: 100%;
+}
+.nav-main .nav__right .nav-main__item:hover {
+  outline: 1px solid #fff;
 }
 .nav__right .nav-main__item > a {
   font-size: 22px;
