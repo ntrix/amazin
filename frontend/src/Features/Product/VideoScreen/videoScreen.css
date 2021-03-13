@@ -133,7 +133,6 @@
   border: 2px solid #44a9e200;
   transition: border 0.01s linear, transform 0.2s ease-in;
   overflow: hidden;
-  cursor: pointer;
 }
 .m-card--xl {
   height: 380px;

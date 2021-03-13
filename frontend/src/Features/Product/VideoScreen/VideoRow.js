@@ -14,7 +14,7 @@ const opts = {
   },
 };
 
-export default function Row({ title, movies, large = false }) {
+export default function VideoRow({ title, movies, large = false }) {
   const [trailerUrl, setTrailerUrl] = useState("");
 
   const checkTrailer = (movie) => {
