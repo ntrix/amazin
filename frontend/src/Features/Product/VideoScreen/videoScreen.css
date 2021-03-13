@@ -2,7 +2,7 @@
   background-color: #0e171e;
   display: flex;
   flex-direction: column;
-  padding-bottom: 16rem;
+  padding-bottom: 18rem;
 }
 .m-header {
   color: #fff;
@@ -76,8 +76,7 @@
 
 .banner__button {
   font-weight: 700;
-  padding: 8px 32px;
-  margin-right: 16px;
+  padding: 8px 24px;
   border-radius: 3px;
   border: none;
   outline: none;
@@ -234,10 +233,11 @@
   position: absolute;
   bottom: 1rem;
   left: 2rem;
-  right: 0.5rem;
+  right: 2rem;
 }
 .m-card__rating {
   color: #44a9e2;
+  line-height: 3;
 }
 .trailer__frame {
   display: flex;
@@ -265,9 +265,10 @@
   right: -5px; /*5px more for safari hover*/
 }
 .m-row .react-multiple-carousel__arrow {
-  height: 100%;
   padding: 2rem;
   border-radius: 0;
+  top: 1rem;
+  bottom: 0;
 }
 .m-row .react-multiple-carousel__arrow::before {
   font-size: 36px;

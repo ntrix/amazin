@@ -173,7 +173,7 @@ function Banner({ source = placeholder, stock = [] }) {
           </button>
         </div>
         <h1 className="banner__description">
-          {truncate(movie?.description, 150)}
+          {movie?.description?.slice(0, 150) + ".."}
         </h1>
       </div>
 

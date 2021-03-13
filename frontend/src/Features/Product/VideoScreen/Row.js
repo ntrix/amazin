@@ -13,10 +13,6 @@ const opts = {
     autoplay: 1,
   },
 };
-const base_url = "https://image.tmdb.org/t/p/original/";
-
-export const truncate = (text, len) =>
-  text?.length > len ? text.substr(0, len - 1) + ".." : text;
 
 export default function Row({ title, movies, large = false }) {
   const [trailerUrl, setTrailerUrl] = useState("");
@@ -63,7 +59,7 @@ export default function Row({ title, movies, large = false }) {
                 />
                 <div className="m-card__background">
                   <div className="m-card__text">
-                    {truncate(movie?.description, 150)}
+                    {movie?.description.slice(0, 150) + ".."}
                     <div className="m-card__rating">
                       <Rating
                         rating={movie?.rating}
@@ -73,17 +69,22 @@ export default function Row({ title, movies, large = false }) {
                     </div>
                   </div>
                   <div className="m-card__more">
-                    {movie.video ? (
+                    {trailerUrl ? (
+                      <button
+                        className="banner__button"
+                        onClick={() => setTrailerUrl("")}
+                      >
+                        <i className="fa fa-stop"></i> Close
+                      </button>
+                    ) : movie.video ? (
                       <button
                         className={
                           "banner__button" +
                           (movie.video !== "no trailer" ? "" : " disabled")
                         }
-                        onClick={() =>
-                          setTrailerUrl(trailerUrl ? "" : movie.video)
-                        }
+                        onClick={() => setTrailerUrl(movie.video)}
                       >
-                        Trailer
+                        <i className="fa fa-play"></i> Trailer
                       </button>
                     ) : (
                       <button
@@ -93,7 +94,7 @@ export default function Row({ title, movies, large = false }) {
                           checkTrailer(movie);
                         }}
                       >
-                        Check
+                        <i className="fa fa-search"></i> Trailer
                       </button>
                     )}
                     <Link
@@ -103,7 +104,7 @@ export default function Row({ title, movies, large = false }) {
                       }
                       to={movie.seller ? `/cart/${movie._id}?qty=1` : `#`}
                     >
-                      Rent/Buy
+                      <i className="fa fa-shopping-cart"></i> Rent[Buy]
                     </Link>
                   </div>
                 </div>
