@@ -128,7 +128,7 @@ function App() {
                   ["Product List", "/product-list/seller"],
                   ["Sold Order List", "/order-list/seller"],
                   ["separator", "5"],
-                  ["Assistant", "6"],
+                  ["Assistant"],
                   ["Sell Statistics", "disabled"],
                 ]}
               />

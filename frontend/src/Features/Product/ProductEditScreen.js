@@ -154,7 +154,7 @@ export default function ProductEditScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Image Links</label>
               <input
                 id="image"
                 type="text"
@@ -177,7 +177,7 @@ export default function ProductEditScreen(props) {
               )}
             </div>
             <div>
-              <label htmlFor="video">Video link/ Youtube VID</label>
+              <label htmlFor="video">Video Link/ Youtube VID</label>
               <input
                 id="video"
                 type="text"
