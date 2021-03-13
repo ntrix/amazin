@@ -4,11 +4,10 @@ import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { listProducts } from "../../../Controllers/productActions";
 import axios from "./axios";
-import Row, { RowToBuy, truncate } from "./Row";
+import Row, { truncate } from "./Row";
 import "./videoScreen.css";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-
 const sources = {
   "NETFLIX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   Home: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
@@ -22,7 +21,7 @@ const sources = {
   "Top Rated": `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
 };
 const baseURL = "https://image.tmdb.org/t/p/original/";
-// const shortName = (title) => title.split(" ")[0]
+
 export default function VideoScreen() {
   const dispatch = useDispatch();
   const [genre, setGenre] = useState("STORE");
@@ -44,7 +43,8 @@ export default function VideoScreen() {
     numReviews: m.numReviews || m.vote_count,
     description: m.description || m.overview,
     video: m.video,
-    qty: m.qty,
+    seller: m.seller,
+    _id: m._id,
   });
 
   useEffect(() => {

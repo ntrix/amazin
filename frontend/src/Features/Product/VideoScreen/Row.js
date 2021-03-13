@@ -114,9 +114,10 @@ export default function Row({ title, movies, large = false }) {
                     )}
                     <Link
                       className={
-                        "banner__button" + (movie.qty ? "" : " disabled")
+                        //is there any seller sells this movie?
+                        "banner__button" + (movie.seller ? "" : " disabled")
                       }
-                      to={movie.qty ? `/cart/${movie._id}?qty=1` : `#`}
+                      to={movie.seller ? `/cart/${movie._id}?qty=1` : `#`}
                     >
                       Rent/Buy
                     </Link>
