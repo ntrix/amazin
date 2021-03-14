@@ -452,11 +452,11 @@ a .brand {
 
 /* Cart */
 .nav__cart .cart__counter {
-  margin: -1px auto 8px auto;
-  padding-left: 18px;
+  margin: 0 0 6px 6px;
   font-weight: 600;
   font-size: 18px;
   color: #f80;
+  text-align: center;
 }
 .nav__cart {
   padding: 7px;
