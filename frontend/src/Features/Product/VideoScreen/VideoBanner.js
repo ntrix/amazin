@@ -1,5 +1,11 @@
 /* dummy data for waiting at first load */
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import LoadingBox from "../../../components/LoadingBox";
+import MessageBox from "../../../components/MessageBox";
+import { createProduct } from "../../../Controllers/productActions";
+import { productCreateActions } from "../ProductSlice";
 import UTube, { VideoButtons } from "./VideoButtons";
 
 const dummy = [
@@ -21,16 +27,36 @@ const dummy = [
   },
 ];
 
-export default function VideoBanner({ source, isSeller }) {
+export default function VideoBanner({ source }) {
   const [trailerUrl, setTrailerUrl] = useState("");
   const [movie, setMovie] = useState(dummy[(Math.random() * dummy.length) | 0]);
 
   useEffect(() => {
     const random = source[(Math.random() * source.length) | 0];
     setMovie(random);
-
-    console.log(random.name, random.video, movie.name, movie.video);
   }, [source]);
+
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  useEffect(() => {
+    if (successCreate) {
+      dispatch(productCreateActions._RESET());
+      history.push(`/product/${createdProduct._id}/edit`);
+    }
+  }, [createdProduct, dispatch, history, successCreate]);
+
+  const createHandler = () => {
+    dispatch(createProduct());
+  };
 
   return (
     movie && (
@@ -51,8 +77,15 @@ export default function VideoBanner({ source, isSeller }) {
                 movie={movie} //{{ ...movie, video: hasTrailer }}
                 trailerUrl={trailerUrl}
                 setTrailerUrl={setTrailerUrl}
-                isSeller={isSeller}
               />
+
+              <button
+                className="banner__button"
+                disabled={!userInfo?.isSeller}
+                onClick={createHandler}
+              >
+                Sell This Movie
+              </button>
             </div>
 
             <h1 className="banner__description">
@@ -62,6 +95,9 @@ export default function VideoBanner({ source, isSeller }) {
 
           <div className="banner--fadeBottom" />
         </header>
+
+        {loadingCreate && <LoadingBox size="xl" />}
+        {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
 
         <UTube trailerUrl={trailerUrl} />
       </>

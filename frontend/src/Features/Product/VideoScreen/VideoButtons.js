@@ -34,7 +34,7 @@ export default function UTube({ trailerUrl }) {
 //     })
 //     .catch((e) => "no trailer");
 
-export function VideoButtons({ movie, trailerUrl, setTrailerUrl, isSeller }) {
+export function VideoButtons({ movie, trailerUrl, setTrailerUrl }) {
   const searchTrailer = async () => {
     if (trailerUrl) return setTrailerUrl("");
     movieTrailer(movie?.name)
@@ -67,16 +67,6 @@ export function VideoButtons({ movie, trailerUrl, setTrailerUrl, isSeller }) {
         >
           <i className="fa fa-search"></i> Trailer
         </button>
-      )}
-
-      {isSeller && (
-        <Link
-          className="banner__button"
-          disabled={isSeller === -1}
-          onClick={() => {}}
-        >
-          Sell This?
-        </Link>
       )}
 
       <Link

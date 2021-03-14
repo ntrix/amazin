@@ -50,7 +50,6 @@ export default function VideoScreen() {
   } = useSelector((state) => state.productList);
 
   useEffect(() => {
-    console.log("[one first],   ", [products]);
     async function fetchData() {
       const movieArray = await Promise.all(
         Object.keys(sources).map(async (genre) => {
@@ -63,19 +62,16 @@ export default function VideoScreen() {
       const movieObj = {};
       movieArray.map(([genre, list]) => (movieObj[genre] = adapter(list)));
       setMovies(movieObj);
-      console.log("[one middle],   ", movieObj, movies);
     }
     if (!movies[genre]) fetchData(); // else shuffle random movies list :)
-
-    console.log("[one last],   ", [products]);
   }, []);
+
   useEffect(() => {
     dispatch(
       listProducts({ seller: process.env.REACT_APP_SELLER, pageSize: 11 })
     );
     if (successProducts)
       setMovies({ ...movies, STORE: adapter(products).reverse() });
-    console.log("[dispatch],   ", movies);
   }, [dispatch, successProducts]);
 
   return (
@@ -97,7 +93,6 @@ export default function VideoScreen() {
       {movies[genre] && (
         <VideoBanner
           source={genre === "STORE" ? adapter(products) : movies[genre]}
-          isSeller={-1}
         />
       )}
 
