@@ -11,7 +11,9 @@ export const addMenuItem = (clickHandle) => ([
     !linkTo && !className ? (
       <strong>{menuItemLabel}</strong>
     ) : linkTo == "disabled" ? (
-      <Link className="disabled">{menuItemLabel}</Link>
+      <Link to="#" className="disabled">
+        {menuItemLabel}
+      </Link>
     ) : linkTo.startsWith("https://") ? (
       <a href={linkTo} target="_blank">
         {menuItemLabel}

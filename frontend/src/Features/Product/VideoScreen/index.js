@@ -102,6 +102,7 @@ export default function VideoScreen() {
           (genre === label || genre === "Home") &&
           label !== "STORE" ? (
             <VideoRow
+              key={label}
               title={label}
               movies={movies[label]}
               large={label === "NETFLIX ORIGINALS"}
