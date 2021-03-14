@@ -40,15 +40,17 @@ const adapter = (movies) =>
 
 export default function VideoScreen() {
   const dispatch = useDispatch();
-  const [genre, setGenre] = useState("STORE");
+  const [genre, setGenre] = useState("Home");
   const [movies, setMovies] = useState({});
   const {
     loading: loadingProducts,
     error: errorProducts,
+    success: successProducts,
     products,
   } = useSelector((state) => state.productList);
 
   useEffect(() => {
+    console.log("[one first],   ", [products]);
     async function fetchData() {
       const movieArray = await Promise.all(
         Object.keys(sources).map(async (genre) => {
@@ -61,12 +63,21 @@ export default function VideoScreen() {
       const movieObj = {};
       movieArray.map(([genre, list]) => (movieObj[genre] = adapter(list)));
       setMovies(movieObj);
+      console.log("[one middle],   ", movieObj, movies);
     }
     if (!movies[genre]) fetchData(); // else shuffle random movies list :)
+
+    console.log("[one last],   ", [products]);
+  }, []);
+  useEffect(() => {
     dispatch(
       listProducts({ seller: process.env.REACT_APP_SELLER, pageSize: 11 })
     );
-  }, [genre, dispatch]);
+    if (successProducts)
+      setMovies({ ...movies, STORE: adapter(products).reverse() });
+    console.log("[dispatch],   ", movies);
+  }, [dispatch, successProducts]);
+
   return (
     <div className="container--fluid video-screen">
       <header className="m-header">
@@ -82,9 +93,14 @@ export default function VideoScreen() {
           ))}
         </ul>
       </header>
+
       {movies[genre] && (
-        <VideoBanner source={movies[genre]} stock={adapter(products)} />
+        <VideoBanner
+          source={genre === "STORE" ? adapter(products) : movies[genre]}
+          isSeller={-1}
+        />
       )}
+
       {movies[genre] &&
         Object.keys(sources).map((label) =>
           label !== "Home" &&
@@ -99,6 +115,7 @@ export default function VideoScreen() {
             <></>
           )
         )}
+
       {loadingProducts ? (
         <LoadingBox size="xl" />
       ) : errorProducts ? (
@@ -118,6 +135,7 @@ export default function VideoScreen() {
           />
         </>
       )}
+
       {
         movies["Trending Now"] && genre !== "Trending Now" && (
           <VideoRow title="Trending Now" movies={movies["Trending Now"]} />

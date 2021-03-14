@@ -1,11 +1,11 @@
 /* dummy data for waiting at first load */
 import React, { useEffect, useState } from "react";
+import UTube, { VideoButtons, findTrailer } from "./VideoButtons";
 
-const placeholder = [
+const dummy = [
   {
     name: "Stranger Things",
     images: [
-      ,
       "https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
     ],
     description:
@@ -14,7 +14,6 @@ const placeholder = [
   {
     name: "The Queen's Gambit",
     images: [
-      ,
       "https://image.tmdb.org/t/p/original/34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg",
     ],
     description:
@@ -22,41 +21,51 @@ const placeholder = [
   },
 ];
 
-export default function VideoBanner({ source = placeholder, stock = [] }) {
-  const [movie, setMovie] = useState("");
-  const [isAvailable, setAvailable] = useState(0);
+export default function VideoBanner({ source, isSeller }) {
+  const [trailerUrl, setTrailerUrl] = useState("");
+  const [movie, setMovie] = useState(dummy[(Math.random() * dummy.length) | 0]);
 
   useEffect(() => {
-    setMovie(source[(Math.random() * source.length) | 0]);
-    setAvailable(stock.filter((p) => p.name === movie.name).length);
+    const random = source[(Math.random() * source.length) | 0];
+    random.video = findTrailer(random.name);
+    setMovie(random);
+
+    console.log(random.name, random.video, movie.name, movie.video);
   }, [source]);
 
   return (
-    <header
-      className="banner"
-      style={{
-        backgroundSize: "cover",
-        backgroundImage: `url("${movie.images ? movie.images[0] : ""}")`,
-        backgroundPosition: "center center",
-      }}
-    >
-      <div className="banner__contents">
-        <h1 className="banner__title">{movie.name}</h1>
-        <div className="banner__buttons">
-          <button className="banner__button">Trailer</button>
-          <button className="banner__button">Add to List</button>
-          <button
-            className={"banner__button" + (isAvailable ? "" : " disabled")}
-          >
-            Rent[Buy]
-          </button>
-        </div>
-        <h1 className="banner__description">
-          {movie?.description?.slice(0, 150) + ".."}
-        </h1>
-      </div>
+    movie && (
+      <>
+        <header
+          className="banner"
+          style={{
+            backgroundSize: "cover",
+            backgroundImage: `url("${movie.images ? movie.images[0] : ""}")`,
+            backgroundPosition: "center center",
+          }}
+        >
+          <div className="banner__contents">
+            <h1 className="banner__title">{movie.name}</h1>
 
-      <div className="banner--fadeBottom" />
-    </header>
+            <div className="banner__buttons">
+              <VideoButtons
+                movie={movie}
+                trailerUrl={trailerUrl}
+                setTrailerUrl={setTrailerUrl}
+                isSeller={isSeller}
+              />
+            </div>
+
+            <h1 className="banner__description">
+              {movie?.description?.slice(0, 150) + ".."}
+            </h1>
+          </div>
+
+          <div className="banner--fadeBottom" />
+        </header>
+
+        <UTube trailerUrl={trailerUrl} />
+      </>
+    )
   );
 }
