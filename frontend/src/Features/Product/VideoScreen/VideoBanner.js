@@ -1,6 +1,6 @@
 /* dummy data for waiting at first load */
 import React, { useEffect, useState } from "react";
-import UTube, { VideoButtons, findTrailer } from "./VideoButtons";
+import UTube, { VideoButtons } from "./VideoButtons";
 
 const dummy = [
   {
@@ -27,7 +27,6 @@ export default function VideoBanner({ source, isSeller }) {
 
   useEffect(() => {
     const random = source[(Math.random() * source.length) | 0];
-    random.video = findTrailer(random.name);
     setMovie(random);
 
     console.log(random.name, random.video, movie.name, movie.video);
@@ -49,7 +48,7 @@ export default function VideoBanner({ source, isSeller }) {
 
             <div className="banner__buttons">
               <VideoButtons
-                movie={movie}
+                movie={movie} //{{ ...movie, video: hasTrailer }}
                 trailerUrl={trailerUrl}
                 setTrailerUrl={setTrailerUrl}
                 isSeller={isSeller}

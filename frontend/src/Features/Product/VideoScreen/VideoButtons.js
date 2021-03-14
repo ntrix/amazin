@@ -17,7 +17,7 @@ export default function UTube({ trailerUrl }) {
     <div className="trailer__frame">
       <YouTube
         className="movie__trailer"
-        videoId={trailerUrl === "no trailer" ? "k4D7cuDAvXE" : trailerUrl}
+        videoId={trailerUrl === -1 ? "k4D7cuDAvXE" : trailerUrl}
         opts={opts}
       />
     </div>
@@ -26,17 +26,24 @@ export default function UTube({ trailerUrl }) {
   );
 }
 
-export const findTrailer = async (movie, trailerUrl) =>
-  trailerUrl
-    ? ""
-    : await movieTrailer(movie?.name)
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          return urlParams.get("v");
-        })
-        .catch((e) => "no trailer");
+// export const findTrailer = (movie) =>
+//   movieTrailer(movie?.name)
+//     .then((url) => {
+//       const urlParams = new URLSearchParams(new URL(url).search);
+//       return urlParams.get("v");
+//     })
+//     .catch((e) => "no trailer");
 
 export function VideoButtons({ movie, trailerUrl, setTrailerUrl, isSeller }) {
+  const searchTrailer = async () => {
+    if (trailerUrl) return setTrailerUrl("");
+    movieTrailer(movie?.name)
+      .then((url) => {
+        const urlParams = new URLSearchParams(new URL(url).search);
+        setTrailerUrl(urlParams.get("v"));
+      })
+      .catch((e) => setTrailerUrl(-1));
+  };
   return (
     <>
       {trailerUrl ? (
@@ -55,8 +62,7 @@ export function VideoButtons({ movie, trailerUrl, setTrailerUrl, isSeller }) {
         <button
           className="banner__button"
           onClick={() => {
-            setTrailerUrl(findTrailer(movie), trailerUrl);
-            console.log(trailerUrl);
+            searchTrailer();
           }}
         >
           <i className="fa fa-search"></i> Trailer
