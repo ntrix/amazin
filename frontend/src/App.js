@@ -106,7 +106,7 @@ function App() {
                   ["Orders"],
                   ["Your Order History", "/order-history"],
                   ["Returns", "disabled"],
-                  ["Contact Us", "#contact", "disabled"],
+                  ["Contact Us", "/contact/subject/Orders"],
                   ["separator", "3"],
                   ["Account"],
                   ["Sign Out", "#signout", , signoutHandler],
@@ -197,9 +197,9 @@ function App() {
             </div>
             <div className="nav__right">
               <div className="nav-main__item">
-                <a href="#">
+                <Link to="/contact/subject/Ads">
                   <sup>Your Ads</sup> here on this place? Contact us
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -233,7 +233,7 @@ function App() {
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["FAQ & Contact", "#contact", "disabled"],
+                ["FAQ & Contact", "/contact/subject/FAQ"],
                 ["separator", "11"],
                 ["Account"],
                 userInfo

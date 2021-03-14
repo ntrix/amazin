@@ -23,12 +23,19 @@ import MapScreen from "../User/MapScreen";
 import ProfileScreen from "../User/ProfileScreen";
 import UserEditScreen from "../User/UserEditScreen";
 import UserListScreen from "../User/UserListScreen";
+import ContactScreen from "../User/ContactScreen";
 import VideoScreen from "../Product/VideoScreen";
 import DealScreen from "../Product/DealScreen";
 
 export default function MainRoute() {
   return (
     <>
+      <Route path="/contact" component={ContactScreen} exact></Route>
+      <Route
+        path="/contact/subject/:subject"
+        component={ContactScreen}
+        exact
+      ></Route>
       <Route path="/video" component={VideoScreen}></Route>
       <Route path="/seller/:id" component={SellerScreen}></Route>
       <Route path="/cart/:id?" component={CartScreen}></Route>
