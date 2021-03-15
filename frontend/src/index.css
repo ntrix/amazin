@@ -695,7 +695,6 @@ button.open-sidebar:hover {
   line-height: 1.6rem;
   color: #111;
 }
-.search__suggest li > a:hover,
 .sidebar li > a:hover {
   color: #111;
   background-color: #eaeded;
@@ -747,55 +746,214 @@ img.large {
   width: 100%;
 }
 
-/* Card */
-.placeholder,
-.card {
-  flex: 1 1 26%;
-  margin: 2rem;
-  max-width: 30rem;
-  padding: 1rem;
+/* Nav Search Box*/
+.nav__search {
+  flex: 1 1 0;
+  position: relative;
 }
-.card {
-  border-radius: 3px;
+.nav__search:hover {
+  border-color: transparent;
+}
+.search__form {
+  display: flex;
+  position: relative;
+  border-radius: 4px;
+  border: none;
+  z-index: 9000;
   background: #fff;
-  border-bottom: 2px solid #ccc;
 }
-.card__center {
-  margin: 0 auto;
-  width: 100%;
+.search__form.focus {
+  box-shadow: 0 0 2px 3px #f3a847, 0 0 2px 3px #f80;
 }
-.card__body {
-  margin-bottom: 2rem;
+.row--left {
+  display: flex;
+  position: static;
+  width: auto;
 }
-.card__body > * {
-  margin-bottom: 1rem;
+.row--fill {
+  flex: 1 0 0;
+  position: relative;
 }
-.card__body h2 {
+.row--right {
+  flex: 0 0 45px;
+  display: flex;
+}
+.search__dropdown {
+  display: flex;
+}
+.search__dropdown:focus {
+  border: none;
+  box-shadow: 0 0 2px 3px #f3a847, 0 0 2px 3px #f80;
+}
+.search__scope {
+  display: flex;
+  position: relative;
+  float: left;
+  height: 100%;
+  margin: 0;
+  padding-left: 5px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #f3f3f3;
+  border-right: thin solid #cdcdcd;
+  color: #555;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+.search__form.focus .search__scope {
+  color: #0f1111;
+}
+.search__scope--trans {
+  display: flex;
+  position: relative;
+  float: left;
+  top: 3px;
+}
+.search__scope span {
   display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  line-height: 33px;
+  margin-right: 21px;
+  margin-left: 5px;
+  min-width: 19px;
+  max-width: 200px;
+}
+.search__scope i {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 14px;
+  right: 8px;
+  border: 4px solid transparent;
+  border-top-color: #666;
+  border-bottom-width: 0;
+  font-size: 0;
+  line-height: 0;
+}
+.scope__windows {
+  position: absolute;
+  padding: 6px 0;
+  top: 36px;
+  border-radius: 4px;
+  background: #f3f3f3;
+  background: linear-gradient(to bottom, #c7cbcf, #f3f3f3, #e2e2e2);
+  border: thin solid #8888;
+  box-shadow: 0 3px 6px 1px #8888;
+  z-index: 1;
+}
+.scope__drop-list {
+  width: 28rem;
+  max-height: 36rem;
+  font-size: 15px;
+  line-height: 1.2;
+  color: #0f1111;
+  overflow-y: scroll;
+}
+.category {
+  width: auto;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  margin: 0;
+  padding: 0 6px 3px 6px;
+  cursor: pointer;
 }
-.price {
-  font-size: 2rem;
-  font-weight: 700;
+.category:hover {
+  color: #fff;
+  background: #2b6bf1;
+  background: linear-gradient(to right, #2666ec, #2b6bf1);
 }
-.price sup {
-  font-size: 1rem;
+.category i {
+  font-size: small;
+  color: transparent;
 }
-/* Rating */
-.rating span {
-  color: #f0c040;
-  margin: 0.1rem;
+.category.selected i {
+  color: #0f1111;
 }
-.rating .fa {
-  font-size: 2rem;
-  color: #f3a847;
+.search__input,
+.search__input input:focus,
+.search__input input {
+  display: flex;
+  flex: 1;
+  border-radius: 6px; /* safari problem, input default style override */
+  box-shadow: none;
+  border: none;
+  outline: none;
 }
-.rating span:last-child {
-  color: #0066c0; /*review counts*/
-  cursor: default;
+.search__btn {
+  display: flex;
+  background: #febd69;
 }
+.search__btn,
+.search__btn input {
+  flex: 1;
+  width: 45px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+}
+.search__btn:hover {
+  background: #f80;
+  background: -webkit-linear-gradient(top, #f2b649, #f80);
+  background: linear-gradient(to bottom, #f2b649, #f80);
+}
+.search__btn input {
+  outline: 0;
+  color: #fff;
+  background: none;
+  border: none;
+  text-indent: -1000px;
+  cursor: pointer;
+}
+.search__form input:focus {
+  border: none;
+  margin: 0;
+  box-shadow: none;
+}
+.sprite__search-btn {
+  width: 21px;
+  height: 24px;
+  margin: auto;
+  background: url("./img/nav-sprite.png") 0 -40px no-repeat;
+  object-fit: cover;
+}
+.search__suggest {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9000;
+}
+.search__suggest ul:not(:empty) {
+  border: thin solid #ccc;
+  margin-right: -45px;
+  outline: none;
+}
+.search__suggest li {
+  margin: 0;
+  background: #fff;
+}
+.search__suggest li a {
+  display: block;
+  height: 100%;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #000;
+}
+.search__suggest li > a:hover {
+  background-color: #eaeded;
+}
+.search__suggest li b {
+  color: #232f3e;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
 /* Search Screen */
 .search__banner {
   padding: 0.5rem 0;
@@ -852,6 +1010,56 @@ img.large {
 .search__results {
   margin-top: 2rem;
   justify-content: center;
+}
+
+/* Card */
+.placeholder,
+.card {
+  flex: 1 1 26%;
+  margin: 2rem;
+  max-width: 30rem;
+  padding: 1rem;
+}
+.card {
+  border-radius: 3px;
+  background: #fff;
+  border-bottom: 2px solid #ccc;
+}
+.card__center {
+  margin: 0 auto;
+  width: 100%;
+}
+.card__body {
+  margin-bottom: 2rem;
+}
+.card__body > * {
+  margin-bottom: 1rem;
+}
+.card__body h2 {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.price sup {
+  font-size: 1rem;
+}
+/* Rating */
+.rating span {
+  color: #f0c040;
+  margin: 0.1rem;
+}
+.rating .fa {
+  font-size: 2rem;
+  color: #f3a847;
+}
+.rating span:last-child {
+  color: #0066c0; /*review counts*/
+  cursor: default;
 }
 
 /* Pagination */
@@ -989,109 +1197,6 @@ table th {
 .carousel .slide img {
   max-width: 30rem;
 }
-/* Nav Search Box*/
-.nav__search {
-  flex: 1 1 0;
-  position: relative;
-}
-.nav__search:hover {
-  border-color: transparent;
-}
-.search__form {
-  display: flex;
-  position: relative;
-  border-radius: 4px;
-  z-index: 9000;
-  background: #fff;
-}
-.search__form.focus {
-  /* border: 2px solid #f19833;
-  margin: -2px; */
-  box-shadow: 0 0 2px 3px #f3a847, 0 0 2px 3px #f80;
-}
-.row--fill {
-  flex: 1 0 100px;
-}
-.row--right {
-  flex: 0 0 45px;
-  display: flex;
-}
-.search__input {
-  display: flex;
-  flex: 1;
-}
-.search__input input:focus,
-.search__input input {
-  display: flex;
-  flex: 1;
-  border-radius: 6px; /* safari problem, input default style override */
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-.search__btn {
-  display: flex;
-  background: #febd69;
-}
-.search__btn,
-.search__btn input {
-  flex: 1;
-  width: 45px;
-  border: none;
-  border-radius: 0 4px 4px 0;
-}
-.search__btn:hover {
-  background: #f80;
-  background: -webkit-linear-gradient(top, #f2b649, #f80);
-  background: linear-gradient(to bottom, #f2b649, #f80);
-}
-.search__btn input {
-  outline: 0;
-  color: #fff;
-  background: none;
-  border: none;
-  text-indent: -1000px;
-  cursor: pointer;
-}
-.search__form input:focus {
-  border: none;
-  margin: 0;
-  box-shadow: none;
-}
-.sprite__search-btn {
-  width: 21px;
-  height: 24px;
-  margin: auto;
-  background: url("./img/nav-sprite.png") 0 -40px no-repeat;
-  object-fit: cover;
-}
-.search__suggest {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 9000;
-}
-.search__suggest ul:not(:empty) {
-  border: thin solid #ccc;
-  margin: 0 5px;
-  outline: none;
-}
-.search__suggest li {
-  margin: 0;
-  background: #fff;
-}
-.search__suggest li a {
-  display: block;
-  height: 100%;
-  font-weight: 600;
-  font-size: 1.5rem;
-  color: #000;
-}
-.search__suggest li b {
-  color: #232f3e;
-  font-weight: 500;
-  opacity: 0.85;
-}
 
 /* Map */
 .address-box {
@@ -1185,6 +1290,9 @@ img.active {
   .pc-low--only {
     display: initial;
   }
+  .search__scope span {
+    max-width: 120px;
+  }
 }
 /* >= Tablet */
 @media (max-width: 949px) {
@@ -1208,6 +1316,9 @@ img.active {
   .card {
     margin: 1rem;
   }
+  .search__scope span {
+    max-width: 90px;
+  }
 }
 /* >= cell-phone lanscape*/
 @media (max-width: 679px) {
@@ -1225,6 +1336,9 @@ img.active {
   }
   .sidebar {
     width: 32rem;
+  }
+  .search__scope span {
+    max-width: 25px;
   }
 }
 /* Mobile-xs portrait*/

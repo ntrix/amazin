@@ -10,10 +10,14 @@ import {
   productReviewCreateActions,
 } from "../Features/Product/ProductSlice";
 
-export const listAllProducts = ({}) => async (dispatch) => {
+export const listAllProducts = ({ pageSize = 6, category = "" }) => async (
+  dispatch
+) => {
   dispatch(productListAllActions._REQUEST());
   try {
-    const { data } = await Axios.get(`/api/products?pageSize=999`);
+    const { data } = await Axios.get(
+      `/api/products?pageSize=999&category=${category}`
+    );
     dispatch(productListAllActions._SUCCESS(data));
   } catch (error) {
     dispatch(productListAllActions._FAIL(error.message));

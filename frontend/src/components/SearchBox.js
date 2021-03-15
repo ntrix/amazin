@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { set } from "mongoose";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
@@ -6,18 +7,30 @@ import { listAllProducts } from "../Controllers/productActions";
 export default function SearchBox() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { productList: list } = useSelector((state) => state.productListAll);
+  const { success, categories } = useSelector(
+    (state) => state.productCategoryList
+  );
+  const [catDropdown, setCatDropdown] = useState(false);
+  const [category, setCategory] = useState("All Categories");
+
   const [term, setTerm] = useState("");
   const [suggests, setSuggests] = useState([]);
   const [isFocus, setFocus] = useState(0);
-  const { productList: list } = useSelector((state) => state.productListAll);
 
   useEffect(() => {
-    dispatch(listAllProducts({ pageSize: 999 }));
-  }, [history]);
+    dispatch(
+      listAllProducts({
+        category: category === "All Categories" ? "" : category,
+        pageSize: 999,
+      })
+    );
+  }, [dispatch, category, success]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     setFocus(-1); //for absorbing a keypress on submit instead setFocus(0)
-    history.push(`/search/name/${term}`);
+    history.push(`/search/category/${category}/name/${term}`);
   };
 
   const findSuggest = (() => {
@@ -81,6 +94,43 @@ export default function SearchBox() {
         className={"search__form" + (isFocus > 0 ? " focus" : "")}
         onSubmit={submitHandler}
       >
+        <div className="row--left">
+          <div className="search__dropdown">
+            <div
+              className="search__scope"
+              onClick={() => setCatDropdown(!catDropdown)}
+            >
+              <div className="search__scope--trans">
+                <span>{category}</span>
+                <i className="fa fa-caret-down"></i>
+              </div>
+            </div>
+          </div>
+          {catDropdown && categories && (
+            <div className="scope__windows">
+              <ul className="scope__drop-list">
+                {[
+                  "All Categories",
+                  ...categories,
+                  ...categories,
+                  ...categories,
+                ].map((cat) => (
+                  <li
+                    className={
+                      "category" + (cat === category ? " selected" : "")
+                    }
+                    onClick={() => {
+                      setCategory(cat);
+                      setCatDropdown(false);
+                    }}
+                  >
+                    <i className="fa fa-check"></i> {cat}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
         <div className="row--fill">
           <div className="search__input">
             <input
@@ -110,6 +160,28 @@ export default function SearchBox() {
               onBlur={() => setFocus(isFocus > 0 ? 1 : 0)}
             ></input>
           </div>
+          {isFocus > 0 && term && (
+            <div className="search__suggest">
+              <ul>
+                {suggests.slice(0, 12).map((p) => (
+                  <li>
+                    <Link
+                      to={`/search/name/${p.name.replace(
+                        /(<b>)|(<\/b>)/g,
+                        ""
+                      )}`}
+                      dangerouslySetInnerHTML={{ __html: p.name }}
+                      onClick={(e) => {
+                        setTerm(p.name.replace(/(<b>)|(<\/b>)/g, ""));
+                        setSuggests([]);
+                        setFocus(0);
+                      }}
+                    ></Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <div className="row--right">
           <div className="search__btn">
@@ -119,25 +191,6 @@ export default function SearchBox() {
           </div>
         </div>
       </form>
-      {isFocus > 0 && term && (
-        <div className="search__suggest">
-          <ul>
-            {suggests.slice(0, 12).map((p) => (
-              <li>
-                <Link
-                  to={`/search/name/${p.name.replace(/(<b>)|(<\/b>)/g, "")}`}
-                  dangerouslySetInnerHTML={{ __html: p.name }}
-                  onClick={(e) => {
-                    setTerm(p.name.replace(/(<b>)|(<\/b>)/g, ""));
-                    setSuggests([]);
-                    setFocus(0);
-                  }}
-                ></Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </>
   );
 }

@@ -38,20 +38,22 @@ productRoute.get(
 productRoute.get(
   "/",
   asyncHandler(async (req, res) => {
+    const category = req.query.category || "";
+    const categoryFilter = category ? { category } : {};
     let pageSize = Number(req.query.pageSize) || 6;
     if (pageSize == 999) {
       // only for Search functions
-      const list = await Product.find({});
+      const list = await Product.find(categoryFilter);
       const productList = list.map((p) => ({
         name: p.name,
-        _id: p._id,
+        // _id: p._id,
+        // category: p.category,
       }));
       res.send({ productList });
       return;
     }
     const page = Number(req.query.pageNumber) || 1;
     const name = req.query.name || "";
-    const category = req.query.category || "";
     const seller = req.query.seller || "";
     const order = req.query.order || "";
     const deal =
@@ -69,7 +71,6 @@ productRoute.get(
 
     const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {};
     const sellerFilter = seller ? { seller } : {};
-    const categoryFilter = category ? { category } : {};
     const dealFilter = deal ? { deal: { $gte: deal } } : {};
     const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
     const ratingFilter = rating ? { rating: { $gte: rating } } : {};
