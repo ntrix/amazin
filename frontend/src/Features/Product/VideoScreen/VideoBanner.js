@@ -80,7 +80,7 @@ export default function VideoBanner({ source }) {
               />
 
               <button
-                className="banner__button"
+                className="banner__button mh-2"
                 disabled={!userInfo?.isSeller}
                 onClick={createHandler}
               >
