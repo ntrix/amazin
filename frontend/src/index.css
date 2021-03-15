@@ -762,8 +762,10 @@ img.large {
   z-index: 9000;
   background: #fff;
 }
-.search__form.focus {
-  box-shadow: 0 0 2px 3px #f3a847, 0 0 2px 3px #f80;
+.search__form.focus,
+.search__scope.focus {
+  box-shadow: 0 0 0px 3px #f806, 0 0 1px 3px #f3a847;
+  z-index: 9000;
 }
 .row--left {
   display: flex;
@@ -796,16 +798,21 @@ img.large {
   right: 0;
   bottom: 0;
   left: 0;
+  font-weight: 500;
   -webkit-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px;
   border: 1px solid #f3f3f3;
   border-right: thin solid #cdcdcd;
   color: #555;
   background: #f3f3f3;
+  background: linear-gradient(to bottom, #f3f3f3, #e2e2e2);
   overflow: hidden;
 }
-.search__form.focus .search__scope {
-  color: #0f1111;
+.search__scope.focus {
+  color: #000;
+  background: #c7cbcf;
+  border-color: #8888;
+  background: linear-gradient(to bottom, #c7cbcf, #e2e2e2);
 }
 .search__scope--trans {
   display: flex;
@@ -837,23 +844,26 @@ img.large {
   font-size: 0;
   line-height: 0;
 }
+.search__scope.focus i {
+  border-top-color: #000;
+}
 .scope__windows {
   position: absolute;
-  padding: 6px 0;
+  padding: 4px 0;
   top: 36px;
   border-radius: 4px;
-  background: #f3f3f3;
+  background: #e2e2e2;
   background: linear-gradient(to bottom, #c7cbcf, #f3f3f3, #e2e2e2);
   border: thin solid #8888;
   box-shadow: 0 3px 6px 1px #8888;
-  z-index: 1;
+  z-index: 9000;
 }
 .scope__drop-list {
   width: 28rem;
   max-height: 36rem;
   font-size: 15px;
   line-height: 1.2;
-  color: #0f1111;
+  color: #000;
   overflow-y: scroll;
 }
 .category {

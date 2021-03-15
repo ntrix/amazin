@@ -87,8 +87,11 @@ export default function SearchBox() {
   return (
     <>
       <label
-        className={isFocus > 0 && term ? "click-catcher" : ""}
-        onClick={() => setFocus(0)}
+        className={(isFocus > 0 && term) || catDropdown ? "click-catcher" : ""}
+        onClick={() => {
+          setFocus(0);
+          setCatDropdown(false);
+        }}
       ></label>
       <form
         className={"search__form" + (isFocus > 0 ? " focus" : "")}
@@ -97,8 +100,11 @@ export default function SearchBox() {
         <div className="row--left">
           <div className="search__dropdown">
             <div
-              className="search__scope"
-              onClick={() => setCatDropdown(!catDropdown)}
+              className={"search__scope" + (catDropdown > 0 ? " focus" : "")}
+              onClick={() => {
+                setCatDropdown(!catDropdown);
+                setFocus(0);
+              }}
             >
               <div className="search__scope--trans">
                 <span>{category}</span>
@@ -148,6 +154,7 @@ export default function SearchBox() {
               onFocus={(e) => {
                 setFocus(1);
                 setSuggests(findSuggest.search(list, term));
+                setCatDropdown(false);
               }}
               onChange={(e) => setTerm(e.target.value)}
               onKeyUp={(e) => {
