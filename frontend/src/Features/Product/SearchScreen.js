@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
-import { listProducts } from "../../Dux/actions/productActions";
+import { listProducts } from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
@@ -22,7 +22,7 @@ export default function SearchScreen(props) {
   } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const { loading, error, products, page, pages, count } = productList;
 
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const {
@@ -56,15 +56,17 @@ export default function SearchScreen(props) {
   };
   return (
     <div>
-      <div className="row">
+      <div className="row search__banner">
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <div>{products.length} Results</div>
+          <div className="search__counter">
+            {products.length} of {count} Results
+          </div>
         )}
-        <div>
+        <div className="sort__filter">
           Sort by{" "}
           <select
             value={order}
@@ -75,44 +77,45 @@ export default function SearchScreen(props) {
             <option value="newest">Newest Arrivals</option>
             <option value="lowest">Price: Low to High</option>
             <option value="highest">Price: High to Low</option>
-            <option value="toprated">Avg. Customer Reviews</option>
+            <option value="toprated">Avg. Reviews</option>
           </select>
         </div>
       </div>
       <div className="row top">
-        <div className="col-1">
-          <h3>Department</h3>
-          <div>
-            {loadingCategories ? (
-              <LoadingBox></LoadingBox>
-            ) : errorCategories ? (
-              <MessageBox variant="danger">{errorCategories}</MessageBox>
-            ) : (
-              <ul>
-                <li>
-                  <Link
-                    className={"all" === category ? "active" : ""}
-                    to={getFilterUrl({ category: "all" })}
-                  >
-                    Any
-                  </Link>
-                </li>
-                {categories.map((c) => (
-                  <li key={c}>
+        <div className="col-1 search__filter">
+          <ul>
+            <h4>Department</h4>
+            <div>
+              {loadingCategories ? (
+                <LoadingBox />
+              ) : errorCategories ? (
+                <MessageBox variant="danger">{errorCategories}</MessageBox>
+              ) : (
+                <>
+                  <li>
                     <Link
-                      className={c === category ? "active" : ""}
-                      to={getFilterUrl({ category: c })}
+                      className={"all" === category ? "active" : ""}
+                      to={getFilterUrl({ category: "all" })}
                     >
-                      {c}
+                      Any
                     </Link>
                   </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div>
-            <h3>Price</h3>
-            <ul>
+                  {categories.map((c) => (
+                    <li key={c}>
+                      <Link
+                        className={c === category ? "active" : ""}
+                        to={getFilterUrl({ category: c })}
+                      >
+                        {c}
+                      </Link>
+                    </li>
+                  ))}
+                </>
+              )}
+            </div>
+            <br />
+            <h4>Price</h4>
+            <div>
               {prices.map((p) => (
                 <li key={p.name}>
                   <Link
@@ -125,11 +128,10 @@ export default function SearchScreen(props) {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-          <div>
-            <h3>Avg. Customer Review</h3>
-            <ul>
+            </div>
+            <br />
+            <h4>Avg. Customer Review</h4>
+            <div>
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
@@ -140,37 +142,60 @@ export default function SearchScreen(props) {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
+            </div>
+          </ul>
         </div>
         <div className="col-3">
-          {loading ? (
-            <LoadingBox></LoadingBox>
-          ) : error ? (
-            <MessageBox variant="danger">{error}</MessageBox>
-          ) : (
-            <>
-              {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
-              )}
-              <div className="row center">
+          <div className="row center search__results">
+            {(!products || products.length < 2) && (
+              <div className="placeholder"></div>
+            )}
+            {loading ? (
+              <>
+                <div className="placeholder">
+                  <LoadingBox size="xl" />
+                </div>
+              </>
+            ) : error ? (
+              <MessageBox variant="danger">{error}</MessageBox>
+            ) : !products.length ? (
+              <>
+                <div className="placeholder">
+                  <MessageBox>No Product Found</MessageBox>
+                </div>
+              </>
+            ) : (
+              <>
                 {products.map((product) => (
                   <Product key={product._id} product={product}></Product>
                 ))}
-              </div>
-              <div className="row center pagination">
-                {[...Array(pages).keys()].map((x) => (
-                  <Link
-                    className={x + 1 === page ? "active" : ""}
-                    key={x + 1}
-                    to={getFilterUrl({ page: x + 1 })}
-                  >
-                    {x + 1}
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
+              </>
+            )}
+            {(!products || products.length < 3) && (
+              <div className="placeholder"></div>
+            )}
+            <div className="row center pagination">
+              {[...Array(pages || 0).keys()].map((x) => (
+                <Link
+                  className={x + 1 === page ? "active" : ""}
+                  key={x + 1}
+                  to={getFilterUrl({ page: x + 1 })}
+                >
+                  {x + 1}
+                </Link>
+              ))}
+            </div>
+            <p className="separator"></p>
+            <p className="separator"></p>
+            <div>
+              <h2>Do you need help?</h2>
+              <p>
+                Visit the <Link to="/help">help section</Link> or{" "}
+                <a href="#contact">contact us</a>
+              </p>
+            </div>
+            <p className="separator"></p>
+          </div>
         </div>
       </div>
     </div>

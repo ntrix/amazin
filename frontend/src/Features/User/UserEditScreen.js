@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { USER_UPDATE_RESET } from "../../Dux/constants/userConstants";
-import { detailsUser, updateUser } from "../../Dux/actions/userActions";
+import { userUpdateActions } from "./UserSlice";
+import { detailsUser, updateUser } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
@@ -29,8 +29,8 @@ export default function UserEditScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: USER_UPDATE_RESET });
-      props.history.push("/userlist");
+      dispatch(userUpdateActions._RESET());
+      props.history.push("/user-list");
     }
     if (!user) {
       dispatch(detailsUser(userId));
@@ -52,13 +52,13 @@ export default function UserEditScreen(props) {
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Edit User {name}</h1>
-          {loadingUpdate && <LoadingBox></LoadingBox>}
+          {loadingUpdate && <LoadingBox size="xl" />}
           {errorUpdate && (
             <MessageBox variant="danger">{errorUpdate}</MessageBox>
           )}
         </div>
         {loading ? (
-          <LoadingBox />
+          <LoadingBox size="xl" />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -84,7 +84,7 @@ export default function UserEditScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="isSeller">Is Seller</label>
+              <label htmlFor="isSeller">Seller Account</label>
               <input
                 id="isSeller"
                 type="checkbox"
@@ -93,7 +93,7 @@ export default function UserEditScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="isAdmin">Is Admin</label>
+              <label htmlFor="isAdmin">Administrator</label>
               <input
                 id="isAdmin"
                 type="checkbox"

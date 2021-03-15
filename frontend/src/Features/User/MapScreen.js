@@ -1,22 +1,23 @@
-import Axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import Axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   LoadScript,
   GoogleMap,
   StandaloneSearchBox,
   Marker,
-} from '@react-google-maps/api';
+} from "@react-google-maps/api";
 
-import { USER_ADDRESS_MAP_CONFIRM } from '../../Dux/constants/userConstants';
+import { userAddressMapActions } from "./UserSlice";
 
-import LoadingBox from '../../components/LoadingBox';
+import LoadingBox from "../../components/LoadingBox";
+import { Redirect } from "react-router-dom";
 
-const libs = ['places'];
+const libs = ["places"];
 const defaultLocation = { lat: 45.516, lng: -73.56 };
 
 export default function MapScreen(props) {
-  const [googleApiKey, setGoogleApiKey] = useState('');
+  const [googleApiKey, setGoogleApiKey] = useState("");
   const [center, setCenter] = useState(defaultLocation);
   const [location, setLocation] = useState(center);
 
@@ -25,12 +26,15 @@ export default function MapScreen(props) {
   const markerRef = useRef(null);
 
   useEffect(() => {
-    const fetch = async () => {
-      const { data } = await Axios('/api/config/google');
-      setGoogleApiKey(data);
-      getUserCurrentLocation();
-    };
-    fetch();
+    try {
+      (async () => {
+        const { data } = await Axios("/api/config/google");
+        setGoogleApiKey(data);
+        getUserCurrentLocation();
+      })();
+    } catch (err) {
+      //console.log(err);
+    }
   }, []);
 
   const onLoad = (map) => {
@@ -50,36 +54,38 @@ export default function MapScreen(props) {
     });
   };
   const onPlacesChanged = () => {
-    const place = placeRef.current.getPlaces()[0].geometry.location;
-    setCenter({ lat: place.lat(), lng: place.lng() });
-    setLocation({ lat: place.lat(), lng: place.lng() });
+    try {
+      const place = placeRef.current.getPlaces()[0].geometry.location;
+      setCenter({ lat: place.lat(), lng: place.lng() });
+      setLocation({ lat: place.lat(), lng: place.lng() });
+    } catch (err) {
+      //console.log(err);
+    }
   };
   const dispatch = useDispatch();
   const onConfirm = () => {
     const places = placeRef.current.getPlaces();
     if (places && places.length === 1) {
-      // dispatch select action
-      dispatch({
-        type: USER_ADDRESS_MAP_CONFIRM,
-        payload: {
+      dispatch(
+        userAddressMapActions._CONFIRM({
           lat: location.lat,
           lng: location.lng,
           address: places[0].formatted_address,
           name: places[0].name,
           vicinity: places[0].vicinity,
           googleAddressId: places[0].id,
-        },
-      });
-      alert('location selected successfully.');
-      props.history.push('/shipping');
+        })
+      );
+      alert("location selected successfully.");
+      props.history.push("/shipping");
     } else {
-      alert('Please enter your address');
+      alert("Please enter your address");
     }
   };
 
   const getUserCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation os not supported by this browser');
+      alert("Geolocation os not supported by this browser");
     } else {
       navigator.geolocation.getCurrentPosition((position) => {
         setCenter({
@@ -94,12 +100,16 @@ export default function MapScreen(props) {
     }
   };
 
+  const redirectBack = () => {
+    props.history.push("/signin?redirect=shipping");
+  };
+
   return googleApiKey ? (
-    <div className="full-container">
+    <div className="container__map">
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
-          id="smaple-map"
-          mapContainerStyle={{ height: '100%', width: '100%' }}
+          id="sample-map"
+          mapContainerStyle={{ height: "100%", width: "100%" }}
           center={center}
           zoom={15}
           onLoad={onLoad}
@@ -109,9 +119,25 @@ export default function MapScreen(props) {
             onLoad={onLoadPlaces}
             onPlacesChanged={onPlacesChanged}
           >
-            <div className="map-input-box">
-              <input type="text" placeholder="Enter your address"></input>
-              <button type="button" className="primary" onClick={onConfirm}>
+            <div className="address-box col-fill">
+              <button
+                type="button"
+                className="danger btn-left"
+                onClick={redirectBack}
+              >
+                Cancel
+              </button>
+              <input
+                type="text"
+                size="1"
+                placeholder="Enter your address"
+                className="col-fill"
+              ></input>
+              <button
+                type="button"
+                className="primary btn-right"
+                onClick={onConfirm}
+              >
                 Confirm
               </button>
             </div>
@@ -121,6 +147,6 @@ export default function MapScreen(props) {
       </LoadScript>
     </div>
   ) : (
-    <LoadingBox></LoadingBox>
+    <LoadingBox size="xl" />
   );
 }

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { listProducts } from "../Dux/actions/productActions";
-import { detailsUser } from "../Dux/actions/userActions";
+import { listProducts } from "../Controllers/productActions";
+import { detailsUser } from "../Controllers/userActions";
 
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
@@ -30,11 +30,11 @@ export default function SellerScreen(props) {
     <div className="row top">
       <div className="col-1">
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <ul className="card card-body">
+          <ul className="card card__body">
             <li>
               <div className="row start">
                 <div className="p-1">
@@ -64,7 +64,7 @@ export default function SellerScreen(props) {
       </div>
       <div className="col-3">
         {loadingProducts ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox size="xl" />
         ) : errorProducts ? (
           <MessageBox variant="danger">{errorProducts}</MessageBox>
         ) : (

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { saveShippingAddress } from '../../Dux/actions/cartActions';
+import { saveShippingAddress } from "../../Controllers/cartActions";
 
-import CheckoutSteps from './CheckoutSteps';
+import CheckoutSteps from "./CheckoutSteps";
 
 export default function ShippingAddressScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
@@ -17,7 +17,7 @@ export default function ShippingAddressScreen(props) {
   const { address: addressMap } = userAddressMap;
 
   if (!userInfo) {
-    props.history.push('/signin');
+    props.history.push("/signin");
   }
   const [fullName, setFullName] = useState(shippingAddress.fullName);
   const [address, setAddress] = useState(shippingAddress.address);
@@ -36,7 +36,7 @@ export default function ShippingAddressScreen(props) {
     let moveOn = true;
     if (!newLat || !newLng) {
       moveOn = window.confirm(
-        'You did not set your location on map. Continue?'
+        "You did not set your location on map. Continue?"
       );
     }
     if (moveOn) {
@@ -51,7 +51,7 @@ export default function ShippingAddressScreen(props) {
           lng: newLng,
         })
       );
-      props.history.push('/payment');
+      props.history.push("/payment");
     }
   };
   const chooseOnMap = () => {
@@ -66,7 +66,7 @@ export default function ShippingAddressScreen(props) {
         lng,
       })
     );
-    props.history.push('/map');
+    props.history.push("/map");
   };
   return (
     <div>

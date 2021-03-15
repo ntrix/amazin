@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { ORDER_CREATE_RESET } from '../../Dux/constants/orderConstants';
-import { createOrder } from '../../Dux/actions/orderActions';
+import { orderCreateActions } from "./OrderSlice";
+import { createOrder } from "../../Controllers/orderActions";
 
-import CheckoutSteps from './CheckoutSteps';
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
+import CheckoutSteps from "../Checkout/CheckoutSteps";
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
 
 export default function PlaceOrderScreen(props) {
-  const cart = useSelector((state) => state.cart);
+  const tax = 0.19;
+  const ship = 10;
+  const cart = { ...useSelector((state) => state.cart) }; //fixes cart object is not extensible
   if (!cart.paymentMethod) {
-    props.history.push('/payment');
+    props.history.push("/payment");
   }
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
@@ -20,8 +22,8 @@ export default function PlaceOrderScreen(props) {
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
-  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
-  cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
+  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(ship);
+  cart.taxPrice = toPrice(tax * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
   const dispatch = useDispatch();
   const placeOrderHandler = () => {
@@ -30,7 +32,7 @@ export default function PlaceOrderScreen(props) {
   useEffect(() => {
     if (success) {
       props.history.push(`/order/${order._id}`);
-      dispatch({ type: ORDER_CREATE_RESET });
+      dispatch(orderCreateActions._RESET());
     }
   }, [dispatch, order, props.history, success]);
   return (
@@ -40,7 +42,7 @@ export default function PlaceOrderScreen(props) {
         <div className="col-2">
           <ul>
             <li>
-              <div className="card card-body">
+              <div className="card card__body">
                 <h2>Shipping</h2>
                 <p>
                   <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
@@ -51,7 +53,7 @@ export default function PlaceOrderScreen(props) {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card card__body">
                 <h2>Payment</h2>
                 <p>
                   <strong>Method:</strong> {cart.paymentMethod}
@@ -59,7 +61,7 @@ export default function PlaceOrderScreen(props) {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card card__body">
                 <h2>Order Items</h2>
                 <ul>
                   {cart.cartItems.map((item) => (
@@ -79,7 +81,7 @@ export default function PlaceOrderScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x €{item.price} = €{item.qty * item.price}
                         </div>
                       </div>
                     </li>
@@ -90,7 +92,7 @@ export default function PlaceOrderScreen(props) {
           </ul>
         </div>
         <div className="col-1">
-          <div className="card card-body">
+          <div className="card card__body">
             <ul>
               <li>
                 <h2>Order Summary</h2>
@@ -98,19 +100,19 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>${cart.itemsPrice.toFixed(2)}</div>
+                  <div>€{cart.itemsPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>${cart.shippingPrice.toFixed(2)}</div>
+                  <div>€{cart.shippingPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Tax</div>
-                  <div>${cart.taxPrice.toFixed(2)}</div>
+                  <div>€{cart.taxPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
@@ -119,7 +121,7 @@ export default function PlaceOrderScreen(props) {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>${cart.totalPrice.toFixed(2)}</strong>
+                    <strong>€{cart.totalPrice.toFixed(2)}</strong>
                   </div>
                 </div>
               </li>
@@ -133,7 +135,7 @@ export default function PlaceOrderScreen(props) {
                   Place Order
                 </button>
               </li>
-              {loading && <LoadingBox></LoadingBox>}
+              {loading && <LoadingBox size="xl" />}
               {error && <MessageBox variant="danger">{error}</MessageBox>}
             </ul>
           </div>

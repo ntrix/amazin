@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { USER_UPDATE_PROFILE_RESET } from "../../Dux/constants/userConstants";
-import { detailsUser, updateUserProfile } from "../../Dux/actions/userActions";
+import { userUpdateProfileActions } from "./UserSlice";
+import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ location }) {
+  const isSellerProfile = location.pathname?.split("/")[2] === "seller";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +30,7 @@ export default function ProfileScreen() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!user) {
-      dispatch({ type: USER_UPDATE_PROFILE_RESET });
+      dispatch(userUpdateProfileActions._RESET());
       dispatch(detailsUser(userInfo._id));
     } else {
       setName(user.name);
@@ -67,12 +68,12 @@ export default function ProfileScreen() {
           <h1>User Profile</h1>
         </div>
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox size="xl" />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <>
-            {loadingUpdate && <LoadingBox></LoadingBox>}
+            {loadingUpdate && <LoadingBox size="xl" />}
             {errorUpdate && (
               <MessageBox variant="danger">{errorUpdate}</MessageBox>
             )}
@@ -119,7 +120,7 @@ export default function ProfileScreen() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
             </div>
-            {user.isSeller && (
+            {isSellerProfile && user.isSeller && (
               <>
                 <h2>Seller</h2>
                 <div>

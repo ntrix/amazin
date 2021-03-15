@@ -1,5 +1,5 @@
 import express from "express";
-import expressAsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import data from "../data.js";
 import Product from "../models/productModel.js";
 import User from "../models/userModel.js";
@@ -9,8 +9,17 @@ const productRoute = express.Router();
 
 productRoute.get(
   "/",
-  expressAsyncHandler(async (req, res) => {
-    const pageSize = 3;
+  asyncHandler(async (req, res) => {
+    let pageSize = Number(req.query.pageSize) || 6;
+    if (pageSize > 200) {
+      const list = await Product.find({});
+      const productList = list.map((p) => ({
+        name: p.name,
+        _id: p._id,
+      }));
+      res.send({ productList });
+      return;
+    }
     const page = Number(req.query.pageNumber) || 1;
     const name = req.query.name || "";
     const category = req.query.category || "";
@@ -56,13 +65,13 @@ productRoute.get(
       .sort(sortOrder)
       .skip(pageSize * (page - 1))
       .limit(pageSize);
-    res.send({ products, page, pages: Math.ceil(count / pageSize) });
+    res.send({ products, page, pages: Math.ceil(count / pageSize), count });
   })
 );
 
 productRoute.get(
   "/categories",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const categories = await Product.find().distinct("category");
     res.send(categories);
   })
@@ -70,7 +79,7 @@ productRoute.get(
 
 productRoute.get(
   "/seed",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     // await Product.remove({});
     const seller = await User.findOne({ isSeller: true });
     if (seller) {
@@ -90,7 +99,7 @@ productRoute.get(
 
 productRoute.get(
   "/:id",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id).populate(
       "seller",
       "seller.name seller.logo seller.rating seller.numReviews"
@@ -108,7 +117,7 @@ productRoute.use(isAuth);
 productRoute.post(
   "/",
   isSellerOrAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const product = new Product({
       name: "sample name " + Date.now(),
       seller: req.user._id,
@@ -129,7 +138,7 @@ productRoute.post(
 productRoute.put(
   "/:id",
   isSellerOrAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
@@ -151,7 +160,7 @@ productRoute.put(
 productRoute.delete(
   "/:id",
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
       const deleteProduct = await product.remove();
@@ -164,7 +173,7 @@ productRoute.delete(
 
 productRoute.post(
   "/:id/reviews",
-  expressAsyncHandler(async (req, res) => {
+  asyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {

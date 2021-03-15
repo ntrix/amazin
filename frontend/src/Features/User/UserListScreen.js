@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { USER_DETAILS_RESET } from "../../Dux/constants/userConstants";
-import { deleteUser, listUsers } from "../../Dux/actions/userActions";
+import { userDetailsActions } from "./UserSlice";
+import { deleteUser, listUsers } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
-export default function UserListScreen(props) {
+export default function UserListScreen({ history }) {
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
@@ -21,9 +21,7 @@ export default function UserListScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listUsers());
-    dispatch({
-      type: USER_DETAILS_RESET,
-    });
+    dispatch(userDetailsActions._RESET());
   }, [dispatch, successDelete]);
   const deleteHandler = (user) => {
     if (window.confirm("Are you sure?")) {
@@ -33,25 +31,25 @@ export default function UserListScreen(props) {
   return (
     <div>
       <h1>Users</h1>
-      {loadingDelete && <LoadingBox></LoadingBox>}
+      {loadingDelete && <LoadingBox size="xl" />}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (
         <MessageBox variant="success">User Deleted Successfully</MessageBox>
       )}
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <LoadingBox size="xl" />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>USER_ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>IS SELLER</th>
-              <th>IS ADMIN</th>
-              <th>ACTIONS</th>
+              <th>SELLER</th>
+              <th>ADMIN</th>
+              <th className="tab__w12">ACTIONS</th>
             </tr>
           </thead>
           <tbody>
@@ -60,19 +58,27 @@ export default function UserListScreen(props) {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isSeller ? "YES" : " NO"}</td>
-                <td>{user.isAdmin ? "YES" : "NO"}</td>
+                <td className="text-center success">
+                  {user.isSeller && (
+                    <i className="fa fa-check" aria-hidden="true"></i>
+                  )}
+                </td>
+                <td className="text-center success">
+                  {user.isAdmin && (
+                    <i className="fa fa-check" aria-hidden="true"></i>
+                  )}
+                </td>
                 <td>
                   <button
                     type="button"
                     className="small"
-                    onClick={() => props.history.push(`/user/${user._id}/edit`)}
+                    onClick={() => history.push(`/user/${user._id}/edit`)}
                   >
                     Edit
                   </button>
                   <button
                     type="button"
-                    className="small"
+                    className="small danger"
                     onClick={() => deleteHandler(user)}
                   >
                     Delete

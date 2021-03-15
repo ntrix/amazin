@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { register } from "../../Dux/actions/userActions";
+import { register } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
-export default function RegisterScreen(props) {
+export default function RegisterScreen({ location, history }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userRegister = useSelector((state) => state.userRegister);
   const { userInfo, loading, error } = userRegister;
@@ -31,16 +29,16 @@ export default function RegisterScreen(props) {
   };
   useEffect(() => {
     if (userInfo) {
-      props.history.push(redirect);
+      history.push(redirect);
     }
-  }, [props.history, redirect, userInfo]);
+  }, [history, redirect, userInfo]);
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Create Account</h1>
         </div>
-        {loading && <LoadingBox></LoadingBox>}
+        {loading && <LoadingBox />}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
           <label htmlFor="name">Name</label>

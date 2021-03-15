@@ -2,11 +2,11 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { PRODUCT_UPDATE_RESET } from "../../Dux/constants/productConstants";
+import { productUpdateActions } from "./ProductSlice";
 import {
   detailsProduct,
   updateProduct,
-} from "../../Dux/actions/productActions";
+} from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
@@ -34,10 +34,10 @@ export default function ProductEditScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (successUpdate) {
-      props.history.push("/productlist");
+      props.history.push("/product-list");
     }
     if (!product || product._id !== productId || successUpdate) {
-      dispatch({ type: PRODUCT_UPDATE_RESET });
+      dispatch(productUpdateActions._RESET());
       dispatch(detailsProduct(productId));
     } else {
       setName(product.name);
@@ -96,10 +96,10 @@ export default function ProductEditScreen(props) {
         <div>
           <h1>Edit Product {productId}</h1>
         </div>
-        {loadingUpdate && <LoadingBox></LoadingBox>}
+        {loadingUpdate && <LoadingBox size="xl" />}
         {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
         {loading ? (
-          <LoadingBox></LoadingBox>
+          <LoadingBox size="xl" />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -142,7 +142,7 @@ export default function ProductEditScreen(props) {
                 label="Choose Image"
                 onChange={uploadFileHandler}
               ></input>
-              {loadingUpload && <LoadingBox></LoadingBox>}
+              {loadingUpload && <LoadingBox />}
               {errorUpload && (
                 <MessageBox variant="danger">{errorUpload}</MessageBox>
               )}

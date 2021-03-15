@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import { listProducts } from "../Dux/actions/productActions";
-import { listTopSellers } from "../Dux/actions/userActions";
+import { listProducts } from "../Controllers/productActions";
+import { listTopSellers } from "../Controllers/userActions";
 
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
@@ -31,7 +31,7 @@ export default function HomeScreen() {
     <div>
       <h2>Top Sellers</h2>
       {loadingSellers ? (
-        <LoadingBox></LoadingBox>
+        <LoadingBox />
       ) : errorSellers ? (
         <MessageBox variant="danger">{errorSellers}</MessageBox>
       ) : (
@@ -41,8 +41,13 @@ export default function HomeScreen() {
             {sellers.map((seller) => (
               <div key={seller._id}>
                 <Link to={`/seller/${seller._id}`}>
-                  <img src={seller.seller.logo} alt={seller.seller.name} />
-                  <p className="legend">{seller.seller.name}</p>
+                  <img
+                    src={seller.seller.logo || ""}
+                    alt={seller.seller.name || "Anonymous Seller"}
+                  />
+                  <p className="legend">
+                    {seller.seller.name || "Anonymous Seller"}
+                  </p>
                 </Link>
               </div>
             ))}
@@ -51,7 +56,7 @@ export default function HomeScreen() {
       )}
       <h2>Featured Products</h2>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <LoadingBox size="xl" />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

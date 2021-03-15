@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { PRODUCT_REVIEW_CREATE_RESET } from "../../Dux/constants/productConstants";
-import { createReview, detailsProduct } from "../../Dux/actions/productActions";
+import { productReviewCreateActions } from "./ProductSlice";
+import { createReview, detailsProduct } from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
@@ -33,7 +33,7 @@ export default function ProductScreen(props) {
       window.alert("Review Submitted Successfully");
       setRating("");
       setComment("");
-      dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
+      dispatch(productReviewCreateActions._RESET());
     }
     dispatch(detailsProduct(productId));
   }, [dispatch, productId, successReviewCreate]);
@@ -53,21 +53,27 @@ export default function ProductScreen(props) {
   return (
     <div>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <LoadingBox size="xl" />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div>
-          <Link to="/">Back to result</Link>
+          <div>
+            <div className="row search__banner">
+              <Link to="/" className="ml-1">
+                Back to result
+              </Link>
+            </div>
+          </div>
           <div className="row top">
-            <div className="col-2">
+            <div className="col-2 card">
               <img
                 className="large"
                 src={product.image}
                 alt={product.name}
               ></img>
             </div>
-            <div className="col-1">
+            <div className="col-1 ml-1">
               <ul>
                 <li>
                   <h1>{product.name}</h1>
@@ -78,7 +84,7 @@ export default function ProductScreen(props) {
                     numReviews={product.numReviews}
                   ></Rating>
                 </li>
-                <li>Pirce : ${product.price}</li>
+                <li>Price : €{product.price}</li>
                 <li>
                   Description:
                   <p>{product.description}</p>
@@ -86,7 +92,7 @@ export default function ProductScreen(props) {
               </ul>
             </div>
             <div className="col-1">
-              <div className="card card-body">
+              <div className="card card__body">
                 <ul>
                   <li>
                     Seller{" "}
@@ -103,7 +109,11 @@ export default function ProductScreen(props) {
                   <li>
                     <div className="row">
                       <div>Price</div>
-                      <div className="price">${product.price}</div>
+                      <div className="price">
+                        <sup>€</sup>
+                        {product.price}
+                        <sup>00</sup>
+                      </div>
                     </div>
                   </li>
                   <li>
@@ -122,7 +132,7 @@ export default function ProductScreen(props) {
                     <>
                       <li>
                         <div className="row">
-                          <div>Qty</div>
+                          <div>Quantity</div>
                           <div>
                             <select
                               value={qty}
@@ -153,7 +163,7 @@ export default function ProductScreen(props) {
               </div>
             </div>
           </div>
-          <div>
+          <div className="mh-3">
             <h2 id="reviews">Reviews</h2>
             {product.reviews.length === 0 && (
               <MessageBox>There is no review</MessageBox>
@@ -185,7 +195,7 @@ export default function ProductScreen(props) {
                         <option value="2">2- Fair</option>
                         <option value="3">3- Good</option>
                         <option value="4">4- Very good</option>
-                        <option value="5">5- Excelent</option>
+                        <option value="5">5- Exzellent</option>
                       </select>
                     </div>
                     <div>
@@ -203,7 +213,7 @@ export default function ProductScreen(props) {
                       </button>
                     </div>
                     <div>
-                      {loadingReviewCreate && <LoadingBox></LoadingBox>}
+                      {loadingReviewCreate && <LoadingBox />}
                       {errorReviewCreate && (
                         <MessageBox variant="danger">
                           {errorReviewCreate}

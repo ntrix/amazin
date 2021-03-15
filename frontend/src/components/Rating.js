@@ -8,19 +8,20 @@ export default function Rating(props) {
         {[1, 2, 3, 4, 5].map((star) => (
           <i
             className={
-              star <= rating
-                ? star == rating - 0.5
+              star <= rating + 0.5
+                ? star == rating + 0.5
                   ? "fa fa-star-half-o"
                   : "fa fa-star"
                 : "fa fa-star-o"
             }
+            key={star}
           ></i>
         ))}
       </span>
       {caption ? (
         <span>{caption}</span>
       ) : (
-        <span>{numReviews + " reviews"}</span>
+        <span>{numReviews + " review" + (rating > 1 ? "s" : "")}</span>
       )}
     </div>
   );
