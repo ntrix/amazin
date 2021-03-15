@@ -96,12 +96,13 @@ export default function ContactScreen(props) {
               >
                 <option value="Account">Account</option>
                 <option value="Ads">Advertisement</option>
+                <option value="Customer">Customer Service</option>
                 <option value="FAQ">FAQ</option>
                 <option value="Help">Help Desk</option>
-                <option value="Returns">Returns & Refund</option>
                 <option value="Orders">Your Orders</option>
-                <option value="Shipping">Shipping Address</option>
                 <option value="Payment">Payment</option>
+                <option value="Returns">Returns & Refund</option>
+                <option value="Shipping">Shipping Address</option>
                 <option value="Others">Others..</option>
               </select>
             </div>

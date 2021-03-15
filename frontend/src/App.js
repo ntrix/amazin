@@ -185,6 +185,11 @@ function App() {
                   "/search/category/All/order/newest",
                   "nav-main__item",
                 ],
+                [
+                  "Customer Service",
+                  "/contact/subject/Customer",
+                  "nav-main__item",
+                ],
                 ["Best Sellers", "/", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
