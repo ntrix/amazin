@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
@@ -10,32 +10,32 @@ import Product from "../../components/Product";
 import Rating from "../../components/Rating";
 import { prices, ratings } from "../../utils";
 
-export default function SearchScreen(props) {
+export default function SearchScreen({ history }) {
   const {
-    name = "all",
-    category = "all",
+    name = "All",
+    category = "All",
     min = 0,
     max = 0,
     rating = 0,
-    order = "newest",
+    order = "bestselling",
     pageNumber = 1,
   } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages, count } = productList;
 
-  const productCategoryList = useSelector((state) => state.productCategoryList);
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
-  } = productCategoryList;
+  } = useSelector((state) => state.productCategoryList);
+
   useEffect(() => {
     dispatch(
       listProducts({
         pageNumber,
-        name: name !== "all" ? name : "",
-        category: category !== "all" ? category : "",
+        name: name !== "All" ? name : "",
+        category: category !== "All" ? category : "",
         min,
         max,
         rating,
@@ -56,6 +56,26 @@ export default function SearchScreen(props) {
   };
   return (
     <div>
+      <header className="sub-header">
+        <ul className="cat-nav">
+          {loadingCategories ? (
+            <LoadingBox />
+          ) : errorCategories ? (
+            <MessageBox variant="danger">{errorCategories}</MessageBox>
+          ) : (
+            ["All", ...categories].map((label) => (
+              <Link to={getFilterUrl({ category: label })}>
+                <li
+                  key={label}
+                  className={label === category ? " selected" : ""}
+                >
+                  {label}
+                </li>
+              </Link>
+            ))
+          )}
+        </ul>
+      </header>
       <div className="row search__banner">
         {loading ? (
           <LoadingBox />
@@ -71,7 +91,7 @@ export default function SearchScreen(props) {
           <select
             value={order}
             onChange={(e) => {
-              props.history.push(getFilterUrl({ order: e.target.value }));
+              history.push(getFilterUrl({ order: e.target.value }));
             }}
           >
             <option value="newest">Newest Arrivals</option>
@@ -95,8 +115,8 @@ export default function SearchScreen(props) {
                 <>
                   <li>
                     <Link
-                      className={"all" === category ? "active" : ""}
-                      to={getFilterUrl({ category: "all" })}
+                      className={"All" === category ? "active" : ""}
+                      to={getFilterUrl({ category: "All" })}
                     >
                       Any
                     </Link>

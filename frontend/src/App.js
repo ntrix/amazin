@@ -180,7 +180,11 @@ function App() {
               {[
                 ["Netflix Video", "/video", "nav-main__item"],
                 ["Top Deals", "/deal", "nav-main__item"],
-                ["New Releases", "/search/category/all", "nav-main__item"],
+                [
+                  "New Releases",
+                  "/search/category/All/order/newest",
+                  "nav-main__item",
+                ],
                 ["Best Sellers", "/", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
@@ -223,7 +227,7 @@ function App() {
               [
                 ["Trending"],
                 ["Top Deals", "/deal"],
-                ["New Releases", "/search/category/all"],
+                ["New Releases", "/search/category/All/order/newest"],
                 ["Best Sellers", "/"],
                 ["separator", "9"],
                 ["Categories"],
