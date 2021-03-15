@@ -7,7 +7,6 @@ export const addMenuItem = (clickHandle) => ([
   className,
   extraFunction,
 ]) => {
-  if (menuItemLabel == "separator") return <div className="separator"></div>;
   const innerComponent = () =>
     !linkTo && !className ? (
       <strong>{menuItemLabel}</strong>
@@ -31,7 +30,11 @@ export const addMenuItem = (clickHandle) => ([
     ) : (
       <div>{menuItemLabel}</div>
     );
-  return <li key={menuItemLabel}>{innerComponent()}</li>;
+  return menuItemLabel == "separator" ? (
+    <div key={linkTo} className="separator"></div>
+  ) : (
+    <li key={menuItemLabel}>{innerComponent()}</li>
+  );
 };
 
 export default function NavDropMenu({

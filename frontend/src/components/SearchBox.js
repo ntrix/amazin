@@ -72,40 +72,51 @@ export default function SearchBox() {
   })();
 
   return (
-    <div className="col-fill">
+    <>
       <label
         className={isFocus > 0 && term ? "click-catcher" : ""}
         onClick={() => setFocus(0)}
       ></label>
-      <form className="search__form" onSubmit={submitHandler}>
-        <div className="row">
-          <input
-            type="text"
-            name="q"
-            autoComplete="off"
-            id="q"
-            value={term}
-            size="1"
-            tabIndex="1"
-            onClick={(e) => {
-              setFocus(1);
-              setSuggests(findSuggest.search(list, term));
-            }}
-            onFocus={(e) => {
-              setFocus(1);
-              setSuggests(findSuggest.search(list, term));
-            }}
-            onChange={(e) => setTerm(e.target.value)}
-            onKeyUp={(e) => {
-              // console.log(e.key, e.keyIdentifier, e.keyCode);
-              setFocus(e.key === "Escape" || e.keyCode == 27 ? 0 : isFocus + 1);
-              setSuggests(findSuggest.search(list, e.target.value));
-            }}
-            onBlur={() => setFocus(1)}
-          ></input>
-          <button className="primary" type="submit">
-            <div className="sprite__search-btn"></div>
-          </button>
+      <form
+        className={"search__form" + (isFocus > 0 ? " focus" : "")}
+        onSubmit={submitHandler}
+      >
+        <div className="row--fill">
+          <div className="search__input">
+            <input
+              type="text"
+              name="q"
+              autoComplete="off"
+              id="q"
+              value={term}
+              size="1"
+              tabIndex="1"
+              onClick={(e) => {
+                setFocus(1);
+                setSuggests(findSuggest.search(list, term));
+              }}
+              onFocus={(e) => {
+                setFocus(1);
+                setSuggests(findSuggest.search(list, term));
+              }}
+              onChange={(e) => setTerm(e.target.value)}
+              onKeyUp={(e) => {
+                // console.log(e.key, e.keyIdentifier, e.keyCode);
+                setFocus(
+                  e.key === "Escape" || e.keyCode == 27 ? 0 : isFocus + 1
+                );
+                setSuggests(findSuggest.search(list, e.target.value));
+              }}
+              onBlur={() => setFocus(isFocus > 0 ? 1 : 0)}
+            ></input>
+          </div>
+        </div>
+        <div className="row--right">
+          <div className="search__btn">
+            <span className="sprite__search-btn" aria-label="Go">
+              <input type="submit" value="Go" tabIndex={0}></input>
+            </span>
+          </div>
         </div>
       </form>
       {isFocus > 0 && term && (
@@ -127,6 +138,6 @@ export default function SearchBox() {
           </ul>
         </div>
       )}
-    </div>
+    </>
   );
 }

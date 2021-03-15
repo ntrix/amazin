@@ -80,7 +80,7 @@ productRoute.get(
         ? { price: -1 }
         : order === "toprated"
         ? { rating: -1 }
-        : order === "bestseller"
+        : order === "bestselling"
         ? { numReviews: -1 }
         : { _id: -1 }; /* date */
     const count = await Product.count({
@@ -182,7 +182,10 @@ productRoute.put(
     if (product) {
       product.name = req.body.name;
       product.price = req.body.price;
+      product.deal = req.body.deal;
+      product.ship = req.body.ship;
       product.image = req.body.image;
+      product.video = req.body.video;
       product.category = req.body.category;
       product.brand = req.body.brand;
       product.countInStock = req.body.countInStock;

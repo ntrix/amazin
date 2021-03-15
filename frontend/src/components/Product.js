@@ -69,6 +69,16 @@ export default function Product({ product, deal = false }) {
                 </div>
               </>
             )}
+            {deal && (
+              <div>
+                <Link
+                  to={`/search/category/:${product?.category}`}
+                  className="row"
+                >
+                  Category: {product?.category}
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

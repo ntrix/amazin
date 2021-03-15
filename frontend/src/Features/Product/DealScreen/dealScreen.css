@@ -23,6 +23,6 @@
 .deal-screen .react-multiple-carousel__arrow::before {
   font-size: 4rem;
 }
-.deal-screen .row {
+.deal-screen .row.top {
   background: linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
 }

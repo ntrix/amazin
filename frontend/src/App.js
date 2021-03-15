@@ -87,7 +87,7 @@ function App() {
                 dropMenu={[
                   ["Account"],
                   ["Sign In", "/signin"],
-                  ["separator"],
+                  ["separator", "1"],
                   ["New customer? Start here.", "/register"],
                 ]}
               />
@@ -102,12 +102,12 @@ function App() {
                 dropMenu={[
                   ["Informations"],
                   ["Your Profile", "/profile"],
-                  ["separator"],
+                  ["separator", "2"],
                   ["Orders"],
                   ["Your Order History", "/order-history"],
                   ["Returns", "disabled"],
-                  ["Contact Us", "#contact", "disabled"],
-                  ["separator"],
+                  ["Contact Us", "/contact/subject/Orders"],
+                  ["separator", "3"],
                   ["Account"],
                   ["Sign Out", "#signout", , signoutHandler],
                 ]}
@@ -123,11 +123,11 @@ function App() {
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
-                  ["separator"],
+                  ["separator", "4"],
                   ["Listing"],
                   ["Product List", "/product-list/seller"],
                   ["Sold Order List", "/order-list/seller"],
-                  ["separator"],
+                  ["separator", "5"],
                   ["Assistant"],
                   ["Sell Statistics", "disabled"],
                 ]}
@@ -144,11 +144,11 @@ function App() {
                 dropMenu={[
                   ["Admin"],
                   ["User List", "/user-list"],
-                  ["separator"],
+                  ["separator", "7"],
                   ["Warehouse"],
                   ["Product Catalogues", "/product-list"],
                   ["Order Database", "/order-list"],
-                  ["separator"],
+                  ["separator", "8"],
                   ["Instruction"],
                   ["Quick Tutor!", "disabled"],
                 ]}
@@ -178,9 +178,9 @@ function App() {
             </div>
             <div className="nav__fill">
               {[
-                ["New Releases", "/search/category/all", "nav-main__item"],
                 ["Netflix Video", "/video", "nav-main__item"],
                 ["Top Deals", "/deal", "nav-main__item"],
+                ["New Releases", "/search/category/all", "nav-main__item"],
                 ["Best Sellers", "/", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
@@ -197,10 +197,9 @@ function App() {
             </div>
             <div className="nav__right">
               <div className="nav-main__item">
-                <a href="#">
-                  <sup>Advertisement</sup> here? Contact us for more
-                  informations
-                </a>
+                <Link to="/contact/subject/Ads">
+                  <sup>Your Ads</sup> here on this place? Contact us
+                </Link>
               </div>
             </div>
           </div>
@@ -225,41 +224,40 @@ function App() {
                 ["Trending"],
                 ["New Releases", "/search/category/all"],
                 ["Top Sellers", "/"],
-                ["separator"],
+                ["separator", "9"],
                 ["Categories"],
                 ...categories.map((c) => [c, "/search/category/" + c]),
-                ["separator"],
+                ["separator", "10"],
                 ["Help & Setting"],
                 ["(Seller) Profile", "/profile/seller"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["FAQ & Contact", "#contact", "disabled"],
-                ["separator"],
+                ["FAQ & Contact", "/contact/subject/FAQ"],
+                ["separator", "11"],
                 ["Account"],
                 userInfo
                   ? ["Sign Out", "#signout", , signoutHandler]
                   : ["Sign In", "/signin"],
                 [""],
-                ["separator"],
-                ["separator"],
+                ["separator", "12"],
+                ["separator", "13"],
                 ["#contact 2020", "disabled"],
-                ["separator"],
-                ["separator"],
+                ["separator", "14"],
+                ["separator", "15"],
               ].map(addMenuItem(setSidebar))
             )}
           </ul>
         </aside>
         <label
-          className={
-            hasSidebar ? "click-catcher" : hasDropdown ? "underlay" : ""
-          }
+          className={hasSidebar ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
         ></label>
-        <main className="container--flex">
+        <main className="container">
           <div className="col-fill">
             <MainRoute />
           </div>
+          <div className={hasDropdown ? "underlay" : ""}></div>
         </main>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved

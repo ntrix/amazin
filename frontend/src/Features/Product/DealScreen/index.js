@@ -14,7 +14,7 @@ export default function DealScreen() {
   const history = useHistory();
   const {
     category = "all",
-    order = "bestseller",
+    order = "bestselling",
     pageNumber = 1,
   } = useParams();
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ export default function DealScreen() {
           autoPlay={true}
           keyBoardControl={true}
           customTransition="all .5"
-          transitionDuration={500}
+          transitionDuration={1000}
           containerClass="carousel-container"
           removeArrowOnDeviceType={["mobile"]}
           dotListClass="custom-dot-list-style"
@@ -82,9 +82,9 @@ export default function DealScreen() {
               }
             >
               <option value="newest">Newest Arrivals</option>
+              <option value="bestselling">Best Selling</option>
               <option value="lowest">Price: Low to High</option>
               <option value="highest">Price: High to Low</option>
-              <option value="bestseller">Best Seller</option>
               <option value="toprated">Avg. Rating</option>
             </select>
           </div>

@@ -1,11 +1,34 @@
 import express from "express";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
+import sgMail from "@sendgrid/mail";
+import cors from "cors";
 import data from "../data.js";
 import User from "../models/userModel.js";
 import { generateToken, isAdmin, isAuth } from "../utils.js";
 
 const userRoute = express.Router();
+
+userRoute.post("/contact", cors(), (req, res) => {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const { name, email, phone, text } = req.body;
+  try {
+    sgMail.send({
+      to: process.env.TOMAIL,
+      from: process.env.FROMMAIL,
+      subject: `contact from name:${name} email:${email} phone:${phone || ""}`,
+      text: "Nachricht: " + text,
+      html: "<strong>Nachricht</strong>: " + text,
+    });
+    res.status(200).send("ok");
+    console.log(
+      `contact from name:${name} email:${email} phone:${phone} `,
+      text
+    );
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 userRoute.get(
   "/top-sellers",

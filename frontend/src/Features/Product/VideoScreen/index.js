@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
-import Product from "../../../components/Product";
 import { listProducts } from "../../../Controllers/productActions";
-import axios from "./axios";
-import Row, { RowToBuy, truncate } from "./Row";
+import axios from "axios";
+import VideoRow from "./VideoRow";
+import VideoBanner from "./VideoBanner";
 import "./videoScreen.css";
 
-const API_KEY = "f81980ff410e46f422d64ddf3a56dddd"; //process.env.API_KEY;
-
-const source = {
+const API_KEY = process.env.REACT_APP_API_KEY;
+const sources = {
   "NETFLIX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   Home: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
   STORE: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
@@ -22,29 +21,66 @@ const source = {
   "Trending Now": `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   "Top Rated": `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
 };
+const baseURL = "https://image.tmdb.org/t/p/original/";
 
-export default function VideoScreen(props) {
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+const adapter = (movies) =>
+  movies?.map((m) => ({
+    name: m.name || m.title || m.original_title || m.original_name || "",
+    images: [
+      m.backdrop_path ? baseURL + m.backdrop_path : m.image?.split("^")[1],
+      m.poster_path ? baseURL + m.poster_path : m.image?.split("^")[0],
+    ],
+    rating: m.rating * 2 || m.vote_average,
+    numReviews: m.numReviews || m.vote_count,
+    description: m.description || m.overview,
+    video: m.video,
+    seller: m.seller,
+    _id: m._id,
+  }));
 
-  const productList = useSelector((state) => state.productList);
+export default function VideoScreen() {
+  const dispatch = useDispatch();
+  const [genre, setGenre] = useState("Home");
+  const [movies, setMovies] = useState({});
   const {
     loading: loadingProducts,
     error: errorProducts,
+    success: successProducts,
     products,
-  } = productList;
+  } = useSelector((state) => state.productList);
 
-  const dispatch = useDispatch();
-  const [genre, setGenre] = useState("STORE");
   useEffect(() => {
-    dispatch(listProducts({ seller: process.env.VIDEO_SELLER, pageSize: 11 }));
-  }, [dispatch]);
+    async function fetchData() {
+      const movieArray = await Promise.all(
+        Object.keys(sources).map(async (genre) => {
+          const { data } = await axios
+            .get("https://api.themoviedb.org/3" + sources[genre])
+            .catch((e) => console.log(e));
+          return [[genre], data.results];
+        })
+      );
+      const movieObj = {};
+      movieArray.map(([genre, list]) => (movieObj[genre] = adapter(list)));
+      setMovies(movieObj);
+    }
+    if (!movies[genre]) fetchData(); // else shuffle random movies list :)
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      listProducts({ seller: process.env.REACT_APP_SELLER, pageSize: 11 })
+    );
+    if (successProducts)
+      setMovies({ ...movies, STORE: adapter(products).reverse() });
+  }, [dispatch, successProducts]);
+
   return (
     <div className="container--fluid video-screen">
       <header className="m-header">
         <ul className="m-nav">
-          {Object.keys(source).map((label) => (
+          {Object.keys(sources).map((label) => (
             <li
+              key={label}
               className={label === genre ? " active" : ""}
               onClick={() => setGenre(label)}
             >
@@ -53,129 +89,56 @@ export default function VideoScreen(props) {
           ))}
         </ul>
       </header>
-      <Banner source={source[genre]} products={products} />
-      {Object.keys(source).map((label) =>
-        label !== "Home" &&
-        (genre === label || genre === "Home") &&
-        label !== "STORE" ? (
-          <Row
-            title={label}
-            source={source[label]}
-            large={label === "NETFLIX ORIGINALS"}
-          />
-        ) : (
-          <></>
-        )
+
+      {movies[genre] && (
+        <VideoBanner
+          source={genre === "STORE" ? adapter(products) : movies[genre]}
+        />
       )}
+
+      {movies[genre] &&
+        Object.keys(sources).map((label) =>
+          label !== "Home" &&
+          (genre === label || genre === "Home") &&
+          label !== "STORE" ? (
+            <VideoRow
+              title={label}
+              movies={movies[label]}
+              large={label === "NETFLIX ORIGINALS"}
+            />
+          ) : (
+            <></>
+          )
+        )}
+
       {loadingProducts ? (
         <LoadingBox size="xl" />
       ) : errorProducts ? (
         <MessageBox variant="danger">{errorProducts}</MessageBox>
       ) : (
         <>
-          {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-          <RowToBuy
+          {products.length === 0 && (
+            <MessageBox>
+              No Product Found Or All Movies In Stock Are Sold Out
+            </MessageBox>
+          )}
+          <VideoRow
             title="IN STOCK: READY TO BUY"
-            movies={products.reduce(
-              (acc, p) =>
-                p.video !== "no trailer" ? [p, ...acc] : [...acc, p],
-              []
-            )}
-            large={
-              /*if Netflix is there, only one large row*/
-              genre !== "NETFLIX ORIGINALS"
-            }
+            movies={adapter(products).reverse()}
+            //if Netflix is there, only one large row
+            large={genre !== "NETFLIX ORIGINALS"}
           />
         </>
       )}
+
       {
-        genre !== "Trending Now" && (
-          <Row title="Trending Now" source={source["Trending Now"]} />
-        ) /* no duplicated Trending Row*/
+        movies["Trending Now"] && genre !== "Trending Now" && (
+          <VideoRow title="Trending Now" movies={movies["Trending Now"]} />
+        ) /* no duplicated Trending Now*/
       }
-      {genre !== "Top Rated" && (
-        <Row title="Top Rated" source={source["Top Rated"]} />
+      {movies["Top Rated"] && genre !== "Top Rated" && (
+        <VideoRow title="Top Rated" movies={movies["Top Rated"]} />
       )}
     </div>
-  );
-}
-
-const placeholder = [
-  {
-    name: "Stranger Things",
-    poster_path: "56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
-    overview:
-      "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
-  },
-  {
-    name: "The Queen's Gambit",
-    poster_path: "34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg",
-    overview:
-      "In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.",
-  },
-];
-/* dummy data for waiting at first load */
-
-function Banner({ source = "", products = [] }) {
-  const [movie, setMovie] = useState([]);
-  const [isAvailable, setAvailable] = useState(0);
-
-  useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get(source).catch((e) => "");
-      setMovie(
-        request
-          ? request.data.results[
-              (Math.random() * request.data.results.length) | 0
-            ]
-          : placeholder[(Math.random() * placeholder.length) | 0]
-      );
-      const name =
-        movie?.title ||
-        movie?.name ||
-        movie?.original_title ||
-        movie?.original_name;
-      setAvailable(products.filter((p) => p.name === name).length);
-      return request;
-    }
-    fetchData();
-  }, [source, products]);
-
-  return (
-    <header
-      className="banner"
-      style={{
-        backgroundSize: "cover",
-        backgroundImage: `url(
-          "https://image.tmdb.org/t/p/original/${
-            movie?.backdrop_path || movie?.poster_path || ""
-          }"
-        )`,
-        backgroundPosition: "center center",
-      }}
-    >
-      <div className="banner__contents">
-        <h1 className="banner__title">
-          {movie?.title ||
-            movie?.name ||
-            movie?.original_title ||
-            movie?.original_name}
-        </h1>
-        <div className="banner__buttons">
-          <button className="banner__button">Trailer</button>
-          <button className="banner__button">Add to List</button>
-          <button
-            className={"banner__button" + (isAvailable ? "" : " disabled")}
-          >
-            Rent/Buy
-          </button>
-        </div>
-        <h1 className="banner__description">
-          {truncate(movie?.overview, 150)}
-        </h1>
-      </div>
-
-      <div className="banner--fadeBottom" />
-    </header>
   );
 }

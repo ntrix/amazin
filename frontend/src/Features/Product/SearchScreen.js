@@ -75,9 +75,9 @@ export default function SearchScreen(props) {
             }}
           >
             <option value="newest">Newest Arrivals</option>
+            <option value="bestselling">Best Selling</option>
             <option value="lowest">Price: Low to High</option>
             <option value="highest">Price: High to Low</option>
-            <option value="bestseller">Best Seller</option>
             <option value="toprated">Avg. Rating</option>
           </select>
         </div>
@@ -192,7 +192,7 @@ export default function SearchScreen(props) {
               <h2>Do you need help?</h2>
               <p>
                 Visit the <Link to="/help">help section</Link> or{" "}
-                <a href="#contact">contact us</a>
+                <Link to="/contact/subject/Help">contact us</Link>
               </p>
             </div>
             <p className="separator"></p>
