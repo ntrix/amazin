@@ -180,7 +180,8 @@ function App() {
               {[
                 ["New Releases", "/search/category/all", "nav-main__item"],
                 ["Netflix Video", "/video", "nav-main__item"],
-                ["Top Sellers", "/", "nav-main__item"],
+                ["Top Deals", "/deal", "nav-main__item"],
+                ["Best Sellers", "/", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
                 <LoadingBox />

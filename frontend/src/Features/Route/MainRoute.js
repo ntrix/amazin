@@ -24,6 +24,7 @@ import ProfileScreen from "../User/ProfileScreen";
 import UserEditScreen from "../User/UserEditScreen";
 import UserListScreen from "../User/UserListScreen";
 import VideoScreen from "../Product/VideoScreen";
+import DealScreen from "../Product/DealScreen";
 
 export default function MainRoute() {
   return (
@@ -57,6 +58,12 @@ export default function MainRoute() {
       <Route
         path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
         component={SearchScreen}
+        exact
+      ></Route>
+      <Route path="/deal" component={DealScreen} exact></Route>
+      <Route
+        path="/deal/category/:category/order/:order/pageNumber/:pageNumber"
+        component={DealScreen}
         exact
       ></Route>
       <PrivateRoute
