@@ -81,7 +81,7 @@ userRoute.post(
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
           to: user.email,
-          from: "contact@amazin.com",
+          from: "dev@tiennguyen.com",
           subject: "Warning! too many failed attempts by logging in",
           text:
             "You have reached " +

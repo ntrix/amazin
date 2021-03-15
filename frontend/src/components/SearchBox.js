@@ -1,5 +1,4 @@
-import { set } from "mongoose";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";

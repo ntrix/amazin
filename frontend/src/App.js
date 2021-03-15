@@ -222,10 +222,12 @@ function App() {
             ) : (
               [
                 ["Trending"],
+                ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/all"],
-                ["Top Sellers", "/"],
+                ["Best Sellers", "/"],
                 ["separator", "9"],
                 ["Categories"],
+                ["Netflix Video", "/video"],
                 ...categories.map((c) => [c, "/search/category/" + c]),
                 ["separator", "10"],
                 ["Help & Setting"],

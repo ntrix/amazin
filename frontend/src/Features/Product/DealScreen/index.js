@@ -48,7 +48,7 @@ export default function DealScreen() {
           autoPlay={true}
           keyBoardControl={true}
           customTransition="all .5"
-          transitionDuration={1000}
+          transitionDuration={1500}
           containerClass="carousel-container"
           removeArrowOnDeviceType={["mobile"]}
           dotListClass="custom-dot-list-style"

@@ -1,10 +1,11 @@
 .deal-screen {
   margin: 0 -1rem;
+  background: linear-gradient(to bottom, #fbf4e4 15%, #fbf4e400 40%);
 }
 .deal-screen .carousel-container {
-  background: linear-gradient(to bottom, #fbf4e4 70%, #fbf4e400 100%);
-  height: 60rem;
-  padding-top: 6rem;
+  height: 50rem;
+  background: url("../../../img/banner-Save.jpg") center 0 no-repeat;
+  padding-top: 22rem;
 }
 .deal-screen .react-multiple-carousel__arrow--left {
   left: 0; /*5px more for safari hover*/
@@ -13,7 +14,7 @@
   right: 0; /*5px more for safari hover*/
 }
 .deal-screen .react-multiple-carousel__arrow {
-  height: 17rem;
+  height: 28rem;
   padding: 0 3rem;
   border-radius: 0;
   top: 1rem;
