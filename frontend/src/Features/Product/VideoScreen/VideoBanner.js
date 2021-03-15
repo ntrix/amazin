@@ -27,7 +27,7 @@ const dummy = [
   },
 ];
 
-export default function VideoBanner({ source }) {
+export default function VideoBanner({ source = dummy }) {
   const [trailerUrl, setTrailerUrl] = useState("");
   const [movie, setMovie] = useState(dummy[(Math.random() * dummy.length) | 0]);
 

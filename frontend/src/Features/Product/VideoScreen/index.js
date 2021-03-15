@@ -40,7 +40,7 @@ const adapter = (movies) =>
 
 export default function VideoScreen() {
   const dispatch = useDispatch();
-  const [genre, setGenre] = useState("Home");
+  const [genre, setGenre] = useState("STORE");
   const [movies, setMovies] = useState({});
   const {
     loading: loadingProducts,
