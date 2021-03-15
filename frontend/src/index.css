@@ -59,6 +59,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*,
+*:focus {
+  margin: 0;
+}
 #root {
   height: 100%;
 }
@@ -758,7 +762,7 @@ img.large {
   display: flex;
   position: relative;
   border-radius: 4px;
-  border: none;
+  border-color: none;
   z-index: 9000;
   background: #fff;
 }
@@ -895,6 +899,7 @@ img.large {
   border-radius: 6px; /* safari problem, input default style override */
   box-shadow: none;
   border: none;
+  box-sizing: border-box;
   outline: none;
 }
 .search__btn {
