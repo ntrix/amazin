@@ -83,23 +83,23 @@ export default function UserEditScreen(props) {
                 onChange={(e) => setEmail(e.target.value)}
               ></input>
             </div>
-            <div>
-              <label htmlFor="isSeller">Seller Account</label>
+            <div className="flex">
               <input
                 id="isSeller"
                 type="checkbox"
                 checked={isSeller}
                 onChange={(e) => setIsSeller(e.target.checked)}
               ></input>
+              <label htmlFor="isSeller">Seller Account</label>
             </div>
-            <div>
-              <label htmlFor="isAdmin">Administrator</label>
+            <div className="flex">
               <input
                 id="isAdmin"
                 type="checkbox"
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></input>
+              <label htmlFor="isAdmin">Administrator</label>
             </div>
             <div>
               <button type="submit" className="primary">

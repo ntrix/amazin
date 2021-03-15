@@ -48,7 +48,7 @@ export default function CartScreen(props) {
                 <tr className="row" key={item.product}>
                   <td className="tab__w6">
                     <img
-                      src={item.image}
+                      src={item.image.split("^")[0]}
                       alt={item.name}
                       className="small"
                     ></img>

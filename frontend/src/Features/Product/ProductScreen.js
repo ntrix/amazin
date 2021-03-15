@@ -15,6 +15,7 @@ export default function ProductScreen(props) {
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  const [imgActive, setImgActive] = useState(0);
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
@@ -57,20 +58,39 @@ export default function ProductScreen(props) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <div>
+        <div className="col-fill">
           <div>
             <div className="row search__banner">
-              <Link to="/" className="ml-1">
+              <Link
+                to={localStorage?.getItem("backToHistory") || "/"}
+                className="ml-1"
+              >
                 Back to result
               </Link>
             </div>
           </div>
           <div className="row top">
-            <div className="col-2 card">
+            <div className="col-2 flex mr-1">
+              <div className="tab__w6 flex-col">
+                {product?.image &&
+                  product.image
+                    .split("^")
+                    .map((img, idx) => (
+                      <img
+                        src={img}
+                        alt={product.name + " small " + idx}
+                        onMouseEnter={() => setImgActive(idx)}
+                        className={
+                          "product__thumbnail" +
+                          (idx === imgActive ? " active" : "")
+                        }
+                      ></img>
+                    ))}
+              </div>
               <img
                 className="large"
-                src={product.image}
-                alt={product.name}
+                src={product?.image?.split("^")[imgActive]}
+                alt={product.name + " " + imgActive}
               ></img>
             </div>
             <div className="col-1 ml-1">
@@ -92,7 +112,7 @@ export default function ProductScreen(props) {
               </ul>
             </div>
             <div className="col-1">
-              <div className="card card__body">
+              <div className="card m-0 card__body">
                 <ul>
                   <li>
                     Seller{" "}
@@ -111,8 +131,10 @@ export default function ProductScreen(props) {
                       <div>Price</div>
                       <div className="price">
                         <sup>€</sup>
-                        {product.price}
-                        <sup>00</sup>
+                        {product.price | 0}
+                        <sup>
+                          {(((product.price * 100) | 0) + "").slice(-2)}
+                        </sup>
                       </div>
                     </div>
                   </li>

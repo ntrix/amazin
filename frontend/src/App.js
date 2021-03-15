@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link } from "react-router-dom";
 import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
+import NavDropMenu, { addMenuItem } from "./components/NavMenu";
 import SearchBox from "./components/SearchBox";
 import { listProductCategories } from "./Controllers/productActions";
 import { signout } from "./Controllers/userActions";
@@ -11,13 +12,20 @@ import Logo from "./img/a.svg";
 
 function App() {
   const cart = useSelector((state) => state.cart);
-  const [dropTimeout, setDropTimeout] = useState(0);
   const [hasSidebar, setSidebar] = useState(false);
-  const [hasDropdown, setDropdown] = useState(false);
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
+  const timeoutId = useRef(0);
+  const [hasDropdown, setDropdown] = useState(false);
+  const onEnterHandle = () => {
+    clearTimeout(timeoutId.current - 99);
+    timeoutId.current = setTimeout(() => setDropdown(true), 500);
+  };
+  const onLeaveHandle = () => {
+    timeoutId.current = 99 + setTimeout(() => setDropdown(false), 500);
+  };
   const signoutHandler = () => {
     dispatch(signout());
   };
@@ -29,214 +37,171 @@ function App() {
     categories,
   } = productCategoryList;
 
-  function getShortenName(user, length) {
+  function shortName(user, length) {
     if (!user) return "Sign In";
     if (!length) return user.name;
     const name = user.name.split(" ")[0];
     return name.slice(0, length) + (name.length > length ? ".." : "");
   }
-  const addMenuItem = (setMenu) => ([text, link, className, action]) => {
-    if (text == "separator") return <div className="separator"></div>;
-    const inner = () =>
-      !link && !className ? (
-        <strong>{text}</strong>
-      ) : link == "disabled" ? (
-        <Link className="disabled">{text}</Link>
-      ) : link.startsWith("https://") ? (
-        <a href={link} target="_blank">
-          {text}
-        </a>
-      ) : link ? (
-        <Link
-          to={link}
-          className={className}
-          onClick={() => {
-            setMenu(false);
-            if (action) action();
-          }}
-        >
-          {text}
-        </Link>
-      ) : (
-        <div>{text}</div>
-      );
-    return <li key={text}>{inner()}</li>;
-  };
-  const addSideMenuItem = addMenuItem(setSidebar);
-  const addDropMenuItem = addMenuItem(setDropdown);
 
+  const navMainItem = ([label, linkTo, className]) => {
+    return (
+      <div key={label} className={className}>
+        <Link to={linkTo} onClick={() => setDropdown(false)}>
+          {label}
+        </Link>
+      </div>
+    );
+  };
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
   return (
     <BrowserRouter>
       <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
-        <header id="navbar" className="row">
-          <button
-            type="button"
-            className="open-sidebar"
-            onClick={() => setSidebar(true)}
-          >
-            <i className="fa fa-bars"></i>
-          </button>
-          <Link className="nav-item phone--off" to="/">
-            <div className="brand">
-              <img className="logo" src={Logo} alt="logo" />
-              <span className="mobile--off">mazin'</span>
-            </div>
-          </Link>
-          <Link to="/map" className="nav-item location flex">
-            <div className="nav-item__col">
-              <div className="sprite__locator"></div>
-            </div>
-            <div className="nav-item__col tablet--off">
-              <span className="nav-item__line-1">Deliver to your</span>
-              <span className="nav-item__line-2">Location?</span>
-            </div>
-          </Link>
-          <div className="nav-item nav__search flex col-fill">
-            <SearchBox />
-          </div>
-          {!userInfo && (
-            <Link to="/signin" className="nav-item dropdown mh-2">
-              <div className="nav-item__col mh-2">
-                <span className="nav-item__line-1">Hello, Sign in</span>
-                <span className="nav-item__line-2 disabled">
-                  Account & Lists <i className="fa fa-caret-down"></i>
-                </span>
+        <header id="navbar">
+          <div className="nav-belt row">
+            <Link className="phone--off" to="/">
+              <div className="brand">
+                <img className="logo" src={Logo} alt="logo" />
+                <span className="mobile--off">mazin'</span>
               </div>
             </Link>
-          )}
-          {userInfo && (
-            <div
-              className="nav-item dropdown"
-              onMouseEnter={() =>
-                setDropTimeout(setTimeout(() => setDropdown(true), 350))
-              }
-              onMouseLeave={() => {
-                clearTimeout(dropTimeout);
-                setDropdown(false);
-              }}
-            >
-              <div className="nav-item__col">
-                <span className="nav-item__line-1">
-                  H<span className="mobile--only">i, </span>
-                  <span className="mobile--off">ello, </span>
-                  {getShortenName(userInfo, 9)}
-                </span>
-                <span className="nav-item__line-2">
-                  Account<span className="pc-low--off"> & Lists</span>{" "}
-                  <i className="fa fa-caret-down"></i>{" "}
-                </span>
+            <Link className="location flex" to="/map">
+              <div className="sprite__locator"></div>
+              <div className="tablet--off">
+                <div className="nav__line-1">Deliver to your</div>
+                <div className="nav__line-2">Location?</div>
               </div>
-              {hasDropdown && (
-                <ul className="dropdown__menu">
-                  {[
-                    ["Informations"],
-                    ["Your Profile", "/profile"],
-                    ["separator"],
-                    ["Orders"],
-                    ["Your Order History", "/order-history"],
-                    ["Returns", "disabled"],
-                    ["Contact Us", "#contact"],
-                    ["separator"],
-                    ["Account"],
-                    ["Sign Out", "#signout", , signoutHandler],
-                  ].map(addDropMenuItem)}
-                </ul>
-              )}
+            </Link>
+            <div className="nav__search">
+              <SearchBox />
             </div>
-          )}
-          {userInfo?.isSeller && (
-            <div
-              className="nav-item dropdown"
-              onMouseEnter={() =>
-                setDropTimeout(setTimeout(() => setDropdown(true), 350))
-              }
-              onMouseLeave={() => {
-                clearTimeout(dropTimeout);
-                setDropdown(false);
-              }}
-            >
-              <div className="nav-item__col">
-                <span className="nav-item__line-1">Seller</span>
-                <span className="nav-item__line-2">
-                  Desk
-                  <i className="fa fa-caret-down"></i>
-                </span>
-              </div>
-              {hasDropdown && (
-                <ul className="dropdown__menu">
-                  {[
-                    ["Profile"],
-                    ["Seller Profile", "/profile/seller"],
-                    ["separator"],
-                    ["Listing"],
-                    ["Product List", "/product-list/seller"],
-                    ["Sold Order List", "/order-list/seller"],
-                    ["separator"],
-                    ["Assistant"],
-                    ["Sell Statistics", "disabled"],
-                  ].map(addDropMenuItem)}
-                </ul>
-              )}
-            </div>
-          )}
-          {userInfo?.isAdmin && (
-            <div
-              className="nav-item dropdown phone--off"
-              onMouseEnter={() =>
-                setDropTimeout(setTimeout(() => setDropdown(true), 350))
-              }
-              onMouseLeave={() => {
-                clearTimeout(dropTimeout);
-                setDropdown(false);
-              }}
-            >
-              <div className="nav-item__col">
-                <span className="nav-item__line-1">Admin</span>
-                <span className="nav-item__line-2">
-                  Tools
-                  <i className="fa fa-caret-down"></i>
-                </span>
-              </div>
-              {hasDropdown && (
-                <ul className="dropdown__menu">
-                  {[
-                    ["Admin"],
-                    ["User List", "/user-list"],
-                    ["separator"],
-                    ["Warehouse"],
-                    ["Product Catalogues", "/product-list"],
-                    ["Order Database", "/order-list"],
-                    ["separator"],
-                    ["Instruction"],
-                    ["Quick Tutor!", "disabled"],
-                  ].map(addDropMenuItem)}
-                </ul>
-              )}
-            </div>
-          )}
-          <Link className="nav-item dropdown tablet--off disabled">
-            <div className="nav-item__col">
-              <span className="nav-item__line-1">Return</span>
-              <span className="nav-item__line-2">& Orders</span>
-            </div>
-          </Link>
-          <Link to="/cart" className="nav-item nav-item__cart flex">
-            <div className="nav-item__col">
-              <span className="nav-item__line-1 cart__counter">
-                {cartItems.length}
-              </span>
-              <span className="nav-item__line-2">
+            {!userInfo && (
+              <NavDropMenu
+                label="Hello, Sign in^Account^ & Lists"
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Account"],
+                  ["Sign In", "/signin"],
+                  ["separator"],
+                  ["New customer? Start here.", "/register"],
+                ]}
+              />
+            )}
+            {userInfo && (
+              <NavDropMenu
+                label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Informations"],
+                  ["Your Profile", "/profile"],
+                  ["separator"],
+                  ["Orders"],
+                  ["Your Order History", "/order-history"],
+                  ["Returns", "disabled"],
+                  ["Contact Us", "#contact", "disabled"],
+                  ["separator"],
+                  ["Account"],
+                  ["Sign Out", "#signout", , signoutHandler],
+                ]}
+              />
+            )}
+            {userInfo?.isSeller && (
+              <NavDropMenu
+                label="Seller^Desk"
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Profile"],
+                  ["Seller Profile", "/profile/seller"],
+                  ["separator"],
+                  ["Listing"],
+                  ["Product List", "/product-list/seller"],
+                  ["Sold Order List", "/order-list/seller"],
+                  ["separator"],
+                  ["Assistant"],
+                  ["Sell Statistics", "disabled"],
+                ]}
+              />
+            )}
+            {userInfo?.isAdmin && (
+              <NavDropMenu
+                label="Admin^Tools"
+                attr="phone--off"
+                isDropped={hasDropdown}
+                onEnterHandle={onEnterHandle}
+                onLeaveHandle={onLeaveHandle}
+                onClickItem={setDropdown}
+                dropMenu={[
+                  ["Admin"],
+                  ["User List", "/user-list"],
+                  ["separator"],
+                  ["Warehouse"],
+                  ["Product Catalogues", "/product-list"],
+                  ["Order Database", "/order-list"],
+                  ["separator"],
+                  ["Instruction"],
+                  ["Quick Tutor!", "disabled"],
+                ]}
+              />
+            )}
+            <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
+            <Link className="nav__cart flex" to="/cart">
+              <div>
+                <div className="cart__counter">{cartItems.length}</div>
                 <div className="sprite__cart"></div>
-              </span>
+              </div>
+              <div className="pc-low--off">
+                <div className="nav__line-1">Shopping-</div>
+                <div className="nav__line-2">Basket</div>
+              </div>
+            </Link>
+          </div>
+          <div className="nav-main row">
+            <div className="ml-1 nav__left">
+              <div
+                className="open-sidebar nav-main__item flex"
+                onClick={() => setSidebar(true)}
+              >
+                <div className="sprite__bars"></div>
+                <b>All</b>
+              </div>
             </div>
-            <div className="nav-item__col pc-low--off">
-              <span className="nav-item__line-1">Shopping-</span>
-              <span className="nav-item__line-2">Basket</span>
+            <div className="nav__fill">
+              {[
+                ["New Releases", "/search/category/all", "nav-main__item"],
+                ["Top Sellers", "/", "nav-main__item"],
+              ].map(navMainItem)}
+              {loadingCategories ? (
+                <LoadingBox />
+              ) : errorCategories ? (
+                <MessageBox variant="danger">{errorCategories}</MessageBox>
+              ) : (
+                categories
+                  .slice(0, 8)
+                  .map((c) =>
+                    navMainItem([c, "/search/category/" + c, "nav-main__item"])
+                  )
+              )}
             </div>
-          </Link>
+            <div className="nav__right">
+              <div className="nav-main__item">
+                <a href="#">
+                  <sup>Advertisement</sup> here? Contact us for more
+                  informations
+                </a>
+              </div>
+            </div>
+          </div>
         </header>
         <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
           <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
@@ -245,7 +210,7 @@ function App() {
           <li onClick={() => setSidebar(false)}>
             <Link to="/profile" className="sidebar__header">
               <div className="sprite__user"></div>
-              {"Hello, " + getShortenName(userInfo)}
+              {"Hello, " + shortName(userInfo)}
             </Link>
           </li>
           <ul className="categories">
@@ -267,7 +232,7 @@ function App() {
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["FAQ & Contact", "#contact"],
+                ["FAQ & Contact", "#contact", "disabled"],
                 ["separator"],
                 ["Account"],
                 userInfo
@@ -279,7 +244,7 @@ function App() {
                 ["#contact 2020", "disabled"],
                 ["separator"],
                 ["separator"],
-              ].map(addSideMenuItem)
+              ].map(addMenuItem(setSidebar))
             )}
           </ul>
         </aside>
@@ -290,7 +255,9 @@ function App() {
           htmlFor="btn--close-sidebar"
         ></label>
         <main className="container--flex">
-          <MainRoute />
+          <div className="col-fill">
+            <MainRoute />
+          </div>
         </main>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved

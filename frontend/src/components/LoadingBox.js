@@ -10,10 +10,10 @@ export default function LoadingBox({ size = "" }) {
         </>
       )}
       {size && (
-        <div class="sprite__loading--xl">
-          <br />
+        <>
           <b>Loading..</b>
-        </div>
+          <div class="sprite__loading--xl"></div>
+        </>
       )}
     </div>
   );

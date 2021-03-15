@@ -72,7 +72,7 @@ export default function SearchBox() {
   })();
 
   return (
-    <div className="nav-item__col col-fill">
+    <div className="col-fill">
       <label
         className={isFocus > 0 && term ? "click-catcher" : ""}
         onClick={() => setFocus(0)}

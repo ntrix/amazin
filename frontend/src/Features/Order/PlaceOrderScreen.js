@@ -69,7 +69,7 @@ export default function PlaceOrderScreen(props) {
                       <div className="row">
                         <div>
                           <img
-                            src={item.image}
+                            src={item.image.split("^")[0]}
                             alt={item.name}
                             className="small"
                           ></img>

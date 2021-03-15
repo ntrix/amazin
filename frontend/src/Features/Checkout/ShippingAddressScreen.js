@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import { saveShippingAddress } from "../../Controllers/cartActions";
 
@@ -54,6 +55,7 @@ export default function ShippingAddressScreen(props) {
       props.history.push("/payment");
     }
   };
+  const location = useLocation();
   const chooseOnMap = () => {
     dispatch(
       saveShippingAddress({
@@ -66,6 +68,7 @@ export default function ShippingAddressScreen(props) {
         lng,
       })
     );
+    localStorage.setItem("backToHistory", location.pathname);
     props.history.push("/map");
   };
   return (
