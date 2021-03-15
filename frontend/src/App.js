@@ -179,6 +179,7 @@ function App() {
             <div className="nav__fill">
               {[
                 ["New Releases", "/search/category/all", "nav-main__item"],
+                ["Netflix Video", "/video", "nav-main__item"],
                 ["Top Sellers", "/", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (

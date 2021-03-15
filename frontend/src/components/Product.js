@@ -31,7 +31,7 @@ export default function Product({ product }) {
               {product.price | 0}
               <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
             </div>
-            <sub>Shipping exklusive</sub>
+            <sub>Shipping: €{product.ship} excl.</sub>
             <div>
               <Link
                 to={`/seller/${product.seller._id}`}

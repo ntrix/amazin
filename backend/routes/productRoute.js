@@ -21,9 +21,16 @@ productRoute.get(
 productRoute.get(
   "/changeMany",
   asyncHandler(async (req, res) => {
-    const pList = await Product.updateMany({}, [
-      //{ $set: { video: { $concat: ["$video", "$brand"] } } },
-    ]);
+    // const pList = await Product.updateMany({}, [
+    //   { $set: { video: { $concat: ["$video", "$brand"] } } },
+    // ]);
+
+    // { category: "Computers" },
+    //   {
+    //     $set: {
+    //       ship: 9.99,
+    //     },
+    //   }
     res.json({ pList });
   })
 );
