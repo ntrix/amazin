@@ -1,4 +1,4 @@
-.deal-header {
+.sub-header {
   height: 31px;
   margin: 0 -10px;
   top: 0;
@@ -45,6 +45,11 @@
 .deal-screen .carousel-container {
   height: 50rem;
   background: url("../../../img/banner-Save.jpg") center 0 no-repeat;
+  padding-top: 22rem;
+}
+.screen--1 .carousel-container {
+  height: 50rem;
+  background: url("../../../img/banner-Save1.jpg") center 0 no-repeat;
   padding-top: 22rem;
 }
 .deal-screen .react-multiple-carousel__arrow--left {

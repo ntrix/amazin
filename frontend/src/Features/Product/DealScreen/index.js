@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, useParams } from "react-router-dom";
-
-import { listProducts } from "../../../Controllers/productActions";
-
+import { useHistory, useParams } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import Product from "../../../components/Product";
+import { listProducts } from "../../../Controllers/productActions";
 import Carousel, { responsive } from "../../../utils";
 import "./dealScreen.css";
 
@@ -21,9 +19,8 @@ export default function DealScreen() {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, count } = productList;
   const {
-    loading: catLoading,
-    error: catError,
-    success: catSuccess,
+    loading: loadingCategories,
+    error: errorCategories,
     categories,
   } = useSelector((state) => state.productCategoryList);
   const [cat, setCat] = useState("Deals");
@@ -38,17 +35,16 @@ export default function DealScreen() {
         pageSize: 990,
       })
     );
-  }, [category, dispatch, order, pageNumber, cat, catSuccess]);
+  }, [category, dispatch, order, pageNumber, cat]);
   return (
     <>
-      <header className="deal-header">
+      <header className="sub-header">
         <ul className="cat-nav">
-          {catLoading ? (
+          {loadingCategories ? (
             <LoadingBox />
-          ) : catError ? (
-            <MessageBox variant="danger">{catError}</MessageBox>
+          ) : errorCategories ? (
+            <MessageBox variant="danger">{errorCategories}</MessageBox>
           ) : (
-            catSuccess &&
             ["Deals", ...categories].map((label) => (
               <li
                 key={label}
@@ -61,7 +57,9 @@ export default function DealScreen() {
           )}
         </ul>
       </header>
-      <div className="deal-screen">
+      <div
+        className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
+      >
         {loading ? (
           <LoadingBox size="xl" />
         ) : error ? (
