@@ -68,7 +68,11 @@ export default function VideoScreen() {
 
   useEffect(() => {
     dispatch(
-      listProducts({ seller: process.env.REACT_APP_SELLER, pageSize: 11 })
+      listProducts({
+        seller: process.env.REACT_APP_SELLER,
+        category: "Video",
+        pageSize: 11,
+      })
     );
     if (successProducts)
       setMovies({ ...movies, STORE: adapter(products).reverse() });
