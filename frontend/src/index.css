@@ -1058,7 +1058,11 @@ img.large {
 }
 .price {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
+}
+.price.danger {
+  font-weight: 600;
+  color: #b12704 !important;
 }
 .price sup {
   font-size: 1rem;
