@@ -19,6 +19,7 @@ export default function ContactScreen(props) {
 
   useEffect(() => {}, []);
   const submitHandler = async (e) => {
+    setError(false);
     e.preventDefault();
     const data = {
       text,
