@@ -72,17 +72,23 @@ export default function DealScreen() {
             responsive={responsive}
             infinite={true}
             autoPlay={true}
+            autoPlaySpeed={2500}
             keyBoardControl={true}
-            customTransition="all .5"
-            transitionDuration={1500}
+            customTransition="transform 500ms ease-in-out"
+            transitionDuration={500}
+            centerMode={true}
             containerClass="carousel-container"
             removeArrowOnDeviceType={["mobile"]}
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >
-            {products.map((product) => (
-              <Product deal product={product}></Product>
-            ))}
+            {products.length === 0 ? (
+              <MessageBox>No Deals On This Category!</MessageBox>
+            ) : (
+              products.map((product) => (
+                <Product deal product={product}></Product>
+              ))
+            )}
           </Carousel>
         )}
         <h2 className="mh-2">Top Deals</h2>
