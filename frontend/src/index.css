@@ -1209,8 +1209,74 @@ table th {
 }
 
 /* Carousel */
-.carousel .slide img {
-  max-width: 30rem;
+.home-screen {
+  position: relative;
+  width: calc(100% + 2rem);
+  margin: 0 -1rem;
+  background: url("./img/banner-bestseller.jpg") center 0 no-repeat;
+  z-index: 1;
+}
+.home-screen h2 {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #111;
+}
+
+h2.home-screen__title:first-child {
+  color: #fafafa;
+  top: 9rem;
+  right: 20rem;
+  font-weight: 600;
+}
+h2.home-screen__title {
+  font-size: 26px;
+}
+.home-screen .carousel-container {
+  position: relative;
+  height: 40rem;
+  padding-top: 153px;
+  padding-bottom: 2rem;
+  margin-bottom: 4rem;
+  background: linear-gradient(to bottom, #fff0 40%, #eaeded 80%);
+  z-index: -1;
+}
+.home-screen .seller__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  width: 28rem;
+  height: 30rem;
+  padding: 1rem;
+  border-radius: 0;
+}
+.home-screen .seller__img {
+  height: auto;
+  width: 26rem;
+}
+.home-screen .legend {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.home-screen .card {
+  border-radius: 0;
+  border: none;
+}
+.home-screen .card__center {
+  width: 86%;
+}
+.home-screen .card .price {
+  font-weight: 500;
+  font-size: 2rem;
+  color: #b12704 !important;
+}
+.home-screen .card__body a {
+  font-weight: 500;
+  color: #007185;
+}
+.home-screen .card__body a:hover {
+  color: #c7511f;
 }
 
 /* Map */
@@ -1296,6 +1362,15 @@ img.active {
 .pc-low--only,
 .mobile--only {
   display: none;
+}
+
+@media (min-width: 1500px) {
+  .container {
+    width: 1500px !important;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+  }
 }
 /* >= Tablet or PC low resolution */
 @media (max-width: 1123px) {

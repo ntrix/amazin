@@ -1,15 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-
-import { listProducts } from "../Controllers/productActions";
-import { listTopSellers } from "../Controllers/userActions";
-
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import Product from "../components/Product";
+import { listProducts } from "../Controllers/productActions";
+import { listTopSellers } from "../Controllers/userActions";
+import Carousel from "../utils";
+
+const breakpoints = {
+  desktop: {
+    breakpoint: { max: 4000, min: 720 },
+    items: 2,
+  },
+  tablet: {
+    breakpoint: { max: 720, min: 0 },
+    items: 1,
+  },
+};
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
@@ -24,12 +32,12 @@ export default function HomeScreen() {
   } = userTopSellersList;
 
   useEffect(() => {
-    dispatch(listProducts({}));
+    dispatch(listProducts({ pageSize: 12 }));
     dispatch(listTopSellers());
   }, [dispatch]);
   return (
-    <div>
-      <h2>Top Sellers</h2>
+    <div className="home-screen">
+      <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       {loadingSellers ? (
         <LoadingBox />
       ) : errorSellers ? (
@@ -37,11 +45,28 @@ export default function HomeScreen() {
       ) : (
         <>
           {sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>}
-          <Carousel showArrows autoPlay showThumbs={false}>
+          <Carousel
+            swipeable={true}
+            draggable={true}
+            showDots={true}
+            responsive={breakpoints}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={5000}
+            keyBoardControl={true}
+            customTransition="transform 1000ms ease-in-out"
+            transitionDuration={1000}
+            centerMode={true}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["tablet", "desktop"]}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+          >
             {sellers.map((seller) => (
               <div key={seller._id}>
-                <Link to={`/seller/${seller._id}`}>
+                <Link className="seller__card" to={`/seller/${seller._id}`}>
                   <img
+                    className="seller__img"
                     src={seller.seller.logo || ""}
                     alt={seller.seller.name || "Anonymous Seller"}
                   />
@@ -54,7 +79,7 @@ export default function HomeScreen() {
           </Carousel>
         </>
       )}
-      <h2>And Their Featured Products</h2>
+      <h2 className="home-screen__title">Featured Products</h2>
       {loading ? (
         <LoadingBox size="xl" />
       ) : error ? (
