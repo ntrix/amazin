@@ -56,7 +56,7 @@ userRoute.post(
     if (!user)
       return res.status(401).send({ message: "Invalid email or password" });
 
-    let count = user.failLoginCount || 0;
+    let count = (user.failLoginCount || 0) + 1;
 
     if (count > 3) {
       res.status(401).send({
@@ -74,7 +74,7 @@ userRoute.post(
       return;
     }
     if (!bcrypt.compareSync(req.body.password, user.password)) {
-      user.failLoginCount = ++count;
+      user.failLoginCount = count;
       user.save();
 
       if (count >= 3) {
@@ -93,12 +93,13 @@ userRoute.post(
         try {
           await sgMail.send(msg);
           res.status(401).send({
-            message: "A warning message has been sent to this email address!",
+            message:
+              "3 fail attempts. A warning message has been sent to the registered email address!",
           });
         } catch (err) {
           res.status(401).send({
             message:
-              "A warning message has been sent, but your email cannot receive any message. Please contact our customer service!",
+              "3 fail attempts. A warning message has been sent, but the registered email cannot receive any message!",
           });
         }
       }
