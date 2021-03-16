@@ -8,11 +8,10 @@ import MessageBox from "../../components/MessageBox";
 
 export default function ContactScreen(props) {
   const { subject: pSubject } = useParams();
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const [name, setName] = useState(userInfo.name);
-  const [email, setEmail] = useState(userInfo.email);
-  const [subject, setSubject] = useState(pSubject);
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const [name, setName] = useState(userInfo?.name || "");
+  const [email, setEmail] = useState(userInfo?.email || "");
+  const [subject, setSubject] = useState(pSubject || "");
   const [text, setText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState([]);
