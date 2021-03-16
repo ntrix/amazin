@@ -1208,6 +1208,10 @@ table th {
   width: 6rem;
   min-width: 5.5rem;
 }
+.tab__w3 {
+  width: 3rem;
+  min-width: 2.5rem;
+}
 .tab__rest {
   flex: 1 1 30rem;
   min-width: 6rem;
@@ -1369,14 +1373,14 @@ img.active {
   display: none;
 }
 
-@media (min-width: 1500px) {
+/* @media (min-width: 1500px) {
   .container {
     width: 1500px !important;
     justify-content: center;
     margin: 0 auto;
     overflow: hidden;
   }
-}
+} */
 /* >= Tablet or PC low resolution */
 @media (max-width: 1123px) {
   .pc-low--off {
