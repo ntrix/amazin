@@ -1036,6 +1036,7 @@ img.large {
   padding: 1rem;
 }
 .card {
+  padding: 0.5rem 2rem 0 2rem;
   border-radius: 3px;
   background: #fff;
   border-bottom: 2px solid #ccc;
@@ -1273,7 +1274,7 @@ h2.home-screen__title {
   border: none;
 }
 .home-screen .card__center {
-  width: 86%;
+  width: 100%;
 }
 .home-screen .card .price {
   font-weight: 500;

@@ -49,7 +49,7 @@ export default function Product({ product, deal = false }) {
                       <sup>€</sup>
                       {(product.price / (1 - product.deal / 100)).toFixed(2)}
                     </b>
-                    ({product.deal}%)
+                    {"  (" + product.deal}%)
                   </span>
                 </div>
               </>

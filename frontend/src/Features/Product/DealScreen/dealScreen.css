@@ -76,3 +76,7 @@
 .deal-screen .row.top {
   background: linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
 }
+.deal-screen .price.strike {
+  font-size: 14px;
+  font-weight: 400;
+}
