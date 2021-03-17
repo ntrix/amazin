@@ -19,7 +19,7 @@ export default function PlaceOrderScreen(props) {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
   const { type, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = (price) => getSymbol(type) + getPrice(rate)(price).all;
+  const evalPrice = (price) => getSymbol(type) + getPrice(rate)(price).all || 0;
 
   const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
   cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0);
@@ -109,42 +109,46 @@ export default function PlaceOrderScreen(props) {
                   <div>{evalPrice(cart.itemsPrice)}</div>
                 </div>
               </li>
-              <li>
-                <div className="row">
-                  <div>Shipping</div>
-                  <div>
-                    {cart.shippingPrice
-                      ? evalPrice(cart.shippingPrice)
-                      : "Free Ship"}
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="row">
-                  <div>Before {tax * 100}% MwSt.</div>
-                  {evalPrice(cart.taxPrice)}
-                </div>
-              </li>
-              <li>
-                <div className="row">
-                  <div>
-                    <strong> Order Total</strong>
-                  </div>
-                  <div>
-                    <strong>{evalPrice(cart.totalPrice)}</strong>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={placeOrderHandler}
-                  className="primary block"
-                  disabled={cart.cartItems.length === 0}
-                >
-                  Place Order
-                </button>
-              </li>
+              {cart.cartItems.length > 0 && (
+                <>
+                  <li>
+                    <div className="row">
+                      <div>Shipping</div>
+                      <div>
+                        {cart.shippingPrice
+                          ? evalPrice(cart.shippingPrice)
+                          : "Free Ship"}
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="row">
+                      <div>Before {tax * 100}% MwSt.</div>
+                      {evalPrice(cart.taxPrice)}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="row">
+                      <div>
+                        <strong> Order Total</strong>
+                      </div>
+                      <div>
+                        <strong>{evalPrice(cart.totalPrice)}</strong>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={placeOrderHandler}
+                      className="primary block"
+                      disabled={cart.cartItems.length === 0}
+                    >
+                      Place Order
+                    </button>
+                  </li>
+                </>
+              )}
               {loading && <LoadingBox size="xl" />}
               {error && <MessageBox variant="danger">{error}</MessageBox>}
             </ul>
