@@ -489,7 +489,6 @@ a .brand {
   z-index: 9000;
   -webkit-animation: dropAnimation 0s forwards;
   animation: dropAnimation 0s forwards;
-  -webkit-animation-delay: 0.35s;
   animation-delay: 0.35s;
 }
 .dropdown .fa-caret-down {
@@ -544,7 +543,7 @@ a .brand {
   -webkit-animation: dropAnimation 0.4s backwards;
   animation: dropAnimation 0.4s backwards;
 }
-@keyframes dropAnimation {
+@-webkit-keyframes dropAnimation {
   0% {
     color: transparent;
     right: 50%;
@@ -555,6 +554,19 @@ a .brand {
   100% {
     color: #131a21;
     -webkit-transform: scaleX(1);
+    opacity: 1;
+  }
+}
+@keyframes dropAnimation {
+  0% {
+    color: transparent;
+    right: 50%;
+  }
+  30% {
+    color: transparent;
+  }
+  100% {
+    color: #131a21;
     transform: scaleX(1);
     opacity: 1;
   }
@@ -630,22 +642,35 @@ button.open-sidebar:hover {
   -webkit-animation: sideAnimation 0.5s backwards;
   animation: sideAnimation 0.5s backwards;
 }
-@keyframes sideAnimation {
+@-webkit-keyframes sideAnimation {
   0% {
   }
   30% {
     margin-left: 0;
     color: transparent;
     -webkit-transform: translate3D(0, 0, 0);
-    transform: translate3D(0, 0, 0);
   }
   50% {
     -webkit-transform: translate3D(7rem, 0, 0) scaleX(1.15);
-    transform: translate3D(7rem, 0, 0) scaleX(1.15);
   }
   100% {
     color: #131a21;
     -webkit-transform: translate3D(0, 0, 0) scaleX(1);
+  }
+}
+@keyframes sideAnimation {
+  0% {
+  }
+  30% {
+    margin-left: 0;
+    color: transparent;
+    transform: translate3D(0, 0, 0);
+  }
+  50% {
+    transform: translate3D(7rem, 0, 0) scaleX(1.15);
+  }
+  100% {
+    color: #131a21;
     transform: translate3D(0, 0, 0) scaleX(1);
   }
 }
@@ -809,6 +834,7 @@ img.large {
   border-right: thin solid #cdcdcd;
   color: #555;
   background: #f3f3f3;
+  background: -webkit-linear-gradient(to bottom, #f3f3f3, #e2e2e2);
   background: linear-gradient(to bottom, #f3f3f3, #e2e2e2);
   overflow: hidden;
 }
@@ -816,6 +842,7 @@ img.large {
   color: #000;
   background: #c7cbcf;
   border-color: #8888;
+  background: -webkit-linear-gradient(to bottom, #c7cbcf, #e2e2e2);
   background: linear-gradient(to bottom, #c7cbcf, #e2e2e2);
 }
 .search__scope--trans {
@@ -857,6 +884,7 @@ img.large {
   top: 36px;
   border-radius: 4px;
   background: #e2e2e2;
+  background: -webkit-linear-gradient(to bottom, #c7cbcf, #f3f3f3, #e2e2e2);
   background: linear-gradient(to bottom, #c7cbcf, #f3f3f3, #e2e2e2);
   border: thin solid #8888;
   box-shadow: 0 3px 6px 1px #8888;
@@ -882,6 +910,7 @@ img.large {
 .category:hover {
   color: #fff;
   background: #2b6bf1;
+  background: -webkit-linear-gradient(to right, #2666ec, #2b6bf1);
   background: linear-gradient(to right, #2666ec, #2b6bf1);
 }
 .category i {
@@ -1248,6 +1277,7 @@ h2.home-screen__title {
   padding-top: 153px;
   padding-bottom: 2rem;
   margin-bottom: 4rem;
+  background: -webkit-linear-gradient(to bottom, #fff0 40%, #eaeded 80%);
   background: linear-gradient(to bottom, #fff0 40%, #eaeded 80%);
   z-index: -1;
 }

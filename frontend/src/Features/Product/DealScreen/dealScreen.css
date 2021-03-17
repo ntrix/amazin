@@ -44,6 +44,7 @@
 
 .deal-screen {
   margin: 0 -1rem;
+  background: -webkit-linear-gradient(to bottom, #fbf4e4 15%, #fbf4e400 40%);
   background: linear-gradient(to bottom, #fbf4e4 15%, #fbf4e400 40%);
 }
 .deal-screen .carousel-container {
@@ -74,6 +75,7 @@
   font-size: 4rem;
 }
 .deal-screen .row.top {
+  background: -webkit-linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
   background: linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
 }
 .deal-screen .price.strike {
