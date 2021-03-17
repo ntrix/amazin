@@ -760,6 +760,7 @@ img {
 img.small {
   max-width: 5rem;
   width: 100%;
+  object-fit: contain;
 }
 img.thumbnail {
   max-width: 30rem;
@@ -770,9 +771,11 @@ img.thumbnail {
 img.medium {
   max-width: 29rem;
   width: 100%;
+  object-fit: contain;
 }
 img.large {
   width: 100%;
+  object-fit: contain;
 }
 
 /* Nav Search Box*/

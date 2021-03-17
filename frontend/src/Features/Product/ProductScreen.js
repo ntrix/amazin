@@ -87,11 +87,13 @@ export default function ProductScreen(props) {
                       ></img>
                     ))}
               </div>
-              <img
-                className="large"
-                src={product?.image?.split("^")[imgActive]}
-                alt={product.name + " " + imgActive}
-              ></img>
+              <div className="tab__rest">
+                <img
+                  className="large"
+                  src={product?.image?.split("^")[imgActive]}
+                  alt={product.name + " " + imgActive}
+                ></img>
+              </div>
             </div>
             <div className="col-1 ml-1">
               <ul>
