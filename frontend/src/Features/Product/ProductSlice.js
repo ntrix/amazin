@@ -1,6 +1,21 @@
 import { createSlice, Reducer } from "../RTKClient";
 
 export const {
+  actions: currencyTypeActions,
+  reducer: currencyTypeReducer,
+} = createSlice({
+  name: "currencyType",
+  initialState: { loading: true, type: "EUR" },
+  reducers: {
+    ...Reducer("..."),
+    _CHANGE: (state, action) => ({
+      ...state,
+      type: action.payload,
+    }),
+  },
+});
+
+export const {
   actions: productListAllActions,
   reducer: productListAllReducer,
 } = createSlice({

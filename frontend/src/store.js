@@ -20,6 +20,7 @@ import {
   productListAllReducer,
   productReviewCreateReducer,
   productUpdateReducer,
+  currencyTypeReducer,
 } from "./Features/Product/ProductSlice";
 import {
   userAddressMapReducer,
@@ -51,6 +52,7 @@ const preloadedState = {
 };
 const store = configureStore({
   reducer: {
+    currencyType: currencyTypeReducer,
     productList: productListReducer,
     productListAll: productListAllReducer,
     productDetails: productDetailsReducer,

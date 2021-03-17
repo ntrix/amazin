@@ -5,7 +5,11 @@ import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
 import NavDropMenu, { addMenuItem } from "./components/NavMenu";
 import SearchBox from "./components/SearchBox";
-import { listProductCategories } from "./Controllers/productActions";
+import {
+  changeCurrency,
+  listProductCategories,
+  updateCurrencyRates,
+} from "./Controllers/productActions";
 import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
@@ -53,6 +57,7 @@ function App() {
       </div>
     );
   };
+  useEffect(() => dispatch(updateCurrencyRates()), []);
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
@@ -110,6 +115,8 @@ function App() {
                   ["separator", "3"],
                   ["Account"],
                   ["Sign Out", "#signout", , signoutHandler],
+                  ["USD", "/deal", , () => dispatch(changeCurrency("USD"))],
+                  ["GBP", "/deal", , () => dispatch(changeCurrency("GBP"))],
                 ]}
               />
             )}

@@ -1,9 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import Rating from "./Rating";
 
 export default function Product({ product, deal = false }) {
   const location = useLocation();
+  const { type, rates } = useSelector((state) => state.currencyType);
   const saveHistory = () => {
     localStorage.setItem("backToHistory", location.pathname);
   };
