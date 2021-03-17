@@ -71,7 +71,7 @@ export const getSymbol = (type = "EUR") =>
     CHF: "CHF",
   }[type]);
 
-export const getPrice = (rate = 1) => (price) => ({
+export const getPrice = (rate = 1) => (price = 0) => ({
   note: ((price * rate) | 0) + "",
   cent: ((price * rate).toFixed(2) + "").slice(-2),
   all: (price * rate).toFixed(2),

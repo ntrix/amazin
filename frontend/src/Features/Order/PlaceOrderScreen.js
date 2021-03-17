@@ -19,17 +19,14 @@ export default function PlaceOrderScreen(props) {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
   const { type, rate } = useSelector((state) => state.currencyType);
-  const symbol = getSymbol(type);
-  const evalPrice = getPrice(rate);
-  
+  const evalPrice = (price) => getSymbol(type) + getPrice(rate)(price).all;
+
   const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
-  cart.itemsPrice = toPrice(
-    cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
-  );
+  cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0);
   const ship = Math.max(...cart.cartItems.map((i) => i.ship)); //max ship price of any items
-  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(ship);
-  cart.taxPrice = toPrice(tax * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  cart.shippingPrice = cart.itemsPrice > 100 ? 0 : ship;
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice;
+  cart.taxPrice = cart.totalPrice / (1 + tax);
   const dispatch = useDispatch();
 
   const placeOrderHandler = () => {
@@ -89,9 +86,8 @@ export default function PlaceOrderScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x {symbol}
-                          {evalPrice(item.price).all} = {symbol}
-                          {evalPrice(item.qty * item.price).all}
+                          {item.qty} x {evalPrice(item.price)} =
+                          {" " + evalPrice(item.qty * item.price)}
                         </div>
                       </div>
                     </li>
@@ -110,32 +106,23 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>
-                    {symbol}
-                    {evalPrice(cart.itemsPrice).all}
-                  </div>
+                  <div>{evalPrice(cart.itemsPrice)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  {cart.itemsPrice > 100 ? (
-                    <p>Free ship</p>
-                  ) : (
-                    <div>
-                      {symbol}
-                      {evalPrice(cart.shippingPrice).all}
-                    </div>
-                  )}
+                  <div>
+                    {cart.shippingPrice
+                      ? evalPrice(cart.shippingPrice)
+                      : "Free Ship"}
+                  </div>
                 </div>
               </li>
               <li>
                 <div className="row">
-                  <div>Tax</div>
-                  <div>
-                    ({tax * 100}%) {symbol}
-                    {evalPrice(cart.taxPrice).all}
-                  </div>
+                  <div>Before {tax * 100}% MwSt.</div>
+                  {evalPrice(cart.taxPrice)}
                 </div>
               </li>
               <li>
@@ -144,10 +131,7 @@ export default function PlaceOrderScreen(props) {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>
-                      {symbol}
-                      {evalPrice(cart.totalPrice).all}
-                    </strong>
+                    <strong>{evalPrice(cart.totalPrice)}</strong>
                   </div>
                 </div>
               </li>

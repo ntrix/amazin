@@ -173,7 +173,7 @@ export default function OrderScreen(props) {
               </li>
               <li>
                 <div className="row">
-                  <div>Tax</div>
+                  <div>Before 19% MwSt.</div>
                   <div>{evalPrice(order.taxPrice)}</div>
                 </div>
               </li>
