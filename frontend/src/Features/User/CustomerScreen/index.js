@@ -53,7 +53,7 @@ function CustomerScreen({}) {
               "payment",
               "Payment Options",
               "Add or edit payment methods",
-              "Link with at least an address",
+              "Change your currency",
               "/payment",
             ],
             [
@@ -122,7 +122,7 @@ function CustomerScreen({}) {
             <input type="search" id="search-faq"></input>
             <h1>Browse Help Topics </h1>
             <h2>In construction</h2>
-            <p>Help Text..</p>
+            <p>Help Section:</p>
           </section>
         </div>
       </div>

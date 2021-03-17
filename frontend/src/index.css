@@ -236,6 +236,11 @@ button {
   background: -webkit-linear-gradient(top, #fff, #f7f8fa);
   background: linear-gradient(to bottom, #fff, #f7f8fa);
 }
+
+input,
+textarea {
+  background: #fff;
+}
 button {
   display: inline-block;
   text-align: center;
@@ -1064,7 +1069,7 @@ img.large {
 .card {
   flex: 1 1 26%;
   margin: 2rem;
-  max-width: 30rem;
+  max-width: 27rem;
   padding: 1rem;
 }
 .card {

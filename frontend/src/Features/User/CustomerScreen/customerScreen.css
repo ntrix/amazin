@@ -104,8 +104,13 @@
   margin-bottom: 8px;
 }
 
+.help-section h1 {
+  font-weight: 500;
+  line-height: 3;
+  font-size: 24px;
+}
 .help-section input {
   font-weight: 500;
   font-size: 14px;
-  padding: 4px;
+  padding: 5px;
 }
