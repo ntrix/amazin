@@ -61,6 +61,9 @@
   display: flex;
   padding: 1rem;
 }
+.c-box.disabled {
+  border: thin solid #0001 !important;
+}
 .c-box:not(.disabled):hover {
   color: #c45500;
   background: -webkit-linear-gradient(#fff, #f3f3f3);

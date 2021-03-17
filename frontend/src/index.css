@@ -1145,6 +1145,7 @@ img.large {
 /* Alert */
 .loading {
   display: block !important;
+  padding: 1rem;
 }
 .sprite__loading {
   display: inline-block;
