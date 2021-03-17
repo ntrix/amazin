@@ -98,7 +98,7 @@ export default function ProductScreen(props) {
                 ></img>
               </div>
             </div>
-            <div className="col-1 ml-1">
+            <div className="col-1 mh-2">
               <ul>
                 <li>
                   <h1>{product.name}</h1>
@@ -111,8 +111,25 @@ export default function ProductScreen(props) {
                 </li>
 
                 <li>
-                  Price : {getSymbol(type)}
-                  {evalPrice(product.price).all}
+                  <div>
+                    <span className={"price" + (product.deal ? " danger" : "")}>
+                      <sup>{getSymbol(type)}</sup>
+                      {evalPrice(product.price).note}
+                      <sup>{evalPrice(product.price).cent}</sup>
+                    </span>
+                    {product.deal && (
+                      <span className="pull-right">
+                        <b className="price strike">
+                          <sup>{getSymbol(type)}</sup>
+                          {
+                            evalPrice(product.price / (1 - product.deal / 100))
+                              .all
+                          }
+                        </b>
+                        {"  (" + product.deal}% off)
+                      </span>
+                    )}
+                  </div>
                 </li>
 
                 <li>
