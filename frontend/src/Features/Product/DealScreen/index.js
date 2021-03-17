@@ -72,7 +72,7 @@ export default function DealScreen() {
             responsive={responsive}
             infinite={true}
             autoPlay={true}
-            autoPlaySpeed={2500}
+            autoPlaySpeed={3000}
             keyBoardControl={true}
             customTransition="transform 500ms ease-in-out"
             transitionDuration={500}

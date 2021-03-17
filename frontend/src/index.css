@@ -1165,7 +1165,8 @@ img.large {
   color: #a02020;
 }
 .alert {
-  margin-left: 0 !important;
+  width: 100%;
+  margin: 0 !important;
   padding: 1rem;
   border: thin solid transparent;
   border-radius: 3px;
