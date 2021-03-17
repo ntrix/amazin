@@ -158,6 +158,7 @@ userRoute.put(
         user.seller.logo = req.body.sellerLogo || user.seller.logo;
         user.seller.description =
           req.body.sellerDescription || user.seller.description;
+        user.currency = req.body.currency;
       }
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
@@ -167,6 +168,7 @@ userRoute.put(
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        currency: updatedUser.currency,
         isAdmin: updatedUser.isAdmin,
         isSeller: user.isSeller,
         token: generateToken(updatedUser),

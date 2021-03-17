@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false, required: true },
     isSeller: { type: Boolean, default: false, required: true },
     failLoginCount: { type: Number, default: 0 },
+    currency: { type: String },
     seller: {
       name: { type: String, default: "" },
       logo: { type: String, default: "/images/default-logo.png" },
