@@ -117,7 +117,7 @@ export default function ProductScreen(props) {
                       {evalPrice(product.price).note}
                       <sup>{evalPrice(product.price).cent}</sup>
                     </span>
-                    {product.deal && (
+                    {product.deal > 0 && (
                       <span className="pull-right">
                         <b className="price strike">
                           <sup>{getSymbol(type)}</sup>
