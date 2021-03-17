@@ -8,9 +8,12 @@ import { createReview, detailsProduct } from "../../Controllers/productActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
+import { getPrice, getSymbol } from "../../utils";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
+  const { type, rate } = useSelector((state) => state.currencyType);
+  const evalPrice = getPrice(rate);
   const productId = props.match.params.id;
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
@@ -106,7 +109,12 @@ export default function ProductScreen(props) {
                     numReviews={product.numReviews}
                   ></Rating>
                 </li>
-                <li>Price : €{product.price}</li>
+
+                <li>
+                  Price : {getSymbol(type)}
+                  {evalPrice(product.price).all}
+                </li>
+
                 <li>
                   Description:
                   <p>{product.description}</p>
@@ -128,18 +136,18 @@ export default function ProductScreen(props) {
                       numReviews={product.seller.seller.numReviews}
                     ></Rating>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>Price</div>
                       <div className="price">
-                        <sup>€</sup>
-                        {product.price | 0}
-                        <sup>
-                          {(((product.price * 100) | 0) + "").slice(-2)}
-                        </sup>
+                        <sup>{getSymbol(type)}</sup>
+                        {evalPrice(product.price).note}
+                        <sup>{evalPrice(product.price).cent}</sup>
                       </div>
                     </div>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>Status</div>
@@ -187,7 +195,7 @@ export default function ProductScreen(props) {
               </div>
             </div>
           </div>
-          <div className="mh-3">
+          <div className="p-1">
             <h2 id="reviews">Reviews</h2>
             {product.reviews.length === 0 && (
               <MessageBox>There is no review</MessageBox>

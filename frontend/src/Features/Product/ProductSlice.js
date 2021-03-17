@@ -5,12 +5,25 @@ export const {
   reducer: currencyTypeReducer,
 } = createSlice({
   name: "currencyType",
-  initialState: { loading: true, type: "EUR" },
+  initialState: {
+    loading: true,
+    type: "EUR",
+    rate: 1,
+    rates: {
+      EUR: 1,
+      USD: 1.2,
+      GBP: 0.9,
+      CZK: 27,
+      PLN: 5,
+      CHF: 1.1,
+    },
+  },
   reducers: {
     ...Reducer("..."),
     _CHANGE: (state, action) => ({
       ...state,
       type: action.payload,
+      rate: state.rates[action.payload],
     }),
   },
 });

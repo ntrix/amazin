@@ -8,6 +8,7 @@ import { createOrder } from "../../Controllers/orderActions";
 import CheckoutSteps from "../Checkout/CheckoutSteps";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { getPrice, getSymbol } from "../../utils";
 
 export default function PlaceOrderScreen(props) {
   const tax = 0.19;
@@ -17,25 +18,31 @@ export default function PlaceOrderScreen(props) {
   }
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
+  const { type, rate } = useSelector((state) => state.currencyType);
+  const symbol = getSymbol(type);
+  const evalPrice = getPrice(rate);
+  
   const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
-  let ship = 0;
-  cart.cartItems.map((i) => (ship = i.ship > ship ? i.ship : ship)); //max ship price of any items
+  const ship = Math.max(...cart.cartItems.map((i) => i.ship)); //max ship price of any items
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(ship);
   cart.taxPrice = toPrice(tax * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
   const dispatch = useDispatch();
+
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
+
   useEffect(() => {
     if (success) {
       props.history.push(`/order/${order._id}`);
       dispatch(orderCreateActions._RESET());
     }
   }, [dispatch, order, props.history, success]);
+
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -82,7 +89,9 @@ export default function PlaceOrderScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x €{item.price} = €{item.qty * item.price}
+                          {item.qty} x {symbol}
+                          {evalPrice(item.price).all} = {symbol}
+                          {evalPrice(item.qty * item.price).all}
                         </div>
                       </div>
                     </li>
@@ -101,18 +110,22 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>€{cart.itemsPrice.toFixed(2)}</div>
+                  <div>
+                    {symbol}
+                    {evalPrice(cart.itemsPrice).all}
+                  </div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
                   {cart.itemsPrice > 100 ? (
-                    <p>
-                      <span className="strike">€{ship}</span> Free ship
-                    </p>
+                    <p>Free ship</p>
                   ) : (
-                    <div>€{cart.shippingPrice.toFixed(2)}</div>
+                    <div>
+                      {symbol}
+                      {evalPrice(cart.shippingPrice).all}
+                    </div>
                   )}
                 </div>
               </li>
@@ -120,7 +133,8 @@ export default function PlaceOrderScreen(props) {
                 <div className="row">
                   <div>Tax</div>
                   <div>
-                    ({tax * 100}%) €{cart.taxPrice.toFixed(2)}
+                    ({tax * 100}%) {symbol}
+                    {evalPrice(cart.taxPrice).all}
                   </div>
                 </div>
               </li>
@@ -130,7 +144,10 @@ export default function PlaceOrderScreen(props) {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>€{cart.totalPrice.toFixed(2)}</strong>
+                    <strong>
+                      {symbol}
+                      {evalPrice(cart.totalPrice).all}
+                    </strong>
                   </div>
                 </div>
               </li>

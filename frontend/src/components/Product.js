@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { getPrice, getSymbol } from "../utils";
 import Rating from "./Rating";
 
 export default function Product({ product, deal = false }) {
   const location = useLocation();
-  const { type, rates } = useSelector((state) => state.currencyType);
+  const { type, rate } = useSelector((state) => state.currencyType);
+  const evalPrice = getPrice(rate);
   const saveHistory = () => {
     localStorage.setItem("backToHistory", location.pathname);
   };
@@ -34,22 +36,23 @@ export default function Product({ product, deal = false }) {
           <div className="">
             {!deal ? (
               <div className="price">
-                <sup>€</sup>
-                {product.price | 0}
-                <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
+                <sup>{getSymbol(type)}</sup>
+                {evalPrice(product.price).note}
+                <sup>{evalPrice(product.price).cent}</sup>
               </div>
             ) : (
               <>
                 <div>
                   <span className="price danger">
-                    <sup>€</sup>
-                    {product.price | 0}
-                    <sup>{(((product.price * 100) | 0) + "").slice(-2)}</sup>
+                    <sup>{getSymbol(type)}</sup>
+                    {evalPrice(product.price).note}
+                    <sup>{evalPrice(product.price).cent}</sup>
                   </span>
                   <span className=" pull-right">
                     <b className="price strike">
-                      <sup>€</sup>
-                      {(product.price / (1 - product.deal / 100)).toFixed(2)}
+                      <sup>{getSymbol(type)}</sup>
+
+                      {evalPrice(product.price / (1 - product.deal / 100)).all}
                     </b>
                     {"  (" + product.deal}%)
                   </span>
@@ -58,7 +61,10 @@ export default function Product({ product, deal = false }) {
             )}
             {!deal && (
               <>
-                <sub>Shipping: €{product.ship} excl.</sub>
+                <sub>
+                  Shipping: {getSymbol(type)}
+                  {evalPrice(product.ship).all} excl.
+                </sub>
                 <div>
                   <Link
                     to={`/seller/${product.seller._id}`}

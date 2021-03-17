@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { getPrice, getSymbol } from "../../utils";
 import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
 import {
   deliverOrder,
@@ -21,6 +22,8 @@ export default function OrderScreen(props) {
   const { order, loading, error } = orderDetails;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+  const { type, rate } = useSelector((state) => state.currencyType);
+  const evalPrice = (price) => getSymbol(type) + getPrice(rate)(price).all;
 
   const orderPay = useSelector((state) => state.orderPay);
   const {
@@ -139,7 +142,8 @@ export default function OrderScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x €{item.price} = €{item.qty * item.price}
+                          {item.qty} x {evalPrice(item.price)} =
+                          {" " + evalPrice(item.qty * item.price)}
                         </div>
                       </div>
                     </li>
@@ -158,19 +162,19 @@ export default function OrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>€{order.itemsPrice.toFixed(2)}</div>
+                  <div>{evalPrice(order.itemsPrice)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>€{order.shippingPrice.toFixed(2)}</div>
+                  <div>{evalPrice(order.shippingPrice)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Tax</div>
-                  <div>€{order.taxPrice.toFixed(2)}</div>
+                  <div>{evalPrice(order.taxPrice)}</div>
                 </div>
               </li>
               <li>
@@ -179,7 +183,7 @@ export default function OrderScreen(props) {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>€{order.totalPrice.toFixed(2)}</strong>
+                    <strong>{evalPrice(order.totalPrice)}</strong>
                   </div>
                 </div>
               </li>

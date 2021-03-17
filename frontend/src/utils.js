@@ -38,6 +38,7 @@ export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
   })
 );
 prices[0] = { min: 0, max: 0, name: "Any" };
+
 export const ratings = [
   {
     name: "4stars & up",
@@ -59,3 +60,20 @@ export const ratings = [
     rating: 1,
   },
 ];
+
+export const getSymbol = (type = "EUR") =>
+  ({
+    EUR: "€",
+    USD: "$",
+    GBP: "£",
+    CZK: "CZK",
+    PLN: "PLN",
+    CHF: "CHF",
+  }[type]);
+
+export const getPrice = (rate = 1) => (price) => ({
+  note: ((price * rate) | 0) + "",
+  cent: ((price * rate).toFixed(2) + "").slice(-2),
+  all: (price * rate).toFixed(2),
+  float: +(price * rate).toFixed(2),
+});
