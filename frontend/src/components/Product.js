@@ -33,33 +33,33 @@ export default function Product({ product, deal = false }) {
             rating={product.rating}
             numReviews={product.numReviews}
           ></Rating>
-          <div className="">
-            {!deal ? (
-              <div className="price">
+          <div>
+            <div>
+              <span className={"price" + (deal ? " danger" : "")}>
                 <sup>{getSymbol(type)}</sup>
                 {evalPrice(product.price).note}
                 <sup>{evalPrice(product.price).cent}</sup>
+              </span>
+              {deal && (
+                <span className="pull-right">
+                  <b className="price strike">
+                    <sup>{getSymbol(type)}</sup>
+                    {evalPrice(product.price / (1 - product.deal / 100)).all}
+                  </b>
+                  {"  (" + product.deal}% off)
+                </span>
+              )}
+            </div>
+            {deal ? (
+              <div>
+                <Link
+                  to={`/search/category/:${product?.category}`}
+                  className="row"
+                >
+                  Category: {product?.category}
+                </Link>
               </div>
             ) : (
-              <>
-                <div>
-                  <span className="price danger">
-                    <sup>{getSymbol(type)}</sup>
-                    {evalPrice(product.price).note}
-                    <sup>{evalPrice(product.price).cent}</sup>
-                  </span>
-                  <span className=" pull-right">
-                    <b className="price strike">
-                      <sup>{getSymbol(type)}</sup>
-
-                      {evalPrice(product.price / (1 - product.deal / 100)).all}
-                    </b>
-                    {"  (" + product.deal}%)
-                  </span>
-                </div>
-              </>
-            )}
-            {!deal && (
               <>
                 <sub>
                   Shipping: {getSymbol(type)}
@@ -76,16 +76,6 @@ export default function Product({ product, deal = false }) {
                   </Link>
                 </div>
               </>
-            )}
-            {deal && (
-              <div>
-                <Link
-                  to={`/search/category/:${product?.category}`}
-                  className="row"
-                >
-                  Category: {product?.category}
-                </Link>
-              </div>
             )}
           </div>
         </div>
