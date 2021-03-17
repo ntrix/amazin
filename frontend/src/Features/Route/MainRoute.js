@@ -26,10 +26,12 @@ import UserListScreen from "../User/UserListScreen";
 import ContactScreen from "../User/ContactScreen";
 import VideoScreen from "../Product/VideoScreen";
 import DealScreen from "../Product/DealScreen";
+import CustomerScreen from "../User/CustomerScreen";
 
 export default function MainRoute() {
   return (
     <>
+      <Route path="/customer" component={CustomerScreen} exact></Route>
       <Route path="/contact" component={ContactScreen} exact></Route>
       <Route
         path="/contact/subject/:subject"

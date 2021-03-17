@@ -101,6 +101,7 @@ export default function ContactScreen(props) {
                 <option value="Help">Help Desk</option>
                 <option value="Orders">Your Orders</option>
                 <option value="Payment">Payment</option>
+                <option value="Report">Report Something Suspicious</option>
                 <option value="Returns">Returns & Refund</option>
                 <option value="Shipping">Shipping Address</option>
                 <option value="Others">Others..</option>

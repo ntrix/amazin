@@ -185,11 +185,7 @@ function App() {
                   "/search/category/All/order/newest",
                   "nav-main__item",
                 ],
-                [
-                  "Customer Service",
-                  "/contact/subject/Customer",
-                  "nav-main__item",
-                ],
+                ["Customer Service", "/customer", "nav-main__item"],
                 ["Best Sellers", "/", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
@@ -247,6 +243,7 @@ function App() {
                 ["FAQ & Contact", "/contact/subject/FAQ"],
                 ["separator", "11"],
                 ["Account"],
+                ["Customer Service", "/customer"],
                 userInfo
                   ? ["Sign Out", "#signout", , signoutHandler]
                   : ["Sign In", "/signin"],
