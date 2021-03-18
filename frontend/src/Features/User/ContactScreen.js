@@ -17,7 +17,6 @@ export default function ContactScreen(props) {
   const [hasError, setError] = useState([]);
   const [hasMessage, setMessage] = useState(false);
 
-  useEffect(() => {}, []);
   const submitHandler = async (e) => {
     setError(false);
     e.preventDefault();
@@ -49,6 +48,10 @@ export default function ContactScreen(props) {
       setError([error.message]);
     }
   };
+
+  useEffect(() => {
+    setSubject(pSubject);
+  }, [pSubject]);
 
   return (
     <div>
