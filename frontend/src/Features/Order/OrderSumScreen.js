@@ -78,7 +78,7 @@ export default function OrderSumScreen(props) {
   };
 
   return loading ? (
-    <LoadingBox size="xl" />
+    <LoadingBox xl />
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (

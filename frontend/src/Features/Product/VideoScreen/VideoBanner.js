@@ -96,7 +96,7 @@ export default function VideoBanner({ source = dummy }) {
           <div className="banner--fadeBottom" />
         </header>
 
-        {loadingCreate && <LoadingBox size="xl" />}
+        {loadingCreate && <LoadingBox xl />}
         {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
 
         <UTube trailerUrl={trailerUrl} />

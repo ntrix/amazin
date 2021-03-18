@@ -174,7 +174,7 @@ export default function SearchScreen({ history }) {
             {loading ? (
               <>
                 <div className="placeholder">
-                  <LoadingBox size="xl" />
+                  <LoadingBox xl />
                 </div>
               </>
             ) : error ? (

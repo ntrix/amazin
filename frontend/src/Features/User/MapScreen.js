@@ -147,6 +147,6 @@ export default function MapScreen(props) {
       </LoadScript>
     </div>
   ) : (
-    <LoadingBox size="xl" />
+    <LoadingBox xl />
   );
 }

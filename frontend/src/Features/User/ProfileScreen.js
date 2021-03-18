@@ -69,12 +69,12 @@ export default function ProfileScreen({ location }) {
           <h1>User Profile</h1>
         </div>
         {loading ? (
-          <LoadingBox size="xl" />
+          <LoadingBox xl />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <>
-            {loadingUpdate && <LoadingBox size="xl" />}
+            {loadingUpdate && <LoadingBox xl />}
             {errorUpdate && (
               <MessageBox variant="danger">{errorUpdate}</MessageBox>
             )}

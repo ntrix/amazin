@@ -105,10 +105,10 @@ export default function ProductEditScreen(props) {
         <div>
           <h1>Edit Product {productId}</h1>
         </div>
-        {loadingUpdate && <LoadingBox size="xl" />}
+        {loadingUpdate && <LoadingBox xl />}
         {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
         {loading ? (
-          <LoadingBox size="xl" />
+          <LoadingBox xl />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (

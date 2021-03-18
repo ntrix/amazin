@@ -57,7 +57,7 @@ export default function ContactScreen(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <h1>Contact Us</h1>
-        {isLoading && <LoadingBox size="xl" />}
+        {isLoading && <LoadingBox xl />}
         {hasError &&
           hasError.map((err) => (
             <MessageBox variant="danger">{err}</MessageBox>

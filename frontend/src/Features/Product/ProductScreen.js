@@ -57,7 +57,7 @@ export default function ProductScreen(props) {
   return (
     <div>
       {loading ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

@@ -61,7 +61,7 @@ export default function DealScreen() {
         className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
       >
         {loading ? (
-          <LoadingBox size="xl" />
+          <LoadingBox xl />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -122,7 +122,7 @@ export default function DealScreen() {
             </div>
           </div>
           {loading ? (
-            <LoadingBox size="xl" />
+            <LoadingBox xl />
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (

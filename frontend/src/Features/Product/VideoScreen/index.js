@@ -117,7 +117,7 @@ export default function VideoScreen() {
         )}
 
       {loadingProducts ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : errorProducts ? (
         <MessageBox variant="danger">{errorProducts}</MessageBox>
       ) : (

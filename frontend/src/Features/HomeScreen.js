@@ -83,7 +83,7 @@ export default function HomeScreen() {
       )}
       <h2 className="home-screen__title">Featured Products</h2>
       {loading ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
