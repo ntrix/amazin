@@ -54,7 +54,7 @@ function CustomerScreen({}) {
               "Payment Options",
               "Add or edit payment methods",
               "Change your currency",
-              "/payment",
+              "/currency/type/0",
             ],
             [
               "account",

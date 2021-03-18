@@ -295,6 +295,7 @@ export default function App() {
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
+                ["Currency Setting", "/currency/type/0"],
                 ["FAQ & Contact", "/contact/subject/FAQ"],
                 ["separator", "11"],
                 ["Account"],

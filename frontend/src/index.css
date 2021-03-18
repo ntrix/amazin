@@ -494,7 +494,7 @@ a .brand {
   z-index: 9000;
   -webkit-animation: dropAnimation 0s forwards;
   animation: dropAnimation 0s forwards;
-  animation-delay: 0.35s;
+  animation-delay: 0.4s;
 }
 .dropdown .fa-caret-down {
   float: right;
