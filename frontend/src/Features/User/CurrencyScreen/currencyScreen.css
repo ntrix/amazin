@@ -1,6 +1,5 @@
 .dropdown__menu.currency {
-  margin-top: 6px;
-  padding: 24px 0;
+  margin-top: 7px;
 }
 .nav__line-2.sprite__wrapper {
   margin: 2px 0px 1px;
@@ -11,6 +10,28 @@
 .dropdown__menu.currency.show {
   padding-left: 15px !important;
 }
+.dropdown .currency a:not(.active):hover span {
+  text-decoration: underline;
+}
+.sprite__wrapper {
+  display: flex;
+  align-items: center;
+}
+.sprite.circle {
+  height: 20px;
+  width: 20px;
+  margin: 0 3px;
+  background-position: -74px 0px;
+  background-image: url("../../../img/flags.png");
+}
+.currency a:hover .circle,
+.sprite__wrapper:hover .circle {
+  background-position: -122px 0px;
+}
+.sprite__wrapper.active .circle {
+  background-position: -98px 0px;
+}
+
 .currency.c-screen * {
   font-size: 13px;
   font-weight: 400;
@@ -54,24 +75,6 @@
   background: linear-gradient(to right, #fff, #fff0, #fff);
   z-index: 1;
 }
-.sprite__wrapper {
-  display: flex;
-  align-items: center;
-}
-.sprite.circle {
-  height: 20px;
-  width: 20px;
-  margin: 0 3px;
-  background-position: -74px 0px;
-  background-image: url("../../../img/flags.png");
-}
-.sprite__wrapper:hover .circle {
-  background-position: -122px 0px;
-}
-.sprite__wrapper.active .circle {
-  background-position: -98px 0px;
-}
-
 .sprite.flag {
   height: 12px;
   width: 18px;
@@ -119,7 +122,4 @@
 }
 .xl.CHF {
   background-position: -108 -72px;
-}
-.currency .sprite__wrapper:hover span:not(.active) {
-  text-decoration: underline;
 }

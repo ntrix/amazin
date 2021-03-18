@@ -313,7 +313,7 @@ img.logo {
   margin: 0 0 -0.5rem 0;
 }
 a .brand {
-  font-size: 3rem;
+  font-size: 26px;
   font-weight: 600;
   line-height: 34px;
   color: #fff;
@@ -328,6 +328,9 @@ a .brand {
   width: 16px;
   height: 34px;
   background: url("./img/nav-sprite.png") -60px -120px;
+}
+.location .nav__line-1 {
+  color: #ccc;
 }
 /* NAV */
 #navbar {

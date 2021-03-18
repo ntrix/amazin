@@ -30,7 +30,7 @@ function CurrencyScreen(props) {
             communications.
           </p>
           <div className="languages">
-            <ul className="max-30 disabled">
+            <ul className="max-30">
               <li className="sprite__wrapper active">
                 <div className="sprite circle"></div>
                 <span>
@@ -38,31 +38,31 @@ function CurrencyScreen(props) {
                 </span>
               </li>
               <li className="separator"></li>
-              <li className="sprite__wrapper">
+              <li className="sprite__wrapper disabled">
                 <div className="sprite circle"></div>
                 <span>
                   Deutsch - DE - <i>Übersetzen</i>
                 </span>
               </li>
-              <li className="sprite__wrapper">
+              <li className="sprite__wrapper disabled">
                 <div className="sprite circle"></div>
                 <span>
                   Nederlands - NL - <i>Vertaling</i>
                 </span>
               </li>
-              <li className="sprite__wrapper">
+              <li className="sprite__wrapper disabled">
                 <div className="sprite circle"></div>
                 <span>
                   Polski - PL - <i>Tłumaczenie</i>
                 </span>
               </li>
-              <li className="sprite__wrapper">
+              <li className="sprite__wrapper disabled">
                 <div className="sprite circle"></div>
                 <span>
                   Türkçe - TR - <i>Çeviri</i>
                 </span>
               </li>
-              <li className="sprite__wrapper">
+              <li className="sprite__wrapper disabled">
                 <div className="sprite circle"></div>
                 <span>
                   Čeština - CS - <i>Překlad</i>
@@ -72,9 +72,9 @@ function CurrencyScreen(props) {
             <br />
           </div>
         </div>
-        <div className="col-50p disabled">
+        <div className="col-50p">
           <b>Translation</b>
-          <p>
+          <p className="disabled">
             We'll translate the most important information for your browsing,
             shopping, and communications.
           </p>
