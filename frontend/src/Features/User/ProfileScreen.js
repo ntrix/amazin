@@ -17,31 +17,15 @@ export default function ProfileScreen({ location }) {
   const [sellerLogo, setSellerLogo] = useState("");
   const [sellerDescription, setSellerDescription] = useState("");
 
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { loading, error, user } = useSelector((state) => state.userDetails);
   const {
     success: successUpdate,
     error: errorUpdate,
     loading: loadingUpdate,
-  } = userUpdateProfile;
+  } = useSelector((state) => state.userUpdateProfile);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (!user) {
-      dispatch(userUpdateProfileActions._RESET());
-      dispatch(detailsUser(userInfo._id));
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-      if (user.seller) {
-        setSellerName(user.seller.name);
-        setSellerLogo(user.seller.logo);
-        setSellerDescription(user.seller.description);
-      }
-    }
-  }, [dispatch, userInfo._id, user]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update profile
@@ -61,6 +45,23 @@ export default function ProfileScreen({ location }) {
       );
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(userUpdateProfileActions._RESET());
+      dispatch(detailsUser(userInfo._id));
+    } else {
+      setName(user.name);
+      setEmail(user.email);
+
+      if (user.seller) {
+        setSellerName(user.seller.name);
+        setSellerLogo(user.seller.logo);
+        setSellerDescription(user.seller.description);
+      }
+    }
+  }, [dispatch, userInfo._id, user]);
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
