@@ -61,15 +61,25 @@ export const ratings = [
   },
 ];
 
-export const getSymbol = (type = "EUR") =>
-  ({
+export const pipe = (type = "EUR") => ({
+  list: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
+  symbol: {
     EUR: "€",
-    USD: "$",
     GBP: "£",
-    CZK: "CZK",
-    PLN: "PLN",
-    CHF: "CHF",
-  }[type]);
+    USD: "$",
+    PLN: "zł",
+    CZK: "Kč",
+    CHF: "CHf",
+  }[type],
+  name: {
+    EUR: "Euro (Default)",
+    GBP: "GB Pounds",
+    USD: "US Dollar",
+    PLN: "Polish Zloty",
+    CZK: "Czech Koruna",
+    CHF: "Swiss France",
+  }[type],
+});
 
 export const getPrice = (rate = 1) => (price = 0) => ({
   note: ((price * rate) | 0) + "",

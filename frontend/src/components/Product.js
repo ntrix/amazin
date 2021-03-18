@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { getPrice, getSymbol } from "../utils";
+import { getPrice, pipe } from "../utils";
 import Rating from "./Rating";
 
 export default function Product({ product, deal = false }) {
@@ -36,14 +36,14 @@ export default function Product({ product, deal = false }) {
           <div>
             <div>
               <span className={"price" + (deal ? " danger" : "")}>
-                <sup>{getSymbol(type)}</sup>
+                <sup>{pipe(type).symbol}</sup>
                 {evalPrice(product.price).note}
                 <sup>{evalPrice(product.price).cent}</sup>
               </span>
               {deal && (
                 <span className="pull-right">
                   <b className="price strike">
-                    <sup>{getSymbol(type)}</sup>
+                    <sup>{pipe(type).symbol}</sup>
                     {evalPrice(product.price / (1 - product.deal / 100)).all}
                   </b>
                   {"  (" + product.deal}% off)
@@ -62,7 +62,7 @@ export default function Product({ product, deal = false }) {
             ) : (
               <>
                 <sub>
-                  Shipping: {getSymbol(type)}
+                  Shipping: {pipe(type).symbol}
                   {evalPrice(product.ship).all} excl.
                 </sub>
                 <div>

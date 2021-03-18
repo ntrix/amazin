@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { changeCurrency } from "../../Controllers/productActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { pipe } from "../../utils";
 
 function CurrencyScreen(props) {
   const { type: pType } = useParams();
@@ -64,12 +65,11 @@ function CurrencyScreen(props) {
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
           >
-            <option value="EUR">EUR Euro</option>
-            <option value="GBP">GBP Great Britain Pounds</option>
-            <option value="USD">USD US Dollar</option>
-            <option value="CZK">CZK</option>
-            <option value="PLN">PLN</option>
-            <option value="CHF">CHF</option>
+            {pipe().list.map((type) => (
+              <option value={type}>
+                {pipe(type).symbol} - {type} - {pipe(type).name}
+              </option>
+            ))}
           </select>
         </section>
       </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getPrice, getSymbol } from "../../utils";
+import { getPrice, pipe } from "../../utils";
 import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
 import {
   deliverOrder,
@@ -23,7 +23,7 @@ export default function OrderScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const { type, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = (price) => getSymbol(type) + getPrice(rate)(price).all;
+  const evalPrice = (price) => pipe(type + getPrice(rate)(price)).symbol.all;
 
   const orderPay = useSelector((state) => state.orderPay);
   const {

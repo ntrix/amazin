@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { addToCart, removeFromCart } from "../../Controllers/cartActions";
-import { getPrice, getSymbol } from "../../utils";
+import { getPrice, pipe } from "../../utils";
 
 import MessageBox from "../../components/MessageBox";
 
@@ -78,7 +78,7 @@ export default function CartScreen(props) {
                     </select>
                   </td>
                   <td className="tab__w6">
-                    {getSymbol(type)}
+                    {pipe(type).symbol}
                     {getPrice(rate)(item.price).all}
                   </td>
                   <td className="tab__w9">
@@ -101,7 +101,7 @@ export default function CartScreen(props) {
             <li>
               <h2>
                 Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :{" "}
-                {getSymbol(type)}
+                {pipe(type).symbol}
                 {
                   getPrice(rate)(
                     cartItems.reduce((a, c) => a + c.price * c.qty, 0)

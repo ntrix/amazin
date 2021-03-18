@@ -8,7 +8,7 @@ import { createReview, detailsProduct } from "../../Controllers/productActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
-import { getPrice, getSymbol } from "../../utils";
+import { getPrice, pipe } from "../../utils";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
@@ -113,14 +113,14 @@ export default function ProductScreen(props) {
                 <li>
                   <div>
                     <span className={"price" + (product.deal ? " danger" : "")}>
-                      <sup>{getSymbol(type)}</sup>
+                      <sup>{pipe(type).symbol}</sup>
                       {evalPrice(product.price).note}
                       <sup>{evalPrice(product.price).cent}</sup>
                     </span>
                     {product.deal > 0 && (
                       <span className="pull-right">
                         <b className="price strike">
-                          <sup>{getSymbol(type)}</sup>
+                          <sup>{pipe(type).symbol}</sup>
                           {
                             evalPrice(product.price / (1 - product.deal / 100))
                               .all
@@ -158,7 +158,7 @@ export default function ProductScreen(props) {
                     <div className="row">
                       <div>Price</div>
                       <div className="price">
-                        <sup>{getSymbol(type)}</sup>
+                        <sup>{pipe(type).symbol}</sup>
                         {evalPrice(product.price).note}
                         <sup>{evalPrice(product.price).cent}</sup>
                       </div>
