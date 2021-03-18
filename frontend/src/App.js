@@ -14,12 +14,12 @@ import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
 
-function App() {
+export default function App() {
   const cart = useSelector((state) => state.cart);
   const [hasSidebar, setSidebar] = useState(false);
   const { cartItems } = cart;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { type = "EUR" } = useSelector((state) => state.currencyType);
   const dispatch = useDispatch();
   const timeoutId = useRef(0);
   const [hasDropdown, setDropdown] = useState(false);
@@ -57,10 +57,13 @@ function App() {
       </div>
     );
   };
+
   useEffect(() => dispatch(updateCurrencyRates()), []);
+
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
+
   return (
     <BrowserRouter>
       <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
@@ -72,6 +75,7 @@ function App() {
                 <span className="mobile--off">mazin'</span>
               </div>
             </Link>
+
             <Link className="location flex" to="/map">
               <div className="sprite__locator"></div>
               <div className="tablet--off">
@@ -79,9 +83,47 @@ function App() {
                 <div className="nav__line-2">Location?</div>
               </div>
             </Link>
+
             <div className="nav__search">
               <SearchBox />
             </div>
+
+            <div
+              className={"dropdown phone--off"}
+              onMouseEnter={onEnterHandle}
+              onClick={onEnterHandle}
+              onMouseLeave={onLeaveHandle}
+            >
+              <div>
+                <div className="nav__line-1"> </div>
+                <div className="nav__line-2">
+                  <span className={"__sprite" + "EUR"}>{type}</span>
+                  <i className="fa fa-caret-down"></i>
+                </div>
+              </div>
+              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
+                {[
+                  [type, "/currency/type/" + type],
+                  ["separator", "x"],
+                  ["Great Britain Pound", "/currency/type/GBP"],
+                  ["US Dollar", "/currency/type/USD"],
+                  ["Polish Zloty", "/currency/type/PLN"],
+                  ["Czech Koruna", "/currency/type/CZK"],
+                  ["Swiss France", "/currency/type/CHF"],
+                  ["Euro (Default)", "/currency/type/EUR"],
+                  ["separator", "y"],
+                  ["Currency Converter", "disabled"],
+                ].map(
+                  addMenuItem(() => {
+                    localStorage.setItem(
+                      "backToHistory",
+                      window.location.pathname
+                    );
+                  })
+                )}
+              </ul>
+            </div>
+
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
@@ -97,6 +139,7 @@ function App() {
                 ]}
               />
             )}
+
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
@@ -115,11 +158,10 @@ function App() {
                   ["separator", "3"],
                   ["Account"],
                   ["Sign Out", "#signout", , signoutHandler],
-                  ["USD", "/deal", , () => dispatch(changeCurrency("USD"))],
-                  ["GBP", "/deal", , () => dispatch(changeCurrency("GBP"))],
                 ]}
               />
             )}
+
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
@@ -140,6 +182,7 @@ function App() {
                 ]}
               />
             )}
+
             {userInfo?.isAdmin && (
               <NavDropMenu
                 label="Admin^Tools"
@@ -161,7 +204,9 @@ function App() {
                 ]}
               />
             )}
+
             <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
+
             <Link className="nav__cart flex" to="/cart">
               <div>
                 <div className="cart__counter">{cartItems.length}</div>
@@ -183,6 +228,7 @@ function App() {
                 <b>All</b>
               </div>
             </div>
+
             <div className="nav__fill">
               {[
                 ["Netflix Video", "/video", "nav-main__item"],
@@ -207,6 +253,7 @@ function App() {
                   )
               )}
             </div>
+
             <div className="nav__right">
               <div className="nav-main__item">
                 <Link to="/contact/subject/Ads">
@@ -216,6 +263,7 @@ function App() {
             </div>
           </div>
         </header>
+
         <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
           <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
             <div className="sprite__close-btn"></div>
@@ -264,16 +312,19 @@ function App() {
             )}
           </ul>
         </aside>
+
         <label
           className={hasSidebar ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
         ></label>
+
         <main className="container">
           <div className="col-fill">
             <MainRoute />
           </div>
           <div className={hasDropdown ? "underlay" : ""}></div>
         </main>
+
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
         </footer>
@@ -281,5 +332,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
