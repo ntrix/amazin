@@ -23,7 +23,7 @@ export default function OrderScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const { type, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = (price) => pipe(type + getPrice(rate)(price)).symbol.all;
+  const evalPrice = (price) => pipe(type).symbol + getPrice(rate)(price).all;
 
   const orderPay = useSelector((state) => state.orderPay);
   const {
