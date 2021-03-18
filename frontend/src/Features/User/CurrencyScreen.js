@@ -63,7 +63,10 @@ function CurrencyScreen(props) {
           <select
             id="currency"
             value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
+            onChange={(e) => {
+              e.stopPropagation();
+              setCurrency(e.target.value);
+            }}
           >
             {pipe().list.map((type) => (
               <option value={type}>
