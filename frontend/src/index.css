@@ -342,14 +342,14 @@ a .brand {
   background: #131a21;
 }
 .nav-belt > * {
-  margin: 2px;
+  margin: 1px;
   padding: 6px 4px;
   border-radius: 2px;
+  border: thin solid #0000;
   color: #fff;
 }
-.nav-belt > *:hover {
-  margin: 1px;
-  border: thin solid #fff;
+.nav-belt > :hover {
+  border-color: #fff;
 }
 .nav-belt .nav__line-1 {
   font-size: 1.2rem;
@@ -392,8 +392,9 @@ a .brand {
 }
 .nav-main__item {
   height: 100%;
-  padding: 5px 1px;
+  padding: 4px 0;
   border-radius: 2px;
+  border: thin solid #0000;
   color: #fff;
   min-width: 6rem;
   text-overflow: ellipsis;
@@ -411,8 +412,7 @@ a .brand {
 }
 .nav__left .nav-main__item:hover,
 .nav__fill .nav-main__item:hover {
-  padding: 4px 0;
-  border: thin solid #fff;
+  border-color: #fff;
 }
 .nav__fill {
   -webkit-flex: 1 1 auto;
