@@ -88,7 +88,7 @@
   background-position: -54px -96px;
 }
 .USD {
-  background-position: -54 -96px;
+  background-position: -54px -108px;
 }
 .CZK {
   background-position: 0 -72px;
@@ -97,7 +97,7 @@
   background-position: -18px -48px;
 }
 .CHF {
-  background-position: -54 -18px;
+  background-position: -54px -36px;
 }
 .sprite.flag.xl {
   height: 24px;
@@ -112,7 +112,7 @@
   background-position: -108px -192px;
 }
 .xl.USD {
-  background-position: -108 -192px;
+  background-position: -108px -216px;
 }
 .xl.CZK {
   background-position: 0 -144px;
@@ -121,5 +121,5 @@
   background-position: -36px -96px;
 }
 .xl.CHF {
-  background-position: -108 -72px;
+  background-position: -108px -72px;
 }
