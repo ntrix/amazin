@@ -6,7 +6,7 @@ import { listProducts } from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import Product from "../../components/Product";
+import ProductCard from "../../components/ProductCard";
 import Rating from "../../components/Rating";
 import { prices, ratings } from "../../utils";
 
@@ -188,7 +188,10 @@ export default function SearchScreen({ history }) {
             ) : (
               <>
                 {products.map((product) => (
-                  <Product key={product._id} product={product}></Product>
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                  ></ProductCard>
                 ))}
               </>
             )}

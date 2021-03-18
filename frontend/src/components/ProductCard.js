@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { getPrice, pipe } from "../utils";
 import Rating from "./Rating";
 
-export default function Product({ product, deal = false }) {
+export default function ProductCard({ product, deal = false }) {
   const location = useLocation();
   const { type, rate } = useSelector((state) => state.currencyType);
   const evalPrice = getPrice(rate);

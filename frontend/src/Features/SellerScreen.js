@@ -6,7 +6,7 @@ import { detailsUser } from "../Controllers/userActions";
 
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import Product from "../components/Product";
+import ProductCard from "../components/ProductCard";
 import Rating from "../components/Rating";
 
 export default function SellerScreen(props) {
@@ -72,7 +72,7 @@ export default function SellerScreen(props) {
             {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
             <div className="row center">
               {products.map((product) => (
-                <Product key={product._id} product={product}></Product>
+                <ProductCard key={product._id} product={product}></ProductCard>
               ))}
             </div>
           </>

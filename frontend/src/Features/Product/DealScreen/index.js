@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
-import Product from "../../../components/Product";
+import ProductCard from "../../../components/ProductCard";
 import { listProducts } from "../../../Controllers/productActions";
 import Carousel, { responsive } from "../../../utils";
 import "./dealScreen.css";
@@ -86,7 +86,7 @@ export default function DealScreen() {
               <MessageBox>No Deals On This Category!</MessageBox>
             ) : (
               products.map((product) => (
-                <Product deal product={product}></Product>
+                <ProductCard deal product={product}></ProductCard>
               ))
             )}
           </Carousel>
@@ -132,7 +132,11 @@ export default function DealScreen() {
               )}
               <div className="row center">
                 {products.map((product) => (
-                  <Product deal key={product._id} product={product}></Product>
+                  <ProductCard
+                    deal
+                    key={product._id}
+                    product={product}
+                  ></ProductCard>
                 ))}
               </div>
             </>
