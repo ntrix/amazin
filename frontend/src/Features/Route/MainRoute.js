@@ -126,7 +126,7 @@ export default function MainRoute() {
         path="/order-list/seller"
         component={OrderListScreen}
       ></SellerRoute>
-
+      <Route path="/banner/:banner" component={HomeScreen} exact></Route>
       <Route path="/" component={HomeScreen} exact></Route>
     </>
   );

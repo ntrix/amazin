@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import Product from "../components/Product";
@@ -20,6 +20,7 @@ const breakpoints = {
 };
 
 export default function HomeScreen() {
+  const { banner } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
@@ -35,8 +36,9 @@ export default function HomeScreen() {
     dispatch(listProducts({ pageSize: 12 }));
     dispatch(listTopSellers());
   }, [dispatch]);
+
   return (
-    <div className="home-screen">
+    <div className={"home-screen " + banner}>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       {loadingSellers ? (
         <LoadingBox />

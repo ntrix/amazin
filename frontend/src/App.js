@@ -271,7 +271,7 @@ export default function App() {
                   "nav-main__item",
                 ],
                 ["Customer Service", "/customer", "nav-main__item"],
-                ["Best Sellers", "/", "nav-main__item"],
+                ["Best Sellers", "/banner/bestseller", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
                 <LoadingBox />
@@ -316,7 +316,7 @@ export default function App() {
                 ["Trending"],
                 ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/All/order/newest"],
-                ["Best Sellers", "/"],
+                ["Best Sellers", "/banner/bestseller"],
                 ["separator", "9"],
                 ["Categories"],
                 ["Netflix Video", "/video"],

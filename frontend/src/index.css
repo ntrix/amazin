@@ -1275,6 +1275,9 @@ table th {
   background: url("./img/banner-bestseller.jpg") center 0 no-repeat;
   z-index: 1;
 }
+.home-screen.bestseller {
+  background-image: url("./img/banner-fs.jpg");
+}
 .home-screen h2 {
   position: relative;
   z-index: 1;
