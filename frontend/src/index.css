@@ -163,8 +163,15 @@ footer {
 .col-3 {
   flex: 17 1 30rem;
 }
+.col-50p {
+  flex: 0 1 49%;
+  width: 49%;
+}
 .min-30 {
   min-width: 30rem;
+}
+.max-30 {
+  max-width: 30rem;
 }
 .p-1 {
   padding: 1rem;
@@ -580,13 +587,13 @@ a .brand {
   margin: 0;
 }
 .dropdown__menu li > strong {
-  font-size: 1.6rem;
+  font-size: 15px;
   line-height: 2.5;
 }
 .dropdown__menu a {
   display: block;
   padding: 0.5rem 0;
-  font-size: 1.4rem;
+  font-size: 13px;
   color: #111;
 }
 .dropdown__menu a:hover {

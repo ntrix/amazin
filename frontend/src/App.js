@@ -13,6 +13,7 @@ import {
 import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
+import { pipe } from "./utils";
 
 export default function App() {
   const cart = useSelector((state) => state.cart);
@@ -96,31 +97,62 @@ export default function App() {
             >
               <div>
                 <div className="nav__line-1"> </div>
-                <div className="nav__line-2">
-                  <span className={"__sprite" + "EUR"}>{type}</span>
+                <div className="nav__line-2 sprite__wrapper">
+                  <span className={"sprite flag " + type}></span>
                   <i className="fa fa-caret-down"></i>
                 </div>
               </div>
-              <ul className={"dropdown__menu" + (hasDropdown ? " show" : "")}>
+              <ul
+                className={
+                  "dropdown__menu currency" + (hasDropdown ? " show" : "")
+                }
+              >
                 {[
-                  [type, "/currency/type/" + type],
-                  ["separator", "x"],
-                  ["Great Britain Pound", "/currency/type/GBP"],
-                  ["US Dollar", "/currency/type/USD"],
-                  ["Polish Zloty", "/currency/type/PLN"],
-                  ["Czech Koruna", "/currency/type/CZK"],
-                  ["Swiss France", "/currency/type/CHF"],
-                  ["Euro (Default)", "/currency/type/EUR"],
-                  ["separator", "y"],
-                  ["Currency Converter", "disabled"],
-                ].map(
-                  addMenuItem(() => {
-                    localStorage.setItem(
-                      "backToHistory",
-                      window.location.pathname
-                    );
-                  })
+                  ["Change Currency"],
+                  [pipe("EUR").name, "/currency/type/EUR"],
+                  [, , "separator"],
+                  ...pipe()
+                    .list.slice(1)
+                    .map((type) => [pipe(type).name, "/currency/type/" + type]),
+                ].map(([label, linkTo, className]) =>
+                  !linkTo ? (
+                    <li className={className}>{label}</li>
+                  ) : (
+                    <Link
+                      to={linkTo}
+                      onClick={() =>
+                        localStorage.setItem(
+                          "backToHistory",
+                          window.location.pathname
+                        )
+                      }
+                    >
+                      <div
+                        className={
+                          "sprite__wrapper" +
+                          (label === pipe(type).name ? " active" : "")
+                        }
+                      >
+                        <div className="sprite circle"></div>
+                        <span>{label}</span>
+                      </div>
+                    </Link>
+                  )
                 )}
+                {[
+                  ["separator"],
+                  ["Exchange"],
+                  ["Currency Calculator", "disabled"],
+                ].map(addMenuItem())}
+                <a
+                  href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+                  target="_blank"
+                >
+                  <div className="sprite__wrapper">
+                    <div className={"sprite flag xl " + type}></div>
+                    <span>Exchange Rates</span>
+                  </div>
+                </a>
               </ul>
             </div>
 

@@ -1,0 +1,125 @@
+.dropdown__menu.currency {
+  margin-top: 6px;
+  padding: 24px 0;
+}
+.nav__line-2.sprite__wrapper {
+  margin: 2px 0px 1px;
+}
+.currency {
+  padding: 20px 25px;
+}
+.dropdown__menu.currency.show {
+  padding-left: 15px !important;
+}
+.currency.c-screen * {
+  font-size: 13px;
+  font-weight: 400;
+}
+.currency header {
+  display: flex;
+  justify-content: space-around;
+}
+.currency .title {
+  padding: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 17px;
+}
+.currency .languages {
+  margin-top: -15px;
+  padding-bottom: 10px;
+}
+.currency .currencies {
+  display: flex;
+  padding-top: 18px;
+  margin-bottom: 30px;
+}
+#currency {
+  font-size: 14px;
+  padding: 5px;
+  margin: 15px 0 5px;
+}
+.btn--xs {
+  padding: 6px 11px;
+  margin-right: 10px;
+}
+.currency .divider-inner::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 44px;
+  background-color: transparent;
+  background: -webkit-linear-gradient(to right, #fff, #fff0, #fff);
+  background: linear-gradient(to right, #fff, #fff0, #fff);
+  z-index: 1;
+}
+.sprite__wrapper {
+  display: flex;
+  align-items: center;
+}
+.sprite.circle {
+  height: 20px;
+  width: 20px;
+  margin: 0 3px;
+  background-position: -74px 0px;
+  background-image: url("../../../img/flags.png");
+}
+.sprite__wrapper:hover .circle {
+  background-position: -122px 0px;
+}
+.sprite__wrapper.active .circle {
+  background-position: -98px 0px;
+}
+
+.sprite.flag {
+  height: 12px;
+  width: 18px;
+  margin: 0 3px;
+  background-image: url("../../../img/flags.png");
+}
+.EUR {
+  background-position: -18px -12px;
+}
+.GBP {
+  background-position: -54px -96px;
+}
+.USD {
+  background-position: -54 -96px;
+}
+.CZK {
+  background-position: 0 -72px;
+}
+.PLN {
+  background-position: -18px -48px;
+}
+.CHF {
+  background-position: -54 -18px;
+}
+.sprite.flag.xl {
+  height: 24px;
+  width: 36px;
+  margin: 0 3px;
+  background-image: url("../../../img/flags-globe.png");
+}
+.xl.EUR {
+  background-position: -36px -24px;
+}
+.xl.GBP {
+  background-position: -108px -192px;
+}
+.xl.USD {
+  background-position: -108 -192px;
+}
+.xl.CZK {
+  background-position: 0 -144px;
+}
+.xl.PLN {
+  background-position: -36px -96px;
+}
+.xl.CHF {
+  background-position: -108 -72px;
+}
+.currency .sprite__wrapper:hover span:not(.active) {
+  text-decoration: underline;
+}

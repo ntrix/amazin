@@ -64,20 +64,20 @@ export const ratings = [
 export const pipe = (type = "EUR") => ({
   list: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
   symbol: {
-    EUR: "€",
     GBP: "£",
     USD: "$",
     PLN: "zł",
     CZK: "Kč",
     CHF: "CHf",
+    EUR: "€",
   }[type],
   name: {
-    EUR: "Euro (Default)",
     GBP: "GB Pounds",
     USD: "US Dollar",
     PLN: "Polish Zloty",
     CZK: "Czech Koruna",
     CHF: "Swiss France",
+    EUR: "Euro (Default)",
   }[type],
 });
 
