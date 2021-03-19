@@ -12,7 +12,7 @@ import { getPrice, pipe } from "../../utils";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
-  const { type, rate } = useSelector((state) => state.currencyType);
+  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
   const evalPrice = getPrice(rate);
   const productId = props.match.params.id;
   const [qty, setQty] = useState(1);
@@ -113,14 +113,14 @@ export default function ProductScreen(props) {
                 <li>
                   <div>
                     <span className={"price" + (product.deal ? " danger" : "")}>
-                      <sup>{pipe(type).symbol}</sup>
+                      <sup>{pipe(liveCurrency).symbol}</sup>
                       {evalPrice(product.price).note}
                       <sup>{evalPrice(product.price).cent}</sup>
                     </span>
                     {product.deal > 0 && (
                       <span className="pull-right">
                         <b className="price strike">
-                          <sup>{pipe(type).symbol}</sup>
+                          <sup>{pipe(liveCurrency).symbol}</sup>
                           {
                             evalPrice(product.price / (1 - product.deal / 100))
                               .all
@@ -158,7 +158,7 @@ export default function ProductScreen(props) {
                     <div className="row">
                       <div>Price</div>
                       <div className="price">
-                        <sup>{pipe(type).symbol}</sup>
+                        <sup>{pipe(liveCurrency).symbol}</sup>
                         {evalPrice(product.price).note}
                         <sup>{evalPrice(product.price).cent}</sup>
                       </div>

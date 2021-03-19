@@ -22,8 +22,9 @@ export default function OrderSumScreen(props) {
   const { order, loading, error } = orderDetails;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const { type, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = (price) => pipe(type).symbol + getPrice(rate)(price).all;
+  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
+  const evalPrice = (price) =>
+    pipe(liveCurrency).symbol + getPrice(rate)(price).all;
 
   const orderPay = useSelector((state) => state.orderPay);
   const {

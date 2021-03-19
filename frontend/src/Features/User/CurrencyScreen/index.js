@@ -7,18 +7,35 @@ import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { pipe } from "../../../utils";
 import "./currencyScreen.css";
+import { userUpdateProfileActions } from "../UserSlice";
+import { updateUserProfile } from "../../../Controllers/userActions";
 
 function CurrencyScreen(props) {
-  const { type: pType } = useParams();
+  const { cType } = useParams();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.userSignin);
-  const { type, rate, loading, success, error } = useSelector(
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { liveCurrency, loading, success, error } = useSelector(
     (state) => state.currencyType
   );
-  const [currency, setCurrency] = useState(pType);
+  const [currency, setCurrency] = useState(cType);
+
+  const submitHandler = () => {
+    dispatch(changeCurrency(currency));
+    if (userInfo)
+      dispatch(
+        updateUserProfile({
+          userId: userInfo._id,
+          currency: currency || cType || liveCurrency,
+        })
+      );
+  };
+
   useEffect(() => {
-    setCurrency(pType);
-  }, [pType]);
+    setCurrency(cType);
+    if (!userInfo) {
+      dispatch(userUpdateProfileActions._RESET());
+    }
+  }, [cType, dispatch, userInfo?._id]);
 
   return (
     <div className="currency c-screen">
@@ -99,9 +116,9 @@ function CurrencyScreen(props) {
             }}
           >
             <legend htmlFor="currency">Select Currency</legend>
-            {pipe().list.map((type) => (
-              <option value={type}>
-                {pipe(type).symbol} - {type} - {pipe(type).name}
+            {pipe().currencies.map((c) => (
+              <option value={c}>
+                {pipe(c).symbol} - {c} - {pipe(c).name}
               </option>
             ))}
           </select>
@@ -111,7 +128,7 @@ function CurrencyScreen(props) {
                 pipe(currency).symbol
               } - ${currency} - ${
                 pipe(currency).name
-              } on amazin as a reference only. You may or may not be able to pay in ${
+              } on Amazin as a reference only. You may or may not be able to pay in ${
                 pipe(currency).symbol
               } - ${currency} - ${
                 pipe(currency).name
@@ -128,10 +145,7 @@ function CurrencyScreen(props) {
           <button className="btn--xs">Cancel</button>
         </Link>
         <Link to={localStorage.getItem("backToHistory")}>
-          <button
-            className="btn primary btn--xs"
-            onClick={() => dispatch(changeCurrency(currency))}
-          >
+          <button className="btn primary btn--xs" onClick={submitHandler}>
             Save Changes
           </button>
         </Link>

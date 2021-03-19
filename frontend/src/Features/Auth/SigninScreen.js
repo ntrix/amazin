@@ -6,6 +6,7 @@ import { signin } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { changeCurrency } from "../../Controllers/productActions";
 
 export default function SigninScreen({ location, history }) {
   const [email, setEmail] = useState("");
@@ -23,6 +24,7 @@ export default function SigninScreen({ location, history }) {
   };
   useEffect(() => {
     if (userInfo) {
+      dispatch(changeCurrency(userInfo.currency));
       history.push(redirect);
     }
   }, [history, redirect, userInfo]);

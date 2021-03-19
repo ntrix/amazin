@@ -20,7 +20,9 @@ export default function App() {
   const [hasSidebar, setSidebar] = useState(false);
   const { cartItems } = cart;
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { type = "EUR" } = useSelector((state) => state.currencyType);
+  const uCurrency = userInfo?.currency;
+  const { liveCurrency } = useSelector((state) => state.currencyType);
+  const [currency, setCurrency] = useState(uCurrency || liveCurrency);
   const dispatch = useDispatch();
   const timeoutId = useRef(0);
   const [hasDropdown, setDropdown] = useState(false);
@@ -59,7 +61,10 @@ export default function App() {
     );
   };
 
-  useEffect(() => dispatch(updateCurrencyRates()), []);
+  useEffect(() => {
+    dispatch(updateCurrencyRates());
+    setCurrency(uCurrency || currency || liveCurrency);
+  }, [liveCurrency]);
 
   useEffect(() => {
     dispatch(listProductCategories());
@@ -89,72 +94,82 @@ export default function App() {
               <SearchBox />
             </div>
 
-            <div
-              className={"dropdown phone--off"}
-              onMouseEnter={onEnterHandle}
-              onClick={onEnterHandle}
-              onMouseLeave={onLeaveHandle}
-            >
-              <div>
-                <div className="nav__line-1"> </div>
-                <div className="nav__line-2 sprite__wrapper">
-                  <span className={"sprite flag " + type}></span>
-                  <i className="fa fa-caret-down"></i>
-                </div>
-              </div>
-              <ul
-                className={
-                  "dropdown__menu currency" + (hasDropdown ? " show" : "")
-                }
+            {uCurrency && (
+              <div
+                className={"dropdown phone--off"}
+                onMouseEnter={onEnterHandle}
+                onClick={onEnterHandle}
+                onMouseLeave={onLeaveHandle}
               >
-                {[
-                  ["Change Currency"],
-                  [pipe("EUR").name, "/currency/type/EUR"],
-                  [, , "separator"],
-                  ...pipe()
-                    .list.slice(1)
-                    .map((type) => [pipe(type).name, "/currency/type/" + type]),
-                ].map(([label, linkTo, className]) =>
-                  !linkTo ? (
-                    <li className={className}>{label}</li>
-                  ) : (
-                    <Link
-                      to={linkTo}
-                      onClick={() =>
-                        localStorage.setItem(
-                          "backToHistory",
-                          window.location.pathname
-                        )
-                      }
-                    >
-                      <div
-                        className={
-                          "sprite__wrapper" +
-                          (label === pipe(type).name ? " active" : "")
+                <div>
+                  <div className="nav__line-1"> </div>
+                  <div className="nav__line-2 sprite__wrapper">
+                    <span
+                      className={"sprite flag " + uCurrency || currency}
+                    ></span>
+                    <i className="fa fa-caret-down"></i>
+                  </div>
+                </div>
+                <ul
+                  className={
+                    "dropdown__menu currency" + (hasDropdown ? " show" : "")
+                  }
+                >
+                  {[
+                    ["Change Currency"],
+                    [pipe("EUR").name, "/currency/cType/EUR"],
+                    [, , "separator"],
+                    ...pipe()
+                      .currencies.slice(1) //get supported currencies list without default "EUR", which is listed above the separator
+                      .map((cType) => [
+                        pipe(cType).name,
+                        "/currency/cType/" + cType,
+                      ]),
+                  ].map(([label, linkTo, className], id) =>
+                    !linkTo ? (
+                      <li className={className}>{label}</li>
+                    ) : (
+                      <Link
+                        key={id}
+                        to={linkTo}
+                        onClick={() =>
+                          localStorage.setItem(
+                            "backToHistory",
+                            window.location.pathname
+                          )
                         }
                       >
-                        <div className="sprite circle"></div>
-                        <span>{label}</span>
-                      </div>
-                    </Link>
-                  )
-                )}
-                {[
-                  ["separator"],
-                  ["Exchange"],
-                  ["Currency Calculator", "disabled"],
-                ].map(addMenuItem())}
-                <a
-                  href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
-                  target="_blank"
-                >
-                  <div className="sprite__wrapper">
-                    <div className={"sprite flag xl " + type}></div>
-                    <span>Exchange Rates</span>
-                  </div>
-                </a>
-              </ul>
-            </div>
+                        <div
+                          className={
+                            "sprite__wrapper" +
+                            (label === pipe(uCurrency || currency).name
+                              ? " active"
+                              : "")
+                          }
+                        >
+                          <div className="sprite circle"></div>
+                          <span>{label}</span>
+                        </div>
+                      </Link>
+                    )
+                  )}
+                  {[
+                    ["separator"],
+                    ["Exchange"],
+                    ["Currency Calculator", "disabled"],
+                  ].map(addMenuItem())}
+                  <a
+                    href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+                    target="_blank"
+                  >
+                    <div className="sprite__wrapper">
+                      <div className={"sprite flag xl " + uCurrency}></div>
+                      <span>Exchange Rates</span>
+                    </div>
+                  </a>
+                </ul>
+              </div>
+            )}
 
             {!userInfo && (
               <NavDropMenu
@@ -336,7 +351,7 @@ export default function App() {
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["Currency Setting", "/currency/type/0"],
+                ["Currency Setting", "/currency/cType/0"],
                 ["FAQ & Contact", "/contact/subject/FAQ"],
                 ["separator", "11"],
                 ["Account"],

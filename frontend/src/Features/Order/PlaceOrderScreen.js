@@ -18,9 +18,9 @@ export default function PlaceOrderScreen(props) {
   }
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
-  const { type, rate } = useSelector((state) => state.currencyType);
+  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
   const evalPrice = (price) =>
-    pipe(type).symbol + getPrice(rate)(price).all || 0;
+    pipe(liveCurrency).symbol + getPrice(rate)(price).all || 0;
 
   const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
   cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0);

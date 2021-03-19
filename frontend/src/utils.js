@@ -61,8 +61,8 @@ export const ratings = [
   },
 ];
 
-export const pipe = (type = "EUR") => ({
-  list: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
+export const pipe = (currencyType = "EUR") => ({
+  currencies: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
   symbol: {
     GBP: "£",
     USD: "$",
@@ -70,7 +70,7 @@ export const pipe = (type = "EUR") => ({
     CZK: "Kč",
     CHF: "CHf",
     EUR: "€",
-  }[type],
+  }[currencyType],
   name: {
     GBP: "GB Pounds",
     USD: "US Dollar",
@@ -78,7 +78,7 @@ export const pipe = (type = "EUR") => ({
     CZK: "Czech Koruna",
     CHF: "Swiss France",
     EUR: "Euro (Default)",
-  }[type],
+  }[currencyType],
 });
 
 export const getPrice = (rate = 1) => (price = 0) => ({

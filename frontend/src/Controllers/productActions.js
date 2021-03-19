@@ -11,8 +11,8 @@ import {
   productReviewCreateActions,
 } from "../Features/Product/ProductSlice";
 
-export const changeCurrency = (type) => (dispatch) => {
-  dispatch(currencyTypeActions._CHANGE(type));
+export const changeCurrency = (currencyType) => (dispatch) => {
+  dispatch(currencyTypeActions._CHANGE(currencyType));
 };
 
 export const updateCurrencyRates = () => async (dispatch) => {

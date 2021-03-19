@@ -15,7 +15,7 @@ export default function CartScreen(props) {
   const cart = useSelector((state) => state.cart);
   const { cartItems, error } = cart;
   const dispatch = useDispatch();
-  const { type, rate } = useSelector((state) => state.currencyType);
+  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -78,7 +78,7 @@ export default function CartScreen(props) {
                     </select>
                   </td>
                   <td className="tab__w6">
-                    {pipe(type).symbol}
+                    {pipe(liveCurrency).symbol}
                     {getPrice(rate)(item.price).all}
                   </td>
                   <td className="tab__w9">
@@ -101,7 +101,7 @@ export default function CartScreen(props) {
             <li>
               <h2>
                 Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :{" "}
-                {pipe(type).symbol}
+                {pipe(liveCurrency).symbol}
                 {
                   getPrice(rate)(
                     cartItems.reduce((a, c) => a + c.price * c.qty, 0)

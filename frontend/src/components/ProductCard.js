@@ -6,7 +6,7 @@ import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {
   const location = useLocation();
-  const { type, rate } = useSelector((state) => state.currencyType);
+  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
   const evalPrice = getPrice(rate);
   const saveHistory = () => {
     localStorage.setItem("backToHistory", location.pathname);
@@ -36,14 +36,14 @@ export default function ProductCard({ product, deal = false }) {
           <div>
             <div>
               <span className={"price" + (deal ? " danger" : "")}>
-                <sup>{pipe(type).symbol}</sup>
+                <sup>{pipe(liveCurrency).symbol}</sup>
                 {evalPrice(product.price).note}
                 <sup>{evalPrice(product.price).cent}</sup>
               </span>
               {deal && (
                 <span className="pull-right">
                   <b className="price strike">
-                    <sup>{pipe(type).symbol}</sup>
+                    <sup>{pipe(liveCurrency).symbol}</sup>
                     {evalPrice(product.price / (1 - product.deal / 100)).all}
                   </b>
                   {"  (" + product.deal}% off)
@@ -62,7 +62,7 @@ export default function ProductCard({ product, deal = false }) {
             ) : (
               <>
                 <sub>
-                  Shipping: {pipe(type).symbol}
+                  Shipping: {pipe(liveCurrency).symbol}
                   {evalPrice(product.ship).all} excl.
                 </sub>
                 <div>

@@ -33,7 +33,7 @@ export default function MainRoute() {
   return (
     <>
       <Route
-        path="/currency/type/:type"
+        path="/currency/cType/:cType"
         component={CurrencyScreen}
         exact
       ></Route>
