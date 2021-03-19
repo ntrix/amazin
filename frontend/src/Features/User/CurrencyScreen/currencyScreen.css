@@ -80,6 +80,7 @@
   width: 18px;
   margin: 0 3px;
   background-image: url("../../../img/flags.png");
+  background-position: -18px -12px;
 }
 .EUR {
   background-position: -18px -12px;
@@ -104,6 +105,7 @@
   width: 36px;
   margin: 0 3px;
   background-image: url("../../../img/flags-globe.png");
+  background-position: -36px -24px;
 }
 .xl.EUR {
   background-position: -36px -24px;
