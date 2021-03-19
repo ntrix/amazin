@@ -10,28 +10,29 @@ import "./currencyScreen.css";
 import { userUpdateProfileActions } from "../UserSlice";
 import { updateUserProfile } from "../../../Controllers/userActions";
 
-function CurrencyScreen(props) {
+export default function CurrencyScreen({}) {
   const { cType } = useParams();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { liveCurrency, loading, success, error } = useSelector(
+  const { loading, success, error } = useSelector(
     (state) => state.currencyType
   );
-  const [currency, setCurrency] = useState(cType);
+  const [currency, setCurrency] = useState(cType || pipe.currencyType);
 
   const submitHandler = () => {
-    dispatch(changeCurrency(currency));
+    pipe.setCurrency(currency);
+    setCurrency(currency);
     if (userInfo)
       dispatch(
         updateUserProfile({
           userId: userInfo._id,
-          currency: currency || cType || liveCurrency,
+          currency,
         })
       );
   };
 
   useEffect(() => {
-    setCurrency(cType);
+    setCurrency(cType || pipe.currencyType);
     if (!userInfo) {
       dispatch(userUpdateProfileActions._RESET());
     }
@@ -116,23 +117,23 @@ function CurrencyScreen(props) {
             }}
           >
             <legend htmlFor="currency">Select Currency</legend>
-            {pipe().currencies.map((c) => (
+            {pipe.currencies.map((c) => (
               <option value={c}>
-                {pipe(c).symbol} - {c} - {pipe(c).name}
+                {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
               </option>
             ))}
           </select>
           {currency !== "EUR" && (
             <p>
-              {`Note: You will be shown prices in ${
-                pipe(currency).symbol
-              } - ${currency} - ${
-                pipe(currency).name
-              } on Amazin as a reference only. You may or may not be able to pay in ${
-                pipe(currency).symbol
-              } - ${currency} - ${
-                pipe(currency).name
-              } see more details during checkout.`}
+              {`Note: You will be shown prices in ${pipe.getSymbol(
+                currency
+              )} - ${currency} - ${pipe.getName(
+                currency
+              )} on Amazin as a reference only. You may or may not be able to pay in ${pipe.getSymbol(
+                currency
+              )} - ${currency} - ${pipe.getName(
+                currency
+              )} see more details during checkout.`}
             </p>
           )}
         </section>
@@ -153,5 +154,3 @@ function CurrencyScreen(props) {
     </div>
   );
 }
-
-export default CurrencyScreen;

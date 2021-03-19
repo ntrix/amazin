@@ -80,7 +80,6 @@
   width: 18px;
   margin: 0 3px;
   background-image: url("../../../img/flags.png");
-  background-position: -18px -12px;
 }
 .EUR {
   background-position: -18px -12px;
@@ -101,27 +100,27 @@
   background-position: -54px -36px;
 }
 .sprite.flag.xl {
-  height: 24px;
-  width: 36px;
-  margin: 0 3px;
+  height: 20px;
+  width: 32px;
+  margin-right: 10px;
   background-image: url("../../../img/flags-globe.png");
-  background-position: -36px -24px;
+  box-shadow: 0 0 5px #0008;
 }
 .xl.EUR {
-  background-position: -36px -24px;
+  background-position: -38px -26px;
 }
 .xl.GBP {
-  background-position: -108px -192px;
+  background-position: -110px -194px;
 }
 .xl.USD {
-  background-position: -108px -216px;
+  background-position: -110px -218px;
 }
 .xl.CZK {
-  background-position: 0 -144px;
+  background-position: -2px -146px;
 }
 .xl.PLN {
-  background-position: -36px -96px;
+  background-position: -38px -98px;
 }
 .xl.CHF {
-  background-position: -108px -72px;
+  background-position: -110px -74px;
 }

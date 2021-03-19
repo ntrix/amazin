@@ -1,13 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { getPrice, pipe } from "../utils";
+import { pipe } from "../utils";
 import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {
   const location = useLocation();
-  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = getPrice(rate);
   const saveHistory = () => {
     localStorage.setItem("backToHistory", location.pathname);
   };
@@ -36,15 +34,15 @@ export default function ProductCard({ product, deal = false }) {
           <div>
             <div>
               <span className={"price" + (deal ? " danger" : "")}>
-                <sup>{pipe(liveCurrency).symbol}</sup>
-                {evalPrice(product.price).note}
-                <sup>{evalPrice(product.price).cent}</sup>
+                <sup>{pipe.getSymbol()}</sup>
+                {pipe.getNote(product.price)}
+                <sup>{pipe.getCent(product.price)}</sup>
               </span>
               {deal && (
                 <span className="pull-right">
                   <b className="price strike">
-                    <sup>{pipe(liveCurrency).symbol}</sup>
-                    {evalPrice(product.price / (1 - product.deal / 100)).all}
+                    <sup>{pipe.getSymbol()}</sup>
+                    {pipe.getPrice(product.price / (1 - product.deal / 100))}
                   </b>
                   {"  (" + product.deal}% off)
                 </span>
@@ -61,10 +59,7 @@ export default function ProductCard({ product, deal = false }) {
               </div>
             ) : (
               <>
-                <sub>
-                  Shipping: {pipe(liveCurrency).symbol}
-                  {evalPrice(product.ship).all} excl.
-                </sub>
+                <sub>Shipping: {pipe.showPrice(product.ship)} excl.</sub>
                 <div>
                   <Link
                     to={`/seller/${product.seller._id}`}

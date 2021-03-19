@@ -10,16 +10,18 @@ import {
   productDeleteActions,
   productReviewCreateActions,
 } from "../Features/Product/ProductSlice";
+import { pipe } from "../utils";
 
-export const changeCurrency = (currencyType) => (dispatch) => {
-  dispatch(currencyTypeActions._CHANGE(currencyType));
-};
+// export const changeCurrency = (currencyType) => (dispatch) => {
+//   dispatch(currencyTypeActions._CHANGE(currencyType));
+// };
 
 export const updateCurrencyRates = () => async (dispatch) => {
   dispatch(currencyTypeActions._REQUEST());
   try {
     const { data } = await Axios.get(`https://api.exchangeratesapi.io/latest`);
     dispatch(currencyTypeActions._SUCCESS(data));
+    pipe.updateRates(data.rates);
   } catch (error) {
     dispatch(currencyTypeActions._FAIL(error.message));
   }

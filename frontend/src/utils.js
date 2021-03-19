@@ -60,30 +60,47 @@ export const ratings = [
     rating: 1,
   },
 ];
-
-export const pipe = (currencyType = "EUR") => ({
+/* singleton for currencyType and all its pipes */
+export const pipe = {
+  //if (this.currencyType ) return this;
+  currencyType: "EUR",
   currencies: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
-  symbol: {
-    GBP: "£",
-    USD: "$",
-    PLN: "zł",
-    CZK: "Kč",
-    CHF: "CHf",
-    EUR: "€",
-  }[currencyType],
-  name: {
-    GBP: "GB Pounds",
-    USD: "US Dollar",
-    PLN: "Polish Zloty",
-    CZK: "Czech Koruna",
-    CHF: "Swiss France",
-    EUR: "Euro (Default)",
-  }[currencyType],
-});
-
-export const getPrice = (rate = 1) => (price = 0) => ({
-  note: ((price * rate) | 0) + "",
-  cent: ((price * rate).toFixed(2) + "").slice(-2),
-  all: (price * rate).toFixed(2),
-  float: +(price * rate).toFixed(2),
-});
+  rates: {
+    //default dummy rate
+    EUR: 1,
+    USD: 1.2,
+    GBP: 0.9,
+    CZK: 27,
+    PLN: 5,
+    CHF: 1.1,
+  },
+  setCurrency: (currencyType) => (pipe.currencyType = currencyType),
+  updateRates: (newRates) => {
+    if (newRates?.length)
+      pipe.currencies.map((c) => (pipe.rates[c] = newRates[c]));
+  },
+  getSymbol: (currencyType) =>
+    ({
+      GBP: "£",
+      USD: "$",
+      PLN: "zł",
+      CZK: "Kč",
+      CHF: "CHf",
+      EUR: "€",
+    }[currencyType || pipe.currencyType]),
+  getName: (currencyType) =>
+    ({
+      GBP: "GB Pounds",
+      USD: "US Dollar",
+      PLN: "Polish Zloty",
+      CZK: "Czech Koruna",
+      CHF: "Swiss France",
+      EUR: "Euro (Default)",
+    }[currencyType || pipe.currencyType]),
+  getRate: (currencyType) => pipe.rates[currencyType || pipe.currencyType] || 1,
+  getPrice: (price = 0, rate = pipe.getRate()) => (price * rate).toFixed(2),
+  getNote: (price = 0, rate = pipe.getRate()) => ((price * rate) | 0) + "",
+  getCent: (price = 0, rate = pipe.getRate()) =>
+    ((price * rate).toFixed(2) + "").slice(-2),
+  showPrice: (price) => pipe.getSymbol() + " " + pipe.getPrice(price),
+};

@@ -8,42 +8,31 @@ import { createReview, detailsProduct } from "../../Controllers/productActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
-import { getPrice, pipe } from "../../utils";
+import { pipe } from "../../utils";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
-  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = getPrice(rate);
   const productId = props.match.params.id;
-  const [qty, setQty] = useState(1);
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
-  const [imgActive, setImgActive] = useState(0);
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
 
-  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { loading, error, product } = useSelector(
+    (state) => state.productDetails
+  );
   const {
     loading: loadingReviewCreate,
     error: errorReviewCreate,
     success: successReviewCreate,
-  } = productReviewCreate;
+  } = useSelector((state) => state.productReviewCreate);
 
+  const [qty, setQty] = useState(1);
+  const [imgActive, setImgActive] = useState(0);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
-  useEffect(() => {
-    if (successReviewCreate) {
-      window.alert("Review Submitted Successfully");
-      setRating("");
-      setComment("");
-      dispatch(productReviewCreateActions._RESET());
-    }
-    dispatch(detailsProduct(productId));
-  }, [dispatch, productId, successReviewCreate]);
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`);
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (comment && rating) {
@@ -54,6 +43,17 @@ export default function ProductScreen(props) {
       alert("Please enter comment and rating");
     }
   };
+
+  useEffect(() => {
+    if (successReviewCreate) {
+      window.alert("Review Submitted Successfully");
+      setRating("");
+      setComment("");
+      dispatch(productReviewCreateActions._RESET());
+    }
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId, successReviewCreate]);
+
   return (
     <div>
       {loading ? (
@@ -113,18 +113,17 @@ export default function ProductScreen(props) {
                 <li>
                   <div>
                     <span className={"price" + (product.deal ? " danger" : "")}>
-                      <sup>{pipe(liveCurrency).symbol}</sup>
-                      {evalPrice(product.price).note}
-                      <sup>{evalPrice(product.price).cent}</sup>
+                      <sup>{pipe.getSymbol()}</sup>
+                      {pipe.getNote(product.price)}
+                      <sup>{pipe.getCent(product.price)}</sup>
                     </span>
                     {product.deal > 0 && (
                       <span className="pull-right">
                         <b className="price strike">
-                          <sup>{pipe(liveCurrency).symbol}</sup>
-                          {
-                            evalPrice(product.price / (1 - product.deal / 100))
-                              .all
-                          }
+                          <sup>{pipe.getSymbol()}</sup>
+                          {pipe.getPrice(
+                            product.price / (1 - product.deal / 100)
+                          )}
                         </b>
                         {"  (" + product.deal}% off)
                       </span>
@@ -158,9 +157,9 @@ export default function ProductScreen(props) {
                     <div className="row">
                       <div>Price</div>
                       <div className="price">
-                        <sup>{pipe(liveCurrency).symbol}</sup>
-                        {evalPrice(product.price).note}
-                        <sup>{evalPrice(product.price).cent}</sup>
+                        <sup>{pipe.getSymbol()}</sup>
+                        {pipe.getNote(product.price)}
+                        <sup>{pipe.getCent(product.price)}</sup>
                       </div>
                     </div>
                   </li>

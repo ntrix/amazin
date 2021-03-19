@@ -8,7 +8,7 @@ import { createOrder } from "../../Controllers/orderActions";
 import CheckoutSteps from "../Checkout/CheckoutSteps";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import { getPrice, pipe } from "../../utils";
+import { pipe } from "../../utils";
 
 export default function PlaceOrderScreen(props) {
   const tax = 0.19;
@@ -18,11 +18,7 @@ export default function PlaceOrderScreen(props) {
   }
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
-  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = (price) =>
-    pipe(liveCurrency).symbol + getPrice(rate)(price).all || 0;
 
-  const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
   cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0);
   const ship = Math.max(...cart.cartItems.map((i) => i.ship)); //max ship price of any items
   cart.shippingPrice = cart.itemsPrice > 100 ? 0 : ship;
@@ -87,8 +83,8 @@ export default function PlaceOrderScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x {evalPrice(item.price)} =
-                          {" " + evalPrice(item.qty * item.price)}
+                          {item.qty} x {pipe.showPrice(item.price)} =
+                          {" " + pipe.showPrice(item.qty * item.price)}
                         </div>
                       </div>
                     </li>
@@ -107,7 +103,7 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>{evalPrice(cart.itemsPrice)}</div>
+                  <div>{pipe.showPrice(cart.itemsPrice)}</div>
                 </div>
               </li>
               {cart.cartItems.length > 0 && (
@@ -117,7 +113,7 @@ export default function PlaceOrderScreen(props) {
                       <div>Shipping</div>
                       <div>
                         {cart.shippingPrice
-                          ? evalPrice(cart.shippingPrice)
+                          ? pipe.showPrice(cart.shippingPrice)
                           : "Free Ship"}
                       </div>
                     </div>
@@ -125,7 +121,7 @@ export default function PlaceOrderScreen(props) {
                   <li>
                     <div className="row">
                       <div>Before {tax * 100}% MwSt.</div>
-                      {evalPrice(cart.taxPrice)}
+                      {pipe.showPrice(cart.taxPrice)}
                     </div>
                   </li>
                   <li>
@@ -134,7 +130,7 @@ export default function PlaceOrderScreen(props) {
                         <strong> Order Total</strong>
                       </div>
                       <div>
-                        <strong>{evalPrice(cart.totalPrice)}</strong>
+                        <strong>{pipe.showPrice(cart.totalPrice)}</strong>
                       </div>
                     </div>
                   </li>

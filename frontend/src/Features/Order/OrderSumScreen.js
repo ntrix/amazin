@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getPrice, pipe } from "../../utils";
+import { pipe } from "../../utils";
 import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
 import {
   deliverOrder,
@@ -22,9 +22,6 @@ export default function OrderSumScreen(props) {
   const { order, loading, error } = orderDetails;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const { liveCurrency, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = (price) =>
-    pipe(liveCurrency).symbol + getPrice(rate)(price).all;
 
   const orderPay = useSelector((state) => state.orderPay);
   const {
@@ -143,8 +140,8 @@ export default function OrderSumScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x {evalPrice(item.price)} =
-                          {" " + evalPrice(item.qty * item.price)}
+                          {item.qty} x {pipe.showPrice(item.price)} =
+                          {" " + pipe.showPrice(item.qty * item.price)}
                         </div>
                       </div>
                     </li>
@@ -163,19 +160,19 @@ export default function OrderSumScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>{evalPrice(order.itemsPrice)}</div>
+                  <div>{pipe.showPrice(order.itemsPrice)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>{evalPrice(order.shippingPrice)}</div>
+                  <div>{pipe.showPrice(order.shippingPrice)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Before 19% MwSt.</div>
-                  <div>{evalPrice(order.taxPrice)}</div>
+                  <div>{pipe.showPrice(order.taxPrice)}</div>
                 </div>
               </li>
               <li>
@@ -184,7 +181,7 @@ export default function OrderSumScreen(props) {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>{evalPrice(order.totalPrice)}</strong>
+                    <strong>{pipe.showPrice(order.totalPrice)}</strong>
                   </div>
                 </div>
               </li>
