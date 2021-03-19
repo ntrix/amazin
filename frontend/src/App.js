@@ -64,13 +64,16 @@ export default function App() {
   };
 
   useEffect(() => {
-    setCurrency(
+    pipe.updateRates(rates);
+  }, [success]);
+  useEffect(() => {
+    pipe.setCurrency(
       userInfo?.currency ||
         sessionCurrency ||
         localStorage.getItem("currency") ||
         pipe.currencyType
     );
-    pipe.setCurrency(userInfo?.currency || pipe.currencyType);
+    setCurrency(pipe.currencyType);
     dispatch(updateCurrencyRates());
     dispatch(listProductCategories());
   }, [dispatch, pipe.currencyType, userInfo?.currency, sessionCurrency]);

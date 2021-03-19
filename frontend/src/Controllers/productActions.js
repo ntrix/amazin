@@ -21,7 +21,6 @@ export const updateCurrencyRates = () => async (dispatch) => {
   try {
     const { data } = await Axios.get(`https://api.exchangeratesapi.io/latest`);
     dispatch(currencyTypeActions._SUCCESS(data));
-    pipe.updateRates(data.rates);
   } catch (error) {
     dispatch(currencyTypeActions._FAIL(error.message));
   }

@@ -23,6 +23,8 @@ export default function CurrencyScreen({}) {
   const [currency, setCurrency] = useState(cType || pipe.currencyType);
 
   const submitHandler = () => {
+    setSessionCurrency(currency);
+    localStorage.setItem("currency", currency);
     pipe.setCurrency(currency);
     dispatch(updateCurrencyRates());
     if (userInfo)
@@ -32,8 +34,14 @@ export default function CurrencyScreen({}) {
           currency,
         })
       );
-    setSessionCurrency(currency);
-    localStorage.setItem("currency", currency);
+    console.log("currencyScreen   ");
+    console.log(
+      "userInfo ",
+      userInfo?.currency,
+      { currency },
+      "pipe ",
+      pipe.currencyType
+    );
   };
 
   useEffect(() => {
