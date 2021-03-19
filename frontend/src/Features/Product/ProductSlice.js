@@ -18,6 +18,11 @@ export const {
   },
   reducers: {
     ...Reducer("..."),
+    _CHANGE: (state, action) => ({
+      ...state,
+      sessionCurrency: action.payload,
+      rate: state.rates[action.payload],
+    }),
   },
 });
 

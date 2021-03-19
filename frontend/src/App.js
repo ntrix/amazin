@@ -15,16 +15,16 @@ import Logo from "./img/a.svg";
 import { pipe } from "./utils";
 
 export default function App() {
-  const cart = useSelector((state) => state.cart);
-  const [hasSidebar, setSidebar] = useState(false);
-  const { cartItems } = cart;
-  const { userInfo } = useSelector((state) => state.userSignin);
-  const uCurrency = userInfo?.currency;
-  const { rates } = useSelector((state) => state.currencyType);
-  const [currency, setCurrency] = useState(pipe.currencyType);
   const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { sessionCurrency } = useSelector((state) => state.currencyType);
+  const [currency, setCurrency] = useState(
+    userInfo?.currency || sessionCurrency || pipe.currencyType
+  );
 
   const timeoutId = useRef(0);
+  const [hasSidebar, setSidebar] = useState(false);
   const [hasDropdown, setDropdown] = useState(false);
   const onEnterHandle = () => {
     clearTimeout(timeoutId.current - 99);
@@ -38,12 +38,11 @@ export default function App() {
     dispatch(signout());
   };
 
-  const productCategoryList = useSelector((state) => state.productCategoryList);
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
-  } = productCategoryList;
+  } = useSelector((state) => state.productCategoryList);
 
   function shortName(user, length) {
     if (!user) return "Sign In";
@@ -63,10 +62,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    setCurrency(userInfo?.currency || pipe.currencyType || "EUR");
+    setCurrency(userInfo?.currency || sessionCurrency || pipe.currencyType);
+    pipe.setCurrency(userInfo?.currency || sessionCurrency);
     dispatch(updateCurrencyRates());
+    console.log({ currency }, pipe.currencyType);
     dispatch(listProductCategories());
-  }, [dispatch, pipe.currencyType]);
+  }, [dispatch, sessionCurrency]);
 
   return (
     <BrowserRouter>
@@ -101,7 +102,7 @@ export default function App() {
               <div>
                 <div className="nav__line-1"> </div>
                 <div className="nav__line-2 sprite__wrapper">
-                  <span className={"sprite flag " + pipe.currencyType}></span>
+                  <span className={"sprite flag " + sessionCurrency}></span>
                   <i className="fa fa-caret-down"></i>
                 </div>
               </div>
@@ -137,7 +138,7 @@ export default function App() {
                       <div
                         className={
                           "sprite__wrapper" +
-                          (label === pipe.getName(uCurrency || currency)
+                          (label === pipe.getName(sessionCurrency)
                             ? " active"
                             : "")
                         }
@@ -158,9 +159,7 @@ export default function App() {
                   target="_blank"
                 >
                   <div className="sprite__wrapper">
-                    <div
-                      className={"sprite flag xl " + pipe.currencyType}
-                    ></div>
+                    <div className={"sprite flag xl " + sessionCurrency}></div>
                     <span>Exchange Rates</span>
                   </div>
                 </a>
