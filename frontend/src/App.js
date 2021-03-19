@@ -16,6 +16,9 @@ import { pipe } from "./utils";
 
 export default function App() {
   const dispatch = useDispatch();
+  const { sessionCurrency, rates, success } = useSelector(
+    (state) => state.currencyType
+  );
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
   const [currency, setCurrency] = useState(
@@ -61,12 +64,16 @@ export default function App() {
   };
 
   useEffect(() => {
-    setCurrency(userInfo?.currency || pipe.currencyType);
+    setCurrency(
+      userInfo?.currency ||
+        sessionCurrency ||
+        localStorage.getItem("currency") ||
+        pipe.currencyType
+    );
     pipe.setCurrency(userInfo?.currency || pipe.currencyType);
     dispatch(updateCurrencyRates());
-    console.log(userInfo?.currency, { currency }, pipe.currencyType);
     dispatch(listProductCategories());
-  }, [dispatch, pipe.currencyType, userInfo?.currency]);
+  }, [dispatch, pipe.currencyType, userInfo?.currency, sessionCurrency]);
 
   return (
     <BrowserRouter>
