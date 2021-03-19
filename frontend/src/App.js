@@ -182,13 +182,20 @@ export default function App() {
                 dropMenu={[
                   ["Informations"],
                   ["Your Profile", "/profile"],
+                  ["Your Shipping Addresses", "/shipping"],
+                  ["FAQs & Generals", "/customer"],
                   ["separator", "2"],
                   ["Orders"],
                   ["Your Order History", "/order-history"],
+                  ["Your Payment Method", "/payment"],
                   ["Returns", "disabled"],
                   ["Contact Us", "/contact/subject/Orders"],
                   ["separator", "3"],
                   ["Account"],
+                  [
+                    "Create And Verify Seller Account",
+                    userInfo?.isSeller ? "disabled" : "/contact/subject/Seller",
+                  ],
                   ["Sign Out", "#signout", , signoutHandler],
                 ]}
               />
@@ -204,12 +211,14 @@ export default function App() {
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
+                  ["Apply An Admin Account", "/contact/subject/Admin"],
                   ["separator", "4"],
                   ["Listing"],
-                  ["Product List", "/product-list/seller"],
+                  ["Product Lists & Catalogues", "/product-list/seller"],
                   ["Sold Order List", "/order-list/seller"],
                   ["separator", "5"],
                   ["Assistant"],
+                  ["International Shipping Courier", "disabled"],
                   ["Sell Statistics", "disabled"],
                 ]}
               />

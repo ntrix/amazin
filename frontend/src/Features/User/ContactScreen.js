@@ -97,6 +97,7 @@ export default function ContactScreen(props) {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
               >
+                <option value="Admin">Apply To Be Administrator</option>
                 <option value="Account">Account</option>
                 <option value="Ads">Advertisement</option>
                 <option value="Customer">Customer Service</option>
@@ -106,6 +107,7 @@ export default function ContactScreen(props) {
                 <option value="Payment">Payment</option>
                 <option value="Report">Report Something Suspicious</option>
                 <option value="Returns">Returns & Refund</option>
+                <option value="Seller">Verify My Seller Account</option>
                 <option value="Shipping">Shipping Address</option>
                 <option value="Others">Others..</option>
               </select>
