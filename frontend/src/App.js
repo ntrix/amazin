@@ -6,7 +6,6 @@ import MessageBox from "./components/MessageBox";
 import NavDropMenu, { addMenuItem } from "./components/NavMenu";
 import SearchBox from "./components/SearchBox";
 import {
-  changeCurrency,
   listProductCategories,
   updateCurrencyRates,
 } from "./Controllers/productActions";
@@ -24,6 +23,7 @@ export default function App() {
   const { rates } = useSelector((state) => state.currencyType);
   const [currency, setCurrency] = useState(pipe.currencyType);
   const dispatch = useDispatch();
+
   const timeoutId = useRef(0);
   const [hasDropdown, setDropdown] = useState(false);
   const onEnterHandle = () => {
@@ -33,6 +33,7 @@ export default function App() {
   const onLeaveHandle = () => {
     timeoutId.current = 99 + setTimeout(() => setDropdown(false), 500);
   };
+
   const signoutHandler = () => {
     dispatch(signout());
   };
@@ -62,10 +63,8 @@ export default function App() {
   };
 
   useEffect(() => {
+    setCurrency(userInfo?.currency || pipe.currencyType || "EUR");
     dispatch(updateCurrencyRates());
-    setCurrency(userInfo?.currency || pipe.currencyType);
-    pipe.updateRates(rates);
-    console.log({ uCurrency, currency }, pipe.currencyType, pipe.getName());
     dispatch(listProductCategories());
   }, [dispatch, pipe.currencyType]);
 

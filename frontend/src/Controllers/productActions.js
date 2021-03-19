@@ -12,10 +12,6 @@ import {
 } from "../Features/Product/ProductSlice";
 import { pipe } from "../utils";
 
-// export const changeCurrency = (currencyType) => (dispatch) => {
-//   dispatch(currencyTypeActions._CHANGE(currencyType));
-// };
-
 export const updateCurrencyRates = () => async (dispatch) => {
   dispatch(currencyTypeActions._REQUEST());
   try {
