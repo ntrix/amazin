@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import {
-  changeCurrency,
-  updateCurrencyRates,
-} from "../../../Controllers/productActions";
+import { updateCurrencyRates } from "../../../Controllers/productActions";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { pipe } from "../../../utils";
@@ -24,7 +21,6 @@ export default function CurrencyScreen({}) {
 
   const submitHandler = () => {
     pipe.setCurrency(currency);
-    dispatch(changeCurrency(currency));
     dispatch(updateCurrencyRates());
     console.log("currencyScreen   ", { currency }, pipe.currencyType);
     if (userInfo)

@@ -18,9 +18,8 @@ export default function App() {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { sessionCurrency } = useSelector((state) => state.currencyType);
   const [currency, setCurrency] = useState(
-    userInfo?.currency || sessionCurrency || pipe.currencyType
+    userInfo?.currency || pipe.currencyType
   );
 
   const timeoutId = useRef(0);
@@ -62,12 +61,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    setCurrency(userInfo?.currency || sessionCurrency || pipe.currencyType);
-    pipe.setCurrency(userInfo?.currency || sessionCurrency);
+    setCurrency(userInfo?.currency || pipe.currencyType);
+    pipe.setCurrency(userInfo?.currency || pipe.currencyType);
     dispatch(updateCurrencyRates());
-    console.log({ currency }, pipe.currencyType);
+    console.log(userInfo?.currency, { currency }, pipe.currencyType);
     dispatch(listProductCategories());
-  }, [dispatch, sessionCurrency]);
+  }, [dispatch, pipe.currencyType, userInfo?.currency]);
 
   return (
     <BrowserRouter>
@@ -102,7 +101,7 @@ export default function App() {
               <div>
                 <div className="nav__line-1"> </div>
                 <div className="nav__line-2 sprite__wrapper">
-                  <span className={"sprite flag " + sessionCurrency}></span>
+                  <span className={"sprite flag " + currency}></span>
                   <i className="fa fa-caret-down"></i>
                 </div>
               </div>
@@ -138,9 +137,7 @@ export default function App() {
                       <div
                         className={
                           "sprite__wrapper" +
-                          (label === pipe.getName(sessionCurrency)
-                            ? " active"
-                            : "")
+                          (label === pipe.getName(currency) ? " active" : "")
                         }
                       >
                         <div className="sprite circle"></div>
@@ -159,7 +156,7 @@ export default function App() {
                   target="_blank"
                 >
                   <div className="sprite__wrapper">
-                    <div className={"sprite flag xl " + sessionCurrency}></div>
+                    <div className={"sprite flag xl " + currency}></div>
                     <span>Exchange Rates</span>
                   </div>
                 </a>
