@@ -117,3 +117,9 @@ export const pipe = {
     return this.getSymbol() + " " + this.getPrice(price);
   },
 };
+
+export const savePath = (exceptionStartWith = "@") => () => {
+  //doesn't save path of the same screen
+  if (!window.location.pathname.startsWith(exceptionStartWith))
+    localStorage.setItem("backToHistory", window.location.pathname);
+};

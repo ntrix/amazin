@@ -1,17 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import MessageBox from "../../../components/MessageBox";
 import {
   setSessionCurrency,
   updateCurrencyRates,
 } from "../../../Controllers/productActions";
-import LoadingBox from "../../../components/LoadingBox";
-import MessageBox from "../../../components/MessageBox";
-import { pipe } from "../../../utils";
-import "./currencyScreen.css";
-import { userUpdateProfileActions } from "../UserSlice";
 import { updateUserProfile } from "../../../Controllers/userActions";
+import { pipe } from "../../../utils";
+import { userUpdateProfileActions } from "../UserSlice";
+import "./currencyScreen.css";
 
 export default function CurrencyScreen({}) {
   const { cType } = useParams();

@@ -1,18 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { pipe } from "../utils";
+import { Link } from "react-router-dom";
+import { pipe, savePath } from "../utils";
 import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {
-  const location = useLocation();
-  const saveHistory = () => {
-    localStorage.setItem("backToHistory", location.pathname);
-  };
   return (
     <div key={product._id} className="card flex">
       <div className="card__center">
-        <Link to={`/product/${product._id}`} onClick={saveHistory}>
+        <Link to={`/product/${product._id}`} onClick={savePath()}>
           <img
             className="thumbnail"
             src={
@@ -24,7 +19,7 @@ export default function ProductCard({ product, deal = false }) {
           />
         </Link>
         <div className="card__body">
-          <Link to={`/product/${product._id}`} onClick={saveHistory}>
+          <Link to={`/product/${product._id}`} onClick={savePath()}>
             <h2>{product.name}</h2>
           </Link>
           <Rating

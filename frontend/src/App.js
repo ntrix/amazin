@@ -12,7 +12,7 @@ import {
 import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
-import { pipe } from "./utils";
+import { pipe, savePath } from "./utils";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -61,12 +61,6 @@ export default function App() {
     );
   };
 
-  const savePath = (notStartWith = "@") => () => {
-    //doesn't save path of the same screen
-    if (!window.location.pathname.startsWith(notStartWith))
-      localStorage.setItem("backToHistory", window.location.pathname);
-  };
-
   useEffect(() => {
     pipe.updateRates(rates);
   }, [success]);
@@ -94,7 +88,7 @@ export default function App() {
               </div>
             </Link>
 
-            <Link className="location flex" to="/map">
+            <Link className="location flex" to="/map" onClick={savePath()}>
               <div className="sprite__locator"></div>
               <div className="tablet--off">
                 <div className="nav__line-1">Deliver to your</div>
