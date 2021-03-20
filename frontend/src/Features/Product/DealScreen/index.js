@@ -104,8 +104,10 @@ export default function DealScreen() {
               </div>
             )}
             <div className="sort__filter">
-              Sort by{" "}
+              <label htmlFor="filter__options">Sort by</label>
+              <div className="sprite__caret"></div>
               <select
+                id="filter__options"
                 value={order}
                 onChange={(e) =>
                   history.push(
@@ -113,11 +115,13 @@ export default function DealScreen() {
                   )
                 }
               >
-                <option value="newest">Newest Arrivals</option>
-                <option value="bestselling">Best Selling</option>
-                <option value="lowest">Price: Low to High</option>
-                <option value="highest">Price: High to Low</option>
-                <option value="toprated">Avg. Rating</option>
+                <optgroup label="Sort by">
+                  <option value="newest">Newest Arrivals</option>
+                  <option value="bestselling">Best Selling</option>
+                  <option value="lowest">Price: Low to High</option>
+                  <option value="highest">Price: High to Low</option>
+                  <option value="toprated">Avg. Rating</option>
+                </optgroup>
               </select>
             </div>
           </div>

@@ -1023,32 +1023,58 @@ img.large {
   background: #fcfcfc;
   box-shadow: 0 2px 5px #a4a4a4;
 }
+.search-screen .search__banner {
+  padding: 0.5rem 1rem;
+  margin: 0 -1rem 1rem -1rem;
+}
 .search__counter {
   margin-left: 2rem;
 }
 .sort__filter {
+  position: relative;
   margin-right: 2rem;
-  padding-left: 2rem;
-  padding-right: 1rem;
   border: thin solid #ccc;
+  outline: 0;
   border-radius: 1.5rem;
   background: #f2f2f2;
   box-shadow: 0 1px 5px #a4a4a4;
 }
+.sort__filter label {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  padding: 2px 0;
+}
 .sort__filter select {
-  width: 13rem;
-  padding: 0.25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 22rem;
+  padding: 3px 3rem 4px 7rem;
   font-size: 1.3rem;
   outline: none;
   border: none;
-  background: #f2f2f2;
+  background: transparent;
   cursor: pointer;
+  border-radius: 1.5rem;
+}
+.sort__filter .sprite__caret {
+  top: 0px;
+  right: 14px;
 }
 .sort__filter:hover,
 .sort__filter:hover select {
   background: #e3e6e6;
 }
-.row.search__banner + .row {
+.sort__filter optgroup {
+  color: #888;
+  font-style: normal;
+  padding: 0;
+}
+.sort__filter option {
+  color: #111;
+}
+.search-screen__result {
   background: #fff;
 }
 .search__filter {

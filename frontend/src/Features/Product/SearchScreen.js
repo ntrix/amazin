@@ -55,7 +55,7 @@ export default function SearchScreen({ history }) {
     return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`;
   };
   return (
-    <div>
+    <div className="search-screen">
       <header className="sub-header">
         <ul className="cat-nav">
           {loadingCategories ? (
@@ -84,22 +84,26 @@ export default function SearchScreen({ history }) {
           </div>
         )}
         <div className="sort__filter">
-          Sort by{" "}
+          <label htmlFor="filter__options">Sort by</label>
+          <div className="sprite__caret"></div>
           <select
+            id="filter__options"
             value={order}
             onChange={(e) => {
               history.push(getFilterUrl({ order: e.target.value }));
             }}
           >
-            <option value="newest">Newest Arrivals</option>
-            <option value="bestselling">Best Selling</option>
-            <option value="lowest">Price: Low to High</option>
-            <option value="highest">Price: High to Low</option>
-            <option value="toprated">Avg. Rating</option>
+            <optgroup label="Sort by">
+              <option value="newest">Newest Arrivals</option>
+              <option value="bestselling">Best Selling</option>
+              <option value="lowest">Price: Low to High</option>
+              <option value="highest">Price: High to Low</option>
+              <option value="toprated">Avg. Rating</option>
+            </optgroup>
           </select>
         </div>
       </div>
-      <div className="row top">
+      <div className="row top search-screen__result">
         <div className="search__filter">
           <ul>
             <h4>Department</h4>
