@@ -212,7 +212,10 @@ export default function App() {
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
-                  ["Apply An Admin Account", "/contact/subject/Admin"],
+                  [
+                    "Apply An Admin Account",
+                    !userInfo?.isAdmin ? "/contact/subject/Admin" : "disabled",
+                  ],
                   ["separator", "4"],
                   ["Listing"],
                   ["Product Lists & Catalogues", "/product-list/seller"],
@@ -333,7 +336,7 @@ export default function App() {
                 ...categories.map((c) => [c, "/search/category/" + c]),
                 ["separator", "10"],
                 ["Help & Setting"],
-                ["(Seller) Profile", "/profile/seller"],
+                ["Your Profile", "/profile"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
@@ -346,11 +349,41 @@ export default function App() {
                   ? ["Sign Out", "#signout", , signoutHandler]
                   : ["Sign In", "/signin"],
                 [""],
-                ["separator", "12"],
-                ["separator", "13"],
+                ["separator", "a1"],
+                ["separator", "a2"],
+                ["Seller Account"],
+                [
+                  "Your Seller Profile",
+                  userInfo?.isSeller ? "/profile/seller" : "disabled",
+                ],
+                [
+                  "Your Listing Products",
+                  userInfo?.isSeller ? "/product-list" : "disabled",
+                ],
+                [
+                  "Your Order List",
+                  userInfo?.isSeller ? "/order-list" : "disabled",
+                ],
+                ["separator", "a3"],
+                ["separator", "a4"],
+                ["Admin Tools"],
+                [
+                  "User Management",
+                  userInfo?.isAdmin ? "/user-list" : "disabled",
+                ],
+                [
+                  "All Product Catalogues",
+                  userInfo?.isAdmin ? "/product-list" : "disabled",
+                ],
+                [
+                  "All Order Lists, Database",
+                  userInfo?.isAdmin ? "/order-list" : "disabled",
+                ],
+                ["separator", "a5"],
+                ["separator", "a6"],
                 ["#contact 2020", "disabled"],
-                ["separator", "14"],
-                ["separator", "15"],
+                ["separator", "a7"],
+                ["separator", "a8"],
               ].map(addMenuItem(setSidebar))
             )}
           </ul>
