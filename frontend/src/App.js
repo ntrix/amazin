@@ -331,19 +331,26 @@ export default function App() {
                 ["New Releases", "/search/category/All/order/newest"],
                 ["Best Sellers", "/banner/bestseller"],
                 ["separator", "9"],
+
                 ["Categories"],
                 ["Netflux Video", "/video"],
                 ...categories.map((c) => [c, "/search/category/" + c]),
                 ["separator", "10"],
-                ["Help & Setting"],
-                ["Your Profile", "/profile"],
+
+                ["Privacy & Setting"],
+                ["Your Favorite List", "disabled"],
+                ["Your Browsing History", "disabled"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
                 ["Currency Setting", "/currency/cType/0"],
-                ["FAQ & Contact", "/contact/subject/FAQ"],
+                ["FAQ & Help", "/contact/subject/FAQ"],
+                [""],
                 ["separator", "11"],
-                ["Account"],
+                ["separator", "a0"],
+
+                ["Your Account"],
+                ["Your Profile", "/profile"],
                 ["Customer Service", "/customer"],
                 userInfo
                   ? ["Sign Out", "#signout", , signoutHandler]
@@ -351,6 +358,7 @@ export default function App() {
                 [""],
                 ["separator", "a1"],
                 ["separator", "a2"],
+
                 ["Seller Account"],
                 [
                   "Your Seller Profile",
@@ -364,9 +372,11 @@ export default function App() {
                   "Your Order List",
                   userInfo?.isSeller ? "/order-list" : "disabled",
                 ],
+                [""],
                 ["separator", "a3"],
                 ["separator", "a4"],
-                ["Admin Tools"],
+
+                ["Administration"],
                 [
                   "User Management",
                   userInfo?.isAdmin ? "/user-list" : "disabled",
@@ -379,9 +389,12 @@ export default function App() {
                   "All Order Lists, Database",
                   userInfo?.isAdmin ? "/order-list" : "disabled",
                 ],
+                [""],
                 ["separator", "a5"],
                 ["separator", "a6"],
-                ["#contact 2020", "disabled"],
+
+                ["#contact dev team", "disabled"],
+                [""],
                 ["separator", "a7"],
                 ["separator", "a8"],
               ].map(addMenuItem(setSidebar))
