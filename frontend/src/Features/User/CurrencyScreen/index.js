@@ -109,23 +109,26 @@ export default function CurrencyScreen({}) {
             </>
           )}
           <p>Select the currency you want to shop with.</p>
-          <select
-            id="currency"
-            className="col-50p"
-            value={currency}
-            onChange={(e) => {
-              e.stopPropagation();
-              setCurrency(e.target.value);
-            }}
-          >
-            <optgroup label="Select Currency">
-              {pipe.currencies.map((c) => (
-                <option value={c}>
-                  {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
-                </option>
-              ))}
-            </optgroup>
-          </select>
+          <div className="select-wrapper col-50p">
+            <div className="sprite__caret"></div>
+            <select
+              id="currency"
+              value={currency}
+              data-select="true"
+              onChange={(e) => {
+                e.stopPropagation();
+                setCurrency(e.target.value);
+              }}
+            >
+              <optgroup label="Select Currency">
+                {pipe.currencies.map((c) => (
+                  <option value={c}>
+                    {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
+                  </option>
+                ))}
+              </optgroup>
+            </select>
+          </div>
           {currency !== "EUR" && (
             <p>
               {`Note: You will be shown prices in ${pipe.getSymbol(
@@ -144,13 +147,15 @@ export default function CurrencyScreen({}) {
       </div>
 
       <div className="divider-inner"></div>
-      <div className="container p-1">
-        <Link to={back}>
-          <button className="btn--xs">Cancel</button>
-        </Link>
-        <button className="btn primary btn--xs" onClick={submitHandler}>
-          Save Changes
-        </button>
+      <div className="container">
+        <div className="col-50p p-1">
+          <Link to={back}>
+            <button className="btn--xs">Cancel</button>
+          </Link>
+          <button className="btn primary btn--xs" onClick={submitHandler}>
+            Save Changes
+          </button>
+        </div>
       </div>
     </div>
   );
