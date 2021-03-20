@@ -339,11 +339,17 @@ export default function App() {
 
                 ["Privacy & Setting"],
                 ["Your Favorite List", "disabled"],
+                [
+                  "",
+                  "/currency/cType/" + currency,
+                  "sprite flag xl " + currency,
+                ],
+                [pipe.getName(currency), "/currency/cType/" + currency, "pl-8"],
+                ["Currency Setting", "/currency/cType/0"],
                 ["Your Browsing History", "disabled"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["Currency Setting", "/currency/cType/0"],
                 ["FAQ & Help", "/contact/subject/FAQ"],
                 [""],
                 ["separator", "11"],

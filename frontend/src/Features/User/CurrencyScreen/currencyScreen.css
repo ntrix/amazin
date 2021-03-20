@@ -117,6 +117,14 @@
 .CHF {
   background-position: -54px -36px;
 }
+.sidebar .sprite.flag {
+  padding: 0;
+  margin: 16px 10px -30px 36px;
+  z-index: 1;
+}
+.sidebar .pl-8 {
+  padding-left: 8rem;
+}
 .sprite.flag.xl {
   height: 20px;
   width: 32px;
