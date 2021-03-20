@@ -93,7 +93,7 @@ export default function SearchScreen({ history }) {
               history.push(getFilterUrl({ order: e.target.value }));
             }}
           >
-            <optgroup label="Sort by">
+            <optgroup label="Sort by:">
               <option value="newest">Newest Arrivals</option>
               <option value="bestselling">Best Selling</option>
               <option value="lowest">Price: Low to High</option>
@@ -199,6 +199,7 @@ export default function SearchScreen({ history }) {
             {(!products || products.length < 3) && (
               <div className="placeholder"></div>
             )}
+            <div className="row divider-inner"></div>
             <div className="row center pagination">
               {[...Array(pages || 0).keys()].map((x) => (
                 <Link
@@ -210,16 +211,15 @@ export default function SearchScreen({ history }) {
                 </Link>
               ))}
             </div>
-            <p className="separator"></p>
-            <p className="separator"></p>
             <div>
               <h2>Do you need help?</h2>
               <p>
-                Visit the <Link to="/help">help section</Link> or{" "}
+                Visit the <Link to="/customer">help section</Link> or{" "}
                 <Link to="/contact/subject/Help">contact us</Link>
+                <br />
+                <br />
               </p>
             </div>
-            <p className="separator"></p>
           </div>
         </div>
       </div>

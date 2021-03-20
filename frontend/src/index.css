@@ -1028,14 +1028,17 @@ img.large {
 
 /* Search Screen */
 .search__banner {
-  padding: 0.5rem 0;
+  padding: 8px 0;
   margin-bottom: 1rem;
-  background: #fcfcfc;
-  box-shadow: 0 2px 5px #a4a4a4;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 0 10px #ddd;
+  background-color: #fff;
+  position: relative;
 }
 .search-screen .search__banner {
-  padding: 0.5rem 1rem;
-  margin: 0 -1rem 1rem -1rem;
+  padding: 8px 1rem;
+  margin: 0 -1rem;
 }
 .search__counter {
   margin-left: 2rem;
@@ -1043,34 +1046,35 @@ img.large {
 .sort__filter {
   position: relative;
   margin-right: 2rem;
-  border: thin solid #ccc;
+  border: thin solid #d5d9d9;
   outline: 0;
-  border-radius: 1.5rem;
-  background: #f2f2f2;
-  box-shadow: 0 1px 5px #a4a4a4;
+  border-radius: 8px;
+  background: #f0f2f2;
+  box-shadow: 0 2px 5px #1112;
 }
 .sort__filter label {
   position: absolute;
   top: 0;
-  left: 16px;
-  padding: 2px 0;
+  left: 8px;
+  padding: 3px 0;
+  font-size: 12px;
 }
 .sort__filter select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 22rem;
-  padding: 3px 3rem 4px 7rem;
-  font-size: 1.3rem;
+  width: 18rem;
+  padding: 3px 25px 4px 5rem;
+  font-size: 12px;
   outline: none;
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: 1.5rem;
+  border-radius: 7px;
 }
 .sort__filter .sprite__caret {
   top: 0px;
-  right: 14px;
+  right: 5px;
 }
 .sort__filter:hover,
 .sort__filter:hover select {
@@ -1082,10 +1086,12 @@ img.large {
   padding: 0;
 }
 .sort__filter option {
-  color: #111;
+  color: #0f1111;
 }
 .search-screen__result {
   background: #fff;
+  margin: 0 -1rem;
+  padding: 0 1rem;
 }
 .search__filter {
   flex: 1 0 20rem;

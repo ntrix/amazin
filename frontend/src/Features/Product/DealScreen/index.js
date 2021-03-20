@@ -115,7 +115,7 @@ export default function DealScreen() {
                   )
                 }
               >
-                <optgroup label="Sort by">
+                <optgroup label="Sort by:">
                   <option value="newest">Newest Arrivals</option>
                   <option value="bestselling">Best Selling</option>
                   <option value="lowest">Price: Low to High</option>
