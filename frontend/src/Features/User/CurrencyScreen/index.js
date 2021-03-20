@@ -50,7 +50,7 @@ export default function CurrencyScreen({}) {
   }, [cType, dispatch, userInfo?._id]);
 
   return (
-    <div className="currency c-screen">
+    <div className="c-screen currency">
       <header className="container flex">
         <div className="col-50p">
           <h2 className="title">Language Settings</h2>

@@ -345,7 +345,7 @@ export default function App() {
                   "sprite flag xl " + currency,
                 ],
                 [pipe.getName(currency), "/currency/cType/" + currency, "pl-8"],
-                ["Currency Setting", "/currency/cType/0"],
+                ["Currency Setting", "/currency/cType/EUR"],
                 ["Your Browsing History", "disabled"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],

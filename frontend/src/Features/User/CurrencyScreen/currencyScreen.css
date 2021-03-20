@@ -1,6 +1,9 @@
 .dropdown__menu.currency {
   margin-top: 7px;
 }
+.c-screen.currency {
+  padding: 20px 25px;
+}
 .nav__line-2.sprite__wrapper {
   margin: 2px 0px 1px;
 }
