@@ -768,6 +768,16 @@ button.open-sidebar:hover {
   background: url("./img/nav-sprite.png") -125px -88px;
   margin: -3px 9px -8px -2px;
 }
+.sidebar .sprite.flag {
+  padding: 0;
+  margin: 16px 10px -30px 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+.sidebar .pl-8 {
+  padding-left: 8rem;
+}
+‚
 /* Image */
 img {
   border-radius: 3px;
@@ -1448,6 +1458,25 @@ img.active {
   box-shadow: 0 0 3px 2px #f19833;
 }
 
+/* minor Effect */
+.divider,
+.divider-inner {
+  height: 44px;
+  margin-bottom: -18px;
+  background: -webkit-linear-gradient(to bottom, #0002, #0001 3px, #0000);
+  background: linear-gradient(to bottom, #0002, #0001 3px, #0000);
+  z-index: 0;
+}
+.divider-inner::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 44px;
+  background-color: #0000;
+  background: -webkit-linear-gradient(to right, #fff, #fff0, #fff);
+  background: linear-gradient(to right, #fff, #fff0, #fff);
+  z-index: 1;
+}
 .pc-low--only,
 .mobile--only {
   display: none;

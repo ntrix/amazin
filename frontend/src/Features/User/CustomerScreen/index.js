@@ -15,7 +15,7 @@ function CustomerScreen({}) {
           someone if you need more help.
         </h3>
       </header>
-      <div className="divider-inner"></div>
+      <div className="divider"></div>
       <div className="container">
         <h2>What can we assist you with today?</h2>
         <div className="c-boxes">

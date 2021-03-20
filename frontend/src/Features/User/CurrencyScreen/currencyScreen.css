@@ -121,16 +121,6 @@ select#currency {
   padding: 6px 11px;
   margin-right: 10px;
 }
-.currency .divider-inner::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 44px;
-  background-color: transparent;
-  background: -webkit-linear-gradient(to right, #fff, #fff0, #fff);
-  background: linear-gradient(to right, #fff, #fff0, #fff);
-  z-index: 1;
-}
 .sprite.flag {
   height: 12px;
   width: 18px;
@@ -154,14 +144,6 @@ select#currency {
 }
 .CHF {
   background-position: -54px -36px;
-}
-.sidebar .sprite.flag {
-  padding: 0;
-  margin: 16px 10px -30px 36px;
-  z-index: 1;
-}
-.sidebar .pl-8 {
-  padding-left: 8rem;
 }
 .sprite.flag.xl {
   height: 20px;
