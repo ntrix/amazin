@@ -63,12 +63,9 @@ export default function SearchScreen({ history }) {
           ) : errorCategories ? (
             <MessageBox variant="danger">{errorCategories}</MessageBox>
           ) : (
-            ["All", ...categories].map((label) => (
-              <Link to={getFilterUrl({ category: label })}>
-                <li
-                  key={label}
-                  className={label === category ? " selected" : ""}
-                >
+            ["All", ...categories].map((label, id) => (
+              <Link to={getFilterUrl({ category: label })} key={id}>
+                <li className={label === category ? " selected" : ""}>
                   {label}
                 </li>
               </Link>

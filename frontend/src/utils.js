@@ -111,8 +111,7 @@ export const pipe = {
     return ((price * rate) | 0) + "";
   },
   getCent(price = 0, rate = this.getRate()) {
-    return;
-    ((price * rate).toFixed(2) + "").slice(-2);
+    return ((price * rate).toFixed(2) + "").slice(-2);
   },
   showPrice(price) {
     return this.getSymbol() + " " + this.getPrice(price);

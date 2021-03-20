@@ -82,9 +82,9 @@ export default function VideoScreen() {
     <div className="container--fluid video-screen">
       <header className="m-header">
         <ul className="m-nav">
-          {Object.keys(sources).map((label) => (
+          {Object.keys(sources).map((label, id) => (
             <li
-              key={label}
+              key={id}
               className={label === genre ? " active" : ""}
               onClick={() => setGenre(label)}
             >
@@ -101,19 +101,18 @@ export default function VideoScreen() {
       )}
 
       {movies[genre] &&
-        Object.keys(sources).map((label) =>
-          label !== "Home" &&
-          (genre === label || genre === "Home") &&
-          label !== "STORE" ? (
-            <VideoRow
-              key={label}
-              title={label}
-              movies={movies[label]}
-              large={label === "NETFLUX ORIGINALS"}
-            />
-          ) : (
-            <></>
-          )
+        Object.keys(sources).map(
+          (label, id) =>
+            label !== "Home" &&
+            (genre === label || genre === "Home") &&
+            label !== "STORE" && (
+              <VideoRow
+                key={id}
+                title={label}
+                movies={movies[label]}
+                large={label === "NETFLUX ORIGINALS"}
+              />
+            )
         )}
 
       {loadingProducts ? (

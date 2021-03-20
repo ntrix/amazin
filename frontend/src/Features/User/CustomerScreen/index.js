@@ -92,8 +92,8 @@ function CustomerScreen({}) {
               ,
               "disabled",
             ],
-          ].map(([img, label, line1, line2, link, className]) => (
-            <Link to={link} className={"c-box " + className}>
+          ].map(([img, label, line1, line2, link = "#", className], id) => (
+            <Link to={link} key={id} className={"c-box " + className}>
               <div className="c-box__inner">
                 <div className="c-box__icon-wrapper">
                   <img

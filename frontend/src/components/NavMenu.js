@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const addMenuItem = (clickHandle) => ([
-  menuItemLabel,
-  linkTo,
-  className,
-  extraFunction,
-]) => {
+export const addMenuItem = (clickHandle) => (
+  [menuItemLabel, linkTo, className, extraFunction],
+  id
+) => {
   const innerComponent = () =>
     !linkTo && !className ? (
       <strong>{menuItemLabel}</strong>
@@ -33,9 +31,9 @@ export const addMenuItem = (clickHandle) => ([
       <div>{menuItemLabel}</div>
     );
   return menuItemLabel == "separator" ? (
-    <div key={linkTo} className="separator"></div>
+    <div key={id} className="separator"></div>
   ) : (
-    <li key={menuItemLabel}>{innerComponent()}</li>
+    <li key={id}>{innerComponent()}</li>
   );
 };
 

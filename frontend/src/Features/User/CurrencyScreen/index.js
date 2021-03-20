@@ -75,8 +75,8 @@ export default function CurrencyScreen({}) {
                 ["Polski", "PL", "Tłumaczenie"],
                 ["Türkçe", "TR", "Çeviri"],
                 ["Čeština", "CS", "Překlad"],
-              ].map(([label, short, text]) => (
-                <li className="language disabled">
+              ].map(([label, short, text], id) => (
+                <li key={id} className="language disabled">
                   <div className="sprite__wrapper">
                     <div className="sprite circle"></div>
                     <span>

@@ -78,14 +78,15 @@ export default function ProductScreen(props) {
                 {product?.image &&
                   product.image
                     .split("^")
-                    .map((img, idx) => (
+                    .map((img, id) => (
                       <img
+                        key={id}
                         src={img}
-                        alt={product.name + " small " + idx}
-                        onMouseEnter={() => setImgActive(idx)}
+                        alt={product.name + " small " + id}
+                        onMouseEnter={() => setImgActive(id)}
                         className={
                           "product__thumbnail" +
-                          (idx === imgActive ? " active" : "")
+                          (id === imgActive ? " active" : "")
                         }
                       ></img>
                     ))}

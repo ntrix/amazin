@@ -59,7 +59,7 @@ export default function VideoBanner({ source = dummy }) {
   };
 
   return (
-    movie && (
+    movie?.images && (
       <>
         <header
           className="banner"

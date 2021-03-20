@@ -118,7 +118,7 @@ export default function App() {
                 {["EUR", "separator", ...pipe.currencies.slice(1)].map(
                   (label, id) =>
                     label === "separator" ? (
-                      <div className="separator ml-1"></div>
+                      <div key={id} className="separator ml-1"></div>
                     ) : (
                       <Link
                         key={id}
@@ -167,7 +167,7 @@ export default function App() {
                 dropMenu={[
                   ["Account"],
                   ["Sign In", "/signin"],
-                  ["separator", "1"],
+                  ["separator"],
                   ["New customer? Start here.", "/register"],
                 ]}
               />
@@ -185,13 +185,13 @@ export default function App() {
                   ["Your Profile", "/profile"],
                   ["Your Shipping Addresses", "/shipping"],
                   ["FAQs & Generals", "/customer"],
-                  ["separator", "2"],
+                  ["separator"],
                   ["Orders"],
                   ["Your Order History", "/order-history"],
                   ["Your Payment Method", "/payment"],
                   ["Returns", "disabled"],
                   ["Contact Us", "/contact/subject/Orders"],
-                  ["separator", "3"],
+                  ["separator"],
                   ["Account"],
                   [
                     "Create & Verify Seller Account",
@@ -216,11 +216,11 @@ export default function App() {
                     "Apply An Admin Account",
                     !userInfo?.isAdmin ? "/contact/subject/Admin" : "disabled",
                   ],
-                  ["separator", "4"],
+                  ["separator"],
                   ["Listing"],
                   ["Product Lists & Catalogues", "/product-list/seller"],
                   ["Sold Order List", "/order-list/seller"],
-                  ["separator", "5"],
+                  ["separator"],
                   ["Assistant"],
                   ["International Shipping Courier", "disabled"],
                   ["Sell Statistics", "disabled"],
@@ -239,11 +239,11 @@ export default function App() {
                 dropMenu={[
                   ["Admin"],
                   ["User List", "/user-list"],
-                  ["separator", "7"],
+                  ["separator"],
                   ["Warehouse"],
                   ["Product Catalogues", "/product-list"],
                   ["Order Database", "/order-list"],
-                  ["separator", "8"],
+                  ["separator"],
                   ["Instruction"],
                   ["Quick Tutor!", "disabled"],
                 ]}
@@ -330,12 +330,12 @@ export default function App() {
                 ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/All/order/newest"],
                 ["Best Sellers", "/banner/bestseller"],
-                ["separator", "9"],
+                ["separator"],
 
                 ["Categories"],
                 ["Netflux Video", "/video"],
                 ...categories.map((c) => [c, "/search/category/" + c]),
-                ["separator", "10"],
+                ["separator"],
 
                 ["Privacy & Setting"],
                 ["Your Favorite List", "disabled"],
@@ -352,8 +352,8 @@ export default function App() {
                 ["Statistics / AB Testing", "disabled"],
                 ["FAQ & Help", "/contact/subject/FAQ"],
                 [""],
-                ["separator", "11"],
-                ["separator", "a0"],
+                ["separator"],
+                ["separator"],
 
                 ["Your Account"],
                 ["Your Profile", "/profile"],
@@ -362,8 +362,8 @@ export default function App() {
                   ? ["Sign Out", "#signout", , signoutHandler]
                   : ["Sign In", "/signin"],
                 [""],
-                ["separator", "a1"],
-                ["separator", "a2"],
+                ["separator"],
+                ["separator"],
 
                 ["Seller Account"],
                 [
@@ -379,8 +379,8 @@ export default function App() {
                   userInfo?.isSeller ? "/order-list" : "disabled",
                 ],
                 [""],
-                ["separator", "a3"],
-                ["separator", "a4"],
+                ["separator"],
+                ["separator"],
 
                 ["Administration"],
                 [
@@ -396,13 +396,13 @@ export default function App() {
                   userInfo?.isAdmin ? "/order-list" : "disabled",
                 ],
                 [""],
-                ["separator", "a5"],
-                ["separator", "a6"],
+                ["separator"],
+                ["separator"],
 
                 ["#contact dev team", "disabled"],
                 [""],
-                ["separator", "a7"],
-                ["separator", "a8"],
+                ["separator"],
+                ["separator"],
               ].map(addMenuItem(setSidebar))
             )}
           </ul>

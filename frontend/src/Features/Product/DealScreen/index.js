@@ -85,8 +85,8 @@ export default function DealScreen() {
             {products.length === 0 ? (
               <MessageBox>No Deals On This Category!</MessageBox>
             ) : (
-              products.map((product) => (
-                <ProductCard deal product={product}></ProductCard>
+              products.map((product, id) => (
+                <ProductCard deal key={id} product={product}></ProductCard>
               ))
             )}
           </Carousel>
