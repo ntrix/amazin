@@ -17,9 +17,7 @@ export default function CurrencyScreen({}) {
   const { cType } = useParams();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { loading, success, error } = useSelector(
-    (state) => state.currencyType
-  );
+  const { success } = useSelector((state) => state.currencyType);
   const [currency, setCurrency] = useState(cType || pipe.currency);
 
   const submitHandler = () => {
@@ -62,43 +60,31 @@ export default function CurrencyScreen({}) {
           </p>
           <div className="languages">
             <ul className="max-30">
-              <li className="sprite__wrapper active">
-                <div className="sprite circle"></div>
-                <span>
-                  English - EN - <i>Translation</i>
-                </span>
+              <li className="language active">
+                <div className="sprite__wrapper">
+                  <div className="sprite circle"></div>
+                  <span>
+                    English - EN - <i>Translation</i>
+                  </span>
+                </div>
               </li>
               <li className="separator"></li>
-              <li className="sprite__wrapper disabled">
-                <div className="sprite circle"></div>
-                <span>
-                  Deutsch - DE - <i>Übersetzen</i>
-                </span>
-              </li>
-              <li className="sprite__wrapper disabled">
-                <div className="sprite circle"></div>
-                <span>
-                  Nederlands - NL - <i>Vertaling</i>
-                </span>
-              </li>
-              <li className="sprite__wrapper disabled">
-                <div className="sprite circle"></div>
-                <span>
-                  Polski - PL - <i>Tłumaczenie</i>
-                </span>
-              </li>
-              <li className="sprite__wrapper disabled">
-                <div className="sprite circle"></div>
-                <span>
-                  Türkçe - TR - <i>Çeviri</i>
-                </span>
-              </li>
-              <li className="sprite__wrapper disabled">
-                <div className="sprite circle"></div>
-                <span>
-                  Čeština - CS - <i>Překlad</i>
-                </span>
-              </li>
+              {[
+                ["Deutsch", "DE", "Übersetzen"],
+                ["Nederlands", "NL", "Vertaling"],
+                ["Polski", "PL", "Tłumaczenie"],
+                ["Türkçe", "TR", "Çeviri"],
+                ["Čeština", "CS", "Překlad"],
+              ].map(([label, short, text]) => (
+                <li className="language disabled">
+                  <div className="sprite__wrapper">
+                    <div className="sprite circle"></div>
+                    <span>
+                      {label} - {short} - <i>{text}</i>
+                    </span>
+                  </div>
+                </li>
+              ))}
             </ul>
             <br />
           </div>
@@ -116,10 +102,11 @@ export default function CurrencyScreen({}) {
         <section className="col-50p">
           <h2 className="title"> Currency Settings</h2>
           <p>Select the currency you want to shop with.</p>
-          {loading && <LoadingBox />}
-          {error && <MessageBox variant="danger">{error}</MessageBox>}
-
-          {success && <MessageBox variant="success">{success}</MessageBox>}
+          {success && (
+            <MessageBox variant="success">
+              Currency Setting has been changed
+            </MessageBox>
+          )}
           <select
             id="currency"
             className="col-50p"

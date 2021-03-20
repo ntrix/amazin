@@ -515,8 +515,8 @@ a .brand {
 .dropdown__menu {
   position: absolute;
   right: -9px;
-  min-width: 24rem;
-  padding: 1.5rem 2.5rem;
+  min-width: 25rem;
+  padding: 10px 15px 10px 25px;
   background-color: #fff;
   margin-top: 7px;
   border-radius: 3px;

@@ -113,52 +113,38 @@ export default function App() {
                   <i className="fa fa-caret-down"></i>
                 </div>
               </div>
-              <ul
-                className={
-                  "dropdown__menu currency" + (hasDropdown ? " show" : "")
-                }
-              >
-                {[
-                  ["Change Currency"],
-                  [pipe.getName("EUR"), "/currency/cType/EUR"],
-                  [, , "separator"],
-                  ...pipe.currencies
-                    .slice(1) //get supported currencies list without default "EUR", which is listed above the separator
-                    .map((cType) => [
-                      pipe.getName(cType),
-                      "/currency/cType/" + cType,
-                    ]),
-                ].map(([label, linkTo, className], id) =>
-                  !linkTo ? (
-                    <li className={className}>{label}</li>
-                  ) : (
-                    <Link
-                      key={id}
-                      to={linkTo}
-                      onClick={() =>
-                        localStorage.setItem(
-                          "backToHistory",
-                          window.location.pathname
-                        )
-                      }
-                    >
-                      <div
-                        className={
-                          "sprite__wrapper" +
-                          (label === pipe.getName(currency) ? " active" : "")
+              <ul className="dropdown__menu currency show">
+                <li>Change Currency</li>
+                {["EUR", "separator", ...pipe.currencies.slice(1)].map(
+                  (label, id) =>
+                    label === "separator" ? (
+                      <div className="separator ml-1"></div>
+                    ) : (
+                      <Link
+                        key={id}
+                        to={"/currency/cType/" + label}
+                        className={label === currency ? "active" : ""}
+                        onClick={() =>
+                          localStorage.setItem(
+                            "backToHistory",
+                            window.location.pathname
+                          )
                         }
                       >
-                        <div className="sprite circle"></div>
-                        <span>{label}</span>
-                      </div>
-                    </Link>
-                  )
+                        <div className="sprite__wrapper">
+                          <div className="sprite circle"></div>
+                          <span>{pipe.getName(label)}</span>
+                        </div>
+                      </Link>
+                    )
                 )}
-                {[
-                  ["separator"],
-                  ["Exchange"],
-                  ["Currency Calculator", "disabled"],
-                ].map(addMenuItem())}
+                <div className="separator"></div>
+                <li>Currency Calculator</li>
+                <li className="calculator disabled">
+                  <Link to="#">€ - EUR - Euro</Link>
+                  <Link to="#">Base</Link>
+                </li>
+                <div className="separator"></div>
                 <a
                   href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
                   target="_blank"
@@ -287,7 +273,7 @@ export default function App() {
 
             <div className="nav__fill">
               {[
-                ["Netflix Video", "/video", "nav-main__item"],
+                ["Netflux Video", "/video", "nav-main__item"],
                 ["Top Deals", "/deal", "nav-main__item"],
                 [
                   "New Releases",
@@ -343,7 +329,7 @@ export default function App() {
                 ["Best Sellers", "/banner/bestseller"],
                 ["separator", "9"],
                 ["Categories"],
-                ["Netflix Video", "/video"],
+                ["Netflux Video", "/video"],
                 ...categories.map((c) => [c, "/search/category/" + c]),
                 ["separator", "10"],
                 ["Help & Setting"],

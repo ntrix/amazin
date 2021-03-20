@@ -10,7 +10,7 @@ import "./videoScreen.css";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const sources = {
-  "NETFLIX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
+  "NETFLUX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   Home: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
   STORE: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   "Action Movies": `/discover/movie?api_key=${API_KEY}&with_genres=28`,
@@ -109,7 +109,7 @@ export default function VideoScreen() {
               key={label}
               title={label}
               movies={movies[label]}
-              large={label === "NETFLIX ORIGINALS"}
+              large={label === "NETFLUX ORIGINALS"}
             />
           ) : (
             <></>
@@ -130,8 +130,8 @@ export default function VideoScreen() {
           <VideoRow
             title="IN STOCK: READY TO BUY"
             movies={adapter(products).reverse()}
-            //if Netflix is there, only one large row
-            large={genre !== "NETFLIX ORIGINALS"}
+            //if Netflux is there, only one large row
+            large={genre !== "NETFLUX ORIGINALS"}
           />
         </>
       )}

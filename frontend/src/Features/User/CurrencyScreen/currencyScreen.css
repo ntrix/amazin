@@ -4,14 +4,29 @@
 .nav__line-2.sprite__wrapper {
   margin: 2px 0px 1px;
 }
-.currency {
-  padding: 20px 25px;
+
+.dropdown__menu.currency {
+  padding-left: 15px;
 }
-.dropdown__menu.currency.show {
-  padding-left: 15px !important;
+.dropdown__menu.currency .separator.ml-1 {
+  margin-left: 25px;
+  width: auto;
 }
-.dropdown .currency a:not(.active):hover span {
-  text-decoration: underline;
+.dropdown__menu.currency > * {
+  font-size: 13px;
+}
+
+.dropdown__menu.currency > li {
+  line-height: 2;
+}
+.dropdown__menu.currency .active * {
+  cursor: default;
+  color: #000;
+  font-weight: normal;
+}
+.currency .calculator {
+  display: flex;
+  justify-content: space-between;
 }
 .sprite__wrapper {
   display: flex;
@@ -24,11 +39,14 @@
   background-position: -74px 0px;
   background-image: url("../../../img/flags.png");
 }
-.currency a:hover .circle,
-.sprite__wrapper:hover .circle {
+.currency a:not(.disabled, .active):hover span {
+  text-decoration: underline;
+}
+.currency a:not(.disabled, .active):hover .circle,
+.languages .language:not(.disabled, .active):hover .circle {
   background-position: -122px 0px;
 }
-.sprite__wrapper.active .circle {
+.active .sprite.circle {
   background-position: -98px 0px;
 }
 
