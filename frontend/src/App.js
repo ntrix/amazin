@@ -21,9 +21,7 @@ export default function App() {
   );
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const [currency, setCurrency] = useState(
-    userInfo?.currency || pipe.currencyType
-  );
+  const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
 
   const timeoutId = useRef(0);
   const [hasSidebar, setSidebar] = useState(false);
@@ -71,12 +69,12 @@ export default function App() {
       userInfo?.currency ||
         sessionCurrency ||
         localStorage.getItem("currency") ||
-        pipe.currencyType
+        pipe.currency
     );
-    setCurrency(pipe.currencyType);
+    setCurrency(pipe.currency);
     dispatch(updateCurrencyRates());
     dispatch(listProductCategories());
-  }, [dispatch, pipe.currencyType, userInfo?.currency, sessionCurrency]);
+  }, [dispatch, pipe.currency, userInfo?.currency, sessionCurrency]);
 
   return (
     <BrowserRouter>
@@ -167,7 +165,7 @@ export default function App() {
                 >
                   <div className="sprite__wrapper">
                     <div className={"sprite flag xl " + currency}></div>
-                    <span>Exchange Rates</span>
+                    <span>Exchange Reference Rates</span>
                   </div>
                 </a>
               </ul>
@@ -210,7 +208,7 @@ export default function App() {
                   ["separator", "3"],
                   ["Account"],
                   [
-                    "Create And Verify Seller Account",
+                    "Create & Verify Seller Account",
                     userInfo?.isSeller ? "disabled" : "/contact/subject/Seller",
                   ],
                   ["Sign Out", "#signout", , signoutHandler],

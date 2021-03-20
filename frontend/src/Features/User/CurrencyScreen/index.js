@@ -20,7 +20,7 @@ export default function CurrencyScreen({}) {
   const { loading, success, error } = useSelector(
     (state) => state.currencyType
   );
-  const [currency, setCurrency] = useState(cType || pipe.currencyType);
+  const [currency, setCurrency] = useState(cType || pipe.currency);
 
   const submitHandler = () => {
     setSessionCurrency(currency);
@@ -40,12 +40,12 @@ export default function CurrencyScreen({}) {
       userInfo?.currency,
       { currency },
       "pipe ",
-      pipe.currencyType
+      pipe.currency
     );
   };
 
   useEffect(() => {
-    setCurrency(cType || pipe.currencyType);
+    setCurrency(cType || pipe.currency);
     if (!userInfo) {
       dispatch(userUpdateProfileActions._RESET());
     }

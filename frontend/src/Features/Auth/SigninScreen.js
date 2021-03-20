@@ -33,7 +33,7 @@ export default function SigninScreen({ location, history }) {
         dispatch(
           updateUserProfile({
             userId: userInfo._id,
-            currency: pipe.currencyType,
+            currency: pipe.currency,
           })
         );
       history.push(redirect);

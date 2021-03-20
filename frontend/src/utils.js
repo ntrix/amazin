@@ -60,10 +60,10 @@ export const ratings = [
     rating: 1,
   },
 ];
-/* singleton for currencyType and all its pipes */
+/* singleton for currency and all its pipes */
 export const pipe = {
-  //if (this.currencyType ) return this;
-  currencyType: "EUR",
+  //if (this.currency ) return this;
+  currency: "EUR",
   currencies: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
   rates: {
     //default dummy rate
@@ -74,33 +74,47 @@ export const pipe = {
     PLN: 5,
     CHF: 1.1,
   },
-  setCurrency: (currencyType) => (pipe.currencyType = currencyType),
-  updateRates: (newRates) => {
-    if (newRates?.length)
-      pipe.currencies.map((c) => (pipe.rates[c] = newRates[c]));
+  setCurrency(currency) {
+    this.currency = currency;
   },
-  getSymbol: (currencyType) =>
-    ({
+  updateRates(newRates) {
+    if (newRates?.length)
+      this.currencies.map((c) => (this.rates[c] = newRates[c]));
+  },
+  getSymbol(currency) {
+    return {
       GBP: "£",
       USD: "$",
       PLN: "zł",
       CZK: "Kč",
       CHF: "CHf",
       EUR: "€",
-    }[currencyType || pipe.currencyType]),
-  getName: (currencyType) =>
-    ({
+    }[currency || this.currency];
+  },
+  getName(currency) {
+    return {
       GBP: "GB Pounds",
       USD: "US Dollar",
       PLN: "Polish Zloty",
       CZK: "Czech Koruna",
       CHF: "Swiss France",
       EUR: "Euro (Default)",
-    }[currencyType || pipe.currencyType]),
-  getRate: (currencyType) => pipe.rates[currencyType || pipe.currencyType] || 1,
-  getPrice: (price = 0, rate = pipe.getRate()) => (price * rate).toFixed(2),
-  getNote: (price = 0, rate = pipe.getRate()) => ((price * rate) | 0) + "",
-  getCent: (price = 0, rate = pipe.getRate()) =>
-    ((price * rate).toFixed(2) + "").slice(-2),
-  showPrice: (price) => pipe.getSymbol() + " " + pipe.getPrice(price),
+    }[currency || this.currency];
+  },
+  getRate(currency) {
+    return this.rates[currency || this.currency] || 1;
+  },
+  getPrice(price = 0, rate = this.getRate()) {
+    return (price * rate).toFixed(2);
+  },
+  getNote(price = 0, rate = this.getRate()) {
+    return ((price * rate) | 0) + "";
+  },
+  getCent(price = 0, rate = this.getRate()) {
+    return;
+    ((price * rate).toFixed(2) + "").slice(-2);
+  },
+  showPrice(price) {
+    return this.getSymbol() + " " + this.getPrice(price);
+  },
 };
