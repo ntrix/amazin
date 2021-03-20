@@ -61,6 +61,12 @@ export default function App() {
     );
   };
 
+  const savePath = (notStartWith = "@") => () => {
+    //doesn't save path of the same screen
+    if (!window.location.pathname.startsWith(notStartWith))
+      localStorage.setItem("backToHistory", window.location.pathname);
+  };
+
   useEffect(() => {
     pipe.updateRates(rates);
   }, [success]);
@@ -124,12 +130,7 @@ export default function App() {
                         key={id}
                         to={"/currency/cType/" + label}
                         className={label === currency ? "active" : ""}
-                        onClick={() =>
-                          localStorage.setItem(
-                            "backToHistory",
-                            window.location.pathname
-                          )
-                        }
+                        onClick={savePath("/curr")}
                       >
                         <div className="sprite__wrapper">
                           <div className="sprite circle"></div>
@@ -343,9 +344,20 @@ export default function App() {
                   "",
                   "/currency/cType/" + currency,
                   "sprite flag xl " + currency,
+                  savePath("/curr"),
                 ],
-                [pipe.getName(currency), "/currency/cType/" + currency, "pl-8"],
-                ["Currency Setting", "/currency/cType/EUR"],
+                [
+                  pipe.getName(currency),
+                  "/currency/cType/" + currency,
+                  "pl-8",
+                  savePath("/curr"),
+                ],
+                [
+                  "Currency Setting",
+                  "/currency/cType/EUR",
+                  ,
+                  savePath("/curr"),
+                ],
                 ["Your Browsing History", "disabled"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -17,8 +17,10 @@ export default function CurrencyScreen({}) {
   const { cType } = useParams();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { success } = useSelector((state) => state.currencyType);
+  const [newCurr, setNewCurr] = useState("");
   const [currency, setCurrency] = useState(cType || pipe.currency);
+  let back = localStorage.getItem("backToHistory");
+  back = !back || back.startsWith("/currency") ? "/" : back;
 
   const submitHandler = () => {
     setSessionCurrency(currency);
@@ -32,17 +34,11 @@ export default function CurrencyScreen({}) {
           currency,
         })
       );
-    console.log("currencyScreen   ");
-    console.log(
-      "userInfo ",
-      userInfo?.currency,
-      { currency },
-      "pipe ",
-      pipe.currency
-    );
+    setNewCurr(currency);
   };
 
   useEffect(() => {
+    setNewCurr("");
     setCurrency(cType || pipe.currency);
     if (!userInfo) {
       dispatch(userUpdateProfileActions._RESET());
@@ -101,12 +97,19 @@ export default function CurrencyScreen({}) {
       <div className="container currencies">
         <section className="col-50p">
           <h2 className="title"> Currency Settings</h2>
-          <p>Select the currency you want to shop with.</p>
-          {success && (
-            <MessageBox variant="success">
-              Currency Setting has been changed
-            </MessageBox>
+          {newCurr && (
+            <>
+              <MessageBox variant="success">
+                Currency Setting has been changed to {pipe.getName(newCurr)}
+              </MessageBox>
+              <br />
+              <Link to={back}>
+                <button className="primary">Back To Your Last Session</button>
+              </Link>
+              <div className="separator divider-inner"></div>
+            </>
           )}
+          <p>Select the currency you want to shop with.</p>
           <select
             id="currency"
             className="col-50p"
@@ -116,12 +119,13 @@ export default function CurrencyScreen({}) {
               setCurrency(e.target.value);
             }}
           >
-            <legend htmlFor="currency">Select Currency</legend>
-            {pipe.currencies.map((c) => (
-              <option value={c}>
-                {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
-              </option>
-            ))}
+            <optgroup label="Select Currency">
+              {pipe.currencies.map((c) => (
+                <option value={c}>
+                  {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
+                </option>
+              ))}
+            </optgroup>
           </select>
           {currency !== "EUR" && (
             <p>
@@ -142,14 +146,12 @@ export default function CurrencyScreen({}) {
 
       <div className="divider-inner"></div>
       <div className="container p-1">
-        <Link to={localStorage.getItem("backToHistory")}>
+        <Link to={back}>
           <button className="btn--xs">Cancel</button>
         </Link>
-        <Link to={localStorage.getItem("backToHistory")}>
-          <button className="btn primary btn--xs" onClick={submitHandler}>
-            Save Changes
-          </button>
-        </Link>
+        <button className="btn primary btn--xs" onClick={submitHandler}>
+          Save Changes
+        </button>
       </div>
     </div>
   );
