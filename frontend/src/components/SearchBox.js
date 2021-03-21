@@ -37,9 +37,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
       }/name/${input}`
     );
   };
-  useEffect(() => {
-    if (shadowFor === "searchBox") return;
-  }, [shadowFor]);
+  useEffect(() => {}, [shadowFor]);
 
   const findSuggest = (() => {
     const LL = "<b>";

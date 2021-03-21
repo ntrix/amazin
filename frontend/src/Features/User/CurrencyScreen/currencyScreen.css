@@ -7,9 +7,15 @@
 .nav__line-2.sprite__wrapper {
   margin: 2px 0px 1px;
 }
-
+.nav__line-2 .sprite.flag + i {
+  margin-top: -4px;
+}
 .dropdown__menu.currency {
   padding-left: 15px;
+  left: 0;
+}
+.dropdown__menu.currency::before {
+  left: 25px;
 }
 .dropdown__menu.currency .separator.ml-1 {
   margin-left: 25px;
