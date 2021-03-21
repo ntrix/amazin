@@ -11,6 +11,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     (state) => state.productCategoryList
   );
   const boxRef = useRef(null);
+  const inputRef = useRef(null);
 
   const [navScope, setNavScope] = useState(0);
   const [category, setCategory] = useState("All Categories");
@@ -145,10 +146,13 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
                     }
                     onClick={() => {
                       if (cat !== category) {
-                        setOutline("focus");
-                        //setSuggestBox(2);
                         setCategory(cat);
                         setNavScope(0);
+                        // setOutline("focus");
+                        //setSuggestBox(2);
+                        inputRef.current.focus();
+                        setSuggestBox(-1);
+                        setShadowFor("");
                       } else {
                         setNavScope(2);
                         setOutline("");
@@ -168,6 +172,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
           <div className="search__input">
             <input
               type="text"
+              ref={inputRef}
               name="q"
               autoComplete="off"
               id="q"
@@ -213,7 +218,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
                 // if (value === input) return;
                 setSuggestBox((suggestBox || 1) + 2);
                 const newSuggests = findSuggest.search(list, value);
-                if (value.length === 1 && newSuggests.length) {
+                if ("searchBox" !== shadowFor && newSuggests.length) {
                   setShadowFor("searchBox");
                   if (!outline) setOutline("focus");
                 }
