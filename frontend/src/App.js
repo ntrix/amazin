@@ -24,6 +24,9 @@ export default function App() {
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
 
   const timeoutId = useRef(0);
+
+  const [shadowFor, setShadowFor] = useState("");
+
   const [hasSidebar, setSidebar] = useState(false);
   const [hasDropdown, setDropdown] = useState(false);
   const onEnterHandle = () => {
@@ -97,14 +100,14 @@ export default function App() {
             </Link>
 
             <div className="nav__search">
-              <SearchBox />
+              <SearchBox shadowFor={shadowFor} setShadowFor={setShadowFor} />
             </div>
 
             <div
               className={"dropdown phone--off"}
-              onMouseEnter={onEnterHandle}
-              onClick={onEnterHandle}
-              onMouseLeave={onLeaveHandle}
+              onMouseEnter={() => setShadowFor("currency")}
+              onClick={() => setShadowFor("currency")}
+              onMouseLeave={() => setShadowFor("")}
             >
               <div>
                 <div className="nav__line-1"> </div>
@@ -155,10 +158,10 @@ export default function App() {
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Account"],
                   ["Sign In", "/signin"],
@@ -171,10 +174,10 @@ export default function App() {
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Informations"],
                   ["Your Profile", "/profile"],
@@ -200,10 +203,10 @@ export default function App() {
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
@@ -227,10 +230,10 @@ export default function App() {
               <NavDropMenu
                 label="Admin^Tools"
                 attr="phone--off"
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Admin"],
                   ["User List", "/user-list"],
@@ -262,7 +265,7 @@ export default function App() {
             <div className="ml-1 nav__left">
               <div
                 className="open-sidebar nav-main__item flex"
-                onClick={() => setSidebar(true)}
+                onClick={() => setShadowFor("sidebar")}
               >
                 <div className="sprite__bars"></div>
                 <b>All</b>
@@ -304,11 +307,13 @@ export default function App() {
           </div>
         </header>
 
-        <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
-          <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
+        <aside
+          className={"sidebar" === shadowFor ? "sidebar opened" : "sidebar"}
+        >
+          <button onClick={() => setShadowFor("")} id="btn--close-sidebar">
             <div className="sprite__close-btn"></div>
           </button>
-          <li onClick={() => setSidebar(false)}>
+          <li onClick={() => setShadowFor("")}>
             <Link to="/profile" className="sidebar__header">
               <div className="sprite__user"></div>
               {"Hello, " + shortName(userInfo)}
@@ -409,13 +414,13 @@ export default function App() {
                 [""],
                 ["separator"],
                 ["separator"],
-              ].map(addMenuItem(setSidebar))
+              ].map(addMenuItem(setShadowFor))
             )}
           </ul>
         </aside>
 
         <label
-          className={hasSidebar ? "click-catcher" : ""}
+          className={"sidebar" === shadowFor ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
         ></label>
 
@@ -423,7 +428,14 @@ export default function App() {
           <div className="col-fill">
             <MainRoute />
           </div>
-          <div className={hasDropdown ? "underlay" : ""}></div>
+          <div
+            className={
+              "navDrop" === shadowFor || "searchBox" === shadowFor
+                ? "underlay"
+                : ""
+            }
+            onClick={() => setShadowFor("")}
+          ></div>
         </main>
 
         <footer className="row center">
