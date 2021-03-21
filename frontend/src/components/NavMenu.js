@@ -21,7 +21,7 @@ export const addMenuItem = (clickHandle) => (
         to={linkTo}
         className={className}
         onClick={() => {
-          clickHandle(false);
+          clickHandle("");
           if (extraFunction) extraFunction();
         }}
       >

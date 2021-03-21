@@ -501,11 +501,11 @@ a .brand {
   left: -1rem;
   right: -1rem;
   background-color: #0008;
-  opacity: 1;
+  opacity: 0;
   z-index: 9000;
   -webkit-animation: dropAnimation 0s forwards;
   animation: dropAnimation 0s forwards;
-  animation-delay: 0.3s;
+  animation-delay: 0.44s;
 }
 .dropdown .fa-caret-down {
   float: right;
@@ -609,6 +609,7 @@ a .brand {
   margin: 0.5rem 0;
   background: #ccc;
 }
+
 /* SIDEBAR MENU */
 button.open-sidebar {
   font-size: 2.4rem;
@@ -634,7 +635,7 @@ button.open-sidebar:hover {
   top: 10rem;
   left: 0;
   background-color: #0008;
-  z-index: 9000;
+  z-index: 9008;
 }
 .sidebar .click-catcher {
   background-color: #000b;
@@ -647,7 +648,7 @@ button.open-sidebar:hover {
   width: 35rem;
   height: 100%;
   background-color: #fff;
-  z-index: 9005;
+  z-index: 9009;
   transform: translate3D(-120%, 0, 0);
 }
 .sidebar.opened {

@@ -31,10 +31,10 @@ export default function App() {
   const [hasDropdown, setDropdown] = useState(false);
   const onEnterHandle = () => {
     clearTimeout(timeoutId.current - 99);
-    timeoutId.current = setTimeout(() => setDropdown(true), 500);
+    timeoutId.current = setTimeout(() => setShadowFor("navDrop"), 450);
   };
   const onLeaveHandle = () => {
-    timeoutId.current = 99 + setTimeout(() => setDropdown(false), 500);
+    timeoutId.current = 99 + setTimeout(() => setShadowFor(""), 450);
   };
 
   const signoutHandler = () => {
@@ -57,7 +57,7 @@ export default function App() {
   const navMainItem = ([label, linkTo, className]) => {
     return (
       <div key={label} className={className}>
-        <Link to={linkTo} onClick={() => setDropdown(false)}>
+        <Link to={linkTo} onClick={() => setShadowFor("")}>
           {label}
         </Link>
       </div>
@@ -81,7 +81,11 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
+      <div
+        className={
+          "container--grid" + ("sidebar" === shadowFor ? " scroll--off" : "")
+        }
+      >
         <header id="navbar">
           <div className="nav-belt row">
             <Link className="phone--off" to="/">
@@ -158,10 +162,10 @@ export default function App() {
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Account"],
                   ["Sign In", "/signin"],
@@ -174,10 +178,10 @@ export default function App() {
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Informations"],
                   ["Your Profile", "/profile"],
@@ -203,10 +207,10 @@ export default function App() {
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
@@ -230,10 +234,10 @@ export default function App() {
               <NavDropMenu
                 label="Admin^Tools"
                 attr="phone--off"
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Admin"],
                   ["User List", "/user-list"],
