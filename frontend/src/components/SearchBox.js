@@ -117,6 +117,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
             <div
               className={(navScope > 0 ? "focus " : "") + " search-box__scope"}
               onClick={() => {
+                setOutline("");
                 setNavScope(navScope + 1);
                 setSuggestBox(0);
                 setShadowFor("scope");
@@ -145,10 +146,13 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
                     onClick={() => {
                       if (cat !== category) {
                         setOutline("focus");
-                        //setSuggestBox(2);focus ref
+                        //setSuggestBox(2);
                         setCategory(cat);
                         setNavScope(0);
-                      } else setNavScope(2);
+                      } else {
+                        setNavScope(2);
+                        setOutline("");
+                      }
                     }}
                     onBlur={() => setNavScope(0)}
                   >
@@ -208,11 +212,12 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
                   return submitHandler();
                 // if (value === input) return;
                 setSuggestBox((suggestBox || 1) + 2);
-                if (value.length === 1) {
+                const newSuggests = findSuggest.search(list, value);
+                if (value.length === 1 && newSuggests.length) {
                   setShadowFor("searchBox");
                   if (!outline) setOutline("focus");
                 }
-                setSuggests(findSuggest.search(list, value));
+                setSuggests(newSuggests);
                 setInput(value);
               }}
               onChange={(e) => {
