@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
@@ -10,6 +10,8 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
   const { success, categories } = useSelector(
     (state) => state.productCategoryList
   );
+  const boxRef = useRef(null);
+
   const [navScope, setNavScope] = useState(0);
   const [category, setCategory] = useState("All Categories");
 
@@ -37,7 +39,20 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
       }/name/${input}`
     );
   };
-  useEffect(() => {}, [shadowFor]);
+
+  const handleClick = (e) => {
+    if (!boxRef.current.contains(e.target)) {
+      setSuggestBox(0);
+      setNavScope(0);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
 
   const findSuggest = (() => {
     const LL = "<b>";
@@ -92,18 +107,22 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
 
   return (
     <>
-      <form className={"search-form " + outline} onSubmit={submitHandler}>
+      <form
+        ref={boxRef}
+        className={"search-box " + outline}
+        onSubmit={submitHandler}
+      >
         <div className="row--left">
           <div className="search__dropdown">
             <div
-              className={(navScope > 0 ? "focus " : "") + " search__scope"}
+              className={(navScope > 0 ? "focus " : "") + " search-box__scope"}
               onClick={() => {
                 setNavScope(navScope + 1);
                 setSuggestBox(0);
-                setShadowFor(navScope > 0 ? "scope" : "");
+                setShadowFor("scope");
               }}
             >
-              <div className="search__scope--trans">
+              <div className="search-box__scope--facade">
                 <span>{category}</span>
                 <i className="fa fa-caret-down"></i>
               </div>
@@ -125,12 +144,13 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
                     }
                     onClick={() => {
                       if (cat !== category) {
-                        setOutline(true);
+                        setOutline("focus");
                         //setSuggestBox(2);focus ref
                         setCategory(cat);
                         setNavScope(0);
                       } else setNavScope(2);
                     }}
+                    onBlur={() => setNavScope(0)}
                   >
                     <i className="fa fa-check"></i> {cat}
                   </li>

@@ -812,7 +812,7 @@ img.large {
 .nav__search:hover {
   border-color: transparent;
 }
-.search-form {
+.search-box {
   display: flex;
   position: relative;
   border-radius: 4px;
@@ -820,8 +820,8 @@ img.large {
   z-index: 9008;
   background: #fff;
 }
-.search-form.focus,
-.search__scope.focus {
+.search-box.focus,
+.search-box__scope.focus {
   box-shadow: 0 0 0px 3px #f806, 0 0 1px 3px #f3a847;
   z-index: 9000;
 }
@@ -845,7 +845,7 @@ img.large {
   border: none;
   box-shadow: 0 0 2px 3px #f3a847, 0 0 2px 3px #f80;
 }
-.search__scope {
+.search-box__scope {
   display: flex;
   position: relative;
   float: left;
@@ -867,20 +867,20 @@ img.large {
   background: linear-gradient(to bottom, #f3f3f3, #e2e2e2);
   overflow: hidden;
 }
-.search__scope.focus {
+.search-box__scope.focus {
   color: #000;
   background: #c7cbcf;
   border-color: #8888;
   background: -webkit-linear-gradient(to bottom, #c7cbcf, #e2e2e2);
   background: linear-gradient(to bottom, #c7cbcf, #e2e2e2);
 }
-.search__scope--trans {
+.search-box__scope--facade {
   display: flex;
   position: relative;
   float: left;
   top: 3px;
 }
-.search__scope span {
+.search-box__scope span {
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -892,7 +892,7 @@ img.large {
   min-width: 19px;
   max-width: 200px;
 }
-.search__scope i {
+.search-box__scope i {
   position: absolute;
   width: 0;
   height: 0;
@@ -904,7 +904,7 @@ img.large {
   font-size: 0;
   line-height: 0;
 }
-.search__scope.focus i {
+.search-box__scope.focus i {
   border-top-color: #000;
 }
 .scope__windows {
@@ -984,7 +984,7 @@ img.large {
   text-indent: -1000px;
   cursor: pointer;
 }
-.search-form input:focus {
+.search-box input:focus {
   border: none;
   margin: 0;
   box-shadow: none;
@@ -1505,7 +1505,7 @@ img.active {
   .pc-low--only {
     display: initial;
   }
-  .search__scope span {
+  .search-box__scope span {
     max-width: 120px;
   }
 }
@@ -1531,7 +1531,7 @@ img.active {
   .card {
     margin: 1rem;
   }
-  .search__scope span {
+  .search-box__scope span {
     max-width: 90px;
   }
 }
@@ -1552,7 +1552,7 @@ img.active {
   .sidebar {
     width: 32rem;
   }
-  .search__scope span {
+  .search-box__scope span {
     max-width: 25px;
   }
 }
