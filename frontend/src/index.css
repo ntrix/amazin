@@ -508,16 +508,17 @@ a .brand {
 .dropdown {
   position: relative;
 }
-.underlay {
+.underlay-searchBox,
+.underlay-navDrop {
   position: absolute;
   display: block;
   top: 0;
   bottom: 0;
-  left: -1rem;
-  right: -1rem;
+  left: 0;
+  right: 0;
   background-color: #0008;
   opacity: 0;
-  z-index: 9000;
+  z-index: 9;
   -webkit-animation: dropAnimation 0s forwards;
   animation: dropAnimation 0s forwards;
   animation-delay: 0.44s;

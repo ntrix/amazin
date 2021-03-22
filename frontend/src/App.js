@@ -331,6 +331,7 @@ export default function App() {
             ) : (
               [
                 ["Trending"],
+                ["Home Page", "/"],
                 ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/All/order/newest"],
                 ["Best Sellers", "/banner/bestseller"],
@@ -433,11 +434,7 @@ export default function App() {
             <MainRoute />
           </div>
           <div
-            className={
-              "navDrop" === shadowFor || "searchBox" === shadowFor
-                ? "underlay"
-                : ""
-            }
+            className={"underlay-" + shadowFor}
             onClick={() => setShadowFor("")}
           ></div>
         </main>
