@@ -84,6 +84,7 @@ export default function ProductScreen(props) {
                         src={img}
                         alt={product.name + " small " + id}
                         onMouseEnter={() => setImgActive(id)}
+                        onClick={() => setImgActive(id)}
                         className={
                           "product__thumbnail" +
                           (id === imgActive ? " active" : "")
