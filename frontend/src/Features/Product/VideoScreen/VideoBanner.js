@@ -27,7 +27,7 @@ const dummy = [
   },
 ];
 
-export default function VideoBanner({ source = dummy }) {
+export default function VideoBanner({ source = dummy, noButtons }) {
   const [trailerUrl, setTrailerUrl] = useState("");
   const [movie, setMovie] = useState(dummy[(Math.random() * dummy.length) | 0]);
 
@@ -93,7 +93,7 @@ export default function VideoBanner({ source = dummy }) {
             </h1>
           </div>
 
-          <div className="banner--fadeBottom" />
+          <div className="banner--fade-bottom" />
         </header>
 
         {loadingCreate && <LoadingBox xl />}
@@ -101,6 +101,33 @@ export default function VideoBanner({ source = dummy }) {
 
         <UTube trailerUrl={trailerUrl} />
       </>
+    )
+  );
+}
+
+export function VideoBanner2({ source = dummy }) {
+  const [movie, setMovie] = useState(dummy[(Math.random() * dummy.length) | 0]);
+
+  useEffect(() => {
+    const random = source[(Math.random() * source.length) | 0];
+    setMovie(random);
+  }, [source]);
+
+  return (
+    movie?.images && (
+      <div
+        className="banner"
+        style={{
+          backgroundSize: "cover",
+          backgroundImage: `url("${movie.images ? movie.images[0] : ""}")`,
+          backgroundPosition: "center 0",
+        }}
+      >
+        <div className="banner--fade-top" />
+        <div className="banner__contents">
+          <h1 className="banner__title">{movie.name}</h1>
+        </div>
+      </div>
     )
   );
 }

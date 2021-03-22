@@ -2,7 +2,6 @@
   background-color: #0e171e;
   display: flex;
   flex-direction: column;
-  padding-bottom: 18rem;
 }
 .m-header {
   color: #fff;
@@ -64,13 +63,20 @@
   height: 80px;
 }
 
-.banner--fadeBottom {
+.banner--fade-bottom {
   margin-top: -8rem;
   height: 15rem;
-  background-image: -webkit-linear-gradient(to bottom, #2220, #222a 30%, #111);
-  background-image: linear-gradient(to bottom, #2220, #222a 30%, #111);
+  background-image: -webkit-linear-gradient(to bottom, #2220, #222a, #0e171e);
+  background-image: linear-gradient(to bottom, #2220, #222a, #0e171e);
 }
-
+.banner__divider {
+  padding: 6rem;
+}
+.banner--fade-top {
+  height: 6rem;
+  background-image: -webkit-linear-gradient(to top, #2220, #222a, #0e171e);
+  background-image: linear-gradient(to top, #2220, #222a, #0e171e);
+}
 .banner__button {
   font-weight: 700;
   padding: 8px 24px;

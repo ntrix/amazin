@@ -5,7 +5,7 @@ import MessageBox from "../../../components/MessageBox";
 import { listProducts } from "../../../Controllers/productActions";
 import axios from "axios";
 import VideoRow from "./VideoRow";
-import VideoBanner from "./VideoBanner";
+import VideoBanner, { VideoBanner2 } from "./VideoBanner";
 import "./videoScreen.css";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -93,13 +93,11 @@ export default function VideoScreen() {
           ))}
         </ul>
       </header>
-
       {movies[genre] && (
         <VideoBanner
           source={genre === "STORE" ? adapter(products) : movies[genre]}
         />
       )}
-
       {movies[genre] &&
         Object.keys(sources).map(
           (label, id) =>
@@ -114,7 +112,6 @@ export default function VideoScreen() {
               />
             )
         )}
-
       {loadingProducts ? (
         <LoadingBox xl />
       ) : errorProducts ? (
@@ -134,7 +131,6 @@ export default function VideoScreen() {
           />
         </>
       )}
-
       {
         movies["Trending Now"] && genre !== "Trending Now" && (
           <VideoRow title="Trending Now" movies={movies["Trending Now"]} />
@@ -143,6 +139,8 @@ export default function VideoScreen() {
       {movies["Top Rated"] && genre !== "Top Rated" && (
         <VideoRow title="Top Rated" movies={movies["Top Rated"]} />
       )}
+      <div className="banner__divider"></div>
+      {movies[genre] && <VideoBanner2 source={movies[genre]} />}
     </div>
   );
 }
