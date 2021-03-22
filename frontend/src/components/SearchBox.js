@@ -45,6 +45,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     if (!boxRef.current.contains(e.target)) {
       setSuggestBox(0);
       setNavScope(0);
+      setShadowFor("");
     }
   };
 
