@@ -79,6 +79,7 @@
 }
 .banner__button {
   font-weight: 700;
+  margin: 3px;
   padding: 8px 24px;
   border-radius: 3px;
   border: none;
@@ -88,9 +89,6 @@
   background: #222;
   background: -webkit-linear-gradient(to bottom, #000, #444);
   background: linear-gradient(to bottom, #000, #444);
-}
-.banner__button + .banner__button {
-  margin-left: 10px;
 }
 .banner__button:not([disabled]):hover {
   color: #000;
@@ -117,7 +115,7 @@
   z-index: 199;
 }
 .m-row h2 {
-  margin-top: 35px;
+  margin-top: 5rem;
   margin-bottom: 1rem;
   font-weight: 700;
   font-size: 18px;

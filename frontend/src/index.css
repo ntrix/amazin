@@ -131,6 +131,11 @@ main > col-fill {
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.container--full {
+  width: auto;
+  height: 100%;
+  overflow-x: hidden;
+}
 .container--fluid {
   width: auto;
   height: 100%;

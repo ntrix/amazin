@@ -79,7 +79,7 @@ export default function VideoScreen() {
   }, [dispatch, successProducts]);
 
   return (
-    <div className="container--fluid video-screen">
+    <div className="container--full video-screen">
       <header className="m-header">
         <ul className="m-nav">
           {Object.keys(sources).map((label, id) => (
