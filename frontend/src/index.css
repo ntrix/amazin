@@ -51,7 +51,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --screen-min-width: 400px;
+  --screen-min-width: 375px;
 }
 body {
   margin: 0;
@@ -98,6 +98,7 @@ body {
 }
 header {
   grid-area: header;
+  width: 100vw;
   min-width: var(--screen-min-width);
   background-color: #131a21;
 }
@@ -110,18 +111,25 @@ main {
 }
 footer {
   grid-area: footer;
+  width: 100vw;
+  min-width: var(--screen-min-width);
   background-color: #131a21;
   color: #fff;
 }
 .container {
   /* display: flex; */
   /* width: 100%; */
-  min-width: 375px;
   /* max-width: 1500px; */
-  margin-left: 1rem;
-  margin-right: 1rem;
   padding: 0;
   justify-content: center;
+}
+main.container {
+  width: 100vw;
+  min-width: var(--screen-min-width);
+}
+main > col-fill {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .container--fluid {
   width: auto;
@@ -1316,9 +1324,8 @@ table th {
 /* Carousel */
 .home-screen {
   position: relative;
-  width: 100vw;
   min-width: var(--screen-min-width);
-  margin: 0 -1rem;
+  margin: 0;
   z-index: 1;
 }
 .home-screen .banner {
@@ -1331,31 +1338,34 @@ table th {
 }
 .home-screen h2 {
   position: relative;
+  font-size: 26px;
   z-index: 1;
   text-align: center;
+}
+
+.home-screen__title {
+  color: #fafafa;
+  top: 9rem;
+  left: -24rem;
+  font-weight: 600;
+  text-align: left;
+  margin: 0 auto;
+}
+.home-screen__title-2 {
   color: #111;
 }
 
-h2.home-screen__title:first-child {
-  color: #fafafa;
-  top: 9rem;
-  right: 30%;
-  font-weight: 600;
+.swiper-slide {
   text-align: center;
+  font-size: 18px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
-h2.home-screen__title {
-  font-size: 26px;
-}
-.nav-belt,
-.nav-main {
-  width: 100vw+2rem;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-header {
-  /* display: flex; */
-}
+.home-screen .swiper-container,
 .home-screen .carousel-container {
   display: flex;
   position: relative;
@@ -1368,7 +1378,8 @@ header {
   overflow-x: hidden;
   z-index: 0;
 }
-.home-screen .seller__card {
+.home-screen .seller__card,
+.home-screen .swiper-slide {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1377,6 +1388,9 @@ header {
   height: 30rem;
   padding: 1rem;
   border-radius: 0;
+}
+.swiper-pagination {
+  margin-bottom: -12px;
 }
 .home-screen .seller__img {
   height: auto;

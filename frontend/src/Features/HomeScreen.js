@@ -6,28 +6,17 @@ import MessageBox from "../components/MessageBox";
 import ProductCard from "../components/ProductCard";
 import { listProducts } from "../Controllers/productActions";
 import { listTopSellers } from "../Controllers/userActions";
-import Carousel from "../utils";
 
 import SwiperCore, {
   Navigation,
   EffectCoverflow,
   Scrollbar,
-  A11y,
   Autoplay,
+  Pagination,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, A11y, Autoplay]);
-const breakpoints = {
-  desktop: {
-    breakpoint: { max: 4000, min: 720 },
-    items: 2,
-  },
-  tablet: {
-    breakpoint: { max: 720, min: 0 },
-    items: 1,
-  },
-};
+SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 export default function HomeScreen() {
   const { banner } = useParams();
@@ -97,7 +86,7 @@ export default function HomeScreen() {
               effect="coverflow"
               grabCursor={true}
               centeredSlides={true}
-              slidesPerView={5}
+              slidesPerView="auto"
               autoplay={{
                 delay: 2500,
                 disableOnInteraction: true,
@@ -109,6 +98,9 @@ export default function HomeScreen() {
                 depth: 100,
                 modifier: 1,
                 slideShadows: false,
+              }}
+              pagination={{
+                clickable: true,
               }}
             >
               {sellers.map((seller) => (
@@ -129,7 +121,7 @@ export default function HomeScreen() {
           </div>
         </>
       )}
-      <h2 className="home-screen__title">Featured Products</h2>
+      <h2 className="home-screen__title-2">Featured Products</h2>
       {loading ? (
         <LoadingBox xl />
       ) : error ? (
