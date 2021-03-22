@@ -8,6 +8,16 @@ import { listProducts } from "../Controllers/productActions";
 import { listTopSellers } from "../Controllers/userActions";
 import Carousel from "../utils";
 
+import SwiperCore, {
+  Navigation,
+  EffectCoverflow,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, A11y, Autoplay]);
 const breakpoints = {
   desktop: {
     breakpoint: { max: 4000, min: 720 },
@@ -38,7 +48,8 @@ export default function HomeScreen() {
   }, [dispatch]);
 
   return (
-    <div className={"home-screen " + banner}>
+    <div className={"home-screen"}>
+      <div className={"banner " + banner}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       {loadingSellers ? (
         <LoadingBox />
@@ -47,7 +58,7 @@ export default function HomeScreen() {
       ) : (
         <>
           {sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>}
-          <Carousel
+          {/* <Carousel
             swipeable={true}
             draggable={true}
             showDots={true}
@@ -78,7 +89,44 @@ export default function HomeScreen() {
                 </Link>
               </div>
             ))}
-          </Carousel>
+          </Carousel> */}
+          <div className="carousel-container">
+            <Swiper
+              spaceBetween={20}
+              navigation
+              effect="coverflow"
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={5}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: true,
+              }}
+              loop={true}
+              coverflowEffect={{
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: false,
+              }}
+            >
+              {sellers.map((seller) => (
+                <SwiperSlide key={seller._id}>
+                  <Link className="seller__card" to={`/seller/${seller._id}`}>
+                    <img
+                      className="seller__img"
+                      src={seller.seller.logo || ""}
+                      alt={seller.seller.name || "Anonymous Seller"}
+                    />
+                    <p className="legend">
+                      {seller.seller.name || "Anonymous Seller"}
+                    </p>
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </>
       )}
       <h2 className="home-screen__title">Featured Products</h2>
