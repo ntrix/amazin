@@ -78,11 +78,6 @@ export default function ProfileScreen({ location }) {
             {errorUpdate && (
               <MessageBox variant="danger">{errorUpdate}</MessageBox>
             )}
-            {successUpdate && (
-              <MessageBox variant="success">
-                Profile Updated Successfully
-              </MessageBox>
-            )}
             <div>
               <label htmlFor="name">Name</label>
               <input
@@ -123,7 +118,9 @@ export default function ProfileScreen({ location }) {
             </div>
             {isSellerProfile && user.isSeller && (
               <>
-                <h2>Seller</h2>
+                <div>
+                  <h2>Seller</h2>
+                </div>
                 <div>
                   <label htmlFor="sellerName">Seller Name</label>
                   <input
@@ -156,6 +153,13 @@ export default function ProfileScreen({ location }) {
                 </div>
               </>
             )}
+            <div>
+              {successUpdate && (
+                <MessageBox variant="success">
+                  Profile Updated Successfully
+                </MessageBox>
+              )}
+            </div>
             <div>
               <label />
               <button className="primary" type="submit">

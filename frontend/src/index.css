@@ -1270,22 +1270,28 @@ img.large {
 }
 .alert {
   width: 100%;
-  margin: 0 !important;
+  margin: 3px 0 !important;
   padding: 1rem;
-  border: thin solid transparent;
+  border: none;
   border-radius: 3px;
 }
 .alert--info {
   color: #131a21;
   background-color: #ceeaed;
+  background: -webkit-linear-gradient(to right, #ceeaed 80%, #ceeaed00 90%);
+  background: linear-gradient(to right, #ceeaed 80%, #ceeaed00 90%);
 }
 .alert--danger {
   color: #a02020;
   background-color: #ffe0e0;
+  background: -webkit-linear-gradient(to right, #ffe0e0 80%, #ffe0e000 90%);
+  background: linear-gradient(to right, #ffe0e0 80%, #ffe0e000 90%);
 }
 .alert--success {
   color: #20a020;
   background-color: #eeffe0;
+  background: -webkit-linear-gradient(to right, #eeffe0 80%, #eeffe000 90%);
+  background: linear-gradient(to right, #eeffe0 80%, #eeffe000 90%);
 }
 /* Form */
 .form {
