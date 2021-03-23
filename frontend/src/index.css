@@ -1405,7 +1405,7 @@ table th {
   display: flex;
   position: relative;
   margin: 0 auto;
-  padding-top: 153px;
+  padding-top: 10rem;
   padding-bottom: 2rem;
   margin-bottom: 4rem;
   background: -webkit-linear-gradient(to bottom, #fff0 40%, #eaeded 80%);
@@ -1428,8 +1428,10 @@ table th {
   margin-bottom: -12px;
 }
 .home-screen .seller__img {
-  height: auto;
-  width: 26rem;
+  max-height: 25rem;
+  min-height: 20rem;
+  max-width: 25rem;
+  min-width: 20rem;
 }
 .home-screen .legend {
   font-size: 2rem;
