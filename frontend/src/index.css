@@ -259,7 +259,36 @@ button {
   background: -webkit-linear-gradient(top, #fff, #f7f8fa);
   background: linear-gradient(to bottom, #fff, #f7f8fa);
 }
-
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  border-radius: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.select-wrapper {
+  position: relative;
+  outline: 0;
+}
+.select-wrapper select {
+  width: 100%;
+  padding-right: 2rem;
+}
+.sprite__caret {
+  position: absolute;
+  right: 6px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  background: url("./img/nav-sprite.png") -170px -105px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+.sprite__caret.xl {
+  top: 9px;
+}
 input,
 textarea {
   background: #fff;

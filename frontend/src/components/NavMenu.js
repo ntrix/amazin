@@ -20,7 +20,8 @@ export const addMenuItem = (clickHandle) => (
       <Link
         to={linkTo}
         className={className}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           clickHandle("");
           if (extraFunction) extraFunction();
         }}

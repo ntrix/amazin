@@ -60,21 +60,24 @@ export default function CartScreen(props) {
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </td>
                   <td className="tab__w9">
-                    <select
-                      className="tab__w6"
-                      value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
-                    >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="select-wrapper">
+                      <div className="sprite__caret xl"></div>
+                      <select
+                        className="tab__w6"
+                        value={item.qty}
+                        onChange={(e) =>
+                          dispatch(
+                            addToCart(item.product, Number(e.target.value))
+                          )
+                        }
+                      >
+                        {[...Array(item.countInStock).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </td>
                   <td className="tab__w6">{pipe.showPrice(item.price)}</td>
                   <td className="tab__w9">
