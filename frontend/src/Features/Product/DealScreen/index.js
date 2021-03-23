@@ -38,7 +38,7 @@ export default function DealScreen() {
   }, [category, dispatch, order, pageNumber, cat]);
   return (
     <>
-      <header className="sub-header">
+      <header className="screen__header">
         <ul className="cat-nav">
           {loadingCategories ? (
             <LoadingBox />

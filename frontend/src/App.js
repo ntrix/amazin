@@ -331,10 +331,10 @@ export default function App() {
             ) : (
               [
                 ["Trending"],
-                ["Home Page", "/"],
+                ["Best Sellers", "/banner/bestseller"],
                 ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/All/order/newest"],
-                ["Best Sellers", "/banner/bestseller"],
+                ["Home Page", "/"],
                 ["separator"],
 
                 ["Categories"],
