@@ -51,15 +51,16 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
   };
 
   useEffect(() => {
-    if (navScope % 2 && "navDrop" === shadowFor) setNavScope(0);
-    // if (navScope % 2 && "navDrop" === shadowFor) {
-    //   setNavScope(0);
-    //   document.removeEventListener("mousedown", handleClick);
-    // }
+    if ("scope" === shadowFor)
+      document.addEventListener("mousedown", handleClick);
+    if ("navDrop" === shadowFor) {
+      document.removeEventListener("mousedown", handleClick);
+      setNavScope(0);
+    }
     return () => {
       document.removeEventListener("mousedown", handleClick);
     };
-  }, [navScope, shadowFor]);
+  }, [navScope % 2, shadowFor]);
 
   const findSuggest = (() => {
     const LL = "<b>";
