@@ -1,6 +1,6 @@
 .c-screen {
   background: #fff;
-  margin: 0 -1rem;
+  margin: 0;
 }
 .c-screen * {
   font-weight: 500;
@@ -9,6 +9,10 @@
   background: transparent;
   max-width: 100rem;
   margin: 0 auto;
+}
+.customer .container {
+  padding: 0 3rem;
+  box-sizing: border-box;
 }
 .title {
   padding-top: 19px;
@@ -33,12 +37,13 @@
 }
 .c-box {
   display: block;
-  width: 31rem;
+  max-width: 31rem;
   margin-bottom: 26px;
   box-sizing: border-box;
   border-radius: 3px;
   border: thin solid #0002;
-  margin-right: 1rem;
+  margin-right: 15px;
+  flex: 1 1 25rem;
 }
 .c-box__inner {
   display: flex;
