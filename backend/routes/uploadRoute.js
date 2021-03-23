@@ -2,6 +2,7 @@ import multer from "multer";
 import express from "express";
 import { isAuth } from "../utils.js";
 import cloudinary from "cloudinary";
+import Product from "../models/productModel.js";
 
 const uploadRoute = express.Router();
 
@@ -34,18 +35,27 @@ uploadRoute.post("/", isAuth, upload.single("image"), (req, res) => {
   });
 
   const image = req.file;
-  console.log({ image });
+  const { sellerId, productId } = req.body;
   (async () => {
-    if (image && image.path)
-      await cloudinary.v2.uploader.upload(
-        image.path,
-        { folder: "amazin" },
-        (error, data) => {
-          if (error) return res.status(401).send({ message: error });
-          res.send(data.url);
-        }
-      );
-    else res.status(404).send({ message: "No Image has been sent" });
+    const product = await Product.findById(productId);
+    if (product) {
+      if (image && image.path)
+        await cloudinary.v2.uploader.upload(
+          image.path,
+          { folder: `amazin/${sellerId}/${productId}` },
+          async (error, data) => {
+            if (error) return res.status(401).send({ message: error });
+            product.image = await data.url;
+            const updatedProduct = await product.save();
+            res.send(data.url);
+          }
+        );
+      else res.status(404).send({ message: "No Image has been sent" });
+    } else {
+      res
+        .status(404)
+        .send({ message: "Something wrong happens. Product Not Found" });
+    }
   })();
 });
 

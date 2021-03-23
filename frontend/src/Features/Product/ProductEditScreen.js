@@ -113,6 +113,9 @@ export default function ProductEditScreen(props) {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append("image", file);
+    bodyFormData.append("sellerId", product.seller._id);
+    bodyFormData.append("productId", product._id);
+    console.log({ product });
     setLoadingUpload(true);
     try {
       const { data } = await Axios.post("/api/uploads", bodyFormData, {
@@ -203,7 +206,11 @@ export default function ProductEditScreen(props) {
               ></input>
 
               <div>
-                <img src={imagePreview || image} alt="" className="medium" />
+                <img
+                  src={imagePreview || image}
+                  alt=""
+                  className="mt-1 medium"
+                />
               </div>
 
               {loadingUpload && <LoadingBox />}
