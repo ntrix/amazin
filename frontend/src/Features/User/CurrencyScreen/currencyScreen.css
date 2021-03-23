@@ -14,8 +14,12 @@
   padding-left: 15px;
   left: 0;
 }
-.dropdown__menu.currency::before {
+.dropdown__menu.currency:after {
+  left: 140px;
+}
+.dropdown:hover > .dropdown__menu.show.currency:after {
   left: 25px;
+  transition: all 0.4s ease-in-out;
 }
 .dropdown__menu.currency .separator.ml-1 {
   margin-left: 25px;
