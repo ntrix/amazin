@@ -108,7 +108,7 @@ export default function App() {
             </div>
 
             <div
-              className={"dropdown phone--off"}
+              className={"dropdown mobile--off"}
               onMouseEnter={() => setShadowFor("currency")}
               onClick={() => setShadowFor("currency")}
               onMouseLeave={() => setShadowFor("")}
