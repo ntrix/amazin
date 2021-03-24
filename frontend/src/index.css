@@ -664,7 +664,33 @@ table th {
   -webkit-align-items: center;
   align-items: center;
 }
-.home-screen .swiper-container,
+.home-screen .swiper-button-prev,
+.home-screen .swiper-button-next {
+  width: 8rem;
+  height: 25rem;
+  top: -23rem;
+  border-radius: 0;
+  color: #eaeded;
+  background: transparent;
+  text-shadow: 2px 2px 2px #111;
+}
+.home-screen .swiper-button-next {
+  right: 0;
+}
+.home-screen .swiper-button-prev {
+  left: 0;
+}
+.home-screen .swiper-container {
+  position: relative;
+  margin: 20rem auto auto;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+  list-style: none;
+  overflow: unset;
+  background: -webkit-linear-gradient(to bottom, #fff0 40%, #eaeded 80%);
+  background: linear-gradient(to bottom, #fff0 40%, #eaeded 80%);
+  z-index: 1;
+}
 .home-screen .carousel-container {
   display: flex;
   position: relative;
