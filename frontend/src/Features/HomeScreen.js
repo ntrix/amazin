@@ -72,7 +72,7 @@ export default function HomeScreen() {
               </div>
             ))}
           </Carousel> */}
-      <div className="carousel-container">
+      <div>
         <Swiper
           spaceBetween={20}
           navigation
@@ -101,9 +101,7 @@ export default function HomeScreen() {
           ) : errorSellers ? (
             <MessageBox variant="danger">{errorSellers}</MessageBox>
           ) : (
-            <>
-              {sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>}
-            </>
+            sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>
           )}
           {(sellers || dummySellers).map((seller, id) => (
             <SwiperSlide key={id}>

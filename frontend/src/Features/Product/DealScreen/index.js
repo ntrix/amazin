@@ -81,7 +81,7 @@ export default function DealScreen() {
             <LoadingBox xl />
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
-          ) : products.length === 0 ? (
+          ) : !products.length ? (
             <MessageBox>No Deals On This Category!</MessageBox>
           ) : (
             products.map((product, id) => (
