@@ -1,7 +1,7 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-export const NO_IMAGE = "images/no-image.png";
+export const NO_IMAGE = "/images/no-image.png";
 
 export const responsive = {
   superLargeDesktop: {

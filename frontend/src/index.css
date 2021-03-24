@@ -619,13 +619,17 @@ table th {
   margin: 0;
   z-index: 1;
 }
-.home-screen .banner {
+.home-screen .home__banner.home {
   position: absolute;
   width: 100%;
+  height: 100%;
   background: url("./img/banner-bestseller.jpg") center 0 no-repeat;
 }
-.home-screen .banner.bestseller {
-  background-image: url("./img/banner-fs.jpg");
+.home-screen .home__banner.bestseller {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("./img/banner-fs.jpg") center 0 no-repeat;
 }
 .home-screen h2 {
   position: relative;

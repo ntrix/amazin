@@ -19,7 +19,7 @@ import "swiper/swiper-bundle.css";
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 export default function HomeScreen() {
-  const { banner } = useParams();
+  const { banner = "home" } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
@@ -38,7 +38,7 @@ export default function HomeScreen() {
 
   return (
     <div className={"home-screen"}>
-      <div className={"banner " + banner}></div>
+      <div className={"home__banner " + banner}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       {/* <Carousel
             swipeable={true}
