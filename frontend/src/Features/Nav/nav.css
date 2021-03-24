@@ -645,7 +645,7 @@ button.open-sidebar:hover {
   height: 100%;
   background-color: #fff;
   z-index: 9009;
-  margin-left: -120%;
+  margin-left: -40rem;
 }
 .sidebar.opened {
   margin-left: 0;
