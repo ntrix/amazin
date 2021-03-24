@@ -159,6 +159,7 @@ main > col-fill {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
 }
 .row.center {
   justify-content: center;

@@ -32,7 +32,7 @@ export default function OrderListScreen(props) {
   };
   return (
     <div>
-      <h1>Orders</h1>
+      <h1 className="p-1">Orders</h1>
       {loadingDelete && <LoadingBox xl />}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
