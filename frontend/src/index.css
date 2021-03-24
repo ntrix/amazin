@@ -51,13 +51,13 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --screen-min-width: 380px;
+  --min-screen: 375px;
 }
 body {
   height: 100vh;
   margin: 0;
   padding: 0;
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
   font-size: 1.4rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -71,7 +71,7 @@ body {
   height: 100%;
   overflow-x: hidden;
   width: calc(100vw + 15px);
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
 }
 *:not(input, textarea) {
   -webkit-user-select: none;
@@ -105,20 +105,20 @@ body {
 header {
   grid-area: header;
   width: 100vw;
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
   background-color: #131a21;
 }
 main {
   grid-area: main;
   position: relative;
   width: 100vw;
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
   z-index: 0;
 }
 footer {
   grid-area: footer;
   width: 100vw;
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
   background-color: #131a21;
   color: #fff;
 }
@@ -539,7 +539,8 @@ img.large {
 }
 /* Form */
 .form {
-  min-width: 40rem;
+  min-width: calc(var(--min-screen) - 2rem);
+  width: calc(100% - 4rem);
   max-width: 68rem;
   margin: 0 auto;
 }
@@ -609,7 +610,7 @@ table th {
 /* Carousel */
 .home-screen {
   position: relative;
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
   margin: 0;
   z-index: 1;
 }
@@ -715,7 +716,7 @@ table th {
   right: 0;
   margin: 5px auto;
   width: 50%;
-  min-width: 300px;
+  min-width: calc(var(--min-screen) - 10rem);
   height: 40px;
   display: flex;
 }
