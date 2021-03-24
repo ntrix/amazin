@@ -1,11 +1,12 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { listProducts } from "../../../Controllers/productActions";
-import axios from "axios";
-import VideoRow from "./VideoRow";
+import { dummyMovies, sourceAdapter } from "../../../utils";
 import VideoBanner, { VideoBanner2 } from "./VideoBanner";
+import VideoRow from "./VideoRow";
 import "./videoScreen.css";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -21,22 +22,6 @@ const sources = {
   "Trending Now": `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   "Top Rated": `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
 };
-const baseURL = "https://image.tmdb.org/t/p/original/";
-
-const adapter = (movies) =>
-  movies?.map((m) => ({
-    name: m.name || m.title || m.original_title || m.original_name || "",
-    images: [
-      m.backdrop_path ? baseURL + m.backdrop_path : m.image?.split("^")[1],
-      m.poster_path ? baseURL + m.poster_path : m.image?.split("^")[0],
-    ],
-    rating: m.rating * 2 || m.vote_average,
-    numReviews: m.numReviews || m.vote_count,
-    description: m.description || m.overview,
-    video: m.video,
-    seller: m.seller,
-    _id: m._id,
-  }));
 
 export default function VideoScreen() {
   const dispatch = useDispatch();
@@ -60,7 +45,9 @@ export default function VideoScreen() {
         })
       );
       const movieObj = {};
-      movieArray.map(([genre, list]) => (movieObj[genre] = adapter(list)));
+      movieArray.map(
+        ([genre, list]) => (movieObj[genre] = sourceAdapter(list))
+      );
       setMovies(movieObj);
     }
     if (!movies[genre]) fetchData(); // else shuffle random movies list :)
@@ -75,7 +62,7 @@ export default function VideoScreen() {
       })
     );
     if (successProducts)
-      setMovies({ ...movies, STORE: adapter(products).reverse() });
+      setMovies({ ...movies, STORE: sourceAdapter(products).reverse() });
   }, [dispatch, successProducts]);
 
   return (
@@ -93,25 +80,22 @@ export default function VideoScreen() {
           ))}
         </ul>
       </header>
-      {movies[genre] && (
-        <VideoBanner
-          source={genre === "STORE" ? adapter(products) : movies[genre]}
-        />
+      <VideoBanner
+        source={genre === "STORE" ? sourceAdapter(products) : movies[genre]}
+      />
+      {Object.keys(sources).map(
+        (label, id) =>
+          label !== "Home" &&
+          (genre === label || genre === "Home") &&
+          label !== "STORE" && (
+            <VideoRow
+              key={id}
+              title={label}
+              movies={movies[label]}
+              large={label === "NETFLUX ORIGINALS"}
+            />
+          )
       )}
-      {movies[genre] &&
-        Object.keys(sources).map(
-          (label, id) =>
-            label !== "Home" &&
-            (genre === label || genre === "Home") &&
-            label !== "STORE" && (
-              <VideoRow
-                key={id}
-                title={label}
-                movies={movies[label]}
-                large={label === "NETFLUX ORIGINALS"}
-              />
-            )
-        )}
       {loadingProducts ? (
         <LoadingBox xl />
       ) : errorProducts ? (
@@ -123,14 +107,14 @@ export default function VideoScreen() {
               No Product Found Or All Movies In Stock Are Sold Out
             </MessageBox>
           )}
-          <VideoRow
-            title="IN STOCK: READY TO BUY"
-            movies={adapter(products).reverse()}
-            //if Netflux is there, only one large row
-            large={genre !== "NETFLUX ORIGINALS"}
-          />
         </>
       )}
+      <VideoRow
+        title="IN STOCK: READY TO BUY"
+        movies={sourceAdapter(products || dummyMovies).reverse()}
+        //if Netflux is there, only one large row
+        large={genre !== "NETFLUX ORIGINALS"}
+      />
       {
         movies["Trending Now"] && genre !== "Trending Now" && (
           <VideoRow title="Trending Now" movies={movies["Trending Now"]} />
@@ -140,7 +124,7 @@ export default function VideoScreen() {
         <VideoRow title="Top Rated" movies={movies["Top Rated"]} />
       )}
       <div className="banner__divider"></div>
-      {movies[genre] && <VideoBanner2 source={movies[genre]} />}
+      <VideoBanner2 source={movies[genre] || dummyMovies} />
     </div>
   );
 }

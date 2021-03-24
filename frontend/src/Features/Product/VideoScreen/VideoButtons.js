@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import YouTube from "react-youtube";
+import { sourceAdapter } from "../../../utils";
 
 const movieTrailer = require("movie-trailer");
 
@@ -27,17 +28,21 @@ export default function UTube({ trailerUrl }) {
 }
 
 // export const findTrailer = (movie) =>
-//   movieTrailer(movie?.name)
+//   movieTrailer(movie.name)
 //     .then((url) => {
 //       const urlParams = new URLSearchParams(new URL(url).search);
 //       return urlParams.get("v");
 //     })
 //     .catch((e) => "no trailer");
 
-export function VideoButtons({ movie, trailerUrl, setTrailerUrl }) {
+export function VideoButtons({
+  movie = sourceAdapter([1])[0],
+  trailerUrl,
+  setTrailerUrl,
+}) {
   const searchTrailer = async () => {
     if (trailerUrl) return setTrailerUrl("");
-    movieTrailer(movie?.name)
+    movieTrailer(movie.name)
       .then((url) => {
         const urlParams = new URLSearchParams(new URL(url).search);
         setTrailerUrl(urlParams.get("v"));
@@ -71,7 +76,7 @@ export function VideoButtons({ movie, trailerUrl, setTrailerUrl }) {
 
       <Link
         disabled={!movie.seller}
-        //is there any seller sells this movie?
+        //is there any seller sells this movie
         to={movie.seller ? `/cart/${movie._id}?qty=1` : `#`}
       >
         <button className="banner__button" disabled={!movie.seller}>
