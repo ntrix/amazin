@@ -14,6 +14,7 @@ import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
 import { pipe, savePath } from "./utils";
 import "./Features/Nav/nav.css";
+import "./responsive.css";
 
 export default function App() {
   const dispatch = useDispatch();
