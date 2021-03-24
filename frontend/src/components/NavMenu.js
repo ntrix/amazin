@@ -40,7 +40,7 @@ export const addMenuItem = (clickHandle) => (
 
 export default function NavDropMenu({
   label = "",
-  attr = "",
+  className = "",
   onEnterHandle,
   onLeaveHandle,
   isDropped = false,
@@ -50,7 +50,7 @@ export default function NavDropMenu({
   const line = label.split("^");
   return (
     <div
-      className={"dropdown " + attr}
+      className={"dropdown " + className}
       onMouseEnter={onEnterHandle}
       onClick={onEnterHandle}
       onMouseLeave={onLeaveHandle}

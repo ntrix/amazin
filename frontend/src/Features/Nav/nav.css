@@ -1,4 +1,4 @@
-#navbar {
+#nav-bar {
   position: relative;
   top: 0;
   left: 0;
@@ -6,7 +6,7 @@
   line-height: 1em;
   zoom: 1;
 }
-#navbar * {
+#nav-bar * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -42,7 +42,7 @@
   line-height: 1.5rem;
 }
 
-/* BRAND, HOME PAGE */
+/* NAV__BRAND, HOME PAGE */
 header a {
   padding: 1rem;
   color: #fff;
@@ -52,7 +52,7 @@ img.logo {
   object-fit: cover;
   margin: 0 0 -0.5rem 0;
 }
-a .brand {
+a .nav__brand {
   font-size: 26px;
   font-weight: 600;
   line-height: 34px;
@@ -60,10 +60,10 @@ a .brand {
 }
 
 /* LOCATOR */
-.location {
+.nav__locator {
   padding-top: 1rem;
 }
-.location > div + div {
+.nav__locator > div + div {
   margin-left: 4px;
 }
 .sprite__locator {
@@ -71,7 +71,7 @@ a .brand {
   height: 34px;
   background: url("../../img/nav-sprite.png") -60px -120px;
 }
-.location .nav__line-1 {
+.nav__locator .nav__line-1 {
   color: #ccc;
 }
 
@@ -353,10 +353,10 @@ a .brand {
   opacity: 0;
   transition: all 0.2s, opacity 50ms ease-out;
 }
-.nav-user .dropdown__menu {
+.nav__user .dropdown__menu {
   right: -66px;
 }
-.nav-seller .dropdown__menu {
+.nav__seller .dropdown__menu {
   right: -68px;
 }
 .dropdown__menu::after {
@@ -388,13 +388,13 @@ a .brand {
   right: 7px;
   transition: all 0.4s ease-in-out;
 }
-.nav-user.dropdown:hover > .dropdown__menu.show {
+.nav__user.dropdown:hover > .dropdown__menu.show {
   right: -66px;
 }
-.nav-user.dropdown:hover > .dropdown__menu.show::after {
+.nav__user.dropdown:hover > .dropdown__menu.show::after {
   right: 66px;
 }
-/* .nav-seller.dropdown:hover > .dropdown__menu.show::after {
+/* .nav__seller.dropdown:hover > .dropdown__menu.show::after {
   right: 66px;
 } */
 .dropdown > .dropdown__menu.show > * {

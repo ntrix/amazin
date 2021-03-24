@@ -87,16 +87,16 @@ export default function App() {
           "container--grid" + ("sidebar" === shadowFor ? " scroll--off" : "")
         }
       >
-        <header id="navbar">
+        <header id="nav-bar">
           <div className="nav-belt row">
             <Link className="phone--off" to="/">
-              <div className="brand">
+              <div className="nav__brand">
                 <img className="logo" src={Logo} alt="logo" />
                 <span className="mobile--off">mazin'</span>
               </div>
             </Link>
 
-            <Link className="location flex" to="/map" onClick={savePath()}>
+            <Link className="nav__locator flex" to="/map" onClick={savePath()}>
               <div className="sprite__locator"></div>
               <div className="tablet--off">
                 <div className="nav__line-1">Deliver to your</div>
@@ -163,7 +163,7 @@ export default function App() {
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
-                attr="nav-user"
+                className="nav__user"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}
@@ -180,7 +180,7 @@ export default function App() {
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
-                attr="nav-user"
+                className="nav__user"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}
@@ -210,7 +210,7 @@ export default function App() {
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
-                attr="nav-seller"
+                className="nav__seller"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}
@@ -237,7 +237,7 @@ export default function App() {
             {userInfo?.isAdmin && (
               <NavDropMenu
                 label="Admin^Tools"
-                attr="nav-admin phone--off"
+                className="nav__admin phone--off"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}
@@ -256,7 +256,10 @@ export default function App() {
               />
             )}
 
-            <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
+            <NavDropMenu
+              label="Return^& Orders"
+              className="nav__return tablet--off disabled"
+            />
 
             <Link className="nav__cart flex" to="/cart">
               <div>
