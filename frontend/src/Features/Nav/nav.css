@@ -747,6 +747,8 @@ button.open-sidebar:hover {
   border-bottom: thin solid #0001;
   color: #111;
   background: #fafafa;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .cat-nav {
   display: flex;
@@ -777,7 +779,7 @@ button.open-sidebar:hover {
   font-weight: 700;
 }
 .cat-nav li:hover {
-  padding-bottom: 4px;
+  padding-bottom: 5px;
   color: #e47911;
   border-bottom: 2px solid #e47911;
 }

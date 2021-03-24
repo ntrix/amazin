@@ -3,14 +3,6 @@
   display: none;
 }
 
-/* @media (min-width: 1500px) {
-  .container {
-    width: 1500px !important;
-    justify-content: center;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-} */
 /* >= Tablet or PC low resolution */
 @media (max-width: 1123px) {
   .pc-low--off {
@@ -18,6 +10,11 @@
   }
   .pc-low--only {
     display: initial;
+  }
+  .nav__fill {
+    -webkit-flex: 1 0 70%;
+    flex: 1 0 70%;
+    margin-right: 1rem;
   }
   .search-box__scope span {
     max-width: 120px;
@@ -54,11 +51,6 @@
 
   .nav__left {
     margin-left: 5px;
-  }
-  .nav__fill {
-    -webkit-flex: 1 0 70%;
-    flex: 1 0 70%;
-    margin-right: 1rem;
   }
   .nav-main__item {
     height: 100%;

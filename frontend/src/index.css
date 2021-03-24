@@ -473,6 +473,9 @@ img.large {
   background: #eff1f3;
   background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
   background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
+}
+.pagination,
+.pagination ~ div {
   z-index: 1;
 }
 .pagination a:not(.disabled):hover {
@@ -492,7 +495,7 @@ img.large {
 /* Alert */
 .loading {
   display: block !important;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 .sprite__loading {
   display: inline-block;
@@ -501,6 +504,7 @@ img.large {
   background: url("./img/load-xs.gif");
 }
 .sprite__loading--xl {
+  display: inline-block;
   height: 52px;
   width: 64px;
   background: url("./img/load.gif");
