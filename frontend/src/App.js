@@ -162,6 +162,7 @@ export default function App() {
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
+                attr="nav-user"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}
@@ -178,6 +179,7 @@ export default function App() {
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
+                attr="nav-user"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}
@@ -207,6 +209,7 @@ export default function App() {
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
+                attr="nav-seller"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}
@@ -233,7 +236,7 @@ export default function App() {
             {userInfo?.isAdmin && (
               <NavDropMenu
                 label="Admin^Tools"
-                attr="phone--off"
+                attr="nav-admin phone--off"
                 isDropped={"navDrop" === shadowFor}
                 onEnterHandle={onEnterHandle}
                 onClickItem={setShadowFor}

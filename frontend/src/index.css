@@ -580,8 +580,8 @@ a .brand {
 } */
 .dropdown__menu {
   position: absolute;
-  width: 33rem;
-  right: -9px;
+  width: 35rem;
+  right: -29px;
   margin-top: 7px;
   padding: 10px 15px 10px 25px;
   border-radius: 3px;
@@ -590,9 +590,15 @@ a .brand {
   box-shadow: 0 0 2px #131a21;
   z-index: -1;
   opacity: 0;
-  transition: all 0.2s ease-in, opacity 0.1s ease-out;
+  transition: all 0.2s, opacity 50ms ease-out;
 }
-.dropdown__menu:after {
+.nav-user .dropdown__menu {
+  right: -66px;
+}
+.nav-seller .dropdown__menu {
+  right: -68px;
+}
+.dropdown__menu::after {
   content: "";
   position: absolute;
   width: 0;
@@ -612,14 +618,24 @@ a .brand {
 .dropdown:hover > .dropdown__menu.show {
   z-index: 9006;
   opacity: 1;
+  right: -9px;
   width: 25rem;
-  transition: opacity 0.2s ease-out, width 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out, opacity 0.2s ease-out;
 }
 .dropdown:hover > .dropdown__menu.show::after {
   top: -1rem;
   right: 7px;
   transition: all 0.4s ease-in-out;
 }
+.nav-user.dropdown:hover > .dropdown__menu.show {
+  right: -66px;
+}
+.nav-user.dropdown:hover > .dropdown__menu.show::after {
+  right: 66px;
+}
+/* .nav-seller.dropdown:hover > .dropdown__menu.show::after {
+  right: 66px;
+} */
 .dropdown > .dropdown__menu.show > * {
   opacity: 0;
 }

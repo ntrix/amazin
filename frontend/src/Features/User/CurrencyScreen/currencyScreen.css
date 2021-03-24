@@ -1,38 +1,40 @@
-.dropdown__menu.currency {
-  margin-top: 7px;
-}
-.c-screen.currency {
-  padding: 20px 25px;
-}
+/* NAV-ITEM CURRENCY */
 .nav__line-2.sprite__wrapper {
   margin: 2px 0px 1px;
 }
 .nav__line-2 .sprite.flag + i {
   margin-top: -4px;
 }
-.dropdown__menu.currency {
-  padding-left: 15px;
+
+.currency.dropdown__menu {
+  margin-top: 7px;
   left: 0;
 }
-.dropdown__menu.currency:after {
+.currency.dropdown__menu.show {
+  padding-left: 95px;
+}
+.dropdown:hover > .currency.dropdown__menu.show {
+  padding-left: 15px;
+}
+.currency.dropdown__menu:after {
   left: 140px;
 }
-.dropdown:hover > .dropdown__menu.show.currency:after {
+.dropdown:hover > .currency.dropdown__menu.show:after {
   left: 25px;
   transition: all 0.4s ease-in-out;
 }
-.dropdown__menu.currency .separator.ml-1 {
+.currency.dropdown__menu .separator.ml-1 {
   margin-left: 25px;
   width: auto;
 }
-.dropdown__menu.currency > * {
+.currency.dropdown__menu > * {
   font-size: 13px;
 }
 
-.dropdown__menu.currency > li {
+.currency.dropdown__menu > li {
   line-height: 2;
 }
-.dropdown__menu.currency .active * {
+.currency.dropdown__menu .active * {
   cursor: default;
   color: #000;
   font-weight: normal;
@@ -63,6 +65,10 @@
   background-position: -98px 0px;
 }
 
+/* CURRENCY SCREEN */
+.currency.c-screen {
+  padding: 20px 25px;
+}
 .currency.c-screen * {
   font-size: 13px;
   font-weight: 400;
