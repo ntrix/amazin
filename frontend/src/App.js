@@ -13,6 +13,7 @@ import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
 import { pipe, savePath } from "./utils";
+import "./Features/Nav/nav.css";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -108,7 +109,7 @@ export default function App() {
             </div>
 
             <div
-              className={"dropdown mobile--off"}
+              className={"dropdown nav__currency mobile--off"}
               onMouseEnter={() => setShadowFor("currency")}
               onClick={() => setShadowFor("currency")}
               onMouseLeave={() => setShadowFor("")}
@@ -120,7 +121,7 @@ export default function App() {
                   <i className="fa fa-caret-down"></i>
                 </div>
               </div>
-              <ul className="dropdown__menu currency show">
+              <ul className="dropdown__menu show">
                 <li>Change Currency</li>
                 {["EUR", "separator", ...pipe.currencies.slice(1)].map(
                   (label, id) =>
