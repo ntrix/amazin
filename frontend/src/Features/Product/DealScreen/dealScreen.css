@@ -38,3 +38,8 @@
   font-weight: 400;
   color: #444;
 }
+
+.deal-screen .placeholder,
+.deal-screen .card {
+  height: 38rem;
+}
