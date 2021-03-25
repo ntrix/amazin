@@ -191,7 +191,7 @@ export default function ProductScreen(props) {
                             >
                               {[...Array(product.countInStock).keys()].map(
                                 (x) => (
-                                  <option key={x + 1} value={x + 1}>
+                                  <option key={x} value={x + 1}>
                                     {x + 1}
                                   </option>
                                 )
@@ -220,8 +220,8 @@ export default function ProductScreen(props) {
               <MessageBox>There is no review</MessageBox>
             )}
             <ul>
-              {product.reviews.map((review) => (
-                <li key={review._id}>
+              {product.reviews.map((review, id) => (
+                <li key={id}>
                   <strong>{review.name}</strong>
                   <Rating rating={review.rating} caption=" "></Rating>
                   <p>{review.createdAt.substring(0, 10)}</p>

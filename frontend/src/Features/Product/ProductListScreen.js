@@ -131,7 +131,7 @@ export default function ProductListScreen(props) {
             {[...Array(pages).keys()].map((x) => (
               <Link
                 className={x + 1 === page ? "active" : ""}
-                key={x + 1}
+                key={x}
                 to={`/product-list/pageNumber/${x + 1}`}
               >
                 {x + 1}

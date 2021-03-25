@@ -123,8 +123,8 @@ export default function OrderSumScreen(props) {
               <div className="card card__body">
                 <h2>Order Items</h2>
                 <ul>
-                  {order.orderItems.map((item) => (
-                    <li key={item.product}>
+                  {order.orderItems.map((item, id) => (
+                    <li key={id}>
                       <div className="row">
                         <div>
                           <img

@@ -66,8 +66,8 @@ export default function PlaceOrderScreen(props) {
               <div className="card card__body">
                 <h2>Order Items</h2>
                 <ul>
-                  {cart.cartItems.map((item) => (
-                    <li key={item.product}>
+                  {cart.cartItems.map((item, id) => (
+                    <li key={id}>
                       <div className="row">
                         <div>
                           <img

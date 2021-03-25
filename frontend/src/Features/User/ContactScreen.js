@@ -59,8 +59,10 @@ export default function ContactScreen(props) {
         <h1>Contact Us</h1>
         {isLoading && <LoadingBox xl />}
         {hasError &&
-          hasError.map((err) => (
-            <MessageBox variant="danger">{err}</MessageBox>
+          hasError.map((err, id) => (
+            <MessageBox key={id} variant="danger">
+              {err}
+            </MessageBox>
           ))}
         {hasMessage ? (
           <>

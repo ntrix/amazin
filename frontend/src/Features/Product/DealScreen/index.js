@@ -45,9 +45,9 @@ export default function DealScreen() {
           ) : errorCategories ? (
             <MessageBox variant="danger">{errorCategories}</MessageBox>
           ) : (
-            ["Deals", ...categories].map((label) => (
+            ["Deals", ...categories].map((label, id) => (
               <li
-                key={label}
+                key={id}
                 className={label === cat ? " selected" : ""}
                 onClick={() => setCat(label)}
               >
