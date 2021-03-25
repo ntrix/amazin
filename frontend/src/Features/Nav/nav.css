@@ -377,9 +377,6 @@ a .nav__brand {
 .nav__user .dropdown__menu:after {
   right: 70px;
 }
-.nav__seller .dropdown__menu:after {
-  right: 0px;
-}
 /* .dropdown:hover > .dropdown__menu.show:before {
   opacity: 0;
   z-index: -1;
@@ -397,12 +394,12 @@ a .nav__brand {
   right: 7px;
   transition: all 0.4s ease-in-out;
 }
-.nav__user.dropdown:hover > .dropdown__menu.show {
+/* .nav__user.dropdown:hover > .dropdown__menu.show {
   right: -66px;
-}
-.nav__user.dropdown:hover > .dropdown__menu.show::after {
-  right: 64px;
-}
+} */
+/* .nav__user.dropdown:hover > .dropdown__menu.show::after {
+  right: 13px;
+} */
 /* .nav__seller.dropdown:hover > .dropdown__menu.show::after {
   right: 66px;
 } */
@@ -444,13 +441,15 @@ a .nav__brand {
   margin-top: -4px;
 }
 
-.nav__currency .dropdown__menu {
-  left: -13px;
-}
+/* .nav__currency .dropdown__menu {
+  left: -59px;
+} */
 .nav__currency .dropdown__menu.show {
+  left: -69px;
   padding-left: 95px;
 }
 .nav__currency.dropdown:hover > .dropdown__menu.show {
+  left: -13px;
   padding-left: 15px;
 }
 .nav__currency .dropdown__menu:after {
