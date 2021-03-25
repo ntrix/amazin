@@ -361,6 +361,7 @@ a .nav__brand {
 }
 .nav__seller .dropdown__menu {
   right: -68px;
+  width: 36.5rem;
 }
 .dropdown__menu::after {
   content: "";
