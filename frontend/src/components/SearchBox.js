@@ -32,6 +32,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
 
   const submitHandler = (e) => {
     e?.preventDefault();
+    if (!e.target.value) return;
     setSuggestBox(-1); //for absorbing a keypress on submit instead setSuggestBox(0)
     setShadowFor("");
     history.push(
@@ -124,6 +125,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
           <div className="search__dropdown">
             <div
               className={(navScope > 0 ? "focus " : "") + " search-box__scope"}
+              tabIndex="1"
               onClick={() => {
                 setOutline("");
                 setNavScope(navScope + 1);
@@ -185,7 +187,8 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
               id="q"
               value={input}
               size="1"
-              tabIndex="1"
+              tabIndex="2"
+              aria-label="search input"
               onClick={(e) => {
                 if (input) {
                   const newSuggests = findSuggest.search(list, input);
@@ -268,8 +271,8 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
         </div>
         <div className="row--right">
           <div className="search__btn">
-            <span className="sprite__search-btn" aria-label="Go">
-              <input type="submit" value="Go" tabIndex={0}></input>
+            <span className="sprite__search-btn" tabIndex="3" aria-label="Go">
+              <input type="submit" value="Go"></input>
             </span>
           </div>
         </div>

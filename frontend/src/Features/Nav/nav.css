@@ -91,6 +91,9 @@ a .nav__brand {
   z-index: 9008;
   background: #fff;
 }
+.search-box * {
+  outline: none; /*safari*/
+}
 .search-box.focus,
 .search-box__scope.focus {
   box-shadow: 0 0 0px 3px #f806, 0 0 1px 3px #f3a847;
@@ -142,7 +145,7 @@ a .nav__brand {
 .search-box__scope.focus {
   color: #000;
   background: #c7cbcf;
-  border-color: #8888;
+  border-color: #6e6e6e6e;
   background: -webkit-linear-gradient(to bottom, #c7cbcf, #e2e2e2);
   background: linear-gradient(to bottom, #c7cbcf, #e2e2e2);
 }
@@ -187,8 +190,8 @@ a .nav__brand {
   background: #e2e2e2;
   background: -webkit-linear-gradient(to bottom, #c7cbcf, #f3f3f3, #e2e2e2);
   background: linear-gradient(to bottom, #c7cbcf, #f3f3f3, #e2e2e2);
-  border: thin solid #8888;
-  box-shadow: 0 3px 6px 1px #8888;
+  border: thin solid #6e6e6e6e;
+  box-shadow: 0 2px 10px 0px #6e6e6e6e;
   z-index: 9000;
 }
 .scope__drop-list {
@@ -847,7 +850,7 @@ button.open-sidebar:hover {
   background: #e3e6e6;
 }
 .sort__filter optgroup {
-  color: #888;
+  color: #6e6e6e;
   font-style: normal;
   padding: 0;
 }

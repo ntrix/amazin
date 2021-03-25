@@ -87,9 +87,14 @@ body {
 .disabled *,
 .disabled:hover {
   cursor: default;
-  color: #888 !important;
+  color: #6e6e6e !important;
   outline: none !important;
   border-color: transparent !important;
+}
+.dark.disabled,
+.dark.disabled *,
+.dark.disabled:hover {
+  color: #888 !important;
 }
 /* Layout */
 .container--grid {
@@ -400,7 +405,7 @@ img.large {
   cursor: pointer;
 }
 .search__filter .rating:hover span:last-child {
-  color: #c45629;
+  color: #c35528;
 }
 .col-9 {
   flex: 12 12 1%;
@@ -491,9 +496,9 @@ img.large {
 }
 .pagination a.active {
   font-weight: 700;
-  color: #c45629;
+  color: #c35528;
 
-  border: thin solid #c45629;
+  border: thin solid #c35528;
   background: #fff;
 }
 

@@ -259,7 +259,7 @@ export default function App() {
 
             <NavDropMenu
               label="Return^& Orders"
-              className="nav__return tablet--off disabled"
+              className="nav__return tablet--off disabled dark"
             />
 
             <Link className="nav__cart flex" to="/cart">
@@ -423,7 +423,7 @@ export default function App() {
                 ["separator"],
                 ["separator"],
 
-                ["#contact dev team", "disabled"],
+                ["#contact developer", "disabled"],
                 [""],
                 ["separator"],
                 ["separator"],
@@ -435,6 +435,7 @@ export default function App() {
         <label
           className={"sidebar" === shadowFor ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
+          aria-label="close sidebar button"
         ></label>
 
         <main className="container">
