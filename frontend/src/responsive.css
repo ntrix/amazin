@@ -40,7 +40,10 @@
   .container {
     width: 100%;
   }
-  .search__filter,
+
+  .search__filter {
+    padding: 0 1rem;
+  }
   .search__results,
   .card {
     margin: 1rem;

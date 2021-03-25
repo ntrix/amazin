@@ -392,10 +392,11 @@ img.large {
   box-sizing: border-box;
 }
 .search__filter {
-  flex: 1 0 20rem;
+  flex: 1 0 18rem;
   margin: 3rem 0;
   border-right: 2px solid #ccc;
   padding: 0 3rem;
+  max-width: 21rem;
 }
 .search__filter ul {
   margin-top: -2rem;
