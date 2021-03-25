@@ -155,7 +155,8 @@ userRoute.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.currency = req.body.currency || user.currency;
-      if (user.isSeller) {
+      if (user.isSeller || req.body.verify) {
+        user.isSeller = true; //verify and apply new seller profile from user acc
         user.seller.name = req.body.sellerName || user.seller.name || user.name;
         user.seller.logo = req.body.sellerLogo || user.seller.logo;
         user.seller.description =
