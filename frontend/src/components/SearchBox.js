@@ -22,15 +22,6 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
   const [suggestBox, setSuggestBox] = useState(0);
   const [outline, setOutline] = useState("");
 
-  useEffect(() => {
-    dispatch(
-      listAllProducts({
-        category: category === "All Categories" ? "" : category,
-        pageSize: 999,
-      })
-    );
-  }, [dispatch, category, success]);
-
   const submitHandler = (e) => {
     e?.preventDefault();
     if (!e.target.value) return;
@@ -52,6 +43,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     return e;
   };
 
+  /* detect click outside component to close categories search scope window */
   useEffect(() => {
     if ("scope" === shadowFor)
       document.addEventListener("mousedown", handleClick);
@@ -63,6 +55,15 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
       document.removeEventListener("mousedown", handleClick);
     };
   }, [navScope % 2, shadowFor]);
+
+  useEffect(() => {
+    dispatch(
+      listAllProducts({
+        category: category === "All Categories" ? "" : category,
+        pageSize: 999,
+      })
+    );
+  }, [dispatch, category, success]);
 
   return (
     <>
@@ -93,35 +94,33 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
           {navScope % 2 > 0 && categories && (
             <div className="scope__windows">
               <ul className="scope__drop-list">
-                {[
-                  "All Categories",
-                  ...categories,
-                  ...categories,
-                  ...categories,
-                ].map((cat) => (
-                  <li
-                    className={
-                      (cat === category ? "selected " : "") + "category"
-                    }
-                    onClick={() => {
-                      if (cat !== category) {
-                        setCategory(cat);
-                        setNavScope(0);
-                        // setOutline("focus");
-                        //setSuggestBox(2);
-                        inputRef.current.focus();
-                        setSuggestBox(-1);
-                        setShadowFor("");
-                      } else {
-                        setNavScope(2);
-                        setOutline("");
+                {["All Categories", ...categories, ...categories].map(
+                  (cat, i) => (
+                    <li
+                      key={i}
+                      className={
+                        (cat === category ? "selected " : "") + "category"
                       }
-                    }}
-                    onBlur={() => setNavScope(0)}
-                  >
-                    <i className="fa fa-check"></i> {cat}
-                  </li>
-                ))}
+                      onClick={() => {
+                        if (cat !== category) {
+                          setCategory(cat);
+                          setNavScope(0);
+                          // setOutline("focus");
+                          //setSuggestBox(2);
+                          inputRef.current.focus();
+                          setSuggestBox(-1);
+                          setShadowFor("");
+                        } else {
+                          setNavScope(2);
+                          setOutline("");
+                        }
+                      }}
+                      onBlur={() => setNavScope(0)}
+                    >
+                      <i className="fa fa-check"></i> {cat}
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           )}
@@ -195,11 +194,12 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
               }}
             ></input>
           </div>
+
           {shadowFor === "searchBox" && suggestBox % 2 > 0 && input && (
             <div className="search__suggest">
               <ul>
-                {suggests.slice(0, 12).map((p) => (
-                  <li>
+                {suggests.slice(0, 12).map((p, id) => (
+                  <li key={id}>
                     <Link
                       to={`/search/name/${p.name.replace(
                         /(<b>)|(<\/b>)/g,
@@ -219,6 +219,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
             </div>
           )}
         </div>
+
         <div className="row--right">
           <div className="search__btn">
             <span className="sprite__search-btn" tabIndex="3" aria-label="Go">

@@ -172,7 +172,7 @@ export const sourceAdapter = (movies) =>
         ? baseURL + m.poster_path
         : m.image?.split("^")[0] || NO_IMAGE,
     ],
-    rating: m.rating * 2 || m.vote_average || 0,
+    rating: m.rating * 2 || m.vote_average || 0, //rating STEP /10
     numReviews: m.numReviews || m.vote_count || 0,
     description: m.description || m.overview || "",
     video: m.video,
@@ -185,51 +185,62 @@ export const dummyMovies = sourceAdapter(Array(12).fill(1));
 
 /* find suggestions util. for searchBox's dropdown suggest list */
 export const findSuggest = (() => {
-  const LL = "<b>";
-  const RR = "</b>";
-  const rep = (r) => r.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
-  const combine_R_L = new RegExp(rep(RR + LL), "g");
-  const group = new RegExp("(" + rep(LL) + "[\\s\\S]+?" + rep(RR) + ")", "g");
-  const findMax = (string, word) => {
-    let max = 0;
-    word = LL + word + RR;
+  const openTag = "<b>";
+  const closeTag = "</b>";
+
+  const validate = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
+
+  const combinePhrases = new RegExp(validate(closeTag + openTag), "g");
+
+  const group = new RegExp(
+    "(" + validate(openTag) + "[\\s\\S]+?" + validate(closeTag) + ")",
+    "g"
+  );
+
+  const findPriority = (string, word) => {
+    let prior = 0;
+    word = openTag + word + closeTag;
     string.replace(group, (found) => {
-      if (word == found) max = 999;
-      else if (found.length > max) max = found.length;
+      if (word == found) prior = 999;
+      else if (found.length > prior) prior = found.length;
     });
-    return max;
-  };
-  const regExpKey = (key) => {
-    const source = key
-      .split("")
-      .reduce((acc, k) => acc + "(" + rep(k) + ")(.*?)", "(.*?)");
-    let replacer = "";
-    for (var i = 1, len = key.length; len > 0; len--)
-      replacer += "$" + i++ + LL + "$" + i++ + RR;
-    return {
-      regEx: new RegExp(source, "i"),
-      replacer: replacer + "$" + i,
-    };
+    return prior;
   };
 
   return {
     search(list, keyword) {
       if (!list || !keyword) return [];
+
       keyword = keyword.slice(0, 49);
-      const keyReg = regExpKey(keyword);
-      const result = [];
-      for (let el of [...list]) {
-        if (keyReg.regEx.test(el.name)) {
-          result.push({
-            name: el.name
-              .replace(keyReg.regEx, keyReg.replacer)
-              .replace(combine_R_L, ""),
-            _id: el._id,
-          });
-        }
-      }
+      const splittedKeys = keyword.split("");
+
+      const convertedKey = splittedKeys.reduce(
+        (acc, char) => acc + "(" + validate(char) + ")(.*?)",
+        "(.*?)"
+      );
+      const regKey = new RegExp(convertedKey, "i");
+
+      const replacer = splittedKeys.reduce(
+        (acc, _, i) =>
+          acc + openTag + "$" + (i * 2 + 2) + closeTag + "$" + (i * 2 + 3),
+        "$1"
+      );
+
+      const result = list.reduce(
+        (acc, item) =>
+          regKey.test(item.name)
+            ? acc.concat({
+                name: item.name
+                  .replace(regKey, replacer)
+                  .replace(combinePhrases, ""),
+                _id: item._id,
+              })
+            : acc,
+        []
+      );
+
       return result.sort(
-        (a, b) => findMax(b.name, keyword) - findMax(a.name, keyword)
+        (a, b) => findPriority(b.name, keyword) - findPriority(a.name, keyword)
       );
     },
   };
