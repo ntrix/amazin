@@ -200,7 +200,7 @@ export default function App() {
                   ["separator"],
                   ["Account"],
                   [
-                    "Create & Verify Seller Account",
+                    "Apply & Verify Your Seller Account",
                     userInfo?.isSeller ? "disabled" : "/contact/subject/Seller",
                   ],
                   ["Sign Out", "#signout", , signoutHandler],
