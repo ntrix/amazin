@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
+import { findSuggest } from "../utils";
 
 export default function SearchBox({ shadowFor, setShadowFor }) {
   const history = useHistory();
@@ -62,57 +63,6 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
       document.removeEventListener("mousedown", handleClick);
     };
   }, [navScope % 2, shadowFor]);
-
-  const findSuggest = (() => {
-    const LL = "<b>";
-    const RR = "</b>";
-    const rep = (r) => r.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
-    const combine_R_L = new RegExp(rep(RR + LL), "g");
-    const group = new RegExp("(" + rep(LL) + "[\\s\\S]+?" + rep(RR) + ")", "g");
-    const findMax = (string, word) => {
-      let max = 0;
-      word = LL + word + RR;
-      string.replace(group, (found) => {
-        if (word == found) max = 999;
-        else if (found.length > max) max = found.length;
-      });
-      return max;
-    };
-    const regExpKey = (key) => {
-      const source = key
-        .split("")
-        .reduce((acc, k) => acc + "(" + rep(k) + ")(.*?)", "(.*?)");
-      let replacer = "";
-      for (var i = 1, len = key.length; len > 0; len--)
-        replacer += "$" + i++ + LL + "$" + i++ + RR;
-      return {
-        regEx: new RegExp(source, "i"),
-        replacer: replacer + "$" + i,
-      };
-    };
-
-    return {
-      search(list, keyword) {
-        if (!list || !keyword) return [];
-        keyword = keyword.slice(0, 49);
-        const keyReg = regExpKey(keyword);
-        const result = [];
-        for (let el of [...list]) {
-          if (keyReg.regEx.test(el.name)) {
-            result.push({
-              name: el.name
-                .replace(keyReg.regEx, keyReg.replacer)
-                .replace(combine_R_L, ""),
-              _id: el._id,
-            });
-          }
-        }
-        return result.sort(
-          (a, b) => findMax(b.name, keyword) - findMax(a.name, keyword)
-        );
-      },
-    };
-  })();
 
   return (
     <>

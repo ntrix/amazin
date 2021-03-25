@@ -3,6 +3,9 @@ import "react-multi-carousel/lib/styles.css";
 
 export const NO_IMAGE = "/images/no-image.png";
 
+export default Carousel;
+
+/* responsive resolutions for multi-carousel */
 export const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 1500 },
@@ -30,8 +33,8 @@ export const responsive = {
     slidesToSlide: 1, // optional, default to 1.
   },
 };
-export default Carousel;
 
+/* price range filter width label name */
 export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
   (max, i, arr) => ({
     min: arr[i - 1] || 0,
@@ -41,6 +44,7 @@ export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
 );
 prices[0] = { min: 0, max: 0, name: "Any" };
 
+/* rating stars filter */
 export const ratings = [
   {
     name: "4stars & up",
@@ -62,7 +66,8 @@ export const ratings = [
     rating: 1,
   },
 ];
-/* singleton for currency and all its pipes */
+
+/* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
   //if (this.currency ) return this;
   currency: "EUR",
@@ -83,7 +88,7 @@ export const pipe = {
     if (newRates?.length)
       this.currencies.map((c) => (this.rates[c] = newRates[c]));
   },
-  getSymbol(currency) {
+  getSymbol(currency = this.currency) {
     return {
       GBP: "£",
       USD: "$",
@@ -91,7 +96,7 @@ export const pipe = {
       CZK: "Kč",
       CHF: "CHf",
       EUR: "€",
-    }[currency || this.currency];
+    }[currency];
   },
   getName(currency) {
     return {
@@ -110,27 +115,29 @@ export const pipe = {
     return (price * rate).toFixed(2);
   },
   getNote(price = 0, rate = this.getRate()) {
-    return ((price * rate) | 0) + "";
+    return ((price * rate) | 0).toString();
   },
   getCent(price = 0, rate = this.getRate()) {
-    return ((price * rate).toFixed(2) + "").slice(-2);
+    return (price * rate).toFixed(2).slice(-2);
   },
   showPrice(price) {
-    return this.getSymbol() + " " + this.getPrice(price);
+    return `${this.getSymbol()} ${this.getPrice(price)}`;
   },
 };
 
+/* save current path to localStorage, no need to save path on the same screen */
 export const savePath = (exceptionStartWith = "@") => () => {
-  //doesn't save path of the same screen
   if (!window.location.pathname.startsWith(exceptionStartWith))
     localStorage.setItem("backToHistory", window.location.pathname);
 };
 
+/* create 5 placeholders for seller info */
 export const dummySellers = Array(5).fill({
   _id: "#",
   seller: { logo: NO_IMAGE, name: "Anonymous Seller" },
 });
 
+/* create 2 dummyMovies as placeholders for videoScreen movie banner */
 export const dummyBanners = [
   {
     name: "Stranger Things",
@@ -151,6 +158,8 @@ export const dummyBanners = [
 ];
 
 const baseURL = "https://image.tmdb.org/t/p/original/";
+
+/* adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
 export const sourceAdapter = (movies) =>
   movies?.map((m) => ({
     name:
@@ -171,4 +180,57 @@ export const sourceAdapter = (movies) =>
     _id: m._id,
   }));
 
+/* create an array of 12 dummyMovies (a row) for videoRow(s) */
 export const dummyMovies = sourceAdapter(Array(12).fill(1));
+
+/* find suggestions util. for searchBox's dropdown suggest list */
+export const findSuggest = (() => {
+  const LL = "<b>";
+  const RR = "</b>";
+  const rep = (r) => r.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
+  const combine_R_L = new RegExp(rep(RR + LL), "g");
+  const group = new RegExp("(" + rep(LL) + "[\\s\\S]+?" + rep(RR) + ")", "g");
+  const findMax = (string, word) => {
+    let max = 0;
+    word = LL + word + RR;
+    string.replace(group, (found) => {
+      if (word == found) max = 999;
+      else if (found.length > max) max = found.length;
+    });
+    return max;
+  };
+  const regExpKey = (key) => {
+    const source = key
+      .split("")
+      .reduce((acc, k) => acc + "(" + rep(k) + ")(.*?)", "(.*?)");
+    let replacer = "";
+    for (var i = 1, len = key.length; len > 0; len--)
+      replacer += "$" + i++ + LL + "$" + i++ + RR;
+    return {
+      regEx: new RegExp(source, "i"),
+      replacer: replacer + "$" + i,
+    };
+  };
+
+  return {
+    search(list, keyword) {
+      if (!list || !keyword) return [];
+      keyword = keyword.slice(0, 49);
+      const keyReg = regExpKey(keyword);
+      const result = [];
+      for (let el of [...list]) {
+        if (keyReg.regEx.test(el.name)) {
+          result.push({
+            name: el.name
+              .replace(keyReg.regEx, keyReg.replacer)
+              .replace(combine_R_L, ""),
+            _id: el._id,
+          });
+        }
+      }
+      return result.sort(
+        (a, b) => findMax(b.name, keyword) - findMax(a.name, keyword)
+      );
+    },
+  };
+})();
