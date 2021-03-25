@@ -274,7 +274,7 @@ export default function App() {
             </Link>
           </div>
           <div className="nav-main row">
-            <div className="ml-1 nav__left">
+            <div className="nav__left">
               <div
                 className="open-sidebar nav-main__item flex"
                 onClick={() => setShadowFor("sidebar")}

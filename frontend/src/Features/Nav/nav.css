@@ -15,7 +15,7 @@
 /* NAV BELT */
 .nav-belt {
   height: 6rem;
-  padding: 0 1rem;
+  padding: 0 2rem 0 1rem;
   background: #131a21;
 }
 .nav-belt > * {
@@ -538,13 +538,13 @@ a .nav__brand {
 .nav-main {
   height: 39px;
   margin-top: 0;
+  padding: 0 11px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
 }
 .nav__left {
   flex: 0 0 6rem;
-  margin-left: 15px;
 }
 .nav-main__item {
   height: 100%;
@@ -574,7 +574,7 @@ a .nav__brand {
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
   flex-wrap: wrap;
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
   margin-right: 2rem;
 }
 .nav__fill .nav-main__item {

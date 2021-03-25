@@ -136,7 +136,7 @@ footer {
 }
 main.container {
   width: 100vw;
-  min-width: var(--screen-min-width);
+  min-width: var(--min-screen);
 }
 main > col-fill {
   margin-left: 1rem;
