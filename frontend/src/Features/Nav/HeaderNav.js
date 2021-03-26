@@ -58,22 +58,15 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
           <SearchBox shadowFor={shadowFor} setShadowFor={setShadowFor} />
         </div>
 
-        <div
-          className={"dropdown nav__currency mobile--off"}
-          onMouseEnter={() => setShadowFor("currency")}
-          onClick={() => setShadowFor("currency")}
-          onMouseLeave={() => setShadowFor("")}
+        <NavDropBtn
+          className="nav__currency mobile--off"
+          className2="nav__line-2 sprite__wrapper"
+          className3={"sprite flag " + currency}
+          onEnterHandle={() => setShadowFor("currency")}
+          onLeaveHandle={() => setShadowFor("")}
         >
-          <div>
-            <div className="nav__line-1"> </div>
-            <div className="nav__line-2 sprite__wrapper">
-              <span className={"sprite flag " + currency}></span>
-              <i className="fa fa-caret-down"></i>
-            </div>
-          </div>
-
           <DropMenuCurrency currency={currency} />
-        </div>
+        </NavDropBtn>
 
         {!userInfo && (
           <NavDropBtn

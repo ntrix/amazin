@@ -27,6 +27,7 @@ export default function DropMenuCurrency({ currency }) {
       <div className="separator"></div>
 
       <li>Currency Calculator</li>
+
       <li className="calculator disabled">
         <Link to="#">€ - EUR - Euro</Link>
         <Link to="#">Base</Link>

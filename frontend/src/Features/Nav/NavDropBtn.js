@@ -3,6 +3,9 @@ import React from "react";
 export default function NavDropBtn({
   label = "",
   className = "",
+  className1 = "",
+  className2 = "",
+  className3 = "",
   onEnterHandle,
   onLeaveHandle,
   children,
@@ -16,10 +19,10 @@ export default function NavDropBtn({
       onMouseLeave={onLeaveHandle}
     >
       <div>
-        <div className="nav__line-1">{line[0]}</div>
-        <div className="nav__line-2">
+        <div className={className1 + " nav__line-1"}>{line[0]}</div>
+        <div className={className2 + " nav__line-2"}>
           {line[1]}
-          <span className="tablet--off">{line[2]}</span>
+          <span className={className3 || "tablet--off"}>{line[2]}</span>
           <i className="fa fa-caret-down"></i>
         </div>
       </div>
