@@ -45,7 +45,12 @@ export default function MainRoute() {
         exact
       ></Route>
       <Route path="/video" component={VideoScreen}></Route>
-      <Route path="/seller/:id" component={SellerScreen}></Route>
+      <Route path="/seller/:id" component={SellerScreen} exact></Route>
+      <Route
+        path="/seller/:id/order/:order/pageNumber/:pageNumber"
+        component={SellerScreen}
+        exact
+      ></Route>
       <Route path="/cart/:id?" component={CartScreen}></Route>
       <Route path="/product/:id" component={ProductScreen} exact></Route>
       <Route

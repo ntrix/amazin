@@ -492,6 +492,7 @@ img.large {
 .pagination,
 .pagination ~ div {
   z-index: 1;
+  text-align: center;
 }
 .pagination a:not(.disabled):hover {
   font-weight: 600;
