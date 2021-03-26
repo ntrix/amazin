@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import ProductCard from "../../../components/ProductCard";
+import SortFilter from "../../../components/SortFilter";
 import { listProducts } from "../../../Controllers/productActions";
 import Carousel, { responsive } from "../../../utils";
 import "./dealScreen.css";
@@ -101,27 +102,13 @@ export default function DealScreen() {
                 {products.length} of {count} Results
               </div>
             )}
-            <div className="sort__filter">
-              <label htmlFor="filter__options">Sort by</label>
-              <div className="sprite__caret"></div>
-              <select
-                id="filter__options"
-                value={order}
-                onChange={(e) =>
-                  history.push(
-                    `/deal/category/all/order/${e.target.value}/pageNumber/1`
-                  )
-                }
-              >
-                <optgroup label="Sort by:">
-                  <option value="newest">Newest Arrivals</option>
-                  <option value="bestselling">Best Selling</option>
-                  <option value="lowest">Price: Low to High</option>
-                  <option value="highest">Price: High to Low</option>
-                  <option value="toprated">Avg. Rating</option>
-                </optgroup>
-              </select>
-            </div>
+
+            <SortFilter
+              order={order}
+              getUrl={({ order }) =>
+                `/deal/category/all/order/${order}/pageNumber/1`
+              }
+            />
           </div>
           {loading ? (
             <LoadingBox xl />
