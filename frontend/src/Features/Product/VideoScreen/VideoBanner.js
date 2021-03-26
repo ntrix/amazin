@@ -89,7 +89,7 @@ export default function VideoBanner({ source = dummyBanners, noButtons }) {
   );
 }
 
-export function VideoBanner2({ source = dummyBanners }) {
+export function VideoBannerBottom({ source = dummyBanners }) {
   const [movie, setMovie] = useState(
     dummyBanners[(Math.random() * dummyBanners.length) | 0]
   );
