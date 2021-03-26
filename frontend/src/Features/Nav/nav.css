@@ -800,7 +800,7 @@ button.open-sidebar:hover {
 .search__banner {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
-  box-shadow: 0 0 10px #ddd;
+  box-shadow: 0 10px 10px #ddd;
   background-color: #fff;
   position: relative;
 }

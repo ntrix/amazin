@@ -72,7 +72,7 @@ export default function ProductScreen(props) {
               </Link>
             </div>
           </div>
-          <div className="row top">
+          <div className="row top mt-1 p-1">
             <div className="col-2 flex mr-1">
               <div className="tab__w6 flex-col">
                 {product?.image &&
