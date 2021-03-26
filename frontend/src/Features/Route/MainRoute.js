@@ -126,6 +126,12 @@ export default function MainRoute() {
       <SellerRoute
         path="/product-list/seller"
         component={ProductListScreen}
+        exact
+      ></SellerRoute>
+      <SellerRoute
+        path="/product-list/seller/pageNumber/:pageNumber"
+        component={ProductListScreen}
+        exact
       ></SellerRoute>
       <SellerRoute
         path="/order-list/seller"
