@@ -7,17 +7,13 @@ import { signout } from "../../Controllers/userActions";
 import { pipe, shortName, savePath } from "../../utils";
 import { MenuItem } from "./MenuItem";
 
-export default function SidebarMenu({
-  currency,
-  shadowFor,
-  setShadowFor,
-  userInfo,
-}) {
+export default function SidebarMenu({ currency, shadowFor, setShadowFor }) {
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
   } = useSelector((state) => state.productCategoryList);
+  const { userInfo } = useSelector((state) => state.userSignin);
   const dispatch = useDispatch();
 
   return (
