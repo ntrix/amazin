@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import { signout } from "../../Controllers/userActions";
 import SearchBox from "../../components/SearchBox";
 import {
-  dropMenuAdmin,
-  dropMenuNoUser,
-  dropMenuSeller,
-  dropMenuUser,
-} from "./dropMenuLists";
+  adminMenuItems,
+  noUserMenuItems,
+  sellerMenuItems,
+  userMenuItems,
+} from "./menuItemList";
 import DropMenuCurrency from "./DropMenuCurrency";
 import { MenuItem } from "./MenuItem";
 import NavDropBtn from "./NavDropBtn";
@@ -30,9 +30,9 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
     timeoutId.current = 99 + setTimeout(() => setShadowFor(""), 450);
   };
 
-  const DropMenu = ({ menuList }) => (
+  const DropMenu = ({ menuItems }) => (
     <ul className={"dropdown__menu" + ("navDrop" === shadowFor ? " show" : "")}>
-      {menuList.map(MenuItem(setShadowFor))}
+      {menuItems.map(MenuItem(setShadowFor))}
     </ul>
   );
 
@@ -60,7 +60,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
 
         <NavDropBtn
           className="nav__currency mobile--off"
-          className2="nav__line-2 sprite__wrapper"
+          className2="sprite__wrapper"
           className3={"sprite flag " + currency}
           onEnterHandle={() => setShadowFor("currency")}
           onLeaveHandle={() => setShadowFor("")}
@@ -75,7 +75,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
             onEnterHandle={onEnterHandle}
             onLeaveHandle={onLeaveHandle}
           >
-            <DropMenu menuList={dropMenuNoUser()} />
+            <DropMenu menuItems={noUserMenuItems()} />
           </NavDropBtn>
         )}
 
@@ -87,7 +87,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
             onLeaveHandle={onLeaveHandle}
           >
             <DropMenu
-              menuList={dropMenuUser(userInfo, () => dispatch(signout()))}
+              menuItems={userMenuItems(userInfo, () => dispatch(signout()))}
             />
           </NavDropBtn>
         )}
@@ -99,7 +99,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
             onEnterHandle={onEnterHandle}
             onLeaveHandle={onLeaveHandle}
           >
-            <DropMenu menuList={dropMenuSeller(userInfo)} />
+            <DropMenu menuItems={sellerMenuItems(userInfo)} />
           </NavDropBtn>
         )}
 
@@ -110,7 +110,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
             onEnterHandle={onEnterHandle}
             onLeaveHandle={onLeaveHandle}
           >
-            <DropMenu menuList={dropMenuAdmin()} />
+            <DropMenu menuItems={adminMenuItems()} />
           </NavDropBtn>
         )}
 

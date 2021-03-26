@@ -15,6 +15,7 @@ export default function NavDropBtn({
     <div
       className={"dropdown " + className}
       onMouseEnter={onEnterHandle}
+      // UX behavior: a touch on mobile device acts as hover
       onClick={onEnterHandle}
       onMouseLeave={onLeaveHandle}
     >
