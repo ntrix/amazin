@@ -162,6 +162,10 @@ main > col-fill {
   -webkit-flex: 1 1 0px;
   flex: 1 1 0px;
 }
+.screen--light {
+  background: -webkit-linear-gradient(to bottom, #fff 10%, #eaeded 80%);
+  background: linear-gradient(to bottom, #fff 10%, #eaeded 80%);
+}
 .row {
   display: flex;
   width: 100%;

@@ -30,7 +30,7 @@ export default function CartScreen(props) {
     props.history.push("/signin?redirect=shipping");
   };
   return (
-    <div className="row top">
+    <div className="screen--light row top">
       <div className="col-2">
         <h1 className="p-1">Shopping Cart</h1>
         {error && <MessageBox variant="danger">{error}</MessageBox>}

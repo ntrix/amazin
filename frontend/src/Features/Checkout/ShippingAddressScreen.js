@@ -74,7 +74,7 @@ export default function ShippingAddressScreen(props) {
     props.history.push("/map");
   };
   return (
-    <div>
+    <div className="screen--light">
       <CheckoutSteps step1 step2></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
         <div>

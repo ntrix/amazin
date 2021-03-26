@@ -20,7 +20,7 @@ export default function PaymentMethodScreen({ history }) {
     else history.push("/cart");
   };
   return (
-    <div>
+    <div className="screen--light">
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
         <div>
