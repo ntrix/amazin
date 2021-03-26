@@ -1,6 +1,8 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+export const RATES_SOURCE =
+  "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html";
 export const NO_IMAGE = "/images/no-image.png";
 
 export default Carousel;
@@ -245,3 +247,10 @@ export const findSuggest = (() => {
     },
   };
 })();
+
+export function shortName(user, length) {
+  if (!user) return "Sign In";
+  if (!length) return user.name;
+  const name = user.name.split(" ")[0];
+  return name.slice(0, length) + (name.length > length ? ".." : "");
+}
