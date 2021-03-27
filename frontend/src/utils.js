@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 export const RATES_SOURCE =
   "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html";
 export const NO_IMAGE = "/images/no-image.png";
+export const MAX_IMAGES = 8;
 
 export default Carousel;
 

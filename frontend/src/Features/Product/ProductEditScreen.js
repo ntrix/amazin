@@ -10,6 +10,7 @@ import {
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { MAX_IMAGES, NO_IMAGE } from "../../utils";
 
 export default function ProductEditScreen(props) {
   const productId = props.match.params.id;
@@ -18,7 +19,7 @@ export default function ProductEditScreen(props) {
   const [deal, setDeal] = useState("");
   const [ship, setShip] = useState("");
   const [video, setVideo] = useState("");
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
@@ -49,7 +50,7 @@ export default function ProductEditScreen(props) {
       setDeal(product.deal);
       setShip(product.ship);
       setVideo(product.video);
-      setImage(product.image);
+      setImages(product.image.split("^"));
       setCategory(product.category);
       setCountInStock(product.countInStock);
       setBrand(product.brand);
@@ -67,7 +68,7 @@ export default function ProductEditScreen(props) {
         deal,
         ship,
         video,
-        image,
+        image: images.join("^"),
         category,
         brand,
         countInStock,
@@ -81,33 +82,33 @@ export default function ProductEditScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
-  const uploadFileHandler1 = (e, setPic, setPreview) => {
-    const file = e.target.files[0];
-    setImagePreview(URL.createObjectURL(e.target.files[0]));
-    const reader = new FileReader();
-    setLoadingUpload(true);
-    reader.readAsDataURL(file);
-    reader.onload = async () => {
-      const { result } = reader;
-      try {
-        const { data } = await Axios.post(
-          "/api/uploads",
-          { image: result },
-          {
-            headers: {
-              enctype: "multipart/form-data",
-              Authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
-        setImage(data);
-        setLoadingUpload(false);
-      } catch (error) {
-        setErrorUpload(error.message);
-        setLoadingUpload(false);
-      }
-    };
-  };
+  // const uploadFileHandler1 = (e, setPic, setPreview) => {
+  //   const file = e.target.files[0];
+  //   setImagePreview(URL.createObjectURL(e.target.files[0]));
+  //   const reader = new FileReader();
+  //   setLoadingUpload(true);
+  //   reader.readAsDataURL(file);
+  //   reader.onload = async () => {
+  //     const { result } = reader;
+  //     try {
+  //       const { data } = await Axios.post(
+  //         "/api/uploads",
+  //         { image: result },
+  //         {
+  //           headers: {
+  //             enctype: "multipart/form-data",
+  //             Authorization: `Bearer ${userInfo.token}`,
+  //           },
+  //         }
+  //       );
+  //       setImages(data);
+  //       setLoadingUpload(false);
+  //     } catch (error) {
+  //       setErrorUpload(error.message);
+  //       setLoadingUpload(false);
+  //     }
+  //   };
+  // };
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -124,7 +125,7 @@ export default function ProductEditScreen(props) {
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      setImage(data);
+      setImages([...images, data]);
       setLoadingUpload(false);
     } catch (error) {
       setErrorUpload(error.message);
@@ -186,36 +187,96 @@ export default function ProductEditScreen(props) {
                 onChange={(e) => setDeal(e.target.value)}
               ></input>
             </div>
+
             <div>
-              <label htmlFor="image">Image Links</label>
-              <input
-                id="image"
-                type="text"
-                placeholder="Enter image"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              ></input>
+              <label>
+                Uploaded Images ({images.length} of {MAX_IMAGES})
+              </label>
+              {images.map((img, id) => (
+                <div className="row" draggable>
+                  <div>
+                    <img
+                      onMouseEnter={() => setImagePreview(img)}
+                      src={img}
+                      alt={"Image Preview" + (id + 1)}
+                      className="small"
+                    />
+                  </div>
+                  <label className="p-1">Image {id + 1}</label>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (id > 0)
+                        setImages([
+                          ...images.slice(0, id - 1),
+                          images[id],
+                          images[id - 1],
+                          ...images.slice(id + 1),
+                        ]);
+                    }}
+                  >
+                    <i className="fa success tab__w3 fa-arrow-circle-up"></i>
+                  </button>
+                  <div className="col-fill mr-1">
+                    <input
+                      type="text"
+                      className="row"
+                      placeholder={"Enter image link" + (id + 1)}
+                      value={img}
+                      onChange={(e) =>
+                        setImages(
+                          images.map((_, i) => (i === id ? e.target.value : _))
+                        )
+                      }
+                    ></input>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (
+                        window.confirm(
+                          "Do you really want to delete this image permanent?"
+                        )
+                      )
+                        alert("deleted");
+                    }}
+                  >
+                    <i className="fa danger fa-close"></i>
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="row center">
+              <img
+                src={imagePreview || NO_IMAGE}
+                alt="New Image Preview"
+                className="mt-1 medium"
+              />
             </div>
             <div>
-              <label htmlFor="imageFile">Image File</label>
-              <input
-                type="file"
-                id="imageFile"
-                label="Choose Image"
-                onChange={uploadFileHandler}
-              ></input>
-
-              <div>
-                <img
-                  src={imagePreview || image}
-                  alt=""
-                  className="mt-1 medium"
-                />
-              </div>
-
-              {loadingUpload && <LoadingBox />}
-              {errorUpload && (
-                <MessageBox variant="danger">{errorUpload}</MessageBox>
+              <label htmlFor="imageFile">Add New Image</label>
+              {images.length < MAX_IMAGES && (
+                <>
+                  <input
+                    type="file"
+                    id="imageFile"
+                    label="Choose Image"
+                    onChange={uploadFileHandler}
+                  ></input>
+                  <input
+                    type="text"
+                    placeholder="Or enter your Image Link"
+                    value={imagePreview}
+                    onChange={(e) => setImages([...images, e.target.value])}
+                  ></input>
+                  {imagePreview && (
+                    <MessageBox variant="success">{imagePreview}</MessageBox>
+                  )}
+                  {loadingUpload && <LoadingBox />}
+                  {errorUpload && (
+                    <MessageBox variant="danger">{errorUpload}</MessageBox>
+                  )}
+                </>
               )}
             </div>
             <div>
