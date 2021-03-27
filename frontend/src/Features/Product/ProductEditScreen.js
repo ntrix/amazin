@@ -194,7 +194,7 @@ export default function ProductEditScreen(props) {
               </label>
               {images.map((img, id) => (
                 <div className="row" draggable>
-                  <div>
+                  <div className="tab__w6">
                     <img
                       onMouseEnter={() => setImagePreview(img)}
                       src={img}
