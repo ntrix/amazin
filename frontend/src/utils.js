@@ -139,6 +139,18 @@ export const dummySellers = Array(5).fill({
   seller: { logo: NO_IMAGE, name: "Anonymous Seller" },
 });
 
+/* create 5 placeholders for product info */
+export const dummyProducts = Array(6).fill({
+  _id: "#",
+  image: NO_IMAGE,
+  name: "Product Name",
+  price: 0,
+  deal: 1,
+  category: "Product Category",
+  rating: 0,
+  numReviews: 0,
+});
+
 /* create 2 dummyMovies as placeholders for videoScreen movie banner */
 export const dummyBanners = [
   {

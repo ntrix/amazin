@@ -5,7 +5,7 @@ import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {
   return (
-    <div key={product._id} className="card flex">
+    <div className="card flex">
       <div className="card__center">
         <Link to={`/product/${product._id}`} onClick={savePath()}>
           <img

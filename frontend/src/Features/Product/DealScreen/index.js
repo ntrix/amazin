@@ -6,11 +6,10 @@ import MessageBox from "../../../components/MessageBox";
 import ProductCard from "../../../components/ProductCard";
 import SortFilter from "../../../components/SortFilter";
 import { listProducts } from "../../../Controllers/productActions";
-import Carousel, { responsive } from "../../../utils";
+import Carousel, { dummyProducts, responsive } from "../../../utils";
 import "./dealScreen.css";
 
 export default function DealScreen() {
-  const history = useHistory();
   const {
     category = "Deals",
     order = "bestselling",
@@ -37,6 +36,7 @@ export default function DealScreen() {
       })
     );
   }, [category, dispatch, order, pageNumber, cat]);
+
   return (
     <>
       <header className="screen__header">
@@ -115,21 +115,13 @@ export default function DealScreen() {
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <>
-              {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
-              )}
-              <div className="row center">
-                {products.map((product) => (
-                  <ProductCard
-                    deal
-                    key={product._id}
-                    product={product}
-                  ></ProductCard>
-                ))}
-              </div>
-            </>
+            !products.length && <MessageBox>No Product Found</MessageBox>
           )}
+          <div className="row center">
+            {(products ? products : dummyProducts).map((product, id) => (
+              <ProductCard deal key={id} product={product}></ProductCard>
+            ))}
+          </div>
         </div>
       </div>
     </>
