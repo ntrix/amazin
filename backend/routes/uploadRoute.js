@@ -43,10 +43,10 @@ uploadRoute.post("/", isAuth, upload.array("images", 8), (req, res) => {
         new Promise((resolve, reject) =>
           cloudinary.v2.uploader.upload(
             image.path,
-            { folder: `amazin/${product.seller._id}/${productId}` },
+            { folder: `amazin/${productId}` },
             (error, data) => {
               if (error) reject(error);
-              else resolve(data.public_id.split("/")[3]); // appName/sellerID/productId/imgName only need to save the imgName to DB
+              else resolve(data.public_id.split("/")[2]); // appName/sellerID/productId/imgName only need to save the imgName to DB
             }
           )
         )
