@@ -19,13 +19,13 @@ const uploadRoute = express.Router();
 
 const upload = multer({ dest: "-tmp/uploads/" });
 
-uploadRoute.post("/", isAuth, upload.array("images", 8), (req, res) => {
-  cloudinary.config({
-    cloud_name: process.env.CD_NAME,
-    api_key: process.env.CD_API_KEY,
-    api_secret: process.env.CD_API_SECRET,
-  });
+cloudinary.config({
+  cloud_name: process.env.CD_NAME,
+  api_key: process.env.CD_API_KEY,
+  api_secret: process.env.CD_API_SECRET,
+});
 
+uploadRoute.post("/", isAuth, upload.array("images", 8), (req, res) => {
   (async () => {
     const { productId } = req.body;
     const product = await Product.findById(productId);
@@ -59,6 +59,25 @@ uploadRoute.post("/", isAuth, upload.array("images", 8), (req, res) => {
         res.send(urls);
       })
       .catch((error) => res.status(401).send({ message: error }));
+  })();
+});
+
+uploadRoute.delete("/", isAuth, upload.none(), (req, res) => {
+  (async () => {
+    const { productId, imgName } = req.body;
+    const product = await Product.findById(productId);
+    if (!product)
+      return res
+        .status(404)
+        .send({ message: "Something wrong happens. Product Not Found" });
+
+    cloudinary.v2.uploader.destroy(
+      `amazin/${productId}/${imgName}`,
+      (error) => {
+        if (error) res.status(401).send({ message: error });
+        else res.send({ message: "Image has been deleted" });
+      }
+    );
   })();
 });
 
