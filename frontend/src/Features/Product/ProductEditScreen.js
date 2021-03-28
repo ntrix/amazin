@@ -25,6 +25,7 @@ export default function ProductEditScreen(props) {
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
   const [imagePreview, setImagePreview] = useState(NO_IMAGE);
+  const [info, setInfo] = useState("");
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -99,9 +100,10 @@ export default function ProductEditScreen(props) {
       });
       setImages([...images, ...data]);
       if (capacity < files.length)
-        setErrorUpload(
-          `You can upload ${MAX_IMAGES} Images total, the rest will be ignore!`
+        setInfo(
+          `You can upload ${MAX_IMAGES} Images total, the others will be ignore!`
         );
+      else setInfo(`${capacity} Images successfully uploaded!`);
       setLoadingUpload(false);
     } catch (error) {
       setErrorUpload(error.message);
@@ -110,7 +112,7 @@ export default function ProductEditScreen(props) {
   };
 
   return (
-    <div>
+    <div className="product-edit">
       <form
         className="form"
         onSubmit={submitHandler}
@@ -169,7 +171,7 @@ export default function ProductEditScreen(props) {
             </div>
 
             <div>
-              <label>
+              <label htmlFor="image__link--1">
                 Uploaded Images ({images.length} of {MAX_IMAGES})
               </label>
               {images.map((img, id) => (
@@ -182,7 +184,11 @@ export default function ProductEditScreen(props) {
                       className="small"
                     />
                   </div>
-                  <label className="p-1">Image {id + 1}</label>
+                  <label className="p-1" htmlFor={"image__link--" + (id + 1)}>
+                    Image {id + 1} {!id && <h3>Cover</h3>}
+                    {id === 1 && <p>Deal</p>}
+                  </label>
+
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -197,8 +203,10 @@ export default function ProductEditScreen(props) {
                   >
                     <i className="fa success tab__w3 fa-arrow-circle-up"></i>
                   </button>
+
                   <div className="col-fill mr-1">
                     <input
+                      id={"image__link--" + (id + 1)}
                       type="text"
                       className="row"
                       placeholder={"Enter image link" + (id + 1)}
@@ -210,6 +218,7 @@ export default function ProductEditScreen(props) {
                       }
                     ></input>
                   </div>
+
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -233,6 +242,7 @@ export default function ProductEditScreen(props) {
                 className="mt-1 medium"
               />
             </div>
+
             <div>
               <label htmlFor="images">Add New Image</label>
               {images.length < MAX_IMAGES && (
@@ -251,9 +261,7 @@ export default function ProductEditScreen(props) {
                     value={imagePreview}
                     onChange={(e) => setImages([...images, e.target.value])}
                   ></input>
-                  {imagePreview && (
-                    <MessageBox variant="info">{imagePreview}</MessageBox>
-                  )}
+                  {info && <MessageBox variant="info">{info}</MessageBox>}
                   {loadingUpload && <LoadingBox />}
                   {errorUpload && (
                     <MessageBox variant="danger">{errorUpload}</MessageBox>

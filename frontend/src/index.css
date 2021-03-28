@@ -839,6 +839,15 @@ img.active {
   box-shadow: 0 0 3px 2px #f19833;
 }
 
+/* PRODUCT EDIT */
+.product-edit label,
+.product-edit #images {
+  cursor: pointer;
+}
+.product-edit #images {
+  margin-bottom: 1rem;
+}
+
 /* minor Effect */
 .divider,
 .divider-inner {
