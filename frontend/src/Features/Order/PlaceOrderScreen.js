@@ -8,7 +8,7 @@ import { createOrder } from "../../Controllers/orderActions";
 import CheckoutSteps from "../Checkout/CheckoutSteps";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import { pipe } from "../../utils";
+import { getImgUrl, pipe } from "../../utils";
 
 export default function PlaceOrderScreen(props) {
   const tax = 0.19;
@@ -71,7 +71,10 @@ export default function PlaceOrderScreen(props) {
                       <div className="row">
                         <div>
                           <img
-                            src={item.image.split("^")[0]}
+                            src={getImgUrl(
+                              item.product,
+                              item.image.split("^")[0]
+                            )}
                             alt={item.name}
                             className="small"
                           ></img>

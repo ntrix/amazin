@@ -8,7 +8,7 @@ import { createReview, detailsProduct } from "../../Controllers/productActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
-import { pipe } from "../../utils";
+import { getImgUrl, pipe } from "../../utils";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ export default function ProductScreen(props) {
                     .map((img, id) => (
                       <img
                         key={id}
-                        src={img}
+                        src={getImgUrl(product._id, img)}
                         alt={product.name + " small " + id}
                         onMouseEnter={() => setImgActive(id)}
                         onClick={() => setImgActive(id)}
@@ -95,7 +95,10 @@ export default function ProductScreen(props) {
               <div className="tab__rest">
                 <img
                   className="large"
-                  src={product?.image?.split("^")[imgActive]}
+                  src={getImgUrl(
+                    product._id,
+                    product?.image?.split("^")[imgActive]
+                  )}
                   alt={product.name + " " + imgActive}
                 ></img>
               </div>

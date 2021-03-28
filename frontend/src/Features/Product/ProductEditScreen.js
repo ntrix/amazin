@@ -186,7 +186,7 @@ export default function ProductEditScreen(props) {
                   </div>
                   <label className="p-1" htmlFor={"image__link--" + (id + 1)}>
                     Image {id + 1} {!id && <h3>Cover</h3>}
-                    {id === 1 && <p>Deal</p>}
+                    {id === 1 && <p>[ Deal ]</p>}
                   </label>
 
                   <button

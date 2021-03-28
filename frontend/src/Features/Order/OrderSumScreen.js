@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { pipe } from "../../utils";
+import { getImgUrl, pipe } from "../../utils";
 import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
 import {
   deliverOrder,
@@ -131,7 +131,10 @@ export default function OrderSumScreen(props) {
                           <div className="row">
                             <div>
                               <img
-                                src={item.image.split("^")[0]}
+                                src={getImgUrl(
+                                  item.product,
+                                  item.image.split("^")[0]
+                                )}
                                 alt={item.name}
                                 className="small"
                               ></img>

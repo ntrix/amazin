@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Rating from "../../../components/Rating";
-import Carousel, { dummyMovies, responsive } from "../../../utils";
+import Carousel, { dummyMovies, getImgUrl, responsive } from "../../../utils";
 import UTube, { VideoButtons } from "./VideoButtons";
 
 export default function VideoRow({ title, movies = [], large = false }) {
@@ -29,7 +29,10 @@ export default function VideoRow({ title, movies = [], large = false }) {
             movie.images && (
               <div key={id} className={"m-card" + (large ? " m-card--xl" : "")}>
                 <img
-                  src={movie.images ? movie.images[large ? 1 : 0] : ""}
+                  src={getImgUrl(
+                    movie._id,
+                    movie.images ? movie.images[large ? 1 : 0] : ""
+                  )}
                   alt={movie.name}
                 />
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { NO_IMAGE, pipe, savePath } from "../utils";
+import { getImgUrl, NO_IMAGE, pipe, savePath } from "../utils";
 import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {
@@ -10,11 +10,12 @@ export default function ProductCard({ product, deal = false }) {
         <Link to={`/product/${product._id}`} onClick={savePath()}>
           <img
             className="thumbnail"
-            src={
+            src={getImgUrl(
+              product._id,
               product.image.split("^")[deal ? 1 : 0] ||
-              product.image.split("^")[0] ||
-              NO_IMAGE
-            }
+                product.image.split("^")[0] ||
+                NO_IMAGE
+            )}
             alt={product.name}
           />
         </Link>
