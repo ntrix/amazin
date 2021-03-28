@@ -8,6 +8,7 @@ export const { actions: cartActions, reducer: cartReducer } = createSlice({
       const item = action.payload;
       const existItem = state.cartItems.find((x) => x.product === item.product);
       if (existItem) {
+        item.qty += existItem.qty;
         return {
           ...state,
           error: "",
