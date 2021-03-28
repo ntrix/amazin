@@ -73,13 +73,13 @@ body {
   width: calc(100vw);
   min-width: var(--min-screen);
 }
-*:not(input, textarea) {
+/* *:not(input, textarea) {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
+} */
 .active {
   font-weight: 600;
 }

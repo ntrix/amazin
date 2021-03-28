@@ -24,7 +24,7 @@ export default function ProductEditScreen(props) {
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
-  const [imagePreview, setImagePreview] = useState(NO_IMAGE);
+  const [imagePreview, setImagePreview] = useState("");
   const [info, setInfo] = useState("");
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -111,6 +111,30 @@ export default function ProductEditScreen(props) {
     }
   };
 
+  const deleteFileHandler = async (idx) => {
+    const newImages = images.filter((_, i) => i !== idx);
+
+    /* delete image on cloudinary and update immediately to DB */
+    const bodyFormData = new FormData();
+    bodyFormData.append("imgLink", images[idx]);
+    bodyFormData.append("productId", product._id);
+    bodyFormData.append("image", newImages.join("^"));
+    setLoadingUpload(true);
+    try {
+      await Axios.patch("/api/uploads", bodyFormData, {
+        headers: {
+          enctype: "multipart/form-data",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setLoadingUpload(false);
+    } catch (error) {
+      setErrorUpload(error.message);
+      setLoadingUpload(false);
+    }
+    setImages(newImages);
+  };
+
   return (
     <div className="product-edit">
       <form
@@ -173,17 +197,20 @@ export default function ProductEditScreen(props) {
             <div>
               <label htmlFor="image__link--1">
                 Uploaded Images ({images.length} of {MAX_IMAGES})
+                <p>(You can also enter extern Image Links here)</p>
               </label>
+
               {images.map((img, id) => (
-                <div className="row" key={id} draggable>
+                <div className="row" key={id}>
                   <div className="tab__w6">
                     <img
                       onMouseEnter={() => setImagePreview(img)}
-                      src={getImgUrl(product, img)}
+                      src={getImgUrl(product._id, img)}
                       alt={"Image Preview" + (id + 1)}
                       className="small"
                     />
                   </div>
+
                   <label className="p-1" htmlFor={"image__link--" + (id + 1)}>
                     Image {id + 1} {!id && <h3>Cover</h3>}
                     {id === 1 && <p>[ Deal ]</p>}
@@ -224,10 +251,10 @@ export default function ProductEditScreen(props) {
                       e.preventDefault();
                       if (
                         window.confirm(
-                          "Do you really want to delete this image permanent?"
+                          "Do you really want to delete this image?"
                         )
                       )
-                        alert("deleted");
+                        deleteFileHandler(id);
                     }}
                   >
                     <i className="fa danger fa-close"></i>
@@ -235,18 +262,19 @@ export default function ProductEditScreen(props) {
                 </div>
               ))}
             </div>
+
             <div className="row center">
               <img
-                src={getImgUrl(product, imagePreview || NO_IMAGE)}
+                src={getImgUrl(product._id, imagePreview)}
                 alt="New Image Preview"
                 className="mt-1 medium"
               />
             </div>
 
             <div>
-              <label htmlFor="images">Add New Image</label>
-              {images.length < MAX_IMAGES && (
+              {images.length < MAX_IMAGES ? (
                 <>
+                  <label htmlFor="images">Add New Images</label>
                   <input
                     type="file"
                     id="images"
@@ -255,11 +283,18 @@ export default function ProductEditScreen(props) {
                     onChange={uploadFileHandler}
                     multiple
                   ></input>
+
+                  <label htmlFor="image-link">Or enter your Image Link</label>
                   <input
                     type="text"
-                    placeholder="Or enter your Image Link"
+                    id="image-link"
+                    placeholder="Enter your Image Link"
                     value={imagePreview}
-                    onChange={(e) => setImages([...images, e.target.value])}
+                    onChange={(e) => setImagePreview(e.target.value)}
+                    onKeyUp={(e) => {
+                      if (e.key === "Enter" || e.keyCode === 13)
+                        setImages([...images, imagePreview]);
+                    }}
                   ></input>
                   {info && <MessageBox variant="info">{info}</MessageBox>}
                   {loadingUpload && <LoadingBox />}
@@ -267,6 +302,10 @@ export default function ProductEditScreen(props) {
                     <MessageBox variant="danger">{errorUpload}</MessageBox>
                   )}
                 </>
+              ) : (
+                <label>
+                  You have uploaded {images.length} of {MAX_IMAGES} Images
+                </label>
               )}
             </div>
             <div>
