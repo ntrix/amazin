@@ -160,7 +160,7 @@ productRoute.post(
     const product = new Product({
       name: "product name " + Date.now(),
       seller: req.user._id,
-      image: "/images/no-image.jpg",
+      image: "",
       price: 0,
       category: "pending category",
       brand: "noname",
