@@ -10,7 +10,7 @@ import {
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import { MAX_IMAGES, NO_IMAGE } from "../../utils";
+import { getImgUrl, MAX_IMAGES, NO_IMAGE } from "../../utils";
 
 export default function ProductEditScreen(props) {
   const productId = props.match.params.id;
@@ -24,7 +24,7 @@ export default function ProductEditScreen(props) {
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
+  const [imagePreview, setImagePreview] = useState(NO_IMAGE);
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -82,41 +82,13 @@ export default function ProductEditScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
-  // const uploadFileHandler1 = (e, setPic, setPreview) => {
-  //   const file = e.target.files[0];
-  //   setImagePreview(URL.createObjectURL(e.target.files[0]));
-  //   const reader = new FileReader();
-  //   setLoadingUpload(true);
-  //   reader.readAsDataURL(file);
-  //   reader.onload = async () => {
-  //     const { result } = reader;
-  //     try {
-  //       const { data } = await Axios.post(
-  //         "/api/uploads",
-  //         { image: result },
-  //         {
-  //           headers: {
-  //             enctype: "multipart/form-data",
-  //             Authorization: `Bearer ${userInfo.token}`,
-  //           },
-  //         }
-  //       );
-  //       setImages(data);
-  //       setLoadingUpload(false);
-  //     } catch (error) {
-  //       setErrorUpload(error.message);
-  //       setLoadingUpload(false);
-  //     }
-  //   };
-  // };
-
   const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
     const bodyFormData = new FormData();
-    bodyFormData.append("image", file);
-    bodyFormData.append("sellerId", product.seller._id);
+    const { files } = e.target;
+    const capacity = Math.min(files.length, MAX_IMAGES - images.length);
+
+    for (let x = 0; x < capacity; x++) bodyFormData.append("images", files[x]);
     bodyFormData.append("productId", product._id);
-    console.log({ product });
     setLoadingUpload(true);
     try {
       const { data } = await Axios.post("/api/uploads", bodyFormData, {
@@ -125,7 +97,11 @@ export default function ProductEditScreen(props) {
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      setImages([...images, data]);
+      setImages([...images, ...data]);
+      if (capacity < files.length)
+        setErrorUpload(
+          `You can upload ${MAX_IMAGES} Images total, the rest will be ignore!`
+        );
       setLoadingUpload(false);
     } catch (error) {
       setErrorUpload(error.message);
@@ -135,7 +111,11 @@ export default function ProductEditScreen(props) {
 
   return (
     <div>
-      <form className="form" onSubmit={submitHandler}>
+      <form
+        className="form"
+        onSubmit={submitHandler}
+        // encType="multipart/form-data"
+      >
         <div>
           <h1>Edit Product {productId}</h1>
         </div>
@@ -193,11 +173,11 @@ export default function ProductEditScreen(props) {
                 Uploaded Images ({images.length} of {MAX_IMAGES})
               </label>
               {images.map((img, id) => (
-                <div className="row" draggable>
+                <div className="row" key={id} draggable>
                   <div className="tab__w6">
                     <img
                       onMouseEnter={() => setImagePreview(img)}
-                      src={img}
+                      src={getImgUrl(product, img)}
                       alt={"Image Preview" + (id + 1)}
                       className="small"
                     />
@@ -248,20 +228,22 @@ export default function ProductEditScreen(props) {
             </div>
             <div className="row center">
               <img
-                src={imagePreview || NO_IMAGE}
+                src={getImgUrl(product, imagePreview || NO_IMAGE)}
                 alt="New Image Preview"
                 className="mt-1 medium"
               />
             </div>
             <div>
-              <label htmlFor="imageFile">Add New Image</label>
+              <label htmlFor="images">Add New Image</label>
               {images.length < MAX_IMAGES && (
                 <>
                   <input
                     type="file"
-                    id="imageFile"
+                    id="images"
+                    name="images"
                     label="Choose Image"
                     onChange={uploadFileHandler}
+                    multiple
                   ></input>
                   <input
                     type="text"
@@ -270,7 +252,7 @@ export default function ProductEditScreen(props) {
                     onChange={(e) => setImages([...images, e.target.value])}
                   ></input>
                   {imagePreview && (
-                    <MessageBox variant="success">{imagePreview}</MessageBox>
+                    <MessageBox variant="info">{imagePreview}</MessageBox>
                   )}
                   {loadingUpload && <LoadingBox />}
                   {errorUpload && (

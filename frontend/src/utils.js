@@ -267,3 +267,8 @@ export function shortName(user, length) {
   const name = user.name.split(" ")[0];
   return name.slice(0, length) + (name.length > length ? ".." : "");
 }
+
+export const getImgUrl = (product, imgName) =>
+  imgName.startsWith("http") || imgName.startsWith("/") // extern absolute Image Link? or embedded Image Link?
+    ? imgName // otherwise  BASE_URL/appName/sellerID/productId/imgName only need to save the imgName to DB
+    : `${process.env.REACT_APP_IMG_BASE_URL}${product.seller._id}/${product._id}/${imgName}`;
