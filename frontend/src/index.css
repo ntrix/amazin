@@ -867,3 +867,8 @@ img.active {
   background: linear-gradient(to right, #fff, #fff0, #fff);
   z-index: 1;
 }
+
+/* Firefox will-change issue */
+.react-multi-carousel-track {
+  will-change: auto !important;
+}
