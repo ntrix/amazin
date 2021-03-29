@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import Rating from "../../../components/Rating";
-import Carousel, { dummyMovies, getImgUrl, responsive } from "../../../utils";
+import Carousel, {
+  dummyMovies,
+  getImgUrl,
+  NO_IMAGE,
+  responsive,
+} from "../../../utils";
 import UTube, { VideoButtons } from "./VideoButtons";
 
 export default function VideoRow({ title, movies = [], large = false }) {
@@ -24,45 +29,42 @@ export default function VideoRow({ title, movies = [], large = false }) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {(movies || dummyMovies).map(
-          (movie, id) =>
-            movie.images && (
-              <div key={id} className={"m-card" + (large ? " m-card--xl" : "")}>
-                <img
-                  src={getImgUrl(
-                    movie._id,
-                    movie.images ? movie.images[large ? 1 : 0] : ""
-                  )}
-                  alt={movie.name}
-                />
+        {(movies || dummyMovies).map((movie, id) => (
+          <div key={id} className={"m-card" + (large ? " m-card--xl" : "")}>
+            <img
+              src={getImgUrl(
+                movie._id,
+                movie.image ? movie.image.split("^")[large ? 0 : 1] : NO_IMAGE
+              )}
+              alt={movie.name}
+            />
 
-                <div className="m-card__background">
-                  <div className="m-card__text">
-                    {movie?.description.slice(0, 150) + ".."}
-                    <div className="m-card__rating">
-                      <Rating
-                        rating={movie?.rating}
-                        steps={10}
-                        numReviews={movie?.numReviews}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="m-card__more">
-                    <VideoButtons
-                      movie={movie}
-                      trailerUrl={trailerUrl}
-                      setTrailerUrl={setTrailerUrl}
-                    />
-                  </div>
-                </div>
-
-                <div className="m-card__info">
-                  <div className="m-card__name">{movie.name}</div>
+            <div className="m-card__background">
+              <div className="m-card__text">
+                {movie?.description.slice(0, 150) + ".."}
+                <div className="m-card__rating">
+                  <Rating
+                    rating={movie?.rating * 2}
+                    steps={10}
+                    numReviews={movie?.numReviews}
+                  />
                 </div>
               </div>
-            )
-        )}
+
+              <div className="m-card__more">
+                <VideoButtons
+                  movie={movie}
+                  trailerUrl={trailerUrl}
+                  setTrailerUrl={setTrailerUrl}
+                />
+              </div>
+            </div>
+
+            <div className="m-card__info">
+              <div className="m-card__name">{movie.name}</div>
+            </div>
+          </div>
+        ))}
       </Carousel>
 
       <UTube trailerUrl={trailerUrl} />

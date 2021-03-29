@@ -50,7 +50,8 @@ export default function VideoScreen() {
       );
       setMovies(movieObj);
     }
-    if (!movies[genre]) fetchData(); // else shuffle random movies list :)
+    //if (!movies[genre])
+    fetchData(); // else shuffle random movies list :)
   }, []);
 
   useEffect(() => {
@@ -61,9 +62,10 @@ export default function VideoScreen() {
         pageSize: 11,
       })
     );
+    console.log(movies[genre], { genre });
     if (successProducts)
       setMovies({ ...movies, STORE: sourceAdapter(products).reverse() });
-  }, [dispatch, successProducts]);
+  }, []);
 
   return (
     <div className="container--full video-screen">
