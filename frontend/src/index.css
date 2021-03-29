@@ -872,3 +872,7 @@ img.active {
 .react-multi-carousel-track {
   will-change: auto !important;
 }
+
+.no-image {
+  background: #0002 !important;
+}

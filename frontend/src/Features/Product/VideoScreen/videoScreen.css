@@ -144,7 +144,7 @@
   transition: border 0.01s linear, transform 0.2s ease-in;
   overflow: hidden;
 }
-.m-card--xl {
+.m-card--portrait {
   height: 380px;
   width: 253px;
 }
@@ -160,7 +160,7 @@
   margin: -30px;
   position: absolute;
 }
-.m-card--xl:hover {
+.m-card--portrait:hover {
   width: 313px;
 }
 .m-card__background {
@@ -172,7 +172,7 @@
   transition: all 0.21s ease-in;
   opacity: 0;
 }
-.m-card--xl .m-card__background {
+.m-card--portrait .m-card__background {
   height: 420px;
   margin-top: -380px;
 }
@@ -186,7 +186,7 @@
   opacity: 1;
   z-index: 1;
 }
-.m-card--xl:hover .m-card__background {
+.m-card--portrait:hover .m-card__background {
   margin-top: -350px;
   background: -webkit-linear-gradient(to bottom, #0000 25%, #0e171e 58%);
   background: linear-gradient(to bottom, #0000 25%, #0e171e 58%);
@@ -197,7 +197,7 @@
   opacity: 1;
   transition: opacity 2s ease-out;
 }
-.m-card--xl:hover .m-card__text {
+.m-card--portrait:hover .m-card__text {
   padding-top: 265px;
 }
 .m-card img {
@@ -221,14 +221,14 @@
   font-size: 15px;
   text-shadow: 0 1px 2px #000, 0px 2px 4px #000, 0 4px 8px #000;
 }
+.m-card--portrait .m-card__name {
+  margin-top: 350px;
+}
 .m-card:hover .m-card__name {
   margin-top: 210px;
 }
-.m-card--xl:hover .m-card__name {
+.m-card--portrait:hover .m-card__name {
   margin-top: 380px;
-}
-.m-card--xl .m-card__name {
-  margin-top: 350px;
 }
 .m-card__text {
   position: relative;

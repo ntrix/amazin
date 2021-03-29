@@ -8,7 +8,7 @@ import Carousel, {
 } from "../../../utils";
 import UTube, { VideoButtons } from "./VideoButtons";
 
-export default function VideoRow({ title, movies = [], large = false }) {
+export default function VideoRow({ title, movies = [], portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState("");
 
   return (
@@ -30,11 +30,14 @@ export default function VideoRow({ title, movies = [], large = false }) {
         itemClass="carousel-item-padding-40-px"
       >
         {(movies || dummyMovies).map((movie, id) => (
-          <div key={id} className={"m-card" + (large ? " m-card--xl" : "")}>
+          <div
+            key={id}
+            className={"m-card" + (portrait ? " m-card--portrait" : "")}
+          >
             <img
               src={getImgUrl(
                 movie._id,
-                movie.image ? movie.image.split("^")[large ? 0 : 1] : NO_IMAGE
+                movie.image ? movie.image.split("^")[1 - portrait] : NO_IMAGE
               )}
               alt={movie.name}
             />

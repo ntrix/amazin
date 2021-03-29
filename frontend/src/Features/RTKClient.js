@@ -7,6 +7,7 @@ export const Reducer = (stateKeyName) => ({
       ? {
           ...action.payload,
           loading: false,
+          success: true,
         }
       : {
           [stateKeyName]: action.payload,

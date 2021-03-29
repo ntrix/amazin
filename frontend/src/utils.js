@@ -152,8 +152,16 @@ export const dummyProducts = Array(6).fill({
   numReviews: 0,
 });
 
-/* create 2 dummyMovies as placeholders for videoScreen movie banner */
-export const dummyBanners = [
+export const NO_MOVIES = [
+  {
+    name: "",
+    image: "",
+    description: "",
+  },
+];
+
+/* create 2 example Movies as placeholders for videoScreen movie banner */
+export const EXAMPLE_MOVIES = [
   {
     name: "Stranger Things",
     image:
