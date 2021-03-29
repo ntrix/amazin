@@ -83,6 +83,8 @@ productRoute.get(
         ? { rating: -1 }
         : order === "bestselling"
         ? { numReviews: -1 }
+        : order === "oldest"
+        ? { _id: 1 }
         : { _id: -1 }; /* date */
     const count = await Product.count({
       ...sellerFilter,
