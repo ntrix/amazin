@@ -1,58 +1,7 @@
-.dropdown__menu.currency {
-  margin-top: 7px;
-}
-.c-screen.currency {
+/* CURRENCY SCREEN */
+.currency.c-screen {
   padding: 20px 25px;
 }
-.nav__line-2.sprite__wrapper {
-  margin: 2px 0px 1px;
-}
-
-.dropdown__menu.currency {
-  padding-left: 15px;
-}
-.dropdown__menu.currency .separator.ml-1 {
-  margin-left: 25px;
-  width: auto;
-}
-.dropdown__menu.currency > * {
-  font-size: 13px;
-}
-
-.dropdown__menu.currency > li {
-  line-height: 2;
-}
-.dropdown__menu.currency .active * {
-  cursor: default;
-  color: #000;
-  font-weight: normal;
-}
-.currency .calculator {
-  display: flex;
-  justify-content: space-between;
-}
-.sprite__wrapper {
-  display: flex;
-  align-items: center;
-}
-.sprite.circle {
-  height: 20px;
-  width: 20px;
-  margin: 0 3px;
-  background-position: -74px 0px;
-  background-image: url("../../../img/flags.png");
-}
-.currency a:not(.disabled, .active):hover span {
-  text-decoration: underline;
-}
-.currency a:not(.disabled, .active):hover .circle,
-.languages .language:not(.disabled, .active):hover .circle {
-  background-position: -122px 0px;
-}
-.active .sprite.circle {
-  background-position: -98px 0px;
-}
-
 .currency.c-screen * {
   font-size: 13px;
   font-weight: 400;
@@ -77,36 +26,16 @@
   padding-top: 18px;
   margin-bottom: 2rem;
 }
-.currency.c-screen .select-wrapper {
-  position: relative;
+.currency .select-wrapper {
   height: 3rem;
   margin: 2rem 0 1rem 0;
-  outline: 0;
-}
-
-.sprite__caret {
-  position: absolute;
-  right: 8px;
-  top: 4px;
-  width: 18px;
-  height: 18px;
-  background: url("../../../img/nav-sprite.png") -170px -105px;
-  opacity: 0.7;
-  pointer-events: none;
 }
 select#currency {
   display: inline-block;
   width: 100%;
   height: 100%;
-  padding: 0 24px 0 6px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  cursor: pointer;
   font-size: 14px;
-  border-radius: 3px;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  padding: 0 24px 0 6px;
 }
 
 #currency optgroup {

@@ -13,6 +13,8 @@ import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
 import { pipe, savePath } from "./utils";
+import "./Features/Nav/nav.css";
+import "./responsive.css";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -31,10 +33,10 @@ export default function App() {
   const [hasDropdown, setDropdown] = useState(false);
   const onEnterHandle = () => {
     clearTimeout(timeoutId.current - 99);
-    timeoutId.current = setTimeout(() => setDropdown(true), 500);
+    timeoutId.current = setTimeout(() => setShadowFor("navDrop"), 450);
   };
   const onLeaveHandle = () => {
-    timeoutId.current = 99 + setTimeout(() => setDropdown(false), 500);
+    timeoutId.current = 99 + setTimeout(() => setShadowFor(""), 450);
   };
 
   const signoutHandler = () => {
@@ -57,7 +59,7 @@ export default function App() {
   const navMainItem = ([label, linkTo, className]) => {
     return (
       <div key={label} className={className}>
-        <Link to={linkTo} onClick={() => setDropdown(false)}>
+        <Link to={linkTo} onClick={() => setShadowFor("")}>
           {label}
         </Link>
       </div>
@@ -81,17 +83,21 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
-        <header id="navbar">
+      <div
+        className={
+          "container--grid" + ("sidebar" === shadowFor ? " scroll--off" : "")
+        }
+      >
+        <header id="nav-bar">
           <div className="nav-belt row">
             <Link className="phone--off" to="/">
-              <div className="brand">
+              <div className="nav__brand">
                 <img className="logo" src={Logo} alt="logo" />
                 <span className="mobile--off">mazin'</span>
               </div>
             </Link>
 
-            <Link className="location flex" to="/map" onClick={savePath()}>
+            <Link className="nav__locator flex" to="/map" onClick={savePath()}>
               <div className="sprite__locator"></div>
               <div className="tablet--off">
                 <div className="nav__line-1">Deliver to your</div>
@@ -104,7 +110,7 @@ export default function App() {
             </div>
 
             <div
-              className={"dropdown phone--off"}
+              className={"dropdown nav__currency mobile--off"}
               onMouseEnter={() => setShadowFor("currency")}
               onClick={() => setShadowFor("currency")}
               onMouseLeave={() => setShadowFor("")}
@@ -116,7 +122,7 @@ export default function App() {
                   <i className="fa fa-caret-down"></i>
                 </div>
               </div>
-              <ul className="dropdown__menu currency show">
+              <ul className="dropdown__menu show">
                 <li>Change Currency</li>
                 {["EUR", "separator", ...pipe.currencies.slice(1)].map(
                   (label, id) =>
@@ -158,10 +164,11 @@ export default function App() {
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                className="nav__user"
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Account"],
                   ["Sign In", "/signin"],
@@ -174,10 +181,11 @@ export default function App() {
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                className="nav__user"
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Informations"],
                   ["Your Profile", "/profile"],
@@ -203,10 +211,11 @@ export default function App() {
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                className="nav__seller"
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
@@ -229,11 +238,11 @@ export default function App() {
             {userInfo?.isAdmin && (
               <NavDropMenu
                 label="Admin^Tools"
-                attr="phone--off"
-                isDropped={shadowFor}
-                onEnterHandle={() => setShadowFor("navDrop")}
-                onClickItem={() => setShadowFor("navDrop")}
-                onLeaveHandle={() => setShadowFor("")}
+                className="nav__admin phone--off"
+                isDropped={"navDrop" === shadowFor}
+                onEnterHandle={onEnterHandle}
+                onClickItem={setShadowFor}
+                onLeaveHandle={onLeaveHandle}
                 dropMenu={[
                   ["Admin"],
                   ["User List", "/user-list"],
@@ -248,7 +257,10 @@ export default function App() {
               />
             )}
 
-            <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
+            <NavDropMenu
+              label="Return^& Orders"
+              className="nav__return tablet--off disabled"
+            />
 
             <Link className="nav__cart flex" to="/cart">
               <div>
@@ -327,9 +339,10 @@ export default function App() {
             ) : (
               [
                 ["Trending"],
+                ["Best Sellers", "/banner/bestseller"],
                 ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/All/order/newest"],
-                ["Best Sellers", "/banner/bestseller"],
+                ["Home Page", "/"],
                 ["separator"],
 
                 ["Categories"],
@@ -429,11 +442,7 @@ export default function App() {
             <MainRoute />
           </div>
           <div
-            className={
-              "navDrop" === shadowFor || "searchBox" === shadowFor
-                ? "underlay"
-                : ""
-            }
+            className={"underlay-" + shadowFor}
             onClick={() => setShadowFor("")}
           ></div>
         </main>

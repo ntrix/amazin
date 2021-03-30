@@ -7,7 +7,7 @@ function CustomerScreen({}) {
   const { user } = useSelector((state) => state.userSignin);
 
   return (
-    <div className="c-screen">
+    <div className="c-screen customer">
       <header className="container">
         <h1 className="title">We’re here to help, {user?.username || ""}</h1>
         <h3 className="sub-title">
@@ -119,7 +119,7 @@ function CustomerScreen({}) {
                 <i> Type something like, "question about a charge"</i>
               </h3>
             </label>
-            <input type="search" id="search-faq"></input>
+            <input type="text" id="search-faq"></input>
             <h1>Browse Help Topics </h1>
             <h2>In construction</h2>
             <p>Help Section:</p>

@@ -81,9 +81,9 @@ export default function OrderSumScreen(props) {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
-      <h1>Order {order._id}</h1>
+      <h1 className="p-1">Order {order._id}</h1>
       <div className="row top">
-        <div className="col-2">
+        <div className="col-3">
           <ul>
             <li>
               <div className="card card__body">

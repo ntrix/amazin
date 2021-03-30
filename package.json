@@ -6,7 +6,7 @@
     "main": "index.js",
     "scripts": {
         "build": "cd frontend && npm install && npm run build",
-        "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js",
+        "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js --ignore client",
         "devstart": "cd frontend && react-scripts start"
     },
     "repository": {
@@ -19,6 +19,7 @@
     "dependencies": {
         "@sendgrid/mail": "^7.4.2",
         "bcryptjs": "^2.4.3",
+        "cloudinary": "^1.25.1",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",

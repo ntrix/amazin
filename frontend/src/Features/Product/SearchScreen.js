@@ -56,7 +56,7 @@ export default function SearchScreen({ history }) {
   };
   return (
     <div className="search-screen">
-      <header className="sub-header">
+      <header className="screen__header">
         <ul className="cat-nav">
           {loadingCategories ? (
             <LoadingBox />
@@ -214,8 +214,14 @@ export default function SearchScreen({ history }) {
             <div>
               <h2>Do you need help?</h2>
               <p>
-                Visit the <Link to="/customer">help section</Link> or{" "}
-                <Link to="/contact/subject/Help">contact us</Link>
+                Visit the{" "}
+                <Link to="/customer">
+                  <b>help section</b>
+                </Link>
+                {" or "}
+                <Link to="/contact/subject/Help">
+                  <b>contact us</b>
+                </Link>
                 <br />
                 <br />
               </p>

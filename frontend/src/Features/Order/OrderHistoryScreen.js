@@ -15,7 +15,7 @@ export default function OrderHistoryScreen(props) {
   }, [dispatch]);
   return (
     <div>
-      <h1>Order History</h1>
+      <h1 className="p-1">Order History</h1>
       {loading ? (
         <LoadingBox xl />
       ) : error ? (

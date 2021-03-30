@@ -1,4 +1,4 @@
-/* dummy data for waiting at first load */
+/* dummyBanners data for waiting at first load */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -7,29 +7,13 @@ import MessageBox from "../../../components/MessageBox";
 import { createProduct } from "../../../Controllers/productActions";
 import { productCreateActions } from "../ProductSlice";
 import UTube, { VideoButtons } from "./VideoButtons";
+import { dummyBanners, NO_IMAGE } from "../../../utils";
 
-const dummy = [
-  {
-    name: "Stranger Things",
-    images: [
-      "https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
-    ],
-    description:
-      "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
-  },
-  {
-    name: "The Queen's Gambit",
-    images: [
-      "https://image.tmdb.org/t/p/original/34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg",
-    ],
-    description:
-      "In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.",
-  },
-];
-
-export default function VideoBanner({ source = dummy }) {
+export default function VideoBanner({ source = dummyBanners, noButtons }) {
   const [trailerUrl, setTrailerUrl] = useState("");
-  const [movie, setMovie] = useState(dummy[(Math.random() * dummy.length) | 0]);
+  const [movie, setMovie] = useState(
+    dummyBanners[(Math.random() * dummyBanners.length) | 0]
+  );
 
   useEffect(() => {
     const random = source[(Math.random() * source.length) | 0];
@@ -59,48 +43,77 @@ export default function VideoBanner({ source = dummy }) {
   };
 
   return (
-    movie?.images && (
-      <>
-        <header
-          className="banner"
-          style={{
-            backgroundSize: "cover",
-            backgroundImage: `url("${movie.images ? movie.images[0] : ""}")`,
-            backgroundPosition: "center center",
-          }}
-        >
-          <div className="banner__contents">
-            <h1 className="banner__title">{movie.name}</h1>
+    <>
+      <header
+        className="banner"
+        style={{
+          backgroundSize: "cover",
+          backgroundImage: `url("${
+            movie?.images ? movie.images[0] : NO_IMAGE
+          }")`,
+          backgroundPosition: "center center",
+        }}
+      >
+        <div className="banner__contents">
+          <h1 className="banner__title">{movie?.name}</h1>
 
-            <div className="banner__buttons">
-              <VideoButtons
-                movie={movie} //{{ ...movie, video: hasTrailer }}
-                trailerUrl={trailerUrl}
-                setTrailerUrl={setTrailerUrl}
-              />
+          <div className="banner__buttons">
+            <VideoButtons
+              movie={movie} //{{ ...movie, video: hasTrailer }}
+              trailerUrl={trailerUrl}
+              setTrailerUrl={setTrailerUrl}
+            />
 
-              <button
-                className="banner__button mh-2"
-                disabled={!userInfo?.isSeller}
-                onClick={createHandler}
-              >
-                Sell This Movie
-              </button>
-            </div>
-
-            <h1 className="banner__description">
-              {movie?.description?.slice(0, 150) + ".."}
-            </h1>
+            <button
+              className="banner__button mh-2"
+              disabled={!userInfo?.isSeller}
+              onClick={createHandler}
+            >
+              Sell This Movie
+            </button>
           </div>
 
-          <div className="banner--fadeBottom" />
-        </header>
+          <h1 className="banner__description">
+            {movie?.description?.slice(0, 150) + ".."}
+          </h1>
+        </div>
 
-        {loadingCreate && <LoadingBox xl />}
-        {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
+        <div className="banner--fade-bottom" />
+      </header>
 
-        <UTube trailerUrl={trailerUrl} />
-      </>
+      {loadingCreate && <LoadingBox xl />}
+      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
+
+      <UTube trailerUrl={trailerUrl} />
+    </>
+  );
+}
+
+export function VideoBanner2({ source = dummyBanners }) {
+  const [movie, setMovie] = useState(
+    dummyBanners[(Math.random() * dummyBanners.length) | 0]
+  );
+
+  useEffect(() => {
+    const random = source[(Math.random() * source.length) | 0];
+    setMovie(random);
+  }, [source]);
+
+  return (
+    movie?.images && (
+      <div
+        className="banner"
+        style={{
+          backgroundSize: "cover",
+          backgroundImage: `url("${movie.images ? movie.images[0] : ""}")`,
+          backgroundPosition: "center 0",
+        }}
+      >
+        <div className="banner--fade-top" />
+        <div className="banner__contents">
+          <h1 className="banner__title">{movie.name}</h1>
+        </div>
+      </div>
     )
   );
 }

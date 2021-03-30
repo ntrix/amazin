@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Rating from "../../../components/Rating";
-import Carousel, { responsive } from "../../../utils";
+import Carousel, { dummyMovies, responsive } from "../../../utils";
 import UTube, { VideoButtons } from "./VideoButtons";
 
 export default function VideoRow({ title, movies = [], large = false }) {
@@ -24,7 +24,7 @@ export default function VideoRow({ title, movies = [], large = false }) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {movies?.map(
+        {(movies || dummyMovies).map(
           (movie, id) =>
             movie.images && (
               <div key={id} className={"m-card" + (large ? " m-card--xl" : "")}>

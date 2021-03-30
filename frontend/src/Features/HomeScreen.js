@@ -6,21 +6,20 @@ import MessageBox from "../components/MessageBox";
 import ProductCard from "../components/ProductCard";
 import { listProducts } from "../Controllers/productActions";
 import { listTopSellers } from "../Controllers/userActions";
-import Carousel from "../utils";
-
-const breakpoints = {
-  desktop: {
-    breakpoint: { max: 4000, min: 720 },
-    items: 2,
-  },
-  tablet: {
-    breakpoint: { max: 720, min: 0 },
-    items: 1,
-  },
-};
+import { dummySellers } from "../utils";
+import SwiperCore, {
+  Navigation,
+  EffectCoverflow,
+  Scrollbar,
+  Autoplay,
+  Pagination,
+} from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 export default function HomeScreen() {
-  const { banner } = useParams();
+  const { banner = "home" } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
@@ -38,16 +37,10 @@ export default function HomeScreen() {
   }, [dispatch]);
 
   return (
-    <div className={"home-screen " + banner}>
+    <div className={"home-screen"}>
+      <div className={"home__banner " + banner}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
-      {loadingSellers ? (
-        <LoadingBox />
-      ) : errorSellers ? (
-        <MessageBox variant="danger">{errorSellers}</MessageBox>
-      ) : (
-        <>
-          {sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>}
-          <Carousel
+      {/* <Carousel
             swipeable={true}
             draggable={true}
             showDots={true}
@@ -78,10 +71,53 @@ export default function HomeScreen() {
                 </Link>
               </div>
             ))}
-          </Carousel>
-        </>
-      )}
-      <h2 className="home-screen__title">Featured Products</h2>
+          </Carousel> */}
+      <div>
+        <Swiper
+          spaceBetween={20}
+          navigation
+          effect="coverflow"
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView="auto"
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: true,
+          }}
+          loop={true}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+        >
+          {loadingSellers ? (
+            <LoadingBox />
+          ) : errorSellers ? (
+            <MessageBox variant="danger">{errorSellers}</MessageBox>
+          ) : (
+            sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>
+          )}
+          {(sellers || dummySellers).map((seller, id) => (
+            <SwiperSlide key={id}>
+              <Link className="seller__card" to={`/seller/${seller._id}`}>
+                <img
+                  className="seller__img"
+                  src={seller.seller.logo}
+                  alt={seller.seller.name}
+                />
+                <p className="legend">{seller.seller.name}</p>
+              </Link>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <h2 className="home-screen__title-2">Featured Products</h2>
       {loading ? (
         <LoadingBox xl />
       ) : error ? (

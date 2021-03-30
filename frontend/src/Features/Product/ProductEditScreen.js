@@ -23,6 +23,7 @@ export default function ProductEditScreen(props) {
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -79,15 +80,47 @@ export default function ProductEditScreen(props) {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
+  const uploadFileHandler1 = (e, setPic, setPreview) => {
+    const file = e.target.files[0];
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+    const reader = new FileReader();
+    setLoadingUpload(true);
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const { result } = reader;
+      try {
+        const { data } = await Axios.post(
+          "/api/uploads",
+          { image: result },
+          {
+            headers: {
+              enctype: "multipart/form-data",
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+        setImage(data);
+        setLoadingUpload(false);
+      } catch (error) {
+        setErrorUpload(error.message);
+        setLoadingUpload(false);
+      }
+    };
+  };
+
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append("image", file);
+    bodyFormData.append("sellerId", product.seller._id);
+    bodyFormData.append("productId", product._id);
+    console.log({ product });
     setLoadingUpload(true);
     try {
       const { data } = await Axios.post("/api/uploads", bodyFormData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          enctype: "multipart/form-data",
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
@@ -171,6 +204,15 @@ export default function ProductEditScreen(props) {
                 label="Choose Image"
                 onChange={uploadFileHandler}
               ></input>
+
+              <div>
+                <img
+                  src={imagePreview || image}
+                  alt=""
+                  className="mt-1 medium"
+                />
+              </div>
+
               {loadingUpload && <LoadingBox />}
               {errorUpload && (
                 <MessageBox variant="danger">{errorUpload}</MessageBox>

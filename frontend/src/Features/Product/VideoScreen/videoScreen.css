@@ -2,7 +2,6 @@
   background-color: #0e171e;
   display: flex;
   flex-direction: column;
-  padding-bottom: 18rem;
 }
 .m-header {
   color: #fff;
@@ -64,16 +63,24 @@
   height: 80px;
 }
 
-.banner--fadeBottom {
+.banner--fade-bottom {
   margin-top: -8rem;
   height: 15rem;
-  background-image: -webkit-linear-gradient(to bottom, #2220, #222a 30%, #111);
-  background-image: linear-gradient(to bottom, #2220, #222a 30%, #111);
+  background-image: -webkit-linear-gradient(to bottom, #2220, #222a, #0e171e);
+  background-image: linear-gradient(to bottom, #2220, #222a, #0e171e);
 }
-
+.banner__divider {
+  padding: 6rem;
+}
+.banner--fade-top {
+  height: 6rem;
+  background-image: -webkit-linear-gradient(to top, #2220, #222a, #0e171e);
+  background-image: linear-gradient(to top, #2220, #222a, #0e171e);
+}
 .banner__button {
   font-weight: 700;
-  padding: 8px 24px;
+  margin: 3px;
+  padding: 8px 15px;
   border-radius: 3px;
   border: none;
   outline: none;
@@ -82,9 +89,6 @@
   background: #222;
   background: -webkit-linear-gradient(to bottom, #000, #444);
   background: linear-gradient(to bottom, #000, #444);
-}
-.banner__button + .banner__button {
-  margin-left: 10px;
 }
 .banner__button:not([disabled]):hover {
   color: #000;
@@ -111,7 +115,7 @@
   z-index: 199;
 }
 .m-row h2 {
-  margin-top: 35px;
+  margin-top: 5rem;
   margin-bottom: 1rem;
   font-weight: 700;
   font-size: 18px;
@@ -280,4 +284,46 @@
 .m-row .react-multiple-carousel__arrow::before {
   font-size: 36px;
   font-weight: bold;
+}
+
+/* >= Tablet */
+@media (max-width: 949px) {
+}
+/* >= cell-phone lanscape*/
+@media (max-width: 679px) {
+  .m-header {
+    height: 4rem;
+  }
+  .m-nav {
+    margin-top: 3px;
+    font-size: 12px;
+  }
+  /* Netflux */
+  .m-nav li:first-child {
+    font-size: 14px;
+    margin: 1rem 3px;
+  }
+  .m-nav li {
+    padding: 0 0.5rem;
+  }
+  .banner__contents {
+    margin-left: 2rem;
+  }
+  .banner__title {
+    font-size: 32px;
+  }
+  .banner__description {
+    width: 600px;
+    line-height: 1.2;
+    padding-top: 11px;
+    font-size: 10px;
+    height: 60px;
+  }
+  .banner--fade-bottom {
+    margin-top: -5rem;
+    height: 12rem;
+  }
+  .m-row {
+    margin-left: 3rem;
+  }
 }

@@ -93,28 +93,31 @@ export default function ContactScreen(props) {
             </div>
             <div>
               <label htmlFor="subject">Subject</label>
-              <select
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-              >
-                {!userInfo?.isAdmin && (
-                  <option value="Admin">Apply To Be Administrator</option>
-                )}
-                <option value="Account">Account</option>
-                <option value="Ads">Advertisement</option>
-                <option value="Customer">Customer Service</option>
-                <option value="FAQ">FAQ</option>
-                <option value="Help">Help Desk</option>
-                <option value="Orders">Your Orders</option>
-                <option value="Payment">Payment</option>
-                <option value="Report">Report Something Suspicious</option>
-                <option value="Returns">Returns & Refund</option>
-                {!userInfo?.isSeller && (
-                  <option value="Seller">Verify My Seller Account</option>
-                )}
-                <option value="Shipping">Shipping Address</option>
-                <option value="Others">Others..</option>
-              </select>
+              <div className="select-wrapper">
+                <div className="sprite__caret xl"></div>
+                <select
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                >
+                  {!userInfo?.isAdmin && (
+                    <option value="Admin">Apply To Be Administrator</option>
+                  )}
+                  <option value="Account">Account</option>
+                  <option value="Ads">Advertisement</option>
+                  <option value="Customer">Customer Service</option>
+                  <option value="FAQ">FAQ</option>
+                  <option value="Help">Help Desk</option>
+                  <option value="Orders">Your Orders</option>
+                  <option value="Payment">Payment</option>
+                  <option value="Report">Report Something Suspicious</option>
+                  <option value="Returns">Returns & Refund</option>
+                  {!userInfo?.isSeller && (
+                    <option value="Seller">Verify My Seller Account</option>
+                  )}
+                  <option value="Shipping">Shipping Address</option>
+                  <option value="Others">Others..</option>
+                </select>
+              </div>
             </div>
             <div>
               <label htmlFor="text">Message</label>

@@ -84,6 +84,7 @@ export default function ProductScreen(props) {
                         src={img}
                         alt={product.name + " small " + id}
                         onMouseEnter={() => setImgActive(id)}
+                        onClick={() => setImgActive(id)}
                         className={
                           "product__thumbnail" +
                           (id === imgActive ? " active" : "")
@@ -182,7 +183,8 @@ export default function ProductScreen(props) {
                       <li>
                         <div className="row">
                           <div>Quantity</div>
-                          <div>
+                          <div className="select-wrapper">
+                            <div className="sprite__caret xl"></div>
                             <select
                               value={qty}
                               onChange={(e) => setQty(e.target.value)}
@@ -234,18 +236,21 @@ export default function ProductScreen(props) {
                     </div>
                     <div>
                       <label htmlFor="rating">Rating</label>
-                      <select
-                        id="rating"
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                      >
-                        <option value="">Select...</option>
-                        <option value="1">1- Poor</option>
-                        <option value="2">2- Fair</option>
-                        <option value="3">3- Good</option>
-                        <option value="4">4- Very good</option>
-                        <option value="5">5- Exzellent</option>
-                      </select>
+                      <div className="select-wrapper">
+                        <div className="sprite__caret xl"></div>
+                        <select
+                          id="rating"
+                          value={rating}
+                          onChange={(e) => setRating(e.target.value)}
+                        >
+                          <option value="">Select...</option>
+                          <option value="1">1- Poor</option>
+                          <option value="2">2- Fair</option>
+                          <option value="3">3- Good</option>
+                          <option value="4">4- Very good</option>
+                          <option value="5">5- Exzellent</option>
+                        </select>
+                      </div>
                     </div>
                     <div>
                       <label htmlFor="comment">Comment</label>

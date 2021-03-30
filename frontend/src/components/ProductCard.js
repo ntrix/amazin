@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { pipe, savePath } from "../utils";
+import { NO_IMAGE, pipe, savePath } from "../utils";
 import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {
@@ -13,7 +13,7 @@ export default function ProductCard({ product, deal = false }) {
             src={
               product.image.split("^")[deal ? 1 : 0] ||
               product.image.split("^")[0] ||
-              "images/no-default-thumbnail.png"
+              NO_IMAGE
             }
             alt={product.name}
           />

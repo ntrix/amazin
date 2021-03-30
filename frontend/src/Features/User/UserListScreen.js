@@ -30,7 +30,7 @@ export default function UserListScreen({ history }) {
   };
   return (
     <div>
-      <h1>Users</h1>
+      <h1 className="p-1">Users</h1>
       {loadingDelete && <LoadingBox xl />}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (

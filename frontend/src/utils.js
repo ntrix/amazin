@@ -1,5 +1,7 @@
-import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+export const NO_IMAGE = "/images/no-image.png";
 
 export const responsive = {
   superLargeDesktop: {
@@ -123,3 +125,50 @@ export const savePath = (exceptionStartWith = "@") => () => {
   if (!window.location.pathname.startsWith(exceptionStartWith))
     localStorage.setItem("backToHistory", window.location.pathname);
 };
+
+export const dummySellers = Array(5).fill({
+  _id: "#",
+  seller: { logo: NO_IMAGE, name: "Anonymous Seller" },
+});
+
+export const dummyBanners = [
+  {
+    name: "Stranger Things",
+    images: [
+      "https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg",
+    ],
+    description:
+      "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
+  },
+  {
+    name: "The Queen's Gambit",
+    images: [
+      "https://image.tmdb.org/t/p/original/34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg",
+    ],
+    description:
+      "In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.",
+  },
+];
+
+const baseURL = "https://image.tmdb.org/t/p/original/";
+export const sourceAdapter = (movies) =>
+  movies?.map((m) => ({
+    name:
+      m.name || m.title || m.original_title || m.original_name || "Movie Name",
+    images: [
+      m.backdrop_path
+        ? baseURL + m.backdrop_path
+        : m.image?.split("^")[1] || NO_IMAGE,
+      m.poster_path
+        ? baseURL + m.poster_path
+        : m.image?.split("^")[0] || NO_IMAGE,
+    ],
+    rating: m.rating * 2 || m.vote_average || 0,
+    numReviews: m.numReviews || m.vote_count || 0,
+    description: m.description || m.overview || "",
+    video: m.video,
+    seller: m.seller,
+    _id: m._id,
+  }));
+
+export const dummyMovies = sourceAdapter(Array(12).fill(1));

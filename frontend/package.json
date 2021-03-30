@@ -20,7 +20,8 @@
     "react-scripts": "^4.0.2",
     "react-youtube": "^7.13.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "swiper": "^6.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
