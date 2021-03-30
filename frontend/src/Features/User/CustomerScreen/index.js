@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./customerScreen.css";
 
-function CustomerScreen({}) {
+function CustomerScreen() {
   const { user } = useSelector((state) => state.userSignin);
 
   return (
@@ -32,7 +32,7 @@ function CustomerScreen({}) {
               "Returns & Refunds",
               "Return or exchange items",
               "Print return mailing labels",
-              ,
+              "",
               "disabled",
             ],
             [
@@ -67,7 +67,7 @@ function CustomerScreen({}) {
               "report",
               "Report Something Suspicious",
               "Scam Call or Phishing Email",
-              ,
+              "",
               "/contact/subject/Report",
             ],
             [
@@ -88,8 +88,8 @@ function CustomerScreen({}) {
               "covid19",
               "COVID-19 & Information",
               "FAQs about the impact on ordering",
-              ,
-              ,
+              "",
+              "",
               "disabled",
             ],
           ].map(([img, label, line1, line2, link = "#", className], id) => (
@@ -99,6 +99,7 @@ function CustomerScreen({}) {
                   <img
                     className="c-box__icon"
                     src={`/images/icon-${img}.png`}
+                    alt={"icon " + img}
                   ></img>
                 </div>
                 <div className="c-box__info">

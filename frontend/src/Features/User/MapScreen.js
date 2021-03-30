@@ -1,17 +1,14 @@
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  StandaloneSearchBox,
+} from "@react-google-maps/api";
 import Axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  LoadScript,
-  GoogleMap,
-  StandaloneSearchBox,
-  Marker,
-} from "@react-google-maps/api";
-
-import { userAddressMapActions } from "./UserSlice";
-
 import LoadingBox from "../../components/LoadingBox";
-import { Redirect } from "react-router-dom";
+import { userAddressMapActions } from "./UserSlice";
 
 const libs = ["places"];
 const defaultLocation = { lat: 45.516, lng: -73.56 };

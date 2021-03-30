@@ -192,6 +192,7 @@ a .nav__brand {
   background: linear-gradient(to bottom, #c7cbcf, #f3f3f3, #e2e2e2);
   border: thin solid #6e6e6e6e;
   box-shadow: 0 2px 10px 0px #6e6e6e6e;
+  user-select: none;
   z-index: 9000;
 }
 .scope__drop-list {

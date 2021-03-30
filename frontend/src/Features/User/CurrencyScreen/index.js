@@ -12,7 +12,7 @@ import { pipe } from "../../../utils";
 import { userUpdateProfileActions } from "../UserSlice";
 import "./currencyScreen.css";
 
-export default function CurrencyScreen({}) {
+export default function CurrencyScreen() {
   const { cType } = useParams();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
@@ -39,7 +39,7 @@ export default function CurrencyScreen({}) {
   useEffect(() => {
     setNewCurr("");
     setCurrency(cType || pipe.currency);
-    if (!userInfo) {
+    if (!userInfo?._id) {
       dispatch(userUpdateProfileActions._RESET());
     }
   }, [cType, dispatch, userInfo?._id]);

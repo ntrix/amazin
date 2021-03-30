@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-
-import { productCreateActions, productDeleteActions } from "./ProductSlice";
+import { useParams } from "react-router-dom";
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import Pagination from "../../components/Pagination";
 import {
   createProduct,
   deleteProduct,
   listProducts,
 } from "../../Controllers/productActions";
-
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
-import Pagination from "../../components/Pagination";
+import { productCreateActions, productDeleteActions } from "./ProductSlice";
 
 export default function ProductListScreen(props) {
   const { pageNumber = 1 } = useParams();

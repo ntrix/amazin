@@ -13,18 +13,13 @@ import "./responsive.css";
 import HeaderNavMain from "./Features/Nav/HeaderNavMain";
 
 export default function App() {
-  const { sessionCurrency, rates, success } = useSelector(
-    (state) => state.currencyType
-  );
+  const { sessionCurrency } = useSelector((state) => state.currencyType);
   const { userInfo } = useSelector((state) => state.userSignin);
   const dispatch = useDispatch();
 
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
   const [shadowFor, setShadowFor] = useState("");
 
-  useEffect(() => {
-    pipe.updateRates(rates);
-  }, [success]);
   useEffect(() => {
     pipe.setCurrency(
       userInfo?.currency ||
@@ -35,7 +30,7 @@ export default function App() {
     setCurrency(pipe.currency);
     dispatch(updateCurrencyRates());
     dispatch(listProductCategories());
-  }, [dispatch, pipe.currency, userInfo?.currency, sessionCurrency]);
+  }, [dispatch, userInfo?.currency, sessionCurrency]);
 
   return (
     <BrowserRouter>

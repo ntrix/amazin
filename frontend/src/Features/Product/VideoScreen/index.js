@@ -12,8 +12,7 @@ import "./videoScreen.css";
 const API_KEY = process.env.REACT_APP_API_KEY;
 const sources = {
   "NETFLUX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
-  Home: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
-  STORE: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+
   "Action Movies": `/discover/movie?api_key=${API_KEY}&with_genres=28`,
   "Comedy Movies": `/discover/movie?api_key=${API_KEY}&with_genres=35`,
   "Horror Movies": `/discover/movie?api_key=${API_KEY}&with_genres=27`,
@@ -22,11 +21,15 @@ const sources = {
   "Trending Now": `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   "Top Rated": `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
 };
+const navLabels = Object.keys(sources);
+navLabels.splice(1, 0, "Home", "STORE");
 
 export default function VideoScreen() {
   const dispatch = useDispatch();
   const [genre, setGenre] = useState("STORE");
-  const [movies, setMovies] = useState({});
+  const [movies, setMovies] = useState({ STORE: [] });
+  const [fetchMovies, setFetchMovies] = useState({});
+  const [fetchInSock, setFetchInSock] = useState();
   const {
     loading: loadingProducts,
     error: errorProducts,
@@ -35,43 +38,45 @@ export default function VideoScreen() {
   } = useSelector((state) => state.productList);
 
   useEffect(() => {
-    async function fetchData() {
-      const movieArray = await Promise.all(
-        Object.keys(sources).map(async (genre) => {
-          const { data } = await axios
-            .get("https://api.themoviedb.org/3" + sources[genre])
-            .catch((e) => console.log(e));
-          return [[genre], data.results];
-        })
-      );
-      const movieObj = {};
-      movieArray.map(
-        ([genre, list]) => (movieObj[genre] = sourceAdapter(list))
-      );
-      setMovies(movieObj);
-    }
-    //if (!movies[genre])
-    fetchData(); // else shuffle random movies list :)
-  }, []);
-
-  useEffect(() => {
     dispatch(
       listProducts({
         seller: process.env.REACT_APP_SELLER,
         category: "Video",
         pageSize: 11,
+        order: "oldest",
       })
     );
-    console.log(movies[genre], { genre });
-    if (successProducts)
-      setMovies({ ...movies, STORE: sourceAdapter(products).reverse() });
-  }, []);
+
+    (async function fetchData() {
+      const promiseReturns = await Promise.all(
+        Object.keys(sources).map(async (genre) => {
+          const { data } = await axios
+            .get("https://api.themoviedb.org/3" + sources[genre])
+            .catch((e) => {});
+          return [[genre], data.results];
+        })
+      );
+      const movieObj = {};
+      promiseReturns.map(
+        ([genre, list]) => (movieObj[genre] = sourceAdapter(list))
+      );
+      setFetchMovies(movieObj);
+    })();
+  }, [dispatch]);
+
+  useEffect(() => {
+    setFetchInSock(products);
+  }, [successProducts, products]);
+
+  useEffect(() => {
+    setMovies({ ...fetchMovies, STORE: fetchInSock });
+  }, [fetchMovies, fetchInSock]);
 
   return (
     <div className="container--full video-screen">
       <header className="m-header">
         <ul className="m-nav">
-          {Object.keys(sources).map((label, id) => (
+          {navLabels.map((label, id) => (
             <li
               key={id}
               className={label === genre ? " active" : ""}
@@ -82,22 +87,21 @@ export default function VideoScreen() {
           ))}
         </ul>
       </header>
-      <VideoBanner
-        source={genre === "STORE" ? sourceAdapter(products) : movies[genre]}
-      />
+
+      <VideoBanner loading={loadingProducts} source={movies} genre={genre} />
+
       {Object.keys(sources).map(
         (label, id) =>
-          label !== "Home" &&
-          (genre === label || genre === "Home") &&
-          label !== "STORE" && (
+          (label === genre || genre === "Home") && (
             <VideoRow
               key={id}
               title={label}
               movies={movies[label]}
-              large={label === "NETFLUX ORIGINALS"}
+              portrait={label === "NETFLUX ORIGINALS"}
             />
           )
       )}
+
       {loadingProducts ? (
         <LoadingBox xl />
       ) : errorProducts ? (
@@ -113,10 +117,11 @@ export default function VideoScreen() {
       )}
       <VideoRow
         title="IN STOCK: READY TO BUY"
-        movies={sourceAdapter(products || dummyMovies).reverse()}
-        //if Netflux is there, only one large row
-        large={genre !== "NETFLUX ORIGINALS"}
+        movies={!loadingProducts ? movies["STORE"] : dummyMovies}
+        //if Netflux is genre, only one portrait row
+        portrait={genre !== "NETFLUX ORIGINALS"}
       />
+
       {
         movies["Trending Now"] && genre !== "Trending Now" && (
           <VideoRow title="Trending Now" movies={movies["Trending Now"]} />
@@ -125,8 +130,13 @@ export default function VideoScreen() {
       {movies["Top Rated"] && genre !== "Top Rated" && (
         <VideoRow title="Top Rated" movies={movies["Top Rated"]} />
       )}
+
       <div className="banner__divider"></div>
-      <VideoBannerBottom source={movies[genre] || dummyMovies} />
+      <VideoBannerBottom
+        loading={loadingProducts}
+        source={movies}
+        genre={genre}
+      />
     </div>
   );
 }

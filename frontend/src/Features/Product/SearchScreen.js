@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-
-import { listProducts } from "../../Controllers/productActions";
-
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import Pagination from "../../components/Pagination";
 import ProductCard from "../../components/ProductCard";
 import Rating from "../../components/Rating";
-import { prices, ratings } from "../../utils";
-import Pagination from "../../components/Pagination";
 import SortFilter from "../../components/SortFilter";
+import { listProducts } from "../../Controllers/productActions";
+import { prices, ratings } from "../../utils";
 
 export default function SearchScreen({ history }) {
   const {

@@ -1,24 +1,27 @@
-/* dummyBanners data for waiting at first load */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { createProduct } from "../../../Controllers/productActions";
+import { EXAMPLE_MOVIES, NO_MOVIES, NO_IMAGE } from "../../../utils";
 import { productCreateActions } from "../ProductSlice";
-import UTube, { VideoButtons } from "./VideoButtons";
-import { dummyBanners, NO_IMAGE } from "../../../utils";
+import UTube from "./UTube";
+import { VideoButtons } from "./VideoButtons";
 
-export default function VideoBanner({ source = dummyBanners, noButtons }) {
+export default function VideoBanner({ source, genre, loading }) {
   const [trailerUrl, setTrailerUrl] = useState("");
-  const [movie, setMovie] = useState(
-    dummyBanners[(Math.random() * dummyBanners.length) | 0]
-  );
+  const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    const random = source[(Math.random() * source.length) | 0];
+    const mov = loading
+      ? NO_MOVIES
+      : !source || !source[genre]
+      ? EXAMPLE_MOVIES
+      : source[genre];
+    const random = mov[(Math.random() * mov.length) | 0];
     setMovie(random);
-  }, [source]);
+  }, [source, genre]);
 
   const productCreate = useSelector((state) => state.productCreate);
   const {
@@ -45,7 +48,7 @@ export default function VideoBanner({ source = dummyBanners, noButtons }) {
   return (
     <>
       <header
-        className="banner"
+        className={"banner" + (movie?.image ? "" : " no-image")}
         style={{
           backgroundSize: "cover",
           backgroundImage: `url("${
@@ -74,7 +77,7 @@ export default function VideoBanner({ source = dummyBanners, noButtons }) {
           </div>
 
           <h1 className="banner__description">
-            {movie?.description?.slice(0, 150) + ".."}
+            {movie?.description ? movie.description.slice(0, 150) + ".." : ""}
           </h1>
         </div>
 
@@ -89,30 +92,33 @@ export default function VideoBanner({ source = dummyBanners, noButtons }) {
   );
 }
 
-export function VideoBannerBottom({ source = dummyBanners }) {
-  const [movie, setMovie] = useState(
-    dummyBanners[(Math.random() * dummyBanners.length) | 0]
-  );
+export function VideoBannerBottom({ source, genre, loading }) {
+  const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    const random = source[(Math.random() * source.length) | 0];
+    const mov = loading
+      ? NO_MOVIES
+      : !source || !source[genre]
+      ? EXAMPLE_MOVIES
+      : source[genre];
+    const random = mov[(Math.random() * mov.length) | 0];
     setMovie(random);
-  }, []);
+  }, [source, genre]);
 
   return (
     <div
-      className="banner"
+      className={"banner" + (movie?.image ? "" : " no-image")}
       style={{
         backgroundSize: "cover",
         backgroundImage: `url("${
-          movie.image ? movie.image.split("^")[1] : ""
+          movie?.image ? movie.image.split("^")[1] : NO_IMAGE
         }")`,
         backgroundPosition: "center 0",
       }}
     >
       <div className="banner--fade-top" />
       <div className="banner__contents">
-        <h1 className="banner__title">{movie.name}</h1>
+        <h1 className="banner__title">{movie?.name}</h1>
       </div>
     </div>
   );

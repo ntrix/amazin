@@ -1,16 +1,14 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { productUpdateActions } from "./ProductSlice";
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
 import {
   detailsProduct,
   updateProduct,
 } from "../../Controllers/productActions";
-
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
-import { getImgUrl, MAX_IMAGES, NO_IMAGE } from "../../utils";
+import { getImgUrl, MAX_IMAGES } from "../../utils";
+import { productUpdateActions } from "./ProductSlice";
 
 export default function ProductEditScreen(props) {
   const productId = props.match.params.id;
@@ -266,7 +264,7 @@ export default function ProductEditScreen(props) {
             <div className="row center">
               <img
                 src={getImgUrl(product._id, imagePreview)}
-                alt="New Image Preview"
+                alt="Preview"
                 className="mt-1 medium"
               />
             </div>

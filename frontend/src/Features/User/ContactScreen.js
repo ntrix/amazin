@@ -78,7 +78,7 @@ export default function ContactScreen(props) {
       dispatch(userUpdateProfileActions._RESET());
       setMessage("Seller Account verified successfully!");
     }
-  }, [pSubject, successUpdate]);
+  }, [dispatch, pSubject, successUpdate]);
 
   return (
     <div>

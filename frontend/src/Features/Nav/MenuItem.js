@@ -8,7 +8,7 @@ export const MenuItem = (setShadowFor) => (
   const innerComponent = () => {
     if (!linkTo && !className) return <strong>{label}</strong>;
 
-    if (linkTo == "disabled")
+    if (linkTo === "disabled")
       return (
         <Link to="#" className="disabled">
           {label}
@@ -18,7 +18,7 @@ export const MenuItem = (setShadowFor) => (
     if (linkTo.startsWith("https://"))
       //a href instead of Link for extern links
       return (
-        <a href={linkTo} target="_blank">
+        <a href={linkTo} target="_blank" rel="noreferrer">
           {label}
         </a>
       );
@@ -40,7 +40,7 @@ export const MenuItem = (setShadowFor) => (
 
     return <div>{label}</div>;
   };
-  return label == "separator" ? (
+  return label === "separator" ? (
     <div key={id} className="separator"></div>
   ) : (
     <li key={id}>{innerComponent()}</li>
