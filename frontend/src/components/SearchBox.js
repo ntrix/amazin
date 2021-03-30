@@ -3,19 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
 
-export default function SearchBox() {
+export default function SearchBox({ shadowFor, setShadowFor }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const { productList: list } = useSelector((state) => state.productListAll);
   const { success, categories } = useSelector(
     (state) => state.productCategoryList
   );
-  const [catDropdown, setCatDropdown] = useState(false);
+  const [navScope, setNavScope] = useState(0);
   const [category, setCategory] = useState("All Categories");
 
-  const [term, setTerm] = useState("");
+  const [input, setInput] = useState("");
   const [suggests, setSuggests] = useState([]);
-  const [isFocus, setFocus] = useState(0);
+  const [suggestBox, setSuggestBox] = useState(0);
+  const [outline, setOutline] = useState("");
 
   useEffect(() => {
     dispatch(
@@ -27,10 +28,18 @@ export default function SearchBox() {
   }, [dispatch, category, success]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    setFocus(-1); //for absorbing a keypress on submit instead setFocus(0)
-    history.push(`/search/category/${category}/name/${term}`);
+    e?.preventDefault();
+    setSuggestBox(-1); //for absorbing a keypress on submit instead setSuggestBox(0)
+    setShadowFor("");
+    history.push(
+      `/search/category/${
+        category === "All Categories" ? "All" : category
+      }/name/${input}`
+    );
   };
+  useEffect(() => {
+    if (shadowFor === "searchBox") return;
+  }, [shadowFor]);
 
   const findSuggest = (() => {
     const LL = "<b>";
@@ -85,24 +94,15 @@ export default function SearchBox() {
 
   return (
     <>
-      <label
-        className={(isFocus > 0 && term) || catDropdown ? "click-catcher" : ""}
-        onClick={() => {
-          setFocus(0);
-          setCatDropdown(false);
-        }}
-      ></label>
-      <form
-        className={"search__form" + (isFocus > 0 ? " focus" : "")}
-        onSubmit={submitHandler}
-      >
+      <form className={"search-form " + outline} onSubmit={submitHandler}>
         <div className="row--left">
           <div className="search__dropdown">
             <div
-              className={"search__scope" + (catDropdown > 0 ? " focus" : "")}
+              className={(navScope > 0 ? "focus " : "") + " search__scope"}
               onClick={() => {
-                setCatDropdown(!catDropdown);
-                setFocus(0);
+                setNavScope(navScope + 1);
+                setSuggestBox(0);
+                setShadowFor(navScope > 0 ? "scope" : "");
               }}
             >
               <div className="search__scope--trans">
@@ -111,7 +111,8 @@ export default function SearchBox() {
               </div>
             </div>
           </div>
-          {catDropdown && categories && (
+
+          {navScope % 2 > 0 && categories && (
             <div className="scope__windows">
               <ul className="scope__drop-list">
                 {[
@@ -122,11 +123,15 @@ export default function SearchBox() {
                 ].map((cat) => (
                   <li
                     className={
-                      "category" + (cat === category ? " selected" : "")
+                      (cat === category ? "selected " : "") + "category"
                     }
                     onClick={() => {
-                      setCategory(cat);
-                      setCatDropdown(false);
+                      if (cat !== category) {
+                        setOutline(true);
+                        //setSuggestBox(2);focus ref
+                        setCategory(cat);
+                        setNavScope(0);
+                      } else setNavScope(2);
                     }}
                   >
                     <i className="fa fa-check"></i> {cat}
@@ -136,6 +141,7 @@ export default function SearchBox() {
             </div>
           )}
         </div>
+
         <div className="row--fill">
           <div className="search__input">
             <input
@@ -143,30 +149,65 @@ export default function SearchBox() {
               name="q"
               autoComplete="off"
               id="q"
-              value={term}
+              value={input}
               size="1"
               tabIndex="1"
               onClick={(e) => {
-                setFocus(1);
-                setSuggests(findSuggest.search(list, term));
+                if (input) {
+                  const newSuggests = findSuggest.search(list, input);
+                  if (newSuggests.length) {
+                    setSuggests(newSuggests);
+                    setShadowFor("searchBox");
+                    setSuggestBox(1);
+                  }
+                }
+                setNavScope(0);
               }}
               onFocus={(e) => {
-                setFocus(1);
-                setSuggests(findSuggest.search(list, term));
-                setCatDropdown(false);
+                if (input) {
+                  const newSuggests = findSuggest.search(list, input);
+                  if (newSuggests.length) {
+                    setSuggests(newSuggests);
+                    setShadowFor("searchBox");
+                    setSuggestBox(1);
+                  }
+                }
+                setOutline("focus");
+                setNavScope(0);
               }}
-              onChange={(e) => setTerm(e.target.value)}
               onKeyUp={(e) => {
-                // console.log(e.key, e.keyIdentifier, e.keyCode);
-                setFocus(
-                  e.key === "Escape" || e.keyCode == 27 ? 0 : isFocus + 1
-                );
-                setSuggests(findSuggest.search(list, e.target.value));
+                const { value } = e.target;
+                if (
+                  value.length === 0 ||
+                  e.key === "Escape" ||
+                  e.keyCode == 27
+                ) {
+                  setSuggestBox(0);
+                  setShadowFor("");
+                  return;
+                }
+                if (e.key === "Enter" || e.keyCode == 13)
+                  return submitHandler();
+                // if (value === input) return;
+                setSuggestBox((suggestBox || 1) + 2);
+                if (value.length === 1) {
+                  setShadowFor("searchBox");
+                  if (!outline) setOutline("focus");
+                }
+                setSuggests(findSuggest.search(list, value));
+                setInput(value);
               }}
-              onBlur={() => setFocus(isFocus > 0 ? 1 : 0)}
+              onChange={(e) => {
+                setInput(e.target.value);
+              }}
+              onBlur={() => {
+                setOutline("");
+                setSuggestBox(suggestBox > 0 ? 1 : 0);
+                // setShadowFor("");
+              }}
             ></input>
           </div>
-          {isFocus > 0 && term && (
+          {shadowFor === "searchBox" && suggestBox % 2 > 0 && input && (
             <div className="search__suggest">
               <ul>
                 {suggests.slice(0, 12).map((p) => (
@@ -178,9 +219,10 @@ export default function SearchBox() {
                       )}`}
                       dangerouslySetInnerHTML={{ __html: p.name }}
                       onClick={(e) => {
-                        setTerm(p.name.replace(/(<b>)|(<\/b>)/g, ""));
+                        setSuggestBox(0);
+                        setInput(p.name.replace(/(<b>)|(<\/b>)/g, ""));
                         setSuggests([]);
-                        setFocus(0);
+                        setShadowFor("");
                       }}
                     ></Link>
                   </li>

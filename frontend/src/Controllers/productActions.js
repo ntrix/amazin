@@ -10,9 +10,10 @@ import {
   productDeleteActions,
   productReviewCreateActions,
 } from "../Features/Product/ProductSlice";
+import { pipe } from "../utils";
 
-export const changeCurrency = (type) => (dispatch) => {
-  dispatch(currencyTypeActions._CHANGE(type));
+export const setSessionCurrency = (currencyType) => (dispatch) => {
+  dispatch(currencyTypeActions._CHANGE(currencyType));
 };
 
 export const updateCurrencyRates = () => async (dispatch) => {

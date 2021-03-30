@@ -24,13 +24,10 @@ export default function VideoRow({ title, movies = [], large = false }) {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {movies.map(
-          (movie) =>
+        {movies?.map(
+          (movie, id) =>
             movie.images && (
-              <div
-                key={movie.name}
-                className={"m-card" + (large ? " m-card--xl" : "")}
-              >
+              <div key={id} className={"m-card" + (large ? " m-card--xl" : "")}>
                 <img
                   src={movie.images ? movie.images[large ? 1 : 0] : ""}
                   alt={movie.name}

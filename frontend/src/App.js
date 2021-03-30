@@ -6,23 +6,28 @@ import MessageBox from "./components/MessageBox";
 import NavDropMenu, { addMenuItem } from "./components/NavMenu";
 import SearchBox from "./components/SearchBox";
 import {
-  changeCurrency,
   listProductCategories,
   updateCurrencyRates,
 } from "./Controllers/productActions";
 import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
-import { pipe } from "./utils";
+import { pipe, savePath } from "./utils";
 
 export default function App() {
-  const cart = useSelector((state) => state.cart);
-  const [hasSidebar, setSidebar] = useState(false);
-  const { cartItems } = cart;
-  const { userInfo } = useSelector((state) => state.userSignin);
-  const { type = "EUR" } = useSelector((state) => state.currencyType);
   const dispatch = useDispatch();
+  const { sessionCurrency, rates, success } = useSelector(
+    (state) => state.currencyType
+  );
+  const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
+
   const timeoutId = useRef(0);
+
+  const [shadowFor, setShadowFor] = useState("");
+
+  const [hasSidebar, setSidebar] = useState(false);
   const [hasDropdown, setDropdown] = useState(false);
   const onEnterHandle = () => {
     clearTimeout(timeoutId.current - 99);
@@ -31,16 +36,16 @@ export default function App() {
   const onLeaveHandle = () => {
     timeoutId.current = 99 + setTimeout(() => setDropdown(false), 500);
   };
+
   const signoutHandler = () => {
     dispatch(signout());
   };
 
-  const productCategoryList = useSelector((state) => state.productCategoryList);
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
-  } = productCategoryList;
+  } = useSelector((state) => state.productCategoryList);
 
   function shortName(user, length) {
     if (!user) return "Sign In";
@@ -59,11 +64,20 @@ export default function App() {
     );
   };
 
-  useEffect(() => dispatch(updateCurrencyRates()), []);
-
   useEffect(() => {
+    pipe.updateRates(rates);
+  }, [success]);
+  useEffect(() => {
+    pipe.setCurrency(
+      userInfo?.currency ||
+        sessionCurrency ||
+        localStorage.getItem("currency") ||
+        pipe.currency
+    );
+    setCurrency(pipe.currency);
+    dispatch(updateCurrencyRates());
     dispatch(listProductCategories());
-  }, [dispatch]);
+  }, [dispatch, pipe.currency, userInfo?.currency, sessionCurrency]);
 
   return (
     <BrowserRouter>
@@ -77,7 +91,7 @@ export default function App() {
               </div>
             </Link>
 
-            <Link className="location flex" to="/map">
+            <Link className="location flex" to="/map" onClick={savePath()}>
               <div className="sprite__locator"></div>
               <div className="tablet--off">
                 <div className="nav__line-1">Deliver to your</div>
@@ -86,71 +100,56 @@ export default function App() {
             </Link>
 
             <div className="nav__search">
-              <SearchBox />
+              <SearchBox shadowFor={shadowFor} setShadowFor={setShadowFor} />
             </div>
 
             <div
               className={"dropdown phone--off"}
-              onMouseEnter={onEnterHandle}
-              onClick={onEnterHandle}
-              onMouseLeave={onLeaveHandle}
+              onMouseEnter={() => setShadowFor("currency")}
+              onClick={() => setShadowFor("currency")}
+              onMouseLeave={() => setShadowFor("")}
             >
               <div>
                 <div className="nav__line-1"> </div>
                 <div className="nav__line-2 sprite__wrapper">
-                  <span className={"sprite flag " + type}></span>
+                  <span className={"sprite flag " + currency}></span>
                   <i className="fa fa-caret-down"></i>
                 </div>
               </div>
-              <ul
-                className={
-                  "dropdown__menu currency" + (hasDropdown ? " show" : "")
-                }
-              >
-                {[
-                  ["Change Currency"],
-                  [pipe("EUR").name, "/currency/type/EUR"],
-                  [, , "separator"],
-                  ...pipe()
-                    .list.slice(1)
-                    .map((type) => [pipe(type).name, "/currency/type/" + type]),
-                ].map(([label, linkTo, className]) =>
-                  !linkTo ? (
-                    <li className={className}>{label}</li>
-                  ) : (
-                    <Link
-                      to={linkTo}
-                      onClick={() =>
-                        localStorage.setItem(
-                          "backToHistory",
-                          window.location.pathname
-                        )
-                      }
-                    >
-                      <div
-                        className={
-                          "sprite__wrapper" +
-                          (label === pipe(type).name ? " active" : "")
-                        }
+              <ul className="dropdown__menu currency show">
+                <li>Change Currency</li>
+                {["EUR", "separator", ...pipe.currencies.slice(1)].map(
+                  (label, id) =>
+                    label === "separator" ? (
+                      <div key={id} className="separator ml-1"></div>
+                    ) : (
+                      <Link
+                        key={id}
+                        to={"/currency/cType/" + label}
+                        className={label === currency ? "active" : ""}
+                        onClick={savePath("/curr")}
                       >
-                        <div className="sprite circle"></div>
-                        <span>{label}</span>
-                      </div>
-                    </Link>
-                  )
+                        <div className="sprite__wrapper">
+                          <div className="sprite circle"></div>
+                          <span>{pipe.getName(label)}</span>
+                        </div>
+                      </Link>
+                    )
                 )}
-                {[
-                  ["separator"],
-                  ["Exchange"],
-                  ["Currency Calculator", "disabled"],
-                ].map(addMenuItem())}
+                <div className="separator"></div>
+                <li>Currency Calculator</li>
+                <li className="calculator disabled">
+                  <Link to="#">€ - EUR - Euro</Link>
+                  <Link to="#">Base</Link>
+                </li>
+                <div className="separator"></div>
                 <a
                   href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
                   target="_blank"
                 >
                   <div className="sprite__wrapper">
-                    <div className={"sprite flag xl " + type}></div>
-                    <span>Exchange Rates</span>
+                    <div className={"sprite flag xl " + currency}></div>
+                    <span>Exchange Reference Rates</span>
                   </div>
                 </a>
               </ul>
@@ -159,14 +158,14 @@ export default function App() {
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Account"],
                   ["Sign In", "/signin"],
-                  ["separator", "1"],
+                  ["separator"],
                   ["New customer? Start here.", "/register"],
                 ]}
               />
@@ -175,20 +174,27 @@ export default function App() {
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Informations"],
                   ["Your Profile", "/profile"],
-                  ["separator", "2"],
+                  ["Your Shipping Addresses", "/shipping"],
+                  ["FAQs & Generals", "/customer"],
+                  ["separator"],
                   ["Orders"],
                   ["Your Order History", "/order-history"],
+                  ["Your Payment Method", "/payment"],
                   ["Returns", "disabled"],
                   ["Contact Us", "/contact/subject/Orders"],
-                  ["separator", "3"],
+                  ["separator"],
                   ["Account"],
+                  [
+                    "Create & Verify Seller Account",
+                    userInfo?.isSeller ? "disabled" : "/contact/subject/Seller",
+                  ],
                   ["Sign Out", "#signout", , signoutHandler],
                 ]}
               />
@@ -197,19 +203,24 @@ export default function App() {
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Profile"],
                   ["Seller Profile", "/profile/seller"],
-                  ["separator", "4"],
+                  [
+                    "Apply An Admin Account",
+                    !userInfo?.isAdmin ? "/contact/subject/Admin" : "disabled",
+                  ],
+                  ["separator"],
                   ["Listing"],
-                  ["Product List", "/product-list/seller"],
+                  ["Product Lists & Catalogues", "/product-list/seller"],
                   ["Sold Order List", "/order-list/seller"],
-                  ["separator", "5"],
+                  ["separator"],
                   ["Assistant"],
+                  ["International Shipping Courier", "disabled"],
                   ["Sell Statistics", "disabled"],
                 ]}
               />
@@ -219,18 +230,18 @@ export default function App() {
               <NavDropMenu
                 label="Admin^Tools"
                 attr="phone--off"
-                isDropped={hasDropdown}
-                onEnterHandle={onEnterHandle}
-                onLeaveHandle={onLeaveHandle}
-                onClickItem={setDropdown}
+                isDropped={shadowFor}
+                onEnterHandle={() => setShadowFor("navDrop")}
+                onClickItem={() => setShadowFor("navDrop")}
+                onLeaveHandle={() => setShadowFor("")}
                 dropMenu={[
                   ["Admin"],
                   ["User List", "/user-list"],
-                  ["separator", "7"],
+                  ["separator"],
                   ["Warehouse"],
                   ["Product Catalogues", "/product-list"],
                   ["Order Database", "/order-list"],
-                  ["separator", "8"],
+                  ["separator"],
                   ["Instruction"],
                   ["Quick Tutor!", "disabled"],
                 ]}
@@ -254,7 +265,7 @@ export default function App() {
             <div className="ml-1 nav__left">
               <div
                 className="open-sidebar nav-main__item flex"
-                onClick={() => setSidebar(true)}
+                onClick={() => setShadowFor("sidebar")}
               >
                 <div className="sprite__bars"></div>
                 <b>All</b>
@@ -263,7 +274,7 @@ export default function App() {
 
             <div className="nav__fill">
               {[
-                ["Netflix Video", "/video", "nav-main__item"],
+                ["Netflux Video", "/video", "nav-main__item"],
                 ["Top Deals", "/deal", "nav-main__item"],
                 [
                   "New Releases",
@@ -296,11 +307,13 @@ export default function App() {
           </div>
         </header>
 
-        <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
-          <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
+        <aside
+          className={"sidebar" === shadowFor ? "sidebar opened" : "sidebar"}
+        >
+          <button onClick={() => setShadowFor("")} id="btn--close-sidebar">
             <div className="sprite__close-btn"></div>
           </button>
-          <li onClick={() => setSidebar(false)}>
+          <li onClick={() => setShadowFor("")}>
             <Link to="/profile" className="sidebar__header">
               <div className="sprite__user"></div>
               {"Hello, " + shortName(userInfo)}
@@ -317,37 +330,97 @@ export default function App() {
                 ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/All/order/newest"],
                 ["Best Sellers", "/banner/bestseller"],
-                ["separator", "9"],
+                ["separator"],
+
                 ["Categories"],
-                ["Netflix Video", "/video"],
+                ["Netflux Video", "/video"],
                 ...categories.map((c) => [c, "/search/category/" + c]),
-                ["separator", "10"],
-                ["Help & Setting"],
-                ["(Seller) Profile", "/profile/seller"],
+                ["separator"],
+
+                ["Privacy & Setting"],
+                ["Your Favorite List", "disabled"],
+                [
+                  "",
+                  "/currency/cType/" + currency,
+                  "sprite flag xl " + currency,
+                  savePath("/curr"),
+                ],
+                [
+                  pipe.getName(currency),
+                  "/currency/cType/" + currency,
+                  "pl-8",
+                  savePath("/curr"),
+                ],
+                [
+                  "Currency Setting",
+                  "/currency/cType/EUR",
+                  ,
+                  savePath("/curr"),
+                ],
+                ["Your Browsing History", "disabled"],
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
-                ["Currency Setting", "/currency/type/0"],
-                ["FAQ & Contact", "/contact/subject/FAQ"],
-                ["separator", "11"],
-                ["Account"],
+                ["FAQ & Help", "/contact/subject/FAQ"],
+                [""],
+                ["separator"],
+                ["separator"],
+
+                ["Your Account"],
+                ["Your Profile", "/profile"],
                 ["Customer Service", "/customer"],
                 userInfo
                   ? ["Sign Out", "#signout", , signoutHandler]
                   : ["Sign In", "/signin"],
                 [""],
-                ["separator", "12"],
-                ["separator", "13"],
-                ["#contact 2020", "disabled"],
-                ["separator", "14"],
-                ["separator", "15"],
-              ].map(addMenuItem(setSidebar))
+                ["separator"],
+                ["separator"],
+
+                ["Seller Account"],
+                [
+                  "Your Seller Profile",
+                  userInfo?.isSeller ? "/profile/seller" : "disabled",
+                ],
+                [
+                  "Your Listing Products",
+                  userInfo?.isSeller ? "/product-list" : "disabled",
+                ],
+                [
+                  "Your Order List",
+                  userInfo?.isSeller ? "/order-list" : "disabled",
+                ],
+                [""],
+                ["separator"],
+                ["separator"],
+
+                ["Administration"],
+                [
+                  "User Management",
+                  userInfo?.isAdmin ? "/user-list" : "disabled",
+                ],
+                [
+                  "All Product Catalogues",
+                  userInfo?.isAdmin ? "/product-list" : "disabled",
+                ],
+                [
+                  "All Order Lists, Database",
+                  userInfo?.isAdmin ? "/order-list" : "disabled",
+                ],
+                [""],
+                ["separator"],
+                ["separator"],
+
+                ["#contact dev team", "disabled"],
+                [""],
+                ["separator"],
+                ["separator"],
+              ].map(addMenuItem(setShadowFor))
             )}
           </ul>
         </aside>
 
         <label
-          className={hasSidebar ? "click-catcher" : ""}
+          className={"sidebar" === shadowFor ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
         ></label>
 
@@ -355,7 +428,14 @@ export default function App() {
           <div className="col-fill">
             <MainRoute />
           </div>
-          <div className={hasDropdown ? "underlay" : ""}></div>
+          <div
+            className={
+              "navDrop" === shadowFor || "searchBox" === shadowFor
+                ? "underlay"
+                : ""
+            }
+            onClick={() => setShadowFor("")}
+          ></div>
         </main>
 
         <footer className="row center">

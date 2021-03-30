@@ -1,15 +1,15 @@
 export { createSlice } from "@reduxjs/toolkit";
 
-export const Reducer = (payload) => ({
+export const Reducer = (stateKeyName) => ({
   _REQUEST: (state, action) => ({ loading: true }),
   _SUCCESS: (state, action) =>
-    payload == "..."
+    stateKeyName == "..." //noname saved state => destructuring
       ? {
           ...action.payload,
           loading: false,
         }
       : {
-          [payload]: action.payload,
+          [stateKeyName]: action.payload,
           loading: false,
           success: true,
         },

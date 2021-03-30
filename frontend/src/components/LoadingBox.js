@@ -1,18 +1,17 @@
 import React from "react";
 
-export default function LoadingBox({ size = "" }) {
+export default function LoadingBox({ xl }) {
   return (
     <div className="loading">
-      {!size && (
-        <>
-          Loading..
-          <div className="sprite__loading"></div>
-        </>
-      )}
-      {size && (
+      {xl ? (
         <>
           <b>Loading..</b>
           <div className="sprite__loading--xl"></div>
+        </>
+      ) : (
+        <>
+          Loading..
+          <div className="sprite__loading"></div>
         </>
       )}
     </div>

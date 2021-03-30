@@ -7,8 +7,6 @@ export const {
   name: "currencyType",
   initialState: {
     loading: true,
-    type: "EUR",
-    rate: 1,
     rates: {
       EUR: 1,
       USD: 1.2,
@@ -22,8 +20,7 @@ export const {
     ...Reducer("..."),
     _CHANGE: (state, action) => ({
       ...state,
-      type: action.payload,
-      rate: state.rates[action.payload],
+      sessionCurrency: action.payload,
     }),
   },
 });

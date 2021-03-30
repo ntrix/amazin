@@ -33,10 +33,10 @@ export default function OrderListScreen(props) {
   return (
     <div>
       <h1>Orders</h1>
-      {loadingDelete && <LoadingBox size="xl" />}
+      {loadingDelete && <LoadingBox xl />}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

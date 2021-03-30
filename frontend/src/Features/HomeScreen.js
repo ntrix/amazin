@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import Product from "../components/Product";
+import ProductCard from "../components/ProductCard";
 import { listProducts } from "../Controllers/productActions";
 import { listTopSellers } from "../Controllers/userActions";
 import Carousel from "../utils";
@@ -83,7 +83,7 @@ export default function HomeScreen() {
       )}
       <h2 className="home-screen__title">Featured Products</h2>
       {loading ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -91,7 +91,7 @@ export default function HomeScreen() {
           {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
           <div className="row center">
             {products.map((product) => (
-              <Product key={product._id} product={product}></Product>
+              <ProductCard key={product._id} product={product}></ProductCard>
             ))}
           </div>
         </>

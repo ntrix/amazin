@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getPrice, pipe } from "../../utils";
+import { pipe } from "../../utils";
 import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
 import {
   deliverOrder,
@@ -15,15 +15,13 @@ import {
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
-export default function OrderScreen(props) {
+export default function OrderSumScreen(props) {
   const orderId = props.match.params.id;
   const [sdkReady, setSdkReady] = useState(false);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const { type, rate } = useSelector((state) => state.currencyType);
-  const evalPrice = (price) => pipe(type + getPrice(rate)(price)).symbol.all;
 
   const orderPay = useSelector((state) => state.orderPay);
   const {
@@ -78,7 +76,7 @@ export default function OrderScreen(props) {
   };
 
   return loading ? (
-    <LoadingBox size="xl" />
+    <LoadingBox xl />
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
@@ -142,8 +140,8 @@ export default function OrderScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x {evalPrice(item.price)} =
-                          {" " + evalPrice(item.qty * item.price)}
+                          {item.qty} x {pipe.showPrice(item.price)} =
+                          {" " + pipe.showPrice(item.qty * item.price)}
                         </div>
                       </div>
                     </li>
@@ -162,19 +160,19 @@ export default function OrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>{evalPrice(order.itemsPrice)}</div>
+                  <div>{pipe.showPrice(order.itemsPrice)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>{evalPrice(order.shippingPrice)}</div>
+                  <div>{pipe.showPrice(order.shippingPrice)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Before 19% MwSt.</div>
-                  <div>{evalPrice(order.taxPrice)}</div>
+                  <div>{pipe.showPrice(order.taxPrice)}</div>
                 </div>
               </li>
               <li>
@@ -183,7 +181,7 @@ export default function OrderScreen(props) {
                     <strong> Order Total</strong>
                   </div>
                   <div>
-                    <strong>{evalPrice(order.totalPrice)}</strong>
+                    <strong>{pipe.showPrice(order.totalPrice)}</strong>
                   </div>
                 </div>
               </li>

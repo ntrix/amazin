@@ -17,7 +17,6 @@ export default function ContactScreen(props) {
   const [hasError, setError] = useState([]);
   const [hasMessage, setMessage] = useState(false);
 
-  useEffect(() => {}, []);
   const submitHandler = async (e) => {
     setError(false);
     e.preventDefault();
@@ -50,11 +49,15 @@ export default function ContactScreen(props) {
     }
   };
 
+  useEffect(() => {
+    setSubject(pSubject);
+  }, [pSubject]);
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <h1>Contact Us</h1>
-        {isLoading && <LoadingBox size="xl" />}
+        {isLoading && <LoadingBox xl />}
         {hasError &&
           hasError.map((err) => (
             <MessageBox variant="danger">{err}</MessageBox>
@@ -94,6 +97,9 @@ export default function ContactScreen(props) {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
               >
+                {!userInfo?.isAdmin && (
+                  <option value="Admin">Apply To Be Administrator</option>
+                )}
                 <option value="Account">Account</option>
                 <option value="Ads">Advertisement</option>
                 <option value="Customer">Customer Service</option>
@@ -103,6 +109,9 @@ export default function ContactScreen(props) {
                 <option value="Payment">Payment</option>
                 <option value="Report">Report Something Suspicious</option>
                 <option value="Returns">Returns & Refund</option>
+                {!userInfo?.isSeller && (
+                  <option value="Seller">Verify My Seller Account</option>
+                )}
                 <option value="Shipping">Shipping Address</option>
                 <option value="Others">Others..</option>
               </select>

@@ -19,23 +19,6 @@
 .sub-title {
   margin-bottom: 24px;
 }
-.divider-inner {
-  height: 44px;
-  margin-bottom: -18px;
-  background: -webkit-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.14),
-    rgba(0, 0, 0, 0.03) 3px,
-    transparent
-  );
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.14),
-    rgba(0, 0, 0, 0.03) 3px,
-    transparent
-  );
-  z-index: 0;
-}
 .c-screen h2 {
   padding: 0;
   font-size: 21px;

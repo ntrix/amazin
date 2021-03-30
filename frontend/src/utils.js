@@ -60,30 +60,66 @@ export const ratings = [
     rating: 1,
   },
 ];
+/* singleton for currency and all its pipes */
+export const pipe = {
+  //if (this.currency ) return this;
+  currency: "EUR",
+  currencies: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
+  rates: {
+    //default dummy rate
+    EUR: 1,
+    USD: 1.2,
+    GBP: 0.9,
+    CZK: 27,
+    PLN: 5,
+    CHF: 1.1,
+  },
+  setCurrency(currency) {
+    this.currency = currency;
+  },
+  updateRates(newRates) {
+    if (newRates?.length)
+      this.currencies.map((c) => (this.rates[c] = newRates[c]));
+  },
+  getSymbol(currency) {
+    return {
+      GBP: "£",
+      USD: "$",
+      PLN: "zł",
+      CZK: "Kč",
+      CHF: "CHf",
+      EUR: "€",
+    }[currency || this.currency];
+  },
+  getName(currency) {
+    return {
+      GBP: "GB Pounds",
+      USD: "US Dollar",
+      PLN: "Polish Zloty",
+      CZK: "Czech Koruna",
+      CHF: "Swiss France",
+      EUR: "Euro (Default)",
+    }[currency || this.currency];
+  },
+  getRate(currency) {
+    return this.rates[currency || this.currency] || 1;
+  },
+  getPrice(price = 0, rate = this.getRate()) {
+    return (price * rate).toFixed(2);
+  },
+  getNote(price = 0, rate = this.getRate()) {
+    return ((price * rate) | 0) + "";
+  },
+  getCent(price = 0, rate = this.getRate()) {
+    return ((price * rate).toFixed(2) + "").slice(-2);
+  },
+  showPrice(price) {
+    return this.getSymbol() + " " + this.getPrice(price);
+  },
+};
 
-export const pipe = (type = "EUR") => ({
-  list: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
-  symbol: {
-    GBP: "£",
-    USD: "$",
-    PLN: "zł",
-    CZK: "Kč",
-    CHF: "CHf",
-    EUR: "€",
-  }[type],
-  name: {
-    GBP: "GB Pounds",
-    USD: "US Dollar",
-    PLN: "Polish Zloty",
-    CZK: "Czech Koruna",
-    CHF: "Swiss France",
-    EUR: "Euro (Default)",
-  }[type],
-});
-
-export const getPrice = (rate = 1) => (price = 0) => ({
-  note: ((price * rate) | 0) + "",
-  cent: ((price * rate).toFixed(2) + "").slice(-2),
-  all: (price * rate).toFixed(2),
-  float: +(price * rate).toFixed(2),
-});
+export const savePath = (exceptionStartWith = "@") => () => {
+  //doesn't save path of the same screen
+  if (!window.location.pathname.startsWith(exceptionStartWith))
+    localStorage.setItem("backToHistory", window.location.pathname);
+};

@@ -6,7 +6,7 @@ import { listProducts } from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import Product from "../../components/Product";
+import ProductCard from "../../components/ProductCard";
 import Rating from "../../components/Rating";
 import { prices, ratings } from "../../utils";
 
@@ -55,7 +55,7 @@ export default function SearchScreen({ history }) {
     return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`;
   };
   return (
-    <div>
+    <div className="search-screen">
       <header className="sub-header">
         <ul className="cat-nav">
           {loadingCategories ? (
@@ -63,12 +63,9 @@ export default function SearchScreen({ history }) {
           ) : errorCategories ? (
             <MessageBox variant="danger">{errorCategories}</MessageBox>
           ) : (
-            ["All", ...categories].map((label) => (
-              <Link to={getFilterUrl({ category: label })}>
-                <li
-                  key={label}
-                  className={label === category ? " selected" : ""}
-                >
+            ["All", ...categories].map((label, id) => (
+              <Link to={getFilterUrl({ category: label })} key={id}>
+                <li className={label === category ? " selected" : ""}>
                   {label}
                 </li>
               </Link>
@@ -87,22 +84,26 @@ export default function SearchScreen({ history }) {
           </div>
         )}
         <div className="sort__filter">
-          Sort by{" "}
+          <label htmlFor="filter__options">Sort by</label>
+          <div className="sprite__caret"></div>
           <select
+            id="filter__options"
             value={order}
             onChange={(e) => {
               history.push(getFilterUrl({ order: e.target.value }));
             }}
           >
-            <option value="newest">Newest Arrivals</option>
-            <option value="bestselling">Best Selling</option>
-            <option value="lowest">Price: Low to High</option>
-            <option value="highest">Price: High to Low</option>
-            <option value="toprated">Avg. Rating</option>
+            <optgroup label="Sort by:">
+              <option value="newest">Newest Arrivals</option>
+              <option value="bestselling">Best Selling</option>
+              <option value="lowest">Price: Low to High</option>
+              <option value="highest">Price: High to Low</option>
+              <option value="toprated">Avg. Rating</option>
+            </optgroup>
           </select>
         </div>
       </div>
-      <div className="row top">
+      <div className="row top search-screen__result">
         <div className="search__filter">
           <ul>
             <h4>Department</h4>
@@ -174,7 +175,7 @@ export default function SearchScreen({ history }) {
             {loading ? (
               <>
                 <div className="placeholder">
-                  <LoadingBox size="xl" />
+                  <LoadingBox xl />
                 </div>
               </>
             ) : error ? (
@@ -188,13 +189,17 @@ export default function SearchScreen({ history }) {
             ) : (
               <>
                 {products.map((product) => (
-                  <Product key={product._id} product={product}></Product>
+                  <ProductCard
+                    key={product._id}
+                    product={product}
+                  ></ProductCard>
                 ))}
               </>
             )}
             {(!products || products.length < 3) && (
               <div className="placeholder"></div>
             )}
+            <div className="row divider-inner"></div>
             <div className="row center pagination">
               {[...Array(pages || 0).keys()].map((x) => (
                 <Link
@@ -206,16 +211,15 @@ export default function SearchScreen({ history }) {
                 </Link>
               ))}
             </div>
-            <p className="separator"></p>
-            <p className="separator"></p>
             <div>
               <h2>Do you need help?</h2>
               <p>
-                Visit the <Link to="/help">help section</Link> or{" "}
+                Visit the <Link to="/customer">help section</Link> or{" "}
                 <Link to="/contact/subject/Help">contact us</Link>
+                <br />
+                <br />
               </p>
             </div>
-            <p className="separator"></p>
           </div>
         </div>
       </div>

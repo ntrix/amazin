@@ -68,20 +68,20 @@ export default function ProductListScreen(props) {
   };
   return (
     <div>
-      <div className="row">
+      <div className="row mt-1">
         <h1>Products</h1>
         <button type="button" className="primary" onClick={createHandler}>
           Create Product
         </button>
       </div>
 
-      {loadingDelete && <LoadingBox size="xl" />}
+      {loadingDelete && <LoadingBox xl />}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
 
-      {loadingCreate && <LoadingBox size="xl" />}
+      {loadingCreate && <LoadingBox xl />}
       {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
       {loading ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

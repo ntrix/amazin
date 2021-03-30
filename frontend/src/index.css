@@ -104,6 +104,7 @@ main {
   grid-area: main;
   position: relative;
   padding: 1rem;
+  z-index: 0;
 }
 footer {
   grid-area: footer;
@@ -500,11 +501,11 @@ a .brand {
   left: -1rem;
   right: -1rem;
   background-color: #0008;
-  opacity: 0;
+  opacity: 1;
   z-index: 9000;
   -webkit-animation: dropAnimation 0s forwards;
   animation: dropAnimation 0s forwards;
-  animation-delay: 0.4s;
+  animation-delay: 0.3s;
 }
 .dropdown .fa-caret-down {
   float: right;
@@ -515,8 +516,8 @@ a .brand {
 .dropdown__menu {
   position: absolute;
   right: -9px;
-  min-width: 19rem;
-  padding: 1.5rem 2.5rem;
+  min-width: 25rem;
+  padding: 10px 15px 10px 25px;
   background-color: #fff;
   margin-top: 7px;
   border-radius: 3px;
@@ -536,14 +537,14 @@ a .brand {
   border-left-width: 1rem;
   border-bottom: 1rem solid #fff;
 }
-.dropdown__menu:after {
+/* .dropdown__menu:after {
   content: "";
   position: absolute;
   width: 100%;
   height: 2rem;
   top: -1rem;
   right: 0;
-}
+} */
 .dropdown:hover > .dropdown__menu.show {
   z-index: 9006;
   opacity: 1;
@@ -768,6 +769,16 @@ button.open-sidebar:hover {
   background: url("./img/nav-sprite.png") -125px -88px;
   margin: -3px 9px -8px -2px;
 }
+.sidebar .sprite.flag {
+  padding: 0;
+  margin: 16px 10px -30px 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+.sidebar .pl-8 {
+  padding-left: 8rem;
+}
+‚
 /* Image */
 img {
   border-radius: 3px;
@@ -801,7 +812,7 @@ img.large {
 .nav__search:hover {
   border-color: transparent;
 }
-.search__form {
+.search-form {
   display: flex;
   position: relative;
   border-radius: 4px;
@@ -809,7 +820,7 @@ img.large {
   z-index: 9000;
   background: #fff;
 }
-.search__form.focus,
+.search-form.focus,
 .search__scope.focus {
   box-shadow: 0 0 0px 3px #f806, 0 0 1px 3px #f3a847;
   z-index: 9000;
@@ -973,7 +984,7 @@ img.large {
   text-indent: -1000px;
   cursor: pointer;
 }
-.search__form input:focus {
+.search-form input:focus {
   border: none;
   margin: 0;
   box-shadow: none;
@@ -989,7 +1000,7 @@ img.large {
   position: absolute;
   left: 0;
   right: 0;
-  z-index: 9000;
+  z-index: 9007;
 }
 .search__suggest ul:not(:empty) {
   border: thin solid #ccc;
@@ -1018,38 +1029,70 @@ img.large {
 
 /* Search Screen */
 .search__banner {
-  padding: 0.5rem 0;
+  padding: 8px 0;
   margin-bottom: 1rem;
-  background: #fcfcfc;
-  box-shadow: 0 2px 5px #a4a4a4;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 0 10px #ddd;
+  background-color: #fff;
+  position: relative;
+}
+.search-screen .search__banner {
+  padding: 8px 1rem;
+  margin: 0 -1rem;
 }
 .search__counter {
   margin-left: 2rem;
 }
 .sort__filter {
+  position: relative;
   margin-right: 2rem;
-  padding-left: 2rem;
-  padding-right: 1rem;
-  border: thin solid #ccc;
-  border-radius: 1.5rem;
-  background: #f2f2f2;
-  box-shadow: 0 1px 5px #a4a4a4;
+  border: thin solid #d5d9d9;
+  outline: 0;
+  border-radius: 8px;
+  background: #f0f2f2;
+  box-shadow: 0 2px 5px #1112;
+}
+.sort__filter label {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  padding: 3px 0;
+  font-size: 12px;
 }
 .sort__filter select {
-  width: 13rem;
-  padding: 0.25rem;
-  font-size: 1.3rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 18rem;
+  padding: 3px 25px 4px 5rem;
+  font-size: 12px;
   outline: none;
   border: none;
-  background: #f2f2f2;
+  background: transparent;
   cursor: pointer;
+  border-radius: 7px;
+}
+.sort__filter .sprite__caret {
+  top: 0px;
+  right: 5px;
 }
 .sort__filter:hover,
 .sort__filter:hover select {
   background: #e3e6e6;
 }
-.row.search__banner + .row {
+.sort__filter optgroup {
+  color: #888;
+  font-style: normal;
+  padding: 0;
+}
+.sort__filter option {
+  color: #0f1111;
+}
+.search-screen__result {
   background: #fff;
+  margin: 0 -1rem;
+  padding: 0 1rem;
 }
 .search__filter {
   flex: 1 0 20rem;
@@ -1422,6 +1465,25 @@ img.active {
   box-shadow: 0 0 3px 2px #f19833;
 }
 
+/* minor Effect */
+.divider,
+.divider-inner {
+  height: 44px;
+  margin-bottom: -18px;
+  background: -webkit-linear-gradient(to bottom, #0002, #0001 3px, #0000);
+  background: linear-gradient(to bottom, #0002, #0001 3px, #0000);
+  z-index: 0;
+}
+.divider-inner::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 44px;
+  background-color: #0000;
+  background: -webkit-linear-gradient(to right, #fff, #fff0, #fff);
+  background: linear-gradient(to right, #fff, #fff0, #fff);
+  z-index: 1;
+}
 .pc-low--only,
 .mobile--only {
   display: none;

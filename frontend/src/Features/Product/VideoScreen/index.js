@@ -10,7 +10,7 @@ import "./videoScreen.css";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const sources = {
-  "NETFLIX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
+  "NETFLUX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
   Home: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
   STORE: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   "Action Movies": `/discover/movie?api_key=${API_KEY}&with_genres=28`,
@@ -82,9 +82,9 @@ export default function VideoScreen() {
     <div className="container--fluid video-screen">
       <header className="m-header">
         <ul className="m-nav">
-          {Object.keys(sources).map((label) => (
+          {Object.keys(sources).map((label, id) => (
             <li
-              key={label}
+              key={id}
               className={label === genre ? " active" : ""}
               onClick={() => setGenre(label)}
             >
@@ -101,23 +101,22 @@ export default function VideoScreen() {
       )}
 
       {movies[genre] &&
-        Object.keys(sources).map((label) =>
-          label !== "Home" &&
-          (genre === label || genre === "Home") &&
-          label !== "STORE" ? (
-            <VideoRow
-              key={label}
-              title={label}
-              movies={movies[label]}
-              large={label === "NETFLIX ORIGINALS"}
-            />
-          ) : (
-            <></>
-          )
+        Object.keys(sources).map(
+          (label, id) =>
+            label !== "Home" &&
+            (genre === label || genre === "Home") &&
+            label !== "STORE" && (
+              <VideoRow
+                key={id}
+                title={label}
+                movies={movies[label]}
+                large={label === "NETFLUX ORIGINALS"}
+              />
+            )
         )}
 
       {loadingProducts ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : errorProducts ? (
         <MessageBox variant="danger">{errorProducts}</MessageBox>
       ) : (
@@ -130,8 +129,8 @@ export default function VideoScreen() {
           <VideoRow
             title="IN STOCK: READY TO BUY"
             movies={adapter(products).reverse()}
-            //if Netflix is there, only one large row
-            large={genre !== "NETFLIX ORIGINALS"}
+            //if Netflux is there, only one large row
+            large={genre !== "NETFLUX ORIGINALS"}
           />
         </>
       )}

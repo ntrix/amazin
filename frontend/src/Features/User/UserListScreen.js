@@ -31,13 +31,13 @@ export default function UserListScreen({ history }) {
   return (
     <div>
       <h1>Users</h1>
-      {loadingDelete && <LoadingBox size="xl" />}
+      {loadingDelete && <LoadingBox xl />}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {successDelete && (
         <MessageBox variant="success">User Deleted Successfully</MessageBox>
       )}
       {loading ? (
-        <LoadingBox size="xl" />
+        <LoadingBox xl />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

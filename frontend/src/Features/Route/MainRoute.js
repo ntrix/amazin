@@ -9,7 +9,7 @@ import ShippingAddressScreen from "../Checkout/ShippingAddressScreen";
 import HomeScreen from "../HomeScreen";
 import OrderHistoryScreen from "../Order/OrderHistoryScreen";
 import OrderListScreen from "../Order/OrderListScreen";
-import OrderScreen from "../Order/OrderScreen";
+import OrderSumScreen from "../Order/OrderSumScreen";
 import PlaceOrderScreen from "../Order/PlaceOrderScreen";
 import ProductEditScreen from "../Product/ProductEditScreen";
 import ProductListScreen from "../Product/ProductListScreen";
@@ -33,7 +33,7 @@ export default function MainRoute() {
   return (
     <>
       <Route
-        path="/currency/type/:type"
+        path="/currency/cType/:cType"
         component={CurrencyScreen}
         exact
       ></Route>
@@ -58,7 +58,7 @@ export default function MainRoute() {
       <Route path="/shipping" component={ShippingAddressScreen}></Route>
       <Route path="/payment" component={PaymentMethodScreen}></Route>
       <Route path="/place-order" component={PlaceOrderScreen}></Route>
-      <Route path="/order/:id" component={OrderScreen}></Route>
+      <Route path="/order/:id" component={OrderSumScreen}></Route>
       <Route path="/search/name/:name?" component={SearchScreen} exact></Route>
       <Route
         path="/search/category/:category"

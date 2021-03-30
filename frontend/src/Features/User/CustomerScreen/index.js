@@ -15,7 +15,7 @@ function CustomerScreen({}) {
           someone if you need more help.
         </h3>
       </header>
-      <div className="divider-inner"></div>
+      <div className="divider"></div>
       <div className="container">
         <h2>What can we assist you with today?</h2>
         <div className="c-boxes">
@@ -54,7 +54,7 @@ function CustomerScreen({}) {
               "Payment Options",
               "Add or edit payment methods",
               "Change your currency",
-              "/currency/type/0",
+              "/currency/cType/EUR",
             ],
             [
               "account",
@@ -92,8 +92,8 @@ function CustomerScreen({}) {
               ,
               "disabled",
             ],
-          ].map(([img, label, line1, line2, link, className]) => (
-            <Link to={link} className={"c-box " + className}>
+          ].map(([img, label, line1, line2, link = "#", className], id) => (
+            <Link to={link} key={id} className={"c-box " + className}>
               <div className="c-box__inner">
                 <div className="c-box__icon-wrapper">
                   <img

@@ -67,6 +67,7 @@ userRoute.post(
         email: user.email,
         isAdmin: user.isAdmin,
         isSeller: user.isSeller,
+        currency: user.currency,
         token: generateToken(user),
       });
     }
@@ -153,12 +154,12 @@ userRoute.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
+      user.currency = req.body.currency || user.currency;
       if (user.isSeller) {
         user.seller.name = req.body.sellerName || user.seller.name || user.name;
         user.seller.logo = req.body.sellerLogo || user.seller.logo;
         user.seller.description =
           req.body.sellerDescription || user.seller.description;
-        user.currency = req.body.currency;
       }
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);

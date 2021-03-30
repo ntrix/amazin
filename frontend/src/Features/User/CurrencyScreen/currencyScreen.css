@@ -1,17 +1,35 @@
 .dropdown__menu.currency {
   margin-top: 7px;
 }
+.c-screen.currency {
+  padding: 20px 25px;
+}
 .nav__line-2.sprite__wrapper {
   margin: 2px 0px 1px;
 }
-.currency {
-  padding: 20px 25px;
+
+.dropdown__menu.currency {
+  padding-left: 15px;
 }
-.dropdown__menu.currency.show {
-  padding-left: 15px !important;
+.dropdown__menu.currency .separator.ml-1 {
+  margin-left: 25px;
+  width: auto;
 }
-.dropdown .currency a:not(.active):hover span {
-  text-decoration: underline;
+.dropdown__menu.currency > * {
+  font-size: 13px;
+}
+
+.dropdown__menu.currency > li {
+  line-height: 2;
+}
+.dropdown__menu.currency .active * {
+  cursor: default;
+  color: #000;
+  font-weight: normal;
+}
+.currency .calculator {
+  display: flex;
+  justify-content: space-between;
 }
 .sprite__wrapper {
   display: flex;
@@ -24,11 +42,14 @@
   background-position: -74px 0px;
   background-image: url("../../../img/flags.png");
 }
-.currency a:hover .circle,
-.sprite__wrapper:hover .circle {
+.currency a:not(.disabled, .active):hover span {
+  text-decoration: underline;
+}
+.currency a:not(.disabled, .active):hover .circle,
+.languages .language:not(.disabled, .active):hover .circle {
   background-position: -122px 0px;
 }
-.sprite__wrapper.active .circle {
+.active .sprite.circle {
   background-position: -98px 0px;
 }
 
@@ -54,26 +75,51 @@
 .currency .currencies {
   display: flex;
   padding-top: 18px;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
-#currency {
+.currency.c-screen .select-wrapper {
+  position: relative;
+  height: 3rem;
+  margin: 2rem 0 1rem 0;
+  outline: 0;
+}
+
+.sprite__caret {
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  background: url("../../../img/nav-sprite.png") -170px -105px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+select#currency {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0 24px 0 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
   font-size: 14px;
-  padding: 5px;
-  margin: 15px 0 5px;
+  border-radius: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#currency optgroup {
+  font-style: normal;
+  font-weight: 400;
+  color: #aaa;
+}
+#currency option {
+  color: #000;
 }
 .btn--xs {
   padding: 6px 11px;
   margin-right: 10px;
-}
-.currency .divider-inner::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 44px;
-  background-color: transparent;
-  background: -webkit-linear-gradient(to right, #fff, #fff0, #fff);
-  background: linear-gradient(to right, #fff, #fff0, #fff);
-  z-index: 1;
 }
 .sprite.flag {
   height: 12px;
@@ -88,7 +134,7 @@
   background-position: -54px -96px;
 }
 .USD {
-  background-position: -54 -96px;
+  background-position: -54px -108px;
 }
 .CZK {
   background-position: 0 -72px;
@@ -97,29 +143,30 @@
   background-position: -18px -48px;
 }
 .CHF {
-  background-position: -54 -18px;
+  background-position: -54px -36px;
 }
 .sprite.flag.xl {
-  height: 24px;
-  width: 36px;
-  margin: 0 3px;
+  height: 20px;
+  width: 32px;
+  margin-right: 10px;
   background-image: url("../../../img/flags-globe.png");
+  box-shadow: 0 0 5px #0008;
 }
 .xl.EUR {
-  background-position: -36px -24px;
+  background-position: -38px -26px;
 }
 .xl.GBP {
-  background-position: -108px -192px;
+  background-position: -110px -194px;
 }
 .xl.USD {
-  background-position: -108 -192px;
+  background-position: -110px -218px;
 }
 .xl.CZK {
-  background-position: 0 -144px;
+  background-position: -2px -146px;
 }
 .xl.PLN {
-  background-position: -36px -96px;
+  background-position: -38px -98px;
 }
 .xl.CHF {
-  background-position: -108 -72px;
+  background-position: -110px -74px;
 }

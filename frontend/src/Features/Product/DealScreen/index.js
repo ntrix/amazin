@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
-import Product from "../../../components/Product";
+import ProductCard from "../../../components/ProductCard";
 import { listProducts } from "../../../Controllers/productActions";
 import Carousel, { responsive } from "../../../utils";
 import "./dealScreen.css";
@@ -61,7 +61,7 @@ export default function DealScreen() {
         className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
       >
         {loading ? (
-          <LoadingBox size="xl" />
+          <LoadingBox xl />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
@@ -85,8 +85,8 @@ export default function DealScreen() {
             {products.length === 0 ? (
               <MessageBox>No Deals On This Category!</MessageBox>
             ) : (
-              products.map((product) => (
-                <Product deal product={product}></Product>
+              products.map((product, id) => (
+                <ProductCard deal key={id} product={product}></ProductCard>
               ))
             )}
           </Carousel>
@@ -104,8 +104,10 @@ export default function DealScreen() {
               </div>
             )}
             <div className="sort__filter">
-              Sort by{" "}
+              <label htmlFor="filter__options">Sort by</label>
+              <div className="sprite__caret"></div>
               <select
+                id="filter__options"
                 value={order}
                 onChange={(e) =>
                   history.push(
@@ -113,16 +115,18 @@ export default function DealScreen() {
                   )
                 }
               >
-                <option value="newest">Newest Arrivals</option>
-                <option value="bestselling">Best Selling</option>
-                <option value="lowest">Price: Low to High</option>
-                <option value="highest">Price: High to Low</option>
-                <option value="toprated">Avg. Rating</option>
+                <optgroup label="Sort by:">
+                  <option value="newest">Newest Arrivals</option>
+                  <option value="bestselling">Best Selling</option>
+                  <option value="lowest">Price: Low to High</option>
+                  <option value="highest">Price: High to Low</option>
+                  <option value="toprated">Avg. Rating</option>
+                </optgroup>
               </select>
             </div>
           </div>
           {loading ? (
-            <LoadingBox size="xl" />
+            <LoadingBox xl />
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
@@ -132,7 +136,11 @@ export default function DealScreen() {
               )}
               <div className="row center">
                 {products.map((product) => (
-                  <Product deal key={product._id} product={product}></Product>
+                  <ProductCard
+                    deal
+                    key={product._id}
+                    product={product}
+                  ></ProductCard>
                 ))}
               </div>
             </>
