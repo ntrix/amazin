@@ -10,6 +10,7 @@ import {
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { getImgUrl, MAX_IMAGES, NO_IMAGE } from "../../utils";
 
 export default function ProductEditScreen(props) {
   const productId = props.match.params.id;
@@ -18,12 +19,13 @@ export default function ProductEditScreen(props) {
   const [deal, setDeal] = useState("");
   const [ship, setShip] = useState("");
   const [video, setVideo] = useState("");
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
   const [imagePreview, setImagePreview] = useState("");
+  const [info, setInfo] = useState("");
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -49,7 +51,7 @@ export default function ProductEditScreen(props) {
       setDeal(product.deal);
       setShip(product.ship);
       setVideo(product.video);
-      setImage(product.image);
+      setImages(product.image.split("^"));
       setCategory(product.category);
       setCountInStock(product.countInStock);
       setBrand(product.brand);
@@ -67,7 +69,7 @@ export default function ProductEditScreen(props) {
         deal,
         ship,
         video,
-        image,
+        image: images.join("^"),
         category,
         brand,
         countInStock,
@@ -81,41 +83,13 @@ export default function ProductEditScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
-  const uploadFileHandler1 = (e, setPic, setPreview) => {
-    const file = e.target.files[0];
-    setImagePreview(URL.createObjectURL(e.target.files[0]));
-    const reader = new FileReader();
-    setLoadingUpload(true);
-    reader.readAsDataURL(file);
-    reader.onload = async () => {
-      const { result } = reader;
-      try {
-        const { data } = await Axios.post(
-          "/api/uploads",
-          { image: result },
-          {
-            headers: {
-              enctype: "multipart/form-data",
-              Authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
-        setImage(data);
-        setLoadingUpload(false);
-      } catch (error) {
-        setErrorUpload(error.message);
-        setLoadingUpload(false);
-      }
-    };
-  };
-
   const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
     const bodyFormData = new FormData();
-    bodyFormData.append("image", file);
-    bodyFormData.append("sellerId", product.seller._id);
+    const { files } = e.target;
+    const capacity = Math.min(files.length, MAX_IMAGES - images.length);
+
+    for (let x = 0; x < capacity; x++) bodyFormData.append("images", files[x]);
     bodyFormData.append("productId", product._id);
-    console.log({ product });
     setLoadingUpload(true);
     try {
       const { data } = await Axios.post("/api/uploads", bodyFormData, {
@@ -124,7 +98,12 @@ export default function ProductEditScreen(props) {
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      setImage(data);
+      setImages([...images, ...data]);
+      if (capacity < files.length)
+        setInfo(
+          `You can upload ${MAX_IMAGES} Images total, the others will be ignore!`
+        );
+      else setInfo(`${capacity} Images successfully uploaded!`);
       setLoadingUpload(false);
     } catch (error) {
       setErrorUpload(error.message);
@@ -132,9 +111,37 @@ export default function ProductEditScreen(props) {
     }
   };
 
+  const deleteFileHandler = async (idx) => {
+    const newImages = images.filter((_, i) => i !== idx);
+
+    /* delete image on cloudinary and update immediately to DB */
+    const bodyFormData = new FormData();
+    bodyFormData.append("imgLink", images[idx]);
+    bodyFormData.append("productId", product._id);
+    bodyFormData.append("image", newImages.join("^"));
+    setLoadingUpload(true);
+    try {
+      await Axios.patch("/api/uploads", bodyFormData, {
+        headers: {
+          enctype: "multipart/form-data",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setLoadingUpload(false);
+    } catch (error) {
+      setErrorUpload(error.message);
+      setLoadingUpload(false);
+    }
+    setImages(newImages);
+  };
+
   return (
-    <div>
-      <form className="form" onSubmit={submitHandler}>
+    <div className="product-edit">
+      <form
+        className="form"
+        onSubmit={submitHandler}
+        // encType="multipart/form-data"
+      >
         <div>
           <h1>Edit Product {productId}</h1>
         </div>
@@ -186,36 +193,119 @@ export default function ProductEditScreen(props) {
                 onChange={(e) => setDeal(e.target.value)}
               ></input>
             </div>
+
             <div>
-              <label htmlFor="image">Image Links</label>
-              <input
-                id="image"
-                type="text"
-                placeholder="Enter image"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              ></input>
+              <label htmlFor="image__link--1">
+                Uploaded Images ({images.length} of {MAX_IMAGES})
+                <p>(You can also enter extern Image Links here)</p>
+              </label>
+
+              {images.map((img, id) => (
+                <div className="row" key={id}>
+                  <div className="tab__w6">
+                    <img
+                      onMouseEnter={() => setImagePreview(img)}
+                      src={getImgUrl(product._id, img)}
+                      alt={"Image Preview" + (id + 1)}
+                      className="small"
+                    />
+                  </div>
+
+                  <label className="p-1" htmlFor={"image__link--" + (id + 1)}>
+                    Image {id + 1} {!id && <h3>Cover</h3>}
+                    {id === 1 && <p>[ Deal ]</p>}
+                  </label>
+
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (id > 0)
+                        setImages([
+                          ...images.slice(0, id - 1),
+                          images[id],
+                          images[id - 1],
+                          ...images.slice(id + 1),
+                        ]);
+                    }}
+                  >
+                    <i className="fa success tab__w3 fa-arrow-circle-up"></i>
+                  </button>
+
+                  <div className="col-fill mr-1">
+                    <input
+                      id={"image__link--" + (id + 1)}
+                      type="text"
+                      className="row"
+                      placeholder={"Enter image link" + (id + 1)}
+                      value={img}
+                      onChange={(e) =>
+                        setImages(
+                          images.map((_, i) => (i === id ? e.target.value : _))
+                        )
+                      }
+                    ></input>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (
+                        window.confirm(
+                          "Do you really want to delete this image?"
+                        )
+                      )
+                        deleteFileHandler(id);
+                    }}
+                  >
+                    <i className="fa danger fa-close"></i>
+                  </button>
+                </div>
+              ))}
             </div>
+
+            <div className="row center">
+              <img
+                src={getImgUrl(product._id, imagePreview)}
+                alt="New Image Preview"
+                className="mt-1 medium"
+              />
+            </div>
+
             <div>
-              <label htmlFor="imageFile">Image File</label>
-              <input
-                type="file"
-                id="imageFile"
-                label="Choose Image"
-                onChange={uploadFileHandler}
-              ></input>
+              {images.length < MAX_IMAGES ? (
+                <>
+                  <label htmlFor="images">Add New Images</label>
+                  <input
+                    type="file"
+                    id="images"
+                    name="images"
+                    label="Choose Image"
+                    onChange={uploadFileHandler}
+                    multiple
+                  ></input>
 
-              <div>
-                <img
-                  src={imagePreview || image}
-                  alt=""
-                  className="mt-1 medium"
-                />
-              </div>
-
-              {loadingUpload && <LoadingBox />}
-              {errorUpload && (
-                <MessageBox variant="danger">{errorUpload}</MessageBox>
+                  <label htmlFor="image-link">Or enter your Image Link</label>
+                  <input
+                    type="text"
+                    id="image-link"
+                    placeholder="Enter your Image Link"
+                    value={imagePreview}
+                    onChange={(e) => setImagePreview(e.target.value)}
+                    onKeyUp={(e) => {
+                      if (e.key === "Enter" || e.keyCode === 13)
+                        setImages([...images, imagePreview]);
+                    }}
+                  ></input>
+                  {info && <MessageBox variant="info">{info}</MessageBox>}
+                  {loadingUpload && <LoadingBox />}
+                  {errorUpload && (
+                    <MessageBox variant="danger">{errorUpload}</MessageBox>
+                  )}
+                </>
+              ) : (
+                <label>
+                  You have uploaded {images.length} of {MAX_IMAGES} Images
+                </label>
               )}
             </div>
             <div>

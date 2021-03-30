@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import RegisterScreen from "../Auth/RegisterScreen";
 import SigninScreen from "../Auth/SigninScreen";
@@ -28,10 +28,11 @@ import VideoScreen from "../Product/VideoScreen";
 import DealScreen from "../Product/DealScreen";
 import CustomerScreen from "../User/CustomerScreen";
 import CurrencyScreen from "../User/CurrencyScreen";
+import Screen404 from "../Auth/Screen404";
 
 export default function MainRoute() {
   return (
-    <>
+    <Switch>
       <Route
         path="/currency/cType/:cType"
         component={CurrencyScreen}
@@ -45,7 +46,12 @@ export default function MainRoute() {
         exact
       ></Route>
       <Route path="/video" component={VideoScreen}></Route>
-      <Route path="/seller/:id" component={SellerScreen}></Route>
+      <Route path="/seller/:id" component={SellerScreen} exact></Route>
+      <Route
+        path="/seller/:id/order/:order/pageNumber/:pageNumber"
+        component={SellerScreen}
+        exact
+      ></Route>
       <Route path="/cart/:id?" component={CartScreen}></Route>
       <Route path="/product/:id" component={ProductScreen} exact></Route>
       <Route
@@ -121,6 +127,12 @@ export default function MainRoute() {
       <SellerRoute
         path="/product-list/seller"
         component={ProductListScreen}
+        exact
+      ></SellerRoute>
+      <SellerRoute
+        path="/product-list/seller/pageNumber/:pageNumber"
+        component={ProductListScreen}
+        exact
       ></SellerRoute>
       <SellerRoute
         path="/order-list/seller"
@@ -128,6 +140,7 @@ export default function MainRoute() {
       ></SellerRoute>
       <Route path="/banner/:banner" component={HomeScreen} exact></Route>
       <Route path="/" component={HomeScreen} exact></Route>
-    </>
+      <Route component={Screen404} exact />
+    </Switch>
   );
 }

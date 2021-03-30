@@ -5,7 +5,7 @@ import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { listProducts } from "../../../Controllers/productActions";
 import { dummyMovies, sourceAdapter } from "../../../utils";
-import VideoBanner, { VideoBanner2 } from "./VideoBanner";
+import VideoBanner, { VideoBannerBottom } from "./VideoBanner";
 import VideoRow from "./VideoRow";
 import "./videoScreen.css";
 
@@ -50,7 +50,8 @@ export default function VideoScreen() {
       );
       setMovies(movieObj);
     }
-    if (!movies[genre]) fetchData(); // else shuffle random movies list :)
+    //if (!movies[genre])
+    fetchData(); // else shuffle random movies list :)
   }, []);
 
   useEffect(() => {
@@ -61,9 +62,10 @@ export default function VideoScreen() {
         pageSize: 11,
       })
     );
+    console.log(movies[genre], { genre });
     if (successProducts)
       setMovies({ ...movies, STORE: sourceAdapter(products).reverse() });
-  }, [dispatch, successProducts]);
+  }, []);
 
   return (
     <div className="container--full video-screen">
@@ -124,7 +126,7 @@ export default function VideoScreen() {
         <VideoRow title="Top Rated" movies={movies["Top Rated"]} />
       )}
       <div className="banner__divider"></div>
-      <VideoBanner2 source={movies[genre] || dummyMovies} />
+      <VideoBannerBottom source={movies[genre] || dummyMovies} />
     </div>
   );
 }

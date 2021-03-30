@@ -121,8 +121,8 @@ export default function CurrencyScreen({}) {
               }}
             >
               <optgroup label="Select Currency">
-                {pipe.currencies.map((c) => (
-                  <option value={c}>
+                {pipe.currencies.map((c, id) => (
+                  <option value={c} key={id}>
                     {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
                   </option>
                 ))}

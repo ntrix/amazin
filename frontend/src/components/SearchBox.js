@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
+import { findSuggest } from "../utils";
 
 export default function SearchBox({ shadowFor, setShadowFor }) {
   const history = useHistory();
@@ -21,17 +22,9 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
   const [suggestBox, setSuggestBox] = useState(0);
   const [outline, setOutline] = useState("");
 
-  useEffect(() => {
-    dispatch(
-      listAllProducts({
-        category: category === "All Categories" ? "" : category,
-        pageSize: 999,
-      })
-    );
-  }, [dispatch, category, success]);
-
   const submitHandler = (e) => {
     e?.preventDefault();
+    if (!e.target.value) return;
     setSuggestBox(-1); //for absorbing a keypress on submit instead setSuggestBox(0)
     setShadowFor("");
     history.push(
@@ -50,6 +43,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     return e;
   };
 
+  /* detect click outside component to close categories search scope window */
   useEffect(() => {
     if ("scope" === shadowFor)
       document.addEventListener("mousedown", handleClick);
@@ -62,56 +56,14 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     };
   }, [navScope % 2, shadowFor]);
 
-  const findSuggest = (() => {
-    const LL = "<b>";
-    const RR = "</b>";
-    const rep = (r) => r.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
-    const combine_R_L = new RegExp(rep(RR + LL), "g");
-    const group = new RegExp("(" + rep(LL) + "[\\s\\S]+?" + rep(RR) + ")", "g");
-    const findMax = (string, word) => {
-      let max = 0;
-      word = LL + word + RR;
-      string.replace(group, (found) => {
-        if (word == found) max = 999;
-        else if (found.length > max) max = found.length;
-      });
-      return max;
-    };
-    const regExpKey = (key) => {
-      const source = key
-        .split("")
-        .reduce((acc, k) => acc + "(" + rep(k) + ")(.*?)", "(.*?)");
-      let replacer = "";
-      for (var i = 1, len = key.length; len > 0; len--)
-        replacer += "$" + i++ + LL + "$" + i++ + RR;
-      return {
-        regEx: new RegExp(source, "i"),
-        replacer: replacer + "$" + i,
-      };
-    };
-
-    return {
-      search(list, keyword) {
-        if (!list || !keyword) return [];
-        keyword = keyword.slice(0, 49);
-        const keyReg = regExpKey(keyword);
-        const result = [];
-        for (let el of [...list]) {
-          if (keyReg.regEx.test(el.name)) {
-            result.push({
-              name: el.name
-                .replace(keyReg.regEx, keyReg.replacer)
-                .replace(combine_R_L, ""),
-              _id: el._id,
-            });
-          }
-        }
-        return result.sort(
-          (a, b) => findMax(b.name, keyword) - findMax(a.name, keyword)
-        );
-      },
-    };
-  })();
+  useEffect(() => {
+    dispatch(
+      listAllProducts({
+        category: category === "All Categories" ? "" : category,
+        pageSize: 999,
+      })
+    );
+  }, [dispatch, category, success]);
 
   return (
     <>
@@ -124,6 +76,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
           <div className="search__dropdown">
             <div
               className={(navScope > 0 ? "focus " : "") + " search-box__scope"}
+              tabIndex="1"
               onClick={() => {
                 setOutline("");
                 setNavScope(navScope + 1);
@@ -141,35 +94,33 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
           {navScope % 2 > 0 && categories && (
             <div className="scope__windows">
               <ul className="scope__drop-list">
-                {[
-                  "All Categories",
-                  ...categories,
-                  ...categories,
-                  ...categories,
-                ].map((cat) => (
-                  <li
-                    className={
-                      (cat === category ? "selected " : "") + "category"
-                    }
-                    onClick={() => {
-                      if (cat !== category) {
-                        setCategory(cat);
-                        setNavScope(0);
-                        // setOutline("focus");
-                        //setSuggestBox(2);
-                        inputRef.current.focus();
-                        setSuggestBox(-1);
-                        setShadowFor("");
-                      } else {
-                        setNavScope(2);
-                        setOutline("");
+                {["All Categories", ...categories, ...categories].map(
+                  (cat, i) => (
+                    <li
+                      key={i}
+                      className={
+                        (cat === category ? "selected " : "") + "category"
                       }
-                    }}
-                    onBlur={() => setNavScope(0)}
-                  >
-                    <i className="fa fa-check"></i> {cat}
-                  </li>
-                ))}
+                      onClick={() => {
+                        if (cat !== category) {
+                          setCategory(cat);
+                          setNavScope(0);
+                          // setOutline("focus");
+                          //setSuggestBox(2);
+                          inputRef.current.focus();
+                          setSuggestBox(-1);
+                          setShadowFor("");
+                        } else {
+                          setNavScope(2);
+                          setOutline("");
+                        }
+                      }}
+                      onBlur={() => setNavScope(0)}
+                    >
+                      <i className="fa fa-check"></i> {cat}
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           )}
@@ -185,7 +136,8 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
               id="q"
               value={input}
               size="1"
-              tabIndex="1"
+              tabIndex="2"
+              aria-label="search input"
               onClick={(e) => {
                 if (input) {
                   const newSuggests = findSuggest.search(list, input);
@@ -242,11 +194,12 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
               }}
             ></input>
           </div>
+
           {shadowFor === "searchBox" && suggestBox % 2 > 0 && input && (
             <div className="search__suggest">
               <ul>
-                {suggests.slice(0, 12).map((p) => (
-                  <li>
+                {suggests.slice(0, 12).map((p, id) => (
+                  <li key={id}>
                     <Link
                       to={`/search/name/${p.name.replace(
                         /(<b>)|(<\/b>)/g,
@@ -266,10 +219,11 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
             </div>
           )}
         </div>
+
         <div className="row--right">
           <div className="search__btn">
-            <span className="sprite__search-btn" aria-label="Go">
-              <input type="submit" value="Go" tabIndex={0}></input>
+            <span className="sprite__search-btn" tabIndex="3" aria-label="Go">
+              <input type="submit" value="Go"></input>
             </span>
           </div>
         </div>

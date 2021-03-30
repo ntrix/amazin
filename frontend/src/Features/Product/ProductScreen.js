@@ -8,7 +8,7 @@ import { createReview, detailsProduct } from "../../Controllers/productActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
-import { pipe } from "../../utils";
+import { getImgUrl, pipe } from "../../utils";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
@@ -72,7 +72,7 @@ export default function ProductScreen(props) {
               </Link>
             </div>
           </div>
-          <div className="row top">
+          <div className="row top mt-1 p-1">
             <div className="col-2 flex mr-1">
               <div className="tab__w6 flex-col">
                 {product?.image &&
@@ -81,7 +81,7 @@ export default function ProductScreen(props) {
                     .map((img, id) => (
                       <img
                         key={id}
-                        src={img}
+                        src={getImgUrl(product._id, img)}
                         alt={product.name + " small " + id}
                         onMouseEnter={() => setImgActive(id)}
                         onClick={() => setImgActive(id)}
@@ -95,7 +95,10 @@ export default function ProductScreen(props) {
               <div className="tab__rest">
                 <img
                   className="large"
-                  src={product?.image?.split("^")[imgActive]}
+                  src={getImgUrl(
+                    product._id,
+                    product?.image?.split("^")[imgActive]
+                  )}
                   alt={product.name + " " + imgActive}
                 ></img>
               </div>
@@ -191,7 +194,7 @@ export default function ProductScreen(props) {
                             >
                               {[...Array(product.countInStock).keys()].map(
                                 (x) => (
-                                  <option key={x + 1} value={x + 1}>
+                                  <option key={x} value={x + 1}>
                                     {x + 1}
                                   </option>
                                 )
@@ -220,8 +223,8 @@ export default function ProductScreen(props) {
               <MessageBox>There is no review</MessageBox>
             )}
             <ul>
-              {product.reviews.map((review) => (
-                <li key={review._id}>
+              {product.reviews.map((review, id) => (
+                <li key={id}>
                   <strong>{review.name}</strong>
                   <Rating rating={review.rating} caption=" "></Rating>
                   <p>{review.createdAt.substring(0, 10)}</p>

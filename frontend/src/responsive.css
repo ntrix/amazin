@@ -40,7 +40,10 @@
   .container {
     width: 100%;
   }
-  .search__filter,
+
+  .search__filter {
+    padding: 0 1rem;
+  }
   .search__results,
   .card {
     margin: 1rem;
@@ -49,8 +52,8 @@
     max-width: 50px;
   }
 
-  .nav__left {
-    margin-left: 5px;
+  .nav-main {
+    padding-left: 5px;
   }
   .nav-main__item {
     height: 100%;

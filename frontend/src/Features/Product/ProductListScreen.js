@@ -11,6 +11,7 @@ import {
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import Pagination from "../../components/Pagination";
 
 export default function ProductListScreen(props) {
   const { pageNumber = 1 } = useParams();
@@ -127,17 +128,16 @@ export default function ProductListScreen(props) {
               ))}
             </tbody>
           </table>
-          <div className="row center pagination">
-            {[...Array(pages).keys()].map((x) => (
-              <Link
-                className={x + 1 === page ? "active" : ""}
-                key={x + 1}
-                to={`/product-list/pageNumber/${x + 1}`}
-              >
-                {x + 1}
-              </Link>
-            ))}
-          </div>
+          <Pagination
+            page={page}
+            pages={pages}
+            getUrl={({ page }) =>
+              `/product-list${
+                userInfo.isAdmin ? "" : "/seller"
+              }/pageNumber/${page}`
+            }
+            help
+          />
         </>
       )}
     </div>

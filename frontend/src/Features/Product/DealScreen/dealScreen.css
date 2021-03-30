@@ -22,7 +22,7 @@
   height: 28rem;
   padding: 0 3rem;
   border-radius: 0;
-  top: 1rem;
+  top: 0;
   background: transparent;
   text-shadow: 2px 2px 2px #111;
 }
@@ -37,4 +37,9 @@
   font-size: 14px;
   font-weight: 400;
   color: #444;
+}
+
+.deal-screen .placeholder,
+.deal-screen .card {
+  height: 38rem;
 }

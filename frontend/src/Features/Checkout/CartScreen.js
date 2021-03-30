@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { addToCart, removeFromCart } from "../../Controllers/cartActions";
-import { pipe } from "../../utils";
+import { getImgUrl, pipe } from "../../utils";
 
 import MessageBox from "../../components/MessageBox";
 
@@ -30,7 +30,7 @@ export default function CartScreen(props) {
     props.history.push("/signin?redirect=shipping");
   };
   return (
-    <div className="row top">
+    <div className="screen--light row top">
       <div className="col-2">
         <h1 className="p-1">Shopping Cart</h1>
         {error && <MessageBox variant="danger">{error}</MessageBox>}
@@ -45,12 +45,12 @@ export default function CartScreen(props) {
           <table className="table">
             <thead></thead>
             <tbody>
-              {cartItems.map((item) => (
-                <tr className="row" key={item.product}>
+              {cartItems.map((item, id) => (
+                <tr className="row" key={id}>
                   <td className="tab__w6">
                     <Link to={`/product/${item.product}`}>
                       <img
-                        src={item.image.split("^")[0]}
+                        src={getImgUrl(item.product, item.image.split("^")[0])}
                         alt={item.name}
                         className="small"
                       ></img>
@@ -67,12 +67,15 @@ export default function CartScreen(props) {
                         value={item.qty}
                         onChange={(e) =>
                           dispatch(
-                            addToCart(item.product, Number(e.target.value))
+                            addToCart(
+                              item.product,
+                              -item.qty + Number(e.target.value)
+                            )
                           )
                         }
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
+                          <option key={x} value={x + 1}>
                             {x + 1}
                           </option>
                         ))}

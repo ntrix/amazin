@@ -42,7 +42,7 @@ productRoute.get(
     const categoryFilter = category ? { category } : {};
     let pageSize = Number(req.query.pageSize) || 6;
     if (pageSize == 999) {
-      // only for Search functions
+      // only for Search function: categories scope purpose
       const list = await Product.find(categoryFilter);
       const productList = list.map((p) => ({
         name: p.name,
@@ -83,6 +83,8 @@ productRoute.get(
         ? { rating: -1 }
         : order === "bestselling"
         ? { numReviews: -1 }
+        : order === "oldest"
+        ? { _id: 1 }
         : { _id: -1 }; /* date */
     const count = await Product.count({
       ...sellerFilter,
@@ -158,16 +160,16 @@ productRoute.post(
   isSellerOrAdmin,
   asyncHandler(async (req, res) => {
     const product = new Product({
-      name: "sample name " + Date.now(),
+      name: "product name " + Date.now(),
       seller: req.user._id,
-      image: "/images/p1.jpg",
+      image: "",
       price: 0,
-      category: "sample category",
-      brand: "sample brand",
+      category: "pending category",
+      brand: "noname",
       countInStock: 0,
       rating: 0,
       numReviews: 0,
-      description: "sample description",
+      description: "product description",
     });
     const createdProduct = await product.save();
     res.send({ message: "Product Created", product: createdProduct });

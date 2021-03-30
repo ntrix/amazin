@@ -8,9 +8,14 @@ export const { actions: cartActions, reducer: cartReducer } = createSlice({
       const item = action.payload;
       const existItem = state.cartItems.find((x) => x.product === item.product);
       if (existItem) {
+        const error =
+          item.qty + existItem.qty > item.countInStock
+            ? `There are only ${item.countInStock} products left in stock`
+            : "";
+        item.qty = Math.min(item.qty + existItem.qty, item.countInStock);
         return {
           ...state,
-          error: "",
+          error,
           cartItems: state.cartItems.map((x) =>
             x.product === existItem.product ? item : x
           ),

@@ -4,12 +4,12 @@ import { useHistory, useParams } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import ProductCard from "../../../components/ProductCard";
+import SortFilter from "../../../components/SortFilter";
 import { listProducts } from "../../../Controllers/productActions";
-import Carousel, { responsive } from "../../../utils";
+import Carousel, { dummyProducts, responsive } from "../../../utils";
 import "./dealScreen.css";
 
 export default function DealScreen() {
-  const history = useHistory();
   const {
     category = "Deals",
     order = "bestselling",
@@ -36,6 +36,7 @@ export default function DealScreen() {
       })
     );
   }, [category, dispatch, order, pageNumber, cat]);
+
   return (
     <>
       <header className="screen__header">
@@ -45,9 +46,9 @@ export default function DealScreen() {
           ) : errorCategories ? (
             <MessageBox variant="danger">{errorCategories}</MessageBox>
           ) : (
-            ["Deals", ...categories].map((label) => (
+            ["Deals", ...categories].map((label, id) => (
               <li
-                key={label}
+                key={id}
                 className={label === cat ? " selected" : ""}
                 onClick={() => setCat(label)}
               >
@@ -81,7 +82,7 @@ export default function DealScreen() {
             <LoadingBox xl />
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
-          ) : products.length === 0 ? (
+          ) : !products.length ? (
             <MessageBox>No Deals On This Category!</MessageBox>
           ) : (
             products.map((product, id) => (
@@ -101,48 +102,26 @@ export default function DealScreen() {
                 {products.length} of {count} Results
               </div>
             )}
-            <div className="sort__filter">
-              <label htmlFor="filter__options">Sort by</label>
-              <div className="sprite__caret"></div>
-              <select
-                id="filter__options"
-                value={order}
-                onChange={(e) =>
-                  history.push(
-                    `/deal/category/all/order/${e.target.value}/pageNumber/1`
-                  )
-                }
-              >
-                <optgroup label="Sort by:">
-                  <option value="newest">Newest Arrivals</option>
-                  <option value="bestselling">Best Selling</option>
-                  <option value="lowest">Price: Low to High</option>
-                  <option value="highest">Price: High to Low</option>
-                  <option value="toprated">Avg. Rating</option>
-                </optgroup>
-              </select>
-            </div>
+
+            <SortFilter
+              order={order}
+              getUrl={({ order }) =>
+                `/deal/category/all/order/${order}/pageNumber/1`
+              }
+            />
           </div>
           {loading ? (
             <LoadingBox xl />
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (
-            <>
-              {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
-              )}
-              <div className="row center">
-                {products.map((product) => (
-                  <ProductCard
-                    deal
-                    key={product._id}
-                    product={product}
-                  ></ProductCard>
-                ))}
-              </div>
-            </>
+            !products.length && <MessageBox>No Product Found</MessageBox>
           )}
+          <div className="row center">
+            {(products ? products : dummyProducts).map((product, id) => (
+              <ProductCard deal key={id} product={product}></ProductCard>
+            ))}
+          </div>
         </div>
       </div>
     </>

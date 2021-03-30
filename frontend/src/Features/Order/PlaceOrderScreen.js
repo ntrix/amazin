@@ -8,7 +8,7 @@ import { createOrder } from "../../Controllers/orderActions";
 import CheckoutSteps from "../Checkout/CheckoutSteps";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import { pipe } from "../../utils";
+import { getImgUrl, pipe } from "../../utils";
 
 export default function PlaceOrderScreen(props) {
   const tax = 0.19;
@@ -38,7 +38,7 @@ export default function PlaceOrderScreen(props) {
   }, [dispatch, order, props.history, success]);
 
   return (
-    <div>
+    <div className="screen--light">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <div className="row top">
         <div className="col-2">
@@ -66,12 +66,15 @@ export default function PlaceOrderScreen(props) {
               <div className="card card__body">
                 <h2>Order Items</h2>
                 <ul>
-                  {cart.cartItems.map((item) => (
-                    <li key={item.product}>
+                  {cart.cartItems.map((item, id) => (
+                    <li key={id}>
                       <div className="row">
                         <div>
                           <img
-                            src={item.image.split("^")[0]}
+                            src={getImgUrl(
+                              item.product,
+                              item.image.split("^")[0]
+                            )}
                             alt={item.name}
                             className="small"
                           ></img>

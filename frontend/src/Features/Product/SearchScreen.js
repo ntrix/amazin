@@ -9,6 +9,8 @@ import MessageBox from "../../components/MessageBox";
 import ProductCard from "../../components/ProductCard";
 import Rating from "../../components/Rating";
 import { prices, ratings } from "../../utils";
+import Pagination from "../../components/Pagination";
+import SortFilter from "../../components/SortFilter";
 
 export default function SearchScreen({ history }) {
   const {
@@ -83,25 +85,7 @@ export default function SearchScreen({ history }) {
             {products.length} of {count} Results
           </div>
         )}
-        <div className="sort__filter">
-          <label htmlFor="filter__options">Sort by</label>
-          <div className="sprite__caret"></div>
-          <select
-            id="filter__options"
-            value={order}
-            onChange={(e) => {
-              history.push(getFilterUrl({ order: e.target.value }));
-            }}
-          >
-            <optgroup label="Sort by:">
-              <option value="newest">Newest Arrivals</option>
-              <option value="bestselling">Best Selling</option>
-              <option value="lowest">Price: Low to High</option>
-              <option value="highest">Price: High to Low</option>
-              <option value="toprated">Avg. Rating</option>
-            </optgroup>
-          </select>
-        </div>
+        <SortFilter order={order} getUrl={getFilterUrl} />
       </div>
       <div className="row top search-screen__result">
         <div className="search__filter">
@@ -122,8 +106,8 @@ export default function SearchScreen({ history }) {
                       Any
                     </Link>
                   </li>
-                  {categories.map((c) => (
-                    <li key={c}>
+                  {categories.map((c, id) => (
+                    <li key={id}>
                       <Link
                         className={c === category ? "active" : ""}
                         to={getFilterUrl({ category: c })}
@@ -138,8 +122,8 @@ export default function SearchScreen({ history }) {
             <br />
             <h4>Price</h4>
             <div>
-              {prices.map((p) => (
-                <li key={p.name}>
+              {prices.map((p, id) => (
+                <li key={id}>
                   <Link
                     to={getFilterUrl({ min: p.min, max: p.max })}
                     className={
@@ -154,8 +138,8 @@ export default function SearchScreen({ history }) {
             <br />
             <h4>Avg. Customer Review</h4>
             <div>
-              {ratings.map((r) => (
-                <li key={r.name}>
+              {ratings.map((r, id) => (
+                <li key={id}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
                     className={`${r.rating}` === `${rating}` ? "active" : ""}
@@ -188,11 +172,8 @@ export default function SearchScreen({ history }) {
               </>
             ) : (
               <>
-                {products.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                  ></ProductCard>
+                {products.map((product, id) => (
+                  <ProductCard key={id} product={product}></ProductCard>
                 ))}
               </>
             )}
@@ -200,32 +181,7 @@ export default function SearchScreen({ history }) {
               <div className="placeholder"></div>
             )}
             <div className="row divider-inner"></div>
-            <div className="row center pagination">
-              {[...Array(pages || 0).keys()].map((x) => (
-                <Link
-                  className={x + 1 === page ? "active" : ""}
-                  key={x + 1}
-                  to={getFilterUrl({ page: x + 1 })}
-                >
-                  {x + 1}
-                </Link>
-              ))}
-            </div>
-            <div>
-              <h2>Do you need help?</h2>
-              <p>
-                Visit the{" "}
-                <Link to="/customer">
-                  <b>help section</b>
-                </Link>
-                {" or "}
-                <Link to="/contact/subject/Help">
-                  <b>contact us</b>
-                </Link>
-                <br />
-                <br />
-              </p>
-            </div>
+            <Pagination page={page} pages={pages} getUrl={getFilterUrl} help />
           </div>
         </div>
       </div>
