@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.1",
     "movie-trailer": "^2.1.0",
+    "nodemon": "^2.0.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-multi-carousel": "^2.6.2",
@@ -24,7 +25,10 @@
     "swiper": "^6.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "build:ui": "rm -rf build && npm run build",
+    "mon": "nodemon --watch backend --exec node --experimental-modules ../backend/server.js --ignore client",
+    "start": "node ../backend/server.js",
+    "devstart": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
