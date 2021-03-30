@@ -65,7 +65,7 @@ export default function SigninScreen({ location, history }) {
           <div>
             New customer?{" "}
             <Link to={`/register?redirect=${redirect}`}>
-              Create your account
+              <b>Create your account</b>
             </Link>
           </div>
         </div>

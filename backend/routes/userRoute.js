@@ -53,20 +53,71 @@ userRoute.post(
   "/signin",
   asyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
-    if (user) {
-      if (bcrypt.compareSync(req.body.password, user.password)) {
-        res.send({
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          isAdmin: user.isAdmin,
-          isSeller: user.isSeller,
-          token: generateToken(user),
-        });
-        return;
-      }
+    if (!user)
+      return res.status(401).send({ message: "Invalid email or password" });
+
+    let count = user.failLoginCount || 0;
+
+    if (count > 3) {
+      res.status(401).send({
+        message:
+          "Too many fail attempts! Please try again in 15 minutes or reset your password.",
+      });
+      if (count > 4) return;
+
+      user.failLoginCount = 5;
+      user.save();
+      setTimeout(() => {
+        user.failLoginCount = 3;
+        user.save();
+      }, 15 * 60 * 1000);
+      return;
     }
-    res.status(401).send({ message: "Invalid email or password" });
+    if (!bcrypt.compareSync(req.body.password, user.password)) {
+      user.failLoginCount = ++count;
+      user.save();
+
+      if (count >= 3) {
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        const msg = {
+          to: user.email,
+          from: "dev@tiennguyen.com",
+          subject: "Warning! too many failed attempts by logging in",
+          text:
+            "You have reached " +
+            count +
+            " of 4 attempts to login. Please be careful or your account will be locked.",
+          html:
+            "<b>You can also retry in 15 minutes or reset your password</b>",
+        };
+        try {
+          await sgMail.send(msg);
+          res.status(401).send({
+            message: "A warning message has been sent to this email address!",
+          });
+        } catch (err) {
+          res.status(401).send({
+            message:
+              "A warning message has been sent, but your email cannot receive any message. Please contact our customer service!",
+          });
+        }
+      }
+      res
+        .status(401)
+        .send({ message: "Wrong password! " + count + " of 4 attempts." });
+      return;
+    }
+
+    user.failLoginCount = 0;
+    user.save((err) => (err ? res.status(402).send({ message: err }) : 0));
+    res.send({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isSeller: user.isSeller,
+      token: generateToken(user),
+    });
   })
 );
 

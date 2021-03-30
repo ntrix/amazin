@@ -40,7 +40,7 @@ const adapter = (movies) =>
 
 export default function VideoScreen() {
   const dispatch = useDispatch();
-  const [genre, setGenre] = useState("Home");
+  const [genre, setGenre] = useState("STORE");
   const [movies, setMovies] = useState({});
   const {
     loading: loadingProducts,
@@ -68,7 +68,11 @@ export default function VideoScreen() {
 
   useEffect(() => {
     dispatch(
-      listProducts({ seller: process.env.REACT_APP_SELLER, pageSize: 11 })
+      listProducts({
+        seller: process.env.REACT_APP_SELLER,
+        category: "Video",
+        pageSize: 11,
+      })
     );
     if (successProducts)
       setMovies({ ...movies, STORE: adapter(products).reverse() });
@@ -102,6 +106,7 @@ export default function VideoScreen() {
           (genre === label || genre === "Home") &&
           label !== "STORE" ? (
             <VideoRow
+              key={label}
               title={label}
               movies={movies[label]}
               large={label === "NETFLIX ORIGINALS"}

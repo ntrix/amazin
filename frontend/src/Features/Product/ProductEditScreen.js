@@ -139,7 +139,7 @@ export default function ProductEditScreen(props) {
                 id="ship"
                 type="text"
                 placeholder="Enter shipping price"
-                value={ship}
+                value={ship || ""}
                 onChange={(e) => setShip(e.target.value)}
               ></input>
             </div>
@@ -149,7 +149,7 @@ export default function ProductEditScreen(props) {
                 id="deal"
                 type="text"
                 placeholder="Enter deal"
-                value={deal}
+                value={deal || ""}
                 onChange={(e) => setDeal(e.target.value)}
               ></input>
             </div>
@@ -182,7 +182,7 @@ export default function ProductEditScreen(props) {
                 id="video"
                 type="text"
                 placeholder="Enter video link or Youtube video ID"
-                value={video}
+                value={video || ""}
                 onChange={(e) => setVideo(e.target.value)}
               ></input>
             </div>

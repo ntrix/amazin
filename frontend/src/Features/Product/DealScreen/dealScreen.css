@@ -1,10 +1,60 @@
+.sub-header {
+  height: 31px;
+  margin: 0 -10px;
+  top: 0;
+  border-top: thin solid #0002;
+  border-bottom: thin solid #0002;
+  color: #111;
+  background: #fafafa;
+}
+.cat-nav {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 18px;
+  font-size: 12px;
+  font-weight: 400;
+}
+.cat-nav a {
+  padding: 0;
+  color: #111;
+}
+.cat-nav li {
+  flex: 0 1 auto;
+  padding: 0 10px;
+  max-width: 12rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.cat-nav li.selected {
+  color: #000;
+  font-weight: 700;
+}
+.cat-nav li:hover {
+  padding-bottom: 4px;
+  color: #e47911;
+  border-bottom: 2px solid #e47911;
+}
+.cat-nav li:not(:first-child).active {
+  color: #fff;
+  text-decoration: underline;
+}
+
 .deal-screen {
   margin: 0 -1rem;
+  background: linear-gradient(to bottom, #fbf4e4 15%, #fbf4e400 40%);
 }
 .deal-screen .carousel-container {
-  background: linear-gradient(to bottom, #fbf4e4 70%, #fbf4e400 100%);
-  height: 60rem;
-  padding-top: 6rem;
+  height: 50rem;
+  background: url("../../../img/banner-Save.jpg") center 0 no-repeat;
+  padding-top: 22rem;
+}
+.screen--1 .carousel-container {
+  height: 50rem;
+  background: url("../../../img/banner-Save1.jpg") center 0 no-repeat;
+  padding-top: 22rem;
 }
 .deal-screen .react-multiple-carousel__arrow--left {
   left: 0; /*5px more for safari hover*/
@@ -13,7 +63,7 @@
   right: 0; /*5px more for safari hover*/
 }
 .deal-screen .react-multiple-carousel__arrow {
-  height: 17rem;
+  height: 28rem;
   padding: 0 3rem;
   border-radius: 0;
   top: 1rem;

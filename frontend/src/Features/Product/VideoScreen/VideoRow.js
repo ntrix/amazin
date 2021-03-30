@@ -17,7 +17,7 @@ export default function VideoRow({ title, movies = [], large = false }) {
         infinite={false}
         autoPlay={false}
         keyBoardControl={true}
-        customTransition="all .5"
+        customTransition="transform 300ms ease-in-out"
         transitionDuration={500}
         containerClass="carousel-container"
         removeArrowOnDeviceType={["mobile"]}

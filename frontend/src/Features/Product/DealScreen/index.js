@@ -1,109 +1,144 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, useParams } from "react-router-dom";
-
-import { listProducts } from "../../../Controllers/productActions";
-
+import { useHistory, useParams } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import Product from "../../../components/Product";
+import { listProducts } from "../../../Controllers/productActions";
 import Carousel, { responsive } from "../../../utils";
 import "./dealScreen.css";
 
 export default function DealScreen() {
   const history = useHistory();
   const {
-    category = "all",
+    category = "Deals",
     order = "bestselling",
     pageNumber = 1,
   } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, count } = productList;
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = useSelector((state) => state.productCategoryList);
+  const [cat, setCat] = useState("Deals");
 
   useEffect(() => {
     dispatch(
       listProducts({
         pageNumber,
-        category: category !== "all" ? category : "",
+        category: cat === "Deals" ? "" : cat,
         order,
         deal: 1,
         pageSize: 990,
       })
     );
-  }, [category, dispatch, order, pageNumber]);
+  }, [category, dispatch, order, pageNumber, cat]);
   return (
-    <div className="deal-screen">
-      {loading ? (
-        <LoadingBox size="xl" />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
-        <Carousel
-          swipeable={true}
-          draggable={true}
-          showDots={true}
-          responsive={responsive}
-          infinite={true}
-          autoPlay={true}
-          keyBoardControl={true}
-          customTransition="all .5"
-          transitionDuration={1000}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={["mobile"]}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-40-px"
-        >
-          {products.map((product) => (
-            <Product deal product={product}></Product>
-          ))}
-        </Carousel>
-      )}
-      <h2 className="mh-2">Top Deals</h2>
-      <div className="row top">
-        <div className="row search__banner">
-          {loading ? (
+    <>
+      <header className="sub-header">
+        <ul className="cat-nav">
+          {loadingCategories ? (
             <LoadingBox />
-          ) : error ? (
-            <MessageBox variant="danger">{error}</MessageBox>
+          ) : errorCategories ? (
+            <MessageBox variant="danger">{errorCategories}</MessageBox>
           ) : (
-            <div className="search__counter">
-              {products.length} of {count} Results
-            </div>
+            ["Deals", ...categories].map((label) => (
+              <li
+                key={label}
+                className={label === cat ? " selected" : ""}
+                onClick={() => setCat(label)}
+              >
+                {label}
+              </li>
+            ))
           )}
-          <div className="sort__filter">
-            Sort by{" "}
-            <select
-              value={order}
-              onChange={(e) =>
-                history.push(
-                  `/deal/category/all/order/${e.target.value}/pageNumber/1`
-                )
-              }
-            >
-              <option value="newest">Newest Arrivals</option>
-              <option value="bestselling">Best Selling</option>
-              <option value="lowest">Price: Low to High</option>
-              <option value="highest">Price: High to Low</option>
-              <option value="toprated">Avg. Rating</option>
-            </select>
-          </div>
-        </div>
+        </ul>
+      </header>
+      <div
+        className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
+      >
         {loading ? (
           <LoadingBox size="xl" />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <>
-            {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-            <div className="row center">
-              {products.map((product) => (
-                <Product deal key={product._id} product={product}></Product>
-              ))}
-            </div>
-          </>
+          <Carousel
+            swipeable={true}
+            draggable={true}
+            showDots={true}
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={2500}
+            keyBoardControl={true}
+            customTransition="transform 500ms ease-in-out"
+            transitionDuration={500}
+            centerMode={true}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["mobile"]}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+          >
+            {products.length === 0 ? (
+              <MessageBox>No Deals On This Category!</MessageBox>
+            ) : (
+              products.map((product) => (
+                <Product deal product={product}></Product>
+              ))
+            )}
+          </Carousel>
         )}
+        <h2 className="mh-2">Top Deals</h2>
+        <div className="row top">
+          <div className="row search__banner">
+            {loading ? (
+              <LoadingBox />
+            ) : error ? (
+              <MessageBox variant="danger">{error}</MessageBox>
+            ) : (
+              <div className="search__counter">
+                {products.length} of {count} Results
+              </div>
+            )}
+            <div className="sort__filter">
+              Sort by{" "}
+              <select
+                value={order}
+                onChange={(e) =>
+                  history.push(
+                    `/deal/category/all/order/${e.target.value}/pageNumber/1`
+                  )
+                }
+              >
+                <option value="newest">Newest Arrivals</option>
+                <option value="bestselling">Best Selling</option>
+                <option value="lowest">Price: Low to High</option>
+                <option value="highest">Price: High to Low</option>
+                <option value="toprated">Avg. Rating</option>
+              </select>
+            </div>
+          </div>
+          {loading ? (
+            <LoadingBox size="xl" />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <>
+              {products.length === 0 && (
+                <MessageBox>No Product Found</MessageBox>
+              )}
+              <div className="row center">
+                {products.map((product) => (
+                  <Product deal key={product._id} product={product}></Product>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

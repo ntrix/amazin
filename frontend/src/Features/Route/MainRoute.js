@@ -58,6 +58,11 @@ export default function MainRoute() {
         exact
       ></Route>
       <Route
+        path="/search/category/:category/order/:order"
+        component={SearchScreen}
+        exact
+      ></Route>
+      <Route
         path="/search/category/:category/name/:name"
         component={SearchScreen}
         exact

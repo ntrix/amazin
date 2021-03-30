@@ -82,19 +82,22 @@
   outline: none;
   cursor: pointer;
   color: #fff;
-  background: #000;
+  background: #222;
+  background: linear-gradient(to bottom, #000, #444);
 }
 .banner__button + .banner__button {
   margin-left: 10px;
 }
 .banner__button:not([disabled]):hover {
   color: #000;
-  background-color: #e6e6e6;
+  background: #ccc;
+  background: linear-gradient(to bottom, #aaa, #eee);
   transition: all 0.2s;
 }
 .banner__button[disabled] {
-  background-color: #e6e6e6;
-  color: #888;
+  background: #666;
+  background: linear-gradient(to bottom, #444, #888);
+  color: #222;
   cursor: default;
 }
 

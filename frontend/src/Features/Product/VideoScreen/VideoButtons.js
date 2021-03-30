@@ -70,12 +70,13 @@ export function VideoButtons({ movie, trailerUrl, setTrailerUrl }) {
       )}
 
       <Link
-        className="banner__button"
         disabled={!movie.seller}
         //is there any seller sells this movie?
         to={movie.seller ? `/cart/${movie._id}?qty=1` : `#`}
       >
-        <i className="fa fa-shopping-cart"></i> Rent[Buy]
+        <button className="banner__button" disabled={!movie.seller}>
+          <i className="fa fa-shopping-cart"></i> Buy[Rent]
+        </button>
       </Link>
     </>
   );
