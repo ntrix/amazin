@@ -62,11 +62,11 @@ export default function VideoScreen() {
       );
       setFetchMovies(movieObj);
     })();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setFetchInSock(products);
-  }, [successProducts]);
+  }, [successProducts, products]);
 
   useEffect(() => {
     setMovies({ ...fetchMovies, STORE: fetchInSock });

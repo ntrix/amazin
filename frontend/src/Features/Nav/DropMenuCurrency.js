@@ -34,7 +34,7 @@ export default function DropMenuCurrency({ currency }) {
       </li>
       <div className="separator"></div>
 
-      <a href={RATES_SOURCE} target="_blank">
+      <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
         <div className="sprite__wrapper">
           <div className={"sprite flag xl " + currency}></div>
           <span>Exchange Reference Rates</span>

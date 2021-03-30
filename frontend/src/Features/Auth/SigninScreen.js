@@ -38,7 +38,7 @@ export default function SigninScreen({ location, history }) {
         );
       history.push(redirect);
     }
-  }, [history, redirect, userInfo]);
+  }, [dispatch, history, redirect, userInfo]);
 
   return (
     <div>

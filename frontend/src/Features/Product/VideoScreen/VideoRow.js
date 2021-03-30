@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import Rating from "../../../components/Rating";
-import Carousel, {
-  dummyMovies,
-  getImgUrl,
-  NO_IMAGE,
-  responsive,
-} from "../../../utils";
-import UTube, { VideoButtons } from "./VideoButtons";
+import Carousel, { dummyMovies, responsive } from "../../../utils";
+import UTube from "./UTube";
+import VideoCard from "./VideoCard";
 
 export default function VideoRow({ title, movies = [], portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState("");
@@ -30,43 +25,13 @@ export default function VideoRow({ title, movies = [], portrait = false }) {
         itemClass="carousel-item-padding-40-px"
       >
         {(movies || dummyMovies).map((movie, id) => (
-          <div
+          <VideoCard
             key={id}
-            className={"m-card" + (portrait ? " m-card--portrait" : "")}
-          >
-            <img
-              src={getImgUrl(
-                movie._id,
-                movie.image ? movie.image.split("^")[1 - portrait] : NO_IMAGE
-              )}
-              alt={movie.name}
-            />
-
-            <div className="m-card__background">
-              <div className="m-card__text">
-                {movie?.description.slice(0, 150) + ".."}
-                <div className="m-card__rating">
-                  <Rating
-                    rating={movie?.rating * 2}
-                    steps={10}
-                    numReviews={movie?.numReviews}
-                  />
-                </div>
-              </div>
-
-              <div className="m-card__more">
-                <VideoButtons
-                  movie={movie}
-                  trailerUrl={trailerUrl}
-                  setTrailerUrl={setTrailerUrl}
-                />
-              </div>
-            </div>
-
-            <div className="m-card__info">
-              <div className="m-card__name">{movie.name}</div>
-            </div>
-          </div>
+            movie={movie}
+            portrait={portrait}
+            trailerUrl={trailerUrl}
+            setTrailerUrl={setTrailerUrl}
+          />
         ))}
       </Carousel>
 

@@ -29,7 +29,7 @@ export function userMenuItems(userInfo, extraAction) {
       "Apply & Verify Your Seller Account",
       userInfo?.isSeller ? "disabled" : "/contact/subject/Seller",
     ],
-    ["Sign Out", "#signout", , extraAction],
+    ["Sign Out", "#signout", "", extraAction],
   ];
 }
 
@@ -92,7 +92,7 @@ export function sidebarMenuItems(userInfo, currency, categories, extraAction) {
       "pl-8",
       savePath("/curr"),
     ],
-    ["Currency Setting", "/currency/cType/EUR", , savePath("/curr")],
+    ["Currency Setting", "/currency/cType/EUR", "", savePath("/curr")],
     ["Your Browsing History", "disabled"],
     ["Shipping Address", "/shipping"],
     ["Orders & Returns", "/order-history"],
@@ -104,7 +104,9 @@ export function sidebarMenuItems(userInfo, currency, categories, extraAction) {
     ["Your Account"],
     ["Your Profile", "/profile"],
     ["Customer Service", "/customer"],
-    userInfo ? ["Sign Out", "#signout", , extraAction] : ["Sign In", "/signin"],
+    userInfo
+      ? ["Sign Out", "#signout", "", extraAction]
+      : ["Sign In", "/signin"],
     [""],
     ["separator"],
     ["separator"],

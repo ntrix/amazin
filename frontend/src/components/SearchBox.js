@@ -94,33 +94,31 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
           {navScope % 2 > 0 && categories && (
             <div className="scope__windows">
               <ul className="scope__drop-list">
-                {["All Categories", ...categories, ...categories].map(
-                  (cat, i) => (
-                    <li
-                      key={i}
-                      className={
-                        (cat === category ? "selected " : "") + "category"
+                {["All Categories", ...categories].map((cat, i) => (
+                  <li
+                    key={i}
+                    className={
+                      (cat === category ? "selected " : "") + "category"
+                    }
+                    onClick={() => {
+                      if (cat !== category) {
+                        setCategory(cat);
+                        setNavScope(0);
+                        // setOutline("focus");
+                        //setSuggestBox(2);
+                        inputRef.current.focus();
+                        setSuggestBox(-1);
+                        setShadowFor("");
+                      } else {
+                        setNavScope(2);
+                        setOutline("");
                       }
-                      onClick={() => {
-                        if (cat !== category) {
-                          setCategory(cat);
-                          setNavScope(0);
-                          // setOutline("focus");
-                          //setSuggestBox(2);
-                          inputRef.current.focus();
-                          setSuggestBox(-1);
-                          setShadowFor("");
-                        } else {
-                          setNavScope(2);
-                          setOutline("");
-                        }
-                      }}
-                      onBlur={() => setNavScope(0)}
-                    >
-                      <i className="fa fa-check"></i> {cat}
-                    </li>
-                  )
-                )}
+                    }}
+                    onBlur={() => setNavScope(0)}
+                  >
+                    <i className="fa fa-check"></i> {cat}
+                  </li>
+                ))}
               </ul>
             </div>
           )}
@@ -166,13 +164,13 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
                 if (
                   value.length === 0 ||
                   e.key === "Escape" ||
-                  e.keyCode == 27
+                  e.keyCode === 27
                 ) {
                   setSuggestBox(0);
                   setShadowFor("");
                   return;
                 }
-                if (e.key === "Enter" || e.keyCode == 13)
+                if (e.key === "Enter" || e.keyCode === 13)
                   return submitHandler();
                 // if (value === input) return;
                 setSuggestBox((suggestBox || 1) + 2);

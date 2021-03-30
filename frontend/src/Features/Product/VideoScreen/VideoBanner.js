@@ -6,7 +6,8 @@ import MessageBox from "../../../components/MessageBox";
 import { createProduct } from "../../../Controllers/productActions";
 import { EXAMPLE_MOVIES, NO_MOVIES, NO_IMAGE } from "../../../utils";
 import { productCreateActions } from "../ProductSlice";
-import UTube, { VideoButtons } from "./VideoButtons";
+import UTube from "./UTube";
+import { VideoButtons } from "./VideoButtons";
 
 export default function VideoBanner({ source, genre, loading }) {
   const [trailerUrl, setTrailerUrl] = useState("");

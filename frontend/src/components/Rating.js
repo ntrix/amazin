@@ -8,7 +8,7 @@ export default function Rating({ rating, numReviews, caption, steps = 5 }) {
           <i
             className={
               star <= rating + 0.5
-                ? star == rating + 0.5
+                ? star === rating + 0.5
                   ? "fa fa-star-half-o"
                   : "fa fa-star"
                 : "fa fa-star-o"

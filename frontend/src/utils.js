@@ -203,12 +203,12 @@ export const findSuggest = (() => {
   const openTag = "<b>";
   const closeTag = "</b>";
 
-  const validate = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
+  const escapeC = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
 
-  const combinePhrases = new RegExp(validate(closeTag + openTag), "g");
+  const combinePhrases = new RegExp(escapeC(closeTag + openTag), "g");
 
   const group = new RegExp(
-    "(" + validate(openTag) + "[\\s\\S]+?" + validate(closeTag) + ")",
+    "(" + escapeC(openTag) + "[\\s\\S]+?" + escapeC(closeTag) + ")",
     "g"
   );
 
@@ -216,7 +216,7 @@ export const findSuggest = (() => {
     let prior = 0;
     word = openTag + word + closeTag;
     string.replace(group, (found) => {
-      if (word == found) prior = 999;
+      if (word === found) prior = 999;
       else if (found.length > prior) prior = found.length;
     });
     return prior;
@@ -230,7 +230,7 @@ export const findSuggest = (() => {
       const splittedKeys = keyword.split("");
 
       const convertedKey = splittedKeys.reduce(
-        (acc, char) => acc + "(" + validate(char) + ")(.*?)",
+        (acc, char) => acc + "(" + escapeC(char) + ")(.*?)",
         "(.*?)"
       );
       const regKey = new RegExp(convertedKey, "i");
