@@ -5,17 +5,22 @@ import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
 import NavDropMenu, { addMenuItem } from "./components/NavMenu";
 import SearchBox from "./components/SearchBox";
-import { listProductCategories } from "./Controllers/productActions";
+import {
+  changeCurrency,
+  listProductCategories,
+  updateCurrencyRates,
+} from "./Controllers/productActions";
 import { signout } from "./Controllers/userActions";
 import MainRoute from "./Features/Route/MainRoute";
 import Logo from "./img/a.svg";
+import { pipe } from "./utils";
 
-function App() {
+export default function App() {
   const cart = useSelector((state) => state.cart);
   const [hasSidebar, setSidebar] = useState(false);
   const { cartItems } = cart;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { type = "EUR" } = useSelector((state) => state.currencyType);
   const dispatch = useDispatch();
   const timeoutId = useRef(0);
   const [hasDropdown, setDropdown] = useState(false);
@@ -53,9 +58,13 @@ function App() {
       </div>
     );
   };
+
+  useEffect(() => dispatch(updateCurrencyRates()), []);
+
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
+
   return (
     <BrowserRouter>
       <div className={"container--grid" + (hasSidebar ? " scroll--off" : "")}>
@@ -67,6 +76,7 @@ function App() {
                 <span className="mobile--off">mazin'</span>
               </div>
             </Link>
+
             <Link className="location flex" to="/map">
               <div className="sprite__locator"></div>
               <div className="tablet--off">
@@ -74,9 +84,78 @@ function App() {
                 <div className="nav__line-2">Location?</div>
               </div>
             </Link>
+
             <div className="nav__search">
               <SearchBox />
             </div>
+
+            <div
+              className={"dropdown phone--off"}
+              onMouseEnter={onEnterHandle}
+              onClick={onEnterHandle}
+              onMouseLeave={onLeaveHandle}
+            >
+              <div>
+                <div className="nav__line-1"> </div>
+                <div className="nav__line-2 sprite__wrapper">
+                  <span className={"sprite flag " + type}></span>
+                  <i className="fa fa-caret-down"></i>
+                </div>
+              </div>
+              <ul
+                className={
+                  "dropdown__menu currency" + (hasDropdown ? " show" : "")
+                }
+              >
+                {[
+                  ["Change Currency"],
+                  [pipe("EUR").name, "/currency/type/EUR"],
+                  [, , "separator"],
+                  ...pipe()
+                    .list.slice(1)
+                    .map((type) => [pipe(type).name, "/currency/type/" + type]),
+                ].map(([label, linkTo, className]) =>
+                  !linkTo ? (
+                    <li className={className}>{label}</li>
+                  ) : (
+                    <Link
+                      to={linkTo}
+                      onClick={() =>
+                        localStorage.setItem(
+                          "backToHistory",
+                          window.location.pathname
+                        )
+                      }
+                    >
+                      <div
+                        className={
+                          "sprite__wrapper" +
+                          (label === pipe(type).name ? " active" : "")
+                        }
+                      >
+                        <div className="sprite circle"></div>
+                        <span>{label}</span>
+                      </div>
+                    </Link>
+                  )
+                )}
+                {[
+                  ["separator"],
+                  ["Exchange"],
+                  ["Currency Calculator", "disabled"],
+                ].map(addMenuItem())}
+                <a
+                  href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+                  target="_blank"
+                >
+                  <div className="sprite__wrapper">
+                    <div className={"sprite flag xl " + type}></div>
+                    <span>Exchange Rates</span>
+                  </div>
+                </a>
+              </ul>
+            </div>
+
             {!userInfo && (
               <NavDropMenu
                 label="Hello, Sign in^Account^ & Lists"
@@ -92,6 +171,7 @@ function App() {
                 ]}
               />
             )}
+
             {userInfo && (
               <NavDropMenu
                 label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
@@ -113,6 +193,7 @@ function App() {
                 ]}
               />
             )}
+
             {userInfo?.isSeller && (
               <NavDropMenu
                 label="Seller^Desk"
@@ -133,6 +214,7 @@ function App() {
                 ]}
               />
             )}
+
             {userInfo?.isAdmin && (
               <NavDropMenu
                 label="Admin^Tools"
@@ -154,7 +236,9 @@ function App() {
                 ]}
               />
             )}
+
             <NavDropMenu label="Return^& Orders" attr="tablet--off disabled" />
+
             <Link className="nav__cart flex" to="/cart">
               <div>
                 <div className="cart__counter">{cartItems.length}</div>
@@ -176,6 +260,7 @@ function App() {
                 <b>All</b>
               </div>
             </div>
+
             <div className="nav__fill">
               {[
                 ["Netflix Video", "/video", "nav-main__item"],
@@ -185,12 +270,8 @@ function App() {
                   "/search/category/All/order/newest",
                   "nav-main__item",
                 ],
-                [
-                  "Customer Service",
-                  "/contact/subject/Customer",
-                  "nav-main__item",
-                ],
-                ["Best Sellers", "/", "nav-main__item"],
+                ["Customer Service", "/customer", "nav-main__item"],
+                ["Best Sellers", "/banner/bestseller", "nav-main__item"],
               ].map(navMainItem)}
               {loadingCategories ? (
                 <LoadingBox />
@@ -204,6 +285,7 @@ function App() {
                   )
               )}
             </div>
+
             <div className="nav__right">
               <div className="nav-main__item">
                 <Link to="/contact/subject/Ads">
@@ -213,6 +295,7 @@ function App() {
             </div>
           </div>
         </header>
+
         <aside className={hasSidebar ? "sidebar opened" : "sidebar"}>
           <button onClick={() => setSidebar(false)} id="btn--close-sidebar">
             <div className="sprite__close-btn"></div>
@@ -233,7 +316,7 @@ function App() {
                 ["Trending"],
                 ["Top Deals", "/deal"],
                 ["New Releases", "/search/category/All/order/newest"],
-                ["Best Sellers", "/"],
+                ["Best Sellers", "/banner/bestseller"],
                 ["separator", "9"],
                 ["Categories"],
                 ["Netflix Video", "/video"],
@@ -244,9 +327,11 @@ function App() {
                 ["Shipping Address", "/shipping"],
                 ["Orders & Returns", "/order-history"],
                 ["Statistics / AB Testing", "disabled"],
+                ["Currency Setting", "/currency/type/0"],
                 ["FAQ & Contact", "/contact/subject/FAQ"],
                 ["separator", "11"],
                 ["Account"],
+                ["Customer Service", "/customer"],
                 userInfo
                   ? ["Sign Out", "#signout", , signoutHandler]
                   : ["Sign In", "/signin"],
@@ -260,16 +345,19 @@ function App() {
             )}
           </ul>
         </aside>
+
         <label
           className={hasSidebar ? "click-catcher" : ""}
           htmlFor="btn--close-sidebar"
         ></label>
+
         <main className="container">
           <div className="col-fill">
             <MainRoute />
           </div>
           <div className={hasDropdown ? "underlay" : ""}></div>
         </main>
+
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
         </footer>
@@ -277,5 +365,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

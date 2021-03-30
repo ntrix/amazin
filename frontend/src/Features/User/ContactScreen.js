@@ -8,11 +8,10 @@ import MessageBox from "../../components/MessageBox";
 
 export default function ContactScreen(props) {
   const { subject: pSubject } = useParams();
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const [name, setName] = useState(userInfo.name);
-  const [email, setEmail] = useState(userInfo.email);
-  const [subject, setSubject] = useState(pSubject);
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const [name, setName] = useState(userInfo?.name || "");
+  const [email, setEmail] = useState(userInfo?.email || "");
+  const [subject, setSubject] = useState(pSubject || "");
   const [text, setText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState([]);
@@ -20,6 +19,7 @@ export default function ContactScreen(props) {
 
   useEffect(() => {}, []);
   const submitHandler = async (e) => {
+    setError(false);
     e.preventDefault();
     const data = {
       text,
@@ -101,6 +101,7 @@ export default function ContactScreen(props) {
                 <option value="Help">Help Desk</option>
                 <option value="Orders">Your Orders</option>
                 <option value="Payment">Payment</option>
+                <option value="Report">Report Something Suspicious</option>
                 <option value="Returns">Returns & Refund</option>
                 <option value="Shipping">Shipping Address</option>
                 <option value="Others">Others..</option>

@@ -8,6 +8,7 @@ import { createOrder } from "../../Controllers/orderActions";
 import CheckoutSteps from "../Checkout/CheckoutSteps";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { getPrice, pipe } from "../../utils";
 
 export default function PlaceOrderScreen(props) {
   const tax = 0.19;
@@ -17,25 +18,29 @@ export default function PlaceOrderScreen(props) {
   }
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
+  const { type, rate } = useSelector((state) => state.currencyType);
+  const evalPrice = (price) =>
+    pipe(type + getPrice(rate)(price)).symbol.all || 0;
+
   const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
-  cart.itemsPrice = toPrice(
-    cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
-  );
-  let ship = 0;
-  cart.cartItems.map((i) => (ship = i.ship > ship ? i.ship : ship)); //max ship price of any items
-  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(ship);
-  cart.taxPrice = toPrice(tax * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0);
+  const ship = Math.max(...cart.cartItems.map((i) => i.ship)); //max ship price of any items
+  cart.shippingPrice = cart.itemsPrice > 100 ? 0 : ship;
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice;
+  cart.taxPrice = cart.totalPrice / (1 + tax);
   const dispatch = useDispatch();
+
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
+
   useEffect(() => {
     if (success) {
       props.history.push(`/order/${order._id}`);
       dispatch(orderCreateActions._RESET());
     }
   }, [dispatch, order, props.history, success]);
+
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -82,7 +87,8 @@ export default function PlaceOrderScreen(props) {
                         </div>
 
                         <div>
-                          {item.qty} x €{item.price} = €{item.qty * item.price}
+                          {item.qty} x {evalPrice(item.price)} =
+                          {" " + evalPrice(item.qty * item.price)}
                         </div>
                       </div>
                     </li>
@@ -101,49 +107,49 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>€{cart.itemsPrice.toFixed(2)}</div>
+                  <div>{evalPrice(cart.itemsPrice)}</div>
                 </div>
               </li>
-              <li>
-                <div className="row">
-                  <div>Shipping</div>
-                  {cart.itemsPrice > 100 ? (
-                    <p>
-                      <span className="strike">€{ship}</span> Free ship
-                    </p>
-                  ) : (
-                    <div>€{cart.shippingPrice.toFixed(2)}</div>
-                  )}
-                </div>
-              </li>
-              <li>
-                <div className="row">
-                  <div>Tax</div>
-                  <div>
-                    ({tax * 100}%) €{cart.taxPrice.toFixed(2)}
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="row">
-                  <div>
-                    <strong> Order Total</strong>
-                  </div>
-                  <div>
-                    <strong>€{cart.totalPrice.toFixed(2)}</strong>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={placeOrderHandler}
-                  className="primary block"
-                  disabled={cart.cartItems.length === 0}
-                >
-                  Place Order
-                </button>
-              </li>
+              {cart.cartItems.length > 0 && (
+                <>
+                  <li>
+                    <div className="row">
+                      <div>Shipping</div>
+                      <div>
+                        {cart.shippingPrice
+                          ? evalPrice(cart.shippingPrice)
+                          : "Free Ship"}
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="row">
+                      <div>Before {tax * 100}% MwSt.</div>
+                      {evalPrice(cart.taxPrice)}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="row">
+                      <div>
+                        <strong> Order Total</strong>
+                      </div>
+                      <div>
+                        <strong>{evalPrice(cart.totalPrice)}</strong>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={placeOrderHandler}
+                      className="primary block"
+                      disabled={cart.cartItems.length === 0}
+                    >
+                      Place Order
+                    </button>
+                  </li>
+                </>
+              )}
               {loading && <LoadingBox size="xl" />}
               {error && <MessageBox variant="danger">{error}</MessageBox>}
             </ul>

@@ -1,5 +1,6 @@
 import Axios from "axios";
 import {
+  currencyTypeActions,
   productListAllActions,
   productListActions,
   productCategoryListActions,
@@ -9,6 +10,20 @@ import {
   productDeleteActions,
   productReviewCreateActions,
 } from "../Features/Product/ProductSlice";
+
+export const changeCurrency = (type) => (dispatch) => {
+  dispatch(currencyTypeActions._CHANGE(type));
+};
+
+export const updateCurrencyRates = () => async (dispatch) => {
+  dispatch(currencyTypeActions._REQUEST());
+  try {
+    const { data } = await Axios.get(`https://api.exchangeratesapi.io/latest`);
+    dispatch(currencyTypeActions._SUCCESS(data));
+  } catch (error) {
+    dispatch(currencyTypeActions._FAIL(error.message));
+  }
+};
 
 export const listAllProducts = ({ pageSize = 6, category = "" }) => async (
   dispatch

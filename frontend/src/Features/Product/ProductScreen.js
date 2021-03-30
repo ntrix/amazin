@@ -8,9 +8,12 @@ import { createReview, detailsProduct } from "../../Controllers/productActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
+import { getPrice, pipe } from "../../utils";
 
 export default function ProductScreen(props) {
   const dispatch = useDispatch();
+  const { type, rate } = useSelector((state) => state.currencyType);
+  const evalPrice = getPrice(rate);
   const productId = props.match.params.id;
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
@@ -87,13 +90,15 @@ export default function ProductScreen(props) {
                       ></img>
                     ))}
               </div>
-              <img
-                className="large"
-                src={product?.image?.split("^")[imgActive]}
-                alt={product.name + " " + imgActive}
-              ></img>
+              <div className="tab__rest">
+                <img
+                  className="large"
+                  src={product?.image?.split("^")[imgActive]}
+                  alt={product.name + " " + imgActive}
+                ></img>
+              </div>
             </div>
-            <div className="col-1 ml-1">
+            <div className="col-1 mh-2">
               <ul>
                 <li>
                   <h1>{product.name}</h1>
@@ -104,7 +109,29 @@ export default function ProductScreen(props) {
                     numReviews={product.numReviews}
                   ></Rating>
                 </li>
-                <li>Price : €{product.price}</li>
+
+                <li>
+                  <div>
+                    <span className={"price" + (product.deal ? " danger" : "")}>
+                      <sup>{pipe(type).symbol}</sup>
+                      {evalPrice(product.price).note}
+                      <sup>{evalPrice(product.price).cent}</sup>
+                    </span>
+                    {product.deal > 0 && (
+                      <span className="pull-right">
+                        <b className="price strike">
+                          <sup>{pipe(type).symbol}</sup>
+                          {
+                            evalPrice(product.price / (1 - product.deal / 100))
+                              .all
+                          }
+                        </b>
+                        {"  (" + product.deal}% off)
+                      </span>
+                    )}
+                  </div>
+                </li>
+
                 <li>
                   Description:
                   <p>{product.description}</p>
@@ -126,18 +153,18 @@ export default function ProductScreen(props) {
                       numReviews={product.seller.seller.numReviews}
                     ></Rating>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>Price</div>
                       <div className="price">
-                        <sup>€</sup>
-                        {product.price | 0}
-                        <sup>
-                          {(((product.price * 100) | 0) + "").slice(-2)}
-                        </sup>
+                        <sup>{pipe(type).symbol}</sup>
+                        {evalPrice(product.price).note}
+                        <sup>{evalPrice(product.price).cent}</sup>
                       </div>
                     </div>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>Status</div>
@@ -185,7 +212,7 @@ export default function ProductScreen(props) {
               </div>
             </div>
           </div>
-          <div className="mh-3">
+          <div className="p-1">
             <h2 id="reviews">Reviews</h2>
             {product.reviews.length === 0 && (
               <MessageBox>There is no review</MessageBox>

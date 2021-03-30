@@ -38,6 +38,7 @@ export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
   })
 );
 prices[0] = { min: 0, max: 0, name: "Any" };
+
 export const ratings = [
   {
     name: "4stars & up",
@@ -59,3 +60,30 @@ export const ratings = [
     rating: 1,
   },
 ];
+
+export const pipe = (type = "EUR") => ({
+  list: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
+  symbol: {
+    GBP: "£",
+    USD: "$",
+    PLN: "zł",
+    CZK: "Kč",
+    CHF: "CHf",
+    EUR: "€",
+  }[type],
+  name: {
+    GBP: "GB Pounds",
+    USD: "US Dollar",
+    PLN: "Polish Zloty",
+    CZK: "Czech Koruna",
+    CHF: "Swiss France",
+    EUR: "Euro (Default)",
+  }[type],
+});
+
+export const getPrice = (rate = 1) => (price = 0) => ({
+  note: ((price * rate) | 0) + "",
+  cent: ((price * rate).toFixed(2) + "").slice(-2),
+  all: (price * rate).toFixed(2),
+  float: +(price * rate).toFixed(2),
+});

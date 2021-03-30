@@ -12,7 +12,7 @@
 .m-nav {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 0;
   margin-top: 9px;
   font-size: 17px;
   font-weight: 400;
@@ -44,15 +44,15 @@
 }
 
 .banner__contents {
-  margin-left: 30px;
-  padding-top: 140px;
-  height: 190px;
+  margin-left: 4rem;
+  padding-top: 20rem;
+  height: 18rem;
 }
 
 .banner__title {
   font-size: 48px;
   font-weight: 800;
-  padding-bottom: 5px;
+  text-shadow: 0 0 10px #000;
 }
 
 .banner__description {
@@ -65,13 +65,10 @@
 }
 
 .banner--fadeBottom {
-  height: 120px;
-  background-image: linear-gradient(
-    180deg,
-    transparent,
-    rgba(37, 37, 37, 0.61),
-    #111
-  );
+  margin-top: -8rem;
+  height: 15rem;
+  background-image: -webkit-linear-gradient(to bottom, #2220, #222a 30%, #111);
+  background-image: linear-gradient(to bottom, #2220, #222a 30%, #111);
 }
 
 .banner__button {
@@ -83,6 +80,7 @@
   cursor: pointer;
   color: #fff;
   background: #222;
+  background: -webkit-linear-gradient(to bottom, #000, #444);
   background: linear-gradient(to bottom, #000, #444);
 }
 .banner__button + .banner__button {
@@ -91,11 +89,13 @@
 .banner__button:not([disabled]):hover {
   color: #000;
   background: #ccc;
+  background: -webkit-linear-gradient(to bottom, #aaa, #eee);
   background: linear-gradient(to bottom, #aaa, #eee);
   transition: all 0.2s;
 }
 .banner__button[disabled] {
   background: #666;
+  background: -webkit-linear-gradient(to bottom, #444, #888);
   background: linear-gradient(to bottom, #444, #888);
   color: #222;
   cursor: default;
@@ -112,6 +112,7 @@
 }
 .m-row h2 {
   margin-top: 35px;
+  margin-bottom: 1rem;
   font-weight: 700;
   font-size: 18px;
   padding: 0;
@@ -173,7 +174,8 @@
 }
 .m-card:hover .m-card__background {
   margin-top: -100px;
-  background: linear-gradient(to bottom, #0000 0%, #0e171e 30%);
+  background: -webkit-linear-gradient(to bottom, #0000, #0e171e 30%);
+  background: linear-gradient(to bottom, #0000, #0e171e 30%);
   /* transition: opacity 0.15s cubic-bezier(.08,.82,.17,1),border 0.01s linear, margin 0.7s cubic-bezier(.68,-0.55,.27,1.55); */
   transition: opacity 0.5s linear,
     margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), 1s;
@@ -182,6 +184,7 @@
 }
 .m-card--xl:hover .m-card__background {
   margin-top: -350px;
+  background: -webkit-linear-gradient(to bottom, #0000 25%, #0e171e 58%);
   background: linear-gradient(to bottom, #0000 25%, #0e171e 58%);
 }
 .m-card:hover .m-card__text {

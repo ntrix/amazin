@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { addToCart, removeFromCart } from "../../Controllers/cartActions";
+import { getPrice, pipe } from "../../utils";
 
 import MessageBox from "../../components/MessageBox";
 
@@ -14,6 +15,7 @@ export default function CartScreen(props) {
   const cart = useSelector((state) => state.cart);
   const { cartItems, error } = cart;
   const dispatch = useDispatch();
+  const { type, rate } = useSelector((state) => state.currencyType);
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -75,7 +77,10 @@ export default function CartScreen(props) {
                       ))}
                     </select>
                   </td>
-                  <td className="tab__w6">€{item.price}</td>
+                  <td className="tab__w6">
+                    {pipe(type).symbol}
+                    {getPrice(rate)(item.price).all}
+                  </td>
                   <td className="tab__w9">
                     <button
                       type="button"
@@ -95,8 +100,13 @@ export default function CartScreen(props) {
           <ul>
             <li>
               <h2>
-                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : €
-                {cartItems.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2)}
+                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :{" "}
+                {pipe(type).symbol}
+                {
+                  getPrice(rate)(
+                    cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+                  ).all
+                }
               </h2>
             </li>
             <li>
