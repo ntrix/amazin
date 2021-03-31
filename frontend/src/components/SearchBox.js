@@ -53,7 +53,7 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     }
     return () => {
       document.removeEventListener("mousedown", handleClick);
-    };
+    }; // eslint-disable-next-line
   }, [navScope % 2, shadowFor]);
 
   useEffect(() => {

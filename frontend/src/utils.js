@@ -202,7 +202,7 @@ export const dummyMovies = sourceAdapter(Array(12).fill(1));
 export const findSuggest = (() => {
   const openTag = "<b>";
   const closeTag = "</b>";
-
+  // eslint-disable-next-line
   const escapeC = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
 
   const combinePhrases = new RegExp(escapeC(closeTag + openTag), "g");

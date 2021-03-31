@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Carousel, { dummyMovies, responsive } from "../../../utils";
+import React, { useState } from "react";
+import Carousel, { responsive } from "../../../utils";
 import UTube from "./UTube";
 import VideoCard from "./VideoCard";
 
-export default function VideoRow({ title, movies = [], portrait = false }) {
+export default function VideoRow({ title, movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState("");
-  let isMounted = false;
-
-  useEffect(() => {
-    isMounted = true;
-    return () => (isMounted = false);
-  }, []);
 
   return (
     <div className="m-row">
       <h2>{title}</h2>
-      {isMounted && (
+      {movies && (
         <>
           <Carousel
             swipeable={true}
@@ -32,7 +26,7 @@ export default function VideoRow({ title, movies = [], portrait = false }) {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >
-            {(movies || dummyMovies).map((movie, id) => (
+            {movies.map((movie, id) => (
               <VideoCard
                 key={id}
                 movie={movie}

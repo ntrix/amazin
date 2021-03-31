@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
@@ -24,17 +24,20 @@ export default function DealScreen() {
     categories,
   } = useSelector((state) => state.productCategoryList);
   const [cat, setCat] = useState("Deals");
+  let isMounted = true;
 
-  useEffect(() => {
-    dispatch(
-      listProducts({
-        pageNumber,
-        category: cat === "Deals" ? "" : cat,
-        order,
-        deal: 1,
-        pageSize: 990,
-      })
-    );
+  useLayoutEffect(() => {
+    if (isMounted)
+      dispatch(
+        listProducts({
+          pageNumber,
+          category: cat === "Deals" ? "" : cat,
+          order,
+          deal: 1,
+          pageSize: 990,
+        })
+      ); // eslint-disable-next-line
+    return () => (isMounted = false);
   }, [category, dispatch, order, pageNumber, cat]);
 
   return (
@@ -61,35 +64,35 @@ export default function DealScreen() {
       <div
         className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
       >
-        <Carousel
-          swipeable={true}
-          draggable={true}
-          showDots={true}
-          responsive={responsive}
-          infinite={true}
-          autoPlay={true}
-          autoPlaySpeed={3000}
-          keyBoardControl={true}
-          customTransition="transform 500ms ease-in-out"
-          transitionDuration={500}
-          centerMode={true}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={["mobile"]}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-40-px"
-        >
-          {loading ? (
-            <LoadingBox xl />
-          ) : error ? (
-            <MessageBox variant="danger">{error}</MessageBox>
-          ) : !products.length ? (
-            <MessageBox>No Deals On This Category!</MessageBox>
-          ) : (
-            products.map((product, id) => (
+        {loading ? (
+          <LoadingBox xl />
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : !products.length ? (
+          <MessageBox>No Deals On This Category!</MessageBox>
+        ) : (
+          <Carousel
+            swipeable={true}
+            draggable={true}
+            showDots={true}
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={3000}
+            keyBoardControl={true}
+            customTransition="transform 500ms ease-in-out"
+            transitionDuration={500}
+            centerMode={true}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["mobile"]}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+          >
+            {products.map((product, id) => (
               <ProductCard deal key={id} product={product}></ProductCard>
-            ))
-          )}
-        </Carousel>
+            ))}
+          </Carousel>
+        )}
         <h2 className="mh-2">Top Deals</h2>
         <div className="row top">
           <div className="row search__banner">

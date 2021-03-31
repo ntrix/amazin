@@ -81,7 +81,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
 
         {userInfo && (
           <NavDropBtn
-            label={"Hello, " + shortName(userInfo, 8) + "^Account^ & Lists"}
+            label={"Hello, " + shortName(userInfo, 7) + "^Account^ & Lists"}
             className="nav__user"
             onEnterHandle={onEnterHandle}
             onLeaveHandle={onLeaveHandle}

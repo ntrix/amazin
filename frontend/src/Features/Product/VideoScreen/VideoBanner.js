@@ -4,24 +4,20 @@ import { useHistory } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { createProduct } from "../../../Controllers/productActions";
-import { EXAMPLE_MOVIES, NO_MOVIES, NO_IMAGE } from "../../../utils";
+import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../utils";
 import { productCreateActions } from "../ProductSlice";
 import UTube from "./UTube";
 import { VideoButtons } from "./VideoButtons";
 
-export default function VideoBanner({ source, genre, loading }) {
+export default function VideoBanner({ source }) {
   const [trailerUrl, setTrailerUrl] = useState("");
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    const mov = loading
-      ? NO_MOVIES
-      : !source || !source[genre]
-      ? EXAMPLE_MOVIES
-      : source[genre];
+    const mov = source || EXAMPLE_MOVIES;
     const random = mov[(Math.random() * mov.length) | 0];
     setMovie(random);
-  }, [source, genre]);
+  }, [source]);
 
   const productCreate = useSelector((state) => state.productCreate);
   const {
@@ -92,18 +88,14 @@ export default function VideoBanner({ source, genre, loading }) {
   );
 }
 
-export function VideoBannerBottom({ source, genre, loading }) {
+export function VideoBannerBottom({ source }) {
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    const mov = loading
-      ? NO_MOVIES
-      : !source || !source[genre]
-      ? EXAMPLE_MOVIES
-      : source[genre];
+    const mov = source || EXAMPLE_MOVIES;
     const random = mov[(Math.random() * mov.length) | 0];
     setMovie(random);
-  }, [source, genre]);
+  }, [source]);
 
   return (
     <div
