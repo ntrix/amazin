@@ -51,33 +51,33 @@ select#currency {
   margin-right: 10px;
 }
 .sprite.flag {
-  height: 12px;
-  width: 18px;
-  margin: 0 3px;
-  background-image: url("../../../img/flags.png");
+  height: 14px;
+  width: 22px;
+  margin: -1rem 3px 0 3px;
+  background-image: url("../../../img/flags-globe.png");
 }
 .EUR {
-  background-position: -18px -12px;
+  background-position: -29px -260px;
 }
 .GBP {
-  background-position: -54px -96px;
+  background-position: -83px -386px;
 }
 .USD {
-  background-position: -54px -108px;
+  background-position: -83px -404px;
 }
 .CZK {
-  background-position: 0 -72px;
+  background-position: -3px -350px;
 }
 .PLN {
-  background-position: -18px -48px;
+  background-position: -29px -314px;
 }
 .CHF {
-  background-position: -54px -36px;
+  background-position: -83px -296px;
 }
 .sprite.flag.xl {
   height: 20px;
   width: 32px;
-  margin-right: 10px;
+  margin: 0 3px 0 1rem;
   background-image: url("../../../img/flags-globe.png");
   box-shadow: 0 0 5px #0008;
 }
