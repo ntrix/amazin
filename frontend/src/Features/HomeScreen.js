@@ -72,7 +72,7 @@ export default function HomeScreen() {
               </div>
             ))}
           </Carousel> */}
-      <div>
+      {/* <div>
         <Swiper
           spaceBetween={20}
           navigation
@@ -116,7 +116,7 @@ export default function HomeScreen() {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </div> */}
       <h2 className="home-screen__title-2">Featured Products</h2>
       {loading ? (
         <LoadingBox xl />
