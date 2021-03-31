@@ -55,22 +55,12 @@
   .nav-main {
     padding-left: 5px;
   }
-  .nav-main__item {
-    height: 100%;
-    padding: 4px 0;
-    border-radius: 2px;
-    border: thin solid #0000;
-    color: #fff;
-    min-width: 6rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
   .nav__fill .nav-main__item {
     max-width: 12rem;
   }
   .nav-main__item > a {
-    padding: 1rem 5px;
-    font-size: 11px;
+    padding: 6px 4px 1rem;
+    font-size: 12px;
     line-height: 1.2;
   }
 }
