@@ -1,21 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import SwiperCore, {
+  Autoplay,
+  EffectCoverflow,
+  Navigation,
+  Pagination,
+  Scrollbar,
+} from "swiper";
+import "swiper/swiper-bundle.css";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import ProductCard from "../components/ProductCard";
 import { listProducts } from "../Controllers/productActions";
 import { listTopSellers } from "../Controllers/userActions";
-import { dummySellers } from "../utils";
-import SwiperCore, {
-  Navigation,
-  EffectCoverflow,
-  Scrollbar,
-  Autoplay,
-  Pagination,
-} from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css";
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 export default function HomeScreen() {
@@ -24,12 +22,12 @@ export default function HomeScreen() {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
-  const userTopSellersList = useSelector((state) => state.userTopSellersList);
-  const {
-    loading: loadingSellers,
-    error: errorSellers,
-    users: sellers,
-  } = userTopSellersList;
+  // const userTopSellersList = useSelector((state) => state.userTopSellersList);
+  // const {
+  //   loading: loadingSellers,
+  //   error: errorSellers,
+  //   users: sellers,
+  // } = userTopSellersList;
 
   useEffect(() => {
     dispatch(listProducts({ pageSize: 12 }));
