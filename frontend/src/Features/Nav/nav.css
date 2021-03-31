@@ -425,7 +425,7 @@ a .nav__brand {
 
 /* NAV-ITEM CURRENCY */
 .nav__line-2.sprite__wrapper {
-  margin: 2px 0px 1px;
+  margin: 6px 0px 1px;
 }
 .nav__line-2 .sprite.flag + i {
   margin-top: -4px;
@@ -446,7 +446,7 @@ a .nav__brand {
   left: 180px;
 }
 .nav__currency.dropdown:hover > .dropdown__menu.show:after {
-  left: 40px;
+  left: 44px;
   transition: all 0.4s ease-in-out;
 }
 .nav__currency .dropdown__menu .separator.ml-1 {
