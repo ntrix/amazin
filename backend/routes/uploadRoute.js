@@ -17,7 +17,7 @@ const uploadRoute = express.Router();
 
 // const upload = multer({ storage });
 
-const upload = multer({ dest: "-tmp/uploads/" });
+const upload = multer({ dest: "uploads/" });
 
 uploadRoute.post("/", isAuth, upload.array("images", 8), (req, res) => {
   cloudinary.config({
