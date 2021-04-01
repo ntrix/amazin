@@ -36,7 +36,7 @@ userRoute.get(
     const topSellers = await User.find({ isSeller: true })
       .sort({ "seller.rating": -1 })
       .limit(5);
-    res.send(topSellers);
+    res.send({ users: topSellers });
   })
 );
 

@@ -69,7 +69,7 @@ export const {
 } = createSlice({
   name: "userTopSellerList",
   initialState: { loading: true },
-  reducers: Reducer("users"),
+  reducers: Reducer("..."),
 });
 
 export const {
