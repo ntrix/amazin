@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "proxy": "https://amazin.vercel.app/",
+  "proxy": "https://amazin-be.herokuapp.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

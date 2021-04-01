@@ -13,7 +13,7 @@
         "type": "git",
         "url": "https://github.com/ntrix/amazin.git"
     },
-    "author": "",
+    "author": "ntien",
     "license": "ISC",
     "homepage": "https://github.com/ntrix/amazin#readme",
     "dependencies": {
