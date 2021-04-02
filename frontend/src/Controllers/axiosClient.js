@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://amazin-be.herokuapp.com",
+  baseURL: process.env.REACT_APP_BACKEND_URL,
   mode: "cors",
 });
 
