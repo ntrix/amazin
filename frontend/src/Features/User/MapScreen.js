@@ -4,7 +4,7 @@ import {
   Marker,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
-import Axios from "axios";
+import axiosClient from "../../Controllers/axiosClient";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import LoadingBox from "../../components/LoadingBox";
@@ -25,7 +25,7 @@ export default function MapScreen(props) {
   useEffect(() => {
     try {
       (async () => {
-        const { data } = await Axios("/api/config/google");
+        const { data } = await axiosClient("/api/config/google");
         setGoogleApiKey(data);
         getUserCurrentLocation();
       })();

@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { axios } from "../../Controllers/axiosClient";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -52,7 +52,7 @@ export default function ContactScreen(props) {
 
     setLoading(true);
     try {
-      await Axios.post("https://mailsv.glitch.me/mail", data, {
+      await axios.post("https://mailsv.glitch.me/mail", data, {
         //"/api/user/contact"
         headers: {
           mode: "cors",

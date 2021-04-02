@@ -77,7 +77,7 @@ select#currency {
 .sprite.flag.xl {
   height: 20px;
   width: 32px;
-  margin: 0 3px 0 1rem;
+  margin: 0 1rem;
   background-image: url("../../../img/flags-globe.png");
   box-shadow: 0 0 5px #0008;
 }

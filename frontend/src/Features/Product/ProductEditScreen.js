@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axiosClient from "../../Controllers/axiosClient";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../../components/LoadingBox";
@@ -90,7 +90,7 @@ export default function ProductEditScreen(props) {
     bodyFormData.append("productId", product._id);
     setLoadingUpload(true);
     try {
-      const { data } = await Axios.post("/api/uploads", bodyFormData, {
+      const { data } = await axiosClient.post("/api/uploads", bodyFormData, {
         headers: {
           enctype: "multipart/form-data",
           Authorization: `Bearer ${userInfo.token}`,
@@ -119,7 +119,7 @@ export default function ProductEditScreen(props) {
     bodyFormData.append("image", newImages.join("^"));
     setLoadingUpload(true);
     try {
-      await Axios.patch("/api/uploads", bodyFormData, {
+      await axiosClient.patch("/api/uploads", bodyFormData, {
         headers: {
           enctype: "multipart/form-data",
           Authorization: `Bearer ${userInfo.token}`,
