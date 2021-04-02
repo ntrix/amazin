@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import {
   currencyTypeActions,
   productListAllActions,
@@ -12,6 +12,11 @@ import {
 } from "../Features/Product/ProductSlice";
 import { pipe } from "../utils";
 
+const Axios = axios.create({
+  baseURL: "https://amazin-be.herokuapp.com",
+  mode: "cors",
+});
+
 export const setSessionCurrency = (currencyType) => (dispatch) => {
   dispatch(currencyTypeActions._CHANGE(currencyType));
 };
@@ -19,11 +24,8 @@ export const setSessionCurrency = (currencyType) => (dispatch) => {
 export const updateCurrencyRates = () => async (dispatch) => {
   dispatch(currencyTypeActions._REQUEST());
   try {
-    const {
-      data,
-    } = await Axios.get(
-      `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.REACT_APP_RATES_API_KEY}`,
-      { mode: "cors" }
+    const { data } = await axios.get(
+      `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.REACT_APP_RATES_API_KEY}`
     );
     dispatch(currencyTypeActions._SUCCESS(data));
     pipe.currencies.map(
@@ -39,11 +41,9 @@ export const listAllProducts = ({ pageSize = 6, category = "" }) => async (
 ) => {
   dispatch(productListAllActions._REQUEST());
   try {
-    const {
-      data,
-    } = await Axios.get(`/api/products?pageSize=999&category=${category}`, {
-      mode: "cors",
-    });
+    const { data } = await Axios.get(
+      `/api/products?pageSize=999&category=${category}`
+    );
     dispatch(productListAllActions._SUCCESS(data));
   } catch (error) {
     dispatch(productListAllActions._FAIL(error.message));
@@ -64,11 +64,8 @@ export const listProducts = ({
 }) => async (dispatch) => {
   dispatch(productListActions._REQUEST());
   try {
-    const {
-      data,
-    } = await Axios.get(
-      `/api/products?pageSize=${pageSize}&pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&deal=${deal}&min=${min}&max=${max}&rating=${rating}&order=${order}`,
-      { mode: "cors" }
+    const { data } = await Axios.get(
+      `/api/products?pageSize=${pageSize}&pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&deal=${deal}&min=${min}&max=${max}&rating=${rating}&order=${order}`
     );
     dispatch(productListActions._SUCCESS(data));
   } catch (error) {
@@ -79,9 +76,7 @@ export const listProducts = ({
 export const listProductCategories = () => async (dispatch) => {
   dispatch(productCategoryListActions._REQUEST());
   try {
-    const { data } = await Axios.get(`/api/products/categories`, {
-      mode: "cors",
-    });
+    const { data } = await Axios.get(`/api/products/categories`);
     dispatch(productCategoryListActions._SUCCESS(data));
   } catch (error) {
     dispatch(productCategoryListActions._FAIL(error.message));
@@ -91,9 +86,7 @@ export const listProductCategories = () => async (dispatch) => {
 export const detailsProduct = (productId) => async (dispatch) => {
   dispatch(productDetailsActions._REQUEST(productId));
   try {
-    const { data } = await Axios.get(`/api/products/${productId}`, {
-      mode: "cors",
-    });
+    const { data } = await Axios.get(`/api/products/${productId}`);
     dispatch(productDetailsActions._SUCCESS(data));
   } catch (error) {
     dispatch(
@@ -115,7 +108,9 @@ export const createProduct = () => async (dispatch, getState) => {
     const { data } = await Axios.post(
       "/api/products",
       {},
-      { mode: "cors", headers: { Authorization: `Bearer ${userInfo.token}` } }
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
     );
     dispatch(productCreateActions._SUCCESS(data.product));
   } catch (error) {
@@ -133,7 +128,6 @@ export const updateProduct = (product) => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.put(`/api/products/${product._id}`, product, {
-      mode: "cors",
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch(productUpdateActions._SUCCESS(data));
@@ -152,7 +146,6 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
   } = getState();
   try {
     Axios.delete(`/api/products/${productId}`, {
-      mode: "cors",
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch(productDeleteActions._SUCCESS());
@@ -176,7 +169,9 @@ export const createReview = (productId, review) => async (
     const { data } = await Axios.post(
       `/api/products/${productId}/reviews`,
       review,
-      { mode: "cors", headers: { Authorization: `Bearer ${userInfo.token}` } }
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
     );
     dispatch(productReviewCreateActions._SUCCESS(data.review));
   } catch (error) {
