@@ -1,8 +1,8 @@
-import Axios from "axios";
+import axiosClient from "./axiosClient";
 import { cartActions } from "../Features/Checkout/CartSlice.js";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-  const { data } = await Axios.get(`/api/products/${productId}`);
+  const { data } = await axiosClient.get(`/api/products/${productId}`);
   const {
     cart: { cartItems },
   } = getState();
