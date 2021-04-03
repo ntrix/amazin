@@ -1,4 +1,4 @@
-import axiosClient, { axios } from "./axiosClient";
+import axiosClient from "./axiosClient";
 import {
   currencyTypeActions,
   productListAllActions,
@@ -19,8 +19,7 @@ export const setSessionCurrency = (currencyType) => (dispatch) => {
 export const updateCurrencyRates = () => async (dispatch) => {
   dispatch(currencyTypeActions._REQUEST());
   try {
-    const { data: keys } = await axiosClient("/api/config/rates");
-    const { data } = await axios.get(`${process.env.REACT_APP_RATES}${keys}`);
+    const { data } = await axiosClient("/api/config/rates");
     dispatch(currencyTypeActions._SUCCESS(data));
     pipe.currencies.map(
       (c) => (pipe.rates[c] = data.rates[c] || pipe.rates[c])
