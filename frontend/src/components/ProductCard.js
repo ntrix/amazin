@@ -19,14 +19,17 @@ export default function ProductCard({ product, deal = false }) {
             alt={product.name}
           />
         </Link>
+
         <div className="card__body">
           <Link to={`/product/${product._id}`} onClick={savePath()}>
             <h2>{product.name}</h2>
           </Link>
+
           <Rating
             rating={product.rating}
             numReviews={product.numReviews}
           ></Rating>
+
           <div>
             <div>
               <span className={"price" + (deal ? " danger" : "")}>
@@ -34,6 +37,7 @@ export default function ProductCard({ product, deal = false }) {
                 {pipe.getNote(product.price)}
                 <sup>{pipe.getCent(product.price)}</sup>
               </span>
+
               {deal && (
                 <span className="pull-right">
                   <b className="price strike">
@@ -44,6 +48,7 @@ export default function ProductCard({ product, deal = false }) {
                 </span>
               )}
             </div>
+
             {deal ? (
               <div>
                 <Link

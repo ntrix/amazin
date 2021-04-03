@@ -17,6 +17,7 @@ export default function Rating({ rating, numReviews, caption, steps = 5 }) {
           ></i>
         ))}
       </span>
+
       {caption ? (
         <span>{caption}</span>
       ) : (
