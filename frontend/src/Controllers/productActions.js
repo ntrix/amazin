@@ -19,9 +19,8 @@ export const setSessionCurrency = (currencyType) => (dispatch) => {
 export const updateCurrencyRates = () => async (dispatch) => {
   dispatch(currencyTypeActions._REQUEST());
   try {
-    const { data } = await axios.get(
-      `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.REACT_APP_RATES_API_KEY}`
-    );
+    const { data: keys } = await axiosClient("/api/config/rates");
+    const { data } = await axios.get(`${process.env.REACT_APP_RATES}${keys}`);
     dispatch(currencyTypeActions._SUCCESS(data));
     pipe.currencies.map(
       (c) => (pipe.rates[c] = data.rates[c] || pipe.rates[c])
