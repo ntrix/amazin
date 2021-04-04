@@ -6,13 +6,15 @@ import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import PrivateRoute from "../Route/PrivateRoute";
 
 export default function ProfileScreen({ location }) {
-  const isSellerProfile = location.pathname?.split("/")[2] === "seller";
+  //const isSellerProfile = location.pathname?.split("/")[2] === "seller";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [sellerName, setSellerName] = useState("");
   const [sellerLogo, setSellerLogo] = useState("");
   const [sellerDescription, setSellerDescription] = useState("");
@@ -38,6 +40,7 @@ export default function ProfileScreen({ location }) {
           name,
           email,
           password,
+          oldPassword,
           sellerName,
           sellerLogo,
           sellerDescription,
@@ -53,7 +56,7 @@ export default function ProfileScreen({ location }) {
     } else {
       setName(user.name);
       setEmail(user.email);
-
+      setOldPassword("");
       if (user.seller) {
         setSellerName(user.seller.name);
         setSellerLogo(user.seller.logo);
@@ -78,6 +81,7 @@ export default function ProfileScreen({ location }) {
             {errorUpdate && (
               <MessageBox variant="danger">{errorUpdate}</MessageBox>
             )}
+
             <div>
               <label htmlFor="name">Name</label>
               <input
@@ -98,6 +102,19 @@ export default function ProfileScreen({ location }) {
                 onChange={(e) => setEmail(e.target.value)}
               ></input>
             </div>
+
+            <PrivateRoute path="/profile/password" exact>
+              <div>
+                <label htmlFor="oldPassword">Old Password</label>
+                <input
+                  id="oldPassword"
+                  type="password"
+                  placeholder="Enter old password"
+                  onChange={(e) => setOldPassword(e.target.value)}
+                ></input>
+              </div>
+            </PrivateRoute>
+
             <div>
               <label htmlFor="password">Password</label>
               <input
@@ -108,51 +125,62 @@ export default function ProfileScreen({ location }) {
               ></input>
             </div>
             <div>
-              <label htmlFor="confirmPassword">confirm Password</label>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 id="confirmPassword"
                 type="password"
+                autoComplete="off"
                 placeholder="Enter confirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
             </div>
-            {isSellerProfile && user.isSeller && (
-              <>
-                <div>
-                  <h2>Seller</h2>
-                </div>
-                <div>
-                  <label htmlFor="sellerName">Seller Name</label>
-                  <input
-                    id="sellerName"
-                    type="text"
-                    placeholder="Enter Seller Name"
-                    value={sellerName}
-                    onChange={(e) => setSellerName(e.target.value)}
-                  ></input>
-                </div>
-                <div>
-                  <label htmlFor="sellerLogo">Seller Logo</label>
-                  <input
-                    id="sellerLogo"
-                    type="text"
-                    placeholder="Enter Seller Logo"
-                    value={sellerLogo}
-                    onChange={(e) => setSellerLogo(e.target.value)}
-                  ></input>
-                </div>
-                <div>
-                  <label htmlFor="sellerDescription">Seller Description</label>
-                  <input
-                    id="sellerDescription"
-                    type="text"
-                    placeholder="Enter Seller Description"
-                    value={sellerDescription}
-                    onChange={(e) => setSellerDescription(e.target.value)}
-                  ></input>
-                </div>
-              </>
-            )}
+
+            <PrivateRoute path="/profile/seller" exact>
+              {!user?.isSeller ? (
+                <MessageBox variant="danger">
+                  You don't have seller account, please apply first!
+                </MessageBox>
+              ) : (
+                <>
+                  <div>
+                    <h2>Seller</h2>
+                  </div>
+                  <div>
+                    <label htmlFor="sellerName">Seller Name</label>
+                    <input
+                      id="sellerName"
+                      type="text"
+                      placeholder="Enter Seller Name"
+                      value={sellerName}
+                      onChange={(e) => setSellerName(e.target.value)}
+                    ></input>
+                  </div>
+                  <div>
+                    <label htmlFor="sellerLogo">Seller Logo</label>
+                    <input
+                      id="sellerLogo"
+                      type="text"
+                      placeholder="Enter Seller Logo"
+                      value={sellerLogo}
+                      onChange={(e) => setSellerLogo(e.target.value)}
+                    ></input>
+                  </div>
+                  <div>
+                    <label htmlFor="sellerDescription">
+                      Seller Description
+                    </label>
+                    <input
+                      id="sellerDescription"
+                      type="text"
+                      placeholder="Enter Seller Description"
+                      value={sellerDescription}
+                      onChange={(e) => setSellerDescription(e.target.value)}
+                    ></input>
+                  </div>
+                </>
+              )}
+            </PrivateRoute>
+
             <div>
               {successUpdate && (
                 <MessageBox variant="success">
