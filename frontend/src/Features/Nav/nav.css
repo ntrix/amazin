@@ -766,6 +766,7 @@ button.open-sidebar:hover {
 .cat-nav a {
   padding: 0;
   color: #111;
+  margin-bottom: 15px;
 }
 .cat-nav li {
   flex: 0 1 auto;
