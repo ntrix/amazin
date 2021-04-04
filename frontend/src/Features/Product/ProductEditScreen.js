@@ -75,6 +75,7 @@ export default function ProductEditScreen(props) {
       })
     );
   };
+
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState("");
 
@@ -215,6 +216,7 @@ export default function ProductEditScreen(props) {
                   </label>
 
                   <button
+                    disabled={loadingUpload}
                     onClick={(e) => {
                       e.preventDefault();
                       if (id > 0)
@@ -245,6 +247,7 @@ export default function ProductEditScreen(props) {
                   </div>
 
                   <button
+                    disabled={loadingUpload}
                     onClick={(e) => {
                       e.preventDefault();
                       if (

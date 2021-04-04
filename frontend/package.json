@@ -28,7 +28,7 @@
     "mon": "nodemon --watch backend --exec node --experimental-modules ../backend/server.js --ignore client",
     "start": "node ../backend/server.js",
     "devstart": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
