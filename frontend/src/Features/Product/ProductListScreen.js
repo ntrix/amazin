@@ -44,8 +44,12 @@ export default function ProductListScreen(props) {
       dispatch(productDeleteActions._RESET());
     }
     dispatch(
-      listProducts({ seller: sellerMode ? userInfo._id : "", pageNumber })
-    );
+      listProducts({
+        seller: sellerMode ? userInfo._id : "",
+        pageNumber,
+        min: "0",
+      })
+    ); // min = 0 to find all products no matter what price it is (0.00) to edit
   }, [
     createdProduct,
     dispatch,
