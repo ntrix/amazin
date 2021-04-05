@@ -25,6 +25,7 @@ export function userMenuItems(userInfo, extraAction) {
     ["Contact Us", "/contact/subject/Orders"],
     ["separator"],
     ["Account"],
+    ["Change Password", "/profile/password"],
     [
       "Apply & Verify Your Seller Account",
       userInfo?.isSeller ? "disabled" : "/contact/subject/Seller",

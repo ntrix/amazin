@@ -14,7 +14,7 @@ export default function SearchScreen({ history }) {
   const {
     name = "All",
     category = "All",
-    min = 0,
+    min = 0.01,
     max = 0,
     rating = 0,
     order = "bestselling",
@@ -50,7 +50,7 @@ export default function SearchScreen({ history }) {
     const filterName = filter.name || name;
     const filterRating = filter.rating || rating;
     const sortOrder = filter.order || order;
-    const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min;
+    const filterMin = filter.min ? filter.min : filter.min === 0 ? 0.01 : min;
     const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
     return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`;
   };

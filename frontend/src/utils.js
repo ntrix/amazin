@@ -203,7 +203,7 @@ export const findSuggest = (() => {
   const openTag = "<b>";
   const closeTag = "</b>";
   // eslint-disable-next-line
-  const escapeC = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,.?\s]/g, "\\$&");
+  const escapeC = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,\'\"\&.?\s]/g, "\\$&");
 
   const combinePhrases = new RegExp(escapeC(closeTag + openTag), "g");
 

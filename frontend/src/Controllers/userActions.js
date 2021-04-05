@@ -10,13 +10,16 @@ import {
   userTopSellerListActions,
 } from "../Features/User/UserSlice";
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (name, email, password, confirmPassword) => async (
+  dispatch
+) => {
   dispatch(userRegisterActions._REQUEST({ email, password }));
   try {
     const { data } = await axiosClient.post("/api/users/register", {
       name,
       email,
       password,
+      confirmPassword,
     });
     dispatch(userRegisterActions._SUCCESS(data));
     dispatch(userSigninActions._SUCCESS(data));

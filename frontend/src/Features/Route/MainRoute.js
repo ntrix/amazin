@@ -96,16 +96,7 @@ export default function MainRoute() {
         path="/order-history"
         component={OrderHistoryScreen}
       ></PrivateRoute>
-      <PrivateRoute
-        path="/profile"
-        component={ProfileScreen}
-        exact
-      ></PrivateRoute>
-      <PrivateRoute
-        path="/profile/seller"
-        component={ProfileScreen}
-        exact
-      ></PrivateRoute>
+      <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
       <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
       <AdminRoute
         path="/product-list"
