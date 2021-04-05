@@ -21,11 +21,11 @@ export default function RegisterScreen({ location, history }) {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Password and confirm password are not match");
-    } else {
-      dispatch(register(name, email, password));
-    }
+    // if (password !== confirmPassword) {
+    //   alert("Password and confirm password are not match");
+    // } else {
+    dispatch(register(name, email, password, confirmPassword));
+    // }
   };
   useEffect(() => {
     if (userInfo) {

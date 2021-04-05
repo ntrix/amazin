@@ -31,22 +31,23 @@ export default function ProfileScreen({ location }) {
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update profile
-    if (password !== confirmPassword) {
-      alert("Password and Confirm Password Are Not Matched");
-    } else {
-      dispatch(
-        updateUserProfile({
-          userId: user._id,
-          name,
-          email,
-          password,
-          oldPassword,
-          sellerName,
-          sellerLogo,
-          sellerDescription,
-        })
-      );
-    }
+    // if (password !== confirmPassword) {
+    //   alert("Password and Confirm Password Are Not Matched");
+    // } else {
+    dispatch(
+      updateUserProfile({
+        userId: user._id,
+        name,
+        email,
+        password,
+        confirmPassword,
+        oldPassword,
+        sellerName,
+        sellerLogo,
+        sellerDescription,
+      })
+    );
+    // }
   };
 
   useEffect(() => {
