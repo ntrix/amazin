@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import MessageBox from "../../../components/MessageBox";
-import {
-  setSessionCurrency,
-  updateCurrencyRates,
-} from "../../../Controllers/productActions";
+import { updateCurrencyRates } from "../../../Controllers/productActions";
 import { updateUserProfile } from "../../../Controllers/userActions";
 import { pipe } from "../../../utils";
+import { currencyTypeActions } from "../../Product/ProductSlice";
 import { userUpdateProfileActions } from "../UserSlice";
 import "./currencyScreen.css";
 
@@ -16,13 +14,12 @@ export default function CurrencyScreen() {
   const { cType } = useParams();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
-  const [newCurr, setNewCurr] = useState("");
   const [currency, setCurrency] = useState(cType || pipe.currency);
+  const [newCurrency, setNewCurrency] = useState("");
   let back = localStorage.getItem("backToHistory");
   back = !back || back.startsWith("/currency") ? "/" : back;
 
   const submitHandler = () => {
-    setSessionCurrency(currency);
     localStorage.setItem("currency", currency);
     pipe.setCurrency(currency);
     dispatch(updateCurrencyRates());
@@ -33,11 +30,12 @@ export default function CurrencyScreen() {
           currency,
         })
       );
-    setNewCurr(currency);
+    dispatch(currencyTypeActions._CHANGE(currency));
+    setNewCurrency(currency);
   };
 
   useEffect(() => {
-    setNewCurr("");
+    setNewCurrency("");
     setCurrency(cType || pipe.currency);
     if (!userInfo?._id) {
       dispatch(userUpdateProfileActions._RESET());
@@ -96,10 +94,10 @@ export default function CurrencyScreen() {
       <div className="container currencies">
         <section className="col-50p">
           <h2 className="title"> Currency Settings</h2>
-          {newCurr && (
+          {newCurrency && (
             <>
               <MessageBox variant="success">
-                Currency Setting has been changed to {pipe.getName(newCurr)}
+                Currency Setting has been changed to {pipe.getName(newCurrency)}
               </MessageBox>
               <br />
               <Link to={back}>
