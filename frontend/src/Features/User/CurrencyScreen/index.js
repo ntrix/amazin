@@ -96,7 +96,7 @@ export default function CurrencyScreen() {
           <h2 className="title"> Currency Settings</h2>
           {newCurrency && (
             <>
-              <MessageBox variant="success">
+              <MessageBox variant="success" show>
                 Currency Setting has been changed to {pipe.getName(newCurrency)}
               </MessageBox>
               <br />

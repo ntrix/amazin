@@ -6,7 +6,7 @@ import MessageBox from "../components/MessageBox";
 import ProductCard from "../components/ProductCard";
 import { listProducts } from "../Controllers/productActions";
 import { listTopSellers } from "../Controllers/userActions";
-import { dummySellers } from "../utils";
+import { dummySellers } from "../constants";
 import SwiperCore, {
   Navigation,
   EffectCoverflow,
@@ -98,11 +98,10 @@ export default function HomeScreen() {
         >
           {loadingSellers ? (
             <LoadingBox />
-          ) : errorSellers ? (
-            <MessageBox variant="danger">{errorSellers}</MessageBox>
           ) : (
-            sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>
+            <MessageBox hide={sellers.length}>No Seller Found</MessageBox>
           )}
+          <MessageBox variant="danger" msg={errorSellers} />
           {(sellers || dummySellers).map((seller, id) => (
             <SwiperSlide key={id}>
               <Link className="seller__card" to={`/seller/${seller._id}`}>
@@ -120,11 +119,10 @@ export default function HomeScreen() {
       <h2 className="home-screen__title-2">Featured Products</h2>
       {loading ? (
         <LoadingBox xl />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
-          {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
+          <MessageBox variant="danger" msg={error} />
+          <MessageBox hide={products.length}>No Product Found</MessageBox>
           <div className="row center">
             {products.map((product) => (
               <ProductCard key={product._id} product={product}></ProductCard>

@@ -10,7 +10,7 @@ import {
   productDeleteActions,
   productReviewCreateActions,
 } from "../Features/Product/ProductSlice";
-import { pipe } from "../utils";
+import { pipe } from "../constants";
 
 export const updateCurrencyRates = () => async (dispatch) => {
   dispatch(currencyTypeActions._REQUEST());

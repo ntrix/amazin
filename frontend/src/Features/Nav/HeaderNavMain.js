@@ -47,14 +47,16 @@ export default function HeaderNavMain({ setShadowFor }) {
         ].map(navMainItem)}
         {loadingCategories ? (
           <LoadingBox />
-        ) : errorCategories ? (
-          <MessageBox variant="danger">{errorCategories}</MessageBox>
         ) : (
-          categories
-            .slice(0, 15)
-            .map((c) =>
-              navMainItem([c, "/search/category/" + c, "nav-main__item"])
-            )
+          <>
+            <MessageBox variant="danger" msg={errorCategories} />
+            {categories &&
+              categories
+                .slice(0, 15)
+                .map((c) =>
+                  navMainItem([c, "/search/category/" + c, "nav-main__item"])
+                )}
+          </>
         )}
       </div>
 

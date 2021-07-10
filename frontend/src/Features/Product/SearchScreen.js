@@ -58,27 +58,22 @@ export default function SearchScreen({ history }) {
     <div className="search-screen">
       <header className="screen__header">
         <ul className="cat-nav">
-          {loadingCategories ? (
-            <LoadingBox />
-          ) : errorCategories ? (
-            <MessageBox variant="danger">{errorCategories}</MessageBox>
-          ) : (
+          <LoadingBox hide={!loadingCategories} />
+          <MessageBox variant="danger" msg={errorCategories} />
+          {categories &&
             ["All", ...categories].map((label, id) => (
               <Link to={getFilterUrl({ category: label })} key={id}>
                 <li className={label === category ? " selected" : ""}>
                   {label}
                 </li>
               </Link>
-            ))
-          )}
+            ))}
         </ul>
       </header>
       <div className="row search__banner">
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
+        <LoadingBox hide={!loading} />
+        <MessageBox variant="danger" msg={error} />
+        {products && (
           <div className="search__counter">
             {products.length} of {count} Results
           </div>
@@ -90,11 +85,9 @@ export default function SearchScreen({ history }) {
           <ul>
             <h4>Department</h4>
             <div>
-              {loadingCategories ? (
-                <LoadingBox />
-              ) : errorCategories ? (
-                <MessageBox variant="danger">{errorCategories}</MessageBox>
-              ) : (
+              <LoadingBox hide={!loadingCategories} />
+              <MessageBox variant="danger" msg={errorCategories} />
+              {categories && (
                 <>
                   <li>
                     <Link
@@ -160,19 +153,18 @@ export default function SearchScreen({ history }) {
                   <LoadingBox xl />
                 </div>
               </>
-            ) : error ? (
-              <MessageBox variant="danger">{error}</MessageBox>
-            ) : !products.length ? (
-              <>
-                <div className="placeholder">
-                  <MessageBox>No Product Found</MessageBox>
-                </div>
-              </>
             ) : (
               <>
-                {products.map((product, id) => (
-                  <ProductCard key={id} product={product}></ProductCard>
-                ))}
+                <MessageBox variant="danger" msg={error} />
+                {!products.length && (
+                  <div className="placeholder">
+                    <MessageBox show>No Product Found</MessageBox>
+                  </div>
+                )}
+                {products &&
+                  products.map((product, id) => (
+                    <ProductCard key={id} product={product}></ProductCard>
+                  ))}
               </>
             )}
             {(!products || products.length < 3) && (

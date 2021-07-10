@@ -31,8 +31,8 @@ export default function DealScreen() {
       dispatch(
         listProducts({
           pageNumber,
-          category: cat === "Deals" ? "" : cat,
           order,
+          category: cat === "Deals" ? "" : cat,
           deal: 1,
           pageSize: 990,
         })
@@ -44,11 +44,9 @@ export default function DealScreen() {
     <>
       <header className="screen__header">
         <ul className="cat-nav">
-          {loadingCategories ? (
-            <LoadingBox />
-          ) : errorCategories ? (
-            <MessageBox variant="danger">{errorCategories}</MessageBox>
-          ) : (
+          <LoadingBox hide={!loadingCategories} />
+          <MessageBox variant="danger" msg={errorCategories} />
+          {categories &&
             ["Deals", ...categories].map((label, id) => (
               <li
                 key={id}
@@ -57,50 +55,55 @@ export default function DealScreen() {
               >
                 {label}
               </li>
-            ))
-          )}
+            ))}
         </ul>
       </header>
+
       <div
         className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
       >
         {loading ? (
           <LoadingBox xl />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : !products.length ? (
-          <MessageBox>No Deals On This Category!</MessageBox>
         ) : (
-          <Carousel
-            swipeable={true}
-            draggable={true}
-            showDots={true}
-            responsive={responsive}
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={3000}
-            keyBoardControl={true}
-            customTransition="transform 500ms ease-in-out"
-            transitionDuration={500}
-            centerMode={true}
-            containerClass="carousel-container"
-            removeArrowOnDeviceType={["mobile"]}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-          >
-            {products.map((product, id) => (
-              <ProductCard deal key={id} product={product}></ProductCard>
-            ))}
-          </Carousel>
+          <>
+            <MessageBox variant="danger" msg={error} />
+            <MessageBox show={!products.length}>
+              No Deals On This Category!
+            </MessageBox>
+
+            {products && (
+              <Carousel
+                swipeable={true}
+                draggable={true}
+                showDots={true}
+                responsive={responsive}
+                infinite={true}
+                autoPlay={true}
+                autoPlaySpeed={3000}
+                keyBoardControl={true}
+                customTransition="transform 500ms ease-in-out"
+                transitionDuration={500}
+                centerMode={true}
+                containerClass="carousel-container"
+                removeArrowOnDeviceType={["mobile"]}
+                dotListClass="custom-dot-list-style"
+                itemClass="carousel-item-padding-40-px"
+              >
+                {products.map((product, id) => (
+                  <ProductCard deal key={id} product={product}></ProductCard>
+                ))}
+              </Carousel>
+            )}
+          </>
         )}
+
         <h2 className="mh-2">Top Deals</h2>
+
         <div className="row top">
           <div className="row search__banner">
-            {loading ? (
-              <LoadingBox />
-            ) : error ? (
-              <MessageBox variant="danger">{error}</MessageBox>
-            ) : (
+            <LoadingBox hide={!loading} />
+            <MessageBox variant="danger" msg={error} />
+            {products && (
               <div className="search__counter">
                 {products.length} of {count} Results
               </div>
@@ -108,23 +111,26 @@ export default function DealScreen() {
 
             <SortFilter
               order={order}
-              getUrl={({ order }) =>
-                `/deal/category/all/order/${order}/pageNumber/1`
+              getUrl={({ order: _order }) =>
+                `/deal/category/all/order/${_order}/pageNumber/1`
               }
             />
           </div>
-          {loading ? (
-            <LoadingBox xl />
-          ) : error ? (
-            <MessageBox variant="danger">{error}</MessageBox>
-          ) : (
-            !products.length && <MessageBox>No Product Found</MessageBox>
-          )}
-          <div className="row center">
-            {(products ? products : dummyProducts).map((product, id) => (
-              <ProductCard deal key={id} product={product}></ProductCard>
-            ))}
-          </div>
+          {
+            <>
+              <LoadingBox xl hide={!loading} />
+              <MessageBox variant="danger" msg={error} />
+              <MessageBox show={!loading && !products.length}>
+                No Product Found
+              </MessageBox>
+
+              <div className="row center">
+                {(products || dummyProducts).map((product, id) => (
+                  <ProductCard deal key={id} product={product}></ProductCard>
+                ))}
+              </div>
+            </>
+          }
         </div>
       </div>
     </>

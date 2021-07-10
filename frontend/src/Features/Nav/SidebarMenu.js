@@ -33,12 +33,14 @@ export default function SidebarMenu({ currency, shadowFor, setShadowFor }) {
       <ul className="sidebar__list">
         {loadingCategories ? (
           <LoadingBox />
-        ) : errorCategories ? (
-          <MessageBox variant="danger">{errorCategories}</MessageBox>
         ) : (
-          sidebarMenuItems(userInfo, currency, categories, () =>
-            dispatch(signout())
-          ).map(MenuItem(setShadowFor))
+          <>
+            <MessageBox variant="danger" msg={errorCategories} />
+            {categories &&
+              sidebarMenuItems(userInfo, currency, categories, () =>
+                dispatch(signout())
+              ).map(MenuItem(setShadowFor))}
+          </>
         )}
       </ul>
     </aside>

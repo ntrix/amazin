@@ -5,12 +5,12 @@ import {
   detailsProduct,
   updateProduct,
 } from "../../Controllers/productActions";
-import { getImgUrl, MAX_IMAGES } from "../../utils";
 import { productUpdateActions } from "./ProductSlice";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
+import { getImgUrl, MAX_IMAGES } from "../../constants";
 
 export default function ProductEditScreen(props) {
   const productId = props.match.params.id;
@@ -67,17 +67,17 @@ export default function ProductEditScreen(props) {
     // TODO: dispatch update product
     dispatch(
       updateProduct({
-        _id: productId,
         name,
         price,
         deal,
         ship,
         video,
-        image: images.join("^"),
         category,
         brand,
         countInStock,
         description,
+        _id: productId,
+        image: images.join("^"),
       })
     );
   };
@@ -165,21 +165,20 @@ export default function ProductEditScreen(props) {
           <h1>Edit Product {productId}</h1>
         </div>
 
-        {loadingUpdate && <LoadingBox xl />}
-        {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
-        {loading && <LoadingBox xl />}
+        <LoadingBox xl hide={!loadingUpdate} />
+        <MessageBox variant="danger" msg={errorUpdate} />
+        <LoadingBox xl hide={!loading} />
+        <MessageBox variant="danger" msg={error} />
 
-        {!loading && (
+        {!loading && !error && (
           <>
-            {error && <MessageBox variant="danger">{error}</MessageBox>}
-
             <CustomInput text="Name" hook={[name, setName]} />
 
             <CustomInput text="Price" hook={[price, setPrice]} />
 
-            <CustomInput text="Ship" hook={[ship || "", setShip]} />
+            <CustomInput text="Ship" hook={[ship, setShip]} />
 
-            <CustomInput text="Deal" hook={[deal || "", setDeal]} />
+            <CustomInput text="Deal" hook={[deal, setDeal]} />
 
             <div>
               <label htmlFor="image-1-cover">
@@ -245,11 +244,9 @@ export default function ProductEditScreen(props) {
                     hook={[imagePreview, setImagePreview]}
                     onKeyUp={addImageOnPressEnter}
                   />
-                  {info && <MessageBox variant="info">{info}</MessageBox>}
-                  {fileUploading && <LoadingBox />}
-                  {fileUploadErr && (
-                    <MessageBox variant="danger">{fileUploadErr}</MessageBox>
-                  )}
+                  <MessageBox variant="info" msg={info} />
+                  <LoadingBox hide={!fileUploading} />
+                  <MessageBox variant="danger" msg={fileUploadErr} />
                 </>
               ) : (
                 <label>
@@ -260,7 +257,7 @@ export default function ProductEditScreen(props) {
 
             <CustomInput
               text="Video Link or Youtube VID"
-              hook={[video || "", setVideo]}
+              hook={[video, setVideo]}
             />
 
             <CustomInput text="Category" hook={[category, setCategory]} />

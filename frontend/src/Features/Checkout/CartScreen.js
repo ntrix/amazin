@@ -33,9 +33,9 @@ export default function CartScreen(props) {
     <div className="screen--light row top">
       <div className="col-2">
         <h1 className="p-1">Shopping Cart</h1>
-        {error && <MessageBox variant="danger">{error}</MessageBox>}
+        <MessageBox msg={error} variant="danger" />
         {cartItems.length === 0 ? (
-          <MessageBox>
+          <MessageBox show>
             Your cart is still empty.{" "}
             <Link to="/">
               <b>Let's go back and shopping something first.</b>

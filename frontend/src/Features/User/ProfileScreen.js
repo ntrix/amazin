@@ -73,15 +73,13 @@ export default function ProfileScreen({ location }) {
           <h1>User Profile</h1>
         </div>
 
-        {loading && <LoadingBox xl />}
+        <LoadingBox xl hide={!loading} />
 
         {!loading && (
           <>
-            {error && <MessageBox variant="danger">{error}</MessageBox>}
-            {loadingUpdate && <LoadingBox xl />}
-            {errorUpdate && (
-              <MessageBox variant="danger">{errorUpdate}</MessageBox>
-            )}
+            <MessageBox variant="danger" msg={error} />
+            <LoadingBox xl hide={!loadingUpdate} />
+            <MessageBox variant="danger" msg={errorUpdate} />
 
             <CustomInput text="Name" hook={[name, setName]} />
 
@@ -110,7 +108,7 @@ export default function ProfileScreen({ location }) {
 
             <PrivateRoute path="/profile/seller" exact>
               {!user?.isSeller ? (
-                <MessageBox variant="danger">
+                <MessageBox variant="danger" show>
                   You don't have seller account, please apply first!
                 </MessageBox>
               ) : (
@@ -138,11 +136,9 @@ export default function ProfileScreen({ location }) {
             </PrivateRoute>
 
             <div>
-              {successUpdate && (
-                <MessageBox variant="success">
-                  Profile Updated Successfully
-                </MessageBox>
-              )}
+              <MessageBox variant="success" show={successUpdate}>
+                Profile Updated Successfully
+              </MessageBox>
             </div>
             <br />
 

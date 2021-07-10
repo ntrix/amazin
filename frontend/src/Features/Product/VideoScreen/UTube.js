@@ -11,7 +11,8 @@ const opts = {
 };
 
 export default function UTube({ trailerUrl }) {
-  return trailerUrl ? (
+  if (!trailerUrl) return null;
+  return (
     <div className="trailer__frame">
       <YouTube
         className="movie__trailer"
@@ -19,7 +20,5 @@ export default function UTube({ trailerUrl }) {
         opts={opts}
       />
     </div>
-  ) : (
-    <></>
   );
 }

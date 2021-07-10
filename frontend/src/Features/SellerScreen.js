@@ -41,61 +41,61 @@ export default function SellerScreen(props) {
       <div className="row search__banner">
         {loadingProducts ? (
           <LoadingBox />
-        ) : errorProducts ? (
-          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <div className="search__counter">
-            {products.length} of {count} Products from this Seller
-          </div>
+          <>
+            <MessageBox variant="danger" msg={errorProducts} />
+            <div className="search__counter">
+              {products.length} of {count} Products from this Seller
+            </div>
+          </>
         )}
       </div>
       <div className="col-1">
         {loading ? (
           <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <ul className="card card__body">
-            <li>
-              <div className="row start">
-                <div className="p-1">
-                  <img
-                    className="small"
-                    src={user.seller.logo}
-                    alt={user.seller.name}
-                  ></img>
+          <>
+            <MessageBox variant="danger" msg={error} />
+            <ul className="card card__body">
+              <li>
+                <div className="row start">
+                  <div className="p-1">
+                    <img
+                      className="small"
+                      src={user.seller.logo}
+                      alt={user.seller.name}
+                    ></img>
+                  </div>
+                  <div className="p-1">
+                    <h1>{user.seller.name}</h1>
+                  </div>
                 </div>
-                <div className="p-1">
-                  <h1>{user.seller.name}</h1>
-                </div>
-              </div>
-            </li>
-            <li>
-              <Rating
-                rating={user.seller.rating}
-                numReviews={user.seller.numReviews}
-              ></Rating>
-            </li>
-            <li>
-              <a href={`mailto:${user.email}`}>Contact Seller</a>
-            </li>
-            <li>{user.seller.description}</li>
-            <li className="p-1">
-              <SortFilter order={pOrder} getUrl={getUrl} />
-            </li>
-          </ul>
+              </li>
+              <li>
+                <Rating
+                  rating={user.seller.rating}
+                  numReviews={user.seller.numReviews}
+                ></Rating>
+              </li>
+              <li>
+                <a href={`mailto:${user.email}`}>Contact Seller</a>
+              </li>
+              <li>{user.seller.description}</li>
+              <li className="p-1">
+                <SortFilter order={pOrder} getUrl={getUrl} />
+              </li>
+            </ul>
+          </>
         )}
       </div>
       <div className="col-3 mt-1 p-1">
         {loadingProducts ? (
           <LoadingBox xl />
-        ) : errorProducts ? (
-          <MessageBox variant="danger">{errorProducts}</MessageBox>
         ) : (
           <>
-            {" "}
+            <MessageBox variant="danger" msg={errorProducts} />{" "}
             <Pagination page={page} pages={pages} getUrl={getUrl} />
-            {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
+            <MessageBox hide={products.length}>No Product Found</MessageBox>
             <div className="row center">
               {products.map((product) => (
                 <ProductCard key={product._id} product={product}></ProductCard>

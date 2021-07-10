@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getImgUrl, NO_IMAGE, pipe, savePath } from "../utils";
+import { getImgUrl, NO_IMAGE, pipe, savePath } from "../constants";
 import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {

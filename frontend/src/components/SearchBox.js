@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
-import { findSuggest } from "../utils";
+import { findSuggest } from "../constants";
 
 export default function SearchBox({ shadowFor, setShadowFor }) {
   const history = useHistory();

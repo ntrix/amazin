@@ -56,11 +56,9 @@ export default function ProductScreen(props) {
 
   return (
     <div>
-      {loading ? (
-        <LoadingBox xl />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
+      <LoadingBox xl hide={!loading} />
+      <MessageBox variant="danger" msg={error} />
+      {!loading && (
         <div className="col-fill">
           <div>
             <div className="row search__banner">
@@ -219,9 +217,9 @@ export default function ProductScreen(props) {
           </div>
           <div className="p-1">
             <h2 id="reviews">Reviews</h2>
-            {product.reviews.length === 0 && (
-              <MessageBox>There is no review</MessageBox>
-            )}
+            <MessageBox show={product.reviews.length === 0}>
+              There is no review
+            </MessageBox>
             <ul>
               {product.reviews.map((review, id) => (
                 <li key={id}>
@@ -270,16 +268,12 @@ export default function ProductScreen(props) {
                       </button>
                     </div>
                     <div>
-                      {loadingReviewCreate && <LoadingBox />}
-                      {errorReviewCreate && (
-                        <MessageBox variant="danger">
-                          {errorReviewCreate}
-                        </MessageBox>
-                      )}
+                      <LoadingBox hide={!loadingReviewCreate} />
+                      <MessageBox variant="danger" msg={errorReviewCreate} />
                     </div>
                   </form>
                 ) : (
-                  <MessageBox>
+                  <MessageBox show>
                     Please <Link to="/signin">Sign In</Link> to write a review
                   </MessageBox>
                 )}

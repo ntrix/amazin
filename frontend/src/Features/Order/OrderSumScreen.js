@@ -18,11 +18,10 @@ import MessageBox from "../../components/MessageBox";
 export default function OrderSumScreen(props) {
   const orderId = props.match.params.id;
   const [sdkReady, setSdkReady] = useState(false);
+
+  const { userInfo } = useSelector((state) => state.userSignin);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-
   const orderPay = useSelector((state) => state.orderPay);
   const {
     loading: loadingPay,
@@ -48,12 +47,7 @@ export default function OrderSumScreen(props) {
       };
       document.body.appendChild(script);
     };
-    if (
-      !order ||
-      successPay ||
-      successDeliver ||
-      (order && order._id !== orderId)
-    ) {
+    if (!order || successPay || successDeliver || order._id !== orderId) {
       dispatch(orderPayActions._RESET());
       dispatch(orderDeliverActions._RESET());
       dispatch(detailsOrder(orderId));
@@ -77,19 +71,20 @@ export default function OrderSumScreen(props) {
 
   return (
     <div className="screen--light">
-      {loading ? (
-        <LoadingBox xl />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
+      <LoadingBox xl hide={!loading} />
+      <MessageBox variant="danger" msg={error} />
+
+      {order && (
         <>
           <h1 className="p-1">Order {order._id}</h1>
+
           <div className="row top">
             <div className="col-3">
               <ul>
                 <li>
                   <div className="card card__body">
                     <h2>Shipping</h2>
+
                     <p>
                       <strong>Name:</strong> {order.shippingAddress.fullName}{" "}
                       <br />
@@ -98,33 +93,37 @@ export default function OrderSumScreen(props) {
                       {order.shippingAddress.postalCode},
                       {order.shippingAddress.country}
                     </p>
-                    {order.isDelivered ? (
-                      <MessageBox variant="success">
-                        Delivered at {order.deliveredAt}
-                      </MessageBox>
-                    ) : (
-                      <MessageBox variant="danger">Not Delivered</MessageBox>
-                    )}
+
+                    <MessageBox variant="success" show={order.isDelivered}>
+                      Delivered at {order.deliveredAt}
+                    </MessageBox>
+                    <MessageBox variant="danger" show={!order.isDelivered}>
+                      Not Delivered
+                    </MessageBox>
                   </div>
                 </li>
+
                 <li>
                   <div className="card card__body">
                     <h2>Payment</h2>
+
                     <p>
                       <strong>Method:</strong> {order.paymentMethod}
                     </p>
-                    {order.isPaid ? (
-                      <MessageBox variant="success">
-                        Paid at {order.paidAt}
-                      </MessageBox>
-                    ) : (
-                      <MessageBox variant="danger">Not Paid</MessageBox>
-                    )}
+
+                    <MessageBox variant="success" show={order.isPaid}>
+                      Paid at {order.paidAt}
+                    </MessageBox>
+                    <MessageBox variant="danger" show={!order.isPaid}>
+                      Not Paid
+                    </MessageBox>
                   </div>
                 </li>
+
                 <li>
                   <div className="card card__body">
                     <h2>Order Items</h2>
+
                     <ul>
                       {order.orderItems.map((item, id) => (
                         <li key={id}>
@@ -139,6 +138,7 @@ export default function OrderSumScreen(props) {
                                 className="small"
                               ></img>
                             </div>
+
                             <div className="min-30">
                               <Link to={`/product/${item.product}`}>
                                 {item.name}
@@ -157,30 +157,35 @@ export default function OrderSumScreen(props) {
                 </li>
               </ul>
             </div>
+
             <div className="col-1">
               <div className="card card__body">
                 <ul>
                   <li>
                     <h2>Order Summary</h2>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>Items</div>
                       <div>{pipe.showPrice(order.itemsPrice)}</div>
                     </div>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>Shipping</div>
                       <div>{pipe.showPrice(order.shippingPrice)}</div>
                     </div>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>Before 19% MwSt.</div>
                       <div>{pipe.showPrice(order.taxPrice)}</div>
                     </div>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>
@@ -191,16 +196,14 @@ export default function OrderSumScreen(props) {
                       </div>
                     </div>
                   </li>
+
                   {!order.isPaid && (
                     <li>
-                      {!sdkReady ? (
-                        <LoadingBox />
-                      ) : (
+                      <LoadingBox hide={sdkReady} />
+                      {sdkReady && (
                         <>
-                          {errorPay && (
-                            <MessageBox variant="danger">{errorPay}</MessageBox>
-                          )}
-                          {loadingPay && <LoadingBox />}
+                          <LoadingBox hide={!loadingPay} />
+                          <MessageBox variant="danger" msg={errorPay} />
 
                           <PayPalButton
                             amount={order.totalPrice}
@@ -210,12 +213,12 @@ export default function OrderSumScreen(props) {
                       )}
                     </li>
                   )}
+
                   {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                     <li>
-                      {loadingDeliver && <LoadingBox />}
-                      {errorDeliver && (
-                        <MessageBox variant="danger">{errorDeliver}</MessageBox>
-                      )}
+                      <LoadingBox hide={!loadingDeliver} />
+                      <MessageBox variant="danger" msg={errorDeliver} />
+
                       <button
                         type="button"
                         className="primary block"

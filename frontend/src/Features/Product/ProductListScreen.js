@@ -43,13 +43,14 @@ export default function ProductListScreen(props) {
     if (successDelete) {
       dispatch(productDeleteActions._RESET());
     }
+    // min = 0 to find all products no matter what price it is (0.00) to edit
     dispatch(
       listProducts({
-        seller: sellerMode ? userInfo._id : "",
         pageNumber,
+        seller: sellerMode ? userInfo._id : "",
         min: "0",
       })
-    ); // min = 0 to find all products no matter what price it is (0.00) to edit
+    );
   }, [
     createdProduct,
     dispatch,
@@ -78,16 +79,13 @@ export default function ProductListScreen(props) {
         </button>
       </div>
 
-      {loadingDelete && <LoadingBox xl />}
-      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
-
-      {loadingCreate && <LoadingBox xl />}
-      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
-      {loading ? (
-        <LoadingBox xl />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
+      <LoadingBox xl hide={!loadingDelete} />
+      <LoadingBox xl hide={!loadingCreate} />
+      <LoadingBox xl hide={!loading} />
+      <MessageBox variant="danger" msg={errorDelete} />
+      <MessageBox variant="danger" msg={errorCreate} />
+      <MessageBox variant="danger" msg={error} />
+      {!loading && !error && (
         <>
           <table className="table">
             <thead>
@@ -133,10 +131,10 @@ export default function ProductListScreen(props) {
           <Pagination
             page={page}
             pages={pages}
-            getUrl={({ page }) =>
+            getUrl={({ page: _page }) =>
               `/product-list${
                 userInfo.isAdmin ? "" : "/seller"
-              }/pageNumber/${page}`
+              }/pageNumber/${_page}`
             }
             help
           />

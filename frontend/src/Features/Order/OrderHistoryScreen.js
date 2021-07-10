@@ -5,6 +5,7 @@ import { listOrderMine } from "../../Controllers/orderActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { CURRENCY, DD_MM_YYYY } from "../../utils";
 
 export default function OrderHistoryScreen(props) {
   const orderMineList = useSelector((state) => state.orderMineList);
@@ -18,47 +19,54 @@ export default function OrderHistoryScreen(props) {
       <h1 className="p-1">Order History</h1>
       {loading ? (
         <LoadingBox xl />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>USER_ID</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th className="tab__w6">ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice.toFixed(2)}</td>
-                <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
-                <td>
-                  {order.isDelivered
-                    ? order.deliveredAt.substring(0, 10)
-                    : "No"}
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => {
-                      props.history.push(`/order/${order._id}`);
-                    }}
-                  >
-                    Details
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <>
+          <MessageBox variant="danger" msg={error} />
+          {orders && (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>USER_ID</th>
+                  <th>DATE</th>
+                  <th>TOTAL</th>
+                  <th>PAID</th>
+                  <th>DELIVERED</th>
+                  <th className="tab__w6">ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order._id}>
+                    <td>{order._id}</td>
+                    <td>{order.createdAt.substring(0, DD_MM_YYYY)}</td>
+                    <td>{order.totalPrice.toFixed(CURRENCY)}</td>
+                    <td>
+                      {order.isPaid
+                        ? order.paidAt.substring(0, DD_MM_YYYY)
+                        : "No"}
+                    </td>
+                    <td>
+                      {order.isDelivered
+                        ? order.deliveredAt.substring(0, DD_MM_YYYY)
+                        : "No"}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="small"
+                        onClick={() => {
+                          props.history.push(`/order/${order._id}`);
+                        }}
+                      >
+                        Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
       )}
     </div>
   );

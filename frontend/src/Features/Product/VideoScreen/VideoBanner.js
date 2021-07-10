@@ -80,8 +80,8 @@ export default function VideoBanner({ source }) {
         <div className="banner--fade-bottom" />
       </header>
 
-      {loadingCreate && <LoadingBox xl />}
-      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
+      <LoadingBox xl hide={!loadingCreate} />
+      <MessageBox variant="danger" msg={errorCreate} />
 
       <UTube trailerUrl={trailerUrl} />
     </>

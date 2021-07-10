@@ -10,16 +10,17 @@ import VideoRow from "./VideoRow";
 import "./videoScreen.css";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
+const TRENDING = "Trending Now";
+const TOP_RATED = "Top Rated";
 const sources = {
   "NETFLUX ORIGINALS": `/discover/tv?api_key=${API_KEY}&with_networks=213`,
-
   "Action Movies": `/discover/movie?api_key=${API_KEY}&with_genres=28`,
   "Comedy Movies": `/discover/movie?api_key=${API_KEY}&with_genres=35`,
   "Horror Movies": `/discover/movie?api_key=${API_KEY}&with_genres=27`,
   "Romance Movies": `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
   Documentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
-  "Trending Now": `/trending/all/week?api_key=${API_KEY}&language=en-US`,
-  "Top Rated": `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
+  [TRENDING]: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
+  [TOP_RATED]: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
 };
 const navLabels = Object.keys(sources);
 navLabels.splice(1, 0, "Home", "STORE");
@@ -50,17 +51,17 @@ export default function VideoScreen() {
 
     (async function fetchData() {
       const promiseReturns = await Promise.all(
-        Object.keys(sources).map(async (genre) => {
+        Object.keys(sources).map(async (_genre) => {
           const { data } = await axios
-            .get("https://api.themoviedb.org/3" + sources[genre])
-            .catch((e) => {});
-          return [[genre], data.results];
+            .get("https://api.themoviedb.org/3" + sources[_genre])
+            .catch();
+          return [[_genre], data.results];
         })
       );
       if (!isMounted) return;
       const movieObj = {};
       promiseReturns.map(
-        ([genre, list]) => (movieObj[genre] = sourceAdapter(list))
+        ([_genre, list]) => (movieObj[_genre] = sourceAdapter(list))
       );
       setExternMovies(movieObj);
     })();
@@ -105,38 +106,34 @@ export default function VideoScreen() {
         )}
       {loadingProducts ? (
         <LoadingBox xl />
-      ) : errorProducts ? (
-        <MessageBox variant="danger">{errorProducts}</MessageBox>
       ) : (
         <>
-          {products.length === 0 && (
-            <MessageBox>
-              No Product Found Or All Movies In Stock Are Sold Out
-            </MessageBox>
+          <MessageBox variant="danger" msg={errorProducts} />
+          <MessageBox show={!products.length}>
+            No Product Found Or All Movies In Stock Are Sold Out
+          </MessageBox>
+          {products.length && (
+            <VideoRow
+              title="IN STOCK: READY TO BUY"
+              movies={[storeMovies, dummyMovies][!!loadingProducts]}
+              //if Netflux is genre, only one portrait row
+              portrait={genre !== "NETFLUX ORIGINALS"}
+            />
           )}
-          <VideoRow
-            title="IN STOCK: READY TO BUY"
-            movies={loadingProducts ? dummyMovies : storeMovies}
-            //if Netflux is genre, only one portrait row
-            portrait={genre !== "NETFLUX ORIGINALS"}
-          />
         </>
       )}
       {
-        externMovies["Trending Now"] && genre !== "Trending Now" && (
-          <VideoRow
-            title="Trending Now"
-            movies={externMovies["Trending Now"]}
-          />
-        ) /* no duplicated Trending Now*/
+        /* no duplicated Trending Now */
+        externMovies[TRENDING] && genre !== TRENDING && (
+          <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />
+        )
       }
-      {externMovies["Top Rated"] && genre !== "Top Rated" && (
-        <VideoRow title="Top Rated" movies={externMovies["Top Rated"]} />
+      {externMovies[TOP_RATED] && genre !== TOP_RATED && (
+        <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />
       )}
       <div className="banner__divider"></div>
       <VideoBannerBottom
         source={!successProducts ? NO_MOVIES : movies[genre]}
-      />
       />
     </div>
   );

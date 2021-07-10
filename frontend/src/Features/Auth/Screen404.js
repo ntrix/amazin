@@ -15,7 +15,7 @@ export default function Screen404(props) {
         </header>
         <div className="divider-inner"></div>
         <div className="container">
-          <MessageBox variant="danger">
+          <MessageBox variant="danger" show>
             <h2>404: Page not found</h2>
           </MessageBox>
         </div>
