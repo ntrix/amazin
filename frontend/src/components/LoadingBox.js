@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function LoadingBox({ xl }) {
+export default function LoadingBox({ hide = false, xl = false }) {
+  if (hide) return null;
   return (
     <div className="loading">
       {xl ? (

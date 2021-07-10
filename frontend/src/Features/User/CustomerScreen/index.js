@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./customerScreen.css";
 
-function CustomerScreen() {
+export default function CustomerScreen() {
   const { user } = useSelector((state) => state.userSignin);
 
   return (
@@ -15,7 +15,9 @@ function CustomerScreen() {
           someone if you need more help.
         </h3>
       </header>
+
       <div className="divider"></div>
+
       <div className="container">
         <h2>What can we assist you with today?</h2>
         <div className="c-boxes">
@@ -102,8 +104,10 @@ function CustomerScreen() {
                     alt={"icon " + img}
                   ></img>
                 </div>
+
                 <div className="c-box__info">
                   <h3 className="c-box__label">{label}</h3>
+
                   <ul className="c-box__text">
                     <li>{line1}</li>
                     <li>{line2}</li>
@@ -112,7 +116,9 @@ function CustomerScreen() {
               </div>
             </Link>
           ))}
+
           <div className="separator mb-1"></div>
+
           <section className="help-section col-fill">
             <label htmlFor="search-faq">
               <h3>
@@ -120,9 +126,13 @@ function CustomerScreen() {
                 <i> Type something like, "question about a charge"</i>
               </h3>
             </label>
+
             <input type="text" id="search-faq"></input>
+
             <h1>Browse Help Topics </h1>
+
             <h2>In construction</h2>
+
             <p>Help Section:</p>
           </section>
         </div>
@@ -130,5 +140,3 @@ function CustomerScreen() {
     </div>
   );
 }
-
-export default CustomerScreen;

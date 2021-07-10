@@ -7,9 +7,9 @@ import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import PrivateRoute from "../Route/PrivateRoute";
+import CustomInput from "../../components/CustomInput";
 
 export default function ProfileScreen({ location }) {
-  //const isSellerProfile = location.pathname?.split("/")[2] === "seller";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -72,69 +72,41 @@ export default function ProfileScreen({ location }) {
         <div>
           <h1>User Profile</h1>
         </div>
-        {loading ? (
-          <LoadingBox xl />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
+
+        {loading && <LoadingBox xl />}
+
+        {!loading && (
           <>
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
             {loadingUpdate && <LoadingBox xl />}
             {errorUpdate && (
               <MessageBox variant="danger">{errorUpdate}</MessageBox>
             )}
 
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </div>
+            <CustomInput text="Name" hook={[name, setName]} />
+
+            <CustomInput text="Email" type="email" hook={[email, setEmail]} />
 
             <PrivateRoute path="/profile/password" exact>
-              <div>
-                <label htmlFor="oldPassword">Old Password</label>
-                <input
-                  id="oldPassword"
-                  type="password"
-                  placeholder="Enter old password"
-                  onChange={(e) => setOldPassword(e.target.value)}
-                ></input>
-              </div>
+              <CustomInput
+                text="Old Password"
+                type="password"
+                onChange={setOldPassword}
+              />
             </PrivateRoute>
 
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter password"
-                onChange={(e) => setPassword(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                id="confirmPassword"
-                type="password"
-                autoComplete="off"
-                placeholder="Enter confirm password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              ></input>
-            </div>
+            <CustomInput
+              text="Password"
+              type="password"
+              onChange={setPassword}
+            />
+
+            <CustomInput
+              text="Confirm Password"
+              type="password"
+              autoComplete="off"
+              onChange={setConfirmPassword}
+            />
 
             <PrivateRoute path="/profile/seller" exact>
               {!user?.isSeller ? (
@@ -146,38 +118,21 @@ export default function ProfileScreen({ location }) {
                   <div>
                     <h2>Seller</h2>
                   </div>
-                  <div>
-                    <label htmlFor="sellerName">Seller Name</label>
-                    <input
-                      id="sellerName"
-                      type="text"
-                      placeholder="Enter Seller Name"
-                      value={sellerName}
-                      onChange={(e) => setSellerName(e.target.value)}
-                    ></input>
-                  </div>
-                  <div>
-                    <label htmlFor="sellerLogo">Seller Logo</label>
-                    <input
-                      id="sellerLogo"
-                      type="text"
-                      placeholder="Enter Seller Logo"
-                      value={sellerLogo}
-                      onChange={(e) => setSellerLogo(e.target.value)}
-                    ></input>
-                  </div>
-                  <div>
-                    <label htmlFor="sellerDescription">
-                      Seller Description
-                    </label>
-                    <input
-                      id="sellerDescription"
-                      type="text"
-                      placeholder="Enter Seller Description"
-                      value={sellerDescription}
-                      onChange={(e) => setSellerDescription(e.target.value)}
-                    ></input>
-                  </div>
+
+                  <CustomInput
+                    text="Seller Name"
+                    hook={[sellerName, setSellerName]}
+                  />
+
+                  <CustomInput
+                    text="Seller Logo"
+                    hook={[sellerLogo, setSellerLogo]}
+                  />
+
+                  <CustomInput
+                    text="Seller Description"
+                    hook={[sellerDescription, setSellerDescription]}
+                  />
                 </>
               )}
             </PrivateRoute>
@@ -189,8 +144,9 @@ export default function ProfileScreen({ location }) {
                 </MessageBox>
               )}
             </div>
+            <br />
+
             <div>
-              <label />
               <button className="primary" type="submit">
                 Update
               </button>

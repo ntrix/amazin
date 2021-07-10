@@ -1,16 +1,18 @@
 import React from "react";
 
-export default function MessageBox({ variant, children }) {
+export default function MessageBox({ show = false, msg, variant, children }) {
+  if (!show && !msg) return null;
+  const infos = msg || children;
   return (
     <div className={`alert alert--${variant || "info"}`}>
-      {!Array.isArray(children) ? (
-        children
-      ) : (
+      {Array.isArray(infos) ? (
         <ul>
-          {children.map((child, id) => (
-            <li key={id}>{child}</li>
+          {infos.map((info, id) => (
+            <li key={id}>{info}</li>
           ))}
         </ul>
+      ) : (
+        infos
       )}
     </div>
   );

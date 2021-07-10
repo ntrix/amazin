@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
 import { updateUserProfile } from "../../Controllers/userActions";
 import { userUpdateProfileActions } from "./UserSlice";
+
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import CustomInput from "../../components/CustomInput";
 
 export default function ContactScreen(props) {
   const { subject: pSubject } = useParams();
@@ -103,26 +105,10 @@ export default function ContactScreen(props) {
           </>
         ) : (
           <>
-            <div>
-              <label htmlFor="name">Your Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="email">Your Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </div>
+            <CustomInput text="Your Name" hook={[name, setName]} />
+
+            <CustomInput text="Email" type="email" hook={[email, setEmail]} />
+
             <div>
               <label htmlFor="subject">Subject</label>
               <div className="select-wrapper">
@@ -131,43 +117,36 @@ export default function ContactScreen(props) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                 >
-                  {!userInfo?.isSeller && "Seller" === pSubject ? (
+                  {!userInfo?.isSeller && "Seller" === pSubject && (
                     <option value="Seller">Verify My Seller Account</option>
-                  ) : !userInfo?.isAdmin && "Admin" === pSubject ? (
-                    <option value="Admin">Apply To Be Administrator</option>
-                  ) : (
-                    <>
-                      <option value="Account">Account</option>
-                      <option value="Ads">Advertisement</option>
-                      <option value="Customer">Customer Service</option>
-                      <option value="FAQ">FAQ</option>
-                      <option value="Help">Help Desk</option>
-                      <option value="Orders">Your Orders</option>
-                      <option value="Payment">Payment</option>
-                      <option value="Report">
-                        Report Something Suspicious
-                      </option>
-                      <option value="Returns">Returns & Refund</option>
-                      <option value="Shipping">Shipping Address</option>
-                      <option value="Others">Others..</option>
-                    </>
                   )}
+                  {!userInfo?.isAdmin && "Admin" === pSubject && (
+                    <option value="Admin">Apply To Be Administrator</option>
+                  )}
+                  <option value="Account">Account</option>
+                  <option value="Ads">Advertisement</option>
+                  <option value="Customer">Customer Service</option>
+                  <option value="FAQ">FAQ</option>
+                  <option value="Help">Help Desk</option>
+                  <option value="Orders">Your Orders</option>
+                  <option value="Payment">Payment</option>
+                  <option value="Report">Report Something Suspicious</option>
+                  <option value="Returns">Returns & Refund</option>
+                  <option value="Shipping">Shipping Address</option>
+                  <option value="Others">Others..</option>
                 </select>
               </div>
             </div>
+
+            <CustomInput
+              textarea
+              rows="10"
+              text="Your Message"
+              hook={[text, setText]}
+            />
+            <br />
+
             <div>
-              <label htmlFor="text">Message</label>
-              <textarea
-                id="text"
-                rows="10"
-                type="text"
-                placeholder="Enter Your Message"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              ></textarea>
-            </div>
-            <div>
-              <label></label>
               <button className="primary" type="submit">
                 Send Your Message
               </button>

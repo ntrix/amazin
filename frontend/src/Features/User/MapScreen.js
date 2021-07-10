@@ -7,8 +7,9 @@ import {
 import axiosClient from "../../Controllers/axiosClient";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import LoadingBox from "../../components/LoadingBox";
 import { userAddressMapActions } from "./UserSlice";
+
+import LoadingBox from "../../components/LoadingBox";
 
 const libs = ["places"];
 const defaultLocation = { lat: 45.516, lng: -73.56 };
@@ -29,9 +30,7 @@ export default function MapScreen(props) {
         setGoogleApiKey(data);
         getUserCurrentLocation();
       })();
-    } catch (err) {
-      //console.log(err);
-    }
+    } catch (err) {}
   }, []);
 
   const onLoad = (map) => {
@@ -55,9 +54,7 @@ export default function MapScreen(props) {
       const place = placeRef.current.getPlaces()[0].geometry.location;
       setCenter({ lat: place.lat(), lng: place.lng() });
       setLocation({ lat: place.lat(), lng: place.lng() });
-    } catch (err) {
-      //console.log(err);
-    }
+    } catch (err) {}
   };
   const dispatch = useDispatch();
   const onConfirm = () => {
@@ -117,28 +114,22 @@ export default function MapScreen(props) {
             onPlacesChanged={onPlacesChanged}
           >
             <div className="address-box col-fill">
-              <button
-                type="button"
-                className="danger btn-left"
-                onClick={redirectBack}
-              >
+              <button className="danger btn-left" onClick={redirectBack}>
                 Cancel
               </button>
+
               <input
                 type="text"
-                size="1"
                 placeholder="Enter your address"
                 className="col-fill"
               ></input>
-              <button
-                type="button"
-                className="primary btn-right"
-                onClick={onConfirm}
-              >
+
+              <button className="primary btn-right" onClick={onConfirm}>
                 Confirm
               </button>
             </div>
           </StandaloneSearchBox>
+
           <Marker position={location} onLoad={onMarkerLoad}></Marker>
         </GoogleMap>
       </LoadScript>

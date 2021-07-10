@@ -1,6 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { userUpdateActions } from "./UserSlice";
@@ -8,6 +6,7 @@ import { detailsUser, updateUser } from "../../Controllers/userActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import CustomInput from "../../components/CustomInput";
 
 export default function UserEditScreen(props) {
   const userId = props.match.params.id;
@@ -57,50 +56,31 @@ export default function UserEditScreen(props) {
             <MessageBox variant="danger">{errorUpdate}</MessageBox>
           )}
         </div>
-        {loading ? (
-          <LoadingBox xl />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
+        {loading && <LoadingBox xl />}
+        {!loading && (
           <>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </div>
-            <div className="flex">
-              <input
-                id="isSeller"
-                type="checkbox"
-                checked={isSeller}
-                onChange={(e) => setIsSeller(e.target.checked)}
-              ></input>
-              <label htmlFor="isSeller">Seller Account</label>
-            </div>
-            <div className="flex">
-              <input
-                id="isAdmin"
-                type="checkbox"
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              ></input>
-              <label htmlFor="isAdmin">Administrator</label>
-            </div>
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
+
+            <CustomInput text="Name" hook={[name, setName]} />
+
+            <CustomInput text="Email" type="email" hook={[email, setEmail]} />
+
+            <CustomInput
+              wrapClass="flex"
+              text="Seller Account"
+              type="checkbox"
+              checked={isSeller}
+              onChange={(e) => setIsSeller(e.target.checked)}
+            />
+
+            <CustomInput
+              wrapClass="flex"
+              text="Administrator"
+              type="checkbox"
+              checked={isAdmin}
+              onChange={(e) => setIsAdmin(e.target.checked)}
+            />
+
             <div>
               <button type="submit" className="primary">
                 Update
