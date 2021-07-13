@@ -3,9 +3,9 @@ import { cartActions } from "../Features/Checkout/CartSlice.js";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const { data } = await axiosClient.get(`/api/products/${productId}`);
-  const {
-    cart: { cartItems },
-  } = getState();
+  const { cart } = getState();
+  const { cartItems } = cart;
+
   if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     dispatch(
       cartActions._ADD_ITEM_FAIL(
@@ -28,6 +28,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
         qty,
       })
     );
+
     localStorage.setItem(
       "cartItems",
       JSON.stringify(getState().cart.cartItems)

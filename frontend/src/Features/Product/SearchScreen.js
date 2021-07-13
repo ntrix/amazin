@@ -8,7 +8,7 @@ import ProductCard from "../../components/ProductCard";
 import Rating from "../../components/Rating";
 import SortFilter from "../../components/SortFilter";
 import { listProducts } from "../../Controllers/productActions";
-import { prices, ratings } from "../../utils";
+import { prices, ratings } from "../../constants";
 
 export default function SearchScreen({ history }) {
   const {

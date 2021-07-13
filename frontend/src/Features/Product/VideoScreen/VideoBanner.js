@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { createProduct } from "../../../Controllers/productActions";
-import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../utils";
+import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../constants";
 import { productCreateActions } from "../ProductSlice";
 import UTube from "./UTube";
 import { VideoButtons } from "./VideoButtons";

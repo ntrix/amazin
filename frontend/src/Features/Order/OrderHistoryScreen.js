@@ -5,7 +5,7 @@ import { listOrderMine } from "../../Controllers/orderActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import { CURRENCY, DD_MM_YYYY } from "../../utils";
+import { CURRENCY, DD_MM_YYYY } from "../../constants";
 
 export default function OrderHistoryScreen(props) {
   const orderMineList = useSelector((state) => state.orderMineList);

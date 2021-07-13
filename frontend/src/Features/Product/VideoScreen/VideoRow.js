@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Carousel, { responsive } from "../../../utils";
+import Carousel, { responsive } from "../../../constants";
 import UTube from "./UTube";
 import VideoCard from "./VideoCard";
 

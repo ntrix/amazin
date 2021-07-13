@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import { listProducts } from "../../../Controllers/productActions";
-import { dummyMovies, NO_MOVIES, sourceAdapter } from "../../../utils";
+import { NO_MOVIES } from "../../../constants";
+import { dummyMovies, sourceAdapter } from "../../../utils";
 import VideoBanner, { VideoBannerBottom } from "./VideoBanner";
 import VideoRow from "./VideoRow";
 import "./videoScreen.css";
@@ -91,7 +92,9 @@ export default function VideoScreen() {
           ))}
         </ul>
       </header>
+
       <VideoBanner source={!successProducts ? NO_MOVIES : movies[genre]} />
+
       {externMovies &&
         Object.keys(sources).map(
           (label, id) =>
@@ -104,6 +107,7 @@ export default function VideoScreen() {
               />
             )
         )}
+
       {loadingProducts ? (
         <LoadingBox xl />
       ) : (
@@ -112,6 +116,7 @@ export default function VideoScreen() {
           <MessageBox show={!products.length}>
             No Product Found Or All Movies In Stock Are Sold Out
           </MessageBox>
+
           {products.length && (
             <VideoRow
               title="IN STOCK: READY TO BUY"
@@ -122,16 +127,19 @@ export default function VideoScreen() {
           )}
         </>
       )}
+
       {
         /* no duplicated Trending Now */
         externMovies[TRENDING] && genre !== TRENDING && (
           <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />
         )
       }
+
       {externMovies[TOP_RATED] && genre !== TOP_RATED && (
         <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />
       )}
       <div className="banner__divider"></div>
+
       <VideoBannerBottom
         source={!successProducts ? NO_MOVIES : movies[genre]}
       />

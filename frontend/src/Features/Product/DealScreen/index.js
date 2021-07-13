@@ -6,7 +6,7 @@ import MessageBox from "../../../components/MessageBox";
 import ProductCard from "../../../components/ProductCard";
 import SortFilter from "../../../components/SortFilter";
 import { listProducts } from "../../../Controllers/productActions";
-import Carousel, { dummyProducts, responsive } from "../../../utils";
+import Carousel, { dummyProducts, responsive } from "../../../constants";
 import "./dealScreen.css";
 
 export default function DealScreen() {

@@ -1,4 +1,4 @@
-import { CURRENCY } from "./constants";
+import { CURRENCY, baseURL, NO_IMAGE } from "./constants";
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
   currency: "EUR",
@@ -76,6 +76,9 @@ export const sourceAdapter = (movies) =>
     seller: m.seller,
     _id: m._id,
   }));
+
+/* create an array of 12 dummyMovies (a row) for videoRow(s) */
+export const dummyMovies = sourceAdapter(Array(12).fill(1));
 
 /* find suggestions util. for searchBox's dropdown suggest list */
 export const findSuggest = (() => {

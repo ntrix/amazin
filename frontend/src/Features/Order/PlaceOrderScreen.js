@@ -8,7 +8,8 @@ import { createOrder } from "../../Controllers/orderActions";
 import CheckoutSteps from "../Checkout/CheckoutSteps";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import { getImgUrl, pipe, TAX } from "../../constants";
+import { TAX } from "../../constants";
+import { getImgUrl, pipe } from "../../utils";
 
 export default function PlaceOrderScreen({ history }) {
   const dispatch = useDispatch();

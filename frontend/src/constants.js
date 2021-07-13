@@ -1,46 +1,26 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { sourceAdapter } from "./utils";
 
 export const RATES_SOURCE =
   "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html";
+
 export const NO_IMAGE = "/images/no-image.png";
 export const MAX_IMAGES = 8;
+
+/* Search box */
+export const MAX_SEARCH_SUGGESTS = 12;
+
+/* Date format */
 export const DD_MM_YYYY = 10;
+
+/* Currency format */
 export const CURRENCY = 2;
 
+/* Tax rate, Germany default 2019 */
 export const TAX = 0.19;
 
-export default Carousel;
-
-/* responsive resolutions for multi-carousel */
-export const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 1500 },
-    items: 5,
-    slidesToSlide: 4,
-  },
-  largeDesktop: {
-    breakpoint: { max: 1500, min: 1080 },
-    items: 4,
-    slidesToSlide: 3,
-  },
-  desktop: {
-    breakpoint: { max: 1080, min: 720 },
-    items: 3,
-    slidesToSlide: 2,
-  },
-  tablet: {
-    breakpoint: { max: 720, min: 480 },
-    items: 2,
-    slidesToSlide: 1,
-  },
-  mobile: {
-    breakpoint: { max: 480, min: 0 },
-    items: 1,
-    slidesToSlide: 1,
-  },
-};
+/* Nav Menu label */
+export const ALL_CATEGORIES = "All Categories";
 
 /* price range filter width label name */
 export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
@@ -119,7 +99,35 @@ export const EXAMPLE_MOVIES = [
   },
 ];
 
-const baseURL = "https://image.tmdb.org/t/p/original/";
+export const baseURL = "https://image.tmdb.org/t/p/original/";
 
-/* create an array of 12 dummyMovies (a row) for videoRow(s) */
-export const dummyMovies = sourceAdapter(Array(12).fill(1));
+export default Carousel;
+
+/* responsive resolutions for multi-carousel */
+export const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 1500 },
+    items: 5,
+    slidesToSlide: 4,
+  },
+  largeDesktop: {
+    breakpoint: { max: 1500, min: 1080 },
+    items: 4,
+    slidesToSlide: 3,
+  },
+  desktop: {
+    breakpoint: { max: 1080, min: 720 },
+    items: 3,
+    slidesToSlide: 2,
+  },
+  tablet: {
+    breakpoint: { max: 720, min: 480 },
+    items: 2,
+    slidesToSlide: 1,
+  },
+  mobile: {
+    breakpoint: { max: 480, min: 0 },
+    items: 1,
+    slidesToSlide: 1,
+  },
+};

@@ -10,7 +10,8 @@ import { productUpdateActions } from "./ProductSlice";
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
-import { getImgUrl, MAX_IMAGES } from "../../constants";
+import { MAX_IMAGES } from "../../constants";
+import { getImgUrl } from "../../utils";
 
 export default function ProductEditScreen(props) {
   const productId = props.match.params.id;

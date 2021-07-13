@@ -8,7 +8,7 @@ import {
 import MainRoute from "./Features/Route/MainRoute";
 import HeaderNav from "./Features/Nav/HeaderNav";
 import SidebarMenu from "./Features/Nav/SidebarMenu";
-import { pipe } from "./constants";
+import { pipe } from "./utils";
 import "./responsive.css";
 import HeaderNavMain from "./Features/Nav/HeaderNavMain";
 
