@@ -1,6 +1,6 @@
 import { pipe, savePath } from "../../utils";
 
-//lists for creating MenuItem (clickHandle) ([label, linkTo, className, extraAction])
+//lists for creating MenuItem (clickHandle) ([label, linkTo, className, signOutAction])
 
 export function noUserMenuItems() {
   return [
@@ -11,7 +11,7 @@ export function noUserMenuItems() {
   ];
 }
 
-export function userMenuItems(userInfo, extraAction) {
+export function userMenuItems(userInfo, signOutAction) {
   return [
     ["Informations"],
     ["Your Profile", "/profile"],
@@ -30,7 +30,7 @@ export function userMenuItems(userInfo, extraAction) {
       "Apply & Verify Your Seller Account",
       userInfo?.isSeller ? "disabled" : "/contact/subject/Seller",
     ],
-    ["Sign Out", "#signout", "", extraAction],
+    ["Sign Out", "#signout", "", signOutAction],
   ];
 }
 
@@ -67,7 +67,12 @@ export function adminMenuItems() {
   ];
 }
 
-export function sidebarMenuItems(userInfo, currency, categories, extraAction) {
+export function sidebarMenuItems(
+  userInfo,
+  currency,
+  categories,
+  signOutAction
+) {
   return [
     ["Trending"],
     ["Best Sellers", "/banner/bestseller"],
@@ -106,7 +111,7 @@ export function sidebarMenuItems(userInfo, currency, categories, extraAction) {
     ["Your Profile", "/profile"],
     ["Customer Service", "/customer"],
     userInfo
-      ? ["Sign Out", "#signout", "", extraAction]
+      ? ["Sign Out", "#signout", "", signOutAction]
       : ["Sign In", "/signin"],
     [""],
     ["separator"],

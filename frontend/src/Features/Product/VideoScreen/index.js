@@ -1,14 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../../../components/LoadingBox";
-import MessageBox from "../../../components/MessageBox";
+
 import { listProducts } from "../../../Controllers/productActions";
-import { NO_MOVIES } from "../../../constants";
-import { dummyMovies, sourceAdapter } from "../../../utils";
 import VideoBanner, { VideoBannerBottom } from "./VideoBanner";
 import VideoRow from "./VideoRow";
 import "./videoScreen.css";
+
+import MessageBox from "../../../components/MessageBox";
+import LoadingOrError from "../../../components/LoadingOrError";
+import { NO_MOVIES } from "../../../constants";
+import { dummyMovies, sourceAdapter } from "../../../utils";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const TRENDING = "Trending Now";
@@ -32,12 +34,7 @@ export default function VideoScreen() {
   const [movies, setMovies] = useState({ STORE: [] });
   const [externMovies, setExternMovies] = useState({});
   const [storeMovies, setStoreMovies] = useState();
-  const {
-    loading: loadingProducts,
-    error: errorProducts,
-    success: successProducts,
-    products,
-  } = useSelector((state) => state.productList);
+  const productList = useSelector((state) => state.productList);
   const isMounted = useRef(true);
 
   useEffect(() => {
@@ -70,8 +67,8 @@ export default function VideoScreen() {
   }, []);
 
   useEffect(() => {
-    setStoreMovies(products);
-  }, [successProducts, products]);
+    setStoreMovies(productList.products);
+  }, [productList.products]);
 
   useEffect(() => {
     setMovies({ ...externMovies, STORE: storeMovies });
@@ -93,7 +90,7 @@ export default function VideoScreen() {
         </ul>
       </header>
 
-      <VideoBanner source={!successProducts ? NO_MOVIES : movies[genre]} />
+      <VideoBanner source={!productList.success ? NO_MOVIES : movies[genre]} />
 
       {externMovies &&
         Object.keys(sources).map(
@@ -108,19 +105,18 @@ export default function VideoScreen() {
             )
         )}
 
-      {loadingProducts ? (
-        <LoadingBox xl />
-      ) : (
+      <LoadingOrError xl statusOf={productList} />
+
+      {productList.success && (
         <>
-          <MessageBox variant="danger" msg={errorProducts} />
-          <MessageBox show={!products.length}>
+          <MessageBox show={!productList.products.length}>
             No Product Found Or All Movies In Stock Are Sold Out
           </MessageBox>
 
-          {products.length && (
+          {productList.products.length && (
             <VideoRow
               title="IN STOCK: READY TO BUY"
-              movies={[storeMovies, dummyMovies][!!loadingProducts]}
+              movies={[storeMovies, dummyMovies][!!productList.loading]}
               //if Netflux is genre, only one portrait row
               portrait={genre !== "NETFLUX ORIGINALS"}
             />
@@ -141,7 +137,7 @@ export default function VideoScreen() {
       <div className="banner__divider"></div>
 
       <VideoBannerBottom
-        source={!successProducts ? NO_MOVIES : movies[genre]}
+        source={!productList.success ? NO_MOVIES : movies[genre]}
       />
     </div>
   );

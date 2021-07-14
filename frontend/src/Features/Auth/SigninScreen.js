@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import { signin, updateUserProfile } from "../../Controllers/userActions";
 import { updateCurrencyRates } from "../../Controllers/productActions";
 
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
-import CustomInput from "../../components/CustomInput";
 import { pipe } from "../../utils";
+import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function SigninScreen({ location, history }) {
   const dispatch = useDispatch();
@@ -18,7 +17,7 @@ export default function SigninScreen({ location, history }) {
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo, loading, error } = userSignin;
+  const { userInfo } = userSignin;
 
   useEffect(() => {
     if (userInfo) {
@@ -47,8 +46,7 @@ export default function SigninScreen({ location, history }) {
           <h1>Sign In</h1>
         </div>
 
-        <LoadingBox hide={!loading} />
-        <MessageBox variant="danger" msg={error} />
+        <LoadingOrError statusOf={userSignin} />
 
         <CustomInput
           text="Email"

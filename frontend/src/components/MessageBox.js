@@ -7,7 +7,7 @@ export default function MessageBox({
   wrapClass = "",
   children,
 }) {
-  if (!show && !msg) return null;
+  if (!show && !msg?.length) return null;
 
   const infos = msg || children;
 

@@ -4,27 +4,24 @@ import { Link } from "react-router-dom";
 
 import { register } from "../../Controllers/userActions";
 
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function RegisterScreen({ location, history }) {
   const dispatch = useDispatch();
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const userRegister = useSelector((state) => state.userRegister);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
-
-  const userRegister = useSelector((state) => state.userRegister);
-  const { userInfo, loading, error } = userRegister;
-
   useEffect(() => {
-    if (userInfo) {
+    if (userRegister.userInfo) {
       history.push(redirect);
     }
-  }, [history, redirect, userInfo]);
+  }, [history, redirect, userRegister.userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -38,8 +35,7 @@ export default function RegisterScreen({ location, history }) {
           <h1>Create Account</h1>
         </div>
 
-        <LoadingBox hide={!loading} />
-        <MessageBox variant="danger" msg={error} />
+        <LoadingOrError statusOf={userRegister} />
 
         <CustomInput text="Name" required hook={[name, setName]} />
 

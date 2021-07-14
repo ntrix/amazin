@@ -7,7 +7,7 @@ import {
 } from "../../Controllers/productActions";
 import { productUpdateActions } from "./ProductSlice";
 
-import LoadingBox from "../../components/LoadingBox";
+import LoadingOrError from "../../components/LoadingOrError";
 import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
 import { MAX_IMAGES } from "../../constants";
@@ -18,13 +18,8 @@ export default function ProductEditScreen({ history, match }) {
   const productId = match.params.id;
   const { userInfo } = useSelector((state) => state.userSignin);
   const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product, success } = productDetails;
+  const { product } = productDetails;
   const productUpdate = useSelector((state) => state.productUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = productUpdate;
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -32,17 +27,16 @@ export default function ProductEditScreen({ history, match }) {
   const [ship, setShip] = useState("");
   const [video, setVideo] = useState("");
   const [images, setImages] = useState([]);
+  const [upload, setUpload] = useState({ loading: false });
+  const [imagePreview, setImagePreview] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
   const [info, setInfo] = useState("");
-  const [fileUploading, setFileUploading] = useState(false);
-  const [fileUploadErr, setFileUploadErr] = useState("");
 
   useEffect(() => {
-    if (successUpdate) {
+    if (productUpdate.success) {
       history.push("/product-list");
       dispatch(productUpdateActions._RESET());
       dispatch(detailsProduct(productId));
@@ -63,7 +57,7 @@ export default function ProductEditScreen({ history, match }) {
     setCountInStock(product.countInStock);
     setBrand(product.brand);
     setDescription(product.description);
-  }, [product, dispatch, productId, successUpdate, history]);
+  }, [product, dispatch, productId, productUpdate.success, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -86,7 +80,7 @@ export default function ProductEditScreen({ history, match }) {
   };
 
   const asyncUpdateImgs = async (newImages, bodyFormData, updateInfo) => {
-    setFileUploading(true);
+    setUpload({ loading: true });
     try {
       await axiosClient.patch("/api/uploads", bodyFormData, {
         headers: {
@@ -96,14 +90,13 @@ export default function ProductEditScreen({ history, match }) {
       });
       setImages(newImages);
       setInfo(updateInfo);
-      setFileUploading(false);
-    } catch (err) {
-      setFileUploadErr(err.message);
-      setFileUploading(false);
+      setUpload({ loading: false });
+    } catch ({ message }) {
+      setUpload({ loading: false, error: message });
     }
   };
 
-  const uploadImg = (e) => {
+  const handleAddImgs = (e) => {
     const bodyFormData = new FormData();
     const { files } = e.target;
     const uploadImgsCount = files.length;
@@ -119,7 +112,7 @@ export default function ProductEditScreen({ history, match }) {
     );
   };
 
-  const deleteImg = (idx) => (e) => {
+  const handleDeleteImg = (idx) => (e) => {
     e.preventDefault();
     if (!window.confirm("Do you really want to delete this image?")) return;
 
@@ -132,13 +125,13 @@ export default function ProductEditScreen({ history, match }) {
     asyncUpdateImgs(newImages, bodyFormData);
   };
 
-  const updateImgLink = (id) => (e) => {
+  const handleUpdateImgLink = (id) => (e) => {
     const newImages = images.slice();
     newImages[id] = e.target.value;
     setImages(newImages);
   };
 
-  const onImgMoveUp = (id) => (e) => {
+  const handleMoveUpImg = (id) => (e) => {
     e.preventDefault();
     if (id > 0)
       setImages([
@@ -149,7 +142,7 @@ export default function ProductEditScreen({ history, match }) {
       ]);
   };
 
-  const addImageOnPressEnter = (e) => {
+  const handleAddImgLinkOnEnter = (e) => {
     if (e.key === "Enter") setImages([...images, imagePreview]);
   };
 
@@ -164,14 +157,12 @@ export default function ProductEditScreen({ history, match }) {
           <h1>Edit Product {productId}</h1>
         </div>
 
-        <LoadingBox xl hide={!loadingUpdate} />
-        <MessageBox variant="danger" msg={errorUpdate} />
+        <LoadingOrError xl statusOf={productDetails} />
 
-        <LoadingBox xl hide={!loading} />
-        <MessageBox variant="danger" msg={error} />
-
-        {success && (
+        {productDetails.success && (
           <>
+            <LoadingOrError xl statusOf={productUpdate} />
+
             <CustomInput text="Name" hook={[name, setName]} />
             <CustomInput text="Price" hook={[price, setPrice]} />
             <CustomInput text="Ship" hook={[ship, setShip]} />
@@ -198,14 +189,20 @@ export default function ProductEditScreen({ history, match }) {
                     text={`Image ${id + 1} ${["COVER", "[DEAL]"][id] || ""}`}
                     className="row"
                     value={img}
-                    onChange={updateImgLink(id)}
+                    onChange={handleUpdateImgLink(id)}
                   />
 
-                  <button onClick={onImgMoveUp(id)} disabled={fileUploading}>
+                  <button
+                    onClick={handleMoveUpImg(id)}
+                    disabled={upload.loading}
+                  >
                     <i className="fa success tab__w3 fa-arrow-circle-up"></i>
                   </button>
 
-                  <button onClick={deleteImg(id)} disabled={fileUploading}>
+                  <button
+                    onClick={handleDeleteImg(id)}
+                    disabled={upload.loading}
+                  >
                     <i className="fa danger fa-close"></i>
                   </button>
                 </div>
@@ -228,17 +225,16 @@ export default function ProductEditScreen({ history, match }) {
                   name="images"
                   type="file"
                   multiple
-                  onChange={uploadImg}
+                  onChange={handleAddImgs}
                 />
                 Or
                 <CustomInput
                   text="Image Link"
                   hook={[imagePreview, setImagePreview]}
-                  onKeyUp={addImageOnPressEnter}
+                  onKeyUp={handleAddImgLinkOnEnter}
                 />
+                <LoadingOrError statusOf={upload} />
                 <MessageBox variant="info" msg={info} />
-                <LoadingBox hide={!fileUploading} />
-                <MessageBox variant="danger" msg={fileUploadErr} />
               </div>
             )}
 
@@ -253,9 +249,9 @@ export default function ProductEditScreen({ history, match }) {
               hook={[countInStock, setCountInStock]}
             />
             <CustomInput
+              text="Description"
               textarea
               rows="3"
-              text="Description"
               hook={[description, setDescription]}
             />
             <br />

@@ -8,9 +8,9 @@ import Rating from "../../components/Rating";
 import SortFilter from "../../components/SortFilter";
 import { listProducts } from "../../Controllers/productActions";
 
-import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import { prices, ratings } from "../../constants";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function SearchScreen() {
   const dispatch = useDispatch();
@@ -24,12 +24,9 @@ export default function SearchScreen() {
     pageNumber = 1,
   } = useParams();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages, count } = productList;
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = useSelector((state) => state.productCategoryList);
+  const { products, page, pages, count } = productList;
+  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const { categories } = productCategoryList;
 
   useEffect(() => {
     dispatch(
@@ -60,8 +57,7 @@ export default function SearchScreen() {
     <div className="search-screen">
       <header className="screen__header">
         <ul className="cat-nav">
-          <LoadingBox hide={!loadingCategories} />
-          <MessageBox variant="danger" msg={errorCategories} />
+          <LoadingOrError statusOf={productCategoryList} />
 
           {categories &&
             ["All", ...categories].map((label, id) => (
@@ -73,8 +69,7 @@ export default function SearchScreen() {
       </header>
 
       <div className="row search__banner">
-        <LoadingBox hide={!loading} />
-        <MessageBox variant="danger" msg={error} />
+        <LoadingOrError statusOf={productList} />
 
         {products && (
           <div className="search__counter">
@@ -89,8 +84,7 @@ export default function SearchScreen() {
           <ul>
             <h4>Department</h4>
             <div>
-              <LoadingBox hide={!loadingCategories} />
-              <MessageBox variant="danger" msg={errorCategories} />
+              <LoadingOrError statusOf={productCategoryList} />
 
               <li>
                 <Link
@@ -153,11 +147,9 @@ export default function SearchScreen() {
               <div className="placeholder"></div>
             )}
 
-            <LoadingBox xl wrapClass="placeholder" hide={!loading} />
-            {!loading && (
+            <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
+            {!productList.loading && (
               <>
-                <MessageBox variant="danger" msg={error} />
-
                 <MessageBox wrapClass="placeholder" show={!products.length}>
                   No Product Found
                 </MessageBox>

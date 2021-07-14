@@ -4,21 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { userUpdateActions } from "./UserSlice";
 import { detailsUser, updateUser } from "../../Controllers/userActions";
 
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function UserEditScreen({ history, match }) {
   const dispatch = useDispatch();
   const userId = match.params.id;
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  const { user } = userDetails;
   const userUpdate = useSelector((state) => state.userUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = userUpdate;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,19 +20,19 @@ export default function UserEditScreen({ history, match }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    if (successUpdate) {
+    if (userUpdate.success) {
       dispatch(userUpdateActions._RESET());
       history.push("/user-list");
     }
     if (!user) {
       dispatch(detailsUser(userId));
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-      setIsSeller(user.isSeller);
-      setIsAdmin(user.isAdmin);
+      return;
     }
-  }, [dispatch, history, successUpdate, user, userId]);
+    setName(user.name);
+    setEmail(user.email);
+    setIsSeller(user.isSeller);
+    setIsAdmin(user.isAdmin);
+  }, [dispatch, history, userUpdate.success, user, userId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -52,16 +46,12 @@ export default function UserEditScreen({ history, match }) {
         <div>
           <h1>Edit User {name}</h1>
 
-          <LoadingBox xl hide={!loadingUpdate} />
-          <MessageBox variant="danger" msg={errorUpdate} />
+          <LoadingOrError xl statusOf={userDetails} />
+          <LoadingOrError xl statusOf={userUpdate} />
         </div>
 
-        <LoadingBox xl hide={!loading} />
-
-        {!loading && (
+        {userDetails.success && (
           <>
-            <MessageBox variant="danger" msg={error} />
-
             <CustomInput text="Name" hook={[name, setName]} />
 
             <CustomInput text="Email" type="email" hook={[email, setEmail]} />

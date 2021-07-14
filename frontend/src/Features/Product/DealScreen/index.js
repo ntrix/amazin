@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useRef } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ProductCard from "../../../components/ProductCard";
@@ -6,9 +6,9 @@ import SortFilter from "../../../components/SortFilter";
 import { listProducts } from "../../../Controllers/productActions";
 import "./dealScreen.css";
 
-import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
 import Carousel, { dummyProducts, responsive } from "../../../constants";
+import LoadingOrError from "../../../components/LoadingOrError";
 
 export default function DealScreen() {
   const dispatch = useDispatch();
@@ -18,17 +18,13 @@ export default function DealScreen() {
     pageNumber = 1,
   } = useParams();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, count } = productList;
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = useSelector((state) => state.productCategoryList);
+  const { products } = productList;
+  const productCategoryList = useSelector((state) => state.productCategoryList);
   const [cat, setCat] = useState("Deals");
-  const isMounted = useRef(true);
+  let isMounted = true;
 
   useLayoutEffect(() => {
-    if (isMounted.current)
+    if (isMounted)
       dispatch(
         listProducts({
           pageNumber,
@@ -38,18 +34,17 @@ export default function DealScreen() {
           pageSize: 990,
         })
       ); // eslint-disable-next-line
-    return () => (isMounted.current = false);
+    return () => (isMounted = false);
   }, [category, dispatch, order, pageNumber, cat]);
 
   return (
     <>
       <header className="screen__header">
         <ul className="cat-nav">
-          <LoadingBox hide={!loadingCategories} />
-          <MessageBox variant="danger" msg={errorCategories} />
+          <LoadingOrError statusOf={productCategoryList} />
 
-          {categories &&
-            ["Deals", ...categories].map((label, id) => (
+          {productCategoryList.categories &&
+            ["Deals", ...productCategoryList.categories].map((label, id) => (
               <li
                 key={id}
                 className={label === cat ? " selected" : ""}
@@ -64,51 +59,44 @@ export default function DealScreen() {
       <div
         className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
       >
-        {loading ? (
-          <LoadingBox xl />
-        ) : (
-          <>
-            <MessageBox variant="danger" msg={error} />
-            <MessageBox show={!products.length}>
-              No Deals On This Category!
-            </MessageBox>
+        <LoadingOrError statusOf={productList} />
 
-            {products && (
-              <Carousel
-                swipeable={true}
-                draggable={true}
-                showDots={true}
-                responsive={responsive}
-                infinite={true}
-                autoPlay={true}
-                autoPlaySpeed={3000}
-                keyBoardControl={true}
-                customTransition="transform 500ms ease-in-out"
-                transitionDuration={500}
-                centerMode={true}
-                containerClass="carousel-container"
-                removeArrowOnDeviceType={["mobile"]}
-                dotListClass="custom-dot-list-style"
-                itemClass="carousel-item-padding-40-px"
-              >
-                {products.map((product, id) => (
-                  <ProductCard deal key={id} product={product}></ProductCard>
-                ))}
-              </Carousel>
-            )}
-          </>
+        <MessageBox show={products?.length < 1}>
+          No Deals On This Category!
+        </MessageBox>
+        {products && (
+          <Carousel
+            swipeable={true}
+            draggable={true}
+            showDots={true}
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={3000}
+            keyBoardControl={true}
+            customTransition="transform 500ms ease-in-out"
+            transitionDuration={500}
+            centerMode={true}
+            containerClass="carousel-container"
+            removeArrowOnDeviceType={["mobile"]}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+          >
+            {products.map((product, id) => (
+              <ProductCard deal key={id} product={product}></ProductCard>
+            ))}
+          </Carousel>
         )}
 
         <h2 className="mh-2">Top Deals</h2>
 
         <div className="row top">
           <div className="row search__banner">
-            <LoadingBox hide={!loading} />
-            <MessageBox variant="danger" msg={error} />
+            <LoadingOrError statusOf={productList} />
 
             {products && (
               <div className="search__counter">
-                {products.length} of {count} Results
+                {products.length} of {products.count} Results
               </div>
             )}
 
@@ -119,21 +107,15 @@ export default function DealScreen() {
               }
             />
           </div>
-          {
-            <>
-              <LoadingBox xl hide={!loading} />
-              <MessageBox variant="danger" msg={error} />
-              <MessageBox show={!loading && !products.length}>
-                No Product Found
-              </MessageBox>
 
-              <div className="row center">
-                {(products || dummyProducts).map((product, id) => (
-                  <ProductCard deal key={id} product={product}></ProductCard>
-                ))}
-              </div>
-            </>
-          }
+          <LoadingOrError xl statusOf={productList} />
+          <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
+
+          <div className="row center">
+            {(products || dummyProducts).map((product, id) => (
+              <ProductCard deal key={id} product={product}></ProductCard>
+            ))}
+          </div>
         </div>
       </div>
     </>

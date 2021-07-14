@@ -6,27 +6,23 @@ import { Link } from "react-router-dom";
 import { updateUserProfile } from "../../Controllers/userActions";
 import { userUpdateProfileActions } from "./UserSlice";
 
-import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function ContactScreen() {
   const dispatch = useDispatch();
   const { subject: paramSub } = useParams();
   const { userInfo } = useSelector((state) => state.userSignin);
-  const {
-    success: successUpdate,
-    error: errorUpdate,
-    loading: loadingUpdate,
-  } = useSelector((state) => state.userUpdateProfile);
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [text, setText] = useState("");
-  const [isLoading, setLoading] = useState(false);
-  const [hasError, setError] = useState([]);
-  const [hasMessage, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState([]);
+  const [message, setMessage] = useState(false);
 
   useEffect(() => {
     setName(userInfo?.name);
@@ -36,11 +32,11 @@ export default function ContactScreen() {
 
   useEffect(() => {
     setSubject(paramSub);
-    if ("Seller" === paramSub && successUpdate) {
+    if ("Seller" === paramSub && userUpdateProfile.success) {
       dispatch(userUpdateProfileActions._RESET());
       setMessage("Seller Account verified successfully!");
     }
-  }, [dispatch, paramSub, successUpdate]);
+  }, [dispatch, paramSub, userUpdateProfile.success]);
 
   const submitHandler = async (e) => {
     setError(false);
@@ -88,9 +84,9 @@ export default function ContactScreen() {
         return false;
       }
       setMessage("Thank you! Your message has been sent.");
-    } catch (error) {
+    } catch (err) {
       setLoading(false);
-      setError([error.message]);
+      setError([err.message]);
     }
     return false;
   };
@@ -100,20 +96,15 @@ export default function ContactScreen() {
       <form className="form" onSubmit={submitHandler}>
         <h1>Contact Us</h1>
 
-        <LoadingBox xl hide={!isLoading} />
-        <LoadingBox xl hide={!loadingUpdate} />
-        {hasError &&
-          hasError.map((err, id) => (
-            <MessageBox key={id} variant="danger" msg={err} />
-          ))}
-        <MessageBox variant="danger" msg={errorUpdate} />
-        <MessageBox variant="success" msg={hasMessage} />
-        {hasMessage && (
+        <LoadingOrError xl statusOf={{ loading, error }} />
+        <LoadingOrError xl statusOf={userUpdateProfile} />
+        <MessageBox variant="success" msg={message} />
+        {message && (
           <Link to="/">
             <button className="primary">Back To Home Page</button>
           </Link>
         )}
-        {!hasMessage && (
+        {!message && (
           <>
             <CustomInput text="Your Name" hook={[name, setName]} />
 

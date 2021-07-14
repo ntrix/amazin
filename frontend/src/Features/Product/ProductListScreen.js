@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
+
 import Pagination from "../../components/Pagination";
 import {
   createProduct,
@@ -11,6 +10,8 @@ import {
 } from "../../Controllers/productActions";
 import { productCreateActions, productDeleteActions } from "./ProductSlice";
 
+import LoadingOrError from "../../components/LoadingOrError";
+
 export default function ProductListScreen(props) {
   const dispatch = useDispatch();
   const { pageNumber = 1 } = useParams();
@@ -18,27 +19,16 @@ export default function ProductListScreen(props) {
 
   const { userInfo } = useSelector((state) => state.userSignin);
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const { products, page, pages } = productList;
   const productCreate = useSelector((state) => state.productCreate);
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate;
   const productDelete = useSelector((state) => state.productDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = productDelete;
 
   useEffect(() => {
-    if (successCreate) {
+    if (productCreate.success) {
       dispatch(productCreateActions._RESET());
-      props.history.push(`/product/${createdProduct._id}/edit`);
+      props.history.push(`/product/${productCreate.product._id}/edit`);
     }
-    if (successDelete) {
+    if (productDelete.success) {
       dispatch(productDeleteActions._RESET());
     }
     // min = 0 to find all products no matter what price it is (0.00) to edit
@@ -50,12 +40,12 @@ export default function ProductListScreen(props) {
       })
     );
   }, [
-    createdProduct,
     dispatch,
     props.history,
     sellerMode,
-    successCreate,
-    successDelete,
+    productDelete.success,
+    productCreate.success,
+    productCreate.product,
     userInfo._id,
     pageNumber,
   ]);
@@ -79,15 +69,11 @@ export default function ProductListScreen(props) {
         </button>
       </div>
 
-      <LoadingBox xl hide={!loadingDelete} />
-      <LoadingBox xl hide={!loadingCreate} />
-      <LoadingBox xl hide={!loading} />
+      <LoadingOrError xl statusOf={productDelete} />
+      <LoadingOrError xl statusOf={productCreate} />
+      <LoadingOrError xl statusOf={productList} />
 
-      <MessageBox variant="danger" msg={errorDelete} />
-      <MessageBox variant="danger" msg={errorCreate} />
-      <MessageBox variant="danger" msg={error} />
-
-      {!loading && !error && (
+      {products && (
         <>
           <table className="table">
             <thead>

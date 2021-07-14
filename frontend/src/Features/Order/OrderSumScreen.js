@@ -14,25 +14,16 @@ import {
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import { getImgUrl, pipe } from "../../utils";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function OrderSumScreen({ match }) {
   const dispatch = useDispatch();
   const orderId = match.params.id;
   const { userInfo } = useSelector((state) => state.userSignin);
   const orderDetails = useSelector((state) => state.orderDetails);
-  const { order, loading, error } = orderDetails;
+  const { order } = orderDetails;
   const orderPay = useSelector((state) => state.orderPay);
-  const {
-    loading: loadingPay,
-    error: errorPay,
-    success: successPay,
-  } = orderPay;
   const orderDeliver = useSelector((state) => state.orderDeliver);
-  const {
-    loading: loadingDeliver,
-    error: errorDeliver,
-    success: successDeliver,
-  } = orderDeliver;
 
   const [sdkReady, setSdkReady] = useState(false);
 
@@ -49,20 +40,32 @@ export default function OrderSumScreen({ match }) {
       document.body.appendChild(script);
     };
 
-    if (!order || successPay || successDeliver || order._id !== orderId) {
+    if (
+      !order ||
+      orderPay.success ||
+      orderDeliver.success ||
+      order._id !== orderId
+    ) {
       dispatch(orderPayActions._RESET());
       dispatch(orderDeliverActions._RESET());
       dispatch(detailsOrder(orderId));
-    } else {
-      if (!order.isPaid) {
-        if (!window.paypal) {
-          addPayPalScript();
-        } else {
-          setSdkReady(true);
-        }
+      return;
+    }
+    if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, sdkReady, successPay, successDeliver, order]);
+  }, [
+    dispatch,
+    orderId,
+    sdkReady,
+    orderPay.success,
+    orderDeliver.success,
+    order,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
@@ -74,8 +77,7 @@ export default function OrderSumScreen({ match }) {
 
   return (
     <div className="screen--light">
-      <LoadingBox xl hide={!loading} />
-      <MessageBox variant="danger" msg={error} />
+      <LoadingOrError xl statusOf={orderDetails} />
 
       {order && (
         <>
@@ -205,8 +207,7 @@ export default function OrderSumScreen({ match }) {
                       <LoadingBox hide={sdkReady} />
                       {sdkReady && (
                         <>
-                          <LoadingBox hide={!loadingPay} />
-                          <MessageBox variant="danger" msg={errorPay} />
+                          <LoadingOrError statusOf={orderPay} />
 
                           <PayPalButton
                             amount={order.totalPrice}
@@ -219,8 +220,7 @@ export default function OrderSumScreen({ match }) {
 
                   {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                     <li>
-                      <LoadingBox hide={!loadingDeliver} />
-                      <MessageBox variant="danger" msg={errorDeliver} />
+                      <LoadingOrError statusOf={orderDeliver} />
 
                       <button
                         type="button"

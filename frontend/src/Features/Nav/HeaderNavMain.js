@@ -1,15 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
+
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function HeaderNavMain({ setShadowFor }) {
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = useSelector((state) => state.productCategoryList);
+  const productCategoryList = useSelector((state) => state.productCategoryList);
 
   const navMainItem = ([label, linkTo, className]) => {
     return (
@@ -35,29 +31,21 @@ export default function HeaderNavMain({ setShadowFor }) {
 
       <div className="nav__fill">
         {[
-          ["Netflux Video", "/video", "nav-main__item"],
-          ["Top Deals", "/deal", "nav-main__item"],
-          [
-            "New Releases",
-            "/search/category/All/order/newest",
-            "nav-main__item",
-          ],
-          ["Customer Service", "/customer", "nav-main__item"],
-          ["Best Sellers", "/banner/bestseller", "nav-main__item"],
-        ].map(navMainItem)}
-        {loadingCategories ? (
-          <LoadingBox />
-        ) : (
-          <>
-            <MessageBox variant="danger" msg={errorCategories} />
-            {categories &&
-              categories
-                .slice(0, 15)
-                .map((c) =>
-                  navMainItem([c, "/search/category/" + c, "nav-main__item"])
-                )}
-          </>
+          ["Netflux Video", "/video"],
+          ["Top Deals", "/deal"],
+          ["New Releases", "/search/category/All/order/newest"],
+          ["Customer Service", "/customer"],
+          ["Best Sellers", "/banner/bestseller"],
+        ].map(([label, linkTo]) =>
+          navMainItem([label, linkTo, "nav-main__item"])
         )}
+
+        <LoadingOrError statusOf={productCategoryList} />
+        {productCategoryList.categories
+          ?.slice(0, 15)
+          .map((c) =>
+            navMainItem([c, "/search/category/" + c, "nav-main__item"])
+          )}
       </div>
 
       <div className="nav__right">

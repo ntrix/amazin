@@ -578,6 +578,7 @@ img.large {
 .form [type="checkbox"] {
   margin-right: 1rem;
   order: -1;
+  align-self: center;
 }
 
 /* Checkout Steps */

@@ -6,10 +6,9 @@ import { orderCreateActions } from "./OrderSlice";
 import { createOrder } from "../../Controllers/orderActions";
 
 import CheckoutSteps from "../Checkout/CheckoutSteps";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
 import { TAX } from "../../constants";
 import { getImgUrl, pipe } from "../../utils";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function PlaceOrderScreen({ history }) {
   const dispatch = useDispatch();
@@ -18,7 +17,6 @@ export default function PlaceOrderScreen({ history }) {
   if (!cart.paymentMethod) history.push("/payment");
 
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { loading, success, error, order } = orderCreate;
 
   cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0);
 
@@ -33,11 +31,11 @@ export default function PlaceOrderScreen({ history }) {
   };
 
   useEffect(() => {
-    if (success) {
-      history.push(`/order/${order._id}`);
+    if (orderCreate.success) {
+      history.push(`/order/${orderCreate.order._id}`);
       dispatch(orderCreateActions._RESET());
     }
-  }, [dispatch, order, history, success]);
+  }, [dispatch, history, orderCreate.order, orderCreate.success]);
 
   return (
     <div className="screen--light">
@@ -164,8 +162,7 @@ export default function PlaceOrderScreen({ history }) {
                 </>
               )}
 
-              <LoadingBox xl hide={!loading} />
-              <MessageBox variant="danger" msg={error} />
+              <LoadingOrError xl statusOf={orderCreate} />
             </ul>
           </div>
         </div>

@@ -6,20 +6,13 @@ import UTube from "./UTube";
 import { VideoButtons } from "./VideoButtons";
 import { createProduct } from "../../../Controllers/productActions";
 
-import LoadingBox from "../../../components/LoadingBox";
-import MessageBox from "../../../components/MessageBox";
 import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../constants";
+import LoadingOrError from "../../../components/LoadingOrError";
 
 export default function VideoBanner({ source }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCreate = useSelector((state) => state.productCreate);
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate;
 
   const history = useHistory();
   const [trailerUrl, setTrailerUrl] = useState("");
@@ -32,11 +25,11 @@ export default function VideoBanner({ source }) {
   }, [source]);
 
   useEffect(() => {
-    if (successCreate) {
+    if (productCreate.success) {
       dispatch(productCreateActions._RESET());
-      history.push(`/product/${createdProduct._id}/edit`);
+      history.push(`/product/${productCreate.product._id}/edit`);
     }
-  }, [createdProduct, dispatch, history, successCreate]);
+  }, [productCreate.product, dispatch, history, productCreate.success]);
 
   const createHandler = () => {
     dispatch(createProduct());
@@ -81,8 +74,7 @@ export default function VideoBanner({ source }) {
         <div className="banner--fade-bottom" />
       </header>
 
-      <LoadingBox xl hide={!loadingCreate} />
-      <MessageBox variant="danger" msg={errorCreate} />
+      <LoadingOrError xl statusOf={productCreate} />
 
       <UTube trailerUrl={trailerUrl} />
     </>

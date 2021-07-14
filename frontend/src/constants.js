@@ -7,6 +7,8 @@ export const RATES_SOURCE =
 export const NO_IMAGE = "/images/no-image.png";
 export const MAX_IMAGES = 8;
 
+export const SHOW_ERROR_TIMEOUT = 5000;
+
 /* Search box */
 export const MAX_SEARCH_SUGGESTS = 12;
 

@@ -14,9 +14,9 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 
-import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { dummySellers } from "../constants";
+import LoadingOrError from "../components/LoadingOrError";
 
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
@@ -24,13 +24,9 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
   const { banner = "home" } = useParams();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { products } = productList;
   const userTopSellersList = useSelector((state) => state.userTopSellersList);
-  const {
-    loading: loadingSellers,
-    error: errorSellers,
-    users: sellers,
-  } = userTopSellersList;
+  const { users: sellers } = userTopSellersList;
 
   useEffect(() => {
     dispatch(listProducts({ pageSize: 12 }));
@@ -97,12 +93,8 @@ export default function HomeScreen() {
             clickable: true,
           }}
         >
-          {loadingSellers ? (
-            <LoadingBox />
-          ) : (
-            <MessageBox hide={sellers.length}>No Seller Found</MessageBox>
-          )}
-          <MessageBox variant="danger" msg={errorSellers} />
+          <LoadingOrError statusOf={userTopSellersList} />
+          <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
 
           {(sellers || dummySellers).map((seller, id) => (
             <SwiperSlide key={id}>
@@ -121,20 +113,14 @@ export default function HomeScreen() {
 
       <h2 className="home-screen__title-2">Featured Products</h2>
 
-      {loading ? (
-        <LoadingBox xl />
-      ) : (
-        <>
-          <MessageBox variant="danger" msg={error} />
-          <MessageBox hide={products.length}>No Product Found</MessageBox>
+      <LoadingOrError xl statusOf={productList} />
+      <MessageBox hide={products?.length < 1}>No Product Found</MessageBox>
 
-          <div className="row center">
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product}></ProductCard>
-            ))}
-          </div>
-        </>
-      )}
+      <div className="row center">
+        {products?.map((product) => (
+          <ProductCard key={product._id} product={product}></ProductCard>
+        ))}
+      </div>
     </div>
   );
 }

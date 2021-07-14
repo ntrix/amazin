@@ -5,24 +5,19 @@ import { Link } from "react-router-dom";
 import { productReviewCreateActions } from "./ProductSlice";
 import { createReview, detailsProduct } from "../../Controllers/productActions";
 
-import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
 import { getImgUrl, pipe } from "../../utils";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function ProductScreen({ history, match }) {
   const dispatch = useDispatch();
   const productId = match.params.id;
 
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { loading, error, product } = useSelector(
-    (state) => state.productDetails
-  );
-  const {
-    loading: loadingReviewCreate,
-    error: errorReviewCreate,
-    success: successReviewCreate,
-  } = useSelector((state) => state.productReviewCreate);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product } = productDetails;
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
 
   const [qty, setQty] = useState(1);
   const [imgActive, setImgActive] = useState(0);
@@ -30,14 +25,14 @@ export default function ProductScreen({ history, match }) {
   const [comment, setComment] = useState("");
 
   useEffect(() => {
-    if (successReviewCreate) {
+    if (productReviewCreate.success) {
       window.alert("Review Submitted Successfully");
       setRating("");
       setComment("");
       dispatch(productReviewCreateActions._RESET());
     }
     dispatch(detailsProduct(productId));
-  }, [dispatch, productId, successReviewCreate]);
+  }, [dispatch, productId, productReviewCreate.success]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${productId}?qty=${qty}`);
@@ -56,10 +51,9 @@ export default function ProductScreen({ history, match }) {
 
   return (
     <div>
-      <LoadingBox xl hide={!loading} />
-      <MessageBox variant="danger" msg={error} />
+      <LoadingOrError xl statusOf={productDetails} />
 
-      {!loading && (
+      {productDetails.success && (
         <div className="col-fill">
           <div>
             <div className="row search__banner">
@@ -283,10 +277,7 @@ export default function ProductScreen({ history, match }) {
                       </button>
                     </div>
 
-                    <div>
-                      <LoadingBox hide={!loadingReviewCreate} />
-                      <MessageBox variant="danger" msg={errorReviewCreate} />
-                    </div>
+                    <LoadingOrError statusOf={productReviewCreate} />
                   </form>
                 ) : (
                   <MessageBox show>

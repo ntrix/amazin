@@ -4,20 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { userUpdateProfileActions } from "./UserSlice";
 import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
 
-import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import PrivateRoute from "../Route/PrivateRoute";
 import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function ProfileScreen() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { loading, error, user } = useSelector((state) => state.userDetails);
-  const {
-    success: successUpdate,
-    error: errorUpdate,
-    loading: loadingUpdate,
-  } = useSelector((state) => state.userUpdateProfile);
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,15 +29,15 @@ export default function ProfileScreen() {
     if (!user) {
       dispatch(userUpdateProfileActions._RESET());
       dispatch(detailsUser(userInfo._id));
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-      setOldPassword("");
-      if (user.seller) {
-        setSellerName(user.seller.name);
-        setSellerLogo(user.seller.logo);
-        setSellerDescription(user.seller.description);
-      }
+      return;
+    }
+    setName(user.name);
+    setEmail(user.email);
+    setOldPassword("");
+    if (user.seller) {
+      setSellerName(user.seller.name);
+      setSellerLogo(user.seller.logo);
+      setSellerDescription(user.seller.description);
     }
   }, [dispatch, userInfo._id, user]);
 
@@ -73,16 +70,13 @@ export default function ProfileScreen() {
           <h1>User Profile</h1>
         </div>
 
-        <LoadingBox xl hide={!loading} />
+        <LoadingOrError xl statusOf={userDetails} />
 
-        {!loading && (
+        {user && (
           <>
-            <MessageBox variant="danger" msg={error} />
-            <LoadingBox xl hide={!loadingUpdate} />
-            <MessageBox variant="danger" msg={errorUpdate} />
+            <LoadingOrError xl statusOf={userUpdateProfile} />
 
             <CustomInput text="Name" hook={[name, setName]} />
-
             <CustomInput text="Email" type="email" hook={[email, setEmail]} />
 
             <PrivateRoute path="/profile/password" exact>
@@ -98,7 +92,6 @@ export default function ProfileScreen() {
               type="password"
               onChange={setPassword}
             />
-
             <CustomInput
               text="Confirm Password"
               type="password"
@@ -107,7 +100,7 @@ export default function ProfileScreen() {
             />
 
             <PrivateRoute path="/profile/seller" exact>
-              {!user?.isSeller ? (
+              {!user.isSeller ? (
                 <MessageBox variant="danger" show>
                   You don't have seller account, please apply first!
                 </MessageBox>
@@ -121,12 +114,10 @@ export default function ProfileScreen() {
                     text="Seller Name"
                     hook={[sellerName, setSellerName]}
                   />
-
                   <CustomInput
                     text="Seller Logo"
                     hook={[sellerLogo, setSellerLogo]}
                   />
-
                   <CustomInput
                     text="Seller Description"
                     hook={[sellerDescription, setSellerDescription]}
@@ -136,7 +127,7 @@ export default function ProfileScreen() {
             </PrivateRoute>
 
             <div>
-              <MessageBox variant="success" show={successUpdate}>
+              <MessageBox variant="success" show={userUpdateProfile.success}>
                 Profile Updated Successfully
               </MessageBox>
             </div>
