@@ -1,4 +1,4 @@
-import axiosClient from "./axiosClient";
+import { axiosPublic, axiosPrivate } from "./axiosClient";
 import {
   userRegisterActions,
   userSigninActions,
@@ -10,50 +10,25 @@ import {
   userTopSellerListActions,
 } from "../Features/User/UserSlice";
 
-export const register = (name, email, password, confirmPassword) => async (
-  dispatch
-) => {
-  dispatch(userRegisterActions._REQUEST({ email, password }));
-  try {
-    const { data } = await axiosClient.post("/api/users/register", {
-      name,
-      email,
-      password,
-      confirmPassword,
-    });
-    dispatch(userRegisterActions._SUCCESS(data));
-    dispatch(userSigninActions._SUCCESS(data));
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
-    dispatch(
-      userRegisterActions._FAIL(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      )
-    );
-  }
-};
+export const register = (name, email, password, confirmPassword) =>
+  axiosPublic({ email, password })(
+    userRegisterActions
+  )(userSigninActions._SUCCESS, (_data) =>
+    localStorage.setItem("userInfo", JSON.stringify(_data))
+  )("post", "/api/users/register", {
+    name,
+    email,
+    password,
+    confirmPassword,
+  });
 
-export const signin = (email, password) => async (dispatch) => {
-  dispatch(userSigninActions._REQUEST({ email, password }));
-  try {
-    const { data } = await axiosClient.post("/api/users/signin", {
-      email,
-      password,
-    });
-    dispatch(userSigninActions._SUCCESS(data));
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
-    dispatch(
-      userSigninActions._FAIL(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      )
-    );
-  }
-};
+export const signin = (email, password) =>
+  axiosPublic({ email, password })(userSigninActions)(null, (_data) =>
+    localStorage.setItem("userInfo", JSON.stringify(_data))
+  )("post", "/api/users/signin", {
+    email,
+    password,
+  });
 
 export const signout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
@@ -63,115 +38,27 @@ export const signout = () => (dispatch) => {
   document.location.href = "/signin";
 };
 
-export const detailsUser = (userId) => async (dispatch, getState) => {
-  dispatch(userDetailsActions._REQUEST(userId));
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axiosClient.get(`/api/users/${userId}`, {
-      headers: { Authorization: `Bearer ${userInfo?.token}` },
-    });
-    dispatch(userDetailsActions._SUCCESS(data));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(userDetailsActions._FAIL(message));
-  }
-};
+export const detailsUser = (userId) =>
+  axiosPrivate(userId)(userDetailsActions)()("get", `/api/users/${userId}`);
 
-export const updateUserProfile = (user) => async (dispatch, getState) => {
-  dispatch(userUpdateProfileActions._REQUEST(user));
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axiosClient.put(`/api/users/profile`, user, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
-    });
-    dispatch(userUpdateProfileActions._SUCCESS(data));
-    dispatch(userSigninActions._SUCCESS(data));
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(userUpdateProfileActions._FAIL(message));
-  }
-};
+export const updateUserProfile = (user) =>
+  axiosPrivate(user)(userUpdateProfileActions)(
+    userSigninActions._SUCCESS,
+    (_data) => localStorage.setItem("userInfo", JSON.stringify(_data))
+  )("put", `/api/users/profile`, user);
 
-export const updateUser = (user) => async (dispatch, getState) => {
-  dispatch(userUpdateProfileActions._REQUEST(user));
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axiosClient.put(`/api/users/${user._id}`, user, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
-    });
-    dispatch(userUpdateActions._SUCCESS(data));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(userUpdateActions._FAIL(message));
-  }
-};
+export const updateUser = (user) =>
+  axiosPrivate(user)(userUpdateProfileActions, userUpdateActions)()(
+    "put",
+    `/api/users/${user._id}`,
+    user
+  );
 
-export const listUsers = () => async (dispatch, getState) => {
-  dispatch(userListActions._REQUEST());
-  try {
-    const {
-      userSignin: { userInfo },
-    } = getState();
-    const { data } = await axiosClient.get("/api/users", {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
-    dispatch(userListActions._SUCCESS(data));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(userListActions._FAIL(message));
-  }
-};
+export const listUsers = () =>
+  axiosPrivate()(userListActions)()("get", "/api/users");
 
-export const deleteUser = (userId) => async (dispatch, getState) => {
-  dispatch(userDeleteActions._REQUEST(userId));
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axiosClient.delete(`/api/users/${userId}`, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
-    });
-    dispatch(userDeleteActions._SUCCESS(data));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(userDeleteActions._FAIL(message));
-  }
-};
+export const deleteUser = (userId) =>
+  axiosPrivate(userId)(userDeleteActions)()("delete", `/api/users/${userId}`);
 
-export const listTopSellers = () => async (dispatch) => {
-  dispatch(userTopSellerListActions._REQUEST());
-  try {
-    const { data } = await axiosClient.get("/api/users/top-sellers");
-    dispatch(userTopSellerListActions._SUCCESS(data));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(userTopSellerListActions._FAIL(message));
-  }
-};
+export const listTopSellers = () =>
+  axiosPublic()(userTopSellerListActions)()("get", "/api/users/top-sellers");
