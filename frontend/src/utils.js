@@ -1,4 +1,5 @@
 import { CURRENCY, baseURL, NO_IMAGE } from "./constants";
+
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
   currency: "EUR",
@@ -65,13 +66,12 @@ export const savePath = (exceptionStartWith = "@") => () => {
 /* adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
 export const sourceAdapter = (movies) =>
   movies?.map((m) => ({
-    name:
-      m.name || m.title || m.original_title || m.original_name || "Movie Name",
+    name: m.name || m.title || m.original_title || m.original_name,
     image:
       m.image || [baseURL + m.poster_path, baseURL + m.backdrop_path].join("^"),
     rating: m.rating || m.vote_average / 2 || 0,
     numReviews: m.numReviews || m.vote_count || 0,
-    description: m.description || m.overview || "",
+    description: m.description || m.overview,
     video: m.video,
     seller: m.seller,
     _id: m._id,

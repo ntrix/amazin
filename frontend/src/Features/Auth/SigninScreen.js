@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { signin, updateUserProfile } from "../../Controllers/userActions";
+import { updateCurrencyRates } from "../../Controllers/productActions";
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
-import { updateCurrencyRates } from "../../Controllers/productActions";
+import CustomInput from "../../components/CustomInput";
 import { pipe } from "../../utils";
 
 export default function SigninScreen({ location, history }) {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,13 +19,6 @@ export default function SigninScreen({ location, history }) {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
-
-  const dispatch = useDispatch();
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(signin(email, password));
-  };
 
   useEffect(() => {
     if (userInfo) {
@@ -40,40 +35,41 @@ export default function SigninScreen({ location, history }) {
     }
   }, [dispatch, history, redirect, userInfo]);
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(signin(email, password));
+  };
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Sign In</h1>
         </div>
+
         <LoadingBox hide={!loading} />
         <MessageBox variant="danger" msg={error} />
-        <div>
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-        </div>
+
+        <CustomInput
+          text="Email"
+          type="email"
+          required
+          hook={[email, setEmail]}
+        />
+        <CustomInput
+          text="Password"
+          type="password"
+          required
+          hook={[password, setPassword]}
+        />
+
         <div>
           <label />
           <button className="primary" type="submit">
             Sign In
           </button>
         </div>
+
         <div>
           <label />
           <div>

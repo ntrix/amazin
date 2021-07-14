@@ -1,10 +1,9 @@
-import axiosClient from "../../Controllers/axiosClient";
-import { PayPalButton } from "react-paypal-button-v2";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axiosClient from "../../Controllers/axiosClient";
+import { PayPalButton } from "react-paypal-button-v2";
 import { Link } from "react-router-dom";
 
-import { getImgUrl, pipe } from "../../utils";
 import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
 import {
   deliverOrder,
@@ -14,11 +13,11 @@ import {
 
 import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
+import { getImgUrl, pipe } from "../../utils";
 
-export default function OrderSumScreen(props) {
-  const orderId = props.match.params.id;
-  const [sdkReady, setSdkReady] = useState(false);
-
+export default function OrderSumScreen({ match }) {
+  const dispatch = useDispatch();
+  const orderId = match.params.id;
   const { userInfo } = useSelector((state) => state.userSignin);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
@@ -34,7 +33,9 @@ export default function OrderSumScreen(props) {
     error: errorDeliver,
     success: successDeliver,
   } = orderDeliver;
-  const dispatch = useDispatch();
+
+  const [sdkReady, setSdkReady] = useState(false);
+
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data } = await axiosClient.get("/api/config/paypal");
@@ -47,6 +48,7 @@ export default function OrderSumScreen(props) {
       };
       document.body.appendChild(script);
     };
+
     if (!order || successPay || successDeliver || order._id !== orderId) {
       dispatch(orderPayActions._RESET());
       dispatch(orderDeliverActions._RESET());
@@ -65,6 +67,7 @@ export default function OrderSumScreen(props) {
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
   };
+
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
   };

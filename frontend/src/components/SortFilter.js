@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 
 export default function SortFilter({ order, getUrl }) {
   const history = useHistory();
+
   return (
     <div className="sort__filter">
       <label htmlFor="filter__options">Sort by</label>

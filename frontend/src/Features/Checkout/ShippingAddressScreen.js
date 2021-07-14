@@ -10,14 +10,10 @@ import CustomInput from "../../components/CustomInput";
 export default function ShippingAddressScreen({ history }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { shippingAddress } = useSelector((state) => state.cart);
-  const [lat, setLat] = useState(shippingAddress.lat);
-  const [lng, setLng] = useState(shippingAddress.lng);
+  if (!userInfo) history.push("/signin");
 
   const userAddressMap = useSelector((state) => state.userAddressMap);
   const { address: addressMap } = userAddressMap;
-
-  if (!userInfo) history.push("/signin");
 
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
@@ -25,13 +21,17 @@ export default function ShippingAddressScreen({ history }) {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
 
+  const { shippingAddress } = useSelector((state) => state.cart);
+  const [lat, setLat] = useState(shippingAddress.lat);
+  const [lng, setLng] = useState(shippingAddress.lng);
+
   useEffect(() => {
     setFullName(shippingAddress.fullName);
     setAddress(shippingAddress.address);
     setCity(shippingAddress.city);
     setPostalCode(shippingAddress.postalCode);
     setCountry(shippingAddress.country);
-  }, []);
+  }, [shippingAddress]);
 
   const submitHandler = (e) => {
     e.preventDefault();

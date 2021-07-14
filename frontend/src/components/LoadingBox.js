@@ -1,8 +1,13 @@
 import React from "react";
 
-export default function LoadingBox({ hide = false, xl = false }) {
+export default function LoadingBox({
+  hide = false,
+  xl = false,
+  wrapClass = "",
+}) {
   if (hide) return null;
-  return (
+
+  const innerComponent = () => (
     <div className="loading">
       {xl ? (
         <>
@@ -16,5 +21,11 @@ export default function LoadingBox({ hide = false, xl = false }) {
         </>
       )}
     </div>
+  );
+
+  return !wrapClass ? (
+    innerComponent()
+  ) : (
+    <div className={wrapClass}>{innerComponent()}</div>
   );
 }

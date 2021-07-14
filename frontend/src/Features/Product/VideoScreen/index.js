@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../../../components/LoadingBox";
 import MessageBox from "../../../components/MessageBox";
@@ -38,9 +38,9 @@ export default function VideoScreen() {
     success: successProducts,
     products,
   } = useSelector((state) => state.productList);
+  const isMounted = useRef(true);
 
   useEffect(() => {
-    let isMounted = true;
     dispatch(
       listProducts({
         seller: process.env.REACT_APP_SELLER,
@@ -59,14 +59,14 @@ export default function VideoScreen() {
           return [[_genre], data.results];
         })
       );
-      if (!isMounted) return;
+      if (!isMounted.current) return;
       const movieObj = {};
       promiseReturns.map(
         ([_genre, list]) => (movieObj[_genre] = sourceAdapter(list))
       );
       setExternMovies(movieObj);
     })();
-    return () => (isMounted = false); // eslint-disable-next-line
+    return () => (isMounted.current = false); // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

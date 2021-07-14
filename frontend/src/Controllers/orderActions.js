@@ -79,6 +79,7 @@ export const payOrder = (order, paymentResult) => async (
     dispatch(orderPayActions._FAIL(message));
   }
 };
+
 export const listOrderMine = () => async (dispatch, getState) => {
   dispatch(orderMineListActions._REQUEST());
   const {
@@ -99,6 +100,7 @@ export const listOrderMine = () => async (dispatch, getState) => {
     dispatch(orderMineListActions._FAIL(message));
   }
 };
+
 export const listOrders = ({ seller = "" }) => async (dispatch, getState) => {
   dispatch(orderListActions._REQUEST());
   const {
@@ -117,6 +119,7 @@ export const listOrders = ({ seller = "" }) => async (dispatch, getState) => {
     dispatch(orderListActions._FAIL(message));
   }
 };
+
 export const deleteOrder = (orderId) => async (dispatch, getState) => {
   dispatch(orderDeleteActions._REQUEST(orderId));
   const {

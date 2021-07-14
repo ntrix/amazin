@@ -1,21 +1,22 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import LoadingBox from "../../../components/LoadingBox";
-import MessageBox from "../../../components/MessageBox";
 import ProductCard from "../../../components/ProductCard";
 import SortFilter from "../../../components/SortFilter";
 import { listProducts } from "../../../Controllers/productActions";
-import Carousel, { dummyProducts, responsive } from "../../../constants";
 import "./dealScreen.css";
 
+import LoadingBox from "../../../components/LoadingBox";
+import MessageBox from "../../../components/MessageBox";
+import Carousel, { dummyProducts, responsive } from "../../../constants";
+
 export default function DealScreen() {
+  const dispatch = useDispatch();
   const {
     category = "Deals",
     order = "bestselling",
     pageNumber = 1,
   } = useParams();
-  const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, count } = productList;
   const {
@@ -24,10 +25,10 @@ export default function DealScreen() {
     categories,
   } = useSelector((state) => state.productCategoryList);
   const [cat, setCat] = useState("Deals");
-  let isMounted = true;
+  const isMounted = useRef(true);
 
   useLayoutEffect(() => {
-    if (isMounted)
+    if (isMounted.current)
       dispatch(
         listProducts({
           pageNumber,
@@ -37,7 +38,7 @@ export default function DealScreen() {
           pageSize: 990,
         })
       ); // eslint-disable-next-line
-    return () => (isMounted = false);
+    return () => (isMounted.current = false);
   }, [category, dispatch, order, pageNumber, cat]);
 
   return (
@@ -46,6 +47,7 @@ export default function DealScreen() {
         <ul className="cat-nav">
           <LoadingBox hide={!loadingCategories} />
           <MessageBox variant="danger" msg={errorCategories} />
+
           {categories &&
             ["Deals", ...categories].map((label, id) => (
               <li
@@ -103,6 +105,7 @@ export default function DealScreen() {
           <div className="row search__banner">
             <LoadingBox hide={!loading} />
             <MessageBox variant="danger" msg={error} />
+
             {products && (
               <div className="search__counter">
                 {products.length} of {count} Results

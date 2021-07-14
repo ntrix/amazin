@@ -11,9 +11,11 @@ export default function OrderHistoryScreen(props) {
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(listOrderMine());
   }, [dispatch]);
+
   return (
     <div>
       <h1 className="p-1">Order History</h1>
@@ -22,6 +24,7 @@ export default function OrderHistoryScreen(props) {
       ) : (
         <>
           <MessageBox variant="danger" msg={error} />
+
           {orders && (
             <table className="table">
               <thead>
@@ -34,6 +37,7 @@ export default function OrderHistoryScreen(props) {
                   <th className="tab__w6">ACTIONS</th>
                 </tr>
               </thead>
+
               <tbody>
                 {orders.map((order) => (
                   <tr key={order._id}>
@@ -45,11 +49,13 @@ export default function OrderHistoryScreen(props) {
                         ? order.paidAt.substring(0, DD_MM_YYYY)
                         : "No"}
                     </td>
+
                     <td>
                       {order.isDelivered
                         ? order.deliveredAt.substring(0, DD_MM_YYYY)
                         : "No"}
                     </td>
+
                     <td>
                       <button
                         type="button"

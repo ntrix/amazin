@@ -9,7 +9,16 @@ import MessageBox from "../../components/MessageBox";
 import PrivateRoute from "../Route/PrivateRoute";
 import CustomInput from "../../components/CustomInput";
 
-export default function ProfileScreen({ location }) {
+export default function ProfileScreen() {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { loading, error, user } = useSelector((state) => state.userDetails);
+  const {
+    success: successUpdate,
+    error: errorUpdate,
+    loading: loadingUpdate,
+  } = useSelector((state) => state.userUpdateProfile);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,14 +28,21 @@ export default function ProfileScreen({ location }) {
   const [sellerLogo, setSellerLogo] = useState("");
   const [sellerDescription, setSellerDescription] = useState("");
 
-  const { userInfo } = useSelector((state) => state.userSignin);
-  const { loading, error, user } = useSelector((state) => state.userDetails);
-  const {
-    success: successUpdate,
-    error: errorUpdate,
-    loading: loadingUpdate,
-  } = useSelector((state) => state.userUpdateProfile);
-  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!user) {
+      dispatch(userUpdateProfileActions._RESET());
+      dispatch(detailsUser(userInfo._id));
+    } else {
+      setName(user.name);
+      setEmail(user.email);
+      setOldPassword("");
+      if (user.seller) {
+        setSellerName(user.seller.name);
+        setSellerLogo(user.seller.logo);
+        setSellerDescription(user.seller.description);
+      }
+    }
+  }, [dispatch, userInfo._id, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -49,22 +65,6 @@ export default function ProfileScreen({ location }) {
     );
     // }
   };
-
-  useEffect(() => {
-    if (!user) {
-      dispatch(userUpdateProfileActions._RESET());
-      dispatch(detailsUser(userInfo._id));
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-      setOldPassword("");
-      if (user.seller) {
-        setSellerName(user.seller.name);
-        setSellerLogo(user.seller.logo);
-        setSellerDescription(user.seller.description);
-      }
-    }
-  }, [dispatch, userInfo._id, user]);
 
   return (
     <div>

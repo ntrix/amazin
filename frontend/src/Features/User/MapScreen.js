@@ -1,12 +1,13 @@
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   GoogleMap,
   LoadScript,
   Marker,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
+
 import axiosClient from "../../Controllers/axiosClient";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { userAddressMapActions } from "./UserSlice";
 
 import LoadingBox from "../../components/LoadingBox";
@@ -14,7 +15,8 @@ import LoadingBox from "../../components/LoadingBox";
 const libs = ["places"];
 const defaultLocation = { lat: 45.516, lng: -73.56 };
 
-export default function MapScreen(props) {
+export default function MapScreen({ history }) {
+  const dispatch = useDispatch();
   const [googleApiKey, setGoogleApiKey] = useState("");
   const [center, setCenter] = useState(defaultLocation);
   const [location, setLocation] = useState(center);
@@ -40,15 +42,18 @@ export default function MapScreen(props) {
   const onMarkerLoad = (marker) => {
     markerRef.current = marker;
   };
+
   const onLoadPlaces = (place) => {
     placeRef.current = place;
   };
+
   const onIdle = () => {
     setLocation({
       lat: mapRef.current.center.lat(),
       lng: mapRef.current.center.lng(),
     });
   };
+
   const onPlacesChanged = () => {
     try {
       const place = placeRef.current.getPlaces()[0].geometry.location;
@@ -56,7 +61,7 @@ export default function MapScreen(props) {
       setLocation({ lat: place.lat(), lng: place.lng() });
     } catch (err) {}
   };
-  const dispatch = useDispatch();
+
   const onConfirm = () => {
     const places = placeRef.current.getPlaces();
     if (places && places.length === 1) {
@@ -71,7 +76,7 @@ export default function MapScreen(props) {
         })
       );
       alert("location selected successfully.");
-      props.history.push("/shipping");
+      history.push("/shipping");
     } else {
       alert("Please enter your address");
     }
@@ -95,7 +100,7 @@ export default function MapScreen(props) {
   };
 
   const redirectBack = () => {
-    props.history.push(localStorage?.getItem("backToHistory") || "/");
+    history.push(localStorage?.getItem("backToHistory") || "/");
   };
 
   return googleApiKey ? (

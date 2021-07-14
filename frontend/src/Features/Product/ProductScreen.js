@@ -10,9 +10,9 @@ import MessageBox from "../../components/MessageBox";
 import Rating from "../../components/Rating";
 import { getImgUrl, pipe } from "../../utils";
 
-export default function ProductScreen(props) {
+export default function ProductScreen({ history, match }) {
   const dispatch = useDispatch();
-  const productId = props.match.params.id;
+  const productId = match.params.id;
 
   const { userInfo } = useSelector((state) => state.userSignin);
   const { loading, error, product } = useSelector(
@@ -29,8 +29,18 @@ export default function ProductScreen(props) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
+  useEffect(() => {
+    if (successReviewCreate) {
+      window.alert("Review Submitted Successfully");
+      setRating("");
+      setComment("");
+      dispatch(productReviewCreateActions._RESET());
+    }
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId, successReviewCreate]);
+
   const addToCartHandler = () => {
-    props.history.push(`/cart/${productId}?qty=${qty}`);
+    history.push(`/cart/${productId}?qty=${qty}`);
   };
 
   const submitHandler = (e) => {
@@ -44,20 +54,11 @@ export default function ProductScreen(props) {
     }
   };
 
-  useEffect(() => {
-    if (successReviewCreate) {
-      window.alert("Review Submitted Successfully");
-      setRating("");
-      setComment("");
-      dispatch(productReviewCreateActions._RESET());
-    }
-    dispatch(detailsProduct(productId));
-  }, [dispatch, productId, successReviewCreate]);
-
   return (
     <div>
       <LoadingBox xl hide={!loading} />
       <MessageBox variant="danger" msg={error} />
+
       {!loading && (
         <div className="col-fill">
           <div>
@@ -70,6 +71,7 @@ export default function ProductScreen(props) {
               </Link>
             </div>
           </div>
+
           <div className="row top mt-1 p-1">
             <div className="col-2 flex mr-1">
               <div className="tab__w6 flex-col">
@@ -80,16 +82,16 @@ export default function ProductScreen(props) {
                       <img
                         key={id}
                         src={getImgUrl(product._id, img)}
-                        alt={product.name + " small " + id}
+                        alt={`${product.name} small ${id}`}
                         onMouseEnter={() => setImgActive(id)}
                         onClick={() => setImgActive(id)}
                         className={
-                          "product__thumbnail" +
-                          (id === imgActive ? " active" : "")
+                          "product__thumbnail" + (id === imgActive && " active")
                         }
                       ></img>
                     ))}
               </div>
+
               <div className="tab__rest">
                 <img
                   className="large"
@@ -97,7 +99,7 @@ export default function ProductScreen(props) {
                     product._id,
                     product?.image?.split("^")[imgActive]
                   )}
-                  alt={product.name + " " + imgActive}
+                  alt={`${product.name} ${imgActive}`}
                 ></img>
               </div>
             </div>
@@ -106,6 +108,7 @@ export default function ProductScreen(props) {
                 <li>
                   <h1>{product.name}</h1>
                 </li>
+
                 <li>
                   <Rating
                     rating={product.rating}
@@ -120,6 +123,7 @@ export default function ProductScreen(props) {
                       {pipe.getNote(product.price)}
                       <sup>{pipe.getCent(product.price)}</sup>
                     </span>
+
                     {product.deal > 0 && (
                       <span className="pull-right">
                         <b className="price strike">
@@ -159,6 +163,7 @@ export default function ProductScreen(props) {
                   <li>
                     <div className="row">
                       <div>Price</div>
+
                       <div className="price">
                         <sup>{pipe.getSymbol()}</sup>
                         {pipe.getNote(product.price)}
@@ -170,6 +175,7 @@ export default function ProductScreen(props) {
                   <li>
                     <div className="row">
                       <div>Status</div>
+
                       <div>
                         {product.countInStock > 0 ? (
                           <span className="success">In Stock</span>
@@ -184,6 +190,7 @@ export default function ProductScreen(props) {
                       <li>
                         <div className="row">
                           <div>Quantity</div>
+
                           <div className="select-wrapper">
                             <div className="sprite__caret xl"></div>
                             <select
@@ -201,6 +208,7 @@ export default function ProductScreen(props) {
                           </div>
                         </div>
                       </li>
+
                       <li>
                         <button
                           onClick={addToCartHandler}
@@ -215,11 +223,14 @@ export default function ProductScreen(props) {
               </div>
             </div>
           </div>
+
           <div className="p-1">
             <h2 id="reviews">Reviews</h2>
+
             <MessageBox show={product.reviews.length === 0}>
               There is no review
             </MessageBox>
+
             <ul>
               {product.reviews.map((review, id) => (
                 <li key={id}>
@@ -229,12 +240,14 @@ export default function ProductScreen(props) {
                   <p>{review.comment}</p>
                 </li>
               ))}
+
               <li>
                 {userInfo ? (
                   <form className="form" onSubmit={submitHandler}>
                     <div>
                       <h2>Write a customer review</h2>
                     </div>
+
                     <div>
                       <label htmlFor="rating">Rating</label>
                       <div className="select-wrapper">
@@ -253,6 +266,7 @@ export default function ProductScreen(props) {
                         </select>
                       </div>
                     </div>
+
                     <div>
                       <label htmlFor="comment">Comment</label>
                       <textarea
@@ -261,12 +275,14 @@ export default function ProductScreen(props) {
                         onChange={(e) => setComment(e.target.value)}
                       ></textarea>
                     </div>
+
                     <div>
                       <label />
                       <button className="primary" type="submit">
                         Submit
                       </button>
                     </div>
+
                     <div>
                       <LoadingBox hide={!loadingReviewCreate} />
                       <MessageBox variant="danger" msg={errorReviewCreate} />

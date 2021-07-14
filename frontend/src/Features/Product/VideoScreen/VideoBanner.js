@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import LoadingBox from "../../../components/LoadingBox";
-import MessageBox from "../../../components/MessageBox";
-import { createProduct } from "../../../Controllers/productActions";
-import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../constants";
 import { productCreateActions } from "../ProductSlice";
 import UTube from "./UTube";
 import { VideoButtons } from "./VideoButtons";
+import { createProduct } from "../../../Controllers/productActions";
+
+import LoadingBox from "../../../components/LoadingBox";
+import MessageBox from "../../../components/MessageBox";
+import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../constants";
 
 export default function VideoBanner({ source }) {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
+
+  const history = useHistory();
   const [trailerUrl, setTrailerUrl] = useState("");
   const [movie, setMovie] = useState({});
 
@@ -19,17 +31,6 @@ export default function VideoBanner({ source }) {
     setMovie(random);
   }, [source]);
 
-  const productCreate = useSelector((state) => state.productCreate);
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const dispatch = useDispatch();
-  const history = useHistory();
   useEffect(() => {
     if (successCreate) {
       dispatch(productCreateActions._RESET());
@@ -58,7 +59,7 @@ export default function VideoBanner({ source }) {
 
           <div className="banner__buttons">
             <VideoButtons
-              movie={movie} //{{ ...movie, video: hasTrailer }}
+              movie={movie}
               trailerUrl={trailerUrl}
               setTrailerUrl={setTrailerUrl}
             />

@@ -8,16 +8,11 @@ import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
 
-export default function UserEditScreen(props) {
-  const userId = props.match.params.id;
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isSeller, setIsSeller] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-
+export default function UserEditScreen({ history, match }) {
+  const dispatch = useDispatch();
+  const userId = match.params.id;
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
-
   const userUpdate = useSelector((state) => state.userUpdate);
   const {
     loading: loadingUpdate,
@@ -25,11 +20,15 @@ export default function UserEditScreen(props) {
     success: successUpdate,
   } = userUpdate;
 
-  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isSeller, setIsSeller] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     if (successUpdate) {
       dispatch(userUpdateActions._RESET());
-      props.history.push("/user-list");
+      history.push("/user-list");
     }
     if (!user) {
       dispatch(detailsUser(userId));
@@ -39,22 +38,26 @@ export default function UserEditScreen(props) {
       setIsSeller(user.isSeller);
       setIsAdmin(user.isAdmin);
     }
-  }, [dispatch, props.history, successUpdate, user, userId]);
+  }, [dispatch, history, successUpdate, user, userId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update user
     dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }));
   };
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Edit User {name}</h1>
+
           <LoadingBox xl hide={!loadingUpdate} />
           <MessageBox variant="danger" msg={errorUpdate} />
         </div>
+
         <LoadingBox xl hide={!loading} />
+
         {!loading && (
           <>
             <MessageBox variant="danger" msg={error} />

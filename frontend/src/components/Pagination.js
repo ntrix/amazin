@@ -15,9 +15,11 @@ export default function Pagination({ page, pages, getUrl, help }) {
           </Link>
         ))}
       </div>
+
       {help && (
         <div>
           <h2>Do you need help?</h2>
+
           <p>
             Visit the{" "}
             <Link to="/customer">

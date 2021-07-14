@@ -4,20 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../Controllers/productActions";
 import { detailsUser } from "../Controllers/userActions";
 
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
 import ProductCard from "../components/ProductCard";
 import Rating from "../components/Rating";
 import Pagination from "../components/Pagination";
 import { useParams } from "react-router";
 import SortFilter from "../components/SortFilter";
 
-export default function SellerScreen(props) {
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+
+export default function SellerScreen({ match }) {
+  const dispatch = useDispatch();
   const { pageNumber = 1, order: pOrder = "bestselling" } = useParams();
-  const sellerId = props.match.params.id;
+  const sellerId = match.params.id;
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
-
   const {
     loading: loadingProducts,
     error: errorProducts,
@@ -27,10 +28,9 @@ export default function SellerScreen(props) {
     count,
   } = useSelector((state) => state.productList);
 
-  const getUrl = ({ order = pOrder, page = pageNumber }) =>
-    `/seller/${sellerId}/order/${order}/pageNumber/${page}`;
+  const getUrl = ({ order = pOrder, page: _page = pageNumber }) =>
+    `/seller/${sellerId}/order/${order}/pageNumber/${_page}`;
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(detailsUser(sellerId));
     dispatch(listProducts({ seller: sellerId, order: pOrder, pageNumber }));
@@ -44,6 +44,7 @@ export default function SellerScreen(props) {
         ) : (
           <>
             <MessageBox variant="danger" msg={errorProducts} />
+
             <div className="search__counter">
               {products.length} of {count} Products from this Seller
             </div>
@@ -56,6 +57,7 @@ export default function SellerScreen(props) {
         ) : (
           <>
             <MessageBox variant="danger" msg={error} />
+
             <ul className="card card__body">
               <li>
                 <div className="row start">
@@ -66,21 +68,26 @@ export default function SellerScreen(props) {
                       alt={user.seller.name}
                     ></img>
                   </div>
+
                   <div className="p-1">
                     <h1>{user.seller.name}</h1>
                   </div>
                 </div>
               </li>
+
               <li>
                 <Rating
                   rating={user.seller.rating}
                   numReviews={user.seller.numReviews}
                 ></Rating>
               </li>
+
               <li>
                 <a href={`mailto:${user.email}`}>Contact Seller</a>
               </li>
+
               <li>{user.seller.description}</li>
+
               <li className="p-1">
                 <SortFilter order={pOrder} getUrl={getUrl} />
               </li>

@@ -10,23 +10,37 @@ import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 import CustomInput from "../../components/CustomInput";
 
-export default function ContactScreen(props) {
-  const { subject: pSubject } = useParams();
+export default function ContactScreen() {
+  const dispatch = useDispatch();
+  const { subject: paramSub } = useParams();
   const { userInfo } = useSelector((state) => state.userSignin);
   const {
     success: successUpdate,
     error: errorUpdate,
     loading: loadingUpdate,
   } = useSelector((state) => state.userUpdateProfile);
-  const dispatch = useDispatch();
 
-  const [name, setName] = useState(userInfo?.name || "");
-  const [email, setEmail] = useState(userInfo?.email || "");
-  const [subject, setSubject] = useState(pSubject || "");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
   const [text, setText] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [hasError, setError] = useState([]);
   const [hasMessage, setMessage] = useState(false);
+
+  useEffect(() => {
+    setName(userInfo?.name);
+    setEmail(userInfo?.email);
+    setSubject(paramSub);
+  }, [userInfo, paramSub]);
+
+  useEffect(() => {
+    setSubject(paramSub);
+    if ("Seller" === paramSub && successUpdate) {
+      dispatch(userUpdateProfileActions._RESET());
+      setMessage("Seller Account verified successfully!");
+    }
+  }, [dispatch, paramSub, successUpdate]);
 
   const submitHandler = async (e) => {
     setError(false);
@@ -38,10 +52,14 @@ export default function ContactScreen(props) {
       subject,
       name,
     };
+
     const errors = [];
-    if (!text) errors.push("Please enter your message!");
-    if (!email) errors.push("Please enter your email!");
-    if (!name) errors.push("Please enter your name!");
+    const validate = (err, msg) => {
+      if (err) errors.push(msg);
+    };
+    validate(!text, "Please enter your message!");
+    validate(!email, "Please enter your email!");
+    validate(!name, "Please enter your name!");
     if (errors.length) return setError(errors);
 
     if ("Seller" === subject)
@@ -63,43 +81,39 @@ export default function ContactScreen(props) {
         },
       });
       setLoading(false);
-      if ("Admin" === pSubject)
+      if ("Admin" === paramSub) {
         setMessage(
           "Your Apply has been sent. Please wait 48 hours for processing!"
         );
-      else setMessage("Thank you! Your message has been sent.");
+        return false;
+      }
+      setMessage("Thank you! Your message has been sent.");
     } catch (error) {
       setLoading(false);
       setError([error.message]);
     }
+    return false;
   };
-
-  useEffect(() => {
-    setSubject(pSubject);
-    if ("Seller" === pSubject && successUpdate) {
-      dispatch(userUpdateProfileActions._RESET());
-      setMessage("Seller Account verified successfully!");
-    }
-  }, [dispatch, pSubject, successUpdate]);
 
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <h1>Contact Us</h1>
-        <LoadingBox xl hide={!isLoading && !loadingUpdate} />
+
+        <LoadingBox xl hide={!isLoading} />
+        <LoadingBox xl hide={!loadingUpdate} />
         {hasError &&
           hasError.map((err, id) => (
             <MessageBox key={id} variant="danger" msg={err} />
           ))}
         <MessageBox variant="danger" msg={errorUpdate} />
-        {hasMessage ? (
-          <>
-            <MessageBox variant="success" msg={hasMessage} />
-            <Link to="/">
-              <button className="primary">Back To Home Page</button>
-            </Link>
-          </>
-        ) : (
+        <MessageBox variant="success" msg={hasMessage} />
+        {hasMessage && (
+          <Link to="/">
+            <button className="primary">Back To Home Page</button>
+          </Link>
+        )}
+        {!hasMessage && (
           <>
             <CustomInput text="Your Name" hook={[name, setName]} />
 
@@ -113,10 +127,10 @@ export default function ContactScreen(props) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                 >
-                  {!userInfo?.isSeller && "Seller" === pSubject && (
+                  {!userInfo?.isSeller && "Seller" === paramSub && (
                     <option value="Seller">Verify My Seller Account</option>
                   )}
-                  {!userInfo?.isAdmin && "Admin" === pSubject && (
+                  {!userInfo?.isAdmin && "Admin" === paramSub && (
                     <option value="Admin">Apply To Be Administrator</option>
                   )}
                   <option value="Account">Account</option>

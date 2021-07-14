@@ -12,12 +12,13 @@ import {
 import { productCreateActions, productDeleteActions } from "./ProductSlice";
 
 export default function ProductListScreen(props) {
+  const dispatch = useDispatch();
   const { pageNumber = 1 } = useParams();
-
   const sellerMode = props.match.path.indexOf("/seller") >= 0;
+
+  const { userInfo } = useSelector((state) => state.userSignin);
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
-
   const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
@@ -25,16 +26,13 @@ export default function ProductListScreen(props) {
     success: successCreate,
     product: createdProduct,
   } = productCreate;
-
   const productDelete = useSelector((state) => state.productDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
   } = productDelete;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const dispatch = useDispatch();
+
   useEffect(() => {
     if (successCreate) {
       dispatch(productCreateActions._RESET());
@@ -67,9 +65,11 @@ export default function ProductListScreen(props) {
       dispatch(deleteProduct(product._id));
     }
   };
+
   const createHandler = () => {
     dispatch(createProduct());
   };
+
   return (
     <div>
       <div className="row p-1">
@@ -82,9 +82,11 @@ export default function ProductListScreen(props) {
       <LoadingBox xl hide={!loadingDelete} />
       <LoadingBox xl hide={!loadingCreate} />
       <LoadingBox xl hide={!loading} />
+
       <MessageBox variant="danger" msg={errorDelete} />
       <MessageBox variant="danger" msg={errorCreate} />
       <MessageBox variant="danger" msg={error} />
+
       {!loading && !error && (
         <>
           <table className="table">
@@ -98,6 +100,7 @@ export default function ProductListScreen(props) {
                 <th className="tab__w12">ACTIONS</th>
               </tr>
             </thead>
+
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
@@ -106,6 +109,7 @@ export default function ProductListScreen(props) {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+
                   <td>
                     <button
                       type="button"
@@ -116,6 +120,7 @@ export default function ProductListScreen(props) {
                     >
                       Edit
                     </button>
+
                     <button
                       type="button"
                       className="small danger"
@@ -128,6 +133,7 @@ export default function ProductListScreen(props) {
               ))}
             </tbody>
           </table>
+
           <Pagination
             page={page}
             pages={pages}

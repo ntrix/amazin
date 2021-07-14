@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+import Rating from "./Rating";
 import { NO_IMAGE } from "../constants";
 import { getImgUrl, pipe, savePath } from "../utils";
-import Rating from "./Rating";
 
 export default function ProductCard({ product, deal = false }) {
   return (

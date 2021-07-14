@@ -33,7 +33,9 @@ export default function CartScreen(props) {
     <div className="screen--light row top">
       <div className="col-2">
         <h1 className="p-1">Shopping Cart</h1>
+
         <MessageBox msg={error} variant="danger" />
+
         {cartItems.length === 0 ? (
           <MessageBox show>
             Your cart is still empty.{" "}
@@ -44,6 +46,7 @@ export default function CartScreen(props) {
         ) : (
           <table className="table">
             <thead></thead>
+
             <tbody>
               {cartItems.map((item, id) => (
                 <tr className="row" key={id}>
@@ -56,9 +59,11 @@ export default function CartScreen(props) {
                       ></img>
                     </Link>
                   </td>
+
                   <td className="tab__rest">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </td>
+
                   <td className="tab__w9">
                     <div className="select-wrapper">
                       <div className="sprite__caret xl"></div>
@@ -82,7 +87,9 @@ export default function CartScreen(props) {
                       </select>
                     </div>
                   </td>
+
                   <td className="tab__w6">{pipe.showPrice(item.price)}</td>
+
                   <td className="tab__w9">
                     <button
                       type="button"
@@ -97,6 +104,7 @@ export default function CartScreen(props) {
           </table>
         )}
       </div>
+
       <div className="col-1">
         <div className="card card__body">
           <ul>
@@ -108,6 +116,7 @@ export default function CartScreen(props) {
                 )}
               </h2>
             </li>
+
             <li>
               <button
                 type="button"

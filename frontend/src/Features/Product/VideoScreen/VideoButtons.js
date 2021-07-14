@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { sourceAdapter } from "../../../utils";
 import movieTrailer from "movie-trailer";
+
+import { sourceAdapter } from "../../../utils";
 
 export function VideoButtons({
   movie = sourceAdapter([1])[0],

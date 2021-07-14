@@ -8,9 +8,9 @@ import LoadingBox from "../../components/LoadingBox";
 import MessageBox from "../../components/MessageBox";
 
 export default function UserListScreen({ history }) {
+  const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
-
   const userDelete = useSelector((state) => state.userDelete);
   const {
     loading: loadingDelete,
@@ -18,7 +18,6 @@ export default function UserListScreen({ history }) {
     success: successDelete,
   } = userDelete;
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listUsers());
     dispatch(userDetailsActions._RESET());
@@ -28,19 +27,23 @@ export default function UserListScreen({ history }) {
       dispatch(deleteUser(user._id));
     }
   };
+
   return (
     <div>
       <h1 className="p-1">Users</h1>
+
       <LoadingBox xl hide={!loadingDelete} />
       <MessageBox variant="danger" msg={errorDelete} />
       <MessageBox variant="success" show={successDelete}>
         User Deleted Successfully
       </MessageBox>
+
       {loading ? (
         <LoadingBox xl />
       ) : (
         <>
           <MessageBox variant="danger" msg={error} />
+
           <table className="table">
             <thead>
               <tr>
@@ -52,22 +55,26 @@ export default function UserListScreen({ history }) {
                 <th className="tab__w12">ACTIONS</th>
               </tr>
             </thead>
+
             <tbody>
               {users.map((user) => (
                 <tr key={user._id}>
                   <td>{user._id}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
+
                   <td className="text-center success">
                     {user.isSeller && (
                       <i className="fa fa-check" aria-hidden="true"></i>
                     )}
                   </td>
+
                   <td className="text-center success">
                     {user.isAdmin && (
                       <i className="fa fa-check" aria-hidden="true"></i>
                     )}
                   </td>
+
                   <td>
                     <button
                       type="button"
@@ -76,6 +83,7 @@ export default function UserListScreen({ history }) {
                     >
                       Edit
                     </button>
+
                     <button
                       type="button"
                       className="small danger"

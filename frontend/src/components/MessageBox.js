@@ -1,9 +1,17 @@
 import React from "react";
 
-export default function MessageBox({ show = false, msg, variant, children }) {
+export default function MessageBox({
+  show = false,
+  msg,
+  variant,
+  wrapClass = "",
+  children,
+}) {
   if (!show && !msg) return null;
+
   const infos = msg || children;
-  return (
+
+  const innerComponent = () => (
     <div className={`alert alert--${variant || "info"}`}>
       {Array.isArray(infos) ? (
         <ul>
@@ -15,5 +23,11 @@ export default function MessageBox({ show = false, msg, variant, children }) {
         infos
       )}
     </div>
+  );
+
+  return !wrapClass ? (
+    innerComponent()
+  ) : (
+    <div className={wrapClass}>{innerComponent()}</div>
   );
 }

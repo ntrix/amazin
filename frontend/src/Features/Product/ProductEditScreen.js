@@ -13,8 +13,19 @@ import CustomInput from "../../components/CustomInput";
 import { MAX_IMAGES } from "../../constants";
 import { getImgUrl } from "../../utils";
 
-export default function ProductEditScreen(props) {
-  const productId = props.match.params.id;
+export default function ProductEditScreen({ history, match }) {
+  const dispatch = useDispatch();
+  const productId = match.params.id;
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product, success } = productDetails;
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate;
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [deal, setDeal] = useState("");
@@ -30,39 +41,30 @@ export default function ProductEditScreen(props) {
   const [fileUploading, setFileUploading] = useState(false);
   const [fileUploadErr, setFileUploadErr] = useState("");
 
-  const { userInfo } = useSelector((state) => state.userSignin);
-
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
-
-  const productUpdate = useSelector((state) => state.productUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = productUpdate;
-
-  const dispatch = useDispatch();
   useEffect(() => {
     if (successUpdate) {
-      props.history.push("/product-list");
-    }
-    if (!product || product._id !== productId || successUpdate) {
+      history.push("/product-list");
       dispatch(productUpdateActions._RESET());
       dispatch(detailsProduct(productId));
-    } else {
-      setName(product.name);
-      setPrice(product.price);
-      setDeal(product.deal);
-      setShip(product.ship);
-      setVideo(product.video);
-      setImages(product.image.split("^"));
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setBrand(product.brand);
-      setDescription(product.description);
+      return;
     }
-  }, [product, dispatch, productId, successUpdate, props.history]);
+    if (!product || product._id !== productId) {
+      dispatch(productUpdateActions._RESET());
+      dispatch(detailsProduct(productId));
+      return;
+    }
+    setName(product.name);
+    setPrice(product.price);
+    setDeal(product.deal);
+    setShip(product.ship);
+    setVideo(product.video);
+    setImages(product.image.split("^"));
+    setCategory(product.category);
+    setCountInStock(product.countInStock);
+    setBrand(product.brand);
+    setDescription(product.description);
+  }, [product, dispatch, productId, successUpdate, history]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     // TODO: dispatch update product
@@ -83,26 +85,17 @@ export default function ProductEditScreen(props) {
     );
   };
 
-  const onAsyncImgUpload = async (e) => {
-    const bodyFormData = new FormData();
-    const { files } = e.target;
-    const capacity = Math.min(files.length, MAX_IMAGES - images.length);
-
-    for (let x = 0; x < capacity; x++) bodyFormData.append("images", files[x]);
-    bodyFormData.append("productId", product._id);
-
+  const asyncUpdateImgs = async (newImages, bodyFormData, updateInfo) => {
     setFileUploading(true);
     try {
-      const { data } = await axiosClient.post("/api/uploads", bodyFormData, {
+      await axiosClient.patch("/api/uploads", bodyFormData, {
         headers: {
           enctype: "multipart/form-data",
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      setImages([...images, ...data]);
-      if (capacity < files.length)
-        setInfo(`You can upload ${MAX_IMAGES} Images total`);
-      else setInfo(`${capacity} Images successfully uploaded!`);
+      setImages(newImages);
+      setInfo(updateInfo);
       setFileUploading(false);
     } catch (err) {
       setFileUploadErr(err.message);
@@ -110,33 +103,39 @@ export default function ProductEditScreen(props) {
     }
   };
 
-  const onImgDelete = (idx) => (e) => {
+  const uploadImg = (e) => {
+    const bodyFormData = new FormData();
+    const { files } = e.target;
+    const uploadImgsCount = files.length;
+    const uploadSize = Math.min(uploadImgsCount, MAX_IMAGES - images.length);
+
+    const uploadImgs = Array.from(files).slice(0, uploadSize);
+    uploadImgs.forEach((img) => bodyFormData.append("images", img));
+    bodyFormData.append("productId", product._id);
+    asyncUpdateImgs(
+      [...images, ...uploadImgs],
+      bodyFormData,
+      `${uploadSize} Images successfully uploaded!`
+    );
+  };
+
+  const deleteImg = (idx) => (e) => {
     e.preventDefault();
     if (!window.confirm("Do you really want to delete this image?")) return;
-    (async () => {
-      const newImages = images.filter((_, i) => i !== idx);
 
-      /* TODO: delete image on cloudinary and update immediately to DB */
-      const bodyFormData = new FormData();
-      bodyFormData.append("imgLink", images[idx]);
-      bodyFormData.append("productId", product._id);
-      bodyFormData.append("image", newImages.join("^"));
+    /* TODO: delete image on cloudinary and update immediately to DB */
+    const newImages = images.filter((_, i) => i !== idx);
+    const bodyFormData = new FormData();
+    bodyFormData.append("imgLink", images[idx]);
+    bodyFormData.append("productId", product._id);
+    bodyFormData.append("image", newImages.join("^"));
+    asyncUpdateImgs(newImages, bodyFormData);
+  };
 
-      setFileUploading(true);
-      try {
-        await axiosClient.patch("/api/uploads", bodyFormData, {
-          headers: {
-            enctype: "multipart/form-data",
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-        setFileUploading(false);
-      } catch (err) {
-        setFileUploadErr(err.message);
-        setFileUploading(false);
-      }
-      setImages(newImages);
-    })();
+  const updateImgLink = (id) => (e) => {
+    const newImages = images.slice();
+    newImages[id] = e.target.value;
+    setImages(newImages);
   };
 
   const onImgMoveUp = (id) => (e) => {
@@ -151,8 +150,7 @@ export default function ProductEditScreen(props) {
   };
 
   const addImageOnPressEnter = (e) => {
-    if (e.key === "Enter" || e.keyCode === 13)
-      setImages([...images, imagePreview]);
+    if (e.key === "Enter") setImages([...images, imagePreview]);
   };
 
   return (
@@ -168,17 +166,15 @@ export default function ProductEditScreen(props) {
 
         <LoadingBox xl hide={!loadingUpdate} />
         <MessageBox variant="danger" msg={errorUpdate} />
+
         <LoadingBox xl hide={!loading} />
         <MessageBox variant="danger" msg={error} />
 
-        {!loading && !error && (
+        {success && (
           <>
             <CustomInput text="Name" hook={[name, setName]} />
-
             <CustomInput text="Price" hook={[price, setPrice]} />
-
             <CustomInput text="Ship" hook={[ship, setShip]} />
-
             <CustomInput text="Deal" hook={[deal, setDeal]} />
 
             <div>
@@ -202,18 +198,14 @@ export default function ProductEditScreen(props) {
                     text={`Image ${id + 1} ${["COVER", "[DEAL]"][id] || ""}`}
                     className="row"
                     value={img}
-                    onChange={(e) =>
-                      setImages(
-                        images.map((_, i) => (i === id ? e.target.value : _))
-                      )
-                    }
+                    onChange={updateImgLink(id)}
                   />
 
                   <button onClick={onImgMoveUp(id)} disabled={fileUploading}>
                     <i className="fa success tab__w3 fa-arrow-circle-up"></i>
                   </button>
 
-                  <button onClick={onImgDelete(id)} disabled={fileUploading}>
+                  <button onClick={deleteImg(id)} disabled={fileUploading}>
                     <i className="fa danger fa-close"></i>
                   </button>
                 </div>
@@ -228,48 +220,38 @@ export default function ProductEditScreen(props) {
               />
             </div>
 
-            <div>
-              {images.length < MAX_IMAGES ? (
-                <>
-                  Add
-                  <CustomInput
-                    text="New Images"
-                    name="images"
-                    type="file"
-                    multiple
-                    onChange={onAsyncImgUpload}
-                  />
-                  Or
-                  <CustomInput
-                    text="Image Link"
-                    hook={[imagePreview, setImagePreview]}
-                    onKeyUp={addImageOnPressEnter}
-                  />
-                  <MessageBox variant="info" msg={info} />
-                  <LoadingBox hide={!fileUploading} />
-                  <MessageBox variant="danger" msg={fileUploadErr} />
-                </>
-              ) : (
-                <label>
-                  You have uploaded {images.length} of {MAX_IMAGES} Images
-                </label>
-              )}
-            </div>
+            {images.length < MAX_IMAGES && (
+              <div>
+                Add
+                <CustomInput
+                  text="New Images"
+                  name="images"
+                  type="file"
+                  multiple
+                  onChange={uploadImg}
+                />
+                Or
+                <CustomInput
+                  text="Image Link"
+                  hook={[imagePreview, setImagePreview]}
+                  onKeyUp={addImageOnPressEnter}
+                />
+                <MessageBox variant="info" msg={info} />
+                <LoadingBox hide={!fileUploading} />
+                <MessageBox variant="danger" msg={fileUploadErr} />
+              </div>
+            )}
 
             <CustomInput
               text="Video Link or Youtube VID"
               hook={[video, setVideo]}
             />
-
             <CustomInput text="Category" hook={[category, setCategory]} />
-
             <CustomInput text="Brand" hook={[brand, setBrand]} />
-
             <CustomInput
               text="Count In Stock"
               hook={[countInStock, setCountInStock]}
             />
-
             <CustomInput
               textarea
               rows="3"

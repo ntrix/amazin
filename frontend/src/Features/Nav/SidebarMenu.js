@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
 import { signout } from "../../Controllers/userActions";
-import { shortName } from "../../utils";
 import { sidebarMenuItems } from "./menuItemList";
 import { MenuItem } from "./MenuItem";
+
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import { shortName } from "../../utils";
 
 export default function SidebarMenu({ currency, shadowFor, setShadowFor }) {
   const {
