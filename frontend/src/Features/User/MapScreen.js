@@ -11,9 +11,10 @@ import axiosClient from "../../Controllers/axiosClient";
 import { userAddressMapActions } from "./UserSlice";
 
 import LoadingBox from "../../components/LoadingBox";
+import { START_LOCAL_LAT, START_LOCAL_LNG } from "../../constants";
 
 const libs = ["places"];
-const defaultLocation = { lat: 45.516, lng: -73.56 };
+const defaultLocation = { lat: START_LOCAL_LAT, lng: START_LOCAL_LNG };
 
 export default function MapScreen({ history }) {
   const dispatch = useDispatch();

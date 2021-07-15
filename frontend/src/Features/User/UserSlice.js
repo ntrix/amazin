@@ -1,4 +1,5 @@
 import { createSlice, Reducer } from "../RTKClient";
+import { STORAGE_USERINFO } from "../../constants";
 
 export const {
   actions: userRegisterActions,
@@ -6,7 +7,7 @@ export const {
 } = createSlice({
   name: "userRegister",
   initialState: {},
-  reducers: Reducer("userInfo"),
+  reducers: Reducer(STORAGE_USERINFO),
 });
 
 export const {
@@ -15,7 +16,7 @@ export const {
 } = createSlice({
   name: "userSignin",
   initialState: {},
-  reducers: Reducer("userInfo"),
+  reducers: Reducer(STORAGE_USERINFO),
 });
 
 export const {

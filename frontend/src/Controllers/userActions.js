@@ -9,12 +9,17 @@ import {
   userDeleteActions,
   userTopSellerListActions,
 } from "../Features/User/UserSlice";
+import {
+  STORAGE_CART_ITEMS,
+  STORAGE_SHIPPING_ADDRESS,
+  STORAGE_USERINFO,
+} from "../constants";
 
 export const register = (name, email, password, confirmPassword) =>
   axiosPublic({ email, password })(
     userRegisterActions
   )(userSigninActions._SUCCESS, (_data) =>
-    localStorage.setItem("userInfo", JSON.stringify(_data))
+    localStorage.setItem(STORAGE_USERINFO, JSON.stringify(_data))
   )("post", "/api/users/register", {
     name,
     email,
@@ -24,16 +29,16 @@ export const register = (name, email, password, confirmPassword) =>
 
 export const signin = (email, password) =>
   axiosPublic({ email, password })(userSigninActions)(null, (_data) =>
-    localStorage.setItem("userInfo", JSON.stringify(_data))
+    localStorage.setItem(STORAGE_USERINFO, JSON.stringify(_data))
   )("post", "/api/users/signin", {
     email,
     password,
   });
 
 export const signout = () => (dispatch) => {
-  localStorage.removeItem("userInfo");
-  localStorage.removeItem("cartItems");
-  localStorage.removeItem("shippingAddress");
+  localStorage.removeItem(STORAGE_USERINFO);
+  localStorage.removeItem(STORAGE_CART_ITEMS);
+  localStorage.removeItem(STORAGE_SHIPPING_ADDRESS);
   dispatch(userSigninActions._RESET());
   document.location.href = "/signin";
 };
@@ -44,7 +49,7 @@ export const detailsUser = (userId) =>
 export const updateUserProfile = (user) =>
   axiosPrivate(user)(userUpdateProfileActions)(
     userSigninActions._SUCCESS,
-    (_data) => localStorage.setItem("userInfo", JSON.stringify(_data))
+    (_data) => localStorage.setItem(STORAGE_USERINFO, JSON.stringify(_data))
   )("put", `/api/users/profile`, user);
 
 export const updateUser = (user) =>

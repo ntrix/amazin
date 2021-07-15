@@ -7,7 +7,16 @@ export const RATES_SOURCE =
 export const NO_IMAGE = "/images/no-image.png";
 export const MAX_IMAGES = 8;
 
-export const SHOW_ERROR_TIMEOUT = 5000;
+/* local storage and Redux */
+export const STORAGE_USERINFO = "userInfo";
+export const STORAGE_CART_ITEMS = "cartItems";
+export const STORAGE_SHIPPING_ADDRESS = "shippingAddress";
+
+export const SHOW_ERROR_TIMEOUT = 9000;
+
+/* Location HTW */
+export const START_LOCAL_LAT = 51.03751;
+export const START_LOCAL_LNG = 13.73514;
 
 /* Search box */
 export const MAX_SEARCH_SUGGESTS = 12;
