@@ -29,7 +29,7 @@ export default function LoadingOrError({
   const innerComponent = () => {
     if (loading) return <LoadingBox xl={xl} />;
     return error && !hideError ? (
-      <MessageBox show msg={errorMsg || error} variant={variant} />
+      <MessageBox msg={errorMsg || error} variant={variant} />
     ) : (
       <>
         {children &&
