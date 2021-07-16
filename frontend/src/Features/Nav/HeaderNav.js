@@ -41,7 +41,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
       <div className="nav-belt row">
         <Link className="phone--off" to="/">
           <div className="nav__brand">
-            <img className="logo" src={Logo} alt="logo" />
+            <img className="logo" src={Logo} alt="logo Amazin" />
             <span className="mobile--off">mazin'</span>
           </div>
         </Link>
@@ -81,7 +81,7 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
 
         {userInfo && (
           <NavDropBtn
-            label={"Hello, " + shortName(userInfo, 7) + "^Account^ & Lists"}
+            label={`Hello, ${shortName(userInfo, 7)}^Account^ & Lists`}
             className="nav__user"
             onEnterHandle={onEnterHandle}
             onLeaveHandle={onLeaveHandle}

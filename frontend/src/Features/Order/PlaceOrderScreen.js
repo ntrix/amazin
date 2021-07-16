@@ -6,46 +6,48 @@ import { orderCreateActions } from "./OrderSlice";
 import { createOrder } from "../../Controllers/orderActions";
 
 import CheckoutSteps from "../Checkout/CheckoutSteps";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
+import { TAX } from "../../constants";
 import { getImgUrl, pipe } from "../../utils";
+import LoadingOrError from "../../components/LoadingOrError";
 
-export default function PlaceOrderScreen(props) {
-  const tax = 0.19;
-  const cart = { ...useSelector((state) => state.cart) }; //fixes cart object is not extensible
-  if (!cart.paymentMethod) {
-    props.history.push("/payment");
-  }
+export default function PlaceOrderScreen({ history }) {
+  const dispatch = useDispatch();
+  //fixes cart object is not extensible
+  const cart = { ...useSelector((state) => state.cart) };
+  if (!cart.paymentMethod) history.push("/payment");
+
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { loading, success, error, order } = orderCreate;
 
   cart.itemsPrice = cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0);
-  const ship = Math.max(...cart.cartItems.map((i) => i.ship)); //max ship price of any items
+
+  //max ship price of any items
+  const ship = Math.max(...cart.cartItems.map((i) => i.ship));
   cart.shippingPrice = cart.itemsPrice > 100 ? 0 : ship;
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice;
-  cart.taxPrice = cart.totalPrice / (1 + tax);
-  const dispatch = useDispatch();
+  cart.taxPrice = cart.totalPrice / (1 + TAX);
 
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
 
   useEffect(() => {
-    if (success) {
-      props.history.push(`/order/${order._id}`);
+    if (orderCreate.success) {
+      history.push(`/order/${orderCreate.order._id}`);
       dispatch(orderCreateActions._RESET());
     }
-  }, [dispatch, order, props.history, success]);
+  }, [dispatch, history, orderCreate.order, orderCreate.success]);
 
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+
       <div className="row top">
         <div className="col-2">
           <ul>
             <li>
               <div className="card card__body">
                 <h2>Shipping</h2>
+
                 <p>
                   <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
                   <strong>Address: </strong> {cart.shippingAddress.address},
@@ -54,17 +56,21 @@ export default function PlaceOrderScreen(props) {
                 </p>
               </div>
             </li>
+
             <li>
               <div className="card card__body">
                 <h2>Payment</h2>
+
                 <p>
                   <strong>Method:</strong> {cart.paymentMethod}
                 </p>
               </div>
             </li>
+
             <li>
               <div className="card card__body">
                 <h2>Order Items</h2>
+
                 <ul>
                   {cart.cartItems.map((item, id) => (
                     <li key={id}>
@@ -79,6 +85,7 @@ export default function PlaceOrderScreen(props) {
                             className="small"
                           ></img>
                         </div>
+
                         <div className="min-30">
                           <Link to={`/product/${item.product}`}>
                             {item.name}
@@ -103,12 +110,14 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <h2>Order Summary</h2>
               </li>
+
               <li>
                 <div className="row">
                   <div>Items</div>
                   <div>{pipe.showPrice(cart.itemsPrice)}</div>
                 </div>
               </li>
+
               {cart.cartItems.length > 0 && (
                 <>
                   <li>
@@ -121,12 +130,14 @@ export default function PlaceOrderScreen(props) {
                       </div>
                     </div>
                   </li>
+
                   <li>
                     <div className="row">
-                      <div>Before {tax * 100}% MwSt.</div>
+                      <div>Before {TAX * 100}% MwSt.</div>
                       {pipe.showPrice(cart.taxPrice)}
                     </div>
                   </li>
+
                   <li>
                     <div className="row">
                       <div>
@@ -137,6 +148,7 @@ export default function PlaceOrderScreen(props) {
                       </div>
                     </div>
                   </li>
+
                   <li>
                     <button
                       type="button"
@@ -149,8 +161,8 @@ export default function PlaceOrderScreen(props) {
                   </li>
                 </>
               )}
-              {loading && <LoadingBox xl />}
-              {error && <MessageBox variant="danger">{error}</MessageBox>}
+
+              <LoadingOrError xl statusOf={orderCreate} />
             </ul>
           </div>
         </div>

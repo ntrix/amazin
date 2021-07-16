@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
 import ProductCard from "../components/ProductCard";
 import { listProducts } from "../Controllers/productActions";
 import { listTopSellers } from "../Controllers/userActions";
-import { dummySellers } from "../utils";
 import SwiperCore, {
   Navigation,
   EffectCoverflow,
@@ -16,20 +13,20 @@ import SwiperCore, {
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
+
+import MessageBox from "../components/MessageBox";
+import { dummySellers } from "../constants";
+import LoadingOrError from "../components/LoadingOrError";
+
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 export default function HomeScreen() {
-  const { banner = "home" } = useParams();
   const dispatch = useDispatch();
+  const { banner = "home" } = useParams();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
-
+  const { products } = productList;
   const userTopSellersList = useSelector((state) => state.userTopSellersList);
-  const {
-    loading: loadingSellers,
-    error: errorSellers,
-    users: sellers,
-  } = userTopSellersList;
+  const { users: sellers } = userTopSellersList;
 
   useEffect(() => {
     dispatch(listProducts({ pageSize: 12 }));
@@ -96,13 +93,9 @@ export default function HomeScreen() {
             clickable: true,
           }}
         >
-          {loadingSellers ? (
-            <LoadingBox />
-          ) : errorSellers ? (
-            <MessageBox variant="danger">{errorSellers}</MessageBox>
-          ) : (
-            sellers.length === 0 && <MessageBox>No Seller Found</MessageBox>
-          )}
+          <LoadingOrError statusOf={userTopSellersList} />
+          <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
+
           {(sellers || dummySellers).map((seller, id) => (
             <SwiperSlide key={id}>
               <Link className="seller__card" to={`/seller/${seller._id}`}>
@@ -117,21 +110,17 @@ export default function HomeScreen() {
           ))}
         </Swiper>
       </div>
+
       <h2 className="home-screen__title-2">Featured Products</h2>
-      {loading ? (
-        <LoadingBox xl />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
-        <>
-          {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
-          <div className="row center">
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product}></ProductCard>
-            ))}
-          </div>
-        </>
-      )}
+
+      <LoadingOrError xl statusOf={productList} />
+      <MessageBox hide={products?.length < 1}>No Product Found</MessageBox>
+
+      <div className="row center">
+        {products?.map((product) => (
+          <ProductCard key={product._id} product={product}></ProductCard>
+        ))}
+      </div>
     </div>
   );
 }

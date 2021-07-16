@@ -1,28 +1,25 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import LoadingBox from "../../../components/LoadingBox";
-import MessageBox from "../../../components/MessageBox";
 import ProductCard from "../../../components/ProductCard";
 import SortFilter from "../../../components/SortFilter";
 import { listProducts } from "../../../Controllers/productActions";
-import Carousel, { dummyProducts, responsive } from "../../../utils";
 import "./dealScreen.css";
 
+import MessageBox from "../../../components/MessageBox";
+import Carousel, { dummyProducts, responsive } from "../../../constants";
+import LoadingOrError from "../../../components/LoadingOrError";
+
 export default function DealScreen() {
+  const dispatch = useDispatch();
   const {
     category = "Deals",
     order = "bestselling",
     pageNumber = 1,
   } = useParams();
-  const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, count } = productList;
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = useSelector((state) => state.productCategoryList);
+  const { products } = productList;
+  const productCategoryList = useSelector((state) => state.productCategoryList);
   const [cat, setCat] = useState("Deals");
   let isMounted = true;
 
@@ -31,8 +28,8 @@ export default function DealScreen() {
       dispatch(
         listProducts({
           pageNumber,
-          category: cat === "Deals" ? "" : cat,
           order,
+          category: cat === "Deals" ? "" : cat,
           deal: 1,
           pageSize: 990,
         })
@@ -44,12 +41,10 @@ export default function DealScreen() {
     <>
       <header className="screen__header">
         <ul className="cat-nav">
-          {loadingCategories ? (
-            <LoadingBox />
-          ) : errorCategories ? (
-            <MessageBox variant="danger">{errorCategories}</MessageBox>
-          ) : (
-            ["Deals", ...categories].map((label, id) => (
+          <LoadingOrError statusOf={productCategoryList} />
+
+          {productCategoryList.categories &&
+            ["Deals", ...productCategoryList.categories].map((label, id) => (
               <li
                 key={id}
                 className={label === cat ? " selected" : ""}
@@ -57,20 +52,19 @@ export default function DealScreen() {
               >
                 {label}
               </li>
-            ))
-          )}
+            ))}
         </ul>
       </header>
+
       <div
         className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
       >
-        {loading ? (
-          <LoadingBox xl />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : !products.length ? (
-          <MessageBox>No Deals On This Category!</MessageBox>
-        ) : (
+        <LoadingOrError statusOf={productList} />
+
+        <MessageBox show={products?.length < 1}>
+          No Deals On This Category!
+        </MessageBox>
+        {products && (
           <Carousel
             swipeable={true}
             draggable={true}
@@ -93,35 +87,32 @@ export default function DealScreen() {
             ))}
           </Carousel>
         )}
+
         <h2 className="mh-2">Top Deals</h2>
+
         <div className="row top">
           <div className="row search__banner">
-            {loading ? (
-              <LoadingBox />
-            ) : error ? (
-              <MessageBox variant="danger">{error}</MessageBox>
-            ) : (
+            <LoadingOrError statusOf={productList} />
+
+            {products && (
               <div className="search__counter">
-                {products.length} of {count} Results
+                {products.length} of {products.count} Results
               </div>
             )}
 
             <SortFilter
               order={order}
-              getUrl={({ order }) =>
-                `/deal/category/all/order/${order}/pageNumber/1`
+              getUrl={({ order: _order }) =>
+                `/deal/category/all/order/${_order}/pageNumber/1`
               }
             />
           </div>
-          {loading ? (
-            <LoadingBox xl />
-          ) : error ? (
-            <MessageBox variant="danger">{error}</MessageBox>
-          ) : (
-            !products.length && <MessageBox>No Product Found</MessageBox>
-          )}
+
+          <LoadingOrError xl statusOf={productList} />
+          <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
+
           <div className="row center">
-            {(products ? products : dummyProducts).map((product, id) => (
+            {(products || dummyProducts).map((product, id) => (
               <ProductCard deal key={id} product={product}></ProductCard>
             ))}
           </div>

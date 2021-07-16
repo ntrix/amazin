@@ -1,28 +1,36 @@
 export { createSlice } from "@reduxjs/toolkit";
 
 export const Reducer = (stateKeyName) => ({
-  _REQUEST: (state, action) => ({ loading: true }),
-  _SUCCESS: (state, action) =>
-    typeof action.payload === "string" && action.payload.startsWith("<!") // Error HTML response?
+  _REQUEST: () => ({ loading: true }),
+
+  _SUCCESS: (state, action) => {
+    if (typeof action.payload === "string" && action.payload.startsWith("<!"))
+      // HTML response with Error?
+      return {
+        loading: false,
+        error: "Couldn't access Database Server!",
+        success: false,
+      };
+    // noname saved state?
+    return stateKeyName === "..."
       ? {
+          // Array? => destructuring e.g. { a:1, b:2, c:3, loading, success }
           loading: false,
-          error: "Couldn't access Database Server!",
-          success: false,
-        }
-      : stateKeyName === "..." //noname saved state => destructuring
-      ? {
           ...action.payload,
-          loading: false,
           success: true,
         }
       : {
+          // e.g. { state[a]:1, loading, success }
           [stateKeyName]: action.payload,
           loading: false,
           success: true,
-        },
+        };
+  },
+
   _FAIL: (state, action) => ({
     loading: false,
     error: action.payload,
   }),
-  _RESET: (state, action) => ({}),
+
+  _RESET: () => ({}),
 });

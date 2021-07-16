@@ -1,21 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
-import { signout } from "../../Controllers/userActions";
-import { shortName } from "../../utils";
 import { sidebarMenuItems } from "./menuItemList";
 import { MenuItem } from "./MenuItem";
+import { signout } from "../../Controllers/userActions";
+
+import { shortName } from "../../utils";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function SidebarMenu({ currency, shadowFor, setShadowFor }) {
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = useSelector((state) => state.productCategoryList);
-  const { userInfo } = useSelector((state) => state.userSignin);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const { categories } = productCategoryList;
 
   return (
     <aside className={"sidebar" === shadowFor ? "sidebar opened" : "sidebar"}>
@@ -31,15 +28,12 @@ export default function SidebarMenu({ currency, shadowFor, setShadowFor }) {
       </li>
 
       <ul className="sidebar__list">
-        {loadingCategories ? (
-          <LoadingBox />
-        ) : errorCategories ? (
-          <MessageBox variant="danger">{errorCategories}</MessageBox>
-        ) : (
+        <LoadingOrError statusOf={productCategoryList} />
+
+        {categories &&
           sidebarMenuItems(userInfo, currency, categories, () =>
             dispatch(signout())
-          ).map(MenuItem(setShadowFor))
-        )}
+          ).map(MenuItem(setShadowFor))}
       </ul>
     </aside>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import Rating from "../../../components/Rating";
-import { NO_IMAGE, getImgUrl } from "../../../utils";
+import { NO_IMAGE } from "../../../constants";
+import { getImgUrl } from "../../../utils";
 import { VideoButtons } from "./VideoButtons";
 
 export default function VideoCard({

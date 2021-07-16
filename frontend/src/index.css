@@ -308,6 +308,8 @@ select {
 input,
 textarea {
   background: #fff;
+  resize: vertical;
+  max-height: 40rem;
 }
 button {
   display: inline-block;
@@ -567,10 +569,16 @@ img.large {
 .form > div:not(.flex) {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  margin: 1rem 0;
 }
 .form label {
   margin: 1rem 0;
+}
+.form [type="radio"],
+.form [type="checkbox"] {
+  margin-right: 1rem;
+  order: -1;
+  align-self: center;
 }
 
 /* Checkout Steps */
@@ -841,12 +849,22 @@ img.active {
 }
 
 /* PRODUCT EDIT */
+.product-edit .img-input {
+  align-items: end;
+  height: 8rem;
+}
+.product-edit .img-input > *:nth-child(2) {
+  flex: 1;
+}
 .product-edit label,
-.product-edit #images {
+.product-edit #new-images {
   cursor: pointer;
 }
-.product-edit #images {
-  margin-bottom: 1rem;
+.product-edit #new-images,
+.product-edit #image-link {
+  margin: 1rem 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* minor Effect */

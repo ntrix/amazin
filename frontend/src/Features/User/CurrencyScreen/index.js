@@ -2,22 +2,33 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import MessageBox from "../../../components/MessageBox";
 import { updateCurrencyRates } from "../../../Controllers/productActions";
 import { updateUserProfile } from "../../../Controllers/userActions";
-import { pipe } from "../../../utils";
 import { currencyTypeActions } from "../../Product/ProductSlice";
 import { userUpdateProfileActions } from "../UserSlice";
 import "./currencyScreen.css";
 
+import MessageBox from "../../../components/MessageBox";
+import { pipe } from "../../../utils";
+
 export default function CurrencyScreen() {
-  const { cType } = useParams();
   const dispatch = useDispatch();
+  const { cType } = useParams();
   const { userInfo } = useSelector((state) => state.userSignin);
+
   const [currency, setCurrency] = useState(cType || pipe.currency);
   const [newCurrency, setNewCurrency] = useState("");
+
   let back = localStorage.getItem("backToHistory");
   back = !back || back.startsWith("/currency") ? "/" : back;
+
+  useEffect(() => {
+    setNewCurrency("");
+    setCurrency(cType || pipe.currency);
+    if (!userInfo?._id) {
+      dispatch(userUpdateProfileActions._RESET());
+    }
+  }, [cType, dispatch, userInfo?._id]);
 
   const submitHandler = () => {
     localStorage.setItem("currency", currency);
@@ -34,23 +45,17 @@ export default function CurrencyScreen() {
     setNewCurrency(currency);
   };
 
-  useEffect(() => {
-    setNewCurrency("");
-    setCurrency(cType || pipe.currency);
-    if (!userInfo?._id) {
-      dispatch(userUpdateProfileActions._RESET());
-    }
-  }, [cType, dispatch, userInfo?._id]);
-
   return (
     <div className="c-screen currency">
       <header className="container flex">
         <div className="col-50p">
           <h2 className="title">Language Settings</h2>
+
           <p className="sub-title">
             Select the language you prefer for browsing, shopping, and
             communications.
           </p>
+
           <div className="languages">
             <ul className="max-30">
               <li className="language active">
@@ -61,6 +66,7 @@ export default function CurrencyScreen() {
                   </span>
                 </div>
               </li>
+
               <li className="separator"></li>
               {[
                 ["Deutsch", "DE", "Übersetzen"],
@@ -79,9 +85,11 @@ export default function CurrencyScreen() {
                 </li>
               ))}
             </ul>
+
             <br />
           </div>
         </div>
+
         <div className="col-50p">
           <b>Translation</b>
           <p className="disabled">
@@ -90,15 +98,18 @@ export default function CurrencyScreen() {
           </p>
         </div>
       </header>
+
       <div className="divider-inner"></div>
       <div className="container currencies">
         <section className="col-50p">
           <h2 className="title"> Currency Settings</h2>
+
           {newCurrency && (
             <>
-              <MessageBox variant="success">
+              <MessageBox variant="success" show>
                 Currency Setting has been changed to {pipe.getName(newCurrency)}
               </MessageBox>
+
               <br />
               <Link to={back}>
                 <button className="primary">Back To Your Last Session</button>
@@ -106,6 +117,7 @@ export default function CurrencyScreen() {
               <div className="separator divider-inner"></div>
             </>
           )}
+
           <p>Select the currency you want to shop with.</p>
           <div className="select-wrapper col-50p">
             <div className="sprite__caret"></div>
@@ -127,6 +139,7 @@ export default function CurrencyScreen() {
               </optgroup>
             </select>
           </div>
+
           {currency !== "EUR" && (
             <p>
               {`Note: You will be shown prices in ${pipe.getSymbol(
@@ -150,6 +163,7 @@ export default function CurrencyScreen() {
           <Link to={back}>
             <button className="btn--xs">Cancel</button>
           </Link>
+
           <button className="btn primary btn--xs" onClick={submitHandler}>
             Save Changes
           </button>

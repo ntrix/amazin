@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
+
 import Pagination from "../../components/Pagination";
 import ProductCard from "../../components/ProductCard";
 import Rating from "../../components/Rating";
 import SortFilter from "../../components/SortFilter";
 import { listProducts } from "../../Controllers/productActions";
-import { prices, ratings } from "../../utils";
 
-export default function SearchScreen({ history }) {
+import MessageBox from "../../components/MessageBox";
+import { prices, ratings } from "../../constants";
+import LoadingOrError from "../../components/LoadingOrError";
+
+export default function SearchScreen() {
+  const dispatch = useDispatch();
   const {
     name = "All",
     category = "All",
@@ -20,26 +23,21 @@ export default function SearchScreen({ history }) {
     order = "bestselling",
     pageNumber = 1,
   } = useParams();
-  const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages, count } = productList;
-
-  const {
-    loading: loadingCategories,
-    error: errorCategories,
-    categories,
-  } = useSelector((state) => state.productCategoryList);
+  const { products, page, pages, count } = productList;
+  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const { categories } = productCategoryList;
 
   useEffect(() => {
     dispatch(
       listProducts({
         pageNumber,
-        name: name !== "All" ? name : "",
-        category: category !== "All" ? category : "",
         min,
         max,
         rating,
         order,
+        name: name !== "All" ? name : "",
+        category: category !== "All" ? category : "",
       })
     );
   }, [category, dispatch, max, min, name, order, rating, pageNumber]);
@@ -50,39 +48,35 @@ export default function SearchScreen({ history }) {
     const filterName = filter.name || name;
     const filterRating = filter.rating || rating;
     const sortOrder = filter.order || order;
-    const filterMin = filter.min ? filter.min : filter.min === 0 ? 0.01 : min;
-    const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
+    const filterMin = filter.min || (filter.min === 0 ? 0.01 : min);
+    const filterMax = filter.max || (filter.max === 0 ? 0 : max);
     return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`;
   };
+
   return (
     <div className="search-screen">
       <header className="screen__header">
         <ul className="cat-nav">
-          {loadingCategories ? (
-            <LoadingBox />
-          ) : errorCategories ? (
-            <MessageBox variant="danger">{errorCategories}</MessageBox>
-          ) : (
+          <LoadingOrError statusOf={productCategoryList} />
+
+          {categories &&
             ["All", ...categories].map((label, id) => (
               <Link to={getFilterUrl({ category: label })} key={id}>
-                <li className={label === category ? " selected" : ""}>
-                  {label}
-                </li>
+                <li className={label === category && " selected"}>{label}</li>
               </Link>
-            ))
-          )}
+            ))}
         </ul>
       </header>
+
       <div className="row search__banner">
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
+        <LoadingOrError statusOf={productList} />
+
+        {products && (
           <div className="search__counter">
             {products.length} of {count} Results
           </div>
         )}
+
         <SortFilter order={order} getUrl={getFilterUrl} />
       </div>
       <div className="row top search-screen__result">
@@ -90,33 +84,29 @@ export default function SearchScreen({ history }) {
           <ul>
             <h4>Department</h4>
             <div>
-              {loadingCategories ? (
-                <LoadingBox />
-              ) : errorCategories ? (
-                <MessageBox variant="danger">{errorCategories}</MessageBox>
-              ) : (
-                <>
-                  <li>
-                    <Link
-                      className={"All" === category ? "active" : ""}
-                      to={getFilterUrl({ category: "All" })}
-                    >
-                      Any
-                    </Link>
-                  </li>
-                  {categories.map((c, id) => (
-                    <li key={id}>
-                      <Link
-                        className={c === category ? "active" : ""}
-                        to={getFilterUrl({ category: c })}
-                      >
-                        {c}
-                      </Link>
-                    </li>
-                  ))}
-                </>
-              )}
+              <LoadingOrError statusOf={productCategoryList} />
+
+              <li>
+                <Link
+                  className={"All" === category && " active"}
+                  to={getFilterUrl({ category: "All" })}
+                >
+                  Any
+                </Link>
+              </li>
+
+              {categories?.map((c, id) => (
+                <li key={id}>
+                  <Link
+                    className={c === category && " active"}
+                    to={getFilterUrl({ category: c })}
+                  >
+                    {c}
+                  </Link>
+                </li>
+              ))}
             </div>
+
             <br />
             <h4>Price</h4>
             <div>
@@ -125,7 +115,7 @@ export default function SearchScreen({ history }) {
                   <Link
                     to={getFilterUrl({ min: p.min, max: p.max })}
                     className={
-                      `${p.min}-${p.max}` === `${min}-${max}` ? "active" : ""
+                      `${p.min}-${p.max}` === `${min}-${max}` && " active"
                     }
                   >
                     {p.name}
@@ -133,6 +123,7 @@ export default function SearchScreen({ history }) {
                 </li>
               ))}
             </div>
+
             <br />
             <h4>Avg. Customer Review</h4>
             <div>
@@ -140,7 +131,7 @@ export default function SearchScreen({ history }) {
                 <li key={id}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` ? "active" : ""}
+                    className={`${r.rating}` === `${rating}` && " active"}
                   >
                     <Rating caption={" & up"} rating={r.rating}></Rating>
                   </Link>
@@ -149,35 +140,30 @@ export default function SearchScreen({ history }) {
             </div>
           </ul>
         </div>
+
         <div className="col-9">
           <div className="row center search__results">
             {(!products || products.length < 2) && (
               <div className="placeholder"></div>
             )}
-            {loading ? (
+
+            <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
+            {!productList.loading && (
               <>
-                <div className="placeholder">
-                  <LoadingBox xl />
-                </div>
-              </>
-            ) : error ? (
-              <MessageBox variant="danger">{error}</MessageBox>
-            ) : !products.length ? (
-              <>
-                <div className="placeholder">
-                  <MessageBox>No Product Found</MessageBox>
-                </div>
-              </>
-            ) : (
-              <>
-                {products.map((product, id) => (
+                <MessageBox wrapClass="placeholder" show={!products.length}>
+                  No Product Found
+                </MessageBox>
+
+                {products?.map((product, id) => (
                   <ProductCard key={id} product={product}></ProductCard>
                 ))}
               </>
             )}
+
             {(!products || products.length < 3) && (
               <div className="placeholder"></div>
             )}
+
             <div className="row divider-inner"></div>
             <Pagination page={page} pages={pages} getUrl={getFilterUrl} help />
           </div>

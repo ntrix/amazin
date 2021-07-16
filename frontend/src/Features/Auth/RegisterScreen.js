@@ -4,88 +4,69 @@ import { Link } from "react-router-dom";
 
 import { register } from "../../Controllers/userActions";
 
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
+import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
 export default function RegisterScreen({ location, history }) {
+  const dispatch = useDispatch();
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const userRegister = useSelector((state) => state.userRegister);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
-
-  const userRegister = useSelector((state) => state.userRegister);
-  const { userInfo, loading, error } = userRegister;
-
-  const dispatch = useDispatch();
-  const submitHandler = (e) => {
-    e.preventDefault();
-    // if (password !== confirmPassword) {
-    //   alert("Password and confirm password are not match");
-    // } else {
-    dispatch(register(name, email, password, confirmPassword));
-    // }
-  };
   useEffect(() => {
-    if (userInfo) {
+    if (userRegister.userInfo) {
       history.push(redirect);
     }
-  }, [history, redirect, userInfo]);
+  }, [history, redirect, userRegister.userInfo]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(register(name, email, password, confirmPassword));
+  };
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Create Account</h1>
         </div>
-        {loading && <LoadingBox />}
-        {error && <MessageBox variant="danger">{error}</MessageBox>}
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Enter name"
-            required
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Enter confirm password"
-            required
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></input>
-        </div>
+
+        <LoadingOrError statusOf={userRegister} />
+
+        <CustomInput text="Name" required hook={[name, setName]} />
+
+        <CustomInput
+          text="Email"
+          type="email"
+          required
+          hook={[email, setEmail]}
+        />
+
+        <CustomInput
+          text="Password"
+          type="password"
+          required
+          hook={[password, setPassword]}
+        />
+
+        <CustomInput
+          text="Confirm Password"
+          type="password"
+          required
+          hook={[confirmPassword, setConfirmPassword]}
+        />
+
         <div>
           <label />
           <button className="primary" type="submit">
             Register
           </button>
         </div>
+
         <div>
           <label />
           <div>

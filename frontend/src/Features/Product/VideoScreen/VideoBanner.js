@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import LoadingBox from "../../../components/LoadingBox";
-import MessageBox from "../../../components/MessageBox";
-import { createProduct } from "../../../Controllers/productActions";
-import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../utils";
 import { productCreateActions } from "../ProductSlice";
 import UTube from "./UTube";
 import { VideoButtons } from "./VideoButtons";
+import { createProduct } from "../../../Controllers/productActions";
+
+import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../constants";
+import LoadingOrError from "../../../components/LoadingOrError";
 
 export default function VideoBanner({ source }) {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const productCreate = useSelector((state) => state.productCreate);
+
+  const history = useHistory();
   const [trailerUrl, setTrailerUrl] = useState("");
   const [movie, setMovie] = useState({});
 
@@ -19,23 +24,12 @@ export default function VideoBanner({ source }) {
     setMovie(random);
   }, [source]);
 
-  const productCreate = useSelector((state) => state.productCreate);
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-  const dispatch = useDispatch();
-  const history = useHistory();
   useEffect(() => {
-    if (successCreate) {
+    if (productCreate.success) {
       dispatch(productCreateActions._RESET());
-      history.push(`/product/${createdProduct._id}/edit`);
+      history.push(`/product/${productCreate.product._id}/edit`);
     }
-  }, [createdProduct, dispatch, history, successCreate]);
+  }, [productCreate.product, dispatch, history, productCreate.success]);
 
   const createHandler = () => {
     dispatch(createProduct());
@@ -58,7 +52,7 @@ export default function VideoBanner({ source }) {
 
           <div className="banner__buttons">
             <VideoButtons
-              movie={movie} //{{ ...movie, video: hasTrailer }}
+              movie={movie}
               trailerUrl={trailerUrl}
               setTrailerUrl={setTrailerUrl}
             />
@@ -80,8 +74,7 @@ export default function VideoBanner({ source }) {
         <div className="banner--fade-bottom" />
       </header>
 
-      {loadingCreate && <LoadingBox xl />}
-      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
+      <LoadingOrError xl statusOf={productCreate} />
 
       <UTube trailerUrl={trailerUrl} />
     </>

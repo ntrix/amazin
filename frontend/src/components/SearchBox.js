@@ -2,41 +2,53 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { listAllProducts } from "../Controllers/productActions";
+
 import { findSuggest } from "../utils";
+import { ALL_CATEGORIES, MAX_SEARCH_SUGGESTS } from "../constants";
 
 export default function SearchBox({ shadowFor, setShadowFor }) {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { productList: list } = useSelector((state) => state.productListAll);
   const { success, categories } = useSelector(
     (state) => state.productCategoryList
   );
-  const boxRef = useRef(null);
-  const inputRef = useRef(null);
 
   const [navScope, setNavScope] = useState(0);
-  const [category, setCategory] = useState("All Categories");
-
+  const [category, setCategory] = useState(ALL_CATEGORIES);
   const [input, setInput] = useState("");
   const [suggests, setSuggests] = useState([]);
-  const [suggestBox, setSuggestBox] = useState(0);
+  const [showSuggest, setShowSuggest] = useState(0);
   const [outline, setOutline] = useState("");
+
+  const searchBoxRef = useRef(null);
+  const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(
+      listAllProducts({
+        category: category === ALL_CATEGORIES ? "" : category,
+        pageSize: 999,
+      })
+    );
+  }, [dispatch, category, success]);
 
   const submitHandler = (e) => {
     e?.preventDefault();
     if (!e.target.value) return;
-    setSuggestBox(-1); //for absorbing a keypress on submit instead setSuggestBox(0)
+    // setShowSuggest(-1) for absorbing a keypress on submit instead setShowSuggest(0)
+    setShowSuggest(-1);
     setShadowFor("");
     history.push(
       `/search/category/${
-        category === "All Categories" ? "All" : category
+        category === ALL_CATEGORIES ? "All" : category
       }/name/${input}`
     );
   };
 
   const handleClick = (e) => {
-    if (!boxRef.current.contains(e.target)) {
-      setSuggestBox(0);
+    if (!searchBoxRef.current.contains(e.target)) {
+      setShowSuggest(0);
       setNavScope(0);
       setShadowFor("");
     }
@@ -54,33 +66,36 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     return () => {
       document.removeEventListener("mousedown", handleClick);
     }; // eslint-disable-next-line
-  }, [navScope % 2, shadowFor]);
+  }, [navScope, shadowFor]);
 
-  useEffect(() => {
-    dispatch(
-      listAllProducts({
-        category: category === "All Categories" ? "" : category,
-        pageSize: 999,
-      })
-    );
-  }, [dispatch, category, success]);
+  const showSuggestDropdown = () => {
+    if (input) {
+      const newSuggests = findSuggest.search(list, input);
+      if (newSuggests.length) {
+        setSuggests(newSuggests);
+        setShadowFor("searchBox");
+        setShowSuggest(1);
+      }
+    }
+    setNavScope(0);
+  };
 
   return (
     <>
       <form
-        ref={boxRef}
+        ref={searchBoxRef}
         className={"search-box " + outline}
         onSubmit={submitHandler}
       >
         <div className="row--left">
           <div className="search__dropdown">
             <div
-              className={(navScope > 0 ? "focus " : "") + " search-box__scope"}
+              className={["focus ", ""][!navScope & 1] + "search-box__scope"}
               tabIndex="1"
               onClick={() => {
                 setOutline("");
                 setNavScope(navScope + 1);
-                setSuggestBox(0);
+                setShowSuggest(0);
                 setShadowFor("scope");
               }}
             >
@@ -91,28 +106,26 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
             </div>
           </div>
 
-          {navScope % 2 > 0 && categories && (
+          {navScope & !!categories && (
             <div className="scope__windows">
               <ul className="scope__drop-list">
-                {["All Categories", ...categories].map((cat, i) => (
+                {[ALL_CATEGORIES, ...categories].map((cat, i) => (
                   <li
                     key={i}
                     className={
-                      (cat === category ? "selected " : "") + "category"
+                      ["selected ", ""][(cat !== category) & 1] + "category"
                     }
                     onClick={() => {
-                      if (cat !== category) {
-                        setCategory(cat);
-                        setNavScope(0);
-                        // setOutline("focus");
-                        //setSuggestBox(2);
-                        inputRef.current.focus();
-                        setSuggestBox(-1);
-                        setShadowFor("");
-                      } else {
+                      if (cat === category) {
                         setNavScope(2);
                         setOutline("");
+                        return;
                       }
+                      setCategory(cat);
+                      setNavScope(0);
+                      searchInputRef.current.focus();
+                      setShowSuggest(-1);
+                      setShadowFor("");
                     }}
                     onBlur={() => setNavScope(0)}
                   >
@@ -128,52 +141,32 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
           <div className="search__input">
             <input
               type="text"
-              ref={inputRef}
+              ref={searchInputRef}
+              id="q"
               name="q"
               autoComplete="off"
-              id="q"
               value={input}
               size="1"
               tabIndex="2"
               aria-label="search input"
-              onClick={(e) => {
-                if (input) {
-                  const newSuggests = findSuggest.search(list, input);
-                  if (newSuggests.length) {
-                    setSuggests(newSuggests);
-                    setShadowFor("searchBox");
-                    setSuggestBox(1);
-                  }
-                }
-                setNavScope(0);
-              }}
-              onFocus={(e) => {
-                if (input) {
-                  const newSuggests = findSuggest.search(list, input);
-                  if (newSuggests.length) {
-                    setSuggests(newSuggests);
-                    setShadowFor("searchBox");
-                    setSuggestBox(1);
-                  }
-                }
+              onClick={showSuggestDropdown}
+              onFocus={() => {
+                showSuggestDropdown();
                 setOutline("focus");
-                setNavScope(0);
               }}
               onKeyUp={(e) => {
                 const { value } = e.target;
-                if (
-                  value.length === 0 ||
-                  e.key === "Escape" ||
-                  e.keyCode === 27
-                ) {
-                  setSuggestBox(0);
+                if (value.length === 0 || e.key === "Escape") {
+                  setShowSuggest(0);
                   setShadowFor("");
                   return;
                 }
-                if (e.key === "Enter" || e.keyCode === 13)
-                  return submitHandler();
-                // if (value === input) return;
-                setSuggestBox((suggestBox || 1) + 2);
+                if (e.key === "Enter") {
+                  submitHandler();
+                  return;
+                }
+                setShowSuggest((showSuggest || 1) + 2);
+
                 const newSuggests = findSuggest.search(list, value);
                 if ("searchBox" !== shadowFor && newSuggests.length) {
                   setShadowFor("searchBox");
@@ -187,16 +180,15 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
               }}
               onBlur={() => {
                 setOutline("");
-                setSuggestBox(suggestBox > 0 ? 1 : 0);
-                // setShadowFor("");
+                setShowSuggest(!!showSuggest & 1);
               }}
             ></input>
           </div>
 
-          {shadowFor === "searchBox" && suggestBox % 2 > 0 && input && (
+          {shadowFor === "searchBox" && showSuggest & !!input && (
             <div className="search__suggest">
               <ul>
-                {suggests.slice(0, 12).map((p, id) => (
+                {suggests.slice(0, MAX_SEARCH_SUGGESTS).map((p, id) => (
                   <li key={id}>
                     <Link
                       to={`/search/name/${p.name.replace(
@@ -204,8 +196,8 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
                         ""
                       )}`}
                       dangerouslySetInnerHTML={{ __html: p.name }}
-                      onClick={(e) => {
-                        setSuggestBox(0);
+                      onClick={() => {
+                        setShowSuggest(0);
                         setInput(p.name.replace(/(<b>)|(<\/b>)/g, ""));
                         setSuggests([]);
                         setShadowFor("");

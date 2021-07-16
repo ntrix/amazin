@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 
 export default function PrivateRoute({ component: Component, ...rest }) {
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
+  const { userInfo } = useSelector((state) => state.userSignin);
   const redirect = rest?.path?.slice(1) || "/";
+
   return (
     <Route
       {...rest}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { pipe, RATES_SOURCE, savePath } from "../../utils";
+import { RATES_SOURCE } from "../../constants";
+import { pipe, savePath } from "../../utils";
 
 export default function DropMenuCurrency({ currency }) {
   return (
@@ -14,7 +15,7 @@ export default function DropMenuCurrency({ currency }) {
           <Link
             key={id}
             to={"/currency/cType/" + label}
-            className={label === currency ? "active" : ""}
+            className={label === currency && "active"}
             onClick={savePath("/curr")}
           >
             <div className="sprite__wrapper">

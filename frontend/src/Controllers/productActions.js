@@ -1,4 +1,4 @@
-import axiosClient from "./axiosClient";
+import { axiosPublic, axiosPrivate } from "./axiosClient";
 import {
   currencyTypeActions,
   productListAllActions,
@@ -12,32 +12,16 @@ import {
 } from "../Features/Product/ProductSlice";
 import { pipe } from "../utils";
 
-export const updateCurrencyRates = () => async (dispatch) => {
-  dispatch(currencyTypeActions._REQUEST());
-  try {
-    const { data } = await axiosClient("/api/config/rates");
-    dispatch(currencyTypeActions._SUCCESS(data));
-    pipe.currencies.map(
-      (c) => (pipe.rates[c] = data.rates[c] || pipe.rates[c])
-    );
-  } catch (error) {
-    dispatch(currencyTypeActions._FAIL(error.message));
-  }
-};
+export const updateCurrencyRates = () =>
+  axiosPublic()(currencyTypeActions)(null, (data) =>
+    pipe.currencies.map((c) => (pipe.rates[c] = data.rates[c] || pipe.rates[c]))
+  )("get", "/api/config/rates");
 
-export const listAllProducts = ({ pageSize = 6, category = "" }) => async (
-  dispatch
-) => {
-  dispatch(productListAllActions._REQUEST());
-  try {
-    const { data } = await axiosClient.get(
-      `/api/products?pageSize=999&category=${category}`
-    );
-    dispatch(productListAllActions._SUCCESS(data));
-  } catch (error) {
-    dispatch(productListAllActions._FAIL(error.message));
-  }
-};
+export const listAllProducts = ({ pageSize = 6, category = "" }) =>
+  axiosPublic()(productListAllActions)()(
+    "get",
+    `/api/products?pageSize=999&category=${category}`
+  );
 
 export const listProducts = ({
   pageSize = 6,
@@ -50,128 +34,47 @@ export const listProducts = ({
   min = 0.01,
   max = 0,
   rating = 0,
-}) => async (dispatch) => {
-  dispatch(productListActions._REQUEST());
-  try {
-    const { data } = await axiosClient.get(
-      `/api/products?pageSize=${pageSize}&pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&deal=${deal}&min=${min}&max=${max}&rating=${rating}&order=${order}`
-    );
-    dispatch(productListActions._SUCCESS(data));
-  } catch (error) {
-    dispatch(productListActions._FAIL(error.message));
-  }
-};
+}) =>
+  axiosPublic()(productListActions)()(
+    "get",
+    `/api/products?pageSize=${pageSize}&pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&deal=${deal}&min=${min}&max=${max}&rating=${rating}&order=${order}`
+  );
 
-export const listProductCategories = () => async (dispatch) => {
-  dispatch(productCategoryListActions._REQUEST());
-  try {
-    const { data } = await axiosClient.get(`/api/products/categories`);
-    dispatch(productCategoryListActions._SUCCESS(data));
-  } catch (error) {
-    dispatch(productCategoryListActions._FAIL(error.message));
-  }
-};
+export const listProductCategories = () =>
+  axiosPublic()(productCategoryListActions)()(
+    "get",
+    `/api/products/categories`
+  );
 
-export const detailsProduct = (productId) => async (dispatch) => {
-  dispatch(productDetailsActions._REQUEST(productId));
-  try {
-    const { data } = await axiosClient.get(`/api/products/${productId}`);
-    dispatch(productDetailsActions._SUCCESS(data));
-  } catch (error) {
-    dispatch(
-      productDetailsActions._FAIL(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      )
-    );
-  }
-};
+export const detailsProduct = (productId) =>
+  axiosPublic(productId)(productDetailsActions)()(
+    "get",
+    `/api/products/${productId}`
+  );
 
-export const createProduct = () => async (dispatch, getState) => {
-  dispatch(productCreateActions._REQUEST());
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axiosClient.post(
-      "/api/products",
-      {},
-      {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      }
-    );
-    dispatch(productCreateActions._SUCCESS(data.product));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(productCreateActions._FAIL(message));
-  }
-};
-export const updateProduct = (product) => async (dispatch, getState) => {
-  dispatch(productUpdateActions._REQUEST(product));
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axiosClient.put(
-      `/api/products/${product._id}`,
-      product,
-      {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      }
-    );
-    dispatch(productUpdateActions._SUCCESS(data));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(productUpdateActions._FAIL(message));
-  }
-};
-export const deleteProduct = (productId) => async (dispatch, getState) => {
-  dispatch(productDeleteActions._REQUEST(productId));
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    axiosClient.delete(`/api/products/${productId}`, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
-    });
-    dispatch(productDeleteActions._SUCCESS());
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(productDeleteActions._FAIL(message));
-  }
-};
-export const createReview = (productId, review) => async (
-  dispatch,
-  getState
-) => {
-  dispatch(productReviewCreateActions._REQUEST());
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axiosClient.post(
-      `/api/products/${productId}/reviews`,
-      review,
-      {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      }
-    );
-    dispatch(productReviewCreateActions._SUCCESS(data.review));
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(productReviewCreateActions._FAIL(message));
-  }
-};
+export const createProduct = () =>
+  axiosPrivate()(productCreateActions)(null, null, (_data) => _data.product)(
+    "post",
+    "/api/products",
+    {}
+  );
+
+export const updateProduct = (product) =>
+  axiosPrivate(product)(productUpdateActions)()(
+    "put",
+    `/api/products/${product._id}`,
+    product
+  );
+
+export const deleteProduct = (productId) =>
+  axiosPrivate(productId)(productDeleteActions)(null, null, () => null)(
+    "delete",
+    `/api/products/${productId}`
+  );
+
+export const createReview = (productId, review) =>
+  axiosPrivate()(productReviewCreateActions)(
+    null,
+    null,
+    (_data) => _data.review
+  )("post", `/api/products/${productId}/reviews`, review);

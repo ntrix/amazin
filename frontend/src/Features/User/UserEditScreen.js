@@ -1,106 +1,77 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { userUpdateActions } from "./UserSlice";
 import { detailsUser, updateUser } from "../../Controllers/userActions";
 
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
+import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
-export default function UserEditScreen(props) {
-  const userId = props.match.params.id;
+export default function UserEditScreen({ history, match }) {
+  const dispatch = useDispatch();
+  const userId = match.params.id;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+  const userUpdate = useSelector((state) => state.userUpdate);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isSeller, setIsSeller] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
-
-  const userUpdate = useSelector((state) => state.userUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = userUpdate;
-
-  const dispatch = useDispatch();
   useEffect(() => {
-    if (successUpdate) {
+    if (userUpdate.success) {
       dispatch(userUpdateActions._RESET());
-      props.history.push("/user-list");
+      history.push("/user-list");
     }
     if (!user) {
       dispatch(detailsUser(userId));
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-      setIsSeller(user.isSeller);
-      setIsAdmin(user.isAdmin);
+      return;
     }
-  }, [dispatch, props.history, successUpdate, user, userId]);
+    setName(user.name);
+    setEmail(user.email);
+    setIsSeller(user.isSeller);
+    setIsAdmin(user.isAdmin);
+  }, [dispatch, history, userUpdate.success, user, userId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update user
     dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }));
   };
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Edit User {name}</h1>
-          {loadingUpdate && <LoadingBox xl />}
-          {errorUpdate && (
-            <MessageBox variant="danger">{errorUpdate}</MessageBox>
-          )}
+
+          <LoadingOrError xl statusOf={userDetails} />
+          <LoadingOrError xl statusOf={userUpdate} />
         </div>
-        {loading ? (
-          <LoadingBox xl />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
+
+        {userDetails.success && (
           <>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </div>
-            <div className="flex">
-              <input
-                id="isSeller"
-                type="checkbox"
-                checked={isSeller}
-                onChange={(e) => setIsSeller(e.target.checked)}
-              ></input>
-              <label htmlFor="isSeller">Seller Account</label>
-            </div>
-            <div className="flex">
-              <input
-                id="isAdmin"
-                type="checkbox"
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              ></input>
-              <label htmlFor="isAdmin">Administrator</label>
-            </div>
+            <CustomInput text="Name" hook={[name, setName]} />
+
+            <CustomInput text="Email" type="email" hook={[email, setEmail]} />
+
+            <CustomInput
+              wrapClass="flex"
+              text="Seller Account"
+              type="checkbox"
+              checked={isSeller}
+              onChange={(e) => setIsSeller(e.target.checked)}
+            />
+
+            <CustomInput
+              wrapClass="flex"
+              text="Administrator"
+              type="checkbox"
+              checked={isAdmin}
+              onChange={(e) => setIsAdmin(e.target.checked)}
+            />
+
             <div>
               <button type="submit" className="primary">
                 Update

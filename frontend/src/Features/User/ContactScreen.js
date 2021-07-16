@@ -3,28 +3,40 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
 import { updateUserProfile } from "../../Controllers/userActions";
 import { userUpdateProfileActions } from "./UserSlice";
 
-export default function ContactScreen(props) {
-  const { subject: pSubject } = useParams();
-  const { userInfo } = useSelector((state) => state.userSignin);
-  const {
-    success: successUpdate,
-    error: errorUpdate,
-    loading: loadingUpdate,
-  } = useSelector((state) => state.userUpdateProfile);
-  const dispatch = useDispatch();
+import MessageBox from "../../components/MessageBox";
+import CustomInput from "../../components/CustomInput";
+import LoadingOrError from "../../components/LoadingOrError";
 
-  const [name, setName] = useState(userInfo?.name || "");
-  const [email, setEmail] = useState(userInfo?.email || "");
-  const [subject, setSubject] = useState(pSubject || "");
+export default function ContactScreen() {
+  const dispatch = useDispatch();
+  const { subject: paramSub } = useParams();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
   const [text, setText] = useState("");
-  const [isLoading, setLoading] = useState(false);
-  const [hasError, setError] = useState([]);
-  const [hasMessage, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState([]);
+  const [message, setMessage] = useState(false);
+
+  useEffect(() => {
+    setName(userInfo?.name);
+    setEmail(userInfo?.email);
+    setSubject(paramSub);
+  }, [userInfo, paramSub]);
+
+  useEffect(() => {
+    setSubject(paramSub);
+    if ("Seller" === paramSub && userUpdateProfile.success) {
+      dispatch(userUpdateProfileActions._RESET());
+      setMessage("Seller Account verified successfully!");
+    }
+  }, [dispatch, paramSub, userUpdateProfile.success]);
 
   const submitHandler = async (e) => {
     setError(false);
@@ -36,10 +48,14 @@ export default function ContactScreen(props) {
       subject,
       name,
     };
+
     const errors = [];
-    if (!text) errors.push("Please enter your message!");
-    if (!email) errors.push("Please enter your email!");
-    if (!name) errors.push("Please enter your name!");
+    const validate = (err, msg) => {
+      if (err) errors.push(msg);
+    };
+    validate(!text, "Please enter your message!");
+    validate(!email, "Please enter your email!");
+    validate(!name, "Please enter your name!");
     if (errors.length) return setError(errors);
 
     if ("Seller" === subject)
@@ -61,68 +77,39 @@ export default function ContactScreen(props) {
         },
       });
       setLoading(false);
-      if ("Admin" === pSubject)
+      if ("Admin" === paramSub) {
         setMessage(
           "Your Apply has been sent. Please wait 48 hours for processing!"
         );
-      else setMessage("Thank you! Your message has been sent.");
-    } catch (error) {
+        return false;
+      }
+      setMessage("Thank you! Your message has been sent.");
+    } catch (err) {
       setLoading(false);
-      setError([error.message]);
+      setError([err.message]);
     }
+    return false;
   };
-
-  useEffect(() => {
-    setSubject(pSubject);
-    if ("Seller" === pSubject && successUpdate) {
-      dispatch(userUpdateProfileActions._RESET());
-      setMessage("Seller Account verified successfully!");
-    }
-  }, [dispatch, pSubject, successUpdate]);
 
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <h1>Contact Us</h1>
-        {(isLoading || loadingUpdate) && <LoadingBox xl />}
-        {hasError &&
-          hasError.map((err, id) => (
-            <MessageBox key={id} variant="danger">
-              {err}
-            </MessageBox>
-          ))}
-        {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
-        {hasMessage ? (
+
+        <LoadingOrError xl statusOf={{ loading, error }} />
+        <LoadingOrError xl statusOf={userUpdateProfile} />
+        <MessageBox variant="success" msg={message} />
+        {message && (
+          <Link to="/">
+            <button className="primary">Back To Home Page</button>
+          </Link>
+        )}
+        {!message && (
           <>
-            {hasMessage && (
-              <MessageBox variant="success">{hasMessage}</MessageBox>
-            )}
-            <Link to="/">
-              <button className="primary">Back To Home Page</button>
-            </Link>
-          </>
-        ) : (
-          <>
-            <div>
-              <label htmlFor="name">Your Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="email">Your Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </div>
+            <CustomInput text="Your Name" hook={[name, setName]} />
+
+            <CustomInput text="Email" type="email" hook={[email, setEmail]} />
+
             <div>
               <label htmlFor="subject">Subject</label>
               <div className="select-wrapper">
@@ -131,43 +118,36 @@ export default function ContactScreen(props) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                 >
-                  {!userInfo?.isSeller && "Seller" === pSubject ? (
+                  {!userInfo?.isSeller && "Seller" === paramSub && (
                     <option value="Seller">Verify My Seller Account</option>
-                  ) : !userInfo?.isAdmin && "Admin" === pSubject ? (
-                    <option value="Admin">Apply To Be Administrator</option>
-                  ) : (
-                    <>
-                      <option value="Account">Account</option>
-                      <option value="Ads">Advertisement</option>
-                      <option value="Customer">Customer Service</option>
-                      <option value="FAQ">FAQ</option>
-                      <option value="Help">Help Desk</option>
-                      <option value="Orders">Your Orders</option>
-                      <option value="Payment">Payment</option>
-                      <option value="Report">
-                        Report Something Suspicious
-                      </option>
-                      <option value="Returns">Returns & Refund</option>
-                      <option value="Shipping">Shipping Address</option>
-                      <option value="Others">Others..</option>
-                    </>
                   )}
+                  {!userInfo?.isAdmin && "Admin" === paramSub && (
+                    <option value="Admin">Apply To Be Administrator</option>
+                  )}
+                  <option value="Account">Account</option>
+                  <option value="Ads">Advertisement</option>
+                  <option value="Customer">Customer Service</option>
+                  <option value="FAQ">FAQ</option>
+                  <option value="Help">Help Desk</option>
+                  <option value="Orders">Your Orders</option>
+                  <option value="Payment">Payment</option>
+                  <option value="Report">Report Something Suspicious</option>
+                  <option value="Returns">Returns & Refund</option>
+                  <option value="Shipping">Shipping Address</option>
+                  <option value="Others">Others..</option>
                 </select>
               </div>
             </div>
+
+            <CustomInput
+              textarea
+              rows="10"
+              text="Your Message"
+              hook={[text, setText]}
+            />
+            <br />
+
             <div>
-              <label htmlFor="text">Message</label>
-              <textarea
-                id="text"
-                rows="10"
-                type="text"
-                placeholder="Enter Your Message"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              ></textarea>
-            </div>
-            <div>
-              <label></label>
               <button className="primary" type="submit">
                 Send Your Message
               </button>

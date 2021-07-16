@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
+
 import Pagination from "../../components/Pagination";
 import {
   createProduct,
@@ -11,52 +10,42 @@ import {
 } from "../../Controllers/productActions";
 import { productCreateActions, productDeleteActions } from "./ProductSlice";
 
+import LoadingOrError from "../../components/LoadingOrError";
+
 export default function ProductListScreen(props) {
-  const { pageNumber = 1 } = useParams();
-
-  const sellerMode = props.match.path.indexOf("/seller") >= 0;
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
-
-  const productCreate = useSelector((state) => state.productCreate);
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    product: createdProduct,
-  } = productCreate;
-
-  const productDelete = useSelector((state) => state.productDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = productDelete;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
   const dispatch = useDispatch();
+  const { pageNumber = 1 } = useParams();
+  const sellerMode = props.match.path.indexOf("/seller") >= 0;
+
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const productList = useSelector((state) => state.productList);
+  const { products, page, pages } = productList;
+  const productCreate = useSelector((state) => state.productCreate);
+  const productDelete = useSelector((state) => state.productDelete);
+
   useEffect(() => {
-    if (successCreate) {
+    if (productCreate.success) {
       dispatch(productCreateActions._RESET());
-      props.history.push(`/product/${createdProduct._id}/edit`);
+      props.history.push(`/product/${productCreate.product._id}/edit`);
     }
-    if (successDelete) {
+    if (productDelete.success) {
       dispatch(productDeleteActions._RESET());
     }
+    // min = 0 to find all products no matter what price it is (0.00) to edit
     dispatch(
       listProducts({
-        seller: sellerMode ? userInfo._id : "",
         pageNumber,
+        seller: sellerMode ? userInfo._id : "",
         min: "0",
       })
-    ); // min = 0 to find all products no matter what price it is (0.00) to edit
+    );
   }, [
-    createdProduct,
     dispatch,
     props.history,
     sellerMode,
-    successCreate,
-    successDelete,
+    productDelete.success,
+    productCreate.success,
+    productCreate.product,
     userInfo._id,
     pageNumber,
   ]);
@@ -66,9 +55,11 @@ export default function ProductListScreen(props) {
       dispatch(deleteProduct(product._id));
     }
   };
+
   const createHandler = () => {
     dispatch(createProduct());
   };
+
   return (
     <div>
       <div className="row p-1">
@@ -78,16 +69,11 @@ export default function ProductListScreen(props) {
         </button>
       </div>
 
-      {loadingDelete && <LoadingBox xl />}
-      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
+      <LoadingOrError xl statusOf={productDelete} />
+      <LoadingOrError xl statusOf={productCreate} />
+      <LoadingOrError xl statusOf={productList} />
 
-      {loadingCreate && <LoadingBox xl />}
-      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
-      {loading ? (
-        <LoadingBox xl />
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
+      {products && (
         <>
           <table className="table">
             <thead>
@@ -100,6 +86,7 @@ export default function ProductListScreen(props) {
                 <th className="tab__w12">ACTIONS</th>
               </tr>
             </thead>
+
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
@@ -108,6 +95,7 @@ export default function ProductListScreen(props) {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+
                   <td>
                     <button
                       type="button"
@@ -118,6 +106,7 @@ export default function ProductListScreen(props) {
                     >
                       Edit
                     </button>
+
                     <button
                       type="button"
                       className="small danger"
@@ -130,13 +119,14 @@ export default function ProductListScreen(props) {
               ))}
             </tbody>
           </table>
+
           <Pagination
             page={page}
             pages={pages}
-            getUrl={({ page }) =>
+            getUrl={({ page: _page }) =>
               `/product-list${
                 userInfo.isAdmin ? "" : "/seller"
-              }/pageNumber/${page}`
+              }/pageNumber/${_page}`
             }
             help
           />

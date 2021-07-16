@@ -1,124 +1,86 @@
 import axiosClient from "../../Controllers/axiosClient";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
 import {
   detailsProduct,
   updateProduct,
 } from "../../Controllers/productActions";
-import { getImgUrl, MAX_IMAGES } from "../../utils";
 import { productUpdateActions } from "./ProductSlice";
 
-export default function ProductEditScreen(props) {
-  const productId = props.match.params.id;
+import LoadingOrError from "../../components/LoadingOrError";
+import MessageBox from "../../components/MessageBox";
+import CustomInput from "../../components/CustomInput";
+import { MAX_IMAGES } from "../../constants";
+import { getImgUrl } from "../../utils";
+
+export default function ProductEditScreen({ history, match }) {
+  const dispatch = useDispatch();
+  const productId = match.params.id;
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product } = productDetails;
+  const productUpdate = useSelector((state) => state.productUpdate);
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [deal, setDeal] = useState("");
   const [ship, setShip] = useState("");
   const [video, setVideo] = useState("");
   const [images, setImages] = useState([]);
+  const [upload, setUpload] = useState({ loading: false });
+  const [imagePreview, setImagePreview] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
   const [info, setInfo] = useState("");
 
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
-
-  const productUpdate = useSelector((state) => state.productUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = productUpdate;
-
-  const dispatch = useDispatch();
   useEffect(() => {
-    if (successUpdate) {
-      props.history.push("/product-list");
-    }
-    if (!product || product._id !== productId || successUpdate) {
+    if (productUpdate.success) {
+      history.push("/product-list");
       dispatch(productUpdateActions._RESET());
       dispatch(detailsProduct(productId));
-    } else {
-      setName(product.name);
-      setPrice(product.price);
-      setDeal(product.deal);
-      setShip(product.ship);
-      setVideo(product.video);
-      setImages(product.image.split("^"));
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setBrand(product.brand);
-      setDescription(product.description);
+      return;
     }
-  }, [product, dispatch, productId, successUpdate, props.history]);
+    if (!product || product._id !== productId) {
+      dispatch(productUpdateActions._RESET());
+      dispatch(detailsProduct(productId));
+      return;
+    }
+    setName(product.name);
+    setPrice(product.price);
+    setDeal(product.deal);
+    setShip(product.ship);
+    setVideo(product.video);
+    setImages(product.image.split("^"));
+    setCategory(product.category);
+    setCountInStock(product.countInStock);
+    setBrand(product.brand);
+    setDescription(product.description);
+  }, [product, dispatch, productId, productUpdate.success, history]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     // TODO: dispatch update product
     dispatch(
       updateProduct({
-        _id: productId,
         name,
         price,
         deal,
         ship,
         video,
-        image: images.join("^"),
         category,
         brand,
         countInStock,
         description,
+        _id: productId,
+        image: images.join("^"),
       })
     );
   };
 
-  const [loadingUpload, setLoadingUpload] = useState(false);
-  const [errorUpload, setErrorUpload] = useState("");
-
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-
-  const uploadFileHandler = async (e) => {
-    const bodyFormData = new FormData();
-    const { files } = e.target;
-    const capacity = Math.min(files.length, MAX_IMAGES - images.length);
-
-    for (let x = 0; x < capacity; x++) bodyFormData.append("images", files[x]);
-    bodyFormData.append("productId", product._id);
-    setLoadingUpload(true);
-    try {
-      const { data } = await axiosClient.post("/api/uploads", bodyFormData, {
-        headers: {
-          enctype: "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      setImages([...images, ...data]);
-      if (capacity < files.length)
-        setInfo(
-          `You can upload ${MAX_IMAGES} Images total, the others will be ignore!`
-        );
-      else setInfo(`${capacity} Images successfully uploaded!`);
-      setLoadingUpload(false);
-    } catch (error) {
-      setErrorUpload(error.message);
-      setLoadingUpload(false);
-    }
-  };
-
-  const deleteFileHandler = async (idx) => {
-    const newImages = images.filter((_, i) => i !== idx);
-
-    /* delete image on cloudinary and update immediately to DB */
-    const bodyFormData = new FormData();
-    bodyFormData.append("imgLink", images[idx]);
-    bodyFormData.append("productId", product._id);
-    bodyFormData.append("image", newImages.join("^"));
-    setLoadingUpload(true);
+  const asyncUpdateImgs = async (newImages, bodyFormData, updateInfo) => {
+    setUpload({ loading: true });
     try {
       await axiosClient.patch("/api/uploads", bodyFormData, {
         headers: {
@@ -126,12 +88,62 @@ export default function ProductEditScreen(props) {
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      setLoadingUpload(false);
-    } catch (error) {
-      setErrorUpload(error.message);
-      setLoadingUpload(false);
+      setImages(newImages);
+      setInfo(updateInfo);
+      setUpload({ loading: false });
+    } catch ({ message }) {
+      setUpload({ loading: false, error: message });
     }
+  };
+
+  const handleAddImgs = (e) => {
+    const bodyFormData = new FormData();
+    const { files } = e.target;
+    const uploadImgsCount = files.length;
+    const uploadSize = Math.min(uploadImgsCount, MAX_IMAGES - images.length);
+
+    const uploadImgs = Array.from(files).slice(0, uploadSize);
+    uploadImgs.forEach((img) => bodyFormData.append("images", img));
+    bodyFormData.append("productId", product._id);
+    asyncUpdateImgs(
+      [...images, ...uploadImgs],
+      bodyFormData,
+      `${uploadSize} Images successfully uploaded!`
+    );
+  };
+
+  const handleDeleteImg = (idx) => (e) => {
+    e.preventDefault();
+    if (!window.confirm("Do you really want to delete this image?")) return;
+
+    /* TODO: delete image on cloudinary and update immediately to DB */
+    const newImages = images.filter((_, i) => i !== idx);
+    const bodyFormData = new FormData();
+    bodyFormData.append("imgLink", images[idx]);
+    bodyFormData.append("productId", product._id);
+    bodyFormData.append("image", newImages.join("^"));
+    asyncUpdateImgs(newImages, bodyFormData);
+  };
+
+  const handleUpdateImgLink = (id) => (e) => {
+    const newImages = images.slice();
+    newImages[id] = e.target.value;
     setImages(newImages);
+  };
+
+  const handleMoveUpImg = (id) => (e) => {
+    e.preventDefault();
+    if (id > 0)
+      setImages([
+        ...images.slice(0, id - 1),
+        images[id],
+        images[id - 1],
+        ...images.slice(id + 1),
+      ]);
+  };
+
+  const handleAddImgLinkOnEnter = (e) => {
+    if (e.key === "Enter") setImages([...images, imagePreview]);
   };
 
   return (
@@ -144,119 +156,52 @@ export default function ProductEditScreen(props) {
         <div>
           <h1>Edit Product {productId}</h1>
         </div>
-        {loadingUpdate && <LoadingBox xl />}
-        {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
-        {loading ? (
-          <LoadingBox xl />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
+
+        <LoadingOrError xl statusOf={productDetails} />
+
+        {productDetails.success && (
           <>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="price">Price</label>
-              <input
-                id="price"
-                type="text"
-                placeholder="Enter price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="ship">Ship</label>
-              <input
-                id="ship"
-                type="text"
-                placeholder="Enter shipping price"
-                value={ship || ""}
-                onChange={(e) => setShip(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="deal">Deal</label>
-              <input
-                id="deal"
-                type="text"
-                placeholder="Enter deal"
-                value={deal || ""}
-                onChange={(e) => setDeal(e.target.value)}
-              ></input>
-            </div>
+            <LoadingOrError xl statusOf={productUpdate} />
+
+            <CustomInput text="Name" hook={[name, setName]} />
+            <CustomInput text="Price" hook={[price, setPrice]} />
+            <CustomInput text="Ship" hook={[ship, setShip]} />
+            <CustomInput text="Deal" hook={[deal, setDeal]} />
 
             <div>
-              <label htmlFor="image__link--1">
+              <label htmlFor="image-1-cover">
                 Uploaded Images ({images.length} of {MAX_IMAGES})
                 <p>(You can also enter extern Image Links here)</p>
               </label>
 
               {images.map((img, id) => (
-                <div className="row" key={id}>
+                <div className="row img-input" key={id}>
                   <div className="tab__w6">
                     <img
                       onMouseEnter={() => setImagePreview(img)}
                       src={getImgUrl(product._id, img)}
-                      alt={"Image Preview" + (id + 1)}
+                      alt={`Preview ${id + 1}`}
                       className="small"
                     />
                   </div>
 
-                  <label className="p-1" htmlFor={"image__link--" + (id + 1)}>
-                    Image {id + 1} {!id && <h3>Cover</h3>}
-                    {id === 1 && <p>[ Deal ]</p>}
-                  </label>
+                  <CustomInput
+                    text={`Image ${id + 1} ${["COVER", "[DEAL]"][id] || ""}`}
+                    className="row"
+                    value={img}
+                    onChange={handleUpdateImgLink(id)}
+                  />
 
                   <button
-                    disabled={loadingUpload}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (id > 0)
-                        setImages([
-                          ...images.slice(0, id - 1),
-                          images[id],
-                          images[id - 1],
-                          ...images.slice(id + 1),
-                        ]);
-                    }}
+                    onClick={handleMoveUpImg(id)}
+                    disabled={upload.loading}
                   >
                     <i className="fa success tab__w3 fa-arrow-circle-up"></i>
                   </button>
 
-                  <div className="col-fill mr-1">
-                    <input
-                      id={"image__link--" + (id + 1)}
-                      type="text"
-                      className="row"
-                      placeholder={"Enter image link" + (id + 1)}
-                      value={img}
-                      onChange={(e) =>
-                        setImages(
-                          images.map((_, i) => (i === id ? e.target.value : _))
-                        )
-                      }
-                    ></input>
-                  </div>
-
                   <button
-                    disabled={loadingUpload}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (
-                        window.confirm(
-                          "Do you really want to delete this image?"
-                        )
-                      )
-                        deleteFileHandler(id);
-                    }}
+                    onClick={handleDeleteImg(id)}
+                    disabled={upload.loading}
                   >
                     <i className="fa danger fa-close"></i>
                   </button>
@@ -272,96 +217,46 @@ export default function ProductEditScreen(props) {
               />
             </div>
 
-            <div>
-              {images.length < MAX_IMAGES ? (
-                <>
-                  <label htmlFor="images">Add New Images</label>
-                  <input
-                    type="file"
-                    id="images"
-                    name="images"
-                    label="Choose Image"
-                    onChange={uploadFileHandler}
-                    multiple
-                  ></input>
+            {images.length < MAX_IMAGES && (
+              <div>
+                Add
+                <CustomInput
+                  text="New Images"
+                  name="images"
+                  type="file"
+                  multiple
+                  onChange={handleAddImgs}
+                />
+                Or
+                <CustomInput
+                  text="Image Link"
+                  hook={[imagePreview, setImagePreview]}
+                  onKeyUp={handleAddImgLinkOnEnter}
+                />
+                <LoadingOrError statusOf={upload} />
+                <MessageBox variant="info" msg={info} />
+              </div>
+            )}
 
-                  <label htmlFor="image-link">Or enter your Image Link</label>
-                  <input
-                    type="text"
-                    id="image-link"
-                    placeholder="Enter your Image Link"
-                    value={imagePreview}
-                    onChange={(e) => setImagePreview(e.target.value)}
-                    onKeyUp={(e) => {
-                      if (e.key === "Enter" || e.keyCode === 13)
-                        setImages([...images, imagePreview]);
-                    }}
-                  ></input>
-                  {info && <MessageBox variant="info">{info}</MessageBox>}
-                  {loadingUpload && <LoadingBox />}
-                  {errorUpload && (
-                    <MessageBox variant="danger">{errorUpload}</MessageBox>
-                  )}
-                </>
-              ) : (
-                <label>
-                  You have uploaded {images.length} of {MAX_IMAGES} Images
-                </label>
-              )}
-            </div>
+            <CustomInput
+              text="Video Link or Youtube VID"
+              hook={[video, setVideo]}
+            />
+            <CustomInput text="Category" hook={[category, setCategory]} />
+            <CustomInput text="Brand" hook={[brand, setBrand]} />
+            <CustomInput
+              text="Count In Stock"
+              hook={[countInStock, setCountInStock]}
+            />
+            <CustomInput
+              text="Description"
+              textarea
+              rows="3"
+              hook={[description, setDescription]}
+            />
+            <br />
+
             <div>
-              <label htmlFor="video">Video Link/ Youtube VID</label>
-              <input
-                id="video"
-                type="text"
-                placeholder="Enter video link or Youtube video ID"
-                value={video || ""}
-                onChange={(e) => setVideo(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="category">Category</label>
-              <input
-                id="category"
-                type="text"
-                placeholder="Enter category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="brand">Brand</label>
-              <input
-                id="brand"
-                type="text"
-                placeholder="Enter brand"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="countInStock">Count In Stock</label>
-              <input
-                id="countInStock"
-                type="text"
-                placeholder="Enter countInStock"
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                rows="3"
-                type="text"
-                placeholder="Enter description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
-            </div>
-            <div>
-              <label></label>
               <button className="primary" type="submit">
                 Update
               </button>
