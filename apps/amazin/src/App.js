@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import {
   listProductCategories,
-  updateCurrencyRates,
-} from "./Controllers/productActions";
-import MainRoute from "./Features/Route/MainRoute";
-import HeaderNav from "./Features/Nav/HeaderNav";
-import SidebarMenu from "./Features/Nav/SidebarMenu";
-import { pipe } from "./utils";
-import "./responsive.css";
-import HeaderNavMain from "./Features/Nav/HeaderNavMain";
+  updateCurrencyRates
+} from './Controllers/productActions';
+import MainRoute from './Features/Route/MainRoute';
+import HeaderNav from './Features/Nav/HeaderNav';
+import SidebarMenu from './Features/Nav/SidebarMenu';
+import { pipe } from './utils';
+import './responsive.css';
+import HeaderNavMain from './Features/Nav/HeaderNavMain';
 
 export default function App() {
   const { sessionCurrency } = useSelector((state) => state.currencyType);
@@ -18,13 +18,13 @@ export default function App() {
   const dispatch = useDispatch();
 
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
-  const [shadowFor, setShadowFor] = useState("");
+  const [shadowFor, setShadowFor] = useState('');
 
   useEffect(() => {
     pipe.setCurrency(
       userInfo?.currency ||
         sessionCurrency ||
-        localStorage.getItem("currency") ||
+        localStorage.getItem('currency') ||
         pipe.currency
     );
     setCurrency(pipe.currency);
@@ -36,7 +36,7 @@ export default function App() {
     <BrowserRouter>
       <div
         className={
-          "container--grid" + ("sidebar" === shadowFor ? " scroll--off" : "")
+          'container--grid' + ('sidebar' === shadowFor ? ' scroll--off' : '')
         }
       >
         <header id="nav-bar">
@@ -56,7 +56,7 @@ export default function App() {
         />
 
         <label
-          className={"sidebar" === shadowFor ? "click-catcher" : ""}
+          className={'sidebar' === shadowFor ? 'click-catcher' : ''}
           htmlFor="btn--close-sidebar"
           aria-label="close sidebar button"
         ></label>
@@ -67,8 +67,8 @@ export default function App() {
           </div>
 
           <div
-            className={"underlay-" + shadowFor}
-            onClick={() => setShadowFor("")}
+            className={'underlay-' + shadowFor}
+            onClick={() => setShadowFor('')}
           ></div>
         </main>
 

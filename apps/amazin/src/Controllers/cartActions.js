@@ -1,6 +1,6 @@
-import axiosClient from "./axiosClient";
-import { cartActions } from "../Features/Checkout/CartSlice.js";
-import { STORAGE_CART_ITEMS, STORAGE_SHIPPING_ADDRESS } from "../constants";
+import axiosClient from './axiosClient';
+import { cartActions } from '../Features/Checkout/CartSlice.js';
+import { STORAGE_CART_ITEMS, STORAGE_SHIPPING_ADDRESS } from '../constants';
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const { data } = await axiosClient.get(`/api/products/${productId}`);
@@ -11,7 +11,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
     dispatch(
       cartActions._ADD_ITEM_FAIL(
         `Can't Add Item Of Other Supplier. Buy Only From The Same Seller (${
-          cartItems[0].seller.seller.name || "Anonymous Seller"
+          cartItems[0].seller.seller.name || 'Anonymous Seller'
         }) in this order`
       )
     );
@@ -26,7 +26,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
         ship: data.ship,
         deal: data.deal,
         seller: data.seller,
-        qty,
+        qty
       })
     );
 

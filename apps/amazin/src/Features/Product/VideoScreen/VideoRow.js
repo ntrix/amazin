@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Carousel, { responsive } from "../../../constants";
-import UTube from "./UTube";
-import VideoCard from "./VideoCard";
+import React, { useState } from 'react';
+import Carousel, { responsive } from '../../../constants';
+import UTube from './UTube';
+import VideoCard from './VideoCard';
 
 export default function VideoRow({ title, movies, portrait = false }) {
-  const [trailerUrl, setTrailerUrl] = useState("");
+  const [trailerUrl, setTrailerUrl] = useState('');
 
   return (
     <div className="m-row">
@@ -22,7 +22,7 @@ export default function VideoRow({ title, movies, portrait = false }) {
             customTransition="transform 300ms ease-in-out"
             transitionDuration={500}
             containerClass="carousel-container"
-            removeArrowOnDeviceType={["mobile"]}
+            removeArrowOnDeviceType={['mobile']}
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >

@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { orderCreateActions } from "./OrderSlice";
-import { createOrder } from "../../Controllers/orderActions";
+import { orderCreateActions } from './OrderSlice';
+import { createOrder } from '../../Controllers/orderActions';
 
-import CheckoutSteps from "../Checkout/CheckoutSteps";
-import { TAX } from "../../constants";
-import { getImgUrl, pipe } from "../../utils";
-import LoadingOrError from "../../components/LoadingOrError";
+import CheckoutSteps from '../Checkout/CheckoutSteps';
+import { TAX } from '../../constants';
+import { getImgUrl, pipe } from '../../utils';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function PlaceOrderScreen({ history }) {
   const dispatch = useDispatch();
   //fixes cart object is not extensible
   const cart = { ...useSelector((state) => state.cart) };
-  if (!cart.paymentMethod) history.push("/payment");
+  if (!cart.paymentMethod) history.push('/payment');
 
   const orderCreate = useSelector((state) => state.orderCreate);
 
@@ -79,7 +79,7 @@ export default function PlaceOrderScreen({ history }) {
                           <img
                             src={getImgUrl(
                               item.product,
-                              item.image.split("^")[0]
+                              item.image.split('^')[0]
                             )}
                             alt={item.name}
                             className="small"
@@ -94,7 +94,7 @@ export default function PlaceOrderScreen({ history }) {
 
                         <div>
                           {item.qty} x {pipe.showPrice(item.price)} =
-                          {" " + pipe.showPrice(item.qty * item.price)}
+                          {' ' + pipe.showPrice(item.qty * item.price)}
                         </div>
                       </div>
                     </li>
@@ -126,7 +126,7 @@ export default function PlaceOrderScreen({ history }) {
                       <div>
                         {cart.shippingPrice
                           ? pipe.showPrice(cart.shippingPrice)
-                          : "Free Ship"}
+                          : 'Free Ship'}
                       </div>
                     </div>
                   </li>

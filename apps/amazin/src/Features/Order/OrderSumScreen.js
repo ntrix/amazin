@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axiosClient from "../../Controllers/axiosClient";
-import { PayPalButton } from "react-paypal-button-v2";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import axiosClient from '../../Controllers/axiosClient';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { Link } from 'react-router-dom';
 
-import { orderDeliverActions, orderPayActions } from "../Order/OrderSlice";
+import { orderDeliverActions, orderPayActions } from '../Order/OrderSlice';
 import {
   deliverOrder,
   detailsOrder,
-  payOrder,
-} from "../../Controllers/orderActions";
+  payOrder
+} from '../../Controllers/orderActions';
 
-import LoadingBox from "../../components/LoadingBox";
-import MessageBox from "../../components/MessageBox";
-import { getImgUrl, pipe } from "../../utils";
-import LoadingOrError from "../../components/LoadingOrError";
+import LoadingBox from '../../components/LoadingBox';
+import MessageBox from '../../components/MessageBox';
+import { getImgUrl, pipe } from '../../utils';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function OrderSumScreen({ match }) {
   const dispatch = useDispatch();
@@ -29,9 +29,9 @@ export default function OrderSumScreen({ match }) {
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data } = await axiosClient.get("/api/config/paypal");
-      const script = document.createElement("script");
-      script.type = "text/javascript";
+      const { data } = await axiosClient.get('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
       script.async = true;
       script.onload = () => {
@@ -64,7 +64,7 @@ export default function OrderSumScreen({ match }) {
     sdkReady,
     orderPay.success,
     orderDeliver.success,
-    order,
+    order
   ]);
 
   const successPaymentHandler = (paymentResult) => {
@@ -91,10 +91,10 @@ export default function OrderSumScreen({ match }) {
                     <h2>Shipping</h2>
 
                     <p>
-                      <strong>Name:</strong> {order.shippingAddress.fullName}{" "}
+                      <strong>Name:</strong> {order.shippingAddress.fullName}{' '}
                       <br />
                       <strong>Address: </strong> {order.shippingAddress.address}
-                      ,{order.shippingAddress.city},{" "}
+                      ,{order.shippingAddress.city},{' '}
                       {order.shippingAddress.postalCode},
                       {order.shippingAddress.country}
                     </p>
@@ -137,7 +137,7 @@ export default function OrderSumScreen({ match }) {
                               <img
                                 src={getImgUrl(
                                   item.product,
-                                  item.image.split("^")[0]
+                                  item.image.split('^')[0]
                                 )}
                                 alt={item.name}
                                 className="small"
@@ -152,7 +152,7 @@ export default function OrderSumScreen({ match }) {
 
                             <div>
                               {item.qty} x {pipe.showPrice(item.price)} =
-                              {" " + pipe.showPrice(item.qty * item.price)}
+                              {' ' + pipe.showPrice(item.qty * item.price)}
                             </div>
                           </div>
                         </li>

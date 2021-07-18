@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import MessageBox from "../../components/MessageBox";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import MessageBox from '../../components/MessageBox';
 
 export default function Screen404() {
   return (

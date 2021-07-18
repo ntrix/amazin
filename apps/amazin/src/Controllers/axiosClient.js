@@ -1,50 +1,51 @@
-import axios from "axios";
+import axios from 'axios';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
-  mode: "cors",
+  mode: 'cors'
 });
 
-const axiosRedux = (authorization, requestPayload) => (
-  dispatchRequest,
-  dispatchSuccess = dispatchRequest,
-  dispatchFail = dispatchSuccess
-) => (
-  ActionDispatchBySuccess,
-  extHandlerBySuccess,
-  selector = (data) => data
-) => (method, url, data) => async (dispatch, getState) => {
-  const headers = {};
-  if (authorization) {
-    const {
-      userSignin: { userInfo },
-    } = getState();
-    headers.Authorization = `Bearer ${userInfo.token}`;
-  }
+const axiosRedux =
+  (authorization, requestPayload) =>
+  (
+    dispatchRequest,
+    dispatchSuccess = dispatchRequest,
+    dispatchFail = dispatchSuccess
+  ) =>
+  (ActionDispatchBySuccess, extHandlerBySuccess, selector = (data) => data) =>
+  (method, url, data) =>
+  async (dispatch, getState) => {
+    const headers = {};
+    if (authorization) {
+      const {
+        userSignin: { userInfo }
+      } = getState();
+      headers.Authorization = `Bearer ${userInfo.token}`;
+    }
 
-  dispatch(dispatchRequest._REQUEST(requestPayload));
+    dispatch(dispatchRequest._REQUEST(requestPayload));
 
-  try {
-    const { data: returnedData } = await axios({
-      method,
-      data,
-      headers,
-      url: process.env.REACT_APP_BACKEND_URL + url,
-      mode: "cors",
-    });
+    try {
+      const { data: returnedData } = await axios({
+        method,
+        data,
+        headers,
+        url: process.env.REACT_APP_BACKEND_URL + url,
+        mode: 'cors'
+      });
 
-    dispatch(dispatchSuccess._SUCCESS(selector(returnedData)));
-    if (ActionDispatchBySuccess)
-      dispatch(ActionDispatchBySuccess(returnedData));
-    if (extHandlerBySuccess) extHandlerBySuccess(returnedData);
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(dispatchFail._FAIL(message));
-  }
-};
+      dispatch(dispatchSuccess._SUCCESS(selector(returnedData)));
+      if (ActionDispatchBySuccess)
+        dispatch(ActionDispatchBySuccess(returnedData));
+      if (extHandlerBySuccess) extHandlerBySuccess(returnedData);
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch(dispatchFail._FAIL(message));
+    }
+  };
 
 const axiosPublic = (requestPayload) => axiosRedux(false, requestPayload);
 const axiosPrivate = (requestPayload) => axiosRedux(true, requestPayload);

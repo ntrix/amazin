@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { listProducts } from "../Controllers/productActions";
-import { detailsUser } from "../Controllers/userActions";
+import { listProducts } from '../Controllers/productActions';
+import { detailsUser } from '../Controllers/userActions';
 
-import ProductCard from "../components/ProductCard";
-import Rating from "../components/Rating";
-import Pagination from "../components/Pagination";
-import { useParams } from "react-router";
-import SortFilter from "../components/SortFilter";
+import ProductCard from '../components/ProductCard';
+import Rating from '../components/Rating';
+import Pagination from '../components/Pagination';
+import { useParams } from 'react-router';
+import SortFilter from '../components/SortFilter';
 
-import MessageBox from "../components/MessageBox";
-import LoadingOrError from "../components/LoadingOrError";
+import MessageBox from '../components/MessageBox';
+import LoadingOrError from '../components/LoadingOrError';
 
 export default function SellerScreen({ match }) {
   const dispatch = useDispatch();
-  const { pageNumber = 1, order: pOrder = "bestselling" } = useParams();
+  const { pageNumber = 1, order: pOrder = 'bestselling' } = useParams();
   const sellerId = match.params.id;
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;

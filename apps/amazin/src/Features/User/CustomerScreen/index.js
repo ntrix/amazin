@@ -1,7 +1,7 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import "./customerScreen.css";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import './customerScreen.css';
 
 export default function CustomerScreen() {
   const { user } = useSelector((state) => state.userSignin);
@@ -9,7 +9,7 @@ export default function CustomerScreen() {
   return (
     <div className="c-screen customer">
       <header className="container">
-        <h1 className="title">We’re here to help, {user?.username || ""}</h1>
+        <h1 className="title">We’re here to help, {user?.username || ''}</h1>
         <h3 className="sub-title">
           We’ll walk you through fixing most things here or connect you to
           someone if you need more help.
@@ -23,85 +23,85 @@ export default function CustomerScreen() {
         <div className="c-boxes">
           {[
             [
-              "order",
-              "Your Orders",
-              "Track parcels",
-              "Edit or cancel orders",
-              "/order-history",
+              'order',
+              'Your Orders',
+              'Track parcels',
+              'Edit or cancel orders',
+              '/order-history'
             ],
             [
-              "return",
-              "Returns & Refunds",
-              "Return or exchange items",
-              "Print return mailing labels",
-              "",
-              "disabled",
+              'return',
+              'Returns & Refunds',
+              'Return or exchange items',
+              'Print return mailing labels',
+              '',
+              'disabled'
             ],
             [
-              "digital",
-              "Address Management",
-              "Find local address",
-              "Check shipping service",
-              "/shipping",
+              'digital',
+              'Address Management',
+              'Find local address',
+              'Check shipping service',
+              '/shipping'
             ],
             [
-              "video",
-              "Your Video Account",
-              "Kid account control",
-              "Parenting discussion",
-              "/video",
+              'video',
+              'Your Video Account',
+              'Kid account control',
+              'Parenting discussion',
+              '/video'
             ],
             [
-              "payment",
-              "Payment Options",
-              "Add or edit payment methods",
-              "Change your currency",
-              "/currency/cType/EUR",
+              'payment',
+              'Payment Options',
+              'Add or edit payment methods',
+              'Change your currency',
+              '/currency/cType/EUR'
             ],
             [
-              "account",
-              "Your Account",
-              "Manage your account preferences",
-              "Update login information",
-              "/profile",
+              'account',
+              'Your Account',
+              'Manage your account preferences',
+              'Update login information',
+              '/profile'
             ],
             [
-              "report",
-              "Report Something Suspicious",
-              "Scam Call or Phishing Email",
-              "",
-              "/contact/subject/Report",
+              'report',
+              'Report Something Suspicious',
+              'Scam Call or Phishing Email',
+              '',
+              '/contact/subject/Report'
             ],
             [
-              "gift",
-              "Gift Cards & Top Up",
-              "Need a gift, a box,",
-              "Anniversary?",
-              "/search/category/Gifts And Boxes",
+              'gift',
+              'Gift Cards & Top Up',
+              'Need a gift, a box,',
+              'Anniversary?',
+              '/search/category/Gifts And Boxes'
             ],
             [
-              "contact",
-              "Contact Us",
-              "Contact our Customer Service",
-              "via Phone or Chat",
-              "/contact/subject/Customer",
+              'contact',
+              'Contact Us',
+              'Contact our Customer Service',
+              'via Phone or Chat',
+              '/contact/subject/Customer'
             ],
             [
-              "covid19",
-              "COVID-19 & Information",
-              "FAQs about the impact on ordering",
-              "",
-              "",
-              "disabled",
-            ],
-          ].map(([img, label, line1, line2, link = "#", className], id) => (
-            <Link to={link} key={id} className={"c-box " + className}>
+              'covid19',
+              'COVID-19 & Information',
+              'FAQs about the impact on ordering',
+              '',
+              '',
+              'disabled'
+            ]
+          ].map(([img, label, line1, line2, link = '#', className], id) => (
+            <Link to={link} key={id} className={'c-box ' + className}>
               <div className="c-box__inner">
                 <div className="c-box__icon-wrapper">
                   <img
                     className="c-box__icon"
                     src={`/images/icon-${img}.png`}
-                    alt={"icon " + img}
+                    alt={'icon ' + img}
                   ></img>
                 </div>
 

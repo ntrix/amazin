@@ -1,5 +1,5 @@
-import React from "react";
-import { useHistory } from "react-router";
+import React from 'react';
+import { useHistory } from 'react-router';
 
 export default function SortFilter({ order, getUrl }) {
   const history = useHistory();

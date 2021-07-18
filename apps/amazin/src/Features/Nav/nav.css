@@ -69,7 +69,7 @@ a .nav__brand {
 .sprite__locator {
   width: 16px;
   height: 34px;
-  background: url("../../img/nav-sprite.png") -60px -120px;
+  background: url('../../img/nav-sprite.png') -60px -120px;
 }
 .nav__locator .nav__line-1 {
   color: #ccc;
@@ -269,7 +269,7 @@ a .nav__brand {
   width: 21px;
   height: 24px;
   margin: auto;
-  background: url("../../img/nav-sprite.png") 0 -40px no-repeat;
+  background: url('../../img/nav-sprite.png') 0 -40px no-repeat;
   object-fit: cover;
 }
 .search__suggest {
@@ -353,7 +353,7 @@ a .nav__brand {
   width: 36.5rem;
 }
 .dropdown__menu::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 0;
@@ -478,7 +478,7 @@ a .nav__brand {
   width: 20px;
   margin: 0 3px;
   background-position: -74px 0px;
-  background-image: url("../../img/flags.png");
+  background-image: url('../../img/flags.png');
 }
 .nav__currency a:not(.disabled, .active):hover span {
   text-decoration: underline;
@@ -505,7 +505,7 @@ a .nav__brand {
 .sprite__cart {
   width: 40px;
   height: 30px;
-  background: url("../../img/nav-sprite.png") 0 -88px;
+  background: url('../../img/nav-sprite.png') 0 -88px;
   margin-top: -20px;
   margin-right: -2px;
 }
@@ -610,7 +610,7 @@ a .nav__brand {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url("../../img/nav-sprite.png") -160px -180px;
+  background: url('../../img/nav-sprite.png') -160px -180px;
   margin: -2px 5px 0 5px;
 }
 
@@ -673,7 +673,7 @@ button.open-sidebar:hover {
 .sprite__close-btn {
   width: 20px;
   height: 20px;
-  background: url("../../img/nav-sprite.png") -180px -40px;
+  background: url('../../img/nav-sprite.png') -180px -40px;
   margin-top: 13px;
 }
 .sidebar__list {
@@ -730,7 +730,7 @@ button.open-sidebar:hover {
   display: inline-block;
   width: 30px;
   height: 30px;
-  background: url("../../img/nav-sprite.png") -125px -88px;
+  background: url('../../img/nav-sprite.png') -125px -88px;
   margin: -3px 9px -8px -2px;
 }
 .sidebar .sprite.flag {

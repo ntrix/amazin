@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import Pagination from "../../components/Pagination";
+import Pagination from '../../components/Pagination';
 import {
   createProduct,
   deleteProduct,
-  listProducts,
-} from "../../Controllers/productActions";
-import { productCreateActions, productDeleteActions } from "./ProductSlice";
+  listProducts
+} from '../../Controllers/productActions';
+import { productCreateActions, productDeleteActions } from './ProductSlice';
 
-import LoadingOrError from "../../components/LoadingOrError";
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function ProductListScreen(props) {
   const dispatch = useDispatch();
   const { pageNumber = 1 } = useParams();
-  const sellerMode = props.match.path.indexOf("/seller") >= 0;
+  const sellerMode = props.match.path.indexOf('/seller') >= 0;
 
   const { userInfo } = useSelector((state) => state.userSignin);
   const productList = useSelector((state) => state.productList);
@@ -35,8 +35,8 @@ export default function ProductListScreen(props) {
     dispatch(
       listProducts({
         pageNumber,
-        seller: sellerMode ? userInfo._id : "",
-        min: "0",
+        seller: sellerMode ? userInfo._id : '',
+        min: '0'
       })
     );
   }, [
@@ -47,11 +47,11 @@ export default function ProductListScreen(props) {
     productCreate.success,
     productCreate.product,
     userInfo._id,
-    pageNumber,
+    pageNumber
   ]);
 
   const deleteHandler = (product) => {
-    if (window.confirm("Are you sure to delete?")) {
+    if (window.confirm('Are you sure to delete?')) {
       dispatch(deleteProduct(product._id));
     }
   };
@@ -125,7 +125,7 @@ export default function ProductListScreen(props) {
             pages={pages}
             getUrl={({ page: _page }) =>
               `/product-list${
-                userInfo.isAdmin ? "" : "/seller"
+                userInfo.isAdmin ? '' : '/seller'
               }/pageNumber/${_page}`
             }
             help

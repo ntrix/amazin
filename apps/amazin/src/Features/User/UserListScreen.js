@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { userDetailsActions } from "./UserSlice";
-import { deleteUser, listUsers } from "../../Controllers/userActions";
+import { userDetailsActions } from './UserSlice';
+import { deleteUser, listUsers } from '../../Controllers/userActions';
 
-import MessageBox from "../../components/MessageBox";
-import LoadingOrError from "../../components/LoadingOrError";
+import MessageBox from '../../components/MessageBox';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function UserListScreen({ history }) {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export default function UserListScreen({ history }) {
     dispatch(userDetailsActions._RESET());
   }, [dispatch, userDelete.success]);
   const deleteHandler = (user) => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm('Are you sure?')) {
       dispatch(deleteUser(user._id));
     }
   };

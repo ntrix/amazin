@@ -1,8 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import LoadingOrError from "../../components/LoadingOrError";
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function HeaderNavMain({ setShadowFor }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
@@ -10,7 +10,7 @@ export default function HeaderNavMain({ setShadowFor }) {
   const navMainItem = ([label, linkTo, className]) => {
     return (
       <div key={label} className={className}>
-        <Link to={linkTo} onClick={() => setShadowFor("")}>
+        <Link to={linkTo} onClick={() => setShadowFor('')}>
           {label}
         </Link>
       </div>
@@ -22,7 +22,7 @@ export default function HeaderNavMain({ setShadowFor }) {
       <div className="nav__left">
         <div
           className="open-sidebar nav-main__item flex"
-          onClick={() => setShadowFor("sidebar")}
+          onClick={() => setShadowFor('sidebar')}
         >
           <div className="sprite__bars"></div>
           <b>All</b>
@@ -31,20 +31,20 @@ export default function HeaderNavMain({ setShadowFor }) {
 
       <div className="nav__fill">
         {[
-          ["Netflux Video", "/video"],
-          ["Top Deals", "/deal"],
-          ["New Releases", "/search/category/All/order/newest"],
-          ["Customer Service", "/customer"],
-          ["Best Sellers", "/banner/bestseller"],
+          ['Netflux Video', '/video'],
+          ['Top Deals', '/deal'],
+          ['New Releases', '/search/category/All/order/newest'],
+          ['Customer Service', '/customer'],
+          ['Best Sellers', '/banner/bestseller']
         ].map(([label, linkTo]) =>
-          navMainItem([label, linkTo, "nav-main__item"])
+          navMainItem([label, linkTo, 'nav-main__item'])
         )}
 
         <LoadingOrError statusOf={productCategoryList} />
         {productCategoryList.categories
           ?.slice(0, 15)
           .map((c) =>
-            navMainItem([c, "/search/category/" + c, "nav-main__item"])
+            navMainItem([c, '/search/category/' + c, 'nav-main__item'])
           )}
       </div>
 

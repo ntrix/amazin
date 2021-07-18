@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { productCreateActions } from "../ProductSlice";
-import UTube from "./UTube";
-import { VideoButtons } from "./VideoButtons";
-import { createProduct } from "../../../Controllers/productActions";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { productCreateActions } from '../ProductSlice';
+import UTube from './UTube';
+import { VideoButtons } from './VideoButtons';
+import { createProduct } from '../../../Controllers/productActions';
 
-import { EXAMPLE_MOVIES, NO_IMAGE } from "../../../constants";
-import LoadingOrError from "../../../components/LoadingOrError";
+import { EXAMPLE_MOVIES, NO_IMAGE } from '../../../constants';
+import LoadingOrError from '../../../components/LoadingOrError';
 
 export default function VideoBanner({ source }) {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export default function VideoBanner({ source }) {
   const productCreate = useSelector((state) => state.productCreate);
 
   const history = useHistory();
-  const [trailerUrl, setTrailerUrl] = useState("");
+  const [trailerUrl, setTrailerUrl] = useState('');
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
@@ -38,13 +38,13 @@ export default function VideoBanner({ source }) {
   return (
     <>
       <header
-        className={"banner" + (movie?.image ? "" : " no-image")}
+        className={'banner' + (movie?.image ? '' : ' no-image')}
         style={{
-          backgroundSize: "cover",
+          backgroundSize: 'cover',
           backgroundImage: `url("${
-            movie?.image ? movie.image.split("^")[1] : NO_IMAGE
+            movie?.image ? movie.image.split('^')[1] : NO_IMAGE
           }")`,
-          backgroundPosition: "center center",
+          backgroundPosition: 'center center'
         }}
       >
         <div className="banner__contents">
@@ -67,7 +67,7 @@ export default function VideoBanner({ source }) {
           </div>
 
           <h1 className="banner__description">
-            {movie?.description ? movie.description.slice(0, 150) + ".." : ""}
+            {movie?.description ? movie.description.slice(0, 150) + '..' : ''}
           </h1>
         </div>
 
@@ -92,13 +92,13 @@ export function VideoBannerBottom({ source }) {
 
   return (
     <div
-      className={"banner" + (movie?.image ? "" : " no-image")}
+      className={'banner' + (movie?.image ? '' : ' no-image')}
       style={{
-        backgroundSize: "cover",
+        backgroundSize: 'cover',
         backgroundImage: `url("${
-          movie?.image ? movie.image.split("^")[1] : NO_IMAGE
+          movie?.image ? movie.image.split('^')[1] : NO_IMAGE
         }")`,
-        backgroundPosition: "center 0",
+        backgroundPosition: 'center 0'
       }}
     >
       <div className="banner--fade-top" />

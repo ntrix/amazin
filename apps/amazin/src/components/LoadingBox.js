@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 export default function LoadingBox({
   hide = false,
   xl = false,
-  wrapClass = "",
+  wrapClass = ''
 }) {
   if (hide) return null;
 

@@ -55,7 +55,7 @@ select#currency {
   width: 22px;
   margin: -1rem 3px 0 3px;
   box-shadow: 0 0 0 1px #888;
-  background-image: url("../../../img/flags-globe.png");
+  background-image: url('../../../img/flags-globe.png');
 }
 .EUR {
   background-position: -29px -260px;
@@ -79,7 +79,7 @@ select#currency {
   height: 20px;
   width: 32px;
   margin: 0 1rem;
-  background-image: url("../../../img/flags-globe.png");
+  background-image: url('../../../img/flags-globe.png');
   box-shadow: 0 0 5px #0008;
 }
 .xl.EUR {

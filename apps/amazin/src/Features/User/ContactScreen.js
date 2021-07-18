@@ -1,14 +1,14 @@
-import { axios } from "../../Controllers/axiosClient";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { updateUserProfile } from "../../Controllers/userActions";
-import { userUpdateProfileActions } from "./UserSlice";
+import { axios } from '../../Controllers/axiosClient';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import { updateUserProfile } from '../../Controllers/userActions';
+import { userUpdateProfileActions } from './UserSlice';
 
-import MessageBox from "../../components/MessageBox";
-import CustomInput from "../../components/CustomInput";
-import LoadingOrError from "../../components/LoadingOrError";
+import MessageBox from '../../components/MessageBox';
+import CustomInput from '../../components/CustomInput';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function ContactScreen() {
   const dispatch = useDispatch();
@@ -16,10 +16,10 @@ export default function ContactScreen() {
   const { userInfo } = useSelector((state) => state.userSignin);
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [text, setText] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
   const [message, setMessage] = useState(false);
@@ -32,9 +32,9 @@ export default function ContactScreen() {
 
   useEffect(() => {
     setSubject(paramSub);
-    if ("Seller" === paramSub && userUpdateProfile.success) {
+    if ('Seller' === paramSub && userUpdateProfile.success) {
       dispatch(userUpdateProfileActions._RESET());
-      setMessage("Seller Account verified successfully!");
+      setMessage('Seller Account verified successfully!');
     }
   }, [dispatch, paramSub, userUpdateProfile.success]);
 
@@ -46,44 +46,44 @@ export default function ContactScreen() {
       text,
       email,
       subject,
-      name,
+      name
     };
 
     const errors = [];
     const validate = (err, msg) => {
       if (err) errors.push(msg);
     };
-    validate(!text, "Please enter your message!");
-    validate(!email, "Please enter your email!");
-    validate(!name, "Please enter your name!");
+    validate(!text, 'Please enter your message!');
+    validate(!email, 'Please enter your email!');
+    validate(!name, 'Please enter your name!');
     if (errors.length) return setError(errors);
 
-    if ("Seller" === subject)
+    if ('Seller' === subject)
       return dispatch(
         updateUserProfile({
           userId: userInfo._id,
-          verify: true,
+          verify: true
         })
       );
 
     setLoading(true);
     try {
-      await axios.post("https://mailsv.glitch.me/mail", data, {
+      await axios.post('https://mailsv.glitch.me/mail', data, {
         //"/api/user/contact"
         headers: {
-          mode: "cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        },
+          mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }
       });
       setLoading(false);
-      if ("Admin" === paramSub) {
+      if ('Admin' === paramSub) {
         setMessage(
-          "Your Apply has been sent. Please wait 48 hours for processing!"
+          'Your Apply has been sent. Please wait 48 hours for processing!'
         );
         return false;
       }
-      setMessage("Thank you! Your message has been sent.");
+      setMessage('Thank you! Your message has been sent.');
     } catch (err) {
       setLoading(false);
       setError([err.message]);
@@ -98,6 +98,7 @@ export default function ContactScreen() {
 
         <LoadingOrError xl statusOf={{ loading, error }} />
         <LoadingOrError xl statusOf={userUpdateProfile} />
+
         <MessageBox variant="success" msg={message} />
         {message && (
           <Link to="/">
@@ -118,10 +119,10 @@ export default function ContactScreen() {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                 >
-                  {!userInfo?.isSeller && "Seller" === paramSub && (
+                  {!userInfo?.isSeller && 'Seller' === paramSub && (
                     <option value="Seller">Verify My Seller Account</option>
                   )}
-                  {!userInfo?.isAdmin && "Admin" === paramSub && (
+                  {!userInfo?.isAdmin && 'Admin' === paramSub && (
                     <option value="Admin">Apply To Be Administrator</option>
                   )}
                   <option value="Account">Account</option>

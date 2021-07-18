@@ -99,6 +99,6 @@
   .sprite__loading--xl {
     height: 13px;
     width: 16px;
-    background: url("./img/load-xs.gif");
+    background: url('./img/load-xs.gif');
   }
 }

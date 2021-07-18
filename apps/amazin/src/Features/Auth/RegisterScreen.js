@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { register } from "../../Controllers/userActions";
+import { register } from '../../Controllers/userActions';
 
-import CustomInput from "../../components/CustomInput";
-import LoadingOrError from "../../components/LoadingOrError";
+import CustomInput from '../../components/CustomInput';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function RegisterScreen({ location, history }) {
   const dispatch = useDispatch();
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split('=')[1] : '/';
   const userRegister = useSelector((state) => state.userRegister);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     if (userRegister.userInfo) {
@@ -70,7 +70,7 @@ export default function RegisterScreen({ location, history }) {
         <div>
           <label />
           <div>
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
           </div>
         </div>

@@ -1,28 +1,28 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
-import { listProducts } from "../Controllers/productActions";
-import { listTopSellers } from "../Controllers/userActions";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
+import { listProducts } from '../Controllers/productActions';
+import { listTopSellers } from '../Controllers/userActions';
 import SwiperCore, {
   Navigation,
   EffectCoverflow,
   Scrollbar,
   Autoplay,
-  Pagination,
-} from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css";
+  Pagination
+} from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
 
-import MessageBox from "../components/MessageBox";
-import { dummySellers } from "../constants";
-import LoadingOrError from "../components/LoadingOrError";
+import MessageBox from '../components/MessageBox';
+import { dummySellers } from '../constants';
+import LoadingOrError from '../components/LoadingOrError';
 
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
-  const { banner = "home" } = useParams();
+  const { banner = 'home' } = useParams();
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   const userTopSellersList = useSelector((state) => state.userTopSellersList);
@@ -34,8 +34,8 @@ export default function HomeScreen() {
   }, [dispatch]);
 
   return (
-    <div className={"home-screen"}>
-      <div className={"home__banner " + banner}></div>
+    <div className={'home-screen'}>
+      <div className={'home__banner ' + banner}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       {/* <Carousel
             swipeable={true}
@@ -79,7 +79,7 @@ export default function HomeScreen() {
           slidesPerView="auto"
           autoplay={{
             delay: 2500,
-            disableOnInteraction: true,
+            disableOnInteraction: true
           }}
           loop={true}
           coverflowEffect={{
@@ -87,10 +87,10 @@ export default function HomeScreen() {
             stretch: 0,
             depth: 100,
             modifier: 1,
-            slideShadows: false,
+            slideShadows: false
           }}
           pagination={{
-            clickable: true,
+            clickable: true
           }}
         >
           <LoadingOrError statusOf={userTopSellersList} />

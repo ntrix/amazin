@@ -1,21 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import movieTrailer from "movie-trailer";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import movieTrailer from 'movie-trailer';
 
-import { sourceAdapter } from "../../../utils";
+import { sourceAdapter } from '../../../utils';
 
 export function VideoButtons({
   movie = sourceAdapter([1])[0],
   trailerUrl,
-  setTrailerUrl,
+  setTrailerUrl
 }) {
   const searchTrailer = async () => {
-    if (trailerUrl) setTrailerUrl("");
+    if (trailerUrl) setTrailerUrl('');
     else
       movieTrailer(movie.name)
         .then((url) => {
           const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
+          setTrailerUrl(urlParams.get('v'));
         })
         .catch(() => setTrailerUrl(-1));
   };
@@ -23,7 +23,7 @@ export function VideoButtons({
   return (
     <>
       {trailerUrl ? (
-        <button className="banner__button" onClick={() => setTrailerUrl("")}>
+        <button className="banner__button" onClick={() => setTrailerUrl('')}>
           <i className="fa fa-stop"></i> Close
         </button>
       ) : (
@@ -31,7 +31,7 @@ export function VideoButtons({
           {movie.video && (
             <button
               className="banner__button"
-              disabled={movie.video === "no trailer"}
+              disabled={movie.video === 'no trailer'}
               onClick={() => setTrailerUrl(movie.video)}
             >
               <i className="fa fa-play"></i> Trailer

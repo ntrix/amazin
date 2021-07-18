@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { productReviewCreateActions } from "./ProductSlice";
-import { createReview, detailsProduct } from "../../Controllers/productActions";
+import { productReviewCreateActions } from './ProductSlice';
+import { createReview, detailsProduct } from '../../Controllers/productActions';
 
-import MessageBox from "../../components/MessageBox";
-import Rating from "../../components/Rating";
-import { getImgUrl, pipe } from "../../utils";
-import LoadingOrError from "../../components/LoadingOrError";
+import MessageBox from '../../components/MessageBox';
+import Rating from '../../components/Rating';
+import { getImgUrl, pipe } from '../../utils';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function ProductScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -22,13 +22,13 @@ export default function ProductScreen({ history, match }) {
   const [qty, setQty] = useState(1);
   const [imgActive, setImgActive] = useState(0);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   useEffect(() => {
     if (productReviewCreate.success) {
-      window.alert("Review Submitted Successfully");
-      setRating("");
-      setComment("");
+      window.alert('Review Submitted Successfully');
+      setRating('');
+      setComment('');
       dispatch(productReviewCreateActions._RESET());
     }
     dispatch(detailsProduct(productId));
@@ -45,7 +45,7 @@ export default function ProductScreen({ history, match }) {
         createReview(productId, { rating, comment, name: userInfo.name })
       );
     } else {
-      alert("Please enter comment and rating");
+      alert('Please enter comment and rating');
     }
   };
 
@@ -58,7 +58,7 @@ export default function ProductScreen({ history, match }) {
           <div>
             <div className="row search__banner">
               <Link
-                to={localStorage?.getItem("backToHistory") || "/"}
+                to={localStorage?.getItem('backToHistory') || '/'}
                 className="ml-1"
               >
                 Back to result
@@ -71,7 +71,7 @@ export default function ProductScreen({ history, match }) {
               <div className="tab__w6 flex-col">
                 {product?.image &&
                   product.image
-                    .split("^")
+                    .split('^')
                     .map((img, id) => (
                       <img
                         key={id}
@@ -80,7 +80,7 @@ export default function ProductScreen({ history, match }) {
                         onMouseEnter={() => setImgActive(id)}
                         onClick={() => setImgActive(id)}
                         className={
-                          "product__thumbnail" + (id === imgActive && " active")
+                          'product__thumbnail' + (id === imgActive && ' active')
                         }
                       ></img>
                     ))}
@@ -91,7 +91,7 @@ export default function ProductScreen({ history, match }) {
                   className="large"
                   src={getImgUrl(
                     product._id,
-                    product?.image?.split("^")[imgActive]
+                    product?.image?.split('^')[imgActive]
                   )}
                   alt={`${product.name} ${imgActive}`}
                 ></img>
@@ -112,7 +112,7 @@ export default function ProductScreen({ history, match }) {
 
                 <li>
                   <div>
-                    <span className={"price" + (product.deal ? " danger" : "")}>
+                    <span className={'price' + (product.deal ? ' danger' : '')}>
                       <sup>{pipe.getSymbol()}</sup>
                       {pipe.getNote(product.price)}
                       <sup>{pipe.getCent(product.price)}</sup>
@@ -126,7 +126,7 @@ export default function ProductScreen({ history, match }) {
                             product.price / (1 - product.deal / 100)
                           )}
                         </b>
-                        {"  (" + product.deal}% off)
+                        {'  (' + product.deal}% off)
                       </span>
                     )}
                   </div>
@@ -142,7 +142,7 @@ export default function ProductScreen({ history, match }) {
               <div className="card m-0 card__body">
                 <ul>
                   <li>
-                    Seller{" "}
+                    Seller{' '}
                     <h2>
                       <Link to={`/seller/${product.seller._id}`}>
                         {product.seller.seller.name}

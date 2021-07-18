@@ -1,27 +1,27 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 
-import Pagination from "../../components/Pagination";
-import ProductCard from "../../components/ProductCard";
-import Rating from "../../components/Rating";
-import SortFilter from "../../components/SortFilter";
-import { listProducts } from "../../Controllers/productActions";
+import Pagination from '../../components/Pagination';
+import ProductCard from '../../components/ProductCard';
+import Rating from '../../components/Rating';
+import SortFilter from '../../components/SortFilter';
+import { listProducts } from '../../Controllers/productActions';
 
-import MessageBox from "../../components/MessageBox";
-import { prices, ratings } from "../../constants";
-import LoadingOrError from "../../components/LoadingOrError";
+import MessageBox from '../../components/MessageBox';
+import { prices, ratings } from '../../constants';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function SearchScreen() {
   const dispatch = useDispatch();
   const {
-    name = "All",
-    category = "All",
+    name = 'All',
+    category = 'All',
     min = 0.01,
     max = 0,
     rating = 0,
-    order = "bestselling",
-    pageNumber = 1,
+    order = 'bestselling',
+    pageNumber = 1
   } = useParams();
   const productList = useSelector((state) => state.productList);
   const { products, page, pages, count } = productList;
@@ -36,8 +36,8 @@ export default function SearchScreen() {
         max,
         rating,
         order,
-        name: name !== "All" ? name : "",
-        category: category !== "All" ? category : "",
+        name: name !== 'All' ? name : '',
+        category: category !== 'All' ? category : ''
       })
     );
   }, [category, dispatch, max, min, name, order, rating, pageNumber]);
@@ -60,9 +60,9 @@ export default function SearchScreen() {
           <LoadingOrError statusOf={productCategoryList} />
 
           {categories &&
-            ["All", ...categories].map((label, id) => (
+            ['All', ...categories].map((label, id) => (
               <Link to={getFilterUrl({ category: label })} key={id}>
-                <li className={label === category && " selected"}>{label}</li>
+                <li className={label === category && ' selected'}>{label}</li>
               </Link>
             ))}
         </ul>
@@ -88,8 +88,8 @@ export default function SearchScreen() {
 
               <li>
                 <Link
-                  className={"All" === category && " active"}
-                  to={getFilterUrl({ category: "All" })}
+                  className={'All' === category && ' active'}
+                  to={getFilterUrl({ category: 'All' })}
                 >
                   Any
                 </Link>
@@ -98,7 +98,7 @@ export default function SearchScreen() {
               {categories?.map((c, id) => (
                 <li key={id}>
                   <Link
-                    className={c === category && " active"}
+                    className={c === category && ' active'}
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
@@ -115,7 +115,7 @@ export default function SearchScreen() {
                   <Link
                     to={getFilterUrl({ min: p.min, max: p.max })}
                     className={
-                      `${p.min}-${p.max}` === `${min}-${max}` && " active"
+                      `${p.min}-${p.max}` === `${min}-${max}` && ' active'
                     }
                   >
                     {p.name}
@@ -131,9 +131,9 @@ export default function SearchScreen() {
                 <li key={id}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` && " active"}
+                    className={`${r.rating}` === `${rating}` && ' active'}
                   >
-                    <Rating caption={" & up"} rating={r.rating}></Rating>
+                    <Rating caption={' & up'} rating={r.rating}></Rating>
                   </Link>
                 </li>
               ))}

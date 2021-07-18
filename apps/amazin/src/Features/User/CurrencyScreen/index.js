@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { updateCurrencyRates } from "../../../Controllers/productActions";
-import { updateUserProfile } from "../../../Controllers/userActions";
-import { currencyTypeActions } from "../../Product/ProductSlice";
-import { userUpdateProfileActions } from "../UserSlice";
-import "./currencyScreen.css";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import { updateCurrencyRates } from '../../../Controllers/productActions';
+import { updateUserProfile } from '../../../Controllers/userActions';
+import { currencyTypeActions } from '../../Product/ProductSlice';
+import { userUpdateProfileActions } from '../UserSlice';
+import './currencyScreen.css';
 
-import MessageBox from "../../../components/MessageBox";
-import { pipe } from "../../../utils";
+import MessageBox from '../../../components/MessageBox';
+import { pipe } from '../../../utils';
 
 export default function CurrencyScreen() {
   const dispatch = useDispatch();
@@ -17,13 +17,13 @@ export default function CurrencyScreen() {
   const { userInfo } = useSelector((state) => state.userSignin);
 
   const [currency, setCurrency] = useState(cType || pipe.currency);
-  const [newCurrency, setNewCurrency] = useState("");
+  const [newCurrency, setNewCurrency] = useState('');
 
-  let back = localStorage.getItem("backToHistory");
-  back = !back || back.startsWith("/currency") ? "/" : back;
+  let back = localStorage.getItem('backToHistory');
+  back = !back || back.startsWith('/currency') ? '/' : back;
 
   useEffect(() => {
-    setNewCurrency("");
+    setNewCurrency('');
     setCurrency(cType || pipe.currency);
     if (!userInfo?._id) {
       dispatch(userUpdateProfileActions._RESET());
@@ -31,14 +31,14 @@ export default function CurrencyScreen() {
   }, [cType, dispatch, userInfo?._id]);
 
   const submitHandler = () => {
-    localStorage.setItem("currency", currency);
+    localStorage.setItem('currency', currency);
     pipe.setCurrency(currency);
     dispatch(updateCurrencyRates());
     if (userInfo)
       dispatch(
         updateUserProfile({
           userId: userInfo._id,
-          currency,
+          currency
         })
       );
     dispatch(currencyTypeActions._CHANGE(currency));
@@ -69,11 +69,11 @@ export default function CurrencyScreen() {
 
               <li className="separator"></li>
               {[
-                ["Deutsch", "DE", "Übersetzen"],
-                ["Nederlands", "NL", "Vertaling"],
-                ["Polski", "PL", "Tłumaczenie"],
-                ["Türkçe", "TR", "Çeviri"],
-                ["Čeština", "CS", "Překlad"],
+                ['Deutsch', 'DE', 'Übersetzen'],
+                ['Nederlands', 'NL', 'Vertaling'],
+                ['Polski', 'PL', 'Tłumaczenie'],
+                ['Türkçe', 'TR', 'Çeviri'],
+                ['Čeština', 'CS', 'Překlad']
               ].map(([label, short, text], id) => (
                 <li key={id} className="language disabled">
                   <div className="sprite__wrapper">
@@ -140,7 +140,7 @@ export default function CurrencyScreen() {
             </select>
           </div>
 
-          {currency !== "EUR" && (
+          {currency !== 'EUR' && (
             <p>
               {`Note: You will be shown prices in ${pipe.getSymbol(
                 currency

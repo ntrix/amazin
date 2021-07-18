@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import Rating from "./Rating";
-import { NO_IMAGE } from "../constants";
-import { getImgUrl, pipe, savePath } from "../utils";
+import Rating from './Rating';
+import { NO_IMAGE } from '../constants';
+import { getImgUrl, pipe, savePath } from '../utils';
 
 export default function ProductCard({ product, deal = false }) {
   return (
@@ -14,8 +14,8 @@ export default function ProductCard({ product, deal = false }) {
             className="thumbnail"
             src={getImgUrl(
               product._id,
-              product.image.split("^")[deal ? 1 : 0] ||
-                product.image.split("^")[0] ||
+              product.image.split('^')[deal ? 1 : 0] ||
+                product.image.split('^')[0] ||
                 NO_IMAGE
             )}
             alt={product.name}
@@ -34,7 +34,7 @@ export default function ProductCard({ product, deal = false }) {
 
           <div>
             <div>
-              <span className={"price" + (deal ? " danger" : "")}>
+              <span className={'price' + (deal ? ' danger' : '')}>
                 <sup>{pipe.getSymbol()}</sup>
                 {pipe.getNote(product.price)}
                 <sup>{pipe.getCent(product.price)}</sup>
@@ -46,7 +46,7 @@ export default function ProductCard({ product, deal = false }) {
                     <sup>{pipe.getSymbol()}</sup>
                     {pipe.getPrice(product.price / (1 - product.deal / 100))}
                   </b>
-                  {"  (" + product.deal}% off)
+                  {'  (' + product.deal}% off)
                 </span>
               )}
             </div>
@@ -70,7 +70,7 @@ export default function ProductCard({ product, deal = false }) {
                   >
                     Seller & Store
                     <br />
-                    {product?.seller?.seller?.name || "Anonymous Seller"}
+                    {product?.seller?.seller?.name || 'Anonymous Seller'}
                   </Link>
                 </div>
               </>

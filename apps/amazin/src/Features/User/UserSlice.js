@@ -1,87 +1,75 @@
-import { createSlice, Reducer } from "../RTKClient";
-import { STORAGE_USERINFO } from "../../constants";
+import { createSlice, Reducer } from '../RTKClient';
+import { STORAGE_USERINFO } from '../../constants';
 
-export const {
-  actions: userRegisterActions,
-  reducer: userRegisterReducer,
-} = createSlice({
-  name: "userRegister",
-  initialState: {},
-  reducers: Reducer(STORAGE_USERINFO),
-});
+export const { actions: userRegisterActions, reducer: userRegisterReducer } =
+  createSlice({
+    name: 'userRegister',
+    initialState: {},
+    reducers: Reducer(STORAGE_USERINFO)
+  });
 
-export const {
-  actions: userSigninActions,
-  reducer: userSigninReducer,
-} = createSlice({
-  name: "userSignin",
-  initialState: {},
-  reducers: Reducer(STORAGE_USERINFO),
-});
+export const { actions: userSigninActions, reducer: userSigninReducer } =
+  createSlice({
+    name: 'userSignin',
+    initialState: {},
+    reducers: Reducer(STORAGE_USERINFO)
+  });
 
-export const {
-  actions: userDetailsActions,
-  reducer: userDetailsReducer,
-} = createSlice({
-  name: "userDetails",
-  initialState: { loading: true },
-  reducers: { ...Reducer("user"), _RESET: () => ({ loading: true }) },
-});
+export const { actions: userDetailsActions, reducer: userDetailsReducer } =
+  createSlice({
+    name: 'userDetails',
+    initialState: { loading: true },
+    reducers: { ...Reducer('user'), _RESET: () => ({ loading: true }) }
+  });
 
 export const {
   actions: userUpdateProfileActions,
-  reducer: userUpdateProfileReducer,
+  reducer: userUpdateProfileReducer
 } = createSlice({
-  name: "userUpdateProfile",
+  name: 'userUpdateProfile',
   initialState: {},
-  reducers: Reducer(),
+  reducers: Reducer()
 });
 
-export const {
-  actions: userUpdateActions,
-  reducer: userUpdateReducer,
-} = createSlice({
-  name: "userUpdate",
-  initialState: {},
-  reducers: Reducer(),
-});
+export const { actions: userUpdateActions, reducer: userUpdateReducer } =
+  createSlice({
+    name: 'userUpdate',
+    initialState: {},
+    reducers: Reducer()
+  });
 
-export const {
-  actions: userListActions,
-  reducer: userListReducer,
-} = createSlice({
-  name: "userList",
-  initialState: { loading: true },
-  reducers: Reducer("users"),
-});
+export const { actions: userListActions, reducer: userListReducer } =
+  createSlice({
+    name: 'userList',
+    initialState: { loading: true },
+    reducers: Reducer('users')
+  });
 
-export const {
-  actions: userDeleteActions,
-  reducer: userDeleteReducer,
-} = createSlice({
-  name: "userDelete",
-  initialState: {},
-  reducers: Reducer(),
-});
+export const { actions: userDeleteActions, reducer: userDeleteReducer } =
+  createSlice({
+    name: 'userDelete',
+    initialState: {},
+    reducers: Reducer()
+  });
 
 export const {
   actions: userTopSellerListActions,
-  reducer: userTopSellerListReducer,
+  reducer: userTopSellerListReducer
 } = createSlice({
-  name: "userTopSellerList",
+  name: 'userTopSellerList',
   initialState: { loading: true },
-  reducers: Reducer("users"),
+  reducers: Reducer('users')
 });
 
 export const {
   actions: userAddressMapActions,
-  reducer: userAddressMapReducer,
+  reducer: userAddressMapReducer
 } = createSlice({
-  name: "userAddressMap",
+  name: 'userAddressMap',
   initialState: {},
   reducers: {
     _CONFIRM: (state, action) => ({
-      address: action.payload,
-    }),
-  },
+      address: action.payload
+    })
+  }
 });

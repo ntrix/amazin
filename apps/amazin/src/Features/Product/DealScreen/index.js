@@ -1,26 +1,26 @@
-import React, { useLayoutEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import ProductCard from "../../../components/ProductCard";
-import SortFilter from "../../../components/SortFilter";
-import { listProducts } from "../../../Controllers/productActions";
-import "./dealScreen.css";
+import React, { useLayoutEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import ProductCard from '../../../components/ProductCard';
+import SortFilter from '../../../components/SortFilter';
+import { listProducts } from '../../../Controllers/productActions';
+import './dealScreen.css';
 
-import MessageBox from "../../../components/MessageBox";
-import Carousel, { dummyProducts, responsive } from "../../../constants";
-import LoadingOrError from "../../../components/LoadingOrError";
+import MessageBox from '../../../components/MessageBox';
+import Carousel, { dummyProducts, responsive } from '../../../constants';
+import LoadingOrError from '../../../components/LoadingOrError';
 
 export default function DealScreen() {
   const dispatch = useDispatch();
   const {
-    category = "Deals",
-    order = "bestselling",
-    pageNumber = 1,
+    category = 'Deals',
+    order = 'bestselling',
+    pageNumber = 1
   } = useParams();
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   const productCategoryList = useSelector((state) => state.productCategoryList);
-  const [cat, setCat] = useState("Deals");
+  const [cat, setCat] = useState('Deals');
   let isMounted = true;
 
   useLayoutEffect(() => {
@@ -29,9 +29,9 @@ export default function DealScreen() {
         listProducts({
           pageNumber,
           order,
-          category: cat === "Deals" ? "" : cat,
+          category: cat === 'Deals' ? '' : cat,
           deal: 1,
-          pageSize: 990,
+          pageSize: 990
         })
       ); // eslint-disable-next-line
     return () => (isMounted = false);
@@ -44,10 +44,10 @@ export default function DealScreen() {
           <LoadingOrError statusOf={productCategoryList} />
 
           {productCategoryList.categories &&
-            ["Deals", ...productCategoryList.categories].map((label, id) => (
+            ['Deals', ...productCategoryList.categories].map((label, id) => (
               <li
                 key={id}
-                className={label === cat ? " selected" : ""}
+                className={label === cat ? ' selected' : ''}
                 onClick={() => setCat(label)}
               >
                 {label}
@@ -57,7 +57,7 @@ export default function DealScreen() {
       </header>
 
       <div
-        className={"deal-screen" + (Math.random() < 0.5 ? "" : " screen--1")}
+        className={'deal-screen' + (Math.random() < 0.5 ? '' : ' screen--1')}
       >
         <LoadingOrError statusOf={productList} />
 
@@ -78,7 +78,7 @@ export default function DealScreen() {
             transitionDuration={500}
             centerMode={true}
             containerClass="carousel-container"
-            removeArrowOnDeviceType={["mobile"]}
+            removeArrowOnDeviceType={['mobile']}
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >

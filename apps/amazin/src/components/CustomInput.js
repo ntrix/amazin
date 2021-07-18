@@ -1,14 +1,14 @@
 export default function CustomInput({
   text,
-  type = "text",
+  type = 'text',
   placeholder = `Enter ${text}`,
   hook,
   textarea = false,
   noLabel = false,
-  wrapClass = "",
+  wrapClass = '',
   ...rest
 }) {
-  const id = text.split(" ").join("-").toLowerCase();
+  const id = text.split(' ').join('-').toLowerCase();
   const props = Object.assign(rest, { id, text, type, placeholder });
   if (hook) {
     props.value = hook[0];

@@ -1,28 +1,28 @@
-import React from "react";
-import Rating from "../../../components/Rating";
-import { NO_IMAGE } from "../../../constants";
-import { getImgUrl } from "../../../utils";
-import { VideoButtons } from "./VideoButtons";
+import React from 'react';
+import Rating from '../../../components/Rating';
+import { NO_IMAGE } from '../../../constants';
+import { getImgUrl } from '../../../utils';
+import { VideoButtons } from './VideoButtons';
 
 export default function VideoCard({
   movie,
   portrait,
   trailerUrl,
-  setTrailerUrl,
+  setTrailerUrl
 }) {
   return (
-    <div className={"m-card" + (portrait ? " m-card--portrait" : "")}>
+    <div className={'m-card' + (portrait ? ' m-card--portrait' : '')}>
       <img
         src={getImgUrl(
           movie._id,
-          movie.image ? movie.image.split("^")[1 - portrait] : NO_IMAGE
+          movie.image ? movie.image.split('^')[1 - portrait] : NO_IMAGE
         )}
         alt={movie.name}
       />
 
       <div className="m-card__background">
         <div className="m-card__text">
-          {movie?.description.slice(0, 150) + ".."}
+          {movie?.description.slice(0, 150) + '..'}
           <div className="m-card__rating">
             <Rating
               rating={movie?.rating * 2}

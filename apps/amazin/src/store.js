@@ -1,13 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
+import { configureStore } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 
 import {
   STORAGE_CART_ITEMS,
   STORAGE_SHIPPING_ADDRESS,
-  STORAGE_USERINFO,
-} from "./constants";
+  STORAGE_USERINFO
+} from './constants';
 
-import { cartReducer } from "./Features/Checkout/CartSlice";
+import { cartReducer } from './Features/Checkout/CartSlice';
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -15,8 +15,8 @@ import {
   orderDetailsReducer,
   orderListReducer,
   orderMineListReducer,
-  orderPayReducer,
-} from "./Features/Order/OrderSlice";
+  orderPayReducer
+} from './Features/Order/OrderSlice';
 import {
   productCategoryListReducer,
   productCreateReducer,
@@ -26,8 +26,8 @@ import {
   productListAllReducer,
   productReviewCreateReducer,
   productUpdateReducer,
-  currencyTypeReducer,
-} from "./Features/Product/ProductSlice";
+  currencyTypeReducer
+} from './Features/Product/ProductSlice';
 import {
   userAddressMapReducer,
   userDeleteReducer,
@@ -37,14 +37,14 @@ import {
   userSigninReducer,
   userTopSellerListReducer,
   userUpdateProfileReducer,
-  userUpdateReducer,
-} from "./Features/User/UserSlice.js";
+  userUpdateReducer
+} from './Features/User/UserSlice.js';
 
 const preloadedState = {
   userSignin: {
     userInfo: localStorage.getItem(STORAGE_USERINFO)
       ? JSON.parse(localStorage.getItem(STORAGE_USERINFO))
-      : null,
+      : null
   },
 
   cart: {
@@ -56,8 +56,8 @@ const preloadedState = {
       ? JSON.parse(localStorage.getItem(STORAGE_SHIPPING_ADDRESS))
       : {},
 
-    paymentMethod: "PayPal",
-  },
+    paymentMethod: 'PayPal'
+  }
 };
 
 const store = configureStore({
@@ -88,10 +88,10 @@ const store = configureStore({
     userTopSellersList: userTopSellerListReducer,
     productCategoryList: productCategoryListReducer,
     productReviewCreate: productReviewCreateReducer,
-    userAddressMap: userAddressMapReducer,
+    userAddressMap: userAddressMapReducer
   },
   middleware: [thunk],
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== 'production'
 });
 
 export default store;

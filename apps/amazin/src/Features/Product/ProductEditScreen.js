@@ -1,17 +1,17 @@
-import axiosClient from "../../Controllers/axiosClient";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import axiosClient from '../../Controllers/axiosClient';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   detailsProduct,
-  updateProduct,
-} from "../../Controllers/productActions";
-import { productUpdateActions } from "./ProductSlice";
+  updateProduct
+} from '../../Controllers/productActions';
+import { productUpdateActions } from './ProductSlice';
 
-import LoadingOrError from "../../components/LoadingOrError";
-import MessageBox from "../../components/MessageBox";
-import CustomInput from "../../components/CustomInput";
-import { MAX_IMAGES } from "../../constants";
-import { getImgUrl } from "../../utils";
+import LoadingOrError from '../../components/LoadingOrError';
+import MessageBox from '../../components/MessageBox';
+import CustomInput from '../../components/CustomInput';
+import { MAX_IMAGES } from '../../constants';
+import { getImgUrl } from '../../utils';
 
 export default function ProductEditScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -21,23 +21,23 @@ export default function ProductEditScreen({ history, match }) {
   const { product } = productDetails;
   const productUpdate = useSelector((state) => state.productUpdate);
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [deal, setDeal] = useState("");
-  const [ship, setShip] = useState("");
-  const [video, setVideo] = useState("");
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [deal, setDeal] = useState('');
+  const [ship, setShip] = useState('');
+  const [video, setVideo] = useState('');
   const [images, setImages] = useState([]);
   const [upload, setUpload] = useState({ loading: false });
-  const [imagePreview, setImagePreview] = useState("");
-  const [category, setCategory] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-  const [brand, setBrand] = useState("");
-  const [description, setDescription] = useState("");
-  const [info, setInfo] = useState("");
+  const [imagePreview, setImagePreview] = useState('');
+  const [category, setCategory] = useState('');
+  const [countInStock, setCountInStock] = useState('');
+  const [brand, setBrand] = useState('');
+  const [description, setDescription] = useState('');
+  const [info, setInfo] = useState('');
 
   useEffect(() => {
     if (productUpdate.success) {
-      history.push("/product-list");
+      history.push('/product-list');
       dispatch(productUpdateActions._RESET());
       dispatch(detailsProduct(productId));
       return;
@@ -52,7 +52,7 @@ export default function ProductEditScreen({ history, match }) {
     setDeal(product.deal);
     setShip(product.ship);
     setVideo(product.video);
-    setImages(product.image.split("^"));
+    setImages(product.image.split('^'));
     setCategory(product.category);
     setCountInStock(product.countInStock);
     setBrand(product.brand);
@@ -74,7 +74,7 @@ export default function ProductEditScreen({ history, match }) {
         countInStock,
         description,
         _id: productId,
-        image: images.join("^"),
+        image: images.join('^')
       })
     );
   };
@@ -82,11 +82,11 @@ export default function ProductEditScreen({ history, match }) {
   const asyncUpdateImgs = async (newImages, bodyFormData, updateInfo) => {
     setUpload({ loading: true });
     try {
-      await axiosClient.patch("/api/uploads", bodyFormData, {
+      await axiosClient.patch('/api/uploads', bodyFormData, {
         headers: {
-          enctype: "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
+          enctype: 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`
+        }
       });
       setImages(newImages);
       setInfo(updateInfo);
@@ -103,8 +103,8 @@ export default function ProductEditScreen({ history, match }) {
     const uploadSize = Math.min(uploadImgsCount, MAX_IMAGES - images.length);
 
     const uploadImgs = Array.from(files).slice(0, uploadSize);
-    uploadImgs.forEach((img) => bodyFormData.append("images", img));
-    bodyFormData.append("productId", product._id);
+    uploadImgs.forEach((img) => bodyFormData.append('images', img));
+    bodyFormData.append('productId', product._id);
     asyncUpdateImgs(
       [...images, ...uploadImgs],
       bodyFormData,
@@ -114,14 +114,14 @@ export default function ProductEditScreen({ history, match }) {
 
   const handleDeleteImg = (idx) => (e) => {
     e.preventDefault();
-    if (!window.confirm("Do you really want to delete this image?")) return;
+    if (!window.confirm('Do you really want to delete this image?')) return;
 
     /* TODO: delete image on cloudinary and update immediately to DB */
     const newImages = images.filter((_, i) => i !== idx);
     const bodyFormData = new FormData();
-    bodyFormData.append("imgLink", images[idx]);
-    bodyFormData.append("productId", product._id);
-    bodyFormData.append("image", newImages.join("^"));
+    bodyFormData.append('imgLink', images[idx]);
+    bodyFormData.append('productId', product._id);
+    bodyFormData.append('image', newImages.join('^'));
     asyncUpdateImgs(newImages, bodyFormData);
   };
 
@@ -138,12 +138,12 @@ export default function ProductEditScreen({ history, match }) {
         ...images.slice(0, id - 1),
         images[id],
         images[id - 1],
-        ...images.slice(id + 1),
+        ...images.slice(id + 1)
       ]);
   };
 
   const handleAddImgLinkOnEnter = (e) => {
-    if (e.key === "Enter") setImages([...images, imagePreview]);
+    if (e.key === 'Enter') setImages([...images, imagePreview]);
   };
 
   return (
@@ -186,7 +186,7 @@ export default function ProductEditScreen({ history, match }) {
                   </div>
 
                   <CustomInput
-                    text={`Image ${id + 1} ${["COVER", "[DEAL]"][id] || ""}`}
+                    text={`Image ${id + 1} ${['COVER', '[DEAL]'][id] || ''}`}
                     className="row"
                     value={img}
                     onChange={handleUpdateImgLink(id)}

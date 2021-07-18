@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { userUpdateProfileActions } from "./UserSlice";
-import { detailsUser, updateUserProfile } from "../../Controllers/userActions";
+import { userUpdateProfileActions } from './UserSlice';
+import { detailsUser, updateUserProfile } from '../../Controllers/userActions';
 
-import MessageBox from "../../components/MessageBox";
-import PrivateRoute from "../Route/PrivateRoute";
-import CustomInput from "../../components/CustomInput";
-import LoadingOrError from "../../components/LoadingOrError";
+import MessageBox from '../../components/MessageBox';
+import PrivateRoute from '../Route/PrivateRoute';
+import CustomInput from '../../components/CustomInput';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function ProfileScreen() {
   const dispatch = useDispatch();
@@ -16,14 +16,14 @@ export default function ProfileScreen() {
   const { user } = userDetails;
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
-  const [sellerName, setSellerName] = useState("");
-  const [sellerLogo, setSellerLogo] = useState("");
-  const [sellerDescription, setSellerDescription] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [sellerName, setSellerName] = useState('');
+  const [sellerLogo, setSellerLogo] = useState('');
+  const [sellerDescription, setSellerDescription] = useState('');
 
   useEffect(() => {
     if (!user) {
@@ -33,7 +33,7 @@ export default function ProfileScreen() {
     }
     setName(user.name);
     setEmail(user.email);
-    setOldPassword("");
+    setOldPassword('');
     if (user.seller) {
       setSellerName(user.seller.name);
       setSellerLogo(user.seller.logo);
@@ -57,7 +57,7 @@ export default function ProfileScreen() {
         oldPassword,
         sellerName,
         sellerLogo,
-        sellerDescription,
+        sellerDescription
       })
     );
     // }

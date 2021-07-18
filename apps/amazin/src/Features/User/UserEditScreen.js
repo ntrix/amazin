@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { userUpdateActions } from "./UserSlice";
-import { detailsUser, updateUser } from "../../Controllers/userActions";
+import { userUpdateActions } from './UserSlice';
+import { detailsUser, updateUser } from '../../Controllers/userActions';
 
-import CustomInput from "../../components/CustomInput";
-import LoadingOrError from "../../components/LoadingOrError";
+import CustomInput from '../../components/CustomInput';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function UserEditScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -14,15 +14,15 @@ export default function UserEditScreen({ history, match }) {
   const { user } = userDetails;
   const userUpdate = useSelector((state) => state.userUpdate);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isSeller, setIsSeller] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (userUpdate.success) {
       dispatch(userUpdateActions._RESET());
-      history.push("/user-list");
+      history.push('/user-list');
     }
     if (!user) {
       dispatch(detailsUser(userId));

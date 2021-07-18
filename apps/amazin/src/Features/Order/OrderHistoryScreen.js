@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { listOrderMine } from "../../Controllers/orderActions";
+import { listOrderMine } from '../../Controllers/orderActions';
 
-import { CURRENCY, DD_MM_YYYY } from "../../constants";
-import LoadingOrError from "../../components/LoadingOrError";
+import { CURRENCY, DD_MM_YYYY } from '../../constants';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function OrderHistoryScreen(props) {
   const dispatch = useDispatch();
@@ -39,13 +39,13 @@ export default function OrderHistoryScreen(props) {
               <td>{order.createdAt.substring(0, DD_MM_YYYY)}</td>
               <td>{order.totalPrice.toFixed(CURRENCY)}</td>
               <td>
-                {order.isPaid ? order.paidAt.substring(0, DD_MM_YYYY) : "No"}
+                {order.isPaid ? order.paidAt.substring(0, DD_MM_YYYY) : 'No'}
               </td>
 
               <td>
                 {order.isDelivered
                   ? order.deliveredAt.substring(0, DD_MM_YYYY)
-                  : "No"}
+                  : 'No'}
               </td>
 
               <td>

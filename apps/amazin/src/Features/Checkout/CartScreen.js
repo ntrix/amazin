@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { addToCart, removeFromCart } from "../../Controllers/cartActions";
-import { getImgUrl, pipe } from "../../utils";
+import { addToCart, removeFromCart } from '../../Controllers/cartActions';
+import { getImgUrl, pipe } from '../../utils';
 
-import MessageBox from "../../components/MessageBox";
+import MessageBox from '../../components/MessageBox';
 
 export default function CartScreen(props) {
   const productId = props.match.params.id;
   const qty = props.location.search
-    ? Number(props.location.search.split("=")[1])
+    ? Number(props.location.search.split('=')[1])
     : 1;
   const cart = useSelector((state) => state.cart);
   const { cartItems, error } = cart;
@@ -27,7 +27,7 @@ export default function CartScreen(props) {
   };
 
   const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
+    props.history.push('/signin?redirect=shipping');
   };
   return (
     <div className="screen--light row top">
@@ -38,7 +38,7 @@ export default function CartScreen(props) {
 
         {cartItems.length === 0 ? (
           <MessageBox show>
-            Your cart is still empty.{" "}
+            Your cart is still empty.{' '}
             <Link to="/">
               <b>Let's go back and shopping something first.</b>
             </Link>
@@ -53,7 +53,7 @@ export default function CartScreen(props) {
                   <td className="tab__w6">
                     <Link to={`/product/${item.product}`}>
                       <img
-                        src={getImgUrl(item.product, item.image.split("^")[0])}
+                        src={getImgUrl(item.product, item.image.split('^')[0])}
                         alt={item.name}
                         className="small"
                       ></img>
@@ -110,7 +110,7 @@ export default function CartScreen(props) {
           <ul>
             <li>
               <h2>
-                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :{" "}
+                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :{' '}
                 {pipe.showPrice(
                   cartItems.reduce((a, c) => a + c.price * c.qty, 0)
                 )}
@@ -122,7 +122,7 @@ export default function CartScreen(props) {
                 type="button"
                 onClick={checkoutHandler}
                 className={
-                  "primary block" + (!cartItems.length ? " disabled" : "")
+                  'primary block' + (!cartItems.length ? ' disabled' : '')
                 }
                 disabled={cartItems.length === 0}
               >

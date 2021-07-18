@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { signin, updateUserProfile } from "../../Controllers/userActions";
-import { updateCurrencyRates } from "../../Controllers/productActions";
+import { signin, updateUserProfile } from '../../Controllers/userActions';
+import { updateCurrencyRates } from '../../Controllers/productActions';
 
-import { pipe } from "../../utils";
-import CustomInput from "../../components/CustomInput";
-import LoadingOrError from "../../components/LoadingOrError";
+import { pipe } from '../../utils';
+import CustomInput from '../../components/CustomInput';
+import LoadingOrError from '../../components/LoadingOrError';
 
 export default function SigninScreen({ location, history }) {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -27,7 +27,7 @@ export default function SigninScreen({ location, history }) {
         dispatch(
           updateUserProfile({
             userId: userInfo._id,
-            currency: pipe.currency,
+            currency: pipe.currency
           })
         );
       history.push(redirect);
@@ -71,7 +71,7 @@ export default function SigninScreen({ location, history }) {
         <div>
           <label />
           <div>
-            New customer?{" "}
+            New customer?{' '}
             <Link to={`/register?redirect=${redirect}`}>
               <b>Create your account</b>
             </Link>

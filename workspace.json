@@ -27,7 +27,7 @@
           "executor": "@nrwl/workspace:run-commands",
           "outputs": [],
           "options": {
-            "command": "node ../../node_modules/.bin/eslint src/**/*.tsx src/**/*.ts",
+            "command": "node ../../node_modules/.bin/eslint src/**/*.js",
             "cwd": "apps/amazin"
           }
         },
@@ -62,7 +62,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/amazin-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/amazin-e2e/**/*.{js}"]
           }
         }
       }

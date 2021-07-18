@@ -1,9 +1,9 @@
-import { CURRENCY, baseURL, NO_IMAGE } from "./constants";
+import { CURRENCY, baseURL, NO_IMAGE } from './constants';
 
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
-  currency: "EUR",
-  currencies: ["EUR", "GBP", "USD", "PLN", "CZK", "CHF"],
+  currency: 'EUR',
+  currencies: ['EUR', 'GBP', 'USD', 'PLN', 'CZK', 'CHF'],
   rates: {
     //default dummy rate
     EUR: 1,
@@ -11,7 +11,7 @@ export const pipe = {
     GBP: 0.9,
     CZK: 27,
     PLN: 5,
-    CHF: 1.1,
+    CHF: 1.1
   },
   setCurrency(currency) {
     this.currency = currency;
@@ -22,22 +22,22 @@ export const pipe = {
   },
   getSymbol(currency = this.currency) {
     return {
-      GBP: "£",
-      USD: "$",
-      PLN: "zł",
-      CZK: "Kč",
-      CHF: "CHf",
-      EUR: "€",
+      GBP: '£',
+      USD: '$',
+      PLN: 'zł',
+      CZK: 'Kč',
+      CHF: 'CHf',
+      EUR: '€'
     }[currency];
   },
   getName(currency) {
     return {
-      GBP: "GB Pounds",
-      USD: "US Dollar",
-      PLN: "Polish Zloty",
-      CZK: "Czech Koruna",
-      CHF: "Swiss France",
-      EUR: "Euro (Default)",
+      GBP: 'GB Pounds',
+      USD: 'US Dollar',
+      PLN: 'Polish Zloty',
+      CZK: 'Czech Koruna',
+      CHF: 'Swiss France',
+      EUR: 'Euro (Default)'
     }[currency || this.currency];
   },
   getRate(currency) {
@@ -54,27 +54,29 @@ export const pipe = {
   },
   showPrice(price) {
     return `${this.getSymbol()} ${this.getPrice(price)}`;
-  },
+  }
 };
 
 /* save current path to localStorage, no need to save path on the same screen */
-export const savePath = (exceptionStartWith = "@") => () => {
-  if (!window.location.pathname.startsWith(exceptionStartWith))
-    localStorage.setItem("backToHistory", window.location.pathname);
-};
+export const savePath =
+  (exceptionStartWith = '@') =>
+  () => {
+    if (!window.location.pathname.startsWith(exceptionStartWith))
+      localStorage.setItem('backToHistory', window.location.pathname);
+  };
 
 /* adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
 export const sourceAdapter = (movies) =>
   movies?.map((m) => ({
     name: m.name || m.title || m.original_title || m.original_name,
     image:
-      m.image || [baseURL + m.poster_path, baseURL + m.backdrop_path].join("^"),
+      m.image || [baseURL + m.poster_path, baseURL + m.backdrop_path].join('^'),
     rating: m.rating || m.vote_average / 2 || 0,
     numReviews: m.numReviews || m.vote_count || 0,
     description: m.description || m.overview,
     video: m.video,
     seller: m.seller,
-    _id: m._id,
+    _id: m._id
   }));
 
 /* create an array of 12 dummyMovies (a row) for videoRow(s) */
@@ -82,16 +84,16 @@ export const dummyMovies = sourceAdapter(Array(12).fill(1));
 
 /* find suggestions util. for searchBox's dropdown suggest list */
 export const findSuggest = (() => {
-  const openTag = "<b>";
-  const closeTag = "</b>";
+  const openTag = '<b>';
+  const closeTag = '</b>';
   // eslint-disable-next-line
-  const escapeC = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,\'\"\&.?\s]/g, "\\$&");
+  const escapeC = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,\'\"\&.?\s]/g, '\\$&');
 
-  const combinePhrases = new RegExp(escapeC(closeTag + openTag), "g");
+  const combinePhrases = new RegExp(escapeC(closeTag + openTag), 'g');
 
   const group = new RegExp(
     `(${escapeC(openTag)}[\\s\\S]+?${escapeC(closeTag)})`,
-    "g"
+    'g'
   );
 
   const findPriority = (string, word) => {
@@ -108,17 +110,17 @@ export const findSuggest = (() => {
       if (!list || !keyword) return [];
 
       keyword = keyword.slice(0, 49);
-      const splittedKeys = keyword.split("");
+      const splittedKeys = keyword.split('');
 
       const convertedKey = splittedKeys.reduce(
         (acc, char) => `${acc}(${escapeC(char)})(.*?)`,
-        "(.*?)"
+        '(.*?)'
       );
-      const regKey = new RegExp(convertedKey, "i");
+      const regKey = new RegExp(convertedKey, 'i');
 
       const replacer = splittedKeys.reduce(
         (acc, _, i) => `${acc}${openTag}$${i * 2 + 2}${closeTag}$${i * 2 + 3}`,
-        "$1"
+        '$1'
       );
 
       const result = list.reduce(
@@ -127,8 +129,8 @@ export const findSuggest = (() => {
             ? acc.concat({
                 name: item.name
                   .replace(regKey, replacer)
-                  .replace(combinePhrases, ""),
-                _id: item._id,
+                  .replace(combinePhrases, ''),
+                _id: item._id
               })
             : acc,
         []
@@ -137,21 +139,21 @@ export const findSuggest = (() => {
       return result.sort(
         (a, b) => findPriority(b.name, keyword) - findPriority(a.name, keyword)
       );
-    },
+    }
   };
 })();
 
 export function shortName(user, length) {
-  if (!user) return "Sign In";
+  if (!user) return 'Sign In';
   if (!length) return user.name;
-  const name = user.name.split(" ")[0];
-  return name.slice(0, length) + (name.length > length ? ".." : "");
+  const name = user.name.split(' ')[0];
+  return name.slice(0, length) + (name.length > length ? '..' : '');
 }
 
 export const getImgUrl = (productId, imgName) => {
   if (!imgName) return NO_IMAGE;
   // extern absolute Image Link? or embedded Image Link?
-  return imgName.startsWith("http") || imgName.startsWith("/")
+  return imgName.startsWith('http') || imgName.startsWith('/')
     ? imgName
     : `${process.env.REACT_APP_IMG_BASE_URL}${productId}/${imgName}`;
 };

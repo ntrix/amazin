@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
-import { saveShippingAddress } from "../../Controllers/cartActions";
+import { saveShippingAddress } from '../../Controllers/cartActions';
 
-import CheckoutSteps from "./CheckoutSteps";
-import CustomInput from "../../components/CustomInput";
+import CheckoutSteps from './CheckoutSteps';
+import CustomInput from '../../components/CustomInput';
 
 export default function ShippingAddressScreen({ history }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
-  if (!userInfo) history.push("/signin");
+  if (!userInfo) history.push('/signin');
 
   const userAddressMap = useSelector((state) => state.userAddressMap);
   const { address: addressMap } = userAddressMap;
 
-  const [fullName, setFullName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [country, setCountry] = useState("");
+  const [fullName, setFullName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [country, setCountry] = useState('');
 
   const { shippingAddress } = useSelector((state) => state.cart);
   const [lat, setLat] = useState(shippingAddress.lat);
@@ -43,7 +43,7 @@ export default function ShippingAddressScreen({ history }) {
     }
     let moveOn = true;
     if (!newLat || !newLng)
-      moveOn = window.confirm("Continue setting your location?");
+      moveOn = window.confirm('Continue setting your location?');
     if (moveOn) {
       dispatch(
         saveShippingAddress({
@@ -53,10 +53,10 @@ export default function ShippingAddressScreen({ history }) {
           postalCode,
           country,
           lat: newLat,
-          lng: newLng,
+          lng: newLng
         })
       );
-      history.push("/payment");
+      history.push('/payment');
     }
   };
 
@@ -70,11 +70,11 @@ export default function ShippingAddressScreen({ history }) {
         postalCode,
         country,
         lat,
-        lng,
+        lng
       })
     );
-    localStorage.setItem("backToHistory", location.pathname);
-    history.push("/map");
+    localStorage.setItem('backToHistory', location.pathname);
+    history.push('/map');
   };
 
   return (

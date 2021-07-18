@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { savePaymentMethod } from "../../Controllers/cartActions";
+import { savePaymentMethod } from '../../Controllers/cartActions';
 
-import CheckoutSteps from "./CheckoutSteps";
-import CustomInput from "../../components/CustomInput";
+import CheckoutSteps from './CheckoutSteps';
+import CustomInput from '../../components/CustomInput';
 
 export default function PaymentMethodScreen({ history }) {
   const dispatch = useDispatch();
   const { shippingAddress, cartItems } = useSelector((state) => state.cart);
-  if (!shippingAddress.address) history.push("/shipping");
+  if (!shippingAddress.address) history.push('/shipping');
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
-    if (cartItems.length) history.push("/place-order");
-    else history.push("/cart");
+    if (cartItems.length) history.push('/place-order');
+    else history.push('/cart');
   };
 
   return (
@@ -36,7 +36,7 @@ export default function PaymentMethodScreen({ history }) {
           checked
           name="paymentMethod"
           type="radio"
-          hook={["PayPal", setPaymentMethod]}
+          hook={['PayPal', setPaymentMethod]}
         />
 
         <CustomInput
@@ -45,7 +45,7 @@ export default function PaymentMethodScreen({ history }) {
           required
           name="paymentMethod"
           type="radio"
-          hook={["Stripe", setPaymentMethod]}
+          hook={['Stripe', setPaymentMethod]}
         />
 
         <div>
