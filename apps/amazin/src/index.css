@@ -96,6 +96,13 @@ body {
 .dark.disabled:hover {
   color: #888 !important;
 }
+
+/* Error Page */
+.error-page {
+  min-height: 5rem;
+  max-height: 40rem;
+}
+
 /* Layout */
 .container--grid {
   display: grid;

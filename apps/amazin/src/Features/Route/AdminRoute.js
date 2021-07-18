@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route } from './RouteBoundary';
 
 export default function AdminRoute({ component: Component, ...rest }) {
   const { userInfo } = useSelector((state) => state.userSignin);

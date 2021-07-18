@@ -5,7 +5,7 @@ import Rating from './Rating';
 import { NO_IMAGE } from '../constants';
 import { getImgUrl, pipe, savePath } from '../utils';
 
-export default function ProductCard({ product, deal = false }) {
+function ProductCard({ product, deal = false }) {
   return (
     <div className="card flex">
       <div className="card__center">
@@ -80,4 +80,8 @@ export default function ProductCard({ product, deal = false }) {
       </div>
     </div>
   );
+}
+
+export default function PCMemo(props) {
+  return React.memo(<ProductCard {...props} />, props);
 }

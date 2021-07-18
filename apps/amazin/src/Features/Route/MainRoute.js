@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch } from './RouteBoundary';
 
 import RegisterScreen from '../Auth/RegisterScreen';
 import SigninScreen from '../Auth/SigninScreen';
