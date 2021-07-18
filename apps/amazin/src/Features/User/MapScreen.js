@@ -11,6 +11,7 @@ import axiosClient from '../../Controllers/axiosClient';
 import { userAddressMapActions } from './UserSlice';
 
 import LoadingBox from '../../components/LoadingBox';
+import MessageBox from '../../components/MessageBox';
 import { START_LOCAL_LAT, START_LOCAL_LNG } from '../../constants';
 
 const libs = ['places'];
@@ -21,6 +22,8 @@ export default function MapScreen({ history }) {
   const [googleApiKey, setGoogleApiKey] = useState('');
   const [center, setCenter] = useState(defaultLocation);
   const [location, setLocation] = useState(center);
+  const [error, setError] = useState('');
+  const [info, setInfo] = useState('');
 
   const mapRef = useRef(null);
   const placeRef = useRef(null);
@@ -35,7 +38,7 @@ export default function MapScreen({ history }) {
       })();
     } catch (err) {
       // TODO errors report to server, websocket
-      console.log(err);
+      setError(err);
     }
   }, []);
 
@@ -65,7 +68,7 @@ export default function MapScreen({ history }) {
       setLocation({ lat: place.lat(), lng: place.lng() });
     } catch (err) {
       // TODO errors report to server, websocket
-      console.log(err);
+      setError(err);
     }
   };
 
@@ -82,16 +85,16 @@ export default function MapScreen({ history }) {
           googleAddressId: places[0].id
         })
       );
-      alert('location selected successfully.');
+      setInfo('location selected successfully.');
       history.push('/shipping');
     } else {
-      alert('Please enter your address');
+      setError('Please enter your address');
     }
   };
 
   const getUserCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation os not supported by this browser');
+      setError('Geolocation os not supported by this browser');
     } else {
       navigator.geolocation.getCurrentPosition((position) => {
         setCenter({
@@ -112,6 +115,9 @@ export default function MapScreen({ history }) {
 
   return googleApiKey ? (
     <div className="container--fluid">
+      <MessageBox msg={error} />
+      <MessageBox variant="success" msg={info} />
+
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="sample-map"

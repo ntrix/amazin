@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import LoadingBox from "./LoadingBox";
-import MessageBox from "./MessageBox";
-import { SHOW_ERROR_TIMEOUT } from "../constants";
+import LoadingBox from './LoadingBox';
+import MessageBox from './MessageBox';
+import { SHOW_ERROR_TIMEOUT } from '../constants';
 
 export default function LoadingOrError({
   statusOf: { loading = false, error = false },
-  wrapClass = "",
-  errorMsg = "",
+  wrapClass = '',
+  errorMsg = '',
   xl = false,
-  variant = "danger",
+  variant = 'danger',
   children,
   ...rest
 }) {
@@ -31,10 +31,8 @@ export default function LoadingOrError({
     return error && !hideError ? (
       <MessageBox msg={errorMsg || error} variant={variant} />
     ) : (
-      <>
-        {children &&
-          React.cloneElement(children, Object.assign(children.props, rest))}
-      </>
+      !!children &&
+        React.cloneElement(children, Object.assign(children.props, rest))
     );
   };
 
