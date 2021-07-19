@@ -6,7 +6,7 @@ import { VideoButtons } from './VideoButtons';
 
 export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
   return (
-    <div className={'m-card' + (portrait ? ' m-card--portrait' : '')}>
+    <div className={`m-card ${portrait ? 'm-card--portrait' : ''}`}>
       <img
         src={getImgUrl(
           movie._id,

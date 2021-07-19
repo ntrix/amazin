@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import {
   listProductCategories,
   updateCurrencyRates
@@ -11,14 +12,17 @@ import SidebarMenu from './Features/Nav/SidebarMenu';
 import { pipe } from './utils';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
+import ErrorFallback from './Features/Auth/ErrorFallBack';
+import { useShadow } from './utils/useShadow';
+import { SHADOW } from './constants';
 
 export default function App() {
-  const { sessionCurrency } = useSelector((state) => state.currencyType);
-  const { userInfo } = useSelector((state) => state.userSignin);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { sessionCurrency } = useSelector((state) => state.currencyType);
 
+  const [shadowOf, setShadowOf] = useShadow();
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
-  const [shadowFor, setShadowFor] = useState('');
 
   useEffect(() => {
     pipe.setCurrency(
@@ -35,43 +39,35 @@ export default function App() {
   return (
     <BrowserRouter>
       <div
-        className={
-          'container--grid' + ('sidebar' === shadowFor ? ' scroll--off' : '')
-        }
+        className={`container--grid ${
+          SHADOW.SIDEBAR === shadowOf ? 'scroll--off' : ''
+        }`}
       >
-        <header id="nav-bar">
-          <HeaderNav
-            shadowFor={shadowFor}
-            setShadowFor={setShadowFor}
-            currency={currency}
-          />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <header id="nav-bar">
+            <HeaderNav currency={currency} />
 
-          <HeaderNavMain setShadowFor={setShadowFor} />
-        </header>
+            <HeaderNavMain />
+          </header>
 
-        <SidebarMenu
-          shadowFor={shadowFor}
-          setShadowFor={setShadowFor}
-          currency={currency}
-        />
+          <SidebarMenu currency={currency} />
 
-        <label
-          className={'sidebar' === shadowFor ? 'click-catcher' : ''}
-          htmlFor="btn--close-sidebar"
-          aria-label="close sidebar button"
-        ></label>
+          <label
+            className={SHADOW.SIDEBAR === shadowOf ? 'click-catcher' : ''}
+            htmlFor="btn--close-sidebar"
+            aria-label="close sidebar button"
+          ></label>
+          <main className="container">
+            <div className="col-fill">
+              <MainRoute />
+            </div>
 
-        <main className="container">
-          <div className="col-fill">
-            <MainRoute />
-          </div>
-
-          <div
-            className={'underlay-' + shadowFor}
-            onClick={() => setShadowFor('')}
-          ></div>
-        </main>
-
+            <div
+              className={`underlay-${shadowOf}`}
+              onClick={() => setShadowOf('')}
+            ></div>
+          </main>
+        </ErrorBoundary>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
         </footer>

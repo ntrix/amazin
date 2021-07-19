@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signout } from '../../Controllers/userActions';
@@ -8,33 +8,32 @@ import {
   noUserMenuItems,
   sellerMenuItems,
   userMenuItems
-} from './menuItemList';
+} from './menuItemsTemplate';
 import DropMenuCurrency from './DropMenuCurrency';
 import { MenuItem } from './MenuItem';
 import NavDropBtn from './NavDropBtn';
-import { savePath, shortName } from '../../utils';
 import Logo from '../../img/a.svg';
 import './nav.css';
 
-export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
+import { savePath, shortName } from '../../utils';
+import { SHADOW } from '../../constants';
+import { useShadow } from '../../utils/useShadow';
+
+export function _HeaderNav({ currency }) {
+  const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const dispatch = useDispatch();
+  const [shadowOf, setShadowOf, setShadowSlow] = useShadow('');
 
-  const timeoutId = useRef(0);
-  const onEnterHandle = () => {
-    clearTimeout(timeoutId.current - 99);
-    timeoutId.current = setTimeout(() => setShadowFor('navDrop'), 450);
-  };
-  const onLeaveHandle = () => {
-    timeoutId.current = 99 + setTimeout(() => setShadowFor(''), 450);
-  };
-
-  const DropMenu = ({ menuItems }) => (
-    <ul className={'dropdown__menu' + ('navDrop' === shadowFor ? ' show' : '')}>
-      {menuItems.map(MenuItem(setShadowFor))}
+  const _DropMenu = ({ menuItems }) => (
+    <ul
+      className={`dropdown__menu ${SHADOW.NAV_DD === shadowOf ? 'show' : ''}`}
+    >
+      {menuItems.map(MenuItem)}
     </ul>
   );
+
+  const DropMenu = React.memo(_DropMenu);
 
   return (
     <div className="nav-belt row">
@@ -54,15 +53,15 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
       </Link>
 
       <div className="nav__search">
-        <SearchBox shadowFor={shadowFor} setShadowFor={setShadowFor} />
+        <SearchBox />
       </div>
 
       <NavDropBtn
         className="nav__currency mobile--off"
         className2="sprite__wrapper"
         className3={'sprite flag ' + currency}
-        onEnterHandle={() => setShadowFor('currency')}
-        onLeaveHandle={() => setShadowFor('')}
+        onEnterHandle={() => setShadowOf('currency')}
+        onLeaveHandle={() => setShadowOf('')}
       >
         <DropMenuCurrency currency={currency} />
       </NavDropBtn>
@@ -71,8 +70,8 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
         <NavDropBtn
           label="Hello, Sign in^Account^ & Lists"
           className="nav__user"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow(SHADOW.NAV_DD)}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu menuItems={noUserMenuItems()} />
         </NavDropBtn>
@@ -82,8 +81,8 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
         <NavDropBtn
           label={`Hello, ${shortName(userInfo, 7)}^Account^ & Lists`}
           className="nav__user"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow(SHADOW.NAV_DD)}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu
             menuItems={userMenuItems(userInfo, () => dispatch(signout()))}
@@ -95,8 +94,8 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
         <NavDropBtn
           label="Seller^Desk"
           className="nav__seller"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow(SHADOW.NAV_DD)}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu menuItems={sellerMenuItems(userInfo)} />
         </NavDropBtn>
@@ -106,8 +105,8 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
         <NavDropBtn
           label="Admin^Tools"
           className="nav__admin phone--off"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow(SHADOW.NAV_DD)}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu menuItems={adminMenuItems()} />
         </NavDropBtn>
@@ -131,3 +130,6 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
     </div>
   );
 }
+
+const HeaderNav = React.memo(_HeaderNav);
+export default HeaderNav;

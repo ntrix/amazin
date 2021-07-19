@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { RATES_SOURCE } from '../../constants';
 import { pipe, savePath } from '../../utils';
 
-export default function DropMenuCurrency({ currency }) {
+export function _DropMenuCurrency({ currency }) {
   return (
     <ul className="dropdown__menu show">
       <li>Change Currency</li>
@@ -15,7 +15,7 @@ export default function DropMenuCurrency({ currency }) {
           <Link
             key={id}
             to={'/currency/cType/' + label}
-            className={label === currency && 'active'}
+            className={label === currency ? 'active' : ''}
             onClick={savePath('/curr')}
           >
             <div className="sprite__wrapper">
@@ -37,10 +37,13 @@ export default function DropMenuCurrency({ currency }) {
 
       <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
         <div className="sprite__wrapper">
-          <div className={'sprite flag xl ' + currency}></div>
+          <div className={`sprite flag xl ${currency}`}></div>
           <span>Exchange Reference Rates</span>
         </div>
       </a>
     </ul>
   );
 }
+
+const DropMenuCurrency = React.memo(_DropMenuCurrency);
+export default DropMenuCurrency;

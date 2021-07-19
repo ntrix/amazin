@@ -4,9 +4,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { listAllProducts } from '../Controllers/productActions';
 
 import { findSuggest } from '../utils';
-import { ALL_CATEGORIES, MAX_SEARCH_SUGGESTS } from '../constants';
+import { ALL_CATEGORIES, MAX_SEARCH_SUGGESTS, SHADOW } from '../constants';
+import { useShadow } from '../utils/useShadow';
 
-export function _SearchBox({ shadowFor, setShadowFor }) {
+export function _SearchBox() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { productList: list } = useSelector((state) => state.productListAll);
@@ -14,7 +15,8 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
     (state) => state.productCategoryList
   );
 
-  const [navScope, setNavScope] = useState(0);
+  const [shadowOf, setShadowOf] = useShadow('');
+  const [categoryScope, setCategoryScope] = useState(0);
   const [category, setCategory] = useState(ALL_CATEGORIES);
   const [input, setInput] = useState('');
   const [suggests, setSuggests] = useState([]);
@@ -38,7 +40,7 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
     if (!e.target.value) return;
     // setShowSuggest(-1) for absorbing a keypress on submit instead setShowSuggest(0)
     setShowSuggest(-1);
-    setShadowFor('');
+    setShadowOf('');
     history.push(
       `/search/category/${
         category === ALL_CATEGORIES ? 'All' : category
@@ -49,53 +51,53 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
   const handleClick = (e) => {
     if (!searchBoxRef.current.contains(e.target)) {
       setShowSuggest(0);
-      setNavScope(0);
-      setShadowFor('');
+      setCategoryScope(0);
+      setShadowOf('');
     }
     return e;
   };
 
   /* detect click outside component to close categories search scope window */
   useEffect(() => {
-    if ('scope' === shadowFor)
+    if (SHADOW.SCOPE === shadowOf)
       document.addEventListener('mousedown', handleClick);
-    if ('navDrop' === shadowFor) {
+    if (SHADOW.NAV_DD === shadowOf) {
       document.removeEventListener('mousedown', handleClick);
-      setNavScope(0);
+      setCategoryScope(0);
     }
     return () => {
       document.removeEventListener('mousedown', handleClick);
     }; // eslint-disable-next-line
-  }, [navScope, shadowFor]);
+  }, [categoryScope, shadowOf]);
 
   const showSuggestDropdown = () => {
     if (input) {
       const newSuggests = findSuggest.search(list, input);
       if (newSuggests.length) {
         setSuggests(newSuggests);
-        setShadowFor('searchBox');
+        setShadowOf('searchBox');
         setShowSuggest(1);
       }
     }
-    setNavScope(0);
+    setCategoryScope(0);
   };
 
   return (
     <form
       ref={searchBoxRef}
-      className={'search-box ' + outline}
+      className={`search-box ${outline}`}
       onSubmit={submitHandler}
     >
       <div className="row--left">
         <div className="search__dropdown">
           <div
-            className={['focus ', ''][!navScope & 1] + 'search-box__scope'}
+            className={`search-box__scope ${categoryScope ? 'focus' : ''}`}
             tabIndex="1"
             onClick={() => {
               setOutline('');
-              setNavScope(navScope + 1);
+              setCategoryScope(categoryScope + 1);
               setShowSuggest(0);
-              setShadowFor('scope');
+              setShadowOf(SHADOW.SCOPE);
             }}
           >
             <div className="search-box__scope--facade">
@@ -105,28 +107,26 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
           </div>
         </div>
 
-        {navScope & !!categories && (
+        {categoryScope & !!categories && (
           <div className="scope__windows">
             <ul className="scope__drop-list">
               {[ALL_CATEGORIES, ...categories].map((cat, i) => (
                 <li
                   key={i}
-                  className={
-                    ['selected ', ''][(cat !== category) & 1] + 'category'
-                  }
+                  className={`category ${cat === category ? 'selected' : ''}`}
                   onClick={() => {
                     if (cat === category) {
-                      setNavScope(2);
+                      setCategoryScope(2);
                       setOutline('');
                       return;
                     }
                     setCategory(cat);
-                    setNavScope(0);
+                    setCategoryScope(0);
                     searchInputRef.current.focus();
                     setShowSuggest(-1);
-                    setShadowFor('');
+                    setShadowOf('');
                   }}
-                  onBlur={() => setNavScope(0)}
+                  onBlur={() => setCategoryScope(0)}
                 >
                   <i className="fa fa-check"></i> {cat}
                 </li>
@@ -157,7 +157,7 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
               const { value } = e.target;
               if (value.length === 0 || e.key === 'Escape') {
                 setShowSuggest(0);
-                setShadowFor('');
+                setShadowOf('');
                 return;
               }
               if (e.key === 'Enter') {
@@ -167,8 +167,8 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
               setShowSuggest((showSuggest || 1) + 2);
 
               const newSuggests = findSuggest.search(list, value);
-              if ('searchBox' !== shadowFor && newSuggests.length) {
-                setShadowFor('searchBox');
+              if ('searchBox' !== shadowOf && newSuggests.length) {
+                setShadowOf('searchBox');
                 if (!outline) setOutline('focus');
               }
               setSuggests(newSuggests);
@@ -184,7 +184,7 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
           ></input>
         </div>
 
-        {shadowFor === 'searchBox' && showSuggest & !!input && (
+        {shadowOf === 'searchBox' && showSuggest & !!input && (
           <div className="search__suggest">
             <ul>
               {suggests.slice(0, MAX_SEARCH_SUGGESTS).map((p, id) => (
@@ -196,7 +196,7 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
                       setShowSuggest(0);
                       setInput(p.name.replace(/(<b>)|(<\/b>)/g, ''));
                       setSuggests([]);
-                      setShadowFor('');
+                      setShadowOf('');
                     }}
                   ></Link>
                 </li>

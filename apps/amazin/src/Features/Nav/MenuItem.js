@@ -1,47 +1,58 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const MenuItem =
-  (setShadowFor) =>
-  ([label, linkTo, className, extraAction], id) => {
-    const innerComponent = () => {
-      if (!linkTo && !className) return <strong>{label}</strong>;
+import { useShadow } from '../../utils/useShadow';
 
-      if (linkTo === 'disabled')
-        return (
-          <Link to="#" className="disabled">
-            {label}
-          </Link>
-        );
+const InnerMenuItem = (props) => {
+  const [, setShadowOf] = useShadow('');
+  const { className, label, linkTo, extraAction } = props;
 
-      if (linkTo.startsWith('https://'))
-        //a href instead of Link for extern links
-        return (
-          <a href={linkTo} target="_blank" rel="noreferrer">
-            {label}
-          </a>
-        );
+  if (!linkTo && !className) return <strong>{label}</strong>;
 
-      if (linkTo)
-        return (
-          <Link
-            to={linkTo}
-            className={className}
-            onClick={(e) => {
-              e.stopPropagation();
-              setShadowFor('');
-              if (extraAction) extraAction();
-            }}
-          >
-            {label}
-          </Link>
-        );
-
-      return <div>{label}</div>;
-    };
-    return label === 'separator' ? (
-      <div key={id} className="separator"></div>
-    ) : (
-      <li key={id}>{innerComponent()}</li>
+  if (linkTo === 'disabled')
+    return (
+      <Link to="#" className="disabled">
+        {label}
+      </Link>
     );
-  };
+
+  if (linkTo.startsWith('https://'))
+    //a href instead of Link for extern links
+    return (
+      <a href={linkTo} target="_blank" rel="noreferrer">
+        {label}
+      </a>
+    );
+
+  if (linkTo)
+    return (
+      <Link
+        to={linkTo}
+        className={className}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShadowOf('');
+          if (extraAction) extraAction();
+        }}
+      >
+        {label}
+      </Link>
+    );
+
+  return <div>{label}</div>;
+};
+
+export const MenuItem = ([label, linkTo, className, extraAction], id) => {
+  return label === 'separator' ? (
+    <div key={id} className="separator"></div>
+  ) : (
+    <li key={id}>
+      <InnerMenuItem
+        className={className}
+        label={label}
+        linkTo={linkTo}
+        extraAction={extraAction}
+      />
+    </li>
+  );
+};

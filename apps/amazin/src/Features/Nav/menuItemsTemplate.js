@@ -1,6 +1,6 @@
 import { pipe, savePath } from '../../utils';
 
-//lists for creating MenuItem (clickHandle) ([label, linkTo, className, signOutAction])
+//lists for creating MenuItem([label, linkTo, className, signOutAction])
 
 export function noUserMenuItems() {
   return [

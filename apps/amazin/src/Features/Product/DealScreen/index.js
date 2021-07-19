@@ -10,7 +10,7 @@ import MessageBox from '../../../components/MessageBox';
 import Carousel, { dummyProducts, responsive } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
 
-export default function DealScreen() {
+export function _DealScreen() {
   const dispatch = useDispatch();
   const {
     category = 'Deals',
@@ -56,14 +56,12 @@ export default function DealScreen() {
         </ul>
       </header>
 
-      <div
-        className={'deal-screen' + (Math.random() < 0.5 ? '' : ' screen--1')}
-      >
+      <div className={`deal-screen ${Math.random() < 0.5 ? 'screen--1' : ''}`}>
         <LoadingOrError statusOf={productList} />
-
         <MessageBox show={products?.length < 1}>
           No Deals On This Category!
         </MessageBox>
+
         {products && (
           <Carousel
             swipeable={true}
@@ -121,3 +119,6 @@ export default function DealScreen() {
     </>
   );
 }
+
+const DealScreen = React.memo(_DealScreen);
+export default DealScreen;

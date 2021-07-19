@@ -69,21 +69,18 @@ export default function ProductScreen({ history, match }) {
           <div className="row top mt-1 p-1">
             <div className="col-2 flex mr-1">
               <div className="tab__w6 flex-col">
-                {product?.image &&
-                  product.image
-                    .split('^')
-                    .map((img, id) => (
-                      <img
-                        key={id}
-                        src={getImgUrl(product._id, img)}
-                        alt={`${product.name} small ${id}`}
-                        onMouseEnter={() => setImgActive(id)}
-                        onClick={() => setImgActive(id)}
-                        className={
-                          'product__thumbnail' + (id === imgActive && ' active')
-                        }
-                      ></img>
-                    ))}
+                {product?.image?.split('^').map((img, id) => (
+                  <img
+                    key={id}
+                    src={getImgUrl(product._id, img)}
+                    alt={`${product.name} small ${id}`}
+                    onMouseEnter={() => setImgActive(id)}
+                    onClick={() => setImgActive(id)}
+                    className={`product__thumbnail ${
+                      id === imgActive ? 'active' : ''
+                    }`}
+                  ></img>
+                ))}
               </div>
 
               <div className="tab__rest">
@@ -107,12 +104,12 @@ export default function ProductScreen({ history, match }) {
                   <Rating
                     rating={product.rating}
                     numReviews={product.numReviews}
-                  ></Rating>
+                  />
                 </li>
 
                 <li>
                   <div>
-                    <span className={'price' + (product.deal ? ' danger' : '')}>
+                    <span className={`price ${product.deal && 'danger'}`}>
                       <sup>{pipe.getSymbol()}</sup>
                       {pipe.getNote(product.price)}
                       <sup>{pipe.getCent(product.price)}</sup>
@@ -151,7 +148,7 @@ export default function ProductScreen({ history, match }) {
                     <Rating
                       rating={product.seller.seller.rating}
                       numReviews={product.seller.seller.numReviews}
-                    ></Rating>
+                    />
                   </li>
 
                   <li>

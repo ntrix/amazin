@@ -6,11 +6,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
 
+import { ShadowProvider } from './utils/useShadow';
+
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <ShadowProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ShadowProvider>
   </Provider>,
   document.getElementById('root')
 );

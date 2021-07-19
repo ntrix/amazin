@@ -1,4 +1,4 @@
-import { CURRENCY, baseURL, NO_IMAGE } from './constants';
+import { CURRENCY, baseURL, NO_IMAGE } from '../constants';
 
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {

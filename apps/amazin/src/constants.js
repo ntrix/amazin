@@ -6,16 +6,27 @@ export const RATES_SOURCE = process.env.REACT_APP_RATES_SOURCE; // REACT_APP_RAT
 export const NO_IMAGE = '/images/no-image.png';
 export const MAX_IMAGES = 8;
 
+/* shadow background layer */
+export const SHADOW = {
+  SCOPE: 'scope',
+  NAV_DD: 'navDrop',
+  SIDEBAR: 'sidebar'
+};
+
 /* local storage and Redux */
-export const STORAGE_USERINFO = 'userInfo';
-export const STORAGE_CART_ITEMS = 'cartItems';
-export const STORAGE_SHIPPING_ADDRESS = 'shippingAddress';
+export const STORAGE = {
+  USERINFO: 'userInfo',
+  CART_ITEMS: 'cartItems',
+  SHIPPING_ADDRESS: 'shippingAddress'
+};
 
 export const SHOW_ERROR_TIMEOUT = 9000;
 
 /* Location HTW */
-export const START_LOCAL_LAT = 51.03751;
-export const START_LOCAL_LNG = 13.73514;
+export const LOCATION = {
+  lat: 51.03751,
+  lng: 13.73514
+};
 
 /* Search box */
 export const MAX_SEARCH_SUGGESTS = 12;
@@ -83,6 +94,23 @@ export const dummyProducts = Array(6).fill({
   numReviews: 0
 });
 
+/* VideoScreen */
+export const baseURL = 'https://image.tmdb.org/t/p/original/';
+
+export const MOVIE_API = process.env.REACT_APP_API_KEY;
+export const TRENDING = 'Trending Now';
+export const TOP_RATED = 'Top Rated';
+export const SOURCES = {
+  'NETFLUX ORIGINALS': `/discover/tv?api_key=${MOVIE_API}&with_networks=213`,
+  'Action Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=28`,
+  'Comedy Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=35`,
+  'Horror Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=27`,
+  'Romance Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=10749`,
+  Documentaries: `/discover/movie?api_key=${MOVIE_API}&with_genres=99`,
+  [TRENDING]: `/trending/all/week?api_key=${MOVIE_API}&language=en-US`,
+  [TOP_RATED]: `/movie/top_rated?api_key=${MOVIE_API}&language=en-US`
+};
+
 export const NO_MOVIES = [
   {
     name: '',
@@ -108,10 +136,6 @@ export const EXAMPLE_MOVIES = [
       'In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.'
   }
 ];
-
-export const baseURL = 'https://image.tmdb.org/t/p/original/';
-
-export default Carousel;
 
 /* responsive resolutions for multi-carousel */
 export const responsive = {
@@ -141,3 +165,5 @@ export const responsive = {
     slidesToSlide: 1
   }
 };
+
+export default Carousel;

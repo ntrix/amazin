@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function NavDropBtn({
+export function _NavDropBtn({
   label = '',
   className = '',
   className1 = '',
@@ -13,15 +13,15 @@ export default function NavDropBtn({
   const line = label.split('^');
   return (
     <div
-      className={'dropdown ' + className}
+      className={`dropdown ${className}`}
       onMouseEnter={onEnterHandle}
       // UX behavior: a touch on mobile device acts as hover
       onClick={onEnterHandle}
       onMouseLeave={onLeaveHandle}
     >
       <div>
-        <div className={className1 + ' nav__line-1'}>{line[0]}</div>
-        <div className={className2 + ' nav__line-2'}>
+        <div className={`${className1} nav__line-1`}>{line[0]}</div>
+        <div className={`${className2} nav__line-2`}>
           {line[1]}
           <span className={className3 || 'tablet--off'}>{line[2]}</span>
           <i className="fa fa-caret-down"></i>
@@ -31,3 +31,6 @@ export default function NavDropBtn({
     </div>
   );
 }
+
+const NavDropBtn = React.memo(_NavDropBtn);
+export default NavDropBtn;

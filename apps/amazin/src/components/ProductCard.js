@@ -34,7 +34,7 @@ export function _ProductCard({ product, deal = false }) {
 
           <div>
             <div>
-              <span className={'price' + (deal ? ' danger' : '')}>
+              <span className={`price ${deal ? 'danger' : ''}`}>
                 <sup>{pipe.getSymbol()}</sup>
                 {pipe.getNote(product.price)}
                 <sup>{pipe.getCent(product.price)}</sup>

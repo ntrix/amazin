@@ -20,7 +20,7 @@ import LoadingOrError from '../components/LoadingOrError';
 
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
-export default function HomeScreen() {
+export function _HomeScreen() {
   const dispatch = useDispatch();
   const { banner = 'home' } = useParams();
   const productList = useSelector((state) => state.productList);
@@ -34,8 +34,8 @@ export default function HomeScreen() {
   }, [dispatch]);
 
   return (
-    <div className={'home-screen'}>
-      <div className={'home__banner ' + banner}></div>
+    <div className="home-screen">
+      <div className={`home__banner ${banner}`}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       {/* <Carousel
             swipeable={true}
@@ -124,3 +124,6 @@ export default function HomeScreen() {
     </div>
   );
 }
+
+const HomeScreen = React.memo(_HomeScreen);
+export default HomeScreen;
