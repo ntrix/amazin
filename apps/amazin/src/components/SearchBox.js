@@ -6,7 +6,7 @@ import { listAllProducts } from '../Controllers/productActions';
 import { findSuggest } from '../utils';
 import { ALL_CATEGORIES, MAX_SEARCH_SUGGESTS } from '../constants';
 
-export default function SearchBox({ shadowFor, setShadowFor }) {
+export function _SearchBox({ shadowFor, setShadowFor }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { productList: list } = useSelector((state) => state.productListAll);
@@ -216,3 +216,6 @@ export default function SearchBox({ shadowFor, setShadowFor }) {
     </form>
   );
 }
+
+const SearchBox = React.memo(_SearchBox);
+export default SearchBox;

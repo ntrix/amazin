@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Rating({ rating, numReviews, caption, steps = 5 }) {
+export function _Rating({ rating, numReviews, caption, steps = 5 }) {
   return (
     <div className="rating">
       <span>
@@ -26,3 +26,6 @@ export default function Rating({ rating, numReviews, caption, steps = 5 }) {
     </div>
   );
 }
+
+const Rating = React.memo(_Rating);
+export default Rating;

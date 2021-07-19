@@ -4,7 +4,7 @@ import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { SHOW_ERROR_TIMEOUT } from '../constants';
 
-export default function LoadingOrError({
+export function _LoadingOrError({
   statusOf: { loading = false, error = false },
   wrapClass = '',
   errorMsg = '',
@@ -42,3 +42,6 @@ export default function LoadingOrError({
     <div className={wrapClass}>{innerComponent()}</div>
   );
 }
+
+const LoadingOrError = React.memo(_LoadingOrError);
+export default LoadingOrError;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Pagination({ page, pages, getUrl, help }) {
+export function _Pagination({ page, pages, getUrl, help }) {
   return (
     <>
       <div className="row center pagination">
@@ -37,3 +37,6 @@ export default function Pagination({ page, pages, getUrl, help }) {
     </>
   );
 }
+
+const Pagination = React.memo(_Pagination);
+export default Pagination;

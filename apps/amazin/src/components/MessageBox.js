@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function MessageBox({
+export function _MessageBox({
   show = false,
   msg,
   variant,
@@ -31,3 +31,6 @@ export default function MessageBox({
     <div className={wrapClass}>{innerComponent()}</div>
   );
 }
+
+const MessageBox = React.memo(_MessageBox);
+export default MessageBox;

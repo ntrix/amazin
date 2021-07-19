@@ -1,4 +1,6 @@
-export default function CustomInput({
+import React from 'react';
+
+export function _CustomInput({
   text,
   type = 'text',
   placeholder = `Enter ${text}`,
@@ -21,3 +23,6 @@ export default function CustomInput({
     </div>
   );
 }
+
+const CustomInput = React.memo(_CustomInput);
+export default CustomInput;

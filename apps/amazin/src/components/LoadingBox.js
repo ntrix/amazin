@@ -1,10 +1,6 @@
 import React from 'react';
 
-export default function LoadingBox({
-  hide = false,
-  xl = false,
-  wrapClass = ''
-}) {
+export function _LoadingBox({ hide = false, xl = false, wrapClass = '' }) {
   if (hide) return null;
 
   const innerComponent = () => (
@@ -29,3 +25,6 @@ export default function LoadingBox({
     <div className={wrapClass}>{innerComponent()}</div>
   );
 }
+
+const LoadingBox = React.memo(_LoadingBox);
+export default LoadingBox;

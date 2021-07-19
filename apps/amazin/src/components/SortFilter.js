@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-export default function SortFilter({ order, getUrl }) {
+export function _SortFilter({ order, getUrl }) {
   const history = useHistory();
 
   return (
@@ -26,3 +26,6 @@ export default function SortFilter({ order, getUrl }) {
     </div>
   );
 }
+
+const SortFilter = React.memo(_SortFilter);
+export default SortFilter;
