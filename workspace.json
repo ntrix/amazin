@@ -7,69 +7,36 @@
       "projectType": "application",
       "targets": {
         "build": {
-          "executor": "@nrwl/web:build",
-          "outputs": ["{options.outputPath}"],
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": ["dist/apps/amazin"],
           "options": {
+            "command": "node ../../node_modules/.bin/react-app-rewired build",
             "outputPath": "dist/apps/amazin",
-            "index": "apps/amazin/src/index.html",
-            "main": "apps/amazin/src/main.tsx",
-            "polyfills": "apps/amazin/src/polyfills.ts",
-            "tsConfig": "apps/amazin/tsconfig.app.json",
-            "assets": ["apps/amazin/src/favicon.ico", "apps/amazin/src/assets"],
-            "styles": ["apps/amazin/src/styles.css"],
-            "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/amazin/src/environments/environment.ts",
-                  "with": "apps/amazin/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                }
-              ]
-            }
+            "cwd": "apps/amazin"
           }
         },
         "serve": {
-          "executor": "@nrwl/web:dev-server",
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
           "options": {
-            "buildTarget": "amazin:build",
-            "hmr": true
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "amazin:build:production",
-              "hmr": false
-            }
+            "command": "node ../../node_modules/.bin/react-app-rewired start",
+            "cwd": "apps/amazin"
           }
         },
         "lint": {
-          "executor": "@nrwl/linter:eslint",
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
           "options": {
-            "lintFilePatterns": ["apps/amazin/**/*.{ts,tsx,js,jsx}"]
+            "command": "node ../../node_modules/.bin/eslint src/**/*.js",
+            "cwd": "apps/amazin"
           }
         },
         "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/amazin"],
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
           "options": {
-            "jestConfig": "apps/amazin/jest.config.js",
-            "passWithNoTests": true
+            "command": "node ../../node_modules/.bin/react-app-rewired test --watchAll=false",
+            "cwd": "apps/amazin"
           }
         }
       }
@@ -95,7 +62,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/amazin-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/amazin-e2e/**/*.{js}"]
           }
         }
       }
