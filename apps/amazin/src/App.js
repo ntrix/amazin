@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import {
   listProductCategories,
   updateCurrencyRates
@@ -11,14 +12,15 @@ import SidebarMenu from './Features/Nav/SidebarMenu';
 import { pipe } from './utils';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
+import ErrorFallback from './Features/Auth/ErrorFallBack';
 
 export default function App() {
-  const { sessionCurrency } = useSelector((state) => state.currencyType);
-  const { userInfo } = useSelector((state) => state.userSignin);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { sessionCurrency } = useSelector((state) => state.currencyType);
 
-  const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
   const [shadowFor, setShadowFor] = useState('');
+  const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
 
   useEffect(() => {
     pipe.setCurrency(
@@ -39,39 +41,39 @@ export default function App() {
           'sidebar' === shadowFor ? 'scroll--off' : ''
         }`}
       >
-        <header id="nav-bar">
-          <HeaderNav
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <header id="nav-bar">
+            <HeaderNav
+              shadowFor={shadowFor}
+              setShadowFor={setShadowFor}
+              currency={currency}
+            />
+
+            <HeaderNavMain setShadowFor={setShadowFor} />
+          </header>
+
+          <SidebarMenu
             shadowFor={shadowFor}
             setShadowFor={setShadowFor}
             currency={currency}
           />
 
-          <HeaderNavMain setShadowFor={setShadowFor} />
-        </header>
+          <label
+            className={'sidebar' === shadowFor ? 'click-catcher' : ''}
+            htmlFor="btn--close-sidebar"
+            aria-label="close sidebar button"
+          ></label>
+          <main className="container">
+            <div className="col-fill">
+              <MainRoute />
+            </div>
 
-        <SidebarMenu
-          shadowFor={shadowFor}
-          setShadowFor={setShadowFor}
-          currency={currency}
-        />
-
-        <label
-          className={'sidebar' === shadowFor ? 'click-catcher' : ''}
-          htmlFor="btn--close-sidebar"
-          aria-label="close sidebar button"
-        ></label>
-
-        <main className="container">
-          <div className="col-fill">
-            <MainRoute />
-          </div>
-
-          <div
-            className={`underlay-${shadowFor}`}
-            onClick={() => setShadowFor('')}
-          ></div>
-        </main>
-
+            <div
+              className={`underlay-${shadowFor}`}
+              onClick={() => setShadowFor('')}
+            ></div>
+          </main>
+        </ErrorBoundary>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
         </footer>

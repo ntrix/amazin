@@ -11,7 +11,7 @@ export default function Screen404() {
 
           <h3 className="sub-title">
             The requested page could not be found! Please use the search
-            function or go directly to Amazin.
+            function or go directly to Amazin'.
           </h3>
         </header>
 
@@ -25,9 +25,11 @@ export default function Screen404() {
         <div className="divider-inner"></div>
         <div className="container">
           <Link to="/customer">
-            <button className="primary mb-1">
-              Contact our Customer Service
-            </button>
+            <button className="primary mb-1">Report this Error</button>
+          </Link>
+
+          <Link to="/">
+            <button className="ml-1 mb-1">Back to Homepage</button>
           </Link>
         </div>
       </div>
