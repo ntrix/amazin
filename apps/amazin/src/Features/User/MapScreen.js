@@ -12,15 +12,14 @@ import { userAddressMapActions } from './UserSlice';
 
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
-import { START_LOCAL_LAT, START_LOCAL_LNG } from '../../constants';
+import { LOCATION } from '../../constants';
 
 const libs = ['places'];
-const defaultLocation = { lat: START_LOCAL_LAT, lng: START_LOCAL_LNG };
 
 export default function MapScreen({ history }) {
   const dispatch = useDispatch();
   const [googleApiKey, setGoogleApiKey] = useState('');
-  const [center, setCenter] = useState(defaultLocation);
+  const [center, setCenter] = useState(LOCATION);
   const [location, setLocation] = useState(center);
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');

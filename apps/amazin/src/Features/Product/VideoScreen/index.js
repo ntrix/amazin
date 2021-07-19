@@ -9,23 +9,10 @@ import './videoScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
-import { NO_MOVIES } from '../../../constants';
+import { NO_MOVIES, TRENDING, TOP_RATED, SOURCES } from '../../../constants';
 import { dummyMovies, sourceAdapter } from '../../../utils';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-const TRENDING = 'Trending Now';
-const TOP_RATED = 'Top Rated';
-const sources = {
-  'NETFLUX ORIGINALS': `/discover/tv?api_key=${API_KEY}&with_networks=213`,
-  'Action Movies': `/discover/movie?api_key=${API_KEY}&with_genres=28`,
-  'Comedy Movies': `/discover/movie?api_key=${API_KEY}&with_genres=35`,
-  'Horror Movies': `/discover/movie?api_key=${API_KEY}&with_genres=27`,
-  'Romance Movies': `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
-  Documentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
-  [TRENDING]: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
-  [TOP_RATED]: `/movie/top_rated?api_key=${API_KEY}&language=en-US`
-};
-const navLabels = Object.keys(sources);
+const navLabels = Object.keys(SOURCES);
 navLabels.splice(1, 0, 'Home', 'STORE');
 
 export default function VideoScreen() {
@@ -49,9 +36,9 @@ export default function VideoScreen() {
 
     (async function fetchData() {
       const promiseReturns = await Promise.all(
-        Object.keys(sources).map(async (_genre) => {
+        Object.keys(SOURCES).map(async (_genre) => {
           const { data } = await axios
-            .get('https://api.themoviedb.org/3' + sources[_genre])
+            .get('https://api.themoviedb.org/3' + SOURCES[_genre])
             .catch();
           return [[_genre], data.results];
         })
@@ -93,7 +80,7 @@ export default function VideoScreen() {
       <VideoBanner source={!productList.success ? NO_MOVIES : movies[genre]} />
 
       {externMovies &&
-        Object.keys(sources).map(
+        Object.keys(SOURCES).map(
           (label, id) =>
             (label === genre || genre === 'Home') && (
               <VideoRow
