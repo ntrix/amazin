@@ -33,104 +33,74 @@ import Screen404 from '../Auth/Screen404';
 export default function MainRoute() {
   return (
     <Switch>
-      <Route
-        path="/currency/cType/:cType"
-        component={CurrencyScreen}
-        exact
-      ></Route>
-      <Route path="/customer" component={CustomerScreen} exact></Route>
-      <Route path="/contact" component={ContactScreen} exact></Route>
-      <Route
-        path="/contact/subject/:subject"
-        component={ContactScreen}
-        exact
-      ></Route>
-      <Route path="/video" component={VideoScreen}></Route>
-      <Route path="/seller/:id" component={SellerScreen} exact></Route>
+      <Route path="/currency/cType/:cType" component={CurrencyScreen} exact />
+      <Route path="/customer" component={CustomerScreen} exact />
+      <Route path="/contact" component={ContactScreen} exact />
+      <Route path="/contact/subject/:subject" component={ContactScreen} exact />
+      <Route path="/video" component={VideoScreen} />
+      <Route path="/seller/:id" component={SellerScreen} exact />
       <Route
         path="/seller/:id/order/:order/pageNumber/:pageNumber"
         component={SellerScreen}
         exact
-      ></Route>
-      <Route path="/cart/:id?" component={CartScreen}></Route>
-      <Route path="/product/:id" component={ProductScreen} exact></Route>
-      <Route
-        path="/product/:id/edit"
-        component={ProductEditScreen}
-        exact
-      ></Route>
-      <Route path="/signin" component={SigninScreen}></Route>
-      <Route path="/register" component={RegisterScreen}></Route>
-      <Route path="/shipping" component={ShippingAddressScreen}></Route>
-      <Route path="/payment" component={PaymentMethodScreen}></Route>
-      <Route path="/place-order" component={PlaceOrderScreen}></Route>
-      <Route path="/order/:id" component={OrderSumScreen}></Route>
-      <Route path="/search/name/:name?" component={SearchScreen} exact></Route>
-      <Route
-        path="/search/category/:category"
-        component={SearchScreen}
-        exact
-      ></Route>
+      />
+      <Route path="/cart/:id?" component={CartScreen} />
+      <Route path="/product/:id" component={ProductScreen} exact />
+      <Route path="/product/:id/edit" component={ProductEditScreen} exact />
+      <Route path="/signin" component={SigninScreen} />
+      <Route path="/register" component={RegisterScreen} />
+      <Route path="/shipping" component={ShippingAddressScreen} />
+      <Route path="/payment" component={PaymentMethodScreen} />
+      <Route path="/place-order" component={PlaceOrderScreen} />
+      <Route path="/order/:id" component={OrderSumScreen} />
+      <Route path="/search/name/:name?" component={SearchScreen} exact />
+      <Route path="/search/category/:category" component={SearchScreen} exact />
       <Route
         path="/search/category/:category/order/:order"
         component={SearchScreen}
         exact
-      ></Route>
+      />
       <Route
         path="/search/category/:category/name/:name"
         component={SearchScreen}
         exact
-      ></Route>
+      />
       <Route
         path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
         component={SearchScreen}
         exact
-      ></Route>
-      <Route path="/deal" component={DealScreen} exact></Route>
+      />
+      <Route path="/deal" component={DealScreen} exact />
       <Route
         path="/deal/category/:category/order/:order/pageNumber/:pageNumber"
         component={DealScreen}
         exact
-      ></Route>
-      <PrivateRoute
-        path="/order-history"
-        component={OrderHistoryScreen}
-      ></PrivateRoute>
-      <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
-      <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
-      <AdminRoute
-        path="/product-list"
-        component={ProductListScreen}
-        exact
-      ></AdminRoute>
+      />
+      <PrivateRoute path="/order-history" component={OrderHistoryScreen} />
+      <PrivateRoute path="/profile" component={ProfileScreen} />
+      <PrivateRoute path="/map" component={MapScreen} />
+      <AdminRoute path="/product-list" component={ProductListScreen} exact />
       <AdminRoute
         path="/product-list/pageNumber/:pageNumber"
         component={ProductListScreen}
         exact
-      ></AdminRoute>
-      <AdminRoute
-        path="/order-list"
-        component={OrderListScreen}
-        exact
-      ></AdminRoute>
-      <AdminRoute path="/user-list" component={UserListScreen}></AdminRoute>
-      <AdminRoute path="/user/:id/edit" component={UserEditScreen}></AdminRoute>
+      />
+      <AdminRoute path="/order-list" component={OrderListScreen} exact />
+      <AdminRoute path="/user-list" component={UserListScreen} />
+      <AdminRoute path="/user/:id/edit" component={UserEditScreen} />
       <SellerRoute
         path="/product-list/seller"
         component={ProductListScreen}
         exact
-      ></SellerRoute>
+      />
       <SellerRoute
         path="/product-list/seller/pageNumber/:pageNumber"
         component={ProductListScreen}
         exact
-      ></SellerRoute>
-      <SellerRoute
-        path="/order-list/seller"
-        component={OrderListScreen}
-      ></SellerRoute>
-      <Route path="/banner/:banner" component={HomeScreen} exact></Route>
-      <Route path="/" component={HomeScreen} exact></Route>
+      />
+      <SellerRoute path="/order-list/seller" component={OrderListScreen} />
+      <Route path="/banner/:banner" component={HomeScreen} exact />
+      <Route path="/" component={HomeScreen} exact />
       <Route component={Screen404} exact />
     </Switch>
   );

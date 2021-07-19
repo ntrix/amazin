@@ -10,11 +10,11 @@ export default function SellerRoute({ component: Component, ...rest }) {
       {...rest}
       render={(props) =>
         userInfo && userInfo.isSeller ? (
-          <Component {...props}></Component>
+          <Component {...props} />
         ) : (
           <Redirect to="/signin" />
         )
       }
-    ></Route>
+    />
   );
 }
