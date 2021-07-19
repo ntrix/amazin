@@ -14,6 +14,7 @@ import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import ErrorFallback from './Features/Auth/ErrorFallBack';
 import { useShadow } from './utils/useShadow';
+import { SHADOW } from './constants';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function App() {
     <BrowserRouter>
       <div
         className={`container--grid ${
-          'sidebar' === shadowOf ? 'scroll--off' : ''
+          SHADOW.SIDEBAR === shadowOf ? 'scroll--off' : ''
         }`}
       >
         <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -52,7 +53,7 @@ export default function App() {
           <SidebarMenu currency={currency} />
 
           <label
-            className={'sidebar' === shadowOf ? 'click-catcher' : ''}
+            className={SHADOW.SIDEBAR === shadowOf ? 'click-catcher' : ''}
             htmlFor="btn--close-sidebar"
             aria-label="close sidebar button"
           ></label>

@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { listAllProducts } from '../Controllers/productActions';
 
 import { findSuggest } from '../utils';
-import { ALL_CATEGORIES, MAX_SEARCH_SUGGESTS } from '../constants';
+import { ALL_CATEGORIES, MAX_SEARCH_SUGGESTS, SHADOW } from '../constants';
 import { useShadow } from '../utils/useShadow';
 
 export function _SearchBox() {
@@ -16,7 +16,7 @@ export function _SearchBox() {
   );
 
   const [shadowOf, setShadowOf] = useShadow('');
-  const [navScope, setNavScope] = useState(0);
+  const [seacrhScope, setSeacrhScope] = useState(0);
   const [category, setCategory] = useState(ALL_CATEGORIES);
   const [input, setInput] = useState('');
   const [suggests, setSuggests] = useState([]);
@@ -51,7 +51,7 @@ export function _SearchBox() {
   const handleClick = (e) => {
     if (!searchBoxRef.current.contains(e.target)) {
       setShowSuggest(0);
-      setNavScope(0);
+      setSeacrhScope(0);
       setShadowOf('');
     }
     return e;
@@ -59,16 +59,16 @@ export function _SearchBox() {
 
   /* detect click outside component to close categories search scope window */
   useEffect(() => {
-    if ('scope' === shadowOf)
+    if (SHADOW.SCOPE === shadowOf)
       document.addEventListener('mousedown', handleClick);
-    if ('navDrop' === shadowOf) {
+    if (SHADOW.NAV_DD === shadowOf) {
       document.removeEventListener('mousedown', handleClick);
-      setNavScope(0);
+      setSeacrhScope(0);
     }
     return () => {
       document.removeEventListener('mousedown', handleClick);
     }; // eslint-disable-next-line
-  }, [navScope, shadowOf]);
+  }, [seacrhScope, shadowOf]);
 
   const showSuggestDropdown = () => {
     if (input) {
@@ -79,7 +79,7 @@ export function _SearchBox() {
         setShowSuggest(1);
       }
     }
-    setNavScope(0);
+    setSeacrhScope(0);
   };
 
   return (
@@ -91,13 +91,13 @@ export function _SearchBox() {
       <div className="row--left">
         <div className="search__dropdown">
           <div
-            className={`search-box__scope ${navScope ? 'focus' : ''}`}
+            className={`search-box__scope ${seacrhScope ? 'focus' : ''}`}
             tabIndex="1"
             onClick={() => {
               setOutline('');
-              setNavScope(navScope + 1);
+              setSeacrhScope(seacrhScope + 1);
               setShowSuggest(0);
-              setShadowOf('scope');
+              setShadowOf(SHADOW.SCOPE);
             }}
           >
             <div className="search-box__scope--facade">
@@ -107,7 +107,7 @@ export function _SearchBox() {
           </div>
         </div>
 
-        {navScope & !!categories && (
+        {seacrhScope & !!categories && (
           <div className="scope__windows">
             <ul className="scope__drop-list">
               {[ALL_CATEGORIES, ...categories].map((cat, i) => (
@@ -116,17 +116,17 @@ export function _SearchBox() {
                   className={`category ${cat === category ? 'selected' : ''}`}
                   onClick={() => {
                     if (cat === category) {
-                      setNavScope(2);
+                      setSeacrhScope(2);
                       setOutline('');
                       return;
                     }
                     setCategory(cat);
-                    setNavScope(0);
+                    setSeacrhScope(0);
                     searchInputRef.current.focus();
                     setShowSuggest(-1);
                     setShadowOf('');
                   }}
-                  onBlur={() => setNavScope(0)}
+                  onBlur={() => setSeacrhScope(0)}
                 >
                   <i className="fa fa-check"></i> {cat}
                 </li>

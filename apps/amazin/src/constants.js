@@ -6,6 +6,13 @@ export const RATES_SOURCE = process.env.REACT_APP_RATES_SOURCE; // REACT_APP_RAT
 export const NO_IMAGE = '/images/no-image.png';
 export const MAX_IMAGES = 8;
 
+/* shadow background layer */
+export const SHADOW = {
+  SCOPE: 'scope',
+  NAV_DD: 'navDrop',
+  SIDEBAR: 'sidebar'
+};
+
 /* local storage and Redux */
 export const STORAGE_USERINFO = 'userInfo';
 export const STORAGE_CART_ITEMS = 'cartItems';

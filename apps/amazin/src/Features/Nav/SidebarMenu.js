@@ -8,6 +8,7 @@ import { signout } from '../../Controllers/userActions';
 import { shortName } from '../../utils';
 import LoadingOrError from '../../components/LoadingOrError';
 import { useShadow } from '../../utils/useShadow';
+import { SHADOW } from '../../constants';
 
 export function _SidebarMenu({ currency }) {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export function _SidebarMenu({ currency }) {
   const [shadowOf, setShadowOf] = useShadow();
 
   return (
-    <aside className={`sidebar ${'sidebar' === shadowOf ? 'opened' : ''}`}>
+    <aside className={`sidebar ${SHADOW.SIDEBAR === shadowOf ? 'opened' : ''}`}>
       <button onClick={() => setShadowOf('')} id="btn--close-sidebar">
         <div className="sprite__close-btn"></div>
       </button>

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LoadingOrError from '../../components/LoadingOrError';
+import { SHADOW } from '../../constants';
 import { useShadow } from '../../utils/useShadow';
 
 export function _HeaderNavMain() {
@@ -24,7 +25,7 @@ export function _HeaderNavMain() {
       <div className="nav__left">
         <div
           className="open-sidebar nav-main__item flex"
-          onClick={() => setShadowOf('sidebar')}
+          onClick={() => setShadowOf(SHADOW.SIDEBAR)}
         >
           <div className="sprite__bars"></div>
           <b>All</b>
