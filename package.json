@@ -29,6 +29,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.2.0",
     "@reduxjs/toolkit": "^1.6.1",
+    "axios": "^0.21.1",
     "core-js": "^3.15.2",
     "document-register-element": "^1.14.10",
     "movie-trailer": "^2.1.0",
