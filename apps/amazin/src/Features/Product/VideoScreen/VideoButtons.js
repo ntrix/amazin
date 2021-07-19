@@ -4,7 +4,7 @@ import movieTrailer from 'movie-trailer';
 
 import { sourceAdapter } from '../../../utils';
 
-export function VideoButtons({
+export function _VideoButtons({
   movie = sourceAdapter([1])[0],
   trailerUrl,
   setTrailerUrl
@@ -63,3 +63,5 @@ export function VideoButtons({
     </>
   );
 }
+
+export const VideoButtons = React.memo(_VideoButtons);

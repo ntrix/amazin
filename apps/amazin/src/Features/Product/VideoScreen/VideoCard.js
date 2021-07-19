@@ -4,12 +4,7 @@ import { NO_IMAGE } from '../../../constants';
 import { getImgUrl } from '../../../utils';
 import { VideoButtons } from './VideoButtons';
 
-export default function VideoCard({
-  movie,
-  portrait,
-  trailerUrl,
-  setTrailerUrl
-}) {
+export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
   return (
     <div className={'m-card' + (portrait ? ' m-card--portrait' : '')}>
       <img
@@ -47,3 +42,6 @@ export default function VideoCard({
     </div>
   );
 }
+
+const VideoCard = React.memo(_VideoCard);
+export default VideoCard;

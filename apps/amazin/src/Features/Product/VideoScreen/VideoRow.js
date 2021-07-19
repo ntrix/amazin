@@ -3,7 +3,7 @@ import Carousel, { responsive } from '../../../constants';
 import UTube from './UTube';
 import VideoCard from './VideoCard';
 
-export default function VideoRow({ title, movies, portrait = false }) {
+export function _VideoRow({ title, movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
 
   return (
@@ -43,3 +43,6 @@ export default function VideoRow({ title, movies, portrait = false }) {
     </div>
   );
 }
+
+const VideoRow = React.memo(_VideoRow);
+export default VideoRow;

@@ -9,7 +9,7 @@ import { createProduct } from '../../../Controllers/productActions';
 import { EXAMPLE_MOVIES, NO_IMAGE } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
 
-export default function VideoBanner({ source }) {
+export function _VideoBanner({ source }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCreate = useSelector((state) => state.productCreate);
@@ -81,7 +81,7 @@ export default function VideoBanner({ source }) {
   );
 }
 
-export function VideoBannerBottom({ source }) {
+export function _VideoBannerBottom({ source }) {
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
@@ -108,3 +108,8 @@ export function VideoBannerBottom({ source }) {
     </div>
   );
 }
+
+export const VideoBannerBottom = React.memo(_VideoBannerBottom);
+
+const VideoBanner = React.memo(_VideoBanner);
+export default VideoBanner;
