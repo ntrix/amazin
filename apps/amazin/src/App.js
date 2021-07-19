@@ -13,13 +13,14 @@ import { pipe } from './utils';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import ErrorFallback from './Features/Auth/ErrorFallBack';
+import { useShadow } from './utils/useShadow';
 
 export default function App() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const { sessionCurrency } = useSelector((state) => state.currencyType);
 
-  const [shadowFor, setShadowFor] = useState('');
+  const [shadowOf, setShadowOf] = useShadow();
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
 
   useEffect(() => {
@@ -38,28 +39,20 @@ export default function App() {
     <BrowserRouter>
       <div
         className={`container--grid ${
-          'sidebar' === shadowFor ? 'scroll--off' : ''
+          'sidebar' === shadowOf ? 'scroll--off' : ''
         }`}
       >
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <header id="nav-bar">
-            <HeaderNav
-              shadowFor={shadowFor}
-              setShadowFor={setShadowFor}
-              currency={currency}
-            />
+            <HeaderNav currency={currency} />
 
-            <HeaderNavMain setShadowFor={setShadowFor} />
+            <HeaderNavMain />
           </header>
 
-          <SidebarMenu
-            shadowFor={shadowFor}
-            setShadowFor={setShadowFor}
-            currency={currency}
-          />
+          <SidebarMenu currency={currency} />
 
           <label
-            className={'sidebar' === shadowFor ? 'click-catcher' : ''}
+            className={'sidebar' === shadowOf ? 'click-catcher' : ''}
             htmlFor="btn--close-sidebar"
             aria-label="close sidebar button"
           ></label>
@@ -69,8 +62,8 @@ export default function App() {
             </div>
 
             <div
-              className={`underlay-${shadowFor}`}
-              onClick={() => setShadowFor('')}
+              className={`underlay-${shadowOf}`}
+              onClick={() => setShadowOf('')}
             ></div>
           </main>
         </ErrorBoundary>

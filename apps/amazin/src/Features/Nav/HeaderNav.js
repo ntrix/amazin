@@ -12,27 +12,30 @@ import {
 import DropMenuCurrency from './DropMenuCurrency';
 import { MenuItem } from './MenuItem';
 import NavDropBtn from './NavDropBtn';
-import { savePath, shortName } from '../../utils';
 import Logo from '../../img/a.svg';
 import './nav.css';
 
-export function _HeaderNav({ shadowFor, setShadowFor, currency }) {
+import { savePath, shortName } from '../../utils';
+import { useShadow } from '../../utils/useShadow';
+
+export function _HeaderNav({ currency }) {
+  const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const dispatch = useDispatch();
+  const [shadowOf, setShadowOf] = useShadow('');
 
   const timeoutId = useRef(0);
   const onEnterHandle = () => {
     clearTimeout(timeoutId.current - 99);
-    timeoutId.current = setTimeout(() => setShadowFor('navDrop'), 450);
+    timeoutId.current = setTimeout(() => setShadowOf('navDrop'), 450);
   };
   const onLeaveHandle = () => {
-    timeoutId.current = 99 + setTimeout(() => setShadowFor(''), 450);
+    timeoutId.current = 99 + setTimeout(() => setShadowOf(''), 450);
   };
 
   const _DropMenu = ({ menuItems }) => (
-    <ul className={`dropdown__menu ${'navDrop' === shadowFor ? 'show' : ''}`}>
-      {menuItems.map(MenuItem(setShadowFor))}
+    <ul className={`dropdown__menu ${'navDrop' === shadowOf ? 'show' : ''}`}>
+      {menuItems.map(MenuItem)}
     </ul>
   );
 
@@ -56,15 +59,15 @@ export function _HeaderNav({ shadowFor, setShadowFor, currency }) {
       </Link>
 
       <div className="nav__search">
-        <SearchBox shadowFor={shadowFor} setShadowFor={setShadowFor} />
+        <SearchBox />
       </div>
 
       <NavDropBtn
         className="nav__currency mobile--off"
         className2="sprite__wrapper"
         className3={'sprite flag ' + currency}
-        onEnterHandle={() => setShadowFor('currency')}
-        onLeaveHandle={() => setShadowFor('')}
+        onEnterHandle={() => setShadowOf('currency')}
+        onLeaveHandle={() => setShadowOf('')}
       >
         <DropMenuCurrency currency={currency} />
       </NavDropBtn>

@@ -7,20 +7,22 @@ import { signout } from '../../Controllers/userActions';
 
 import { shortName } from '../../utils';
 import LoadingOrError from '../../components/LoadingOrError';
+import { useShadow } from '../../utils/useShadow';
 
-export function _SidebarMenu({ currency, shadowFor, setShadowFor }) {
+export function _SidebarMenu({ currency }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories } = productCategoryList;
+  const [shadowOf, setShadowOf] = useShadow();
 
   return (
-    <aside className={`sidebar ${'sidebar' === shadowFor ? 'opened' : ''}`}>
-      <button onClick={() => setShadowFor('')} id="btn--close-sidebar">
+    <aside className={`sidebar ${'sidebar' === shadowOf ? 'opened' : ''}`}>
+      <button onClick={() => setShadowOf('')} id="btn--close-sidebar">
         <div className="sprite__close-btn"></div>
       </button>
 
-      <li onClick={() => setShadowFor('')}>
+      <li onClick={() => setShadowOf('')}>
         <Link to="/profile" className="sidebar__header">
           <div className="sprite__user"></div>
           {'Hello, ' + shortName(userInfo)}
@@ -33,7 +35,7 @@ export function _SidebarMenu({ currency, shadowFor, setShadowFor }) {
         {categories &&
           sidebarMenuItems(userInfo, currency, categories, () =>
             dispatch(signout())
-          ).map(MenuItem(setShadowFor))}
+          ).map(MenuItem)}
       </ul>
     </aside>
   );

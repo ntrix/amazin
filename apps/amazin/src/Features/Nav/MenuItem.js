@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useShadow } from '../../utils/useShadow';
+
 const InnerMenuItem = (props) => {
-  const { className, label, linkTo, extraAction, setShadowFor } = props;
+  const [, setShadowOf] = useShadow('');
+  const { className, label, linkTo, extraAction } = props;
 
   if (!linkTo && !className) return <strong>{label}</strong>;
 
@@ -28,7 +31,7 @@ const InnerMenuItem = (props) => {
         className={className}
         onClick={(e) => {
           e.stopPropagation();
-          setShadowFor('');
+          setShadowOf('');
           if (extraAction) extraAction();
         }}
       >
@@ -39,20 +42,17 @@ const InnerMenuItem = (props) => {
   return <div>{label}</div>;
 };
 
-export const MenuItem =
-  (setShadowFor) =>
-  ([label, linkTo, className, extraAction], id) => {
-    return label === 'separator' ? (
-      <div key={id} className="separator"></div>
-    ) : (
-      <li key={id}>
-        <InnerMenuItem
-          className={className}
-          label={label}
-          linkTo={linkTo}
-          extraAction={extraAction}
-          setShadowFor={setShadowFor}
-        />
-      </li>
-    );
-  };
+export const MenuItem = ([label, linkTo, className, extraAction], id) => {
+  return label === 'separator' ? (
+    <div key={id} className="separator"></div>
+  ) : (
+    <li key={id}>
+      <InnerMenuItem
+        className={className}
+        label={label}
+        linkTo={linkTo}
+        extraAction={extraAction}
+      />
+    </li>
+  );
+};

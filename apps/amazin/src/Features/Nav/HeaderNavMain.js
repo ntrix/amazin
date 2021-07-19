@@ -3,14 +3,16 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LoadingOrError from '../../components/LoadingOrError';
+import { useShadow } from '../../utils/useShadow';
 
-export function _HeaderNavMain({ setShadowFor }) {
+export function _HeaderNavMain() {
+  const [, setShadowOf] = useShadow('');
   const productCategoryList = useSelector((state) => state.productCategoryList);
 
   const navMainItem = ([label, linkTo, className]) => {
     return (
       <div key={label} className={className}>
-        <Link to={linkTo} onClick={() => setShadowFor('')}>
+        <Link to={linkTo} onClick={() => setShadowOf('')}>
           {label}
         </Link>
       </div>
@@ -22,7 +24,7 @@ export function _HeaderNavMain({ setShadowFor }) {
       <div className="nav__left">
         <div
           className="open-sidebar nav-main__item flex"
-          onClick={() => setShadowFor('sidebar')}
+          onClick={() => setShadowOf('sidebar')}
         >
           <div className="sprite__bars"></div>
           <b>All</b>
