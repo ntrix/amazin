@@ -8,7 +8,7 @@ import {
   noUserMenuItems,
   sellerMenuItems,
   userMenuItems
-} from './menuItemList';
+} from './menuItemsTemplate';
 import DropMenuCurrency from './DropMenuCurrency';
 import { MenuItem } from './MenuItem';
 import NavDropBtn from './NavDropBtn';
@@ -16,7 +16,7 @@ import { savePath, shortName } from '../../utils';
 import Logo from '../../img/a.svg';
 import './nav.css';
 
-export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
+export function _HeaderNav({ shadowFor, setShadowFor, currency }) {
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
   const dispatch = useDispatch();
@@ -30,11 +30,13 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
     timeoutId.current = 99 + setTimeout(() => setShadowFor(''), 450);
   };
 
-  const DropMenu = ({ menuItems }) => (
+  const _DropMenu = ({ menuItems }) => (
     <ul className={'dropdown__menu' + ('navDrop' === shadowFor ? ' show' : '')}>
       {menuItems.map(MenuItem(setShadowFor))}
     </ul>
   );
+
+  const DropMenu = React.memo(_DropMenu);
 
   return (
     <div className="nav-belt row">
@@ -131,3 +133,6 @@ export default function HeaderNav({ shadowFor, setShadowFor, currency }) {
     </div>
   );
 }
+
+const HeaderNav = React.memo(_HeaderNav);
+export default HeaderNav;

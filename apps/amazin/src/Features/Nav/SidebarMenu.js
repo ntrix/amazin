@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { sidebarMenuItems } from './menuItemList';
+import { sidebarMenuItems } from './menuItemsTemplate';
 import { MenuItem } from './MenuItem';
 import { signout } from '../../Controllers/userActions';
 
 import { shortName } from '../../utils';
 import LoadingOrError from '../../components/LoadingOrError';
 
-export default function SidebarMenu({ currency, shadowFor, setShadowFor }) {
+export function _SidebarMenu({ currency, shadowFor, setShadowFor }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCategoryList = useSelector((state) => state.productCategoryList);
@@ -38,3 +38,6 @@ export default function SidebarMenu({ currency, shadowFor, setShadowFor }) {
     </aside>
   );
 }
+
+const SidebarMenu = React.memo(_SidebarMenu);
+export default SidebarMenu;

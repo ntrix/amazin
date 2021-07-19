@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import LoadingOrError from '../../components/LoadingOrError';
 
-export default function HeaderNavMain({ setShadowFor }) {
+export function _HeaderNavMain({ setShadowFor }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
 
   const navMainItem = ([label, linkTo, className]) => {
@@ -58,3 +58,6 @@ export default function HeaderNavMain({ setShadowFor }) {
     </div>
   );
 }
+
+const HeaderNavMain = React.memo(_HeaderNavMain);
+export default HeaderNavMain;

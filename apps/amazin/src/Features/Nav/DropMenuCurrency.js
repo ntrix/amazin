@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { RATES_SOURCE } from '../../constants';
 import { pipe, savePath } from '../../utils';
 
-export default function DropMenuCurrency({ currency }) {
+export function _DropMenuCurrency({ currency }) {
   return (
     <ul className="dropdown__menu show">
       <li>Change Currency</li>
@@ -44,3 +44,6 @@ export default function DropMenuCurrency({ currency }) {
     </ul>
   );
 }
+
+const DropMenuCurrency = React.memo(_DropMenuCurrency);
+export default DropMenuCurrency;

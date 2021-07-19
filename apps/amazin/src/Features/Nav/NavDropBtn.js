@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function NavDropBtn({
+export function _NavDropBtn({
   label = '',
   className = '',
   className1 = '',
@@ -31,3 +31,6 @@ export default function NavDropBtn({
     </div>
   );
 }
+
+const NavDropBtn = React.memo(_NavDropBtn);
+export default NavDropBtn;
