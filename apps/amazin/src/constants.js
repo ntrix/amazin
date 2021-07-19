@@ -18,7 +18,8 @@ export const STORAGE = {
   USERINFO: 'userInfo',
   CART_ITEMS: 'cartItems',
   SHIPPING_ADDRESS: 'shippingAddress',
-  CURRENCY: 'currency'
+  CURRENCY: 'currency',
+  HISTORY: 'backToHistory'
 };
 
 export const SHOW_ERROR_TIMEOUT = 9000;

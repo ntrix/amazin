@@ -20,7 +20,7 @@ export default function CurrencyScreen() {
   const [currency, setCurrency] = useState(cType || pipe.currency);
   const [newCurrency, setNewCurrency] = useState('');
 
-  let back = localStorage.getItem('backToHistory');
+  let back = localStorage.getItem(STORAGE.HISTORY);
   back = !back || back.startsWith('/currency') ? '/' : back;
 
   useEffect(() => {

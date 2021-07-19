@@ -9,6 +9,7 @@ import MessageBox from '../../components/MessageBox';
 import Rating from '../../components/Rating';
 import { getImgUrl, pipe } from '../../utils';
 import LoadingOrError from '../../components/LoadingOrError';
+import { STORAGE } from '../../constants';
 
 export default function ProductScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ export default function ProductScreen({ history, match }) {
           <div>
             <div className="row search__banner">
               <Link
-                to={localStorage?.getItem('backToHistory') || '/'}
+                to={localStorage?.getItem(STORAGE.HISTORY) || '/'}
                 className="ml-1"
               >
                 Back to result

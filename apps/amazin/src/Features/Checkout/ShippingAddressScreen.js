@@ -6,6 +6,7 @@ import { saveShippingAddress } from '../../Controllers/cartActions';
 
 import CheckoutSteps from './CheckoutSteps';
 import CustomInput from '../../components/CustomInput';
+import { STORAGE } from '../../constants';
 
 export default function ShippingAddressScreen({ history }) {
   const dispatch = useDispatch();
@@ -73,7 +74,7 @@ export default function ShippingAddressScreen({ history }) {
         lng
       })
     );
-    localStorage.setItem('backToHistory', location.pathname);
+    localStorage.setItem(STORAGE.HISTORY, location.pathname);
     history.push('/map');
   };
 

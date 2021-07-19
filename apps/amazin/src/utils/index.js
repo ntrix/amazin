@@ -1,4 +1,4 @@
-import { CURR_FORMAT, baseURL, NO_IMAGE } from '../constants';
+import { CURR_FORMAT, baseURL, NO_IMAGE, STORAGE } from '../constants';
 
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
@@ -62,7 +62,7 @@ export const savePath =
   (exceptionStartWith = '@') =>
   () => {
     if (!window.location.pathname.startsWith(exceptionStartWith))
-      localStorage.setItem('backToHistory', window.location.pathname);
+      localStorage.setItem(STORAGE.HISTORY, window.location.pathname);
   };
 
 /* adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
