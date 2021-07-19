@@ -52,11 +52,6 @@ export default function App() {
 
           <SidebarMenu currency={currency} />
 
-          <label
-            className={SHADOW.SIDEBAR === shadowOf ? 'click-catcher' : ''}
-            htmlFor="btn--close-sidebar"
-            aria-label="close sidebar button"
-          ></label>
           <main className="container">
             <div className="col-fill">
               <MainRoute />

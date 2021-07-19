@@ -18,27 +18,37 @@ export function _SidebarMenu({ currency }) {
   const [shadowOf, setShadowOf] = useShadow();
 
   return (
-    <aside className={`sidebar ${SHADOW.SIDEBAR === shadowOf ? 'opened' : ''}`}>
-      <button onClick={() => setShadowOf('')} id="btn--close-sidebar">
-        <div className="sprite__close-btn"></div>
-      </button>
+    <>
+      <aside
+        className={`sidebar ${SHADOW.SIDEBAR === shadowOf ? 'opened' : ''}`}
+      >
+        <button id="btn--close-sidebar" onClick={() => setShadowOf('')}>
+          <div className="sprite__close-btn"></div>
+        </button>
 
-      <li onClick={() => setShadowOf('')}>
-        <Link to="/profile" className="sidebar__header">
-          <div className="sprite__user"></div>
-          {'Hello, ' + shortName(userInfo)}
-        </Link>
-      </li>
+        <li onClick={() => setShadowOf('')}>
+          <Link to="/profile" className="sidebar__header">
+            <div className="sprite__user"></div>
+            {'Hello, ' + shortName(userInfo)}
+          </Link>
+        </li>
 
-      <ul className="sidebar__list">
-        <LoadingOrError statusOf={productCategoryList} />
+        <ul className="sidebar__list">
+          <LoadingOrError statusOf={productCategoryList} />
 
-        {categories &&
-          sidebarMenuItems(userInfo, currency, categories, () =>
-            dispatch(signout())
-          ).map(MenuItem)}
-      </ul>
-    </aside>
+          {categories &&
+            sidebarMenuItems(userInfo, currency, categories, () =>
+              dispatch(signout())
+            ).map(MenuItem)}
+        </ul>
+      </aside>
+
+      <label
+        className={SHADOW.SIDEBAR === shadowOf ? 'click-catcher' : ''}
+        htmlFor="btn--close-sidebar"
+        aria-label="close sidebar area"
+      ></label>
+    </>
   );
 }
 
