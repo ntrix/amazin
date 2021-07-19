@@ -20,7 +20,7 @@ import LoadingOrError from '../components/LoadingOrError';
 
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
-export default function HomeScreen() {
+export function _HomeScreen() {
   const dispatch = useDispatch();
   const { banner = 'home' } = useParams();
   const productList = useSelector((state) => state.productList);
@@ -124,3 +124,6 @@ export default function HomeScreen() {
     </div>
   );
 }
+
+const HomeScreen = React.memo(_HomeScreen);
+export default HomeScreen;
