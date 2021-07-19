@@ -1,4 +1,4 @@
-import { CURRENCY, baseURL, NO_IMAGE } from '../constants';
+import { CURR_FORMAT, baseURL, NO_IMAGE } from '../constants';
 
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
@@ -44,13 +44,13 @@ export const pipe = {
     return this.rates[currency || this.currency] || 1;
   },
   getPrice(price = 0, rate = this.getRate()) {
-    return (price * rate).toFixed(CURRENCY);
+    return (price * rate).toFixed(CURR_FORMAT);
   },
   getNote(price = 0, rate = this.getRate()) {
     return ((price * rate) | 0).toString();
   },
   getCent(price = 0, rate = this.getRate()) {
-    return (price * rate).toFixed(CURRENCY).slice(-CURRENCY);
+    return (price * rate).toFixed(CURR_FORMAT).slice(-CURR_FORMAT);
   },
   showPrice(price) {
     return `${this.getSymbol()} ${this.getPrice(price)}`;

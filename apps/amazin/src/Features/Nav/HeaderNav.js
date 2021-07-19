@@ -16,7 +16,7 @@ import Logo from '../../img/a.svg';
 import './nav.css';
 
 import { savePath, shortName } from '../../utils';
-import { SHADOW } from '../../constants';
+import { SHADOW, STORAGE } from '../../constants';
 import { useShadow } from '../../utils/useShadow';
 
 export function _HeaderNav({ currency }) {
@@ -60,7 +60,7 @@ export function _HeaderNav({ currency }) {
         className="nav__currency mobile--off"
         className2="sprite__wrapper"
         className3={'sprite flag ' + currency}
-        onEnterHandle={() => setShadowOf('currency')}
+        onEnterHandle={() => setShadowOf(STORAGE.CURRENCY)}
         onLeaveHandle={() => setShadowOf('')}
       >
         <DropMenuCurrency currency={currency} />

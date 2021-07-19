@@ -17,7 +17,8 @@ export const SHADOW = {
 export const STORAGE = {
   USERINFO: 'userInfo',
   CART_ITEMS: 'cartItems',
-  SHIPPING_ADDRESS: 'shippingAddress'
+  SHIPPING_ADDRESS: 'shippingAddress',
+  CURRENCY: 'currency'
 };
 
 export const SHOW_ERROR_TIMEOUT = 9000;
@@ -35,7 +36,7 @@ export const MAX_SEARCH_SUGGESTS = 12;
 export const DD_MM_YYYY = 10;
 
 /* Currency format */
-export const CURRENCY = 2;
+export const CURR_FORMAT = 2;
 
 /* Tax rate, Germany default 2019 */
 export const TAX = 0.19;

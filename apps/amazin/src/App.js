@@ -14,7 +14,7 @@ import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import ErrorFallback from './Features/Auth/ErrorFallBack';
 import { useShadow } from './utils/useShadow';
-import { SHADOW } from './constants';
+import { SHADOW, STORAGE } from './constants';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function App() {
     pipe.setCurrency(
       userInfo?.currency ||
         sessionCurrency ||
-        localStorage.getItem('currency') ||
+        localStorage.getItem(STORAGE.CURRENCY) ||
         pipe.currency
     );
     setCurrency(pipe.currency);
