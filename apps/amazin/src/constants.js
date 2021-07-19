@@ -14,9 +14,11 @@ export const SHADOW = {
 };
 
 /* local storage and Redux */
-export const STORAGE_USERINFO = 'userInfo';
-export const STORAGE_CART_ITEMS = 'cartItems';
-export const STORAGE_SHIPPING_ADDRESS = 'shippingAddress';
+export const STORAGE = {
+  USERINFO: 'userInfo',
+  CART_ITEMS: 'cartItems',
+  SHIPPING_ADDRESS: 'shippingAddress'
+};
 
 export const SHOW_ERROR_TIMEOUT = 9000;
 

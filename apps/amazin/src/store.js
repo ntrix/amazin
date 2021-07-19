@@ -1,11 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
-import {
-  STORAGE_CART_ITEMS,
-  STORAGE_SHIPPING_ADDRESS,
-  STORAGE_USERINFO
-} from './constants';
+import { STORAGE } from './constants';
 
 import { cartReducer } from './Features/Checkout/CartSlice';
 import {
@@ -42,18 +38,18 @@ import {
 
 const preloadedState = {
   userSignin: {
-    userInfo: localStorage.getItem(STORAGE_USERINFO)
-      ? JSON.parse(localStorage.getItem(STORAGE_USERINFO))
+    userInfo: localStorage.getItem(STORAGE.USERINFO)
+      ? JSON.parse(localStorage.getItem(STORAGE.USERINFO))
       : null
   },
 
   cart: {
-    cartItems: localStorage.getItem(STORAGE_CART_ITEMS)
-      ? JSON.parse(localStorage.getItem(STORAGE_CART_ITEMS))
+    cartItems: localStorage.getItem(STORAGE.CART_ITEMS)
+      ? JSON.parse(localStorage.getItem(STORAGE.CART_ITEMS))
       : [],
 
-    shippingAddress: localStorage.getItem(STORAGE_SHIPPING_ADDRESS)
-      ? JSON.parse(localStorage.getItem(STORAGE_SHIPPING_ADDRESS))
+    shippingAddress: localStorage.getItem(STORAGE.SHIPPING_ADDRESS)
+      ? JSON.parse(localStorage.getItem(STORAGE.SHIPPING_ADDRESS))
       : {},
 
     paymentMethod: 'PayPal'
