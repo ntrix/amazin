@@ -22,16 +22,7 @@ export function _HeaderNav({ currency }) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const [shadowOf, setShadowOf] = useShadow('');
-
-  const timeoutId = useRef(0);
-  const onEnterHandle = () => {
-    clearTimeout(timeoutId.current - 99);
-    timeoutId.current = setTimeout(() => setShadowOf('navDrop'), 450);
-  };
-  const onLeaveHandle = () => {
-    timeoutId.current = 99 + setTimeout(() => setShadowOf(''), 450);
-  };
+  const [shadowOf, setShadowOf, setShadowSlow] = useShadow('');
 
   const _DropMenu = ({ menuItems }) => (
     <ul className={`dropdown__menu ${'navDrop' === shadowOf ? 'show' : ''}`}>
@@ -76,8 +67,8 @@ export function _HeaderNav({ currency }) {
         <NavDropBtn
           label="Hello, Sign in^Account^ & Lists"
           className="nav__user"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow('navDrop')}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu menuItems={noUserMenuItems()} />
         </NavDropBtn>
@@ -87,8 +78,8 @@ export function _HeaderNav({ currency }) {
         <NavDropBtn
           label={`Hello, ${shortName(userInfo, 7)}^Account^ & Lists`}
           className="nav__user"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow('navDrop')}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu
             menuItems={userMenuItems(userInfo, () => dispatch(signout()))}
@@ -100,8 +91,8 @@ export function _HeaderNav({ currency }) {
         <NavDropBtn
           label="Seller^Desk"
           className="nav__seller"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow('navDrop')}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu menuItems={sellerMenuItems(userInfo)} />
         </NavDropBtn>
@@ -111,8 +102,8 @@ export function _HeaderNav({ currency }) {
         <NavDropBtn
           label="Admin^Tools"
           className="nav__admin phone--off"
-          onEnterHandle={onEnterHandle}
-          onLeaveHandle={onLeaveHandle}
+          onEnterHandle={setShadowSlow('navDrop')}
+          onLeaveHandle={setShadowSlow()}
         >
           <DropMenu menuItems={adminMenuItems()} />
         </NavDropBtn>
