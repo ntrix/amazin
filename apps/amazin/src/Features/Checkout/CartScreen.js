@@ -121,9 +121,9 @@ export default function CartScreen(props) {
               <button
                 type="button"
                 onClick={checkoutHandler}
-                className={
-                  'primary block' + (!cartItems.length ? ' disabled' : '')
-                }
+                className={`primary block ${
+                  cartItems.length ? '' : ' disabled'
+                }`}
                 disabled={cartItems.length === 0}
               >
                 Proceed to Buy

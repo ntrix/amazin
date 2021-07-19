@@ -79,9 +79,9 @@ export default function ProductScreen({ history, match }) {
                         alt={`${product.name} small ${id}`}
                         onMouseEnter={() => setImgActive(id)}
                         onClick={() => setImgActive(id)}
-                        className={
-                          'product__thumbnail' + (id === imgActive && ' active')
-                        }
+                        className={`product__thumbnail ${
+                          id === imgActive ? 'active' : ''
+                        }`}
                       ></img>
                     ))}
               </div>
@@ -112,7 +112,7 @@ export default function ProductScreen({ history, match }) {
 
                 <li>
                   <div>
-                    <span className={'price' + (product.deal ? ' danger' : '')}>
+                    <span className={`price ${product.deal ? 'danger' : ''}`}>
                       <sup>{pipe.getSymbol()}</sup>
                       {pipe.getNote(product.price)}
                       <sup>{pipe.getCent(product.price)}</sup>

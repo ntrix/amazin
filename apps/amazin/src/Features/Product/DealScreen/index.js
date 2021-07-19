@@ -56,14 +56,12 @@ export default function DealScreen() {
         </ul>
       </header>
 
-      <div
-        className={'deal-screen' + (Math.random() < 0.5 ? '' : ' screen--1')}
-      >
+      <div className={`deal-screen ${Math.random() < 0.5 ? 'screen--1' : ''}`}>
         <LoadingOrError statusOf={productList} />
-
         <MessageBox show={products?.length < 1}>
           No Deals On This Category!
         </MessageBox>
+
         {products && (
           <Carousel
             swipeable={true}

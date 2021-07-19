@@ -83,13 +83,13 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
   return (
     <form
       ref={searchBoxRef}
-      className={'search-box ' + outline}
+      className={`search-box ${outline}`}
       onSubmit={submitHandler}
     >
       <div className="row--left">
         <div className="search__dropdown">
           <div
-            className={['focus ', ''][!navScope & 1] + 'search-box__scope'}
+            className={`search-box__scope ${navScope ? 'focus' : ''}`}
             tabIndex="1"
             onClick={() => {
               setOutline('');
@@ -111,9 +111,7 @@ export function _SearchBox({ shadowFor, setShadowFor }) {
               {[ALL_CATEGORIES, ...categories].map((cat, i) => (
                 <li
                   key={i}
-                  className={
-                    ['selected ', ''][(cat !== category) & 1] + 'category'
-                  }
+                  className={`category ${cat === category ? 'selected' : ''}`}
                   onClick={() => {
                     if (cat === category) {
                       setNavScope(2);

@@ -62,7 +62,9 @@ export default function SearchScreen() {
           {categories &&
             ['All', ...categories].map((label, id) => (
               <Link to={getFilterUrl({ category: label })} key={id}>
-                <li className={label === category && ' selected'}>{label}</li>
+                <li className={label === category ? ' selected' : ''}>
+                  {label}
+                </li>
               </Link>
             ))}
         </ul>
@@ -88,7 +90,7 @@ export default function SearchScreen() {
 
               <li>
                 <Link
-                  className={'All' === category && ' active'}
+                  className={'All' === category ? ' active' : ''}
                   to={getFilterUrl({ category: 'All' })}
                 >
                   Any
@@ -98,7 +100,7 @@ export default function SearchScreen() {
               {categories?.map((c, id) => (
                 <li key={id}>
                   <Link
-                    className={c === category && ' active'}
+                    className={c === category ? ' active' : ''}
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
@@ -115,7 +117,7 @@ export default function SearchScreen() {
                   <Link
                     to={getFilterUrl({ min: p.min, max: p.max })}
                     className={
-                      `${p.min}-${p.max}` === `${min}-${max}` && ' active'
+                      `${p.min}-${p.max}` === `${min}-${max}` ? ' active' : ''
                     }
                   >
                     {p.name}
@@ -131,7 +133,7 @@ export default function SearchScreen() {
                 <li key={id}>
                   <Link
                     to={getFilterUrl({ rating: r.rating })}
-                    className={`${r.rating}` === `${rating}` && ' active'}
+                    className={`${r.rating}` === `${rating}` ? ' active' : ''}
                   >
                     <Rating caption={' & up'} rating={r.rating}></Rating>
                   </Link>

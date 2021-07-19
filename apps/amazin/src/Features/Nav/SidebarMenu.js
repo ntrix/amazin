@@ -15,7 +15,7 @@ export function _SidebarMenu({ currency, shadowFor, setShadowFor }) {
   const { categories } = productCategoryList;
 
   return (
-    <aside className={'sidebar' === shadowFor ? 'sidebar opened' : 'sidebar'}>
+    <aside className={`sidebar ${'sidebar' === shadowFor ? 'opened' : ''}`}>
       <button onClick={() => setShadowFor('')} id="btn--close-sidebar">
         <div className="sprite__close-btn"></div>
       </button>

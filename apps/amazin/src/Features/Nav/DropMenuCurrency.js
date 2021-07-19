@@ -15,7 +15,7 @@ export function _DropMenuCurrency({ currency }) {
           <Link
             key={id}
             to={'/currency/cType/' + label}
-            className={label === currency && 'active'}
+            className={label === currency ? 'active' : ''}
             onClick={savePath('/curr')}
           >
             <div className="sprite__wrapper">
@@ -37,7 +37,7 @@ export function _DropMenuCurrency({ currency }) {
 
       <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
         <div className="sprite__wrapper">
-          <div className={'sprite flag xl ' + currency}></div>
+          <div className={`sprite flag xl ${currency}`}></div>
           <span>Exchange Reference Rates</span>
         </div>
       </a>

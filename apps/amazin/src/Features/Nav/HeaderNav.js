@@ -31,7 +31,7 @@ export function _HeaderNav({ shadowFor, setShadowFor, currency }) {
   };
 
   const _DropMenu = ({ menuItems }) => (
-    <ul className={'dropdown__menu' + ('navDrop' === shadowFor ? ' show' : '')}>
+    <ul className={`dropdown__menu ${'navDrop' === shadowFor ? 'show' : ''}`}>
       {menuItems.map(MenuItem(setShadowFor))}
     </ul>
   );

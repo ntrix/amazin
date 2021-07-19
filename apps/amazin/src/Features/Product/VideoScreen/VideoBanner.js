@@ -38,7 +38,7 @@ export function _VideoBanner({ source }) {
   return (
     <>
       <header
-        className={'banner' + (movie?.image ? '' : ' no-image')}
+        className={`banner ${movie?.image ? '' : 'no-image'}`}
         style={{
           backgroundSize: 'cover',
           backgroundImage: `url("${
@@ -92,7 +92,7 @@ export function _VideoBannerBottom({ source }) {
 
   return (
     <div
-      className={'banner' + (movie?.image ? '' : ' no-image')}
+      className={`banner ${movie?.image ? '' : 'no-image'}`}
       style={{
         backgroundSize: 'cover',
         backgroundImage: `url("${

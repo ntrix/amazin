@@ -34,8 +34,8 @@ export default function HomeScreen() {
   }, [dispatch]);
 
   return (
-    <div className={'home-screen'}>
-      <div className={'home__banner ' + banner}></div>
+    <div className="home-screen">
+      <div className={`home__banner ${banner}`}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       {/* <Carousel
             swipeable={true}

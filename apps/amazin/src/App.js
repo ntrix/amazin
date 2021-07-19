@@ -35,9 +35,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <div
-        className={
-          'container--grid' + ('sidebar' === shadowFor ? ' scroll--off' : '')
-        }
+        className={`container--grid ${
+          'sidebar' === shadowFor ? 'scroll--off' : ''
+        }`}
       >
         <header id="nav-bar">
           <HeaderNav
@@ -67,7 +67,7 @@ export default function App() {
           </div>
 
           <div
-            className={'underlay-' + shadowFor}
+            className={`underlay-${shadowFor}`}
             onClick={() => setShadowFor('')}
           ></div>
         </main>
