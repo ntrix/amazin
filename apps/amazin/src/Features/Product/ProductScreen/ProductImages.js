@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getImgUrl } from '../../../utils';
 
-export default function ProductScreen({ product }) {
+export function _ProductScreen({ product }) {
   const [activeImg, setActiveImg] = useState(0);
 
   return (
@@ -29,3 +29,6 @@ export default function ProductScreen({ product }) {
     </div>
   );
 }
+
+const ProductScreen = React.memo(_ProductScreen);
+export default ProductScreen;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { pipe } from '../../../utils';
 
-export default function ProductScreen({ productId, product }) {
+export function _ProductScreen({ productId, product }) {
   const history = useHistory();
   const [qty, setQty] = useState(1);
 
@@ -11,7 +11,7 @@ export default function ProductScreen({ productId, product }) {
   };
 
   return (
-    <ul>
+    <ul className="card card__body m-0">
       <li>
         <div className="row">
           <div>Price</div>
@@ -68,3 +68,6 @@ export default function ProductScreen({ productId, product }) {
     </ul>
   );
 }
+
+const ProductScreen = React.memo(_ProductScreen);
+export default ProductScreen;

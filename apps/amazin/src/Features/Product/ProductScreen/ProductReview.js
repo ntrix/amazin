@@ -12,7 +12,7 @@ import MessageBox from '../../../components/MessageBox';
 import Rating from '../../../components/Rating';
 import LoadingOrError from '../../../components/LoadingOrError';
 
-export default function ProductReview({ productId }) {
+export function _ProductReview({ productId }) {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.userSignin);
@@ -115,3 +115,6 @@ export default function ProductReview({ productId }) {
     </div>
   );
 }
+
+const ProductReview = React.memo(_ProductReview);
+export default ProductReview;

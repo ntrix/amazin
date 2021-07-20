@@ -7,12 +7,12 @@ import ProductDescription from './ProductDescription';
 import ProductReview from './ProductReview';
 import ProductInStock from './ProductInStock';
 import { detailsProduct } from '../../../Controllers/productActions';
+import SellerCard from '../SellerScreen/SellerCard';
 
-import Rating from '../../../components/Rating';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { STORAGE } from '../../../constants';
 
-export default function ProductScreen({ match }) {
+export function _ProductScreen({ match }) {
   const dispatch = useDispatch();
   const productId = match.params.id;
 
@@ -46,22 +46,12 @@ export default function ProductScreen({ match }) {
             <ProductDescription product={product} />
 
             <div className="col-1">
-              <div className="card m-0 card__body">
-                <div>
-                  Seller{' '}
-                  <h2>
-                    <Link to={`/seller/${product.seller._id}`}>
-                      {product.seller.seller.name}
-                    </Link>
-                  </h2>
-                  <Rating
-                    rating={product.seller.seller.rating}
-                    numReviews={product.seller.seller.numReviews}
-                  />
-                </div>
+              <SellerCard
+                user={product.seller}
+                linkTo={`/seller/${product.seller._id}`}
+              />
 
-                <ProductInStock productId={productId} product={product} />
-              </div>
+              <ProductInStock productId={productId} product={product} />
             </div>
           </div>
 
@@ -71,3 +61,6 @@ export default function ProductScreen({ match }) {
     </div>
   );
 }
+
+const ProductScreen = React.memo(_ProductScreen);
+export default ProductScreen;
