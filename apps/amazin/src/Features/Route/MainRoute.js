@@ -18,7 +18,7 @@ import SearchScreen from '../Product/SearchScreen';
 import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 import SellerRoute from './SellerRoute';
-import SellerScreen from '../SellerScreen';
+import SellerScreen from '../Product/SellerScreen';
 import MapScreen from '../User/MapScreen';
 import ProfileScreen from '../User/ProfileScreen';
 import UserEditScreen from '../User/UserEditScreen';
