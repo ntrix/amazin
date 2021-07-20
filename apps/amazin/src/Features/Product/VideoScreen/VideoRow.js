@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Carousel, { responsive } from '../../../constants';
-import UTube from './UTube';
-import VideoCard from './VideoCard';
+import UTube from './components/UTube';
+import VideoCard from './components/VideoCard';
 
 export function _VideoRow({ title, movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');

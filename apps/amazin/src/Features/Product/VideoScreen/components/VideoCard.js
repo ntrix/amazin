@@ -1,8 +1,9 @@
 import React from 'react';
-import Rating from '../../../components/Rating';
-import { NO_IMAGE } from '../../../constants';
-import { getImgUrl } from '../../../utils';
-import { VideoButtons } from './VideoButtons';
+import Rating from '../../../../components/Rating';
+import { NO_IMAGE } from '../../../../constants';
+import { getImgUrl } from '../../../../utils';
+import ButtonBuy from './ButtonBuy';
+import ButtonTrailer from './ButtonTrailer';
 
 export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
   return (
@@ -18,6 +19,7 @@ export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
       <div className="m-card__background">
         <div className="m-card__text">
           {movie?.description.slice(0, 150) + '..'}
+
           <div className="m-card__rating">
             <Rating
               rating={movie?.rating * 2}
@@ -28,11 +30,9 @@ export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
         </div>
 
         <div className="m-card__more">
-          <VideoButtons
-            movie={movie}
-            trailerUrl={trailerUrl}
-            setTrailerUrl={setTrailerUrl}
-          />
+          <ButtonTrailer movie={movie} hook={[trailerUrl, setTrailerUrl]} />
+
+          <ButtonBuy movie={movie} />
         </div>
       </div>
 

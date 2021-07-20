@@ -1,23 +1,33 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { listProducts } from '../../../Controllers/productActions';
-import VideoBanner, { VideoBannerBottom } from './VideoBanner';
-import VideoRow from './VideoRow';
 import './videoScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { NO_MOVIES, TRENDING, TOP_RATED, SOURCES } from '../../../constants';
 import { dummyMovies, sourceAdapter } from '../../../utils';
+import LoadingBox from '../../../components/LoadingBox';
+
+import { VideoBannerBottom } from './VideoBanner';
+const VideoNavHeader = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './VideoNavHeader')
+);
+const VideoBanner = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './VideoBanner')
+);
+const VideoRow = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './VideoRow')
+);
 
 const navLabels = Object.keys(SOURCES);
 navLabels.splice(1, 0, 'Home', 'STORE');
 
 export default function VideoScreen() {
   const dispatch = useDispatch();
-  const [genre, setGenre] = useState('STORE');
+  const [active, setActive] = useState('STORE');
   const [movies, setMovies] = useState({ STORE: [] });
   const [externMovies, setExternMovies] = useState({});
   const [storeMovies, setStoreMovies] = useState();
@@ -36,17 +46,17 @@ export default function VideoScreen() {
 
     (async function fetchData() {
       const promiseReturns = await Promise.all(
-        Object.keys(SOURCES).map(async (_genre) => {
+        Object.keys(SOURCES).map(async (genre) => {
           const { data } = await axios
-            .get('https://api.themoviedb.org/3' + SOURCES[_genre])
+            .get('https://api.themoviedb.org/3' + SOURCES[genre])
             .catch();
-          return [[_genre], data.results];
+          return [[genre], data.results];
         })
       );
       if (!isMounted.current) return;
       const movieObj = {};
       promiseReturns.map(
-        ([_genre, list]) => (movieObj[_genre] = sourceAdapter(list))
+        ([genre, list]) => (movieObj[genre] = sourceAdapter(list))
       );
       setExternMovies(movieObj);
     })();
@@ -63,69 +73,73 @@ export default function VideoScreen() {
 
   return (
     <div className="container--full video-screen">
-      <header className="m-header">
-        <ul className="m-nav">
-          {navLabels.map((label, id) => (
-            <li
-              key={id}
-              className={label === genre ? ' active' : ''}
-              onClick={() => setGenre(label)}
-            >
-              {label.split(' ')[0]}
-            </li>
-          ))}
-        </ul>
-      </header>
+      <Suspense fallback={<LoadingBox />}>
+        <VideoNavHeader labels={navLabels} hook={[active, setActive]} />
+      </Suspense>
 
-      <VideoBanner source={!productList.success ? NO_MOVIES : movies[genre]} />
+      <Suspense fallback={<LoadingBox xl />}>
+        <VideoBanner
+          source={!productList.success ? NO_MOVIES : movies[active]}
+        />
+      </Suspense>
 
-      {externMovies &&
-        Object.keys(SOURCES).map(
-          (label, id) =>
-            (label === genre || genre === 'Home') && (
-              <VideoRow
-                key={id}
-                title={label}
-                movies={movies[label]}
-                portrait={label === 'NETFLUX ORIGINALS'}
-              />
-            )
-        )}
+      <Suspense fallback={<LoadingBox />}>
+        {externMovies &&
+          Object.keys(SOURCES).map(
+            (label, id) =>
+              (label === active || active === 'Home') && (
+                <VideoRow
+                  key={id}
+                  title={label}
+                  movies={movies[label]}
+                  portrait={label === 'NETFLUX ORIGINALS'}
+                />
+              )
+          )}
+      </Suspense>
 
       <LoadingOrError xl statusOf={productList} />
 
-      {productList.success && (
-        <>
-          <MessageBox show={!productList.products.length}>
-            No Product Found Or All Movies In Stock Are Sold Out
-          </MessageBox>
+      <Suspense fallback={<LoadingBox />}>
+        {productList.success && (
+          <>
+            <MessageBox show={!productList.products.length}>
+              No Product Found Or All Movies In Stock Are Sold Out
+            </MessageBox>
 
-          {productList.products.length && (
-            <VideoRow
-              title="IN STOCK: READY TO BUY"
-              movies={[storeMovies, dummyMovies][!!productList.loading]}
-              //if Netflux is genre, only one portrait row
-              portrait={genre !== 'NETFLUX ORIGINALS'}
-            />
-          )}
-        </>
-      )}
+            {productList.products.length && (
+              <VideoRow
+                title="IN STOCK: READY TO BUY"
+                movies={[storeMovies, dummyMovies][!!productList.loading]}
+                //if Netflux is active, only one portrait row
+                portrait={active !== 'NETFLUX ORIGINALS'}
+              />
+            )}
+          </>
+        )}
+      </Suspense>
 
-      {
-        /* no duplicated Trending Now */
-        externMovies[TRENDING] && genre !== TRENDING && (
-          <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />
-        )
-      }
+      <Suspense fallback={<LoadingBox />}>
+        {
+          /* no duplicated Trending Now */
+          externMovies[TRENDING] && active !== TRENDING && (
+            <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />
+          )
+        }
+      </Suspense>
 
-      {externMovies[TOP_RATED] && genre !== TOP_RATED && (
-        <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />
-      )}
-      <div className="banner__divider"></div>
+      <Suspense fallback={<LoadingBox />}>
+        {externMovies[TOP_RATED] && active !== TOP_RATED && (
+          <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />
+        )}
+        <div className="banner__divider"></div>
+      </Suspense>
 
-      <VideoBannerBottom
-        source={!productList.success ? NO_MOVIES : movies[genre]}
-      />
+      <Suspense fallback={<LoadingBox xl />}>
+        <VideoBannerBottom
+          source={!productList.success ? NO_MOVIES : movies[active]}
+        />
+      </Suspense>
     </div>
   );
 }

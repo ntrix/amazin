@@ -99,19 +99,22 @@ export const dummyProducts = Array(6).fill({
 /* VideoScreen */
 export const baseURL = 'https://image.tmdb.org/t/p/original/';
 
-export const MOVIE_API = process.env.REACT_APP_API_KEY;
+export const _API = process.env.REACT_APP_API_KEY;
 export const TRENDING = 'Trending Now';
 export const TOP_RATED = 'Top Rated';
 export const SOURCES = {
-  'NETFLUX ORIGINALS': `/discover/tv?api_key=${MOVIE_API}&with_networks=213`,
-  'Action Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=28`,
-  'Comedy Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=35`,
-  'Horror Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=27`,
-  'Romance Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=10749`,
-  Documentaries: `/discover/movie?api_key=${MOVIE_API}&with_genres=99`,
-  [TRENDING]: `/trending/all/week?api_key=${MOVIE_API}&language=en-US`,
-  [TOP_RATED]: `/movie/top_rated?api_key=${MOVIE_API}&language=en-US`
+  'NETFLUX ORIGINALS': `/discover/tv?api_key=${_API}&with_networks=213`,
+  'Action Movies': `/discover/movie?api_key=${_API}&with_genres=28`,
+  'Comedy Movies': `/discover/movie?api_key=${_API}&with_genres=35`,
+  'Horror Movies': `/discover/movie?api_key=${_API}&with_genres=27`,
+  'Romance Movies': `/discover/movie?api_key=${_API}&with_genres=10749`,
+  Documentaries: `/discover/movie?api_key=${_API}&with_genres=99`,
+  [TRENDING]: `/trending/all/week?api_key=${_API}&language=en-US`,
+  [TOP_RATED]: `/movie/top_rated?api_key=${_API}&language=en-US`
 };
+const navLabels = Object.keys(SOURCES);
+navLabels.splice(1, 0, 'Home', 'STORE');
+export const VIDEO_GENRES = navLabels;
 
 export const NO_MOVIES = [
   {
