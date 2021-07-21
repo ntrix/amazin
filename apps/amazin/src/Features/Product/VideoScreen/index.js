@@ -96,9 +96,7 @@ export default function VideoScreen() {
         <Suspense fallback={bannerFallback}>
           <VideoBanner movie={bannerMovies[active]} />
         </Suspense>
-      </ErrorBoundary>
 
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={videoFallback}>
           {externMovies &&
             Object.keys(VIDEO.SRC).map(
@@ -143,9 +141,7 @@ export default function VideoScreen() {
           )}
         </Suspense>
         <div className="banner__divider"></div>
-      </ErrorBoundary>
 
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={videoFallback}>
           <VideoBanner bottom movie={bannerMovies[active]} />
         </Suspense>

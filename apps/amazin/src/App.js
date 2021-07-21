@@ -12,7 +12,7 @@ import SidebarMenu from './Features/Nav/SidebarMenu';
 import { pipe } from './utils';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
-import ErrorFallback from './Features/Auth/ErrorFallBack';
+import ErrorScreen from './Features/Auth/ErrorScreen';
 import { useShadow } from './utils/useShadow';
 import { SHADOW, STORAGE } from './constants';
 
@@ -43,7 +43,7 @@ export default function App() {
           SHADOW.SIDEBAR === shadowOf ? 'scroll--off' : ''
         }`}
       >
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <ErrorBoundary FallbackComponent={ErrorScreen}>
           <header id="nav-bar">
             <HeaderNav currency={currency} />
 

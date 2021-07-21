@@ -17,6 +17,7 @@ function createSuspenseAPI(promise) {
       if (state === 'loading') throw result;
       if (state === 'error') throw result;
       if (state === 'success') return result;
+      throw new Error('This is not an error');
     }
   };
 }
@@ -27,7 +28,7 @@ function mapStateToAPI(state, payload = state) {
       if (state === 'loading') throw payload.loading;
       if (state === 'error') throw payload.error;
       if (state === 'success') return payload.success;
-      throw new Error('This should be impossible');
+      throw new Error('This is not an error');
     }
   };
 }
