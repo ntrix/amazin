@@ -1,4 +1,4 @@
-import axiosClient from './axiosClient';
+import axiosClient from '../utils/axiosClient';
 import { cartActions } from '../Features/Checkout/CartSlice.js';
 import { STORAGE } from '../constants';
 
