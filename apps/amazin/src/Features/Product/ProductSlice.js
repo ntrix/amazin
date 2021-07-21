@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '../RTKClient';
+import { createSlice, Reducer } from '../../utils/ReduxToolKitClient';
 
 export const { actions: currencyTypeActions, reducer: currencyTypeReducer } =
   createSlice({
