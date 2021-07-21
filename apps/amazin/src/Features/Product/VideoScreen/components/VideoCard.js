@@ -4,12 +4,12 @@ import { NO_IMAGE } from '../../../../constants';
 import { getImgUrl } from '../../../../utils';
 import ButtonBuy from './ButtonBuy';
 import ButtonTrailer from './ButtonTrailer';
-import Img from '../../../../utils/suspenseResource';
+import LazyImg from '../../../../utils/suspenseClient';
 
 export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
   return (
     <div className={`m-card ${portrait ? 'm-card--portrait' : ''}`}>
-      <Img
+      <LazyImg
         src={getImgUrl(
           movie._id,
           movie.image ? movie.image.split('^')[1 - portrait] : NO_IMAGE

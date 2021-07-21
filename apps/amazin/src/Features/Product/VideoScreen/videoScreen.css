@@ -38,7 +38,7 @@
 .banner {
   color: #fff;
   object-fit: cover;
-  height: 448px;
+  height: 448px !important;
   position: relative;
 }
 

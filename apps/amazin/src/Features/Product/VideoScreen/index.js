@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { listProducts } from '../../../Controllers/productActions';
@@ -18,11 +19,17 @@ import {
 import { dummyMovies, sourceAdapter } from '../../../utils';
 
 import VideoNavHeader from './VideoNavHeader';
-import VideoBanner from './components/VideoBanner';
-import { ErrorFallback, fallback } from './VideoRow';
-import { ErrorBoundary } from 'react-error-boundary';
+import {
+  ErrorFallback,
+  videoFallback,
+  bannerFallback
+} from '../../../components/Fallbacks';
+
 const VideoRow = React.lazy(() =>
   import(/* webpackPrefetch: true */ './VideoRow')
+);
+const VideoBanner = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './components/VideoBanner')
 );
 
 export default function VideoScreen() {
@@ -91,10 +98,14 @@ export default function VideoScreen() {
       <VideoNavHeader labels={VIDEO_GENRES} hook={[active, setActive]} />
 
       <LoadingOrError xl statusOf={productCreate} />
-      <VideoBanner movie={bannerMovies[active]} />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={bannerFallback}>
+          <VideoBanner movie={bannerMovies[active]} />
+        </Suspense>
+      </ErrorBoundary>
 
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={fallback}>
+        <Suspense fallback={videoFallback}>
           {externMovies &&
             Object.keys(SOURCES).map(
               (_genre, id) =>
@@ -137,10 +148,14 @@ export default function VideoScreen() {
             <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />
           )}
         </Suspense>
+        <div className="banner__divider"></div>
       </ErrorBoundary>
-      <div className="banner__divider"></div>
 
-      <VideoBanner bottom movie={bannerMovies[active]} />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={videoFallback}>
+          <VideoBanner bottom movie={bannerMovies[active]} />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }

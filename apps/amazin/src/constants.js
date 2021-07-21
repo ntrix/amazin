@@ -115,7 +115,7 @@ export const SOURCES = {
 const navLabels = Object.keys(SOURCES);
 navLabels.splice(1, 0, 'Home', 'STORE');
 export const VIDEO_GENRES = navLabels;
-
+export const VIDEO_BANNER = '/images/banner-fs.jpg.png';
 export const NO_MOVIES = [
   {
     name: '',

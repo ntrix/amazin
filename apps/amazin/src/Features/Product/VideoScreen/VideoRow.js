@@ -2,16 +2,12 @@ import React, { Suspense, useState } from 'react';
 import Carousel, { responsive } from '../../../constants';
 import UTube from './components/UTube';
 import { ErrorBoundary } from 'react-error-boundary';
-import MessageBox from '../../../components/MessageBox';
-import LoadingBox from '../../../components/LoadingBox';
+
+import { ErrorFallback, videoFallback } from '../../../components/Fallbacks';
+
 const VideoCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ './components/VideoCard')
 );
-
-export const ErrorFallback = ({ error }) => (
-  <MessageBox variant="danger" msg={error.message} />
-);
-export const fallback = <LoadingBox />;
 
 export function _VideoRow({ title, movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
@@ -38,7 +34,7 @@ export function _VideoRow({ title, movies, portrait = false }) {
           >
             {movies.map((movie, id) => (
               <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={fallback}>
+                <Suspense fallback={videoFallback}>
                   <VideoCard
                     key={id}
                     movie={movie}

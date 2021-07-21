@@ -2,22 +2,21 @@ import React, { useState } from 'react';
 import UTube from './UTube';
 import ButtonTrailer from './ButtonTrailer';
 
-import { NO_IMAGE } from '../../../../constants';
+import { VIDEO_BANNER } from '../../../../constants';
 import ButtonSell from './ButtonSell';
 import ButtonBuy from './ButtonBuy';
+import { LazyBackground } from '../../../../utils/suspenseClient';
 
 export function _VideoBanner({ movie, bottom = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
 
   return (
     <>
-      <section
+      <LazyBackground
         className={`banner ${movie?.image ? '' : 'no-image'}`}
+        src={movie?.image ? movie.image.split('^')[1] : VIDEO_BANNER}
         style={{
           backgroundSize: 'cover',
-          backgroundImage: `url("${
-            movie?.image ? movie.image.split('^')[1] : NO_IMAGE
-          }")`,
           backgroundPosition: `center ${bottom ? '0' : 'center'}`
         }}
       >
@@ -48,7 +47,7 @@ export function _VideoBanner({ movie, bottom = false }) {
         </div>
 
         {!bottom && <div className="banner--fade-bottom" />}
-      </section>
+      </LazyBackground>
 
       {!bottom && <UTube trailerUrl={trailerUrl} />}
     </>
