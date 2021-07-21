@@ -8,14 +8,7 @@ import './videoScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
-import {
-  NO_MOVIES,
-  TRENDING,
-  TOP_RATED,
-  SOURCES,
-  EXAMPLE_MOVIES,
-  VIDEO_GENRES
-} from '../../../constants';
+import { TRENDING, TOP_RATED, VIDEO } from '../../../constants';
 import { dummyMovies, sourceAdapter } from '../../../utils';
 
 import VideoNavHeader from './VideoNavHeader';
@@ -47,10 +40,10 @@ export default function VideoScreen() {
 
   useEffect(() => {
     const _banner = {};
-    VIDEO_GENRES.forEach((_genre) => {
+    VIDEO.GENRES.forEach((_genre) => {
       const genreMovies = !productList.success
-        ? NO_MOVIES
-        : movies[_genre] || EXAMPLE_MOVIES;
+        ? VIDEO.EMPTY
+        : movies[_genre] || VIDEO.EXAMPLES;
       _banner[_genre] = genreMovies[(Math.random() * genreMovies.length) | 0];
     });
     setBannerMovies(_banner);
@@ -68,9 +61,9 @@ export default function VideoScreen() {
 
     (async function fetchData() {
       const promiseReturns = await Promise.all(
-        Object.keys(SOURCES).map(async (genre) => {
+        Object.keys(VIDEO.SRC).map(async (genre) => {
           const { data } = await axios
-            .get('https://api.themoviedb.org/3' + SOURCES[genre])
+            .get(VIDEO.URL + VIDEO.SRC[genre])
             .catch();
           return [[genre], data.results];
         })
@@ -95,9 +88,10 @@ export default function VideoScreen() {
 
   return (
     <div className="container--full video-screen">
-      <VideoNavHeader labels={VIDEO_GENRES} hook={[active, setActive]} />
+      <VideoNavHeader labels={VIDEO.GENRES} hook={[active, setActive]} />
 
       <LoadingOrError xl statusOf={productCreate} />
+
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={bannerFallback}>
           <VideoBanner movie={bannerMovies[active]} />
@@ -107,7 +101,7 @@ export default function VideoScreen() {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={videoFallback}>
           {externMovies &&
-            Object.keys(SOURCES).map(
+            Object.keys(VIDEO.SRC).map(
               (_genre, id) =>
                 (_genre === active || active === 'Home') && (
                   <VideoRow

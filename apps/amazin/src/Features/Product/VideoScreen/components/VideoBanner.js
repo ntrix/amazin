@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UTube from './UTube';
 import ButtonTrailer from './ButtonTrailer';
 
-import { VIDEO_BANNER } from '../../../../constants';
+import { VIDEO } from '../../../../constants';
 import ButtonSell from './ButtonSell';
 import ButtonBuy from './ButtonBuy';
 import { LazyBackground } from '../../../../utils/suspenseClient';
@@ -14,7 +14,7 @@ export function _VideoBanner({ movie, bottom = false }) {
     <>
       <LazyBackground
         className={`banner ${movie?.image ? '' : 'no-image'}`}
-        src={movie?.image ? movie.image.split('^')[1] : VIDEO_BANNER}
+        src={movie?.image ? movie.image.split('^')[1] : VIDEO.BANNER}
         style={{
           backgroundSize: 'cover',
           backgroundPosition: `center ${bottom ? '0' : 'center'}`

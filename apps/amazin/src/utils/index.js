@@ -1,4 +1,4 @@
-import { CURR_FORMAT, baseURL, NO_IMAGE, STORAGE } from '../constants';
+import { CURR_FORMAT, SRC_URL, NO_IMAGE, STORAGE } from '../constants';
 
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
@@ -70,7 +70,7 @@ export const sourceAdapter = (movies) =>
   movies?.map((m) => ({
     name: m.name || m.title || m.original_title || m.original_name,
     image:
-      m.image || [baseURL + m.poster_path, baseURL + m.backdrop_path].join('^'),
+      m.image || [SRC_URL + m.poster_path, SRC_URL + m.backdrop_path].join('^'),
     rating: m.rating || m.vote_average / 2 || 0,
     numReviews: m.numReviews || m.vote_count || 0,
     description: m.description || m.overview,
