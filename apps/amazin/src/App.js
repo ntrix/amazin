@@ -53,9 +53,7 @@ export default function App() {
           <SidebarMenu currency={currency} />
 
           <main className="container">
-            <div className="col-fill">
-              <MainRoute />
-            </div>
+            <MainRoute />
 
             <div
               className={`underlay-${shadowOf}`}

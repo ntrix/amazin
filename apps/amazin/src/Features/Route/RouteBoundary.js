@@ -6,7 +6,9 @@ import ErrorScreen from '../Auth/ErrorScreen';
 
 const Route = (props) => (
   <ErrorBoundary FallbackComponent={ErrorScreen}>
-    <Router {...props} />
+    <div className="col-fill">
+      <Router {...props} />
+    </div>
   </ErrorBoundary>
 );
 
