@@ -2,9 +2,12 @@ import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
 export const bannerFallback = (
-  <div className="home-screen">
-    <div className="home__banner bestseller banner"></div>
-    <h2 className="home-screen__title">Top Sellers, Top Products</h2>
+  <div
+    className="home__banner bestseller"
+    style={{ position: 'relative', zIndex: 0, height: 448 }}
+  >
+    <br />
+    <LoadingBox xl />
   </div>
 );
 
