@@ -4,7 +4,7 @@ import { NO_IMAGE } from '../../../../constants';
 import { getImgUrl } from '../../../../utils';
 import ButtonBuy from './ButtonBuy';
 import ButtonTrailer from './ButtonTrailer';
-import LazyImg from '../../../../utils/suspenseClient';
+import { LazyImg } from '../../../../utils/suspenseClient';
 
 export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
   return (

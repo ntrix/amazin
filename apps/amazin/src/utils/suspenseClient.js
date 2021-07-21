@@ -41,19 +41,19 @@ function preloadImage(src) {
   });
 }
 
-function LazyComponent(tag) {
-  const cached = {};
+const sCached = {};
 
+function LazyComponent(tag) {
   return ({ src, ...props }) => {
-    if (!cached[src]) cached[src] = createSuspenseAPI(preloadImage(src));
+    if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
     return tag === 'img' ? (
-      <img src={cached[src].read()} alt={props.alt} {...props} />
+      <img src={sCached[src].read()} alt={props.alt} {...props} />
     ) : (
       <div
         {...props}
         style={{
           ...props.style,
-          backgroundImage: `url(${cached[src].read() || props.placeholder})`
+          backgroundImage: `url(${sCached[src].read() || props.placeholder})`
         }}
       />
     );
@@ -63,5 +63,10 @@ function LazyComponent(tag) {
 const LazyImg = LazyComponent('img');
 const LazyBackground = LazyComponent('div');
 
-export { createSuspenseAPI, mapStateToAPI, preloadImage, LazyBackground };
-export default LazyImg;
+export {
+  createSuspenseAPI,
+  mapStateToAPI,
+  preloadImage,
+  LazyBackground,
+  LazyImg
+};

@@ -1,9 +1,8 @@
 import React, { Suspense, useState } from 'react';
 import Carousel, { responsive } from '../../../constants';
 import UTube from './components/UTube';
-import { ErrorBoundary } from 'react-error-boundary';
 
-import { ErrorFallback, videoFallback } from '../../../components/Fallbacks';
+import { videoFallback } from '../../../components/Fallbacks';
 
 const VideoCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ './components/VideoCard')
@@ -33,17 +32,14 @@ export function _VideoRow({ title, movies, portrait = false }) {
             itemClass="carousel-item-padding-40-px"
           >
             {movies.map((movie, id) => (
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={videoFallback}>
-                  <VideoCard
-                    key={id}
-                    movie={movie}
-                    portrait={portrait}
-                    trailerUrl={trailerUrl}
-                    setTrailerUrl={setTrailerUrl}
-                  />
-                </Suspense>
-              </ErrorBoundary>
+              <Suspense fallback={videoFallback} key={id}>
+                <VideoCard
+                  movie={movie}
+                  portrait={portrait}
+                  trailerUrl={trailerUrl}
+                  setTrailerUrl={setTrailerUrl}
+                />
+              </Suspense>
             ))}
           </Carousel>
 

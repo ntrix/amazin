@@ -16,3 +16,6 @@ export const videoFallback = <LoadingBox />;
 export const ErrorFallback = ({ error }) => (
   <MessageBox variant="danger" msg={error.message} />
 );
+
+export const delay = (time) => (promiseResult) =>
+  new Promise((resolve) => setTimeout(() => resolve(promiseResult), time));

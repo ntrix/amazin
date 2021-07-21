@@ -11,18 +11,21 @@ import LoadingOrError from '../../../components/LoadingOrError';
 import { TRENDING, TOP_RATED, VIDEO } from '../../../constants';
 import { dummyMovies, sourceAdapter } from '../../../utils';
 
-import VideoNavHeader from './VideoNavHeader';
 import {
   ErrorFallback,
   videoFallback,
-  bannerFallback
+  bannerFallback,
+  delay
 } from '../../../components/Fallbacks';
 
-const VideoRow = React.lazy(() =>
-  import(/* webpackPrefetch: true */ './VideoRow')
+const VideoNavHeader = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './VideoNavHeader')
 );
 const VideoBanner = React.lazy(() =>
   import(/* webpackPrefetch: true */ './components/VideoBanner')
+);
+const VideoRow = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './VideoRow').then(delay(3000))
 );
 
 export default function VideoScreen() {
@@ -88,11 +91,13 @@ export default function VideoScreen() {
 
   return (
     <div className="container--full video-screen">
-      <VideoNavHeader labels={VIDEO.GENRES} hook={[active, setActive]} />
-
-      <LoadingOrError xl statusOf={productCreate} />
-
       <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={videoFallback}>
+          <VideoNavHeader labels={VIDEO.GENRES} hook={[active, setActive]} />
+        </Suspense>
+
+        <LoadingOrError xl statusOf={productCreate} />
+
         <Suspense fallback={bannerFallback}>
           <VideoBanner movie={bannerMovies[active]} />
         </Suspense>
