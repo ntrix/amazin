@@ -13,7 +13,7 @@ import { pipe } from './utils';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import ErrorScreen from './Features/Auth/ErrorScreen';
-import { useShadow } from './utils/useShadow';
+import { useShadow } from './utils/useGlobal';
 import { SHADOW, STORAGE } from './constants';
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
   const { userInfo } = useSelector((state) => state.userSignin);
   const { sessionCurrency } = useSelector((state) => state.currencyType);
 
-  const [shadowOf, setShadowOf] = useShadow();
+  const { shadowOf, setShadowOf } = useShadow();
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
 
   useEffect(() => {
@@ -51,16 +51,16 @@ export default function App() {
           </header>
 
           <SidebarMenu currency={currency} />
-
-          <main className="container">
-            <MainRoute />
-
-            <div
-              className={`underlay-${shadowOf}`}
-              onClick={() => setShadowOf('')}
-            ></div>
-          </main>
         </ErrorBoundary>
+
+        <main className="container">
+          <MainRoute />
+
+          <div
+            className={`underlay-${shadowOf}`}
+            onClick={() => setShadowOf('')}
+          />
+        </main>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
         </footer>

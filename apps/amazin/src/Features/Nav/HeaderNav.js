@@ -17,13 +17,13 @@ import './nav.css';
 
 import { savePath, shortName } from '../../utils';
 import { SHADOW, STORAGE } from '../../constants';
-import { useShadow } from '../../utils/useShadow';
+import { useShadow } from '../../utils/useGlobal';
 
 export function _HeaderNav({ currency }) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const [shadowOf, setShadowOf, setShadowSlow] = useShadow('');
+  const { shadowOf, setShadowOf, setShadowSlow, clearShadow } = useShadow('');
 
   const _DropMenu = ({ menuItems }) => (
     <ul
@@ -61,7 +61,7 @@ export function _HeaderNav({ currency }) {
         className2="sprite__wrapper"
         className3={'sprite flag ' + currency}
         onEnterHandle={() => setShadowOf(STORAGE.CURRENCY)}
-        onLeaveHandle={() => setShadowOf('')}
+        onLeaveHandle={clearShadow}
       >
         <DropMenuCurrency currency={currency} />
       </NavDropBtn>

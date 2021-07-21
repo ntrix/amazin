@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useShadow } from '../../utils/useShadow';
+import { useShadow } from '../../utils/useGlobal';
 
 const InnerMenuItem = (props) => {
-  const [, setShadowOf] = useShadow('');
+  const { clearShadow } = useShadow('');
   const { className, label, linkTo, extraAction } = props;
 
   if (!linkTo && !className) return <strong>{label}</strong>;
@@ -31,7 +31,7 @@ const InnerMenuItem = (props) => {
         className={className}
         onClick={(e) => {
           e.stopPropagation();
-          setShadowOf('');
+          clearShadow();
           if (extraAction) extraAction();
         }}
       >

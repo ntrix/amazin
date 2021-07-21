@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 
 import LoadingOrError from '../../components/LoadingOrError';
 import { SHADOW } from '../../constants';
-import { useShadow } from '../../utils/useShadow';
+import { useShadow } from '../../utils/useGlobal';
 
 export function _HeaderNavMain() {
-  const [, setShadowOf] = useShadow('');
+  const { setShadowOf, clearShadow } = useShadow('');
   const productCategoryList = useSelector((state) => state.productCategoryList);
 
   const navMainItem = ([label, linkTo, className]) => {
     return (
       <div key={label} className={className}>
-        <Link to={linkTo} onClick={() => setShadowOf('')}>
+        <Link to={linkTo} onClick={clearShadow}>
           {label}
         </Link>
       </div>

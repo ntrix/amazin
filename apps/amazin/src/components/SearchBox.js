@@ -5,7 +5,7 @@ import { listAllProducts } from '../Controllers/productActions';
 
 import { findSuggest } from '../utils';
 import { ALL_CATEGORIES, MAX_SEARCH_SUGGESTS, SHADOW } from '../constants';
-import { useShadow } from '../utils/useShadow';
+import { useShadow } from '../utils/useGlobal';
 
 export function _SearchBox() {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export function _SearchBox() {
     (state) => state.productCategoryList
   );
 
-  const [shadowOf, setShadowOf] = useShadow('');
+  const { shadowOf, setShadowOf, clearShadow } = useShadow('');
   const [categoryScope, setCategoryScope] = useState(0);
   const [category, setCategory] = useState(ALL_CATEGORIES);
   const [input, setInput] = useState('');
@@ -40,7 +40,7 @@ export function _SearchBox() {
     if (!e.target.value) return;
     // setShowSuggest(-1) for absorbing a keypress on submit instead setShowSuggest(0)
     setShowSuggest(-1);
-    setShadowOf('');
+    clearShadow();
     history.push(
       `/search/category/${
         category === ALL_CATEGORIES ? 'All' : category
@@ -52,7 +52,7 @@ export function _SearchBox() {
     if (!searchBoxRef.current.contains(e.target)) {
       setShowSuggest(0);
       setCategoryScope(0);
-      setShadowOf('');
+      clearShadow();
     }
     return e;
   };
@@ -124,7 +124,7 @@ export function _SearchBox() {
                     setCategoryScope(0);
                     searchInputRef.current.focus();
                     setShowSuggest(-1);
-                    setShadowOf('');
+                    clearShadow();
                   }}
                   onBlur={() => setCategoryScope(0)}
                 >
@@ -157,7 +157,7 @@ export function _SearchBox() {
               const { value } = e.target;
               if (value.length === 0 || e.key === 'Escape') {
                 setShowSuggest(0);
-                setShadowOf('');
+                clearShadow();
                 return;
               }
               if (e.key === 'Enter') {
@@ -196,7 +196,7 @@ export function _SearchBox() {
                       setShowSuggest(0);
                       setInput(p.name.replace(/(<b>)|(<\/b>)/g, ''));
                       setSuggests([]);
-                      setShadowOf('');
+                      clearShadow();
                     }}
                   ></Link>
                 </li>
