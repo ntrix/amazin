@@ -11,6 +11,7 @@ import Carousel, { dummyProducts, responsive, SORT } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
+import { bannerFallback } from '../../../components/Fallbacks';
 
 export function _DealScreen() {
   const dispatch = useDispatch();
@@ -48,7 +49,9 @@ export function _DealScreen() {
           No Deals On This Category!
         </MessageBox>
 
-        {products && (
+        {!products ? (
+          bannerFallback
+        ) : (
           <Carousel
             swipeable={true}
             draggable={true}
