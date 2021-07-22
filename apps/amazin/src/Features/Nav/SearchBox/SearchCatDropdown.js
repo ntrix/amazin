@@ -32,7 +32,7 @@ export function _SearchCatDropdown({
         {[NAV.ALL, ...categories].map((cat, i) => (
           <li
             key={i}
-            className={`category ${cat === activeCat ? 'selected' : ''}`}
+            className={`category ${cat === activeCat ? 'active' : ''}`}
             onClick={() => {
               if (cat === activeCat) {
                 setSearchBoxOutline(false);
