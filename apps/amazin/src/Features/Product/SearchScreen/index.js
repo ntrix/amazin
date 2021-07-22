@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { listProducts } from '../../../Controllers/productActions';
@@ -23,8 +23,6 @@ export function _SearchScreen() {
     order = 'bestselling',
     pageNumber = 1
   } = useParams();
-  const productList = useSelector((state) => state.productList);
-  const { page, pages } = productList;
 
   useEffect(() => {
     dispatch(
@@ -67,7 +65,7 @@ export function _SearchScreen() {
 
         <div className="col-9">
           <SearchResultColumn />
-          <Pagination page={page} pages={pages} getUrl={getFilterUrl} help />
+          <Pagination getUrl={getFilterUrl} help />
         </div>
       </div>
     </div>

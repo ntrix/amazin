@@ -19,7 +19,7 @@ export default function ProductListScreen(props) {
 
   const { userInfo } = useSelector((state) => state.userSignin);
   const productList = useSelector((state) => state.productList);
-  const { products, page, pages } = productList;
+  const { products } = productList;
   const productCreate = useSelector((state) => state.productCreate);
   const productDelete = useSelector((state) => state.productDelete);
 
@@ -121,8 +121,6 @@ export default function ProductListScreen(props) {
           </table>
 
           <Pagination
-            page={page}
-            pages={pages}
             getUrl={({ page: _page }) =>
               `/product-list${
                 userInfo.isAdmin ? '' : '/seller'
