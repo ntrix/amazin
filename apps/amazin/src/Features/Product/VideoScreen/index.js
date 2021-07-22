@@ -13,7 +13,7 @@ import { dummyMovies, sourceAdapter } from '../../../utils';
 
 import {
   ErrorFallback,
-  videoFallback,
+  loadingFallback,
   bannerFallback,
   delay
 } from '../../../components/Fallbacks';
@@ -92,7 +92,7 @@ export default function VideoScreen() {
   return (
     <div className="container--full video-screen">
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={videoFallback}>
+        <Suspense fallback={loadingFallback}>
           <VideoNavHeader labels={VIDEO.GENRES} hook={[active, setActive]} />
         </Suspense>
 
@@ -102,7 +102,7 @@ export default function VideoScreen() {
           <VideoBanner movie={bannerMovies[active]} />
         </Suspense>
 
-        <Suspense fallback={videoFallback}>
+        <Suspense fallback={loadingFallback}>
           {externMovies &&
             Object.keys(VIDEO.SRC).map(
               (_genre, id) =>
@@ -147,7 +147,7 @@ export default function VideoScreen() {
         </Suspense>
         <div className="banner__divider"></div>
 
-        <Suspense fallback={videoFallback}>
+        <Suspense fallback={loadingFallback}>
           <VideoBanner bottom movie={bannerMovies[active]} />
         </Suspense>
       </ErrorBoundary>

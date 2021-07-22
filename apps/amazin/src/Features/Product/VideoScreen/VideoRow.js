@@ -2,7 +2,7 @@ import React, { Suspense, useState } from 'react';
 import Carousel, { responsive } from '../../../constants';
 import UTube from './components/UTube';
 
-import { videoFallback } from '../../../components/Fallbacks';
+import { loadingFallback } from '../../../components/Fallbacks';
 
 const VideoCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ './components/VideoCard')
@@ -32,7 +32,7 @@ export function _VideoRow({ title, movies, portrait = false }) {
             itemClass="carousel-item-padding-40-px"
           >
             {movies.map((movie, id) => (
-              <Suspense fallback={videoFallback} key={id}>
+              <Suspense fallback={loadingFallback} key={id}>
                 <VideoCard
                   movie={movie}
                   portrait={portrait}

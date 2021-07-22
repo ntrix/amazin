@@ -11,7 +11,7 @@ export const bannerFallback = (
   </div>
 );
 
-export const videoFallback = <LoadingBox />;
+export const loadingFallback = <LoadingBox />;
 
 export const ErrorFallback = ({ error }) => (
   <MessageBox variant="danger" msg={error.message} />
