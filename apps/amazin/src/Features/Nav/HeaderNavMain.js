@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import LoadingOrError from '../../components/LoadingOrError';
-import { SHADOW } from '../../constants';
+import { SHADOW, SORT } from '../../constants';
 import { useShadow } from '../../utils/useGlobal';
 
 export function _HeaderNavMain() {
@@ -36,7 +36,7 @@ export function _HeaderNavMain() {
         {[
           ['Netflux Video', '/video'],
           ['Top Deals', '/deal'],
-          ['New Releases', '/search/category/All/order/newest'],
+          ['New Releases', '/search/category/All/order/' + SORT.NEWEST.OPT],
           ['Customer Service', '/customer'],
           ['Best Sellers', '/banner/bestseller']
         ].map(([label, linkTo]) =>

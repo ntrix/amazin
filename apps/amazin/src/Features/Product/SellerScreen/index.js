@@ -11,10 +11,11 @@ import Pagination from '../../../components/Pagination';
 import SortFilter from '../../../components/SortFilter';
 import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
+import { SORT } from '../../../constants';
 
 export function _SellerScreen({ match }) {
   const dispatch = useDispatch();
-  const { pageNumber = 1, order: pOrder = 'bestselling' } = useParams();
+  const { pageNumber = 1, order: pOrder = SORT.BESTSELLING.OPT } = useParams();
   const sellerId = match.params.id;
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;

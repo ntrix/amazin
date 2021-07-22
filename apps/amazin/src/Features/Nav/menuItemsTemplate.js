@@ -1,3 +1,4 @@
+import { SORT } from '../../constants';
 import { pipe, savePath } from '../../utils';
 
 //lists for creating MenuItem([label, linkTo, className, signOutAction])
@@ -77,7 +78,7 @@ export function sidebarMenuItems(
     ['Trending'],
     ['Best Sellers', '/banner/bestseller'],
     ['Top Deals', '/deal'],
-    ['New Releases', '/search/category/All/order/newest'],
+    ['New Releases', '/search/category/All/order/' + SORT.NEWEST.OPT],
     ['Home Page', '/'],
     ['separator'],
     ['Categories'],

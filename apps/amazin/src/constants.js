@@ -34,6 +34,15 @@ export const LOCATION = {
 /* Search box */
 export const SEARCH = { MAX_SUGGESTS: 12 };
 
+/* Sort filter */
+export const SORT = {
+  NEWEST: { OPT: 'newest', LABEL: 'Newest Arrivals' },
+  BESTSELLING: { OPT: 'bestselling', LABEL: 'Best Selling' },
+  LOWEST: { OPT: 'lowest', LABEL: 'Price: Low to High' },
+  HIGHEST: { OPT: 'highest', LABEL: 'Price: High to Low' },
+  TOPRATED: { OPT: 'toprated', LABEL: 'Avg. Rating' }
+};
+
 /* Date format */
 export const DD_MM_YYYY = 10;
 

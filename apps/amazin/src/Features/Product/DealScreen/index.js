@@ -7,7 +7,7 @@ import { listProducts } from '../../../Controllers/productActions';
 import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
-import Carousel, { dummyProducts, responsive } from '../../../constants';
+import Carousel, { dummyProducts, responsive, SORT } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
@@ -16,7 +16,7 @@ export function _DealScreen() {
   const dispatch = useDispatch();
   const {
     category = 'Deals',
-    order = 'bestselling',
+    order = SORT.BESTSELLING.OPT,
     pageNumber = 1
   } = useParams();
   const productList = useSelector((state) => state.productList);

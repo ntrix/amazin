@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import { SORT } from '../constants';
 
 export function _SortFilter({ order, getUrl }) {
   const history = useHistory();
@@ -16,11 +17,9 @@ export function _SortFilter({ order, getUrl }) {
         }}
       >
         <optgroup label="Sort by:">
-          <option value="newest">Newest Arrivals</option>
-          <option value="bestselling">Best Selling</option>
-          <option value="lowest">Price: Low to High</option>
-          <option value="highest">Price: High to Low</option>
-          <option value="toprated">Avg. Rating</option>
+          {Object.values(SORT).map((filter) => (
+            <option value={filter.OPT}>{filter.LABEL}</option>
+          ))}
         </optgroup>
       </select>
     </div>

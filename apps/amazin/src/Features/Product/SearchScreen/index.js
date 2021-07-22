@@ -9,7 +9,7 @@ import SubNavCategories from '../../Nav/SubNavCategories';
 
 import SortFilter from '../../../components/SortFilter';
 import Pagination from '../../../components/Pagination';
-import { NAV } from '../../../constants';
+import { NAV, SORT } from '../../../constants';
 import SearchBanner from '../../Nav/SearchBanner';
 
 export function _SearchScreen() {
@@ -20,7 +20,7 @@ export function _SearchScreen() {
     min = 0.01,
     max = 0,
     rating = 0,
-    order = 'bestselling',
+    order = SORT.BESTSELLING.OPT,
     pageNumber = 1
   } = useParams();
 
