@@ -239,6 +239,7 @@ a .nav__brand {
 .search__btn {
   display: flex;
   background: #febd69;
+  cursor: pointer;
 }
 .search__btn,
 .search__btn input {

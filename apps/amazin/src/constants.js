@@ -45,6 +45,8 @@ export const TAX = 0.19;
 
 /* Nav Menu label */
 export const NAV = { ALL_CATEGORIES: 'All Categories', ALL: 'All' };
+export const getCatLabel = (cat) =>
+  cat === NAV.ALL ? NAV.ALL_CATEGORIES : cat;
 
 /* price range filter width label name */
 export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(

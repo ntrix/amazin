@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { SEARCH } from '../../../constants';
 import { useShadow } from '../../../utils/useGlobal';
 
-function SearchSuggest({
-  hook: { suggests, setSuggests, setInput, setSuggestWindow }
+export function _SearchSuggest({
+  hook: [suggests, setSuggests],
+  share: { setInput, setSuggestWindow }
 }) {
   const { clearShadow } = useShadow();
   return (
@@ -29,4 +31,5 @@ function SearchSuggest({
   );
 }
 
+const SearchSuggest = React.memo(_SearchSuggest);
 export default SearchSuggest;
