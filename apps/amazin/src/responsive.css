@@ -16,7 +16,7 @@
     flex: 1 0 70%;
     margin-right: 1rem;
   }
-  .search-box__scope span {
+  .cat-scope span {
     max-width: 120px;
   }
 }
@@ -25,7 +25,7 @@
   .tablet--off {
     display: none;
   }
-  .search-box__scope span {
+  .cat-scope span {
     max-width: 90px;
   }
 }
@@ -48,7 +48,7 @@
   .card {
     margin: 1rem;
   }
-  .search-box__scope span {
+  .cat-scope span {
     max-width: 50px;
   }
 
@@ -84,7 +84,7 @@
   .sidebar {
     width: 32rem;
   }
-  .search-box__scope span {
+  .cat-scope span {
     max-width: 25px;
   }
 }

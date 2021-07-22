@@ -9,14 +9,14 @@ import SortFilter from '../../components/SortFilter';
 import { listProducts } from '../../Controllers/productActions';
 
 import MessageBox from '../../components/MessageBox';
-import { prices, ratings } from '../../constants';
+import { NAV, prices, ratings } from '../../constants';
 import LoadingOrError from '../../components/LoadingOrError';
 
 export default function SearchScreen() {
   const dispatch = useDispatch();
   const {
-    name = 'All',
-    category = 'All',
+    name = NAV.ALL,
+    category = NAV.ALL,
     min = 0.01,
     max = 0,
     rating = 0,
@@ -36,8 +36,8 @@ export default function SearchScreen() {
         max,
         rating,
         order,
-        name: name !== 'All' ? name : '',
-        category: category !== 'All' ? category : ''
+        category,
+        name
       })
     );
   }, [category, dispatch, max, min, name, order, rating, pageNumber]);
@@ -60,7 +60,7 @@ export default function SearchScreen() {
           <LoadingOrError statusOf={productCategoryList} />
 
           {categories &&
-            ['All', ...categories].map((label, id) => (
+            [NAV.ALL, ...categories].map((label, id) => (
               <Link to={getFilterUrl({ category: label })} key={id}>
                 <li className={label === category ? ' selected' : ''}>
                   {label}
@@ -90,20 +90,20 @@ export default function SearchScreen() {
 
               <li>
                 <Link
-                  className={'All' === category ? ' active' : ''}
-                  to={getFilterUrl({ category: 'All' })}
+                  className={NAV.ALL === category ? ' active' : ''}
+                  to={getFilterUrl({ category: NAV.ALL })}
                 >
                   Any
                 </Link>
               </li>
 
-              {categories?.map((c, id) => (
+              {categories?.map((_cat, id) => (
                 <li key={id}>
                   <Link
-                    className={c === category ? ' active' : ''}
-                    to={getFilterUrl({ category: c })}
+                    className={_cat === category ? ' active' : ''}
+                    to={getFilterUrl({ category: _cat })}
                   >
-                    {c}
+                    {_cat}
                   </Link>
                 </li>
               ))}
