@@ -119,8 +119,8 @@ export default function VideoScreen() {
           <LoadingOrError xl statusOf={productList} />
           {productList.success && (
             <>
-              <MessageBox show={!productList.products.length}>
-                No Product Found/ Sold Out
+              <MessageBox show={productList?.products?.length < 1}>
+                Sold Out/ No Product Found
               </MessageBox>
 
               {productList.products.length && (

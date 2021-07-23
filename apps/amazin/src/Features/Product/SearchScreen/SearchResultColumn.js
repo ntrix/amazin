@@ -21,7 +21,7 @@ export function _SearchResultColumn() {
       <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
       {!productList.loading && (
         <>
-          <MessageBox wrapClass="placeholder" show={!products.length}>
+          <MessageBox wrapClass="placeholder" show={products?.length < 1}>
             No Product Found
           </MessageBox>
 
