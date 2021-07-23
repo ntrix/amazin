@@ -103,7 +103,7 @@ export default function VideoScreen() {
         </Suspense>
 
         <Suspense fallback={loadingFallback}>
-          {externMovies &&
+          {!!externMovies &&
             Object.keys(VIDEO.SRC).map(
               (_genre, id) =>
                 (_genre === active || active === 'Home') && (
@@ -117,13 +117,13 @@ export default function VideoScreen() {
             )}
 
           <LoadingOrError xl statusOf={productList} />
-          {productList.success && (
+          {productList?.success && (
             <>
               <MessageBox show={productList?.products?.length < 1}>
                 Sold Out/ No Product Found
               </MessageBox>
 
-              {productList.products.length && (
+              {productList?.products?.length && (
                 <VideoRow
                   title="IN STOCK: READY TO BUY"
                   movies={[storeMovies, dummyMovies][!!productList.loading]}

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export function _Pagination({ getUrl, help }) {
+export function _Pagination({ getUrl, help = false }) {
   const { page, pages } = useSelector((state) => state.productList);
 
   return (
@@ -19,7 +19,7 @@ export function _Pagination({ getUrl, help }) {
         ))}
       </div>
 
-      {help && (
+      {!!help && (
         <div>
           <h2>Do you need help?</h2>
 

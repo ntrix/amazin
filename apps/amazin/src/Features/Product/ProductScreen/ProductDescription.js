@@ -4,33 +4,35 @@ import './productScreen.css';
 import Rating from '../../../components/Rating';
 import { pipe } from '../../../utils';
 
-export function _ProductDescription({ product }) {
+export function _ProductDescription({
+  product: { name, rating, numReviews, deal, price, description }
+}) {
   return (
     <div className="col-1 mh-2">
       <ul>
         <li>
-          <h1>{product.name}</h1>
+          <h1>{name}</h1>
         </li>
 
         <li>
-          <Rating rating={product.rating} numReviews={product.numReviews} />
+          <Rating rating={rating} numReviews={numReviews} />
         </li>
 
         <li>
           <div>
-            <span className={`price ${product.deal ? 'danger' : ''}`}>
+            <span className={`price ${deal ? 'danger' : ''}`}>
               <sup>{pipe.getSymbol()}</sup>
-              {pipe.getNote(product.price)}
-              <sup>{pipe.getCent(product.price)}</sup>
+              {pipe.getNote(price)}
+              <sup>{pipe.getCent(price)}</sup>
             </span>
 
-            {product.deal > 0 && (
+            {deal > 0 && (
               <span className="pull-right">
                 <b className="price strike">
                   <sup>{pipe.getSymbol()}</sup>
-                  {pipe.getPrice(product.price / (1 - product.deal / 100))}
+                  {pipe.getPrice(price / (1 - deal / 100))}
                 </b>
-                {'  (' + product.deal}% off)
+                {`  (${deal}% off)`}
               </span>
             )}
           </div>
@@ -38,7 +40,7 @@ export function _ProductDescription({ product }) {
 
         <li>
           Description:
-          <p>{product.description}</p>
+          <p>{description}</p>
         </li>
       </ul>
     </div>

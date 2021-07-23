@@ -77,7 +77,7 @@ export function _HeaderNav({ currency }) {
         </NavDropBtn>
       )}
 
-      {userInfo && (
+      {!!userInfo && (
         <NavDropBtn
           label={`Hello, ${shortName(userInfo, 7)}^Account^ & Lists`}
           className="nav__user"
@@ -90,7 +90,7 @@ export function _HeaderNav({ currency }) {
         </NavDropBtn>
       )}
 
-      {userInfo?.isSeller && (
+      {!!userInfo?.isSeller && (
         <NavDropBtn
           label="Seller^Desk"
           className="nav__seller"
@@ -101,7 +101,7 @@ export function _HeaderNav({ currency }) {
         </NavDropBtn>
       )}
 
-      {userInfo?.isAdmin && (
+      {!!userInfo?.isAdmin && (
         <NavDropBtn
           label="Admin^Tools"
           className="nav__admin phone--off"

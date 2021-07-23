@@ -73,7 +73,7 @@ export default function ProductListScreen(props) {
       <LoadingOrError xl statusOf={productCreate} />
       <LoadingOrError xl statusOf={productList} />
 
-      {products && (
+      {!!products && (
         <>
           <table className="table">
             <thead>

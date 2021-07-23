@@ -36,7 +36,7 @@ export function _SidebarMenu({ currency }) {
         <ul className="sidebar__list">
           <LoadingOrError statusOf={productCategoryList} />
 
-          {categories &&
+          {!!categories &&
             sidebarMenuItems(userInfo, currency, categories, () =>
               dispatch(signout())
             ).map(MenuItem)}

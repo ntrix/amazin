@@ -14,7 +14,7 @@ export function _SubNavCategories({
       <ul className="cat-nav">
         <LoadingOrError statusOf={productCategoryList} />
 
-        {productCategoryList.categories &&
+        {!!productCategoryList?.categories &&
           [first, ...productCategoryList.categories].map((label, id) => (
             <li
               key={id}

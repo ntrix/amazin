@@ -72,7 +72,7 @@ export default function ProfileScreen() {
 
         <LoadingOrError xl statusOf={userDetails} />
 
-        {user && (
+        {!!user && (
           <>
             <LoadingOrError xl statusOf={userUpdateProfile} />
 

@@ -100,12 +100,11 @@ export default function ContactScreen() {
         <LoadingOrError xl statusOf={userUpdateProfile} />
 
         <MessageBox variant="success" msg={message} />
-        {message && (
+        {message ? (
           <Link to="/">
             <button className="primary">Back To Home Page</button>
           </Link>
-        )}
-        {!message && (
+        ): (
           <>
             <CustomInput text="Your Name" hook={[name, setName]} />
 

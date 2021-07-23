@@ -20,7 +20,7 @@ export function _VideoBanner({ movie, bottom = false }) {
           backgroundPosition: `center ${bottom ? '0' : 'center'}`
         }}
       >
-        {bottom && <div className="banner--fade-top" />}
+        {!!bottom && <div className="banner--fade-top" />}
         <div className="banner__contents">
           <h1 className="banner__title">{movie?.name}</h1>
 

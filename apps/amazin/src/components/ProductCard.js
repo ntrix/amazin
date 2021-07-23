@@ -46,7 +46,7 @@ export function _ProductCard({
                 <sup>{pipe.getCent(price)}</sup>
               </span>
 
-              {hasDeal && (
+              {!!hasDeal && (
                 <span className="pull-right">
                   <b className="price strike">
                     <sup>{pipe.getSymbol()}</sup>

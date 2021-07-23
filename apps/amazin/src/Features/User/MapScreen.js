@@ -73,7 +73,7 @@ export default function MapScreen({ history }) {
 
   const onConfirm = () => {
     const places = placeRef.current.getPlaces();
-    if (places && places.length === 1) {
+    if (places?.length === 1) {
       dispatch(
         userAddressMapActions._CONFIRM({
           lat: location.lat,

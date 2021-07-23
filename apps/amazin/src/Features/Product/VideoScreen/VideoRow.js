@@ -14,7 +14,7 @@ export function _VideoRow({ title, movies, portrait = false }) {
   return (
     <div className="m-row">
       <h2>{title}</h2>
-      {movies && (
+      {!!movies && (
         <>
           <Carousel
             swipeable={true}

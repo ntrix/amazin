@@ -10,7 +10,7 @@ const ProductCard = React.lazy(() =>
 
 export function _SearchResultColumn() {
   const productList = useSelector((state) => state.productList);
-  const { products } = productList;
+  const { products, loading } = productList;
 
   return (
     <div className="row center search__results">
@@ -19,7 +19,7 @@ export function _SearchResultColumn() {
       )}
 
       <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
-      {!productList.loading && (
+      {!loading && (
         <>
           <MessageBox wrapClass="placeholder" show={products?.length < 1}>
             No Product Found

@@ -27,7 +27,7 @@ export function _ProductScreen({ match }) {
     <div>
       <LoadingOrError xl statusOf={productDetails} />
 
-      {productDetails.success && (
+      {productDetails?.success && (
         <div className="col-fill">
           <div>
             <div className="row search__banner">

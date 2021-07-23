@@ -50,7 +50,7 @@ export default function UserEditScreen({ history, match }) {
           <LoadingOrError xl statusOf={userUpdate} />
         </div>
 
-        {userDetails.success && (
+        {userDetails?.success && (
           <>
             <CustomInput text="Name" hook={[name, setName]} />
 

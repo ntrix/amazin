@@ -31,7 +31,7 @@ export function _SellerCard({
           </div>
         </li>
 
-        {rating && (
+        {!!rating && (
           <li>
             <Rating
               rating={seller.rating}
@@ -40,13 +40,13 @@ export function _SellerCard({
           </li>
         )}
 
-        {mailTo && (
+        {!!mailTo && (
           <li>
             <a href={`mailto:${'a@b.c'}`}>Contact Seller</a>
           </li>
         )}
 
-        {info && <li>{seller.description}</li>}
+        {!!info && <li>{seller.description}</li>}
       </ul>
     </div>
   );

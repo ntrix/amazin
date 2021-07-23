@@ -79,7 +79,7 @@ export default function OrderSumScreen({ match }) {
     <div className="screen--light">
       <LoadingOrError xl statusOf={orderDetails} />
 
-      {order && (
+      {!!order && (
         <>
           <h1 className="p-1">Order {order._id}</h1>
 

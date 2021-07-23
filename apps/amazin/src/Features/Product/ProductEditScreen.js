@@ -159,7 +159,7 @@ export default function ProductEditScreen({ history, match }) {
 
         <LoadingOrError xl statusOf={productDetails} />
 
-        {productDetails.success && (
+        {productDetails?.success && (
           <>
             <LoadingOrError xl statusOf={productUpdate} />
 
