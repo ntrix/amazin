@@ -42,7 +42,7 @@ export function _SearchScreen() {
     const filterPage = filter.page || pageNumber;
     const filterCategory = filter.category || category;
     const filterName = filter.name || name;
-    const filterRating = filter.rating || rating;
+    const filterRating = (filter.rating + 1 || rating + 1) - 1;
     const sortOrder = filter.order || order;
     const filterMin = filter.min || (filter.min === 0 ? 0.01 : min);
     const filterMax = filter.max || (filter.max === 0 ? 0 : max);
