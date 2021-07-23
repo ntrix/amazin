@@ -2,76 +2,78 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Rating from './Rating';
-import { NO_IMAGE } from '../constants';
+import { DUMMYSELLERS, NO_IMAGE } from '../constants';
 import { getImgUrl, pipe, savePath } from '../utils';
 import { LazyImg } from '../utils/suspenseClient';
 
-export function _ProductCard({ product, deal = false }) {
+export function _ProductCard({
+  hasDeal = false,
+  product: {
+    _id,
+    name,
+    image,
+    rating,
+    numReviews,
+    price,
+    deal,
+    category,
+    ship,
+    seller
+  }
+}) {
+  const imgs = image.split('^');
+  const imgUrl = getImgUrl(_id, imgs[!!hasDeal] || imgs[0] || NO_IMAGE);
+
   return (
     <div className="card flex">
       <div className="card__center">
-        <Link to={`/product/${product._id}`} onClick={savePath()}>
-          <LazyImg
-            className="thumbnail"
-            src={getImgUrl(
-              product._id,
-              product.image.split('^')[deal ? 1 : 0] ||
-                product.image.split('^')[0] ||
-                NO_IMAGE
-            )}
-            alt={product.name}
-          />
+        <Link to={`/product/${_id}`} onClick={savePath()}>
+          <LazyImg className="thumbnail" src={imgUrl} alt={name} />
         </Link>
 
         <div className="card__body">
-          <Link to={`/product/${product._id}`} onClick={savePath()}>
-            <h2>{product.name}</h2>
+          <Link to={`/product/${_id}`} onClick={savePath()}>
+            <h2>{name}</h2>
           </Link>
 
-          <Rating
-            rating={product.rating}
-            numReviews={product.numReviews}
-          ></Rating>
+          <Rating rating={rating} numReviews={numReviews}></Rating>
 
           <div>
             <div>
-              <span className={`price ${deal ? 'danger' : ''}`}>
+              <span className={`price ${hasDeal ? 'danger' : ''}`}>
                 <sup>{pipe.getSymbol()}</sup>
-                {pipe.getNote(product.price)}
-                <sup>{pipe.getCent(product.price)}</sup>
+                {pipe.getNote(price)}
+                <sup>{pipe.getCent(price)}</sup>
               </span>
 
-              {deal && (
+              {hasDeal && (
                 <span className="pull-right">
                   <b className="price strike">
                     <sup>{pipe.getSymbol()}</sup>
-                    {pipe.getPrice(product.price / (1 - product.deal / 100))}
+                    {pipe.getPrice(price / (1 - deal / 100))}
                   </b>
-                  {'  (' + product.deal}% off)
+                  {`  (${deal}% off`}
                 </span>
               )}
             </div>
 
-            {deal ? (
+            {hasDeal ? (
               <div>
-                <Link
-                  to={`/search/category/:${product?.category}`}
-                  className="row"
-                >
-                  Category: {product?.category}
+                <Link to={`/search/category/:${category}`} className="row">
+                  Category: {category}
                 </Link>
               </div>
             ) : (
               <>
-                <sub>Shipping: {pipe.showPrice(product.ship)} excl.</sub>
+                <sub>Shipping: {pipe.showPrice(ship)} excl.</sub>
                 <div>
                   <Link
-                    to={`/seller/${product.seller._id}`}
+                    to={`/seller/${seller._id}`}
                     className="row end text-right"
                   >
                     Seller & Store
                     <br />
-                    {product?.seller?.seller?.name || 'Anonymous Seller'}
+                    {seller?.seller?.name || DUMMYSELLERS.name}
                   </Link>
                 </div>
               </>

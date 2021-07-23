@@ -15,7 +15,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
 import MessageBox from '../components/MessageBox';
-import { dummySellers } from '../constants';
+import { DUMMYSELLERS } from '../constants';
 import LoadingOrError from '../components/LoadingOrError';
 import { loadingFallback } from '../components/Fallbacks';
 const ProductCard = React.lazy(() =>
@@ -69,7 +69,7 @@ export function _HomeScreen() {
           <LoadingOrError statusOf={userTopSellersList} />
           <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
 
-          {(sellers || dummySellers).map((seller, id) => (
+          {(sellers || DUMMYSELLERS).map((seller, id) => (
             <SwiperSlide key={id}>
               <Link className="seller__card" to={`/seller/${seller._id}`}>
                 <img

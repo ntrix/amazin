@@ -7,7 +7,7 @@ import { listProducts } from '../../../Controllers/productActions';
 import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
-import Carousel, { dummyProducts, responsive, SORT } from '../../../constants';
+import Carousel, { responsive, SORT } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
@@ -73,7 +73,7 @@ export function _DealScreen() {
           >
             {products.map((product, id) => (
               <Suspense fallback={loadingFallback} key={id}>
-                <ProductCard deal product={product} />
+                <ProductCard hasDeal product={product} />
               </Suspense>
             ))}
           </Carousel>
@@ -95,9 +95,9 @@ export function _DealScreen() {
           <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
 
           <div className="row center">
-            {(products || dummyProducts).map((product, id) => (
-              <Suspense fallback={loadingFallback} key={id}>
-                <ProductCard deal product={product} />
+            {products?.map((product, id) => (
+              <Suspense key={id} fallback={loadingFallback}>
+                <ProductCard hasDeal product={product} />
               </Suspense>
             ))}
           </div>

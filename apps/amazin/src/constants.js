@@ -92,22 +92,22 @@ export const ratings = [
 ];
 
 /* create 5 placeholders for seller info */
-export const dummySellers = Array(5).fill({
+export const DUMMYSELLERS = Array(5).fill({
   _id: '#',
   seller: { logo: NO_IMAGE, name: 'Anonymous Seller' }
 });
 
 /* create 5 placeholders for product info */
-export const dummyProducts = Array(6).fill({
-  _id: '#',
-  image: NO_IMAGE,
-  name: 'Product Name',
-  price: 0,
-  deal: 1,
-  category: 'Product Category',
-  rating: 0,
-  numReviews: 0
-});
+// export const dummyProducts = Array(6).fill({
+//   _id: '#',
+//   image: NO_IMAGE,
+//   name: 'Product Name',
+//   price: 0,
+//   deal: 1,
+//   category: 'Product Category',
+//   rating: 0,
+//   numReviews: 0
+// });
 
 /* VideoScreen */
 export const SRC_URL = 'https://image.tmdb.org/t/p/original/';
