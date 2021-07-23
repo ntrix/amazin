@@ -11,7 +11,8 @@ export function _SearchBanner({ children }) {
   return (
     <div className="row search__banner">
       <div className="search__counter">
-        {fromItem + (toItem ? 1 : 0)} - {toItem} of {count || 0} Results
+        {fromItem + (toItem ? 1 : 0) || 0} - {toItem || 0} of {count || 0}{' '}
+        Results
       </div>
       {children}
     </div>

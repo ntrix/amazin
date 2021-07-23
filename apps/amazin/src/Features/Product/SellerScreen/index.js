@@ -12,6 +12,7 @@ import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { SORT } from '../../../constants';
 import { loadingFallback } from '../../../components/Fallbacks';
+import SearchBanner from '../../Nav/SearchBanner';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../../../components/ProductCard')
@@ -21,10 +22,11 @@ export function _SellerScreen({ match }) {
   const dispatch = useDispatch();
   const { pageNumber = 1, order: pOrder = SORT.BESTSELLING.OPT } = useParams();
   const sellerId = match.params.id;
+
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
   const productList = useSelector((state) => state.productList);
-  const { products, count } = productList;
+  const { products } = productList;
 
   const getUrl = ({ order = pOrder, page: _page = pageNumber }) =>
     `/seller/${sellerId}/order/${order}/pageNumber/${_page}`;
@@ -36,15 +38,7 @@ export function _SellerScreen({ match }) {
 
   return (
     <div className="row top">
-      <div className="row search__banner">
-        <LoadingOrError statusOf={productList} />
-
-        {products && (
-          <div className="search__counter">
-            {products.length} of {count} Products from this Seller
-          </div>
-        )}
-      </div>
+      <SearchBanner />
 
       <div className="col-1 p-1">
         <LoadingOrError statusOf={userDetails} />
@@ -62,7 +56,7 @@ export function _SellerScreen({ match }) {
 
         <Pagination getUrl={getUrl} />
 
-        <MessageBox hide={products?.length < 1}>No Product Found</MessageBox>
+        <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
 
         <div className="row center">
           {products?.map((product) => (
