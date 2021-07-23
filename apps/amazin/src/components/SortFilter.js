@@ -17,8 +17,10 @@ export function _SortFilter({ order, getUrl }) {
         }}
       >
         <optgroup label="Sort by:">
-          {Object.values(SORT).map((filter) => (
-            <option value={filter.OPT}>{filter.LABEL}</option>
+          {Object.values(SORT).map((filter, id) => (
+            <option value={filter.OPT} key={id}>
+              {filter.LABEL}
+            </option>
           ))}
         </optgroup>
       </select>

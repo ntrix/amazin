@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
@@ -6,12 +6,16 @@ import { listProducts } from '../../../Controllers/productActions';
 import { detailsUser } from '../../../Controllers/userActions';
 import SellerCard from './SellerCard';
 
-import ProductCard from '../../../components/ProductCard';
 import Pagination from '../../../components/Pagination';
 import SortFilter from '../../../components/SortFilter';
 import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { SORT } from '../../../constants';
+import { loadingFallback } from '../../../components/Fallbacks';
+
+const ProductCard = React.lazy(() =>
+  import(/* webpackPrefetch: true */ '../../../components/ProductCard')
+);
 
 export function _SellerScreen({ match }) {
   const dispatch = useDispatch();
@@ -62,7 +66,9 @@ export function _SellerScreen({ match }) {
 
         <div className="row center">
           {products?.map((product) => (
-            <ProductCard key={product._id} product={product}></ProductCard>
+            <Suspense fallback={loadingFallback} key={product._id}>
+              <ProductCard product={product} />
+            </Suspense>
           ))}
         </div>
 

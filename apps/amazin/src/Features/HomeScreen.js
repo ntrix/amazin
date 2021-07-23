@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
+
 import { listProducts } from '../Controllers/productActions';
 import { listTopSellers } from '../Controllers/userActions';
 import SwiperCore, {
@@ -17,6 +17,10 @@ import 'swiper/swiper-bundle.css';
 import MessageBox from '../components/MessageBox';
 import { dummySellers } from '../constants';
 import LoadingOrError from '../components/LoadingOrError';
+import { loadingFallback } from '../components/Fallbacks';
+const ProductCard = React.lazy(() =>
+  import(/* webpackPrefetch: true */ '../components/ProductCard')
+);
 
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
@@ -37,38 +41,7 @@ export function _HomeScreen() {
     <div className="home-screen">
       <div className={`home__banner ${banner}`}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
-      {/* <Carousel
-            swipeable={true}
-            draggable={true}
-            showDots={true}
-            responsive={breakpoints}
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={5000}
-            keyBoardControl={true}
-            customTransition="transform 1000ms ease-in-out"
-            transitionDuration={1000}
-            centerMode={true}
-            containerClass="carousel-container"
-            removeArrowOnDeviceType={["tablet", "desktop"]}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-          >
-            {sellers.map((seller) => (
-              <div key={seller._id}>
-                <Link className="seller__card" to={`/seller/${seller._id}`}>
-                  <img
-                    className="seller__img"
-                    src={seller.seller.logo || ""}
-                    alt={seller.seller.name || "Anonymous Seller"}
-                  />
-                  <p className="legend">
-                    {seller.seller.name || "Anonymous Seller"}
-                  </p>
-                </Link>
-              </div>
-            ))}
-          </Carousel> */}
+
       <div>
         <Swiper
           spaceBetween={20}
@@ -118,7 +91,9 @@ export function _HomeScreen() {
 
       <div className="row center">
         {products?.map((product) => (
-          <ProductCard key={product._id} product={product}></ProductCard>
+          <Suspense fallback={loadingFallback} key={product._id}>
+            <ProductCard product={product} />
+          </Suspense>
         ))}
       </div>
     </div>

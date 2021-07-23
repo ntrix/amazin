@@ -1,7 +1,7 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { Suspense, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import ProductCard from '../../../components/ProductCard';
+
 import SortFilter from '../../../components/SortFilter';
 import { listProducts } from '../../../Controllers/productActions';
 import './dealScreen.css';
@@ -11,7 +11,11 @@ import Carousel, { dummyProducts, responsive, SORT } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
-import { bannerFallback } from '../../../components/Fallbacks';
+import { loadingFallback } from '../../../components/Fallbacks';
+
+const ProductCard = React.lazy(() =>
+  import(/* webpackPrefetch: true */ '../../../components/ProductCard')
+);
 
 export function _DealScreen() {
   const dispatch = useDispatch();
@@ -49,9 +53,7 @@ export function _DealScreen() {
           No Deals On This Category!
         </MessageBox>
 
-        {!products ? (
-          bannerFallback
-        ) : (
+        {!!products && (
           <Carousel
             swipeable={true}
             draggable={true}
@@ -70,7 +72,9 @@ export function _DealScreen() {
             itemClass="carousel-item-padding-40-px"
           >
             {products.map((product, id) => (
-              <ProductCard deal key={id} product={product}></ProductCard>
+              <Suspense fallback={loadingFallback} key={id}>
+                <ProductCard deal product={product} />
+              </Suspense>
             ))}
           </Carousel>
         )}
@@ -92,7 +96,9 @@ export function _DealScreen() {
 
           <div className="row center">
             {(products || dummyProducts).map((product, id) => (
-              <ProductCard deal key={id} product={product}></ProductCard>
+              <Suspense fallback={loadingFallback} key={id}>
+                <ProductCard deal product={product} />
+              </Suspense>
             ))}
           </div>
         </div>

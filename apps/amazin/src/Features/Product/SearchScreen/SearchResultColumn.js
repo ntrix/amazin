@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
+import { loadingFallback } from '../../../components/Fallbacks';
 
 import LoadingOrError from '../../../components/LoadingOrError';
 import MessageBox from '../../../components/MessageBox';
-import ProductCard from '../../../components/ProductCard';
+const ProductCard = React.lazy(() =>
+  import(/* webpackPrefetch: true */ '../../../components/ProductCard')
+);
 
 export function _SearchResultColumn() {
   const productList = useSelector((state) => state.productList);
@@ -23,7 +26,9 @@ export function _SearchResultColumn() {
           </MessageBox>
 
           {products?.map((product, id) => (
-            <ProductCard key={id} product={product}></ProductCard>
+            <Suspense fallback={loadingFallback} key={id}>
+              <ProductCard product={product} />
+            </Suspense>
           ))}
         </>
       )}

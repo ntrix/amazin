@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import Rating from './Rating';
 import { NO_IMAGE } from '../constants';
 import { getImgUrl, pipe, savePath } from '../utils';
+import { LazyImg } from '../utils/suspenseClient';
 
 export function _ProductCard({ product, deal = false }) {
   return (
     <div className="card flex">
       <div className="card__center">
         <Link to={`/product/${product._id}`} onClick={savePath()}>
-          <img
+          <LazyImg
             className="thumbnail"
             src={getImgUrl(
               product._id,
