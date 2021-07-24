@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import ListCard from './ListCard';
 import OrderItemCard from './OrderItemCard';
 import OrderSumCard from './OrderSumCard';
+import PaypalCard from './PaypalCard';
+import AdminDeliverCard from './AdminDeliverCard';
+
 import LoadingOrError from '../../../components/LoadingOrError';
 
 export default function OrderSumScreen({ match }) {
@@ -12,13 +15,11 @@ export default function OrderSumScreen({ match }) {
   const { order = {} } = orderDetails;
   const { shippingAddress: ad = {} } = order;
 
-  const [sdkReady, setSdkReady] = useState(false);
-
   return (
     <div className="screen--light">
       <LoadingOrError xl statusOf={orderDetails} />
 
-      <h1 className="p-1">Order {order?._id || 'No'}</h1>
+      <h1 className="p-1">Order {order?._id || 'No.'}</h1>
 
       {!!order && (
         <div className="row top">
@@ -43,10 +44,16 @@ export default function OrderSumScreen({ match }) {
               <strong>Method:</strong> {order.paymentMethod}
             </ListCard>
 
-            <OrderItemCard orderId={orderId} hook={[sdkReady, setSdkReady]} />
+            <OrderItemCard items={order.orderItems} />
           </ul>
 
-          <OrderSumCard sdkReady={sdkReady} />
+          <ul className="col-1">
+            <OrderSumCard orderId={orderId} />
+
+            <PaypalCard />
+
+            <AdminDeliverCard />
+          </ul>
         </div>
       )}
     </div>

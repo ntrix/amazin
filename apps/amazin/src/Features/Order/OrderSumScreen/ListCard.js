@@ -8,9 +8,11 @@ function ListCard({ label, statusOf, textOf, when, children }) {
       <div className="p-1">
         <h2>{label}</h2>
         <p>{children}</p>
+        
         <MessageBox variant="success" show={statusOf}>
-          {`${textOf} at ${when}`}
+          {`${textOf} at ${Date(when).slice(0, 15)}`}
         </MessageBox>
+
         <MessageBox variant="danger" show={!statusOf}>
           {`Not ${textOf}`}
         </MessageBox>

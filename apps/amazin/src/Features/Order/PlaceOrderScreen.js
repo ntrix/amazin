@@ -9,6 +9,7 @@ import CheckoutSteps from '../Checkout/CheckoutSteps';
 import { TAX } from '../../constants';
 import { getImgUrl, pipe } from '../../utils';
 import LoadingOrError from '../../components/LoadingOrError';
+import ListRow from './components/ListRow';
 
 export default function PlaceOrderScreen({ history }) {
   const dispatch = useDispatch();
@@ -40,131 +41,96 @@ export default function PlaceOrderScreen({ history }) {
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+      <h1 className="p-1">Place Order</h1>
 
       <div className="row top">
-        <div className="col-2">
-          <ul>
-            <li>
-              <div className="card card__body">
-                <h2>Shipping</h2>
+        <ul className="col-2">
+          <li>
+            <div className="card card__body">
+              <h2>Shipping</h2>
 
-                <p>
-                  <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
-                  <strong>Address: </strong> {cart.shippingAddress.address},
-                  {cart.shippingAddress.city}, {cart.shippingAddress.postalCode}
-                  ,{cart.shippingAddress.country}
-                </p>
-              </div>
-            </li>
+              <p>
+                <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
+                <strong>Address: </strong> {cart.shippingAddress.address},
+                {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
+                {cart.shippingAddress.country}
+              </p>
+            </div>
+          </li>
 
-            <li>
-              <div className="card card__body">
-                <h2>Payment</h2>
+          <li>
+            <div className="card card__body">
+              <h2>Payment</h2>
 
-                <p>
-                  <strong>Method:</strong> {cart.paymentMethod}
-                </p>
-              </div>
-            </li>
+              <p>
+                <strong>Method:</strong> {cart.paymentMethod}
+              </p>
+            </div>
+          </li>
 
-            <li>
-              <div className="card card__body">
-                <h2>Order Items</h2>
+          <li>
+            <div className="card card__body">
+              <h2>Order Items</h2>
 
-                <ul>
-                  {cart.cartItems.map((item, id) => (
-                    <li key={id}>
-                      <div className="row">
-                        <div>
-                          <img
-                            src={getImgUrl(
-                              item.product,
-                              item.image.split('^')[0]
-                            )}
-                            alt={item.name}
-                            className="small"
-                          ></img>
-                        </div>
-
-                        <div className="min-20">
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>
-                        </div>
-
-                        <div>
-                          {item.qty} x {pipe.showPrice(item.price)} =
-                          {' ' + pipe.showPrice(item.qty * item.price)}
-                        </div>
+              <ul>
+                {cart.cartItems.map((item, id) => (
+                  <li key={id}>
+                    <div className="row">
+                      <div>
+                        <img
+                          src={getImgUrl(
+                            item.product,
+                            item.image.split('^')[0]
+                          )}
+                          alt={item.name}
+                          className="small"
+                        ></img>
                       </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
+
+                      <div className="min-20">
+                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                      </div>
+
+                      <div>
+                        {item.qty} x {pipe.showPrice(item.price)} =
+                        {' ' + pipe.showPrice(item.qty * item.price)}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        </ul>
         <div className="col-1">
-          <div className="card card__body">
-            <ul>
-              <li>
-                <h2>Order Summary</h2>
-              </li>
+          <ul className="card card__body">
+            <h2>Order Summary</h2>
 
-              <li>
-                <div className="row">
-                  <div>Items</div>
-                  <div>{pipe.showPrice(cart.itemsPrice)}</div>
-                </div>
-              </li>
+            <ListRow label="Items" toShow={cart.itemsPrice} />
 
-              {cart.cartItems.length > 0 && (
-                <>
-                  <li>
-                    <div className="row">
-                      <div>Shipping</div>
-                      <div>
-                        {cart.shippingPrice
-                          ? pipe.showPrice(cart.shippingPrice)
-                          : 'Free Ship'}
-                      </div>
-                    </div>
-                  </li>
+            {cart.cartItems.length > 0 && (
+              <>
+                <ListRow label="Shipping" toShow={cart.shippingPrice} />
 
-                  <li>
-                    <div className="row">
-                      <div>Before {TAX * 100}% MwSt.</div>
-                      {pipe.showPrice(cart.taxPrice)}
-                    </div>
-                  </li>
+                <ListRow
+                  label={`Before ${TAX * 100}% MwSt.`}
+                  toShow={cart.taxPrice}
+                />
 
-                  <li>
-                    <div className="row">
-                      <div>
-                        <strong> Order Total</strong>
-                      </div>
-                      <div>
-                        <strong>{pipe.showPrice(cart.totalPrice)}</strong>
-                      </div>
-                    </div>
-                  </li>
+                <ListRow label="Order Total" toShow={cart.totalPrice} active />
 
-                  <li>
-                    <button
-                      type="button"
-                      onClick={placeOrderHandler}
-                      className="primary block"
-                      disabled={cart.cartItems.length === 0}
-                    >
-                      Place Order
-                    </button>
-                  </li>
-                </>
-              )}
+                <button
+                  onClick={placeOrderHandler}
+                  className="primary block mt-1"
+                  disabled={cart.cartItems.length === 0}
+                >
+                  Place Order
+                </button>
+              </>
+            )}
 
-              <LoadingOrError xl statusOf={orderCreate} />
-            </ul>
-          </div>
+            <LoadingOrError xl statusOf={orderCreate} />
+          </ul>
         </div>
       </div>
     </div>
