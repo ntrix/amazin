@@ -99,7 +99,7 @@ export default function VideoScreen() {
         <LoadingOrError xl statusOf={productCreate} />
 
         <Suspense fallback={bannerFallback}>
-          <VideoBanner movie={bannerMovies[active]} />
+          <VideoBanner movie={bannerMovies[active]} youtubeTrailer />
         </Suspense>
 
         <Suspense fallback={loadingFallback}>

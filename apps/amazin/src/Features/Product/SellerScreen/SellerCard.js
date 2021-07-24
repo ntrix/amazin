@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Rating from '../../../components/Rating';
 
 export function _SellerCard({
-  user: { /*email,*/ seller },
+  user: { /*email,*/ seller = {} },
   size = 'small',
   linkTo = false,
   rating = true,

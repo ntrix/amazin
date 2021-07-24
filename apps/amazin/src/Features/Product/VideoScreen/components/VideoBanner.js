@@ -7,7 +7,11 @@ import ButtonSell from './ButtonSell';
 import ButtonBuy from './ButtonBuy';
 import { LazyBackground } from '../../../../utils/suspenseClient';
 
-export function _VideoBanner({ movie, bottom = false }) {
+export function _VideoBanner({
+  movie,
+  bottom = false,
+  youtubeTrailer = false
+}) {
   const [trailerUrl, setTrailerUrl] = useState('');
 
   return (
@@ -49,7 +53,7 @@ export function _VideoBanner({ movie, bottom = false }) {
         {!bottom && <div className="banner--fade-bottom" />}
       </LazyBackground>
 
-      {!bottom && <UTube trailerUrl={trailerUrl} />}
+      {!!youtubeTrailer && <UTube trailerUrl={trailerUrl} />}
     </>
   );
 }
