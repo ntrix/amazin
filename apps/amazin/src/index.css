@@ -318,6 +318,7 @@ textarea {
   resize: vertical;
   max-height: 40rem;
 }
+input[type='button'],
 button {
   display: inline-block;
   text-align: center;
@@ -344,12 +345,14 @@ button:focus {
   border: 1px solid var(--inner-focus-color);
   box-shadow: 0 0 3px 3px var(--outer-focus-color);
 }
+.btn.primary,
 button.primary {
   background: #f4d078;
   background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b);
   background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
   color: #111;
 }
+.btn.primary:not(.disabled):hover,
 button.primary:not(.disabled):hover {
   background: #f0c14b;
   background: -webkit-linear-gradient(top, #f7dfa5, #f3a847);

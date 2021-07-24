@@ -62,7 +62,7 @@ export default function ShippingAddressScreen({ history }) {
   };
 
   const location = useLocation();
-  const chooseOnMap = () => {
+  const locateOnMap = () => {
     dispatch(
       saveShippingAddress({
         fullName,
@@ -97,19 +97,14 @@ export default function ShippingAddressScreen({ history }) {
         />
         <CustomInput text="Country" required hook={[country, setCountry]} />
 
-        <div>
-          <label htmlFor="chooseOnMap">Location</label>
-          <button type="button" onClick={chooseOnMap}>
-            Choose On Map
-          </button>
-        </div>
+        <CustomInput text="Locate On Map" type="button" onClick={locateOnMap} />
 
-        <div>
-          <label />
-          <button className="primary" type="submit">
-            Continue
-          </button>
-        </div>
+        <CustomInput
+          text="Continue"
+          type="submit"
+          className="primary btn"
+          label="none"
+        />
       </form>
     </div>
   );
