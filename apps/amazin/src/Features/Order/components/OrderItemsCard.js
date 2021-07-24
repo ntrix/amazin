@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { getImgUrl, pipe } from '../../../utils';
 
-function OrderItemCard({ items }) {
+function OrderItemsCard({ items }) {
   return (
     <li className="card card__body">
       <div className="p-1">
@@ -37,4 +37,4 @@ function OrderItemCard({ items }) {
   );
 }
 
-export default OrderItemCard;
+export default OrderItemsCard;

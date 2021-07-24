@@ -1,19 +1,76 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import ListCard from './ListCard';
-import OrderItemCard from './OrderItemCard';
+import axiosClient from '../../../utils/axiosClient';
+import { detailsOrder } from '../../../Controllers/orderActions';
+import { payOrder } from '../../../Controllers/orderActions';
+import { deliverOrder } from '../../../Controllers/orderActions';
+import { orderDeliverActions, orderPayActions } from '../OrderSlice';
+
+import StatusBox from './StatusBox';
+import OrderItemsCard from '../components/OrderItemsCard';
 import OrderSumCard from './OrderSumCard';
 import PaypalCard from './PaypalCard';
-import AdminDeliverCard from './AdminDeliverCard';
+import AdminDeliveryCard from './AdminDeliveryCard';
 
+import ShippingAddressCard from '../components/ShippingAddressCard';
+import PaymentMethodCard from '../components/PaymentMethodCard';
 import LoadingOrError from '../../../components/LoadingOrError';
 
 export default function OrderSumScreen({ match }) {
+  const dispatch = useDispatch();
   const orderId = match.params.id;
   const orderDetails = useSelector((state) => state.orderDetails);
-  const { order = {} } = orderDetails;
-  const { shippingAddress: ad = {} } = order;
+  const { order } = orderDetails;
+  const orderPay = useSelector((state) => state.orderPay);
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+
+  const [sdkReady, setSdkReady] = useState(false);
+
+  useEffect(() => {
+    const addPayPalSdk = async () => {
+      const { data } = await axiosClient.get('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    if (
+      !order ||
+      orderPay.success ||
+      orderDeliver.success ||
+      order._id !== orderId
+    ) {
+      dispatch(orderPayActions._RESET());
+      dispatch(orderDeliverActions._RESET());
+      dispatch(detailsOrder(orderId));
+      return;
+    }
+
+    if (order?.isPaid) return;
+    if (!window.paypal) addPayPalSdk();
+    else setSdkReady(true);
+  }, [
+    dispatch,
+    order,
+    setSdkReady,
+    orderId,
+    orderPay.success,
+    orderDeliver.success
+  ]);
+
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(order, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order._id));
+  };
 
   return (
     <div className="screen--light">
@@ -24,35 +81,34 @@ export default function OrderSumScreen({ match }) {
       {!!order && (
         <div className="row top">
           <ul className="col-3">
-            <ListCard
-              label="Shipping"
-              statusOf={order.isDelivered}
-              textOf="Delivered"
-              when={order.deliveredAt}
-            >
-              <strong>Name:</strong> {ad.fullName} <br />
-              <strong>Address: </strong> {ad.address},{ad.city}, {ad.postalCode}
-              ,{ad.country}
-            </ListCard>
+            <ShippingAddressCard address={order.shippingAddress}>
+              <StatusBox
+                textOf="Delivered"
+                statusOf={order.isDelivered}
+                when={order.deliveredAt}
+              />
+            </ShippingAddressCard>
 
-            <ListCard
-              label="Payment"
-              statusOf={order.isPaid}
-              textOf="Paid"
-              when={order.paidAt}
-            >
-              <strong>Method:</strong> {order.paymentMethod}
-            </ListCard>
+            <PaymentMethodCard payment={order.paymentMethod}>
+              <StatusBox
+                textOf="Paid"
+                statusOf={order.isPaid}
+                when={order.paidAt}
+              />
+            </PaymentMethodCard>
 
-            <OrderItemCard items={order.orderItems} />
+            <OrderItemsCard items={order.orderItems} />
           </ul>
 
           <ul className="col-1">
-            <OrderSumCard orderId={orderId} />
+            <OrderSumCard order={order} />
 
-            <PaypalCard />
+            <PaypalCard
+              sdkReady={sdkReady}
+              successPaymentHandler={successPaymentHandler}
+            />
 
-            <AdminDeliverCard />
+            <AdminDeliveryCard deliverHandler={deliverHandler} />
           </ul>
         </div>
       )}
