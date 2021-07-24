@@ -52,7 +52,8 @@ function OrderItemCard({ orderId, hook: [sdkReady, setSdkReady] }) {
     sdkReady,
     orderPay.success,
     orderDeliver.success,
-    order
+    order,
+    setSdkReady
   ]);
 
   return (

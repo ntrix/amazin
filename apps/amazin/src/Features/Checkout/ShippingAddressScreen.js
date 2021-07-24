@@ -15,16 +15,17 @@ export default function ShippingAddressScreen({ history }) {
 
   const userAddressMap = useSelector((state) => state.userAddressMap);
   const { address: addressMap } = userAddressMap;
+  const { shippingAddress } = useSelector((state) => state.cart);
 
+  const [loc, setLoc] = useState({
+    lat: shippingAddress.lat,
+    lng: shippingAddress.lng
+  });
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
-
-  const { shippingAddress } = useSelector((state) => state.cart);
-  const [lat, setLat] = useState(shippingAddress.lat);
-  const [lng, setLng] = useState(shippingAddress.lng);
 
   useEffect(() => {
     setFullName(shippingAddress.fullName);
@@ -36,16 +37,10 @@ export default function ShippingAddressScreen({ history }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const newLat = addressMap ? addressMap.lat : lat;
-    const newLng = addressMap ? addressMap.lng : lng;
-    if (addressMap) {
-      setLat(addressMap.lat);
-      setLng(addressMap.lng);
-    }
-    let moveOn = true;
-    if (!newLat || !newLng)
-      moveOn = window.confirm('Continue setting your location?');
-    if (moveOn) {
+    const { lat, lng } = addressMap || loc;
+    if (addressMap) setLoc({ lat, lng });
+
+    if ((!lat || !lng) && window.confirm('Continue setting your location?')) {
       dispatch(
         saveShippingAddress({
           fullName,
@@ -53,8 +48,8 @@ export default function ShippingAddressScreen({ history }) {
           city,
           postalCode,
           country,
-          lat: newLat,
-          lng: newLng
+          lat,
+          lng
         })
       );
       history.push('/payment');
@@ -70,8 +65,8 @@ export default function ShippingAddressScreen({ history }) {
         city,
         postalCode,
         country,
-        lat,
-        lng
+        lat: loc.lat,
+        lng: loc.lng
       })
     );
     localStorage.setItem(STORAGE.HISTORY, location.pathname);
