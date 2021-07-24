@@ -86,7 +86,7 @@ export default function PlaceOrderScreen({ history }) {
                           ></img>
                         </div>
 
-                        <div className="min-30">
+                        <div className="min-20">
                           <Link to={`/product/${item.product}`}>
                             {item.name}
                           </Link>

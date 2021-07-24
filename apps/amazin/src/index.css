@@ -206,8 +206,8 @@ main > col-fill {
   flex: 0 1 49%;
   width: 49%;
 }
-.min-30 {
-  min-width: 30rem;
+.min-20 {
+  min-width: 20rem;
 }
 .max-30 {
   max-width: 30rem;
