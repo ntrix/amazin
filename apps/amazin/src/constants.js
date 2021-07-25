@@ -14,7 +14,7 @@ export const SHADOW = {
   SIDEBAR: 'sidebar'
 };
 
-/* local storage and Redux */
+/* localStorage and Redux */
 export const STORAGE = {
   USERINFO: 'userInfo',
   CART_ITEMS: 'cartItems',

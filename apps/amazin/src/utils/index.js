@@ -1,5 +1,50 @@
 import { CURR_FORMAT, SRC_URL, NO_IMAGE, STORAGE } from '../constants';
 
+/* localStorage and Redux */
+export const LOC = (() => {
+  const get = (key) => JSON.parse(localStorage.getItem(key));
+  const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+
+  return {
+    USERINFO: 'userInfo',
+    CART_ITEMS: 'cartItems',
+    SHIPPING_ADDRESS: 'shippingAddress',
+    CURRENCY: 'currency',
+    HISTORY: 'backToHistory',
+
+    get _userInfo() {
+      return get(LOC.USERINFO);
+    },
+    set _userInfo(v) {
+      set(LOC.USERINFO, v);
+    },
+    get _cartItems() {
+      return get(LOC.CART_ITEMS);
+    },
+    set _cartItems(v) {
+      set(LOC.CART_ITEMS, v);
+    },
+    get _shippingAddress() {
+      return get(LOC.SHIPPING_ADDRESS);
+    },
+    set _shippingAddress(v) {
+      set(LOC.SHIPPING_ADDRESS, v);
+    },
+    get _currency() {
+      return get(LOC.CURRENCY);
+    },
+    set _currency(v) {
+      set(LOC.CURRENCY, v);
+    },
+    get _history() {
+      return get(LOC.HISTORY);
+    },
+    set _history(v) {
+      set(LOC.HISTORY, v);
+    }
+  };
+})();
+
 /* singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
   currency: 'EUR',
