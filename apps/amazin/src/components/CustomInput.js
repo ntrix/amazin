@@ -24,7 +24,7 @@ export function _CustomInput({
         <textarea {...props} />
       ) : (
         <input
-          value={(type === 'button' || type === 'submit') && text}
+          value={type === 'button' || type === 'submit' ? text : rest.value}
           {...props}
         />
       )}
