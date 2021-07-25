@@ -51,11 +51,11 @@ img.active {
 }
 
 /* PRODUCT EDIT */
-.product-edit .img-input {
+.product-edit .img-row {
   align-items: end;
   height: 8rem;
 }
-.product-edit .img-input > *:nth-child(2) {
+.product-edit .img-row > *:nth-child(2) {
   flex: 1;
 }
 .product-edit label,
@@ -67,4 +67,8 @@ img.active {
   margin: 1rem 0;
   width: 100%;
   box-sizing: border-box;
+}
+.img-row .img-row__input {
+  display: flex;
+  flex-direction: column-reverse;
 }
