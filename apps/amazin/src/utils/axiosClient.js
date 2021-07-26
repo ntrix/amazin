@@ -39,10 +39,7 @@ const axiosRedux =
         dispatch(ActionDispatchBySuccess(returnedData));
       if (extHandlerBySuccess) extHandlerBySuccess(returnedData);
     } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+      const message = error.response?.data?.message || error.message;
       dispatch(dispatchFail._FAIL(message));
     }
   };
