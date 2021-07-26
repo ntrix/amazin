@@ -1,5 +1,26 @@
 import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY } from '../constants';
 
+/* debounce & throttle for useShadow */
+export function debounce(func, duration) {
+  let id;
+  return function (...args) {
+    clearTimeout(id);
+    id = setTimeout(() => {
+      id = null;
+      return func.apply(this, args);
+    }, duration);
+  };
+}
+export function throttle(func, duration) {
+  let isWaiting = false;
+  return function (...args) {
+    if (isWaiting) return;
+    func.apply(this, args);
+    isWaiting = true;
+    setTimeout(() => (isWaiting = false), duration);
+  };
+}
+
 /* Proxy for localStorage and Redux */
 export const Storage = new Proxy(KEY, {
   get(obj, key) {

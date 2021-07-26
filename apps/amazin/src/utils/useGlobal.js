@@ -1,36 +1,31 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { debounce } from './index';
 
-const GlobalContext = createContext();
-GlobalContext.displayName = 'GlobalContext';
+const ShadowContext = createContext();
+ShadowContext.displayName = 'ShadowContext';
 
 function GlobalVarProvider({ children }) {
-  const [shadowOf, setShadowOf] = useState('');
+  const [shadowOf, _setShadowOf] = useState('');
 
-  const timeoutId = useRef(0);
+  const setShadowOf = (val) => {
+    if (val !== shadowOf) _setShadowOf(val);
+  };
+
   const setShadowSlow =
     (_shadowOf = '') =>
-    () => {
-      clearTimeout(timeoutId.current - 99);
-      timeoutId.current = setTimeout(() => setShadowOf(_shadowOf), 450);
-    };
+    () =>
+      debounce(setShadowOf, 500)(_shadowOf);
 
   const clearShadow = () => setShadowOf('');
 
   const value = { shadowOf, setShadowOf, setShadowSlow, clearShadow };
-
   return (
-    <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
+    <ShadowContext.Provider value={value}>{children}</ShadowContext.Provider>
   );
 }
 
 function useShadow(initialState = null) {
-  const context = useContext(GlobalContext);
+  const context = useContext(ShadowContext);
   if (context === undefined)
     throw new Error('useShadow must be used within a GlobalVarProvider');
 
@@ -46,7 +41,7 @@ function useShadow(initialState = null) {
 /* TODO
 
 .function useCurrency(initialState = null) {
-  const context = useContext(GlobalContext);
+  const context = useContext(ShadowContext);
   if (context === undefined)
     throw new Error('useCurrency must be used within a GlobalVarProvider');
 
