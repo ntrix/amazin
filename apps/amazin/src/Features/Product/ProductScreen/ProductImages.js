@@ -9,9 +9,8 @@ export function _ProductScreen({ product }) {
     <div className="col-2 flex mr-1">
       <div className="tab__w6 flex-col">
         {product?.image?.split('^').map((img, id) => (
-          <Suspense fallback={loadingFallback}>
+          <Suspense fallback={loadingFallback} key={id}>
             <LazyImg
-              key={id}
               alt={`${product.name} small ${id}`}
               src={getImgUrl(product._id, img)}
               onMouseEnter={() => setActiveImg(id)}

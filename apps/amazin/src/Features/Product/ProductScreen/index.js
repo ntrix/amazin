@@ -27,42 +27,40 @@ export function _ProductScreen({ match }) {
 
   return (
     <div>
-      <Suspense fallback={loadingFallback}>
-        <LoadingOrError xl statusOf={productDetails} />
-        {productDetails?.success && (
-          <div className="col-fill">
-            <div>
-              <div className="row search__banner">
-                <Link
-                  to={localStorage?.getItem(STORAGE.HISTORY) || '/'}
-                  className="ml-1"
-                >
-                  Back to last section
-                </Link>
-              </div>
+      <LoadingOrError xl statusOf={productDetails} />
+      {productDetails?.success && (
+        <div className="col-fill">
+          <div>
+            <div className="row search__banner">
+              <Link
+                to={localStorage?.getItem(STORAGE.HISTORY) || '/'}
+                className="ml-1"
+              >
+                Back to last section
+              </Link>
             </div>
-
-            <div className="row top mt-1 p-1">
-              <Suspense fallback={loadingFallback}>
-                <ProductImages product={product} />
-              </Suspense>
-
-              <ProductDescription product={product} />
-
-              <div className="col-1">
-                <SellerCard
-                  user={product.seller}
-                  linkTo={`/seller/${product.seller._id}`}
-                />
-
-                <ProductInStock productId={productId} product={product} />
-              </div>
-            </div>
-
-            <ProductReview productId={productId} />
           </div>
-        )}
-      </Suspense>
+
+          <div className="row top mt-1 p-1">
+            <Suspense fallback={loadingFallback}>
+              <ProductImages product={product} />
+            </Suspense>
+
+            <ProductDescription product={product} />
+
+            <div className="col-1">
+              <SellerCard
+                user={product.seller}
+                linkTo={`/seller/${product.seller._id}`}
+              />
+
+              <ProductInStock productId={productId} product={product} />
+            </div>
+          </div>
+
+          <ProductReview productId={productId} />
+        </div>
+      )}
     </div>
   );
 }
