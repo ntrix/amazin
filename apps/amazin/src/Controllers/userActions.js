@@ -9,12 +9,13 @@ import {
   userDeleteActions,
   userTopSellerListActions
 } from '../Features/User/UserSlice';
+import { loc } from '../utils';
 import { STORAGE } from '../constants';
 
 export const register = (name, email, password, confirmPassword) =>
   axiosPublic({ email, password })(userRegisterActions)(
     userSigninActions._SUCCESS,
-    (_data) => localStorage.setItem(STORAGE.USERINFO, JSON.stringify(_data))
+    (_data) => (loc[STORAGE.USER_INFO] = _data)
   )('post', '/api/users/register', {
     name,
     email,
@@ -23,17 +24,18 @@ export const register = (name, email, password, confirmPassword) =>
   });
 
 export const signin = (email, password) =>
-  axiosPublic({ email, password })(userSigninActions)(null, (_data) =>
-    localStorage.setItem(STORAGE.USERINFO, JSON.stringify(_data))
+  axiosPublic({ email, password })(userSigninActions)(
+    null,
+    (_data) => (loc[STORAGE.USER_INFO] = _data)
   )('post', '/api/users/signin', {
     email,
     password
   });
 
 export const signout = () => (dispatch) => {
-  localStorage.removeItem(STORAGE.USERINFO);
-  localStorage.removeItem(STORAGE.CART_ITEMS);
-  localStorage.removeItem(STORAGE.SHIPPING_ADDRESS);
+  loc[STORAGE.USER_INFO] = '';
+  loc[STORAGE.CART_ITEMS] = '';
+  loc[STORAGE.SHIPPING_ADDRESS] = '';
   dispatch(userSigninActions._RESET());
   document.location.href = '/signin';
 };
@@ -44,7 +46,7 @@ export const detailsUser = (userId) =>
 export const updateUserProfile = (user) =>
   axiosPrivate(user)(userUpdateProfileActions)(
     userSigninActions._SUCCESS,
-    (_data) => localStorage.setItem(STORAGE.USERINFO, JSON.stringify(_data))
+    (_data) => (loc[STORAGE.USER_INFO] = _data)
   )('put', `/api/users/profile`, user);
 
 export const updateUser = (user) =>

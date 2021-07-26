@@ -9,11 +9,11 @@ import {
 import MainRoute from './Features/Route/MainRoute';
 import HeaderNav from './Features/Nav/HeaderNav';
 import SidebarMenu from './Features/Nav/SidebarMenu';
-import { pipe } from './utils';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import ErrorScreen from './Features/Auth/ErrorScreen';
 import { useShadow } from './utils/useGlobal';
+import { loc, pipe } from './utils';
 import { SHADOW, STORAGE } from './constants';
 
 export default function App() {
@@ -26,10 +26,7 @@ export default function App() {
 
   useEffect(() => {
     pipe.setCurrency(
-      userInfo?.currency ||
-        sessionCurrency ||
-        localStorage.getItem(STORAGE.CURRENCY) ||
-        pipe.currency
+      userInfo?.currency || sessionCurrency || loc.currency || pipe.currency
     );
     setCurrency(pipe.currency);
     dispatch(updateCurrencyRates());

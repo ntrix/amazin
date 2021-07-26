@@ -11,6 +11,7 @@ import SellerCard from '../SellerScreen/SellerCard';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { STORAGE } from '../../../constants';
 import { loadingFallback } from '../../../components/Fallbacks';
+import { loc } from '../../../utils';
 
 const ProductImages = React.lazy(() => import('./ProductImages'));
 
@@ -32,10 +33,7 @@ export function _ProductScreen({ match }) {
         <div className="col-fill">
           <div>
             <div className="row search__banner">
-              <Link
-                to={localStorage?.getItem(STORAGE.HISTORY) || '/'}
-                className="ml-1"
-              >
+              <Link to={loc[STORAGE.HISTORY] || '/'} className="ml-1">
                 Back to last section
               </Link>
             </div>

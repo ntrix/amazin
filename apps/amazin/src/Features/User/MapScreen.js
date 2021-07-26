@@ -13,6 +13,7 @@ import { userAddressMapActions } from './UserSlice';
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
 import { LOCATION, STORAGE } from '../../constants';
+import { loc } from '../../utils';
 
 const libs = ['places'];
 
@@ -109,7 +110,7 @@ export default function MapScreen({ history }) {
   };
 
   const redirectBack = () => {
-    history.push(localStorage?.getItem(STORAGE.HISTORY) || '/');
+    history.push(loc[STORAGE.HISTORY] || '/');
   };
 
   return googleApiKey ? (

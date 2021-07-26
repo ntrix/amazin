@@ -10,11 +10,12 @@ import {
   orderDeliverActions
 } from '../Features/Order/OrderSlice';
 import { STORAGE } from '../constants';
+import { loc } from '../utils';
 
 export const createOrder = (order) =>
   axiosPrivate(order)(orderCreateActions)(
     cartActions._EMPTY,
-    () => localStorage.removeItem(STORAGE.CART_ITEMS),
+    () => (loc[STORAGE.CART_ITEMS] = ''),
     (_data) => _data.order
   )('post', '/api/orders', order);
 

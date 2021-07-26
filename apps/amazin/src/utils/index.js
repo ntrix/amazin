@@ -1,51 +1,22 @@
 import { CURR_FORMAT, SRC_URL, NO_IMAGE, STORAGE } from '../constants';
 
-/* localStorage and Redux */
-export const LOC = (() => {
-  const get = (key) => JSON.parse(localStorage.getItem(key));
-  const set = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-
-  return {
-    USERINFO: 'userInfo',
-    CART_ITEMS: 'cartItems',
-    SHIPPING_ADDRESS: 'shippingAddress',
-    CURRENCY: 'currency',
-    HISTORY: 'backToHistory',
-
-    get _userInfo() {
-      return get(LOC.USERINFO);
-    },
-    set _userInfo(v) {
-      set(LOC.USERINFO, v);
-    },
-    get _cartItems() {
-      return get(LOC.CART_ITEMS);
-    },
-    set _cartItems(v) {
-      set(LOC.CART_ITEMS, v);
-    },
-    get _shippingAddress() {
-      return get(LOC.SHIPPING_ADDRESS);
-    },
-    set _shippingAddress(v) {
-      set(LOC.SHIPPING_ADDRESS, v);
-    },
-    get _currency() {
-      return get(LOC.CURRENCY);
-    },
-    set _currency(v) {
-      set(LOC.CURRENCY, v);
-    },
-    get _history() {
-      return get(LOC.HISTORY);
-    },
-    set _history(v) {
-      set(LOC.HISTORY, v);
+/* Proxy for localStorage and Redux */
+export const loc = new Proxy(STORAGE, {
+  get(obj, key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+      return localStorage.getItem(key);
     }
-  };
-})();
+  },
+  set(obj, key, value) {
+    if (value === '') localStorage.removeItem(key);
+    else localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  }
+});
 
-/* singleton for currency and all its pipes, rates, calculations */
+/* Singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
   currency: 'EUR',
   currencies: ['EUR', 'GBP', 'USD', 'PLN', 'CZK', 'CHF'],
@@ -107,10 +78,10 @@ export const savePath =
   (exceptionStartWith = '@') =>
   () => {
     if (!window.location.pathname.startsWith(exceptionStartWith))
-      localStorage.setItem(STORAGE.HISTORY, window.location.pathname);
+      loc[STORAGE.HISTORY] = window.location.pathname;
   };
 
-/* adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
+/* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
 export const sourceAdapter = (movies) =>
   movies?.map((m) => ({
     name: m.name || m.title || m.original_title || m.original_name,

@@ -6,6 +6,7 @@ import { saveShippingAddress } from '../../Controllers/cartActions';
 
 import CheckoutSteps from './CheckoutSteps';
 import CustomInput from '../../components/CustomInput';
+import { loc } from '../../utils';
 import { STORAGE } from '../../constants';
 
 export default function ShippingAddressScreen({ history }) {
@@ -17,7 +18,7 @@ export default function ShippingAddressScreen({ history }) {
   const { address: addressMap } = userAddressMap;
   const { shippingAddress } = useSelector((state) => state.cart);
 
-  const [loc, setLoc] = useState({
+  const [locate, setLocate] = useState({
     lat: shippingAddress.lat,
     lng: shippingAddress.lng
   });
@@ -37,8 +38,8 @@ export default function ShippingAddressScreen({ history }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const { lat, lng } = addressMap || loc;
-    if (addressMap) setLoc({ lat, lng });
+    const { lat, lng } = addressMap || locate;
+    if (addressMap) setLocate({ lat, lng });
 
     if ((!lat || !lng) && window.confirm('Continue setting your location?')) {
       dispatch(
@@ -65,11 +66,11 @@ export default function ShippingAddressScreen({ history }) {
         city,
         postalCode,
         country,
-        lat: loc.lat,
-        lng: loc.lng
+        lat: locate.lat,
+        lng: locate.lng
       })
     );
-    localStorage.setItem(STORAGE.HISTORY, location.pathname);
+    loc[STORAGE.HISTORY] = location.pathname;
     history.push('/map');
   };
 

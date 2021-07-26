@@ -9,7 +9,7 @@ import { userUpdateProfileActions } from '../UserSlice';
 import './currencyScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
-import { pipe } from '../../../utils';
+import { loc, pipe } from '../../../utils';
 import { STORAGE } from '../../../constants';
 
 export default function CurrencyScreen() {
@@ -32,7 +32,7 @@ export default function CurrencyScreen() {
   }, [cType, dispatch, userInfo?._id]);
 
   const submitHandler = () => {
-    localStorage.setItem(STORAGE.CURRENCY, currency);
+    loc[STORAGE.CURRENCY] = currency;
     pipe.setCurrency(currency);
     dispatch(updateCurrencyRates());
     if (userInfo)

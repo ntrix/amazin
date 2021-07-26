@@ -33,13 +33,14 @@ import {
   userUpdateProfileReducer,
   userUpdateReducer
 } from './Features/User/UserSlice.js';
-import { LOC } from './utils';
+import { loc } from './utils';
+import { STORAGE } from './constants';
 
 const preloadedState = {
-  userSignin: { userInfo: LOC._userInfo },
+  userSignin: { userInfo: loc[STORAGE.USER_INFO] },
   cart: {
-    cartItems: LOC._cartItems || [],
-    shippingAddress: LOC._shippingAddress || {},
+    cartItems: loc[STORAGE.CART_ITEMS] || [],
+    shippingAddress: loc[STORAGE.SHIPPING_ADDRESS] || {},
     paymentMethod: 'PayPal'
   }
 };

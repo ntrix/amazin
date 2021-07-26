@@ -5,14 +5,14 @@ export const { actions: userRegisterActions, reducer: userRegisterReducer } =
   createSlice({
     name: 'userRegister',
     initialState: {},
-    reducers: Reducer(STORAGE.USERINFO)
+    reducers: Reducer(STORAGE.USER_INFO)
   });
 
 export const { actions: userSigninActions, reducer: userSigninReducer } =
   createSlice({
     name: 'userSignin',
     initialState: {},
-    reducers: Reducer(STORAGE.USERINFO)
+    reducers: Reducer(STORAGE.USER_INFO)
   });
 
 export const { actions: userDetailsActions, reducer: userDetailsReducer } =
