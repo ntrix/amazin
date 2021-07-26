@@ -9,13 +9,13 @@ import {
   orderDeleteActions,
   orderDeliverActions
 } from '../Features/Order/OrderSlice';
-import { STORAGE } from '../constants';
-import { loc } from '../utils';
+import { KEY } from '../constants';
+import { Storage } from '../utils';
 
 export const createOrder = (order) =>
   axiosPrivate(order)(orderCreateActions)(
     cartActions._EMPTY,
-    () => (loc[STORAGE.CART_ITEMS] = ''),
+    () => (Storage[KEY.CART_ITEMS] = ''),
     (_data) => _data.order
   )('post', '/api/orders', order);
 

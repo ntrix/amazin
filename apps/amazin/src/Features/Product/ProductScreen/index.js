@@ -9,9 +9,9 @@ import { detailsProduct } from '../../../Controllers/productActions';
 import SellerCard from '../SellerScreen/SellerCard';
 
 import LoadingOrError from '../../../components/LoadingOrError';
-import { STORAGE } from '../../../constants';
+import { KEY } from '../../../constants';
 import { loadingFallback } from '../../../components/Fallbacks';
-import { loc } from '../../../utils';
+import { Storage } from '../../../utils';
 
 const ProductImages = React.lazy(() => import('./ProductImages'));
 
@@ -23,17 +23,18 @@ export function _ProductScreen({ match }) {
   const { product } = productDetails;
 
   useEffect(() => {
-    dispatch(detailsProduct(productId)); // eslint-disable-next-line
-  }, [productId]);
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId]);
 
   return (
     <div>
       <LoadingOrError xl statusOf={productDetails} />
+
       {productDetails?.success && (
         <div className="col-fill">
           <div>
             <div className="row search__banner">
-              <Link to={loc[STORAGE.HISTORY] || '/'} className="ml-1">
+              <Link to={Storage[KEY.HISTORY] || '/'} className="ml-1">
                 Back to last section
               </Link>
             </div>

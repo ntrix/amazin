@@ -1,7 +1,7 @@
-import { CURR_FORMAT, SRC_URL, NO_IMAGE, STORAGE } from '../constants';
+import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY } from '../constants';
 
 /* Proxy for localStorage and Redux */
-export const loc = new Proxy(STORAGE, {
+export const Storage = new Proxy(KEY, {
   get(obj, key) {
     try {
       return JSON.parse(localStorage.getItem(key));
@@ -78,7 +78,7 @@ export const savePath =
   (exceptionStartWith = '@') =>
   () => {
     if (!window.location.pathname.startsWith(exceptionStartWith))
-      loc[STORAGE.HISTORY] = window.location.pathname;
+      Storage[KEY.HISTORY] = window.location.pathname;
   };
 
 /* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */

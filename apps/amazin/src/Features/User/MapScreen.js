@@ -12,8 +12,8 @@ import { userAddressMapActions } from './UserSlice';
 
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
-import { LOCATION, STORAGE } from '../../constants';
-import { loc } from '../../utils';
+import { LOCATION, KEY } from '../../constants';
+import { Storage } from '../../utils';
 
 const libs = ['places'];
 
@@ -110,7 +110,7 @@ export default function MapScreen({ history }) {
   };
 
   const redirectBack = () => {
-    history.push(loc[STORAGE.HISTORY] || '/');
+    history.push(Storage[KEY.HISTORY] || '/');
   };
 
   return googleApiKey ? (

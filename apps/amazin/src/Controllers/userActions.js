@@ -9,13 +9,13 @@ import {
   userDeleteActions,
   userTopSellerListActions
 } from '../Features/User/UserSlice';
-import { loc } from '../utils';
-import { STORAGE } from '../constants';
+import { Storage } from '../utils';
+import { KEY } from '../constants';
 
 export const register = (name, email, password, confirmPassword) =>
   axiosPublic({ email, password })(userRegisterActions)(
     userSigninActions._SUCCESS,
-    (_data) => (loc[STORAGE.USER_INFO] = _data)
+    (_data) => (Storage[KEY.USER_INFO] = _data)
   )('post', '/api/users/register', {
     name,
     email,
@@ -26,16 +26,16 @@ export const register = (name, email, password, confirmPassword) =>
 export const signin = (email, password) =>
   axiosPublic({ email, password })(userSigninActions)(
     null,
-    (_data) => (loc[STORAGE.USER_INFO] = _data)
+    (_data) => (Storage[KEY.USER_INFO] = _data)
   )('post', '/api/users/signin', {
     email,
     password
   });
 
 export const signout = () => (dispatch) => {
-  loc[STORAGE.USER_INFO] = '';
-  loc[STORAGE.CART_ITEMS] = '';
-  loc[STORAGE.SHIPPING_ADDRESS] = '';
+  Storage[KEY.USER_INFO] = '';
+  Storage[KEY.CART_ITEMS] = '';
+  Storage[KEY.SHIPPING_ADDRESS] = '';
   dispatch(userSigninActions._RESET());
   document.location.href = '/signin';
 };
@@ -46,7 +46,7 @@ export const detailsUser = (userId) =>
 export const updateUserProfile = (user) =>
   axiosPrivate(user)(userUpdateProfileActions)(
     userSigninActions._SUCCESS,
-    (_data) => (loc[STORAGE.USER_INFO] = _data)
+    (_data) => (Storage[KEY.USER_INFO] = _data)
   )('put', `/api/users/profile`, user);
 
 export const updateUser = (user) =>

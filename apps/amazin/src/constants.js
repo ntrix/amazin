@@ -15,7 +15,7 @@ export const SHADOW = {
 };
 
 /* localStorage and Redux */
-export const STORAGE = {
+export const KEY = {
   USER_INFO: 'userInfo',
   CART_ITEMS: 'cartItems',
   SHIPPING_ADDRESS: 'shippingAddress',

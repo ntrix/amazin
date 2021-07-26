@@ -13,8 +13,8 @@ import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import ErrorScreen from './Features/Auth/ErrorScreen';
 import { useShadow } from './utils/useGlobal';
-import { loc, pipe } from './utils';
-import { SHADOW, STORAGE } from './constants';
+import { Storage, pipe } from './utils';
+import { SHADOW, KEY } from './constants';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function App() {
 
   useEffect(() => {
     pipe.setCurrency(
-      userInfo?.currency || sessionCurrency || loc.currency || pipe.currency
+      userInfo?.currency || sessionCurrency || Storage.currency || pipe.currency
     );
     setCurrency(pipe.currency);
     dispatch(updateCurrencyRates());

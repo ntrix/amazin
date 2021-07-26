@@ -1,7 +1,7 @@
 import axiosClient from '../utils/axiosClient';
 import { cartActions } from '../Features/Checkout/CartSlice.js';
-import { STORAGE, DUMMYSELLERS } from '../constants';
-import { loc } from '../utils';
+import { KEY, DUMMYSELLERS } from '../constants';
+import { Storage } from '../utils';
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const { data } = await axiosClient.get(`/api/products/${productId}`);
@@ -31,18 +31,18 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
       })
     );
 
-    loc[STORAGE.CART_ITEMS] = getState().cart.cartItems;
+    Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
   }
 };
 
 export const removeFromCart = (productId) => (dispatch, getState) => {
   dispatch(cartActions._REMOVE_ITEM(productId));
-  loc[STORAGE.CART_ITEMS] = getState().cart.cartItems;
+  Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
 export const saveShippingAddress = (data) => (dispatch) => {
   dispatch(cartActions._SAVE_SHIPPING_ADDRESS(data));
-  loc[STORAGE.SHIPPING_ADDRESS] = data;
+  Storage[KEY.SHIPPING_ADDRESS] = data;
 };
 
 export const savePaymentMethod = (data) => (dispatch) => {
