@@ -26,7 +26,10 @@ export default function App() {
 
   useEffect(() => {
     pipe.setCurrency(
-      userInfo?.currency || sessionCurrency || Storage.currency || pipe.currency
+      userInfo?.currency ||
+        sessionCurrency ||
+        Storage[KEY.CURRENCY] ||
+        pipe.currency
     );
     setCurrency(pipe.currency);
     dispatch(updateCurrencyRates());

@@ -8,26 +8,28 @@ function AdminDeliveryCard({ deliverHandler }) {
   const { order } = useSelector((state) => state.orderDetails);
   const orderDeliver = useSelector((state) => state.orderDeliver);
 
-  return ((userInfo?.isAdmin && order?.isPaid) ||
-    (userInfo?.isSeller &&
-      process.env.REACT_APP_ENVIRONMENT === 'development')) &&
-    !order?.isDelivered ? (
-    <li className="card card__body">
-      <div className="min-20">
-        <LoadingOrError statusOf={orderDeliver} />
+  if (
+    !order?.isDelivered &&
+    ((userInfo?.isAdmin && order?.isPaid) ||
+      (userInfo?.isSeller &&
+        process.env.REACT_APP_ENVIRONMENT === 'development'))
+  )
+    return (
+      <li className="card card__body">
+        <div className="min-20">
+          <LoadingOrError statusOf={orderDeliver} />
 
-        <button
-          type="button"
-          className="primary block"
-          onClick={deliverHandler}
-        >
-          Deliver Order
-        </button>
-      </div>
-    </li>
-  ) : (
-    <></>
-  );
+          <button
+            type="button"
+            className="primary block"
+            onClick={deliverHandler}
+          >
+            Deliver Order
+          </button>
+        </div>
+      </li>
+    );
+  return null;
 }
 
 export default AdminDeliveryCard;
