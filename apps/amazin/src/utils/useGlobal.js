@@ -8,7 +8,7 @@ function GlobalVarProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
   const setShadowOf = (val) => {
-    if (val !== shadowOf) _setShadowOf(val);
+    if (val !== shadowOf || val === '') _setShadowOf(val);
   };
 
   const setShadowSlow =
