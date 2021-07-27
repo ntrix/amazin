@@ -1,15 +1,24 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Carousel, { responsive } from '../../../constants';
 import UTube from './components/UTube';
 
 import { loadingFallback } from '../../../components/Fallbacks';
+import { useSelector } from 'react-redux';
+import { dummyMovies } from '../../../utils';
 
 const VideoCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ './components/VideoCard')
 );
 
-export function _VideoRow({ title, movies, portrait = false }) {
+export function _VideoRow({ title, movies: _movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
+  const [movies, setMovies] = useState(dummyMovies);
+
+  const productList = useSelector((state) => state.productList);
+
+  useEffect(() => {
+    if (productList.success) setMovies(_movies);
+  }, [productList.success, _movies]);
 
   if (!movies?.length) return null;
   return (

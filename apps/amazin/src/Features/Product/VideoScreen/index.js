@@ -8,8 +8,15 @@ import './videoScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
-import { TRENDING, TOP_RATED, VIDEO } from '../../../constants';
-import { dummyMovies, sourceAdapter } from '../../../utils';
+import {
+  TRENDING,
+  TOP_RATED,
+  VIDEO,
+  NETFLUX,
+  HOME,
+  STORE
+} from '../../../constants';
+import { sourceAdapter } from '../../../utils';
 
 import {
   ErrorFallback,
@@ -33,10 +40,9 @@ export default function VideoScreen() {
   const productList = useSelector((state) => state.productList);
   const productCreate = useSelector((state) => state.productCreate);
 
-  const [active, setActive] = useState('STORE');
-  const [movies, setMovies] = useState({ STORE: [] });
+  const [active, setActive] = useState(STORE);
   const [externMovies, setExternMovies] = useState({});
-  const [storeMovies, setStoreMovies] = useState();
+  const [storeMovies, setStoreMovies] = useState([]);
   const [bannerMovies, setBannerMovies] = useState([]);
 
   const isMounted = useRef(true);
@@ -46,11 +52,11 @@ export default function VideoScreen() {
     VIDEO.GENRES.forEach((_genre) => {
       const genreMovies = !productList.success
         ? VIDEO.EMPTY
-        : movies[_genre] || VIDEO.EXAMPLES;
+        : externMovies[_genre] || storeMovies || VIDEO.EXAMPLES;
       _banner[_genre] = genreMovies[(Math.random() * genreMovies.length) | 0];
     });
     setBannerMovies(_banner);
-  }, [productList.success, movies]);
+  }, [productList.success, externMovies, storeMovies]);
 
   useEffect(() => {
     dispatch(
@@ -63,31 +69,24 @@ export default function VideoScreen() {
     );
 
     (async function fetchData() {
-      const promiseReturns = await Promise.all(
+      const _movieList = {};
+      await Promise.all(
         Object.keys(VIDEO.SRC).map(async (genre) => {
           const { data } = await axios
             .get(VIDEO.URL + VIDEO.SRC[genre])
             .catch();
-          return [[genre], data.results];
+          _movieList[genre] = sourceAdapter(data.results);
         })
       );
-      if (!isMounted.current) return;
-      const movieObj = {};
-      promiseReturns.map(
-        ([genre, list]) => (movieObj[genre] = sourceAdapter(list))
-      );
-      setExternMovies(movieObj);
+      if (isMounted.current) setExternMovies(_movieList);
     })();
+
     return () => (isMounted.current = false); // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     setStoreMovies(productList.products);
   }, [productList.products]);
-
-  useEffect(() => {
-    setMovies({ ...externMovies, STORE: storeMovies });
-  }, [externMovies, storeMovies]);
 
   return (
     <div className="container--full video-screen">
@@ -104,44 +103,38 @@ export default function VideoScreen() {
 
         <Suspense fallback={loadingFallback}>
           {!!externMovies &&
-            Object.keys(VIDEO.SRC).map(
-              (_genre, id) =>
-                (_genre === active || active === 'Home') && (
-                  <VideoRow
-                    key={id}
-                    title={_genre}
-                    movies={movies[_genre]}
-                    portrait={_genre === 'NETFLUX ORIGINALS'}
-                  />
-                )
-            )}
+            (active === HOME ? (
+              Object.keys(VIDEO.SRC).map((_genre) => (
+                <VideoRow
+                  key={_genre}
+                  title={_genre}
+                  movies={externMovies[_genre]}
+                  portrait={_genre === NETFLUX}
+                />
+              ))
+            ) : (
+              <VideoRow
+                title={active}
+                movies={externMovies[active]}
+                portrait={active === NETFLUX}
+              />
+            ))}
 
           <LoadingOrError xl statusOf={productList} />
-          {productList?.success && (
-            <>
-              <MessageBox show={productList?.products?.length < 1}>
-                Sold Out/ No Product Found
-              </MessageBox>
+          <MessageBox show={productList?.success && storeMovies?.length < 1}>
+            Sold Out/ No Product Found
+          </MessageBox>
+          <VideoRow
+            title="IN STOCK: READY TO BUY"
+            movies={storeMovies}
+            portrait={active !== NETFLUX}
+          />
 
-              {productList?.products?.length && (
-                <VideoRow
-                  title="IN STOCK: READY TO BUY"
-                  movies={[storeMovies, dummyMovies][!!productList.loading]}
-                  //if Netflux is active, only one portrait row
-                  portrait={active !== 'NETFLUX ORIGINALS'}
-                />
-              )}
-            </>
+          {active !== TRENDING && (
+            <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />
           )}
 
-          {
-            /* no duplicated Trending Now */
-            externMovies[TRENDING] && active !== TRENDING && (
-              <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />
-            )
-          }
-
-          {externMovies[TOP_RATED] && active !== TOP_RATED && (
+          {active !== TOP_RATED && (
             <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />
           )}
         </Suspense>

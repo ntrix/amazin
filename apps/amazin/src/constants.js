@@ -113,10 +113,13 @@ export const DUMMYSELLERS = Array(5).fill({
 export const SRC_URL = 'https://image.tmdb.org/t/p/original/';
 export const TRENDING = 'Trending Now';
 export const TOP_RATED = 'Top Rated';
+export const NETFLUX = 'NETFLUX ORIGINALS';
+export const STORE = 'STORE';
+export const HOME = 'Home';
 
 const _API = process.env.REACT_APP_API_KEY;
 const _SOURCES = {
-  'NETFLUX ORIGINALS': `/discover/tv?api_key=${_API}&with_networks=213`,
+  [NETFLUX]: `/discover/tv?api_key=${_API}&with_networks=213`,
   'Action Movies': `/discover/movie?api_key=${_API}&with_genres=28`,
   'Comedy Movies': `/discover/movie?api_key=${_API}&with_genres=35`,
   'Horror Movies': `/discover/movie?api_key=${_API}&with_genres=27`,
@@ -126,7 +129,7 @@ const _SOURCES = {
   [TOP_RATED]: `/movie/top_rated?api_key=${_API}&language=en-US`
 };
 const _videoNavLabels = Object.keys(_SOURCES);
-_videoNavLabels.splice(1, 0, 'Home', 'STORE');
+_videoNavLabels.splice(1, 0, HOME, STORE);
 
 export const VIDEO = {
   GENRES: _videoNavLabels,
