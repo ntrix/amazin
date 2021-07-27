@@ -11,6 +11,7 @@ const VideoCard = React.lazy(() =>
 export function _VideoRow({ title, movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
 
+  if (!movies?.length) return null;
   return (
     <div className="m-row">
       <h2>{title}</h2>

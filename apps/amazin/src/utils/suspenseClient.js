@@ -12,23 +12,23 @@ function createSuspenseAPI(promise) {
       result = rejected;
     }
   );
+
   return {
     read() {
       if (state === 'loading') throw result;
       if (state === 'error') throw result;
       if (state === 'success') return result;
-      throw new Error('This is not an error');
+      throw new Error('No error');
     }
   };
 }
 
-function mapStateToAPI(state, payload = state) {
+function subscribeResource(state) {
   return {
-    read() {
-      if (state === 'loading') throw payload.loading;
-      if (state === 'error') throw payload.error;
-      if (state === 'success') return payload.success;
-      throw new Error('This is not an error');
+    read(prop) {
+      if (state.loading) throw new Promise();
+      if (state.error) throw state.error;
+      return state[prop] || prop;
     }
   };
 }
@@ -65,7 +65,7 @@ const LazyBackground = LazyComponent('div');
 
 export {
   createSuspenseAPI,
-  mapStateToAPI,
+  subscribeResource,
   preloadImage,
   LazyBackground,
   LazyImg
