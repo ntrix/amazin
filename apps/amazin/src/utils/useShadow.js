@@ -1,20 +1,35 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { debounce } from './index';
+import React, {
+  useRef,
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 
 const ShadowContext = createContext();
 ShadowContext.displayName = 'ShadowContext';
 
-function GlobalVarProvider({ children }) {
+function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
   const setShadowOf = (val) => {
     if (val !== shadowOf || val === '') _setShadowOf(val);
   };
 
+  const ids = useRef([]);
   const setShadowSlow =
     (_shadowOf = '') =>
-    () =>
-      debounce(setShadowOf, 500)(_shadowOf);
+    () => {
+      ids.current.push(
+        setTimeout(() => {
+          if (_shadowOf !== shadowOf) _setShadowOf(_shadowOf);
+        }, 500)
+      );
+      if (_shadowOf === shadowOf) {
+        ids.current.forEach((id) => clearTimeout(id));
+        ids.current.length = 0;
+      }
+    };
 
   const clearShadow = () => setShadowOf('');
 
@@ -27,7 +42,7 @@ function GlobalVarProvider({ children }) {
 function useShadow(initialState = null) {
   const context = useContext(ShadowContext);
   if (context === undefined)
-    throw new Error('useShadow must be used within a GlobalVarProvider');
+    throw new Error('useShadow must be used within a ShadowProvider');
 
   const { shadowOf, setShadowOf, setShadowSlow, clearShadow } = context;
 
@@ -38,21 +53,4 @@ function useShadow(initialState = null) {
   return { shadowOf, setShadowOf, setShadowSlow, clearShadow };
 }
 
-/* TODO
-
-.function useCurrency(initialState = null) {
-  const context = useContext(ShadowContext);
-  if (context === undefined)
-    throw new Error('useCurrency must be used within a GlobalVarProvider');
-
-  const { currency, setCurrency } = context;
-
-  useEffect(() => {
-    if (initialState) setCurrency(initialState);
-  }, [initialState, setCurrency]);
-
-  return [currency, setCurrency];
-}
-*/
-
-export { GlobalVarProvider, useShadow };
+export { ShadowProvider, useShadow };

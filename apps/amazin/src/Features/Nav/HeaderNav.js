@@ -17,7 +17,7 @@ import './nav.css';
 
 import { savePath, shortName } from '../../utils';
 import { SHADOW, KEY } from '../../constants';
-import { useShadow } from '../../utils/useGlobal';
+import { useShadow } from '../../utils/useShadow';
 
 export function _HeaderNav({ currency }) {
   const dispatch = useDispatch();

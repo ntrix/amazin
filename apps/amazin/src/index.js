@@ -6,15 +6,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
 
-import { GlobalVarProvider } from './utils/useGlobal';
+import { ShadowProvider } from './utils/useShadow';
 
 ReactDOM.render(
   <Provider store={store}>
-    <GlobalVarProvider>
+    <ShadowProvider>
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </GlobalVarProvider>
+    </ShadowProvider>
   </Provider>,
   document.getElementById('root')
 );

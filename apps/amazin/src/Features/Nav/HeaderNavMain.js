@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import LoadingOrError from '../../components/LoadingOrError';
 import { SHADOW, SORT } from '../../constants';
-import { useShadow } from '../../utils/useGlobal';
+import { useShadow } from '../../utils/useShadow';
 
 export function _HeaderNavMain() {
   const { setShadowOf, clearShadow } = useShadow('');

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { NAV, SHADOW } from '../../../constants';
-import { useShadow } from '../../../utils/useGlobal';
+import { useShadow } from '../../../utils/useShadow';
 import SearchBtn from './SearchBtn';
 import SearchCatDropdown from './SearchCatDropdown';
 import SearchCatScope from './SearchCatScope';

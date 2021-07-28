@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { SHADOW } from '../../../constants';
 import { findSuggest } from '../../../utils';
-import { useShadow } from '../../../utils/useGlobal';
+import { useShadow } from '../../../utils/useShadow';
 
 export function _SearchInput({
   hook: [input, setInput],

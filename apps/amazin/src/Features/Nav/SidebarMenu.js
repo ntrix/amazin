@@ -7,7 +7,7 @@ import { signout } from '../../Controllers/userActions';
 
 import { shortName } from '../../utils';
 import LoadingOrError from '../../components/LoadingOrError';
-import { useShadow } from '../../utils/useGlobal';
+import { useShadow } from '../../utils/useShadow';
 import { SHADOW } from '../../constants';
 
 export function _SidebarMenu({ currency }) {

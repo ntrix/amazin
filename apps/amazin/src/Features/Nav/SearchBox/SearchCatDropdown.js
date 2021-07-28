@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listAllProducts } from '../../../Controllers/productActions';
 
 import { getCatLabel, NAV } from '../../../constants';
-import { useShadow } from '../../../utils/useGlobal';
+import { useShadow } from '../../../utils/useShadow';
 
 export function _SearchCatDropdown({
   hook: [activeCat, setActiveCat],

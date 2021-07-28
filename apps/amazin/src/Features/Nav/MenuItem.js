@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useShadow } from '../../utils/useGlobal';
+import { useShadow } from '../../utils/useShadow';
 
-const InnerMenuItem = (props) => {
+const _InnerMenuItem = (props) => {
   const { clearShadow } = useShadow('');
   const { className, label, linkTo, extraAction } = props;
 
@@ -41,6 +41,8 @@ const InnerMenuItem = (props) => {
 
   return <div>{label}</div>;
 };
+
+const InnerMenuItem = React.memo(_InnerMenuItem);
 
 export const MenuItem = ([label, linkTo, className, extraAction], id) => {
   return label === 'separator' ? (
