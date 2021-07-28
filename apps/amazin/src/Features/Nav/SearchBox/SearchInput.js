@@ -48,7 +48,7 @@ export function _SearchInput({
     setInput(value);
   };
 
-  const handleEventBeforeDismiss = () => () => {
+  const hideOnCallback = () => () => {
     setOutline(false);
     setSuggestBox(false);
   };
@@ -74,7 +74,7 @@ export function _SearchInput({
         onChange={(e) => {
           setInput(e.target.value);
         }}
-        onBlur={handleEventBeforeDismiss}
+        onBlur={hideOnCallback}
       ></input>
     </div>
   );
