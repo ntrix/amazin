@@ -1,4 +1,4 @@
-import React, { Suspense, useLayoutEffect, useState } from 'react';
+import React, { Suspense, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -27,19 +27,21 @@ export function _DealScreen() {
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   const [cat, setCat] = useState('Deals');
+  const randomBanner = useRef('');
   let isMounted = true;
 
   useLayoutEffect(() => {
-    if (isMounted)
-      dispatch(
-        listProducts({
-          pageNumber,
-          order,
-          category: cat === 'Deals' ? '' : cat,
-          deal: 1,
-          pageSize: 990
-        })
-      ); // eslint-disable-next-line
+    if (!isMounted) return;
+    dispatch(
+      listProducts({
+        pageNumber,
+        order,
+        category: cat === 'Deals' ? '' : cat,
+        deal: 1,
+        pageSize: 990
+      })
+    );
+    randomBanner.current = Math.random() < 0.5 ? 'screen--1' : '';
     return () => (isMounted = false);
   }, [category, dispatch, order, pageNumber, cat]);
 
@@ -47,7 +49,7 @@ export function _DealScreen() {
     <>
       <SubNavCategories first="Deals" hook={{ category: cat, setCat }} />
 
-      <div className={`deal-screen ${Math.random() < 0.5 ? 'screen--1' : ''}`}>
+      <div className={`deal-screen ${randomBanner.current}`}>
         <LoadingOrError statusOf={productList} />
         <MessageBox show={products?.length < 1}>
           No Deals On This Category!
