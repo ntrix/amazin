@@ -6,14 +6,16 @@ const axiosClient = axios.create({
 });
 
 const axiosRedux =
-  (authorization, requestPayload) =>
+  (authorization) =>
   (
-    dispatchRequest,
-    dispatchSuccess = dispatchRequest,
-    dispatchFail = dispatchSuccess
+    [
+      onRequestDispatcher,
+      onSuccessDispatcher = onRequestDispatcher,
+      onFailDispatcher = onSuccessDispatcher
+    ],
+    { req = null, extDispatch, extHandler, selector = (d) => d } = {}
   ) =>
-  (ActionDispatchBySuccess, extHandlerBySuccess, selector = (data) => data) =>
-  (method, url, data) =>
+  (method = 'get', url = '', reqData = null) =>
   async (dispatch, getState) => {
     const headers = {};
     if (authorization) {
@@ -22,30 +24,28 @@ const axiosRedux =
       } = getState();
       headers.Authorization = `Bearer ${userInfo.token}`;
     }
-
-    dispatch(dispatchRequest._REQUEST(requestPayload));
+    dispatch(onRequestDispatcher._REQUEST(req));
 
     try {
-      const { data: returnedData } = await axios({
+      const { data } = await axios({
         method,
-        data,
         headers,
+        data: reqData,
         url: process.env.REACT_APP_BACKEND_URL + url,
         mode: 'cors'
       });
 
-      dispatch(dispatchSuccess._SUCCESS(selector(returnedData)));
-      if (ActionDispatchBySuccess)
-        dispatch(ActionDispatchBySuccess(returnedData));
-      if (extHandlerBySuccess) extHandlerBySuccess(returnedData);
+      dispatch(onSuccessDispatcher._SUCCESS(selector(data)));
+      if (extDispatch) dispatch(extDispatch(data));
+      if (extHandler) extHandler(data);
     } catch (error) {
       const message = error.response?.data?.message || error.message;
-      dispatch(dispatchFail._FAIL(message));
+      dispatch(onFailDispatcher._FAIL(message));
     }
   };
 
-const axiosPublic = (requestPayload) => axiosRedux(false, requestPayload);
-const axiosPrivate = (requestPayload) => axiosRedux(true, requestPayload);
+const axiosPublic = axiosRedux(false);
+const axiosPrivate = axiosRedux(true);
 
 export default axiosClient;
 export { axios, axiosPublic, axiosPrivate };
