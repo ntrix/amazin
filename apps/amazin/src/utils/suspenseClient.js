@@ -1,4 +1,5 @@
 import React from 'react';
+import { NO_IMAGE } from '../constants';
 
 function createSuspenseAPI(promise) {
   let state = 'loading';
@@ -45,9 +46,10 @@ const sCached = {};
 
 function LazyComponent(tag) {
   return ({ src, ...props }) => {
+    if (!src) src = NO_IMAGE;
     if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
     return tag === 'img' ? (
-      <img src={sCached[src].read()} alt={props.alt} {...props} />
+      <img src={sCached[src]?.read() || src} alt={props.alt} {...props} />
     ) : (
       <div
         {...props}

@@ -15,7 +15,9 @@ import { NAV } from '../constants';
 
 export const updateCurrencyRates = () =>
   axiosPublic()(currencyTypeActions)(null, (data) =>
-    pipe.currencies.map((c) => (pipe.rates[c] = data.rates[c] || pipe.rates[c]))
+    pipe.currencies.forEach((c) => {
+      if (data.rates && data.rates[c]) pipe.rates[c] = data.rates[c];
+    })
   )('get', '/api/config/rates');
 
 export const listAllProducts = ({ pageSize = 999, category = '' }) => {
