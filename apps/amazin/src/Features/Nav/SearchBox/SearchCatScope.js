@@ -1,17 +1,12 @@
 import React from 'react';
 
-import { getCatLabel, SHADOW } from '../../../constants';
+import { useOutline } from './useOutline';
 import { useShadow } from '../../../utils/useShadow';
+import { getCatLabel, SHADOW } from '../../../constants';
 
-export function _SearchCatScope({
-  activeCat,
-  share: {
-    scopeOutline,
-    setScopeOutline,
-    setSearchBoxOutline,
-    setSuggestWindow
-  }
-}) {
+export function _SearchCatScope({ activeCat }) {
+  const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } =
+    useOutline();
   const { setShadowOf } = useShadow('');
 
   return (
@@ -20,9 +15,9 @@ export function _SearchCatScope({
         className={`cat-scope ${scopeOutline ? 'focus' : ''}`}
         tabIndex="1"
         onClick={() => {
-          setSearchBoxOutline(false);
+          setOutline(false);
           setScopeOutline(1 - scopeOutline);
-          setSuggestWindow(false);
+          setSuggestBox(false);
           setShadowOf(SHADOW.SCOPE);
         }}
       >
