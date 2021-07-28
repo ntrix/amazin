@@ -596,6 +596,8 @@ a .nav__brand {
   outline-offset: -1px;
 }
 .nav__right .nav-main__item > a {
+  display: block;
+  height: 100%;
   font-size: 22px;
   font-weight: 400;
   line-height: 10px;

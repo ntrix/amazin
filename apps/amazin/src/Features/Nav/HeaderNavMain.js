@@ -44,7 +44,7 @@ export function _HeaderNavMain() {
         )}
 
         <LoadingOrError statusOf={productCategoryList} />
-        {productCategoryList.categories
+        {productCategoryList?.categories
           ?.slice(0, 15)
           .map((c) =>
             navMainItem([c, '/search/category/' + c, 'nav-main__item'])
