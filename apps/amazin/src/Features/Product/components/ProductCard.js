@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Rating from './Rating';
-import { DUMMYSELLERS, NO_IMAGE } from '../constants';
-import { getImgUrl, pipe, savePath } from '../utils';
-import { LazyImg } from '../utils/suspenseClient';
+import Rating from '../../../components/Rating';
+import { DUMMYSELLERS, NO_IMAGE } from '../../../constants';
+import { getImgUrl, pipe, savePath } from '../../../utils';
+import { LazyImg } from '../../../utils/suspenseClient';
 
 export function _ProductCard({
   hasDeal = false,

@@ -5,7 +5,7 @@ import { loadingFallback } from '../../../components/Fallbacks';
 import LoadingOrError from '../../../components/LoadingOrError';
 import MessageBox from '../../../components/MessageBox';
 const ProductCard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../../../components/ProductCard')
+  import(/* webpackPrefetch: true */ '../components/ProductCard')
 );
 
 export function _SearchResultColumn() {

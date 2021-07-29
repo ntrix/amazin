@@ -19,7 +19,7 @@ import { DUMMYSELLERS } from '../constants';
 import LoadingOrError from '../components/LoadingOrError';
 import { loadingFallback } from '../components/Fallbacks';
 const ProductCard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../components/ProductCard')
+  import(/* webpackPrefetch: true */ './Product/components/ProductCard')
 );
 
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);

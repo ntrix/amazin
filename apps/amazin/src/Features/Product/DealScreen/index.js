@@ -14,7 +14,7 @@ import SearchBanner from '../../Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
 
 const ProductCard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../../../components/ProductCard')
+  import(/* webpackPrefetch: true */ '../components/ProductCard')
 );
 
 export function _DealScreen() {
