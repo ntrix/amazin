@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useShadow } from '../../../utils/useShadow';
 
-const _MenuItem = ({ className, label, to, extFunction }) => {
+const InnerMenuItem = ({ label, to, className, extFunction }) => {
   const { clearShadow } = useShadow('');
 
   if (!to && !className) return <strong>{label}</strong>;
@@ -40,21 +40,21 @@ const _MenuItem = ({ className, label, to, extFunction }) => {
   );
 };
 
-export const MenuItem = React.memo(_MenuItem);
-
-const createMenuItem = ([label, to, className, extFunction], id) => {
-  return label === 'separator' ? (
-    <div key={id} className="separator"></div>
-  ) : (
-    <li key={id}>
-      <MenuItem
-        className={className}
-        label={label}
-        to={to}
-        extFunction={extFunction}
-      />
+const _MenuItem = ({ label, ...props }) => {
+  if (label === 'separator') return <div className="separator"></div>;
+  return (
+    <li>
+      <InnerMenuItem label={label} {...props} />
     </li>
   );
 };
 
-export default createMenuItem;
+export const mapMenuItemProp = ([label, to, className, extFunction]) => ({
+  label,
+  to,
+  className,
+  extFunction
+});
+
+const MenuItem = React.memo(_MenuItem);
+export default MenuItem;

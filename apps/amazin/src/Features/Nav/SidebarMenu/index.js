@@ -9,7 +9,7 @@ import {
   sidebarItemCreator,
   sidebarMenuCreator
 } from './sidebarTemplate';
-import createMenuItem from '../components/MenuItem';
+import MenuItem, { mapMenuItemProp } from '../components/MenuItem';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { shortName } from '../../../utils';
 import { useShadow } from '../../../utils/useShadow';
@@ -45,7 +45,11 @@ export function _SidebarMenu({ currency }) {
             ...sidebarMenuTemplate,
             ...(categories?.map(sidebarItemCreator) || []),
             ...sidebarMenuCreator(currency, userInfo, () => dispatch(signout()))
-          ].map(createMenuItem)}
+          ]
+            .map(mapMenuItemProp)
+            .map((props) => (
+              <MenuItem {...props} />
+            ))}
         </ul>
       </aside>
 
