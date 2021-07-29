@@ -7,7 +7,7 @@ import {
   updateCurrencyRates
 } from './Controllers/productActions';
 import MainRoute from './Features/Route/MainRoute';
-import HeaderNav from './Features/Nav/HeaderNav';
+import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import SidebarMenu from './Features/Nav/SidebarMenu';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
@@ -45,7 +45,7 @@ export default function App() {
       >
         <ErrorBoundary FallbackComponent={ErrorScreen}>
           <header id="nav-bar">
-            <HeaderNav currency={currency} />
+            <HeaderNavBelt currency={currency} />
 
             <HeaderNavMain />
           </header>

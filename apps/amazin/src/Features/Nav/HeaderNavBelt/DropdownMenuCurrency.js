@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RATES_SOURCE } from '../../constants';
-import { pipe, savePath } from '../../utils';
+import { RATES_SOURCE } from '../../../constants';
+import { pipe, savePath } from '../../../utils';
 
-export function _DropMenuCurrency({ currency }) {
+export function _DropdownMenuCurrency({ currency }) {
   return (
     <ul className="dropdown__menu show">
       <li>Change Currency</li>
 
-      {['EUR', 'separator', ...pipe.currencies.slice(1)].map((label, id) =>
-        label === 'separator' ? (
-          <div key={id} className="separator ml-1"></div>
-        ) : (
+      {['EUR', 'separator', ...pipe.currencies.slice(1)].map((label, id) => {
+        if (label === 'separator')
+          return <div key={id} className="separator ml-1"></div>;
+        return (
           <Link
             key={id}
             to={'/currency/cType/' + label}
@@ -23,18 +23,18 @@ export function _DropMenuCurrency({ currency }) {
               <span>{pipe.getName(label)}</span>
             </div>
           </Link>
-        )
-      )}
-      <div className="separator"></div>
+        );
+      })}
 
+      <div className="separator"></div>
       <li>Currency Calculator</li>
 
       <li className="calculator disabled">
         <Link to="#">€ - EUR - Euro</Link>
         <Link to="#">Base</Link>
       </li>
-      <div className="separator"></div>
 
+      <div className="separator"></div>
       <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
         <div className="sprite__wrapper">
           <div className={`sprite flag xl ${currency}`}></div>
@@ -45,5 +45,5 @@ export function _DropMenuCurrency({ currency }) {
   );
 }
 
-const DropMenuCurrency = React.memo(_DropMenuCurrency);
-export default DropMenuCurrency;
+const DropdownMenuCurrency = React.memo(_DropdownMenuCurrency);
+export default DropdownMenuCurrency;

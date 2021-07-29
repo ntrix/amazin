@@ -10,7 +10,7 @@ import { OutlineProvider, useOutline } from './useOutline';
 import { useShadow } from '../../../utils/useShadow';
 import { NAV, SHADOW } from '../../../constants';
 
-function SearchBoxForm() {
+function NavSearch() {
   const history = useHistory();
   const { shadowOf, clearShadow } = useShadow('');
 
@@ -84,7 +84,9 @@ function SearchBoxForm() {
 
 const SearchBox = React.memo(() => (
   <OutlineProvider>
-    <SearchBoxForm />
+    <div className="nav__search">
+      <NavSearch />
+    </div>
   </OutlineProvider>
 ));
 export default SearchBox;
