@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { customerMenuTemplate } from './customerMenuTemplate';
+import CustomerCard, { mapCustomerCardProp } from './CustomerCard';
 import './customerScreen.css';
 
 export default function CustomerScreen() {
@@ -21,100 +22,8 @@ export default function CustomerScreen() {
       <div className="container">
         <h2>What can we assist you with today?</h2>
         <div className="c-boxes">
-          {[
-            [
-              'order',
-              'Your Orders',
-              'Track parcels',
-              'Edit or cancel orders',
-              '/order-history'
-            ],
-            [
-              'return',
-              'Returns & Refunds',
-              'Return or exchange items',
-              'Print return mailing labels',
-              '',
-              'disabled'
-            ],
-            [
-              'digital',
-              'Address Management',
-              'Find local address',
-              'Check shipping service',
-              '/shipping'
-            ],
-            [
-              'video',
-              'Your Video Account',
-              'Kid account control',
-              'Parenting discussion',
-              '/video'
-            ],
-            [
-              'payment',
-              'Payment Options',
-              'Add or edit payment methods',
-              'Change your currency',
-              '/currency/cType/EUR'
-            ],
-            [
-              'account',
-              'Your Account',
-              'Manage your account preferences',
-              'Update login information',
-              '/profile'
-            ],
-            [
-              'report',
-              'Report Something Suspicious',
-              'Scam Call or Phishing Email',
-              '',
-              '/contact/subject/Report'
-            ],
-            [
-              'gift',
-              'Gift Cards & Top Up',
-              'Need a gift, a box,',
-              'Anniversary?',
-              '/search/category/Gifts And Boxes'
-            ],
-            [
-              'contact',
-              'Contact Us',
-              'Contact our Customer Service',
-              'via Phone or Chat',
-              '/contact/subject/Customer'
-            ],
-            [
-              'covid19',
-              'COVID-19 & Information',
-              'FAQs about the impact on ordering',
-              '',
-              '',
-              'disabled'
-            ]
-          ].map(([img, label, line1, line2, link = '#', className], id) => (
-            <Link to={link} key={id} className={`c-box ${className}`}>
-              <div className="c-box__inner">
-                <div className="c-box__icon-wrapper">
-                  <img
-                    className="c-box__icon"
-                    src={`/images/icon-${img}.png`}
-                    alt={'icon ' + img}
-                  ></img>
-                </div>
-
-                <div className="c-box__info">
-                  <h3 className="c-box__label">{label}</h3>
-
-                  <ul className="c-box__text">
-                    <li>{line1}</li>
-                    <li>{line2}</li>
-                  </ul>
-                </div>
-              </div>
-            </Link>
+          {customerMenuTemplate.map(mapCustomerCardProp).map((props, id) => (
+            <CustomerCard key={id} {...props} />
           ))}
 
           <div className="separator mb-1"></div>
