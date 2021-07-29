@@ -1,14 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { sidebarMenuItems } from './menuItemsTemplate';
-import { MenuItem } from './components/MenuItem';
-import { signout } from '../../Controllers/userActions';
 
-import { shortName } from '../../utils';
-import LoadingOrError from '../../components/LoadingOrError';
-import { useShadow } from '../../utils/useShadow';
-import { SHADOW } from '../../constants';
+import { signout } from '../../../Controllers/userActions';
+
+import {
+  sidebarMenuTemplate,
+  sidebarItemCreator,
+  sidebarMenuCreator
+} from './sidebarTemplate';
+import MenuItem from '../components/MenuItem';
+import LoadingOrError from '../../../components/LoadingOrError';
+import { shortName } from '../../../utils';
+import { useShadow } from '../../../utils/useShadow';
+import { SHADOW } from '../../../constants';
 
 export function _SidebarMenu({ currency }) {
   const dispatch = useDispatch();
@@ -36,10 +41,11 @@ export function _SidebarMenu({ currency }) {
         <ul className="sidebar__list">
           <LoadingOrError statusOf={productCategoryList} />
 
-          {!!categories &&
-            sidebarMenuItems(userInfo, currency, categories, () =>
-              dispatch(signout())
-            ).map(MenuItem)}
+          {[
+            ...sidebarMenuTemplate,
+            ...(categories?.map(sidebarItemCreator) || []),
+            ...sidebarMenuCreator(currency, userInfo, () => dispatch(signout()))
+          ].map(MenuItem)}
         </ul>
       </aside>
 

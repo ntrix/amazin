@@ -2,9 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import LoadingOrError from '../../components/LoadingOrError';
-import { SHADOW, SORT } from '../../constants';
-import { useShadow } from '../../utils/useShadow';
+import LoadingOrError from '../../../components/LoadingOrError';
+import { SHADOW } from '../../../constants';
+import { useShadow } from '../../../utils/useShadow';
+import { navMainTemplate } from './navMainTemplate';
 
 export function _HeaderNavMain() {
   const { setShadowOf, clearShadow } = useShadow('');
@@ -33,13 +34,7 @@ export function _HeaderNavMain() {
       </div>
 
       <div className="nav__fill">
-        {[
-          ['Netflux Video', '/video'],
-          ['Top Deals', '/deal'],
-          ['New Releases', '/search/category/All/order/' + SORT.NEWEST.OPT],
-          ['Customer Service', '/customer'],
-          ['Best Sellers', '/banner/bestseller']
-        ].map(([label, linkTo]) =>
+        {navMainTemplate.map(([label, linkTo]) =>
           navMainItem([label, linkTo, 'nav-main__item'])
         )}
 

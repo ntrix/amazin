@@ -44,7 +44,7 @@ const _InnerMenuItem = (props) => {
 
 const InnerMenuItem = React.memo(_InnerMenuItem);
 
-export const MenuItem = ([label, linkTo, className, extraAction], id) => {
+const MenuItem = ([label, linkTo, className, extraAction], id) => {
   return label === 'separator' ? (
     <div key={id} className="separator"></div>
   ) : (
@@ -58,3 +58,5 @@ export const MenuItem = ([label, linkTo, className, extraAction], id) => {
     </li>
   );
 };
+
+export default MenuItem;

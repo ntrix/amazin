@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem } from '../components/MenuItem';
+import MenuItem from '../components/MenuItem';
 import { SHADOW } from '../../../constants';
 
 const DropdownMenu = React.memo(({ show, ddMenuList }) => (

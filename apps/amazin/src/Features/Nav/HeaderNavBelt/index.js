@@ -12,11 +12,11 @@ import NavDropdownBtn from './NavDropdownBtn';
 import DropdownMenu from './DropdownMenu';
 import DropdownMenuCurrency from './DropdownMenuCurrency';
 import {
-  adminMenuItems,
-  noUserMenuItems,
-  sellerMenuItems,
-  userMenuItems
-} from '../menuItemsTemplate';
+  signinMenuTemplate,
+  userMenuCreator,
+  sellerMenuCreator,
+  adminMenuTemplate
+} from './navBeltTemplate';
 import SearchBox from '../SearchBox';
 import { useShadow } from '../../../utils/useShadow';
 import { savePath, shortName } from '../../../utils';
@@ -51,7 +51,7 @@ export function _HeaderNavBelt({ currency }) {
 
       {!userInfo && (
         <NavBtnControl label={['Hello, Sign in', 'Account', ' & Lists']}>
-          <DropdownMenu show={shadowOf} ddMenuList={noUserMenuItems()} />
+          <DropdownMenu show={shadowOf} ddMenuList={signinMenuTemplate} />
         </NavBtnControl>
       )}
 
@@ -61,7 +61,7 @@ export function _HeaderNavBelt({ currency }) {
         >
           <DropdownMenu
             show={shadowOf}
-            ddMenuList={userMenuItems(userInfo, () => dispatch(signout()))}
+            ddMenuList={userMenuCreator(userInfo, () => dispatch(signout()))}
           />
         </NavBtnControl>
       )}
@@ -70,7 +70,7 @@ export function _HeaderNavBelt({ currency }) {
         <NavBtnControl classes={['nav__seller']} label={['Seller', 'Desk']}>
           <DropdownMenu
             show={shadowOf}
-            ddMenuList={sellerMenuItems(userInfo)}
+            ddMenuList={sellerMenuCreator(userInfo)}
           />
         </NavBtnControl>
       )}
@@ -80,7 +80,7 @@ export function _HeaderNavBelt({ currency }) {
           classes={['nav__admin phone--off']}
           label={['Admin', 'Tools']}
         >
-          <DropdownMenu show={shadowOf} ddMenuList={adminMenuItems()} />
+          <DropdownMenu show={shadowOf} ddMenuList={adminMenuTemplate} />
         </NavBtnControl>
       )}
 
