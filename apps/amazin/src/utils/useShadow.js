@@ -41,7 +41,7 @@ function ShadowProvider({ children }) {
   );
 }
 
-function useShadow(initialState = null) {
+function useShadow(initialState = '') {
   const context = useContext(ShadowContext);
   if (context === undefined)
     throw new Error('useShadow must be used within a ShadowProvider');
