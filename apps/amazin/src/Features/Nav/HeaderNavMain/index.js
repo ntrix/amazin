@@ -1,57 +1,37 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import LoadingOrError from '../../../components/LoadingOrError';
-import { SHADOW } from '../../../constants';
-import { useShadow } from '../../../utils/useShadow';
+import NavMainItem from './NavMainItem';
 import { navMainTemplate } from './navMainTemplate';
+import OpenSidebarBtn from './OpenSidebarBtn';
 
 export function _HeaderNavMain() {
-  const { setShadowOf, clearShadow } = useShadow('');
   const productCategoryList = useSelector((state) => state.productCategoryList);
-
-  const navMainItem = ([label, linkTo, className]) => {
-    return (
-      <div key={label} className={className}>
-        <Link to={linkTo} onClick={clearShadow}>
-          {label}
-        </Link>
-      </div>
-    );
-  };
 
   return (
     <div className="nav-main row">
       <div className="nav__left">
-        <div
-          className="open-sidebar nav-main__item flex"
-          onClick={() => setShadowOf(SHADOW.SIDEBAR)}
-        >
-          <div className="sprite__bars"></div>
-          <b>All</b>
-        </div>
+        <OpenSidebarBtn />
       </div>
 
       <div className="nav__fill">
-        {navMainTemplate.map(([label, linkTo]) =>
-          navMainItem([label, linkTo, 'nav-main__item'])
-        )}
+        {[
+          ...navMainTemplate,
+          ...(productCategoryList?.categories
+            ?.slice(0, 15)
+            .map((c) => [c, '/search/category/' + c]) || [])
+        ].map(([label, to], id) => (
+          <NavMainItem label={label} to={to} key={id} />
+        ))}
 
         <LoadingOrError statusOf={productCategoryList} />
-        {productCategoryList?.categories
-          ?.slice(0, 15)
-          .map((c) =>
-            navMainItem([c, '/search/category/' + c, 'nav-main__item'])
-          )}
       </div>
 
       <div className="nav__right">
-        <div className="nav-main__item">
-          <Link to="/contact/subject/Ads">
-            <sup>Your Ads</sup> here on this place? Contact us
-          </Link>
-        </div>
+        <NavMainItem to="/contact/subject/Ads">
+          <sup>Your Ads</sup> here on this place? Contact us
+        </NavMainItem>
       </div>
     </div>
   );
