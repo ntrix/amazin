@@ -1,10 +1,10 @@
 import React from 'react';
-import MenuItem from '../components/MenuItem';
+import createMenuItem from '../components/MenuItem';
 import { SHADOW } from '../../../constants';
 
 const DropdownMenu = React.memo(({ show, ddMenuList }) => (
   <ul className={`dropdown__menu ${SHADOW.NAV_DD === show ? 'show' : ''}`}>
-    {ddMenuList.map(MenuItem)}
+    {ddMenuList.map(createMenuItem)}
   </ul>
 ));
 

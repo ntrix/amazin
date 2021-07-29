@@ -3,60 +3,58 @@ import { Link } from 'react-router-dom';
 
 import { useShadow } from '../../../utils/useShadow';
 
-const _InnerMenuItem = (props) => {
+const _MenuItem = ({ className, label, to, extFunction }) => {
   const { clearShadow } = useShadow('');
-  const { className, label, linkTo, extraAction } = props;
 
-  if (!linkTo && !className) return <strong>{label}</strong>;
+  if (!to && !className) return <strong>{label}</strong>;
 
-  if (linkTo === 'disabled')
+  if (!to) return <div>{label}</div>;
+
+  if (to === 'disabled')
     return (
-      <Link to="#" className="disabled">
+      <Link to="#" className="disabled" disabled>
         {label}
       </Link>
     );
 
-  if (linkTo.startsWith('https://'))
+  if (to.startsWith('https://'))
     //a href instead of Link for extern links
     return (
-      <a href={linkTo} target="_blank" rel="noreferrer">
+      <a href={to} target="_blank" rel="noreferrer">
         {label}
       </a>
     );
 
-  if (linkTo)
-    return (
-      <Link
-        to={linkTo}
-        className={className}
-        onClick={(e) => {
-          e.stopPropagation();
-          clearShadow();
-          if (extraAction) extraAction();
-        }}
-      >
-        {label}
-      </Link>
-    );
-
-  return <div>{label}</div>;
+  return (
+    <Link
+      to={to}
+      className={className}
+      onClick={(e) => {
+        e.stopPropagation();
+        clearShadow();
+        if (extFunction) extFunction();
+      }}
+    >
+      {label}
+    </Link>
+  );
 };
 
-const InnerMenuItem = React.memo(_InnerMenuItem);
+export const MenuItem = React.memo(_MenuItem);
 
-const MenuItem = ([label, linkTo, className, extraAction], id) => {
+const createMenuItem = ([label, to, className, extFunction], id) => {
   return label === 'separator' ? (
     <div key={id} className="separator"></div>
   ) : (
     <li key={id}>
-      <InnerMenuItem
+      <MenuItem
         className={className}
         label={label}
-        linkTo={linkTo}
-        extraAction={extraAction}
+        to={to}
+        extFunction={extFunction}
       />
     </li>
   );
 };
 
-export default MenuItem;
+export default createMenuItem;

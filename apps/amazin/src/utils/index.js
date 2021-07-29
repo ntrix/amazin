@@ -106,7 +106,7 @@ export const savePath =
 /* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
 export const sourceAdapter = (movies) =>
   movies?.map((m) => ({
-    name: m.name || m.title || m.original_title || m.original_name,
+    name: m.name || m.title || m.original_title || 'Movie Name',
     image:
       m.image || [SRC_URL + m.poster_path, SRC_URL + m.backdrop_path].join('^'),
     rating: m.rating || m.vote_average / 2 || 0,
