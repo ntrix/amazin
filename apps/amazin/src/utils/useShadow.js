@@ -13,7 +13,9 @@ function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
   const setShadowOf = (val) => {
-    if (val !== shadowOf || val === '') _setShadowOf(val);
+    ids.current.forEach((id) => clearTimeout(id));
+    ids.current.length = 0;
+    if (val !== shadowOf) _setShadowOf(val);
   };
 
   const ids = useRef([]);
@@ -22,7 +24,7 @@ function ShadowProvider({ children }) {
     () => {
       ids.current.push(
         setTimeout(() => {
-          if (_shadowOf !== shadowOf) _setShadowOf(_shadowOf);
+          setShadowOf(_shadowOf);
         }, 500)
       );
       if (_shadowOf === shadowOf) {
