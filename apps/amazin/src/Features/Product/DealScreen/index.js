@@ -1,4 +1,4 @@
-import React, { Suspense, useLayoutEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -28,10 +28,10 @@ export function _DealScreen() {
   const { products } = productList;
   const [cat, setCat] = useState('Deals');
   const randomBanner = useRef('');
-  let isMounted = true;
+  const isMounted = useRef(true);
 
-  useLayoutEffect(() => {
-    if (!isMounted) return;
+  useEffect(() => {
+    if (!isMounted.current) return null;
     dispatch(
       listProducts({
         pageNumber,
@@ -42,7 +42,7 @@ export function _DealScreen() {
       })
     );
     randomBanner.current = Math.random() < 0.5 ? 'screen--1' : '';
-    return () => (isMounted = false);
+    return () => (isMounted.current = false);
   }, [category, dispatch, order, pageNumber, cat]);
 
   return (
