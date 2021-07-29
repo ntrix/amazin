@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { sidebarMenuItems } from './menuItemsTemplate';
-import { MenuItem } from './MenuItem';
+import { MenuItem } from './components/MenuItem';
 import { signout } from '../../Controllers/userActions';
 
 import { shortName } from '../../utils';

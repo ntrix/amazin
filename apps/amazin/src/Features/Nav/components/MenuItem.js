@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useShadow } from '../../utils/useShadow';
+import { useShadow } from '../../../utils/useShadow';
 
 const _InnerMenuItem = (props) => {
   const { clearShadow } = useShadow('');
