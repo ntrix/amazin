@@ -1,4 +1,10 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -46,11 +52,14 @@ export function _DealScreen() {
   };
   const debouncePreload = useDebounce(_preload, 500);
 
-  const changeCategory = (_cat) => {
-    if (preCache.current.cat !== _cat) debouncePreload(_cat);
-    preCache.current.loadingOrError = productList;
-    setCat(_cat);
-  };
+  const changeCategory = useCallback(
+    (_cat) => {
+      if (preCache.current.cat !== _cat) debouncePreload(_cat);
+      preCache.current.loadingOrError = productList;
+      setCat(_cat);
+    },
+    [productList, debouncePreload]
+  );
 
   useEffect(() => {
     preCache.current.banner = Math.random() < 0.5 ? 'screen--1' : '';
