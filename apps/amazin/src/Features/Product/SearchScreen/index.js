@@ -51,7 +51,11 @@ export function _SearchScreen() {
 
   return (
     <div className="search-screen">
-      <SubNavCategories first={NAV.ALL} hook={{ category, getFilterUrl }} />
+      <SubNavCategories
+        first={NAV.ALL}
+        category={category}
+        getUrl={getFilterUrl}
+      />
 
       <SearchBanner>
         <SortFilter order={order} getUrl={getFilterUrl} />

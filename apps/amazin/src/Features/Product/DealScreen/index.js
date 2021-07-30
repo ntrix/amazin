@@ -12,7 +12,8 @@ import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
-import { doThenDebounce } from '../../../utils';
+import { dummyMovies } from '../../../utils';
+import { useDebounce } from '../../../utils/useDebounce';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/ProductCard')
@@ -26,61 +27,80 @@ export function _DealScreen() {
     pageNumber = 1
   } = useParams();
   const productList = useSelector((state) => state.productList);
-  const { products } = productList;
-  const [cat, setCat] = useState('Deals');
-  const [banner, setBanner] = useState('');
 
-  /* prevents continuously showing late response results problem */
-  const { current: debounceDispatch } = useRef(doThenDebounce(dispatch, 1000));
+  const [products, setProducts] = useState(dummyMovies);
+  const [cat, setCat] = useState('');
+  const preCache = useRef({ cat: '', productList: {}, banner: '' });
 
-  useEffect(() => {
-    debounceDispatch(
+  const _preload = (_preCategory) => {
+    dispatch(
       listProducts({
         pageNumber,
         order,
-        category: cat === 'Deals' ? '' : cat,
+        category: _preCategory === 'Deals' ? '' : _preCategory,
         deal: 1,
         pageSize: 990
       })
     );
-    setBanner(Math.random() < 0.5 ? 'screen--1' : '');
-  }, [category, debounceDispatch, order, pageNumber, cat]);
+    preCache.current.cat = _preCategory;
+  };
+  const debouncePreload = useDebounce(_preload, 500);
+
+  const changeCategory = (_cat) => {
+    if (preCache.current.cat !== _cat) debouncePreload(_cat);
+    preCache.current.loadingOrError = productList;
+    setCat(_cat);
+  };
+
+  useEffect(() => {
+    preCache.current.banner = Math.random() < 0.5 ? 'screen--1' : '';
+    if (!cat) changeCategory(category);
+  }, [cat, category, order, pageNumber, changeCategory]);
+
+  useEffect(() => {
+    if (!productList.success || cat !== preCache.current.cat) return;
+    preCache.current.loadingOrError = {};
+    setProducts(productList.products);
+  }, [cat, productList, preCache]);
 
   return (
     <>
-      <SubNavCategories first="Deals" hook={{ category: cat, setCat }} />
+      <SubNavCategories
+        first="Deals"
+        category={cat}
+        changeCategory={changeCategory}
+        onPreload={(_cat) => debouncePreload(_cat)}
+      />
 
-      <div className={`deal-screen ${banner}`}>
-        <LoadingOrError statusOf={productList} />
+      <div className={`deal-screen ${preCache.current.banner}`}>
+        <Carousel
+          swipeable={true}
+          draggable={true}
+          showDots={true}
+          responsive={responsive}
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={3000}
+          keyBoardControl={true}
+          customTransition="transform 500ms ease-in-out"
+          transitionDuration={500}
+          centerMode={true}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={['mobile']}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {products.map((product, id) => (
+            <Suspense fallback={loadingFallback} key={id}>
+              <LoadingOrError statusOf={preCache.current.loadingOrError} />
+              <ProductCard hasDeal product={product} />
+            </Suspense>
+          ))}
+        </Carousel>
+
         <MessageBox show={products?.length < 1}>
           No Deals On This Category!
         </MessageBox>
-
-        {!!products && (
-          <Carousel
-            swipeable={true}
-            draggable={true}
-            showDots={true}
-            responsive={responsive}
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={3000}
-            keyBoardControl={true}
-            customTransition="transform 500ms ease-in-out"
-            transitionDuration={500}
-            centerMode={true}
-            containerClass="carousel-container"
-            removeArrowOnDeviceType={['mobile']}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-          >
-            {products.map((product, id) => (
-              <Suspense fallback={loadingFallback} key={id}>
-                <ProductCard hasDeal product={product} />
-              </Suspense>
-            ))}
-          </Carousel>
-        )}
 
         <h2 className="mh-2">Top Deals</h2>
 
@@ -94,7 +114,6 @@ export function _DealScreen() {
             />
           </SearchBanner>
 
-          <LoadingOrError xl statusOf={productList} />
           <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
 
           <div className="row center">

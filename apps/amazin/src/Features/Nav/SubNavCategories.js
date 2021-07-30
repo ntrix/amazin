@@ -5,7 +5,10 @@ import LoadingOrError from '../../components/LoadingOrError';
 
 export function _SubNavCategories({
   first,
-  hook: { category, getFilterUrl = null, setCat = null }
+  category,
+  getUrl,
+  onPreload,
+  changeCategory
 }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories = [] } = productCategoryList;
@@ -13,18 +16,17 @@ export function _SubNavCategories({
   return (
     <header className="screen__header">
       <ul className="cat-nav">
-        {[first, ...categories].map((label, id) => (
+        {[first, ...categories].map((_cat, id) => (
           <li
             key={id}
-            className={label === category ? 'active' : ''}
-            onClick={setCat ? () => setCat(label) : null}
+            className={_cat === category ? 'active' : ''}
+            onClick={changeCategory ? () => changeCategory(_cat) : null}
+            onMouseEnter={onPreload ? () => onPreload(_cat) : null}
           >
-            {getFilterUrl ? (
-              <Link to={getFilterUrl({ category: label, page: 1 })}>
-                {label}
-              </Link>
+            {getUrl ? (
+              <Link to={getUrl({ category: _cat, page: 1 })}>{_cat}</Link>
             ) : (
-              label
+              _cat
             )}
           </li>
         ))}

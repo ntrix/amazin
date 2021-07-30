@@ -13,8 +13,7 @@ export function debounce(func, duration) {
   };
 }
 
-export function doThenDebounce(func, duration) {
-  let id;
+export function doThenDebounce(func, duration, id = null) {
   return function (...args) {
     if (!id) {
       id = func.apply(this, args);
@@ -120,17 +119,22 @@ export const savePath =
   };
 
 /* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
-export const sourceAdapter = (movies) =>
+export const sourceAdapter = (movies, id) =>
   movies?.map((m) => ({
-    name: m.name || m.title || m.original_title || 'Movie Name',
+    name: m.name || m.title || m.original_title || 'Product Name',
     image:
-      m.image || [SRC_URL + m.poster_path, SRC_URL + m.backdrop_path].join('^'),
+      m.image ||
+      [SRC_URL + m.poster_path, SRC_URL + m.backdrop_path].join('^') ||
+      NO_IMAGE,
     rating: m.rating || m.vote_average / 2 || 0,
     numReviews: m.numReviews || m.vote_count || 0,
     description: m.description || m.overview,
     video: m.video,
     seller: m.seller,
-    _id: m._id
+    _id: m._id || `#${id}`,
+    price: 0,
+    deal: 1,
+    category: 'Product Category'
   }));
 
 /* create an array of 12 dummyMovies (a row) for videoRow(s) */
