@@ -57,7 +57,7 @@ export default function App() {
           <MainRoute />
 
           <div
-            className={`underlay-${shadowOf}`}
+            className={`shadow-of__${shadowOf}`}
             onClick={() => setShadowOf('')}
           />
         </main>
