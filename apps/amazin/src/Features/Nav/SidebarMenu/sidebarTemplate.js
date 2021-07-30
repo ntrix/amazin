@@ -12,7 +12,7 @@ export const sidebarMenuTemplate = [
   ['Netflux Video', '/video']
 ];
 
-export const sidebarItemCreator = (cat) => [cat, '/search/category/' + cat];
+export const sidebarItemAdapter = (cat) => [cat, '/search/category/' + cat];
 
 export function sidebarMenuCreator(currency, userInfo, signOutAction) {
   currency = currency || userInfo?.currency || 'EUR';

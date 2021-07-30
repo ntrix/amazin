@@ -6,7 +6,7 @@ import { signout } from '../../../Controllers/userActions';
 
 import {
   sidebarMenuTemplate,
-  sidebarItemCreator,
+  sidebarItemAdapter,
   sidebarMenuCreator
 } from './sidebarTemplate';
 import MenuItem, { mapMenuItemProp } from '../components/MenuItem';
@@ -43,7 +43,7 @@ export function _SidebarMenu({ currency }) {
 
           {[
             ...sidebarMenuTemplate,
-            ...(categories?.map(sidebarItemCreator) || []),
+            ...(categories?.map(sidebarItemAdapter) || []),
             ...sidebarMenuCreator(currency, userInfo, () => dispatch(signout()))
           ]
             .map(mapMenuItemProp)

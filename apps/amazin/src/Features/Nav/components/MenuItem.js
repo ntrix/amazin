@@ -49,11 +49,12 @@ const _MenuItem = ({ label, ...props }) => {
   );
 };
 
-export const mapMenuItemProp = ([label, to, className, extFunction]) => ({
+export const mapMenuItemProp = ([label, to, className, extFunction], key) => ({
   label,
   to,
   className,
-  extFunction
+  extFunction,
+  key
 });
 
 const MenuItem = React.memo(_MenuItem);
