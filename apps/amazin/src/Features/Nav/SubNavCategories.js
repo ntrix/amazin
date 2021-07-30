@@ -5,7 +5,7 @@ import LoadingOrError from '../../components/LoadingOrError';
 
 export function _SubNavCategories({
   first,
-  hook: { getFilterUrl, category, setCat }
+  hook: { category, getFilterUrl = null, setCat = null }
 }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories = [] } = productCategoryList;

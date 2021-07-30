@@ -12,6 +12,22 @@ export function debounce(func, duration) {
     }, duration);
   };
 }
+
+export function doThenDebounce(func, duration) {
+  let id;
+  return function (...args) {
+    if (!id) {
+      id = func.apply(this, args);
+      return;
+    }
+    clearTimeout(id);
+    id = setTimeout(() => {
+      id = null;
+      return func.apply(this, args);
+    }, duration);
+  };
+}
+
 export function throttle(func, duration) {
   let isWaiting = false;
   return function (...args) {

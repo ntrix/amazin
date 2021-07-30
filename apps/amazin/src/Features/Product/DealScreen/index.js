@@ -12,6 +12,7 @@ import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
+import { doThenDebounce } from '../../../utils';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/ProductCard')
@@ -28,11 +29,12 @@ export function _DealScreen() {
   const { products } = productList;
   const [cat, setCat] = useState('Deals');
   const randomBanner = useRef('');
-  const isMounted = useRef(true);
+
+  /* prevents continuously showing late response results problem */
+  const debounceDispatch = useRef(doThenDebounce(dispatch, 1000));
 
   useEffect(() => {
-    if (!isMounted.current) return null;
-    dispatch(
+    debounceDispatch.current(
       listProducts({
         pageNumber,
         order,
@@ -42,7 +44,6 @@ export function _DealScreen() {
       })
     );
     randomBanner.current = Math.random() < 0.5 ? 'screen--1' : '';
-    return () => (isMounted.current = false);
   }, [category, dispatch, order, pageNumber, cat]);
 
   return (
