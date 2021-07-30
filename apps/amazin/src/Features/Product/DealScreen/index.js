@@ -28,13 +28,13 @@ export function _DealScreen() {
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   const [cat, setCat] = useState('Deals');
-  const randomBanner = useRef('');
+  const [banner, setBanner] = useState('');
 
   /* prevents continuously showing late response results problem */
-  const debounceDispatch = useRef(doThenDebounce(dispatch, 1000));
+  const { current: debounceDispatch } = useRef(doThenDebounce(dispatch, 1000));
 
   useEffect(() => {
-    debounceDispatch.current(
+    debounceDispatch(
       listProducts({
         pageNumber,
         order,
@@ -43,14 +43,14 @@ export function _DealScreen() {
         pageSize: 990
       })
     );
-    randomBanner.current = Math.random() < 0.5 ? 'screen--1' : '';
-  }, [category, dispatch, order, pageNumber, cat]);
+    setBanner(Math.random() < 0.5 ? 'screen--1' : '');
+  }, [category, debounceDispatch, order, pageNumber, cat]);
 
   return (
     <>
       <SubNavCategories first="Deals" hook={{ category: cat, setCat }} />
 
-      <div className={`deal-screen ${randomBanner.current}`}>
+      <div className={`deal-screen ${banner}`}>
         <LoadingOrError statusOf={productList} />
         <MessageBox show={products?.length < 1}>
           No Deals On This Category!

@@ -13,13 +13,10 @@ ShadowContext.displayName = 'ShadowContext';
 function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
-  const setShadowOf = (val) => (val !== shadowOf ? _setShadowOf(val) : null);
+  const setShadowOf = (_sh) => (_sh !== shadowOf ? _setShadowOf(_sh) : null);
 
-  const debounceShadow = useRef(debounce(setShadowOf, 500));
-  const setShadowSlow =
-    (...args) =>
-    () =>
-      debounceShadow.current(...args);
+  const { current } = useRef(debounce(setShadowOf, 500));
+  const setShadowSlow = (_sh) => () => current(_sh);
 
   const clearShadow = () => setShadowOf('');
 
