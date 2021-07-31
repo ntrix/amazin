@@ -22,6 +22,7 @@ export function _SubNavCategories({
             className={_cat === category ? 'active' : ''}
             onClick={changeCategory ? () => changeCategory(_cat) : null}
             onMouseEnter={onPreload ? () => onPreload(_cat) : null}
+            onFocus={onPreload ? () => onPreload(_cat) : null}
           >
             {getUrl ? (
               <Link to={getUrl({ category: _cat, page: 1 })}>{_cat}</Link>

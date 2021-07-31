@@ -4,7 +4,7 @@ export const Reducer = (stateKeyName) => ({
   _REQUEST: () => ({ loading: true }),
 
   _SUCCESS: (state, action) => {
-    // HTML response with Error?
+    // HTML response with Error? TODO moves to axios interceptor
     if (typeof action.payload === 'string' && action.payload.startsWith('<!'))
       return {
         loading: false,

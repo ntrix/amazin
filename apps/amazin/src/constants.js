@@ -53,7 +53,11 @@ export const CURR_FORMAT = 2;
 export const TAX = 0.19;
 
 /* Nav Menu label */
-export const NAV = { ALL_CATEGORIES: 'All Categories', ALL: 'All' };
+export const NAV = {
+  ALL_CATEGORIES: 'All Categories',
+  ALL: 'All',
+  DEAL: 'Deals'
+};
 export const getCatLabel = (cat) =>
   cat === NAV.ALL ? NAV.ALL_CATEGORIES : cat;
 

@@ -13,7 +13,7 @@ import { listProducts } from '../../../Controllers/productActions';
 import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
-import Carousel, { responsive, SORT } from '../../../constants';
+import Carousel, { responsive, NAV, SORT } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
@@ -28,60 +28,61 @@ const ProductCard = React.lazy(() =>
 export function _DealScreen() {
   const dispatch = useDispatch();
   const {
-    category = 'Deals',
+    category: paramCat = NAV.DEAL,
     order = SORT.BESTSELLING.OPT,
     pageNumber = 1
   } = useParams();
   const productList = useSelector((state) => state.productList);
 
-  const [products, setProducts] = useState(dummyMovies);
-  const [cat, setCat] = useState('');
-  const preCache = useRef({ cat: '', productList: {}, banner: '' });
+  const [products, setProducts] = useState(null);
 
-  const _preload = (_preCategory) => {
+  const banner = useRef('');
+  const category = useRef('');
+  const preloadingCat = useRef('');
+
+  useEffect(() => {
+    banner.current = Math.random() < 0.5 ? 'screen--1' : '';
+  }, [category, paramCat, order, pageNumber]);
+
+  const _preload = (_category) => {
     dispatch(
       listProducts({
         pageNumber,
         order,
-        category: _preCategory === 'Deals' ? '' : _preCategory,
+        category: _category === NAV.DEAL ? '' : _category,
         deal: 1,
         pageSize: 990
       })
     );
-    preCache.current.cat = _preCategory;
+    preloadingCat.current = _category;
   };
   const debouncePreload = useDebounce(_preload, 500);
 
   const changeCategory = useCallback(
     (_cat) => {
-      if (preCache.current.cat !== _cat) debouncePreload(_cat);
-      preCache.current.loadingOrError = productList;
-      setCat(_cat);
+      category.current = _cat;
+      setProducts(preloadingCat.current !== _cat ? null : productList.products);
+      if (preloadingCat.current !== _cat) debouncePreload(_cat);
     },
     [productList, debouncePreload]
   );
 
   useEffect(() => {
-    preCache.current.banner = Math.random() < 0.5 ? 'screen--1' : '';
-    if (!cat) changeCategory(category);
-  }, [cat, category, order, pageNumber, changeCategory]);
-
-  useEffect(() => {
-    if (!productList.success || cat !== preCache.current.cat) return;
-    preCache.current.loadingOrError = {};
-    setProducts(productList.products);
-  }, [cat, productList, preCache]);
+    if (!category.current) changeCategory(paramCat);
+    if (productList.success && category.current === preloadingCat.current)
+      setProducts(productList.products);
+  }, [productList, preloadingCat, category, paramCat, changeCategory]);
 
   return (
     <>
       <SubNavCategories
-        first="Deals"
-        category={cat}
+        first={NAV.DEAL}
+        category={category.current}
         changeCategory={changeCategory}
-        onPreload={(_cat) => debouncePreload(_cat)}
+        onPreload={(_cat) => (products ? debouncePreload(_cat) : null)}
       />
 
-      <div className={`deal-screen ${preCache.current.banner}`}>
+      <div className={`deal-screen ${banner.current}`}>
         <Carousel
           swipeable={true}
           draggable={true}
@@ -99,9 +100,9 @@ export function _DealScreen() {
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
         >
-          {products.map((product, id) => (
+          {(products || dummyMovies).map((product, id) => (
             <Suspense fallback={loadingFallback} key={id}>
-              <LoadingOrError statusOf={preCache.current.loadingOrError} />
+              {!products && <LoadingOrError statusOf={productList} />}
               <ProductCard hasDeal product={product} />
             </Suspense>
           ))}
