@@ -20,6 +20,7 @@ import SearchBanner from '../../Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
 import { dummyMovies } from '../../../utils';
 import { useDebounce } from '../../../utils/useDebounce';
+import { useShadow } from '../../../utils/useShadow';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/ProductCard')
@@ -33,6 +34,7 @@ export function _DealScreen() {
     pageNumber = 1
   } = useParams();
   const productList = useSelector((state) => state.productList);
+  const { shadowOf } = useShadow();
 
   const [products, setProducts] = useState(null);
 
@@ -89,7 +91,7 @@ export function _DealScreen() {
           showDots={true}
           responsive={responsive}
           infinite={true}
-          autoPlay={true}
+          autoPlay={!shadowOf}
           autoPlaySpeed={3000}
           keyBoardControl={true}
           customTransition="transform 500ms ease-in-out"
