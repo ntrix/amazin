@@ -11,10 +11,12 @@ import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import SidebarMenu from './Features/Nav/SidebarMenu';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
-import ErrorScreen from './Features/Auth/ErrorScreen';
 import { useShadow } from './utils/useShadow';
 import { Storage, pipe } from './utils';
 import { SHADOW, KEY } from './constants';
+const ErrorScreen = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './Features/Auth/ErrorScreen')
+);
 
 export default function App() {
   const dispatch = useDispatch();
