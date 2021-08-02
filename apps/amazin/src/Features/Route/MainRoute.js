@@ -1,11 +1,44 @@
 import React, { lazy } from 'react';
 import { Route, Switch } from './RouteBoundary';
 
+import HomeScreen from '../HomeScreen';
+import PrivateRoute from './PrivateRoute';
+import SellerRoute from './SellerRoute';
+const SigninScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Auth/SigninScreen')
+);
 const RegisterScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Auth/RegisterScreen')
 );
-const SigninScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Auth/SigninScreen')
+const Screen404 = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Auth/Screen404')
+);
+const SellerScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Product/SellerScreen')
+);
+const SearchScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Product/SearchScreen')
+);
+const MapScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../User/MapScreen')
+);
+const DealScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Product/DealScreen')
+);
+const VideoScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Product/VideoScreen')
+);
+const ProductScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Product/ProductScreen')
+);
+const ContactScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../User/ContactScreen')
+);
+const CurrencyScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../User/CurrencyScreen')
+);
+const CustomerScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../User/CustomerScreen')
 );
 const CartScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Checkout/CartScreen')
@@ -15,9 +48,6 @@ const PaymentMethodScreen = lazy(() =>
 );
 const ShippingAddressScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Checkout/ShippingAddressScreen')
-);
-const HomeScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../HomeScreen')
 );
 const OrderHistoryScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Order/OrderHistoryScreen')
@@ -37,27 +67,6 @@ const ProductEditScreen = lazy(() =>
 const ProductListScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Product/ProductListScreen')
 );
-const ProductScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Product/ProductScreen')
-);
-const SearchScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Product/SearchScreen')
-);
-const AdminRoute = lazy(() =>
-  import(/* webpackPrefetch: true */ './AdminRoute')
-);
-const PrivateRoute = lazy(() =>
-  import(/* webpackPrefetch: true */ './PrivateRoute')
-);
-const SellerRoute = lazy(() =>
-  import(/* webpackPrefetch: true */ './SellerRoute')
-);
-const SellerScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Product/SellerScreen')
-);
-const MapScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../User/MapScreen')
-);
 const ProfileScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../User/ProfileScreen')
 );
@@ -67,23 +76,8 @@ const UserEditScreen = lazy(() =>
 const UserListScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../User/UserListScreen')
 );
-const ContactScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../User/ContactScreen')
-);
-const VideoScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Product/VideoScreen')
-);
-const DealScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Product/DealScreen')
-);
-const CustomerScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../User/CustomerScreen')
-);
-const CurrencyScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../User/CurrencyScreen')
-);
-const Screen404 = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Auth/Screen404')
+const AdminRoute = lazy(() =>
+  import(/* webpackPrefetch: true */ './AdminRoute')
 );
 
 export default function MainRoute() {
