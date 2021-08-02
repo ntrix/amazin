@@ -1,17 +1,24 @@
 import React, { lazy } from 'react';
 import { Route, Switch } from './RouteBoundary';
-
 import HomeScreen from '../HomeScreen';
 import PrivateRoute from './PrivateRoute';
 import SellerRoute from './SellerRoute';
+import CurrencyScreen from '../User/CurrencyScreen';
+
+const Screen404 = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Auth/Screen404')
+);
 const SigninScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Auth/SigninScreen')
 );
+const AdminRoute = lazy(() =>
+  import(/* webpackPrefetch: true */ './AdminRoute')
+);
+const DealScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../Product/DealScreen')
+);
 const RegisterScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Auth/RegisterScreen')
-);
-const Screen404 = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Auth/Screen404')
 );
 const SellerScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Product/SellerScreen')
@@ -22,9 +29,6 @@ const SearchScreen = lazy(() =>
 const MapScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../User/MapScreen')
 );
-const DealScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../Product/DealScreen')
-);
 const VideoScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Product/VideoScreen')
 );
@@ -33,9 +37,6 @@ const ProductScreen = lazy(() =>
 );
 const ContactScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../User/ContactScreen')
-);
-const CurrencyScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../User/CurrencyScreen')
 );
 const CustomerScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../User/CustomerScreen')
@@ -75,9 +76,6 @@ const UserEditScreen = lazy(() =>
 );
 const UserListScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../User/UserListScreen')
-);
-const AdminRoute = lazy(() =>
-  import(/* webpackPrefetch: true */ './AdminRoute')
 );
 
 export default function MainRoute() {
