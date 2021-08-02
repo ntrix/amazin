@@ -36,7 +36,7 @@ export function _DealScreen() {
   const productList = useSelector((state) => state.productList);
   const { shadowOf } = useShadow();
 
-  const [products, setProducts] = useState(null);
+  const [list, setList] = useState(null);
 
   const banner = useRef('');
   const category = useRef('');
@@ -63,7 +63,7 @@ export function _DealScreen() {
   const changeCategory = useCallback(
     (_cat) => {
       category.current = _cat;
-      setProducts(preloadingCat.current !== _cat ? null : productList.products);
+      setList(preloadingCat.current !== _cat ? null : productList);
       if (preloadingCat.current !== _cat) debouncePreload(_cat);
     },
     [productList, debouncePreload]
@@ -72,7 +72,7 @@ export function _DealScreen() {
   useEffect(() => {
     if (!category.current) changeCategory(paramCat);
     if (productList.success && category.current === preloadingCat.current)
-      setProducts(productList.products);
+      setList(productList);
   }, [productList, preloadingCat, category, paramCat, changeCategory]);
 
   return (
@@ -81,7 +81,7 @@ export function _DealScreen() {
         first={NAV.DEAL}
         category={category.current}
         changeCategory={changeCategory}
-        onPreload={(_cat) => (products ? debouncePreload(_cat) : null)}
+        onPreload={(_cat) => (list ? debouncePreload(_cat) : null)}
       />
 
       <div className={`deal-screen ${banner.current}`}>
@@ -102,22 +102,22 @@ export function _DealScreen() {
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
         >
-          {(products || dummyMovies).map((product, id) => (
+          {(list?.products || dummyMovies).map((product, id) => (
             <Suspense fallback={loadingFallback} key={id}>
-              {!products && <LoadingOrError statusOf={productList} />}
+              {!list && <LoadingOrError statusOf={productList} />}
               <ProductCard hasDeal product={product} />
             </Suspense>
           ))}
         </Carousel>
 
-        <MessageBox show={products?.length < 1}>
+        <MessageBox show={list?.products?.length < 1}>
           No Deals On This Category!
         </MessageBox>
 
         <h2 className="screen__title">Top Deals</h2>
 
         <div className="screen__featured">
-          <SearchBanner>
+          <SearchBanner info={list}>
             <SortFilter
               order={order}
               getUrl={({ order: _o }) =>
@@ -126,10 +126,8 @@ export function _DealScreen() {
             />
           </SearchBanner>
 
-          <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
-
           <div className="row center">
-            {products?.map((product, id) => (
+            {list?.products?.map((product, id) => (
               <Suspense key={id} fallback={loadingFallback}>
                 <ProductCard hasDeal product={product} />
               </Suspense>

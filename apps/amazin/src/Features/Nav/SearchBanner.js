@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-export function _SearchBanner({ children }) {
+export function _SearchBanner({ info, children }) {
   const productList = useSelector((state) => state.productList);
-  const { products, page, count } = productList;
+  const { products, page, count } = info || productList;
   const size = products?.length || 0;
   const fromItem = size * (page - 1);
   const toItem = Math.min(fromItem + size, count);
