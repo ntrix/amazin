@@ -653,12 +653,12 @@ button.open-sidebar:hover {
   height: 100%;
   background-color: #fff;
   z-index: 9009;
-  margin-left: -40rem;
-  transition: margin 0.2s ease-out;
+  transform: translate3d(-40rem, 0, 0);
+  transition: transform 0.2s ease-out;
 }
 .sidebar.opened {
-  margin-left: 0;
-  transition: margin 0.5s cubic-bezier(0.56, 1.48, 0.87, 0.9);
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.5s cubic-bezier(0.56, 1.48, 0.87, 0.9);
 }
 #btn--close-sidebar {
   position: absolute;

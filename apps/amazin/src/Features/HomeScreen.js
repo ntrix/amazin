@@ -84,12 +84,12 @@ export function _HomeScreen() {
         </Swiper>
       </div>
 
-      <h2 className="home-screen__title-2">Featured Products</h2>
+      <h2 className="screen__title">Featured Products</h2>
 
       <LoadingOrError xl statusOf={productList} />
       <MessageBox hide={products?.length < 1}>No Product Found</MessageBox>
 
-      <div className="row center">
+      <div className="screen__featured">
         {products?.map((product) => (
           <Suspense fallback={loadingFallback} key={product._id}>
             <ProductCard product={product} />

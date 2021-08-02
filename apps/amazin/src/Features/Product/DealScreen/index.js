@@ -114,9 +114,9 @@ export function _DealScreen() {
           No Deals On This Category!
         </MessageBox>
 
-        <h2 className="mh-2">Top Deals</h2>
+        <h2 className="screen__title">Top Deals</h2>
 
-        <div className="row top">
+        <div className="screen__featured">
           <SearchBanner>
             <SortFilter
               order={order}
