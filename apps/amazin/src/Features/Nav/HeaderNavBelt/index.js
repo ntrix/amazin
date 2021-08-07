@@ -29,7 +29,7 @@ export function _HeaderNavBelt({ currency }) {
 
   return (
     <div className="nav-belt row">
-      <LogoLinkBtn className="phone--off" to="/" />
+      <LogoLinkBtn to="/" />
 
       <LocatorLinkBtn to="/map" onClick={savePath()} />
 

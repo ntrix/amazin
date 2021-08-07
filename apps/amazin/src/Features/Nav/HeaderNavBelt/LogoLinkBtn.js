@@ -5,8 +5,8 @@ import Logo from '../../../img/a.svg';
 
 function LogoLinkBtn(props) {
   return (
-    <Link {...props}>
-      <div className="nav__brand">
+    <Link {...props} className="nav__brand phone--off">
+      <div className="logo__wrapper">
         <img className="logo" src={Logo} alt="logo Amazin" />
         <span className="mobile--off">mazin'</span>
       </div>

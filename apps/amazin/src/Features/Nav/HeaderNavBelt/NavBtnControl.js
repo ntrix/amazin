@@ -8,6 +8,7 @@ function _NavBtnControl({ onMouseEnter, onMouseLeave, ...props }) {
   // UX behavior: a touch on mobile device acts as hover
   return (
     <NavDropdownBtn
+      tabindex="0"
       {...props}
       onMouseEnter={onMouseEnter || setShadowSlow(SHADOW.NAV_DD)}
       onClick={onMouseEnter || setShadowSlow(SHADOW.NAV_DD)}

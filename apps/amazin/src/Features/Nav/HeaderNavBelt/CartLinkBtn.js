@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function CartLinkBtn({ counter, ...props }) {
   return (
-    <Link className="nav__cart flex" {...props}>
+    <Link className="nav__cart flex" tabindex="0" {...props}>
       <div>
         <div className="cart__counter">{counter}</div>
         <div className="sprite__cart"></div>

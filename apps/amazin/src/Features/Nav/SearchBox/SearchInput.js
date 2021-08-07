@@ -63,7 +63,7 @@ export function _SearchInput({
         autoComplete="off"
         value={input}
         size="1"
-        tabIndex="2"
+        tabindex="1"
         aria-label="search input"
         onClick={SuggestBoxDropdown}
         onFocus={() => {

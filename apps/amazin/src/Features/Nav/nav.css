@@ -18,16 +18,23 @@
   padding: 0 2rem 0 1rem;
   background: #131a21;
 }
-.nav-belt > * {
+
+.nav-belt > .nav__brand,
+.nav-belt > .nav__locator,
+.nav-belt > .nav__search,
+.nav-belt > .dropdown,
+.nav-belt > .nav__cart {
   margin: 1px 0;
   padding: 6px 5px;
   border-radius: 2px;
   border: thin solid #0000;
   color: #fff;
 }
+.nav-belt > :focus,
 .nav-belt > :hover {
   border-color: #fff;
 }
+
 .nav-belt .nav__line-1 {
   font-size: 1.2rem;
   line-height: 1.4rem;
@@ -43,25 +50,25 @@
 }
 
 /* NAV__BRAND, HOME PAGE */
-header a {
-  padding: 1rem;
-  color: #fff;
+.nav__brand {
+  order: -1;
 }
-img.logo {
-  width: 3.2rem;
-  object-fit: cover;
-  margin: 0 0 -0.5rem 0;
-}
-a .nav__brand {
+.logo__wrapper {
   font-size: 26px;
   font-weight: 600;
   line-height: 34px;
   color: #fff;
 }
+.logo__wrapper .logo {
+  width: 3.2rem;
+  object-fit: cover;
+  margin: 0 0 -0.5rem 0;
+}
 
 /* LOCATOR */
 .nav__locator {
   padding-top: 1rem;
+  order: -1;
 }
 .nav__locator > div + div {
   margin-left: 4px;
@@ -248,6 +255,7 @@ a .nav__brand {
   border: none;
   border-radius: 0 4px 4px 0;
 }
+.search__btn:focus,
 .search__btn:hover {
   background: #f80;
   background: -webkit-linear-gradient(top, #f2b649, #f80);
@@ -368,11 +376,7 @@ a .nav__brand {
 .nav__user .dropdown__menu:after {
   right: 70px;
 }
-/* .dropdown:hover > .dropdown__menu.show:before {
-  opacity: 0;
-  z-index: -1;
-  transition: all 1s ease-in-out;
-} */
+.dropdown:focus > .dropdown__menu.show,
 .dropdown:hover > .dropdown__menu.show {
   z-index: 9006;
   opacity: 1;
@@ -380,26 +384,20 @@ a .nav__brand {
   width: 25rem;
   transition: all 0.4s ease-in-out, opacity 0.2s ease-out;
 }
+.dropdown:focus > .dropdown__menu.show::after,
 .dropdown:hover > .dropdown__menu.show::after {
   top: -1rem;
   right: 7px;
   transition: all 0.4s ease-in-out;
 }
-/* .nav__user.dropdown:hover > .dropdown__menu.show {
-  right: -66px;
-} */
-/* .nav__user.dropdown:hover > .dropdown__menu.show::after {
-  right: 13px;
-} */
-/* .nav__seller.dropdown:hover > .dropdown__menu.show::after {
-  right: 66px;
-} */
+
 .dropdown__menu {
   cursor: default;
 }
 .dropdown > .dropdown__menu.show > * {
   opacity: 0;
 }
+.dropdown:focus > .dropdown__menu.show > *,
 .dropdown:hover > .dropdown__menu.show > * {
   opacity: 1;
   transition: opacity 0.4s ease-in;
@@ -445,6 +443,7 @@ a .nav__brand {
   left: -69px;
   padding-left: 95px;
 }
+.nav__currency.dropdown:focus > .dropdown__menu.show,
 .nav__currency.dropdown:hover > .dropdown__menu.show {
   left: -13px;
   padding-left: 15px;
@@ -452,6 +451,7 @@ a .nav__brand {
 .nav__currency .dropdown__menu:after {
   left: 180px;
 }
+.nav__currency.dropdown:focus > .dropdown__menu.show:after,
 .nav__currency.dropdown:hover > .dropdown__menu.show:after {
   left: 44px;
   transition: all 0.4s ease-in-out;
@@ -558,6 +558,7 @@ a .nav__brand {
 
   font-size: 15px;
   letter-spacing: -0.5px;
+  color: #fff;
 
   line-height: 1.2;
   text-overflow: ellipsis;
