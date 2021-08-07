@@ -6,41 +6,44 @@ import { pipe, savePath } from '../../../utils';
 export function _DropdownMenuCurrency({ currency }) {
   return (
     <ul className="dropdown__menu show">
-      <li>Change Currency</li>
+      <li className="list-label">Change Currency</li>
 
       {['EUR', 'separator', ...pipe.currencies.slice(1)].map((label, id) => {
         if (label === 'separator')
-          return <div key={id} className="separator ml-1"></div>;
+          return <li key={id} className="separator ml-1"></li>;
         return (
-          <Link
-            key={id}
-            to={'/currency/cType/' + label}
-            className={label === currency ? 'active' : ''}
-            onClick={savePath('/curr')}
-          >
-            <div className="sprite__wrapper">
-              <div className="sprite circle"></div>
-              <span>{pipe.getName(label)}</span>
-            </div>
-          </Link>
+          <li key={id}>
+            <Link
+              to={'/currency/cType/' + label}
+              className={label === currency ? 'active' : ''}
+              onClick={savePath('/curr')}
+            >
+              <div className="sprite__wrapper">
+                <div className="sprite circle"></div>
+                <span>{pipe.getName(label)}</span>
+              </div>
+            </Link>
+          </li>
         );
       })}
 
-      <div className="separator"></div>
-      <li>Currency Calculator</li>
+      <li className="separator"></li>
+      <li className="list-label">Currency Calculator</li>
 
       <li className="calculator disabled">
         <Link to="#">€ - EUR - Euro</Link>
         <Link to="#">Base</Link>
       </li>
 
-      <div className="separator"></div>
-      <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
-        <div className="sprite__wrapper">
-          <div className={`sprite flag xl ${currency}`}></div>
-          <span>Exchange Reference Rates</span>
-        </div>
-      </a>
+      <li className="separator"></li>
+      <li className="list-label">
+        <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
+          <div className="sprite__wrapper">
+            <div className={`sprite flag xl ${currency}`}></div>
+            <span>Exchange Reference Rates</span>
+          </div>
+        </a>
+      </li>
     </ul>
   );
 }

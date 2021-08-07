@@ -3,49 +3,49 @@ import { Link } from 'react-router-dom';
 
 import { useShadow } from '../../../utils/useShadow';
 
-const InnerMenuItem = ({ label, to, className, extFunction }) => {
-  const { clearShadow } = useShadow('');
+const _MenuItem = ({ label, to, className, extFunction }) => {
+  const { setShadowOf } = useShadow('');
+  const innerMenuItem = () => {
+    if (!to) return <div>{label}</div>;
 
-  if (!to && !className) return <strong>{label}</strong>;
+    if (to === 'disabled')
+      return (
+        <Link to="#" className="disabled" disabled>
+          {label}
+        </Link>
+      );
 
-  if (!to) return <div>{label}</div>;
+    if (to.startsWith('https://'))
+      //a href instead of Link for extern links
+      return (
+        <a href={to} target="_blank" rel="noreferrer">
+          {label}
+        </a>
+      );
 
-  if (to === 'disabled')
     return (
-      <Link to="#" className="disabled" disabled>
+      <Link
+        to={to}
+        className={className}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShadowOf('');
+          if (extFunction) extFunction();
+        }}
+      >
         {label}
       </Link>
     );
+  };
 
-  if (to.startsWith('https://'))
-    //a href instead of Link for extern links
-    return (
-      <a href={to} target="_blank" rel="noreferrer">
-        {label}
-      </a>
-    );
+  if (label === 'separator') return <li className="separator"></li>;
 
-  return (
-    <Link
-      to={to}
-      className={className}
-      onClick={(e) => {
-        e.stopPropagation();
-        clearShadow();
-        if (extFunction) extFunction();
-      }}
-    >
-      {label}
-    </Link>
-  );
-};
-
-const _MenuItem = ({ label, ...props }) => {
-  if (label === 'separator') return <div className="separator"></div>;
-  return (
+  return !to && !className ? (
     <li>
-      <InnerMenuItem label={label} {...props} />
+      <strong>{label}</strong>
     </li>
+  ) : (
+    <li>{innerMenuItem()}</li>
   );
 };
 
