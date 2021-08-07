@@ -27,6 +27,7 @@ const _MenuItem = ({ label, to, className, extFunction }) => {
       <Link
         to={to}
         className={className}
+        aria-label={label || className}
         onClick={(e) => {
           e.stopPropagation();
           setShadowOf('');

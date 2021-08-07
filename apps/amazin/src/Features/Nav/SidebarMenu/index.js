@@ -20,23 +20,28 @@ export function _SidebarMenu({ currency }) {
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories } = productCategoryList;
-  const { shadowOf, clearShadow } = useShadow();
+  const { shadowOf, setShadowOf } = useShadow();
 
   return (
     <>
       <aside
         className={`sidebar ${SHADOW.SIDEBAR === shadowOf ? 'opened' : ''}`}
       >
-        <button id="btn--close-sidebar" onClick={clearShadow}>
+        <button
+          id="btn--close-sidebar"
+          onClick={() => setShadowOf('')}
+          aria-label="Close Sidebar"
+        >
           <div className="sprite__close-btn"></div>
         </button>
-
-        <li onClick={clearShadow}>
-          <Link to="/profile" className="sidebar__header">
-            <div className="sprite__user"></div>
-            {'Hello, ' + shortName(userInfo)}
-          </Link>
-        </li>
+        <ul>
+          <li onClick={() => setShadowOf('')}>
+            <Link to="/profile" className="sidebar__header">
+              <div className="sprite__user"></div>
+              {'Hello, ' + shortName(userInfo)}
+            </Link>
+          </li>
+        </ul>
 
         <ul className="sidebar__list">
           <LoadingOrError statusOf={productCategoryList} />
