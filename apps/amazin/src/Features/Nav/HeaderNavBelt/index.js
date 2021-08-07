@@ -20,13 +20,12 @@ import {
 import SearchBox from '../SearchBox';
 import { useShadow } from '../../../utils/useShadow';
 import { savePath, shortName } from '../../../utils';
-import { KEY } from '../../../constants';
 
 export function _HeaderNavBelt({ currency }) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { shadowOf, setShadowOf, clearShadow } = useShadow('');
+  const { shadowOf } = useShadow();
 
   return (
     <div className="nav-belt row">
@@ -43,8 +42,6 @@ export function _HeaderNavBelt({ currency }) {
           'sprite__wrapper',
           `sprite flag ${currency}`
         ]}
-        onMouseEnter={() => setShadowOf(KEY.CURRENCY)}
-        onMouseLeave={clearShadow}
       >
         <DropdownMenuCurrency currency={currency} />
       </NavBtnControl>
