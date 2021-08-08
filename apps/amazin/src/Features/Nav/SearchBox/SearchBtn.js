@@ -8,7 +8,7 @@ export function _SearchBtn({ submitHandler }) {
   return (
     <div
       className="search__btn"
-      tabindex="1"
+      tabIndex="1"
       aria-label="Go"
       onClick={submitHandler}
       onKeyUp={handleKeyPress}

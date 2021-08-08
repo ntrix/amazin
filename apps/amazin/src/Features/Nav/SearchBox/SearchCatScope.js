@@ -20,7 +20,7 @@ export function _SearchCatScope({ activeCat }) {
     <div className="search-box__cat-scope">
       <div
         className={`cat-scope ${scopeOutline ? 'focus' : ''}`}
-        tabindex="1"
+        tabIndex="1"
         aria-label="category search scope"
         onClick={onClickOrFocus}
         onFocus={onClickOrFocus}
