@@ -81,6 +81,7 @@ export default function ProfileScreen() {
 
             <PrivateRoute path="/profile/password" exact>
               <CustomInput
+                wrapClass="flex-col"
                 text="Old Password"
                 type="password"
                 onChange={setOldPassword}
