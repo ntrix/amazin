@@ -1,22 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { RATES_SOURCE } from '../../../constants';
 import { pipe, savePath } from '../../../utils';
 
-const DDMenuCurrencyItem = ({ label, currency }) => (
-  <li>
-    <Link
-      to={'/currency/cType/' + label}
-      className={label === currency ? 'active' : ''}
-      onClick={savePath('/curr')}
-    >
-      <div className="sprite__wrapper">
-        <div className="sprite circle"></div>
-        <span>{pipe.longName[label]}</span>
+const DDMenuCurrencyItem = ({ label, currency }) => {
+  const history = useHistory();
+  return (
+    <li>
+      <div
+        className={`menu__link-item ${label === currency ? 'active' : ''}`}
+        onClick={() => {
+          savePath('/curr')();
+          history.push('/currency/cType/' + label);
+        }}
+      >
+        <div className="sprite__wrapper">
+          <div className="sprite circle"></div>
+          <span>{pipe.longName[label]}</span>
+        </div>
       </div>
-    </Link>
-  </li>
-);
+    </li>
+  );
+};
 
 export function _DropdownMenuCurrency({ currency }) {
   return (
@@ -30,8 +35,8 @@ export function _DropdownMenuCurrency({ currency }) {
       <li className="separator"></li>
       <li className="list-label">Currency Calculator</li>
       <li className="calculator disabled">
-        <Link to="#">€ - EUR - Euro</Link>
-        <Link to="#">Base</Link>
+        <div className="disabled">€ - EUR - Euro</div>
+        <div className="disabled">Base</div>
       </li>
       <li className="separator"></li>
       <li className="list-label">

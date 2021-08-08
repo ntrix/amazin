@@ -409,14 +409,19 @@
   font-size: 15px;
   line-height: 2.5;
 }
+.dropdown__menu li > div,
 .dropdown__menu a {
   display: block;
   padding: 0.5rem 0;
   font-size: 13px;
+  font-weight: 400;
   color: #111;
+  cursor: pointer;
 }
+.dropdown__menu .menu__link-item:not(.disabled):hover,
 .dropdown__menu a:hover {
   color: #f80;
+  text-decoration: underline;
 }
 .separator {
   width: 100%;
@@ -490,7 +495,7 @@
 .nav__currency a:not(.disabled, .active):hover span {
   text-decoration: underline;
 }
-.nav__currency a:not(.disabled, .active):hover .circle,
+.nav__currency .menu__link-item:not(.disabled, .active):hover .circle,
 .languages .language:not(.disabled, .active):hover .circle {
   background-position: -122px 0px;
 }
@@ -710,17 +715,15 @@ button.open-sidebar:hover {
 .sidebar li > strong {
   margin-top: 1rem;
 }
-.sidebar li > a {
+.sidebar .menu__link-item {
   font-size: 1.4rem;
   line-height: 1.6rem;
   color: #111;
 }
-.sidebar li > a:hover {
+.sidebar .menu__link-item:not(.disabled):hover {
   color: #111;
   background-color: #eaeded;
-}
-.sidebar li > a.disabled:hover {
-  background-color: transparent;
+  cursor: pointer;
 }
 .sidebar .sidebar__header {
   display: inline-block;
