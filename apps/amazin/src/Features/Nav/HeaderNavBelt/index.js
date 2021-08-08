@@ -36,25 +36,22 @@ export function _HeaderNavBelt({ currency }) {
       <SearchBox />
 
       <NavBtnControl
-        classes={[
-          'nav__currency mobile--off',
-          '',
-          'sprite__wrapper',
-          `sprite flag ${currency}`
-        ]}
+        wrapClass="nav__currency mobile--off"
+        line2Class="sprite__wrapper"
+        line2ExtClass={`sprite flag ${currency}`}
       >
         <DropdownMenuCurrency currency={currency} />
       </NavBtnControl>
 
       {!userInfo && (
-        <NavBtnControl label={['Hello, Sign in', 'Account', ' & Lists']}>
+        <NavBtnControl labels="Hello, Sign in^Account^ & Lists">
           <DropdownMenu show={shadowOf} ddMenuList={signinMenuTemplate} />
         </NavBtnControl>
       )}
 
       {!!userInfo && (
         <NavBtnControl
-          label={[`Hello, ${shortName(userInfo, 7)}`, 'Account', ' & Lists']}
+          labels={`Hello, ${shortName(userInfo, 7)}^Account^ & Lists`}
         >
           <DropdownMenu
             show={shadowOf}
@@ -64,7 +61,7 @@ export function _HeaderNavBelt({ currency }) {
       )}
 
       {!!userInfo?.isSeller && (
-        <NavBtnControl classes={['nav__seller']} label={['Seller', 'Desk']}>
+        <NavBtnControl wrapClass="nav__seller" labels="Seller^Desk">
           <DropdownMenu
             show={shadowOf}
             ddMenuList={sellerMenuCreator(userInfo)}
@@ -73,18 +70,15 @@ export function _HeaderNavBelt({ currency }) {
       )}
 
       {!!userInfo?.isAdmin && (
-        <NavBtnControl
-          classes={['nav__admin phone--off']}
-          label={['Admin', 'Tools']}
-        >
+        <NavBtnControl wrapClass="nav__admin phone--off" labels="Admin^Tools">
           <DropdownMenu show={shadowOf} ddMenuList={adminMenuTemplate} />
         </NavBtnControl>
       )}
 
       <NavDropdownBtn
         disabled={!!'TODO'}
-        classes={['nav__return tablet--off']}
-        label={['Return', '& Orders']}
+        wrapClass="nav__return tablet--off"
+        labels="Return^& Orders"
       />
 
       <CartLinkBtn to="/cart" counter={cartItems.length} />

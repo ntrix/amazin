@@ -40,7 +40,7 @@
   max-width: 31rem;
   margin-bottom: 26px;
   box-sizing: border-box;
-  border-radius: 3px;
+  border-radius: 8px;
   border: thin solid #0002;
   margin-right: 15px;
   flex: 1 1 25rem;
@@ -56,6 +56,7 @@
   color: #c45500;
   background: -webkit-linear-gradient(#fff, #f3f3f3);
   background: linear-gradient(#fff, #f3f3f3);
+  cursor: pointer;
 }
 .c-box__icon-wrapper {
   flex: 0 0 65px;

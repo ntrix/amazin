@@ -66,6 +66,14 @@ export const pipe = {
     PLN: 5,
     CHF: 1.1
   },
+  longName: {
+    GBP: 'GB Pounds',
+    USD: 'US Dollar',
+    PLN: 'Polish Zloty',
+    CZK: 'Czech Koruna',
+    CHF: 'Swiss France',
+    EUR: 'Euro (Default)'
+  },
   setCurrency(currency) {
     this.currency = currency;
   },

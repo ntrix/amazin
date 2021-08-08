@@ -2,17 +2,16 @@ import React from 'react';
 
 // classes:[wrapClass,[col1, [row11, row12]],[col2, [row21, row22]]],
 export function _NavDropdownBtn({
-  classes: [
-    wrapClass = 'nav__user',
-    line1Class = '',
-    line2Class = '',
-    line2ExtClass = 'tablet--off'
-  ] = [],
-  label: [line1 = '', line2 = '', line2Ext = ''] = [],
+  wrapClass = 'nav__user',
+  line1Class = '',
+  line2Class = '',
+  line2ExtClass = 'tablet--off',
+  labels = '',
   children,
   disabled = false,
   ...props
 }) {
+  const [line1 = '', line2 = '', line2Ext = ''] = labels.split('^');
   return (
     <div
       className={`dropdown ${wrapClass} ${disabled ? ' disabled dark' : ''}`}

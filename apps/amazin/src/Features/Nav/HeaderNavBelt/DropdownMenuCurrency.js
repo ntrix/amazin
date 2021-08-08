@@ -3,38 +3,36 @@ import { Link } from 'react-router-dom';
 import { RATES_SOURCE } from '../../../constants';
 import { pipe, savePath } from '../../../utils';
 
+const DDMenuCurrencyItem = ({ label, currency }) => (
+  <li>
+    <Link
+      to={'/currency/cType/' + label}
+      className={label === currency ? 'active' : ''}
+      onClick={savePath('/curr')}
+    >
+      <div className="sprite__wrapper">
+        <div className="sprite circle"></div>
+        <span>{pipe.longName[label]}</span>
+      </div>
+    </Link>
+  </li>
+);
+
 export function _DropdownMenuCurrency({ currency }) {
   return (
     <ul className="dropdown__menu show">
       <li className="list-label">Change Currency</li>
-
-      {['EUR', 'separator', ...pipe.currencies.slice(1)].map((label, id) => {
-        if (label === 'separator')
-          return <li key={id} className="separator ml-1"></li>;
-        return (
-          <li key={id}>
-            <Link
-              to={'/currency/cType/' + label}
-              className={label === currency ? 'active' : ''}
-              onClick={savePath('/curr')}
-            >
-              <div className="sprite__wrapper">
-                <div className="sprite circle"></div>
-                <span>{pipe.getName(label)}</span>
-              </div>
-            </Link>
-          </li>
-        );
-      })}
-
+      <DDMenuCurrencyItem label="EUR" currency={currency} />
+      <li className="separator ml-1"></li>
+      {pipe.currencies.slice(1).map((label, id) => (
+        <DDMenuCurrencyItem key={id} label={label} currency={currency} />
+      ))}
       <li className="separator"></li>
       <li className="list-label">Currency Calculator</li>
-
       <li className="calculator disabled">
         <Link to="#">€ - EUR - Euro</Link>
         <Link to="#">Base</Link>
       </li>
-
       <li className="separator"></li>
       <li className="list-label">
         <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
