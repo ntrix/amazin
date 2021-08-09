@@ -108,7 +108,8 @@ export default function CurrencyScreen() {
           {!!newCurrency && (
             <>
               <MessageBox variant="success" show>
-                Currency Setting has been changed to {pipe.getName(newCurrency)}
+                Currency Setting has been changed to{' '}
+                {pipe.longName[newCurrency]}
               </MessageBox>
 
               <br />
@@ -134,7 +135,7 @@ export default function CurrencyScreen() {
               <optgroup label="Select Currency">
                 {pipe.currencies.map((c, id) => (
                   <option value={c} key={id}>
-                    {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
+                    {pipe.getSymbol(c)} - {c} - {pipe.longName[c]}
                   </option>
                 ))}
               </optgroup>
@@ -145,13 +146,13 @@ export default function CurrencyScreen() {
             <p>
               {`Note: You will be shown prices in ${pipe.getSymbol(
                 currency
-              )} - ${currency} - ${pipe.getName(
+              )} - ${currency} - ${
+                pipe.longName[currency]
+              } on Amazin as a reference only. You may or may not be able to pay in ${pipe.getSymbol(
                 currency
-              )} on Amazin as a reference only. You may or may not be able to pay in ${pipe.getSymbol(
-                currency
-              )} - ${currency} - ${pipe.getName(
-                currency
-              )} see more details during checkout.`}
+              )} - ${currency} - ${
+                pipe.longName[currency]
+              } see more details during checkout.`}
             </p>
           )}
         </section>

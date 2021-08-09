@@ -376,7 +376,7 @@
 .nav__user .dropdown__menu:after {
   right: 70px;
 }
-.dropdown:focus > .dropdown__menu.show,
+/* .dropdown:focus > .dropdown__menu.show, */
 .dropdown:hover > .dropdown__menu.show {
   z-index: 9006;
   opacity: 1;
@@ -384,7 +384,7 @@
   width: 25rem;
   transition: all 0.4s ease-in-out, opacity 0.2s ease-out;
 }
-.dropdown:focus > .dropdown__menu.show::after,
+/* .dropdown:focus > .dropdown__menu.show::after, */
 .dropdown:hover > .dropdown__menu.show::after {
   top: -1rem;
   right: 7px;
@@ -397,7 +397,7 @@
 .dropdown > .dropdown__menu.show > * {
   opacity: 0;
 }
-.dropdown:focus > .dropdown__menu.show > *,
+/* .dropdown:focus > .dropdown__menu.show > *, */
 .dropdown:hover > .dropdown__menu.show > * {
   opacity: 1;
   transition: opacity 0.4s ease-in;
@@ -448,7 +448,7 @@
   left: -69px;
   padding-left: 95px;
 }
-.nav__currency.dropdown:focus > .dropdown__menu.show,
+/* .nav__currency.dropdown:focus > .dropdown__menu.show, */
 .nav__currency.dropdown:hover > .dropdown__menu.show {
   left: -13px;
   padding-left: 15px;
@@ -456,7 +456,7 @@
 .nav__currency .dropdown__menu:after {
   left: 180px;
 }
-.nav__currency.dropdown:focus > .dropdown__menu.show:after,
+/* .nav__currency.dropdown:focus > .dropdown__menu.show:after, */
 .nav__currency.dropdown:hover > .dropdown__menu.show:after {
   left: 44px;
   transition: all 0.4s ease-in-out;
