@@ -28,7 +28,7 @@ export function sidebarMenuCreator(currency, userInfo, signOutAction) {
       savePath('/curr')
     ],
     [
-      pipe.getName(currency),
+      pipe.longName[currency],
       '/currency/cType/' + currency,
       'pl-8',
       savePath('/curr')
