@@ -127,12 +127,15 @@ export const savePath =
   };
 
 /* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
+const getImgURL = (url) => (url ? SRC_URL + url : '');
 export const sourceAdapter = (movies, id) =>
   movies?.map((m) => ({
     name: m.name || m.title || m.original_title || 'Product Name',
     image:
       m.image ||
-      [SRC_URL + m.poster_path, SRC_URL + m.backdrop_path].join('^') ||
+      `${getImgURL(m.poster_path)}${m.backdrop_path ? '^' : ''}${getImgURL(
+        m.backdrop_path
+      )}` ||
       NO_IMAGE,
     rating: m.rating || m.vote_average / 2 || 0,
     numReviews: m.numReviews || m.vote_count || 0,
