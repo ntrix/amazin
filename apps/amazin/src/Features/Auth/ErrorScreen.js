@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import MessageBox from '../../components/MessageBox';
 
 /* TODO send errors report to server using Websocket */
-const ErrorFallback = ({ error }) => (
+const ErrorScreen = ({ error }) => (
   <div className="container">
     <div className="home-screen">
       <div className="c-screen customer">
@@ -29,4 +29,4 @@ const ErrorFallback = ({ error }) => (
   </div>
 );
 
-export default ErrorFallback;
+export default ErrorScreen;

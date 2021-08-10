@@ -9,6 +9,7 @@ export const MAX_IMAGES = 8;
 /* shadow background layer */
 export const SHADOW = {
   SCOPE: 'scope',
+  SEARCH_BOX: 'searchBox',
   NAV_DD: 'navDrop',
   SIDEBAR: 'sidebar'
 };
@@ -31,7 +32,16 @@ export const LOCATION = {
 };
 
 /* Search box */
-export const MAX_SEARCH_SUGGESTS = 12;
+export const SEARCH = { MAX_SUGGESTS: 12 };
+
+/* Sort filter */
+export const SORT = {
+  NEWEST: { OPT: 'newest', LABEL: 'Newest Arrivals' },
+  BESTSELLING: { OPT: 'bestselling', LABEL: 'Best Selling' },
+  LOWEST: { OPT: 'lowest', LABEL: 'Price: Low to High' },
+  HIGHEST: { OPT: 'highest', LABEL: 'Price: High to Low' },
+  TOPRATED: { OPT: 'toprated', LABEL: 'Avg. Rating' }
+};
 
 /* Date format */
 export const DD_MM_YYYY = 10;
@@ -43,7 +53,9 @@ export const CURR_FORMAT = 2;
 export const TAX = 0.19;
 
 /* Nav Menu label */
-export const ALL_CATEGORIES = 'All Categories';
+export const NAV = { ALL_CATEGORIES: 'All Categories', ALL: 'All' };
+export const getCatLabel = (cat) =>
+  cat === NAV.ALL ? NAV.ALL_CATEGORIES : cat;
 
 /* price range filter width label name */
 export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(

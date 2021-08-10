@@ -7,19 +7,21 @@ import { listProducts } from '../../../Controllers/productActions';
 import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
-import Carousel, { dummyProducts, responsive } from '../../../constants';
+import Carousel, { dummyProducts, responsive, SORT } from '../../../constants';
 import LoadingOrError from '../../../components/LoadingOrError';
+import SubNavCategories from '../../Nav/SubNavCategories';
+import SearchBanner from '../../Nav/SearchBanner';
+import { bannerFallback } from '../../../components/Fallbacks';
 
 export function _DealScreen() {
   const dispatch = useDispatch();
   const {
     category = 'Deals',
-    order = 'bestselling',
+    order = SORT.BESTSELLING.OPT,
     pageNumber = 1
   } = useParams();
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
-  const productCategoryList = useSelector((state) => state.productCategoryList);
   const [cat, setCat] = useState('Deals');
   let isMounted = true;
 
@@ -39,22 +41,7 @@ export function _DealScreen() {
 
   return (
     <>
-      <header className="screen__header">
-        <ul className="cat-nav">
-          <LoadingOrError statusOf={productCategoryList} />
-
-          {productCategoryList.categories &&
-            ['Deals', ...productCategoryList.categories].map((label, id) => (
-              <li
-                key={id}
-                className={label === cat ? ' selected' : ''}
-                onClick={() => setCat(label)}
-              >
-                {label}
-              </li>
-            ))}
-        </ul>
-      </header>
+      <SubNavCategories first="Deals" hook={{ category: cat, setCat }} />
 
       <div className={`deal-screen ${Math.random() < 0.5 ? 'screen--1' : ''}`}>
         <LoadingOrError statusOf={productList} />
@@ -62,7 +49,9 @@ export function _DealScreen() {
           No Deals On This Category!
         </MessageBox>
 
-        {products && (
+        {!products ? (
+          bannerFallback
+        ) : (
           <Carousel
             swipeable={true}
             draggable={true}
@@ -89,22 +78,14 @@ export function _DealScreen() {
         <h2 className="mh-2">Top Deals</h2>
 
         <div className="row top">
-          <div className="row search__banner">
-            <LoadingOrError statusOf={productList} />
-
-            {products && (
-              <div className="search__counter">
-                {products.length} of {products.count} Results
-              </div>
-            )}
-
+          <SearchBanner>
             <SortFilter
               order={order}
-              getUrl={({ order: _order }) =>
-                `/deal/category/all/order/${_order}/pageNumber/1`
+              getUrl={({ order: _o }) =>
+                `/deal/category/all/order/${_o}/pageNumber/1`
               }
             />
-          </div>
+          </SearchBanner>
 
           <LoadingOrError xl statusOf={productList} />
           <MessageBox show={products?.length < 1}>No Product Found</MessageBox>

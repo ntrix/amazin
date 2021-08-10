@@ -7,7 +7,7 @@ import { signout } from '../../Controllers/userActions';
 
 import { shortName } from '../../utils';
 import LoadingOrError from '../../components/LoadingOrError';
-import { useShadow } from '../../utils/useShadow';
+import { useShadow } from '../../utils/useGlobal';
 import { SHADOW } from '../../constants';
 
 export function _SidebarMenu({ currency }) {
@@ -15,18 +15,18 @@ export function _SidebarMenu({ currency }) {
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories } = productCategoryList;
-  const [shadowOf, setShadowOf] = useShadow();
+  const { shadowOf, clearShadow } = useShadow();
 
   return (
     <>
       <aside
         className={`sidebar ${SHADOW.SIDEBAR === shadowOf ? 'opened' : ''}`}
       >
-        <button id="btn--close-sidebar" onClick={() => setShadowOf('')}>
+        <button id="btn--close-sidebar" onClick={clearShadow}>
           <div className="sprite__close-btn"></div>
         </button>
 
-        <li onClick={() => setShadowOf('')}>
+        <li onClick={clearShadow}>
           <Link to="/profile" className="sidebar__header">
             <div className="sprite__user"></div>
             {'Hello, ' + shortName(userInfo)}

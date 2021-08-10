@@ -17,6 +17,7 @@ function createSuspenseAPI(promise) {
       if (state === 'loading') throw result;
       if (state === 'error') throw result;
       if (state === 'success') return result;
+      throw new Error('This is not an error');
     }
   };
 }
@@ -27,7 +28,7 @@ function mapStateToAPI(state, payload = state) {
       if (state === 'loading') throw payload.loading;
       if (state === 'error') throw payload.error;
       if (state === 'success') return payload.success;
-      throw new Error('This should be impossible');
+      throw new Error('This is not an error');
     }
   };
 }
@@ -40,19 +41,19 @@ function preloadImage(src) {
   });
 }
 
-function LazyComponent(tag) {
-  const cached = {};
+const sCached = {};
 
+function LazyComponent(tag) {
   return ({ src, ...props }) => {
-    if (!cached[src]) cached[src] = createSuspenseAPI(preloadImage(src));
+    if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
     return tag === 'img' ? (
-      <img src={cached[src].read()} alt={props.alt} {...props} />
+      <img src={sCached[src].read()} alt={props.alt} {...props} />
     ) : (
       <div
         {...props}
         style={{
           ...props.style,
-          backgroundImage: `url(${cached[src].read() || props.placeholder})`
+          backgroundImage: `url(${sCached[src].read() || props.placeholder})`
         }}
       />
     );
@@ -62,5 +63,10 @@ function LazyComponent(tag) {
 const LazyImg = LazyComponent('img');
 const LazyBackground = LazyComponent('div');
 
-export { createSuspenseAPI, mapStateToAPI, preloadImage, LazyBackground };
-export default LazyImg;
+export {
+  createSuspenseAPI,
+  mapStateToAPI,
+  preloadImage,
+  LazyBackground,
+  LazyImg
+};

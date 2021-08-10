@@ -1,14 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export function _Pagination({ page, pages, getUrl, help }) {
+export function _Pagination({ getUrl, help }) {
+  const { page, pages } = useSelector((state) => state.productList);
+
   return (
     <>
       <div className="row center pagination">
         {[...Array(pages || 0).keys()].map((x) => (
           <Link
-            className={x + 1 === page ? 'active' : ''}
             key={x}
+            className={x + 1 === page ? 'active' : ''}
             to={getUrl({ page: x + 1 })}
           >
             {x + 1}

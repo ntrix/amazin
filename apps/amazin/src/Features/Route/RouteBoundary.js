@@ -2,11 +2,13 @@ import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route as Router, Redirect, Switch } from 'react-router-dom';
 
-import ErrorFallback from '../Auth/ErrorFallBack';
+import ErrorScreen from '../Auth/ErrorScreen';
 
 const Route = (props) => (
-  <ErrorBoundary FallbackComponent={ErrorFallback}>
-    <Router {...props} />
+  <ErrorBoundary FallbackComponent={ErrorScreen}>
+    <div className="col-fill">
+      <Router {...props} />
+    </div>
   </ErrorBoundary>
 );
 
