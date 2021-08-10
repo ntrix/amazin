@@ -25,7 +25,7 @@ export default function Screen404() {
         <div className="divider-inner"></div>
         <div className="container">
           <Link to="/customer">
-            <button className="primary mb-1">Report this Error</button>
+            <button className="primary mb-1">Contact us</button>
           </Link>
 
           <Link to="/">

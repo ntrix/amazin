@@ -17,7 +17,9 @@ export const SHADOW = {
 export const STORAGE = {
   USERINFO: 'userInfo',
   CART_ITEMS: 'cartItems',
-  SHIPPING_ADDRESS: 'shippingAddress'
+  SHIPPING_ADDRESS: 'shippingAddress',
+  CURRENCY: 'currency',
+  HISTORY: 'backToHistory'
 };
 
 export const SHOW_ERROR_TIMEOUT = 9000;
@@ -35,7 +37,7 @@ export const MAX_SEARCH_SUGGESTS = 12;
 export const DD_MM_YYYY = 10;
 
 /* Currency format */
-export const CURRENCY = 2;
+export const CURR_FORMAT = 2;
 
 /* Tax rate, Germany default 2019 */
 export const TAX = 0.19;
@@ -95,47 +97,52 @@ export const dummyProducts = Array(6).fill({
 });
 
 /* VideoScreen */
-export const baseURL = 'https://image.tmdb.org/t/p/original/';
-
-export const MOVIE_API = process.env.REACT_APP_API_KEY;
+export const SRC_URL = 'https://image.tmdb.org/t/p/original/';
 export const TRENDING = 'Trending Now';
 export const TOP_RATED = 'Top Rated';
-export const SOURCES = {
-  'NETFLUX ORIGINALS': `/discover/tv?api_key=${MOVIE_API}&with_networks=213`,
-  'Action Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=28`,
-  'Comedy Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=35`,
-  'Horror Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=27`,
-  'Romance Movies': `/discover/movie?api_key=${MOVIE_API}&with_genres=10749`,
-  Documentaries: `/discover/movie?api_key=${MOVIE_API}&with_genres=99`,
-  [TRENDING]: `/trending/all/week?api_key=${MOVIE_API}&language=en-US`,
-  [TOP_RATED]: `/movie/top_rated?api_key=${MOVIE_API}&language=en-US`
+
+const _API = process.env.REACT_APP_API_KEY;
+const _SOURCES = {
+  'NETFLUX ORIGINALS': `/discover/tv?api_key=${_API}&with_networks=213`,
+  'Action Movies': `/discover/movie?api_key=${_API}&with_genres=28`,
+  'Comedy Movies': `/discover/movie?api_key=${_API}&with_genres=35`,
+  'Horror Movies': `/discover/movie?api_key=${_API}&with_genres=27`,
+  'Romance Movies': `/discover/movie?api_key=${_API}&with_genres=10749`,
+  Documentaries: `/discover/movie?api_key=${_API}&with_genres=99`,
+  [TRENDING]: `/trending/all/week?api_key=${_API}&language=en-US`,
+  [TOP_RATED]: `/movie/top_rated?api_key=${_API}&language=en-US`
 };
+const _videoNavLabels = Object.keys(_SOURCES);
+_videoNavLabels.splice(1, 0, 'Home', 'STORE');
 
-export const NO_MOVIES = [
-  {
-    name: '',
-    image: '',
-    description: ''
-  }
-];
-
-/* create 2 example Movies as placeholders for videoScreen movie banner */
-export const EXAMPLE_MOVIES = [
-  {
-    name: 'Stranger Things',
-    image:
-      ' ^https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg',
-    description:
-      'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.'
-  },
-  {
-    name: "The Queen's Gambit",
-    image:
-      ' ^https://image.tmdb.org/t/p/original/34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg',
-    description:
-      'In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.'
-  }
-];
+export const VIDEO = {
+  GENRES: _videoNavLabels,
+  SRC: _SOURCES,
+  URL: 'https://api.themoviedb.org/3',
+  BANNER: '/images/banner-fs.jpg.png',
+  EMPTY: [
+    {
+      name: '',
+      image: '',
+      description: ''
+    }
+  ],
+  /* create 2 examples as placeholder movies for videoScreen movie banner */
+  EXAMPLES: [
+    {
+      name: 'Stranger Things',
+      image: ` ^${SRC_URL}56v2KjBlU4XaOv9rVYEQypROD7P.jpg`,
+      description:
+        'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.'
+    },
+    {
+      name: "The Queen's Gambit",
+      image: ` ^${SRC_URL}34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg`,
+      description:
+        'In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.'
+    }
+  ]
+};
 
 /* responsive resolutions for multi-carousel */
 export const responsive = {

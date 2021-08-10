@@ -1,4 +1,4 @@
-import { axios } from '../../Controllers/axiosClient';
+import { axios } from '../../utils/axiosClient';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { listOrderMine } from '../../Controllers/orderActions';
 
-import { CURRENCY, DD_MM_YYYY } from '../../constants';
+import { CURR_FORMAT, DD_MM_YYYY } from '../../constants';
 import LoadingOrError from '../../components/LoadingOrError';
 
 export default function OrderHistoryScreen(props) {
@@ -37,7 +37,7 @@ export default function OrderHistoryScreen(props) {
             <tr key={order._id}>
               <td>{order._id}</td>
               <td>{order.createdAt.substring(0, DD_MM_YYYY)}</td>
-              <td>{order.totalPrice.toFixed(CURRENCY)}</td>
+              <td>{order.totalPrice.toFixed(CURR_FORMAT)}</td>
               <td>
                 {order.isPaid ? order.paidAt.substring(0, DD_MM_YYYY) : 'No'}
               </td>

@@ -1,4 +1,4 @@
-import { axiosPublic, axiosPrivate } from './axiosClient';
+import { axiosPublic, axiosPrivate } from '../utils/axiosClient';
 import {
   currencyTypeActions,
   productListAllActions,

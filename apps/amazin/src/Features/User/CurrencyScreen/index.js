@@ -10,6 +10,7 @@ import './currencyScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
 import { pipe } from '../../../utils';
+import { STORAGE } from '../../../constants';
 
 export default function CurrencyScreen() {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function CurrencyScreen() {
   const [currency, setCurrency] = useState(cType || pipe.currency);
   const [newCurrency, setNewCurrency] = useState('');
 
-  let back = localStorage.getItem('backToHistory');
+  let back = localStorage.getItem(STORAGE.HISTORY);
   back = !back || back.startsWith('/currency') ? '/' : back;
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function CurrencyScreen() {
   }, [cType, dispatch, userInfo?._id]);
 
   const submitHandler = () => {
-    localStorage.setItem('currency', currency);
+    localStorage.setItem(STORAGE.CURRENCY, currency);
     pipe.setCurrency(currency);
     dispatch(updateCurrencyRates());
     if (userInfo)

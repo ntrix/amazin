@@ -651,6 +651,7 @@ button.open-sidebar:hover {
   background-color: #fff;
   z-index: 9009;
   margin-left: -40rem;
+  transition: margin 0.2s ease-out;
 }
 .sidebar.opened {
   margin-left: 0;

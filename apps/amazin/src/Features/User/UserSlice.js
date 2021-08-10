@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '../RTKClient';
+import { createSlice, Reducer } from '../../utils/ReduxToolKitClient';
 import { STORAGE } from '../../constants';
 
 export const { actions: userRegisterActions, reducer: userRegisterReducer } =

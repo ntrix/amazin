@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { orderDeleteActions } from '../Order/OrderSlice';
 import { deleteOrder, listOrders } from '../../Controllers/orderActions';
 
-import { CURRENCY, DD_MM_YYYY } from '../../constants';
+import { CURR_FORMAT, DD_MM_YYYY } from '../../constants';
 import LoadingOrError from '../../components/LoadingOrError';
 
 export default function OrderListScreen({ history, match }) {
@@ -54,7 +54,7 @@ export default function OrderListScreen({ history, match }) {
 
               <td>{order.createdAt.substring(0, DD_MM_YYYY)}</td>
 
-              <td>{order.totalPrice.toFixed(CURRENCY)}</td>
+              <td>{order.totalPrice.toFixed(CURR_FORMAT)}</td>
 
               <td>
                 {order.isPaid ? order.paidAt.substring(0, DD_MM_YYYY) : 'No'}
