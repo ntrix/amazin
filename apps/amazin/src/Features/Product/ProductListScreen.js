@@ -64,7 +64,7 @@ export default function ProductListScreen(props) {
     <div>
       <div className="row p-1">
         <h1>Products</h1>
-        <button type="button" className="primary" onClick={createHandler}>
+        <button className="primary" onClick={createHandler}>
           Create Product
         </button>
       </div>
@@ -73,7 +73,7 @@ export default function ProductListScreen(props) {
       <LoadingOrError xl statusOf={productCreate} />
       <LoadingOrError xl statusOf={productList} />
 
-      {products && (
+      {!!products && (
         <>
           <table className="table">
             <thead>
@@ -98,7 +98,6 @@ export default function ProductListScreen(props) {
 
                   <td>
                     <button
-                      type="button"
                       className="small"
                       onClick={() =>
                         props.history.push(`/product/${product._id}/edit`)
@@ -108,7 +107,6 @@ export default function ProductListScreen(props) {
                     </button>
 
                     <button
-                      type="button"
                       className="small danger"
                       onClick={() => deleteHandler(product)}
                     >

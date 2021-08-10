@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { SEARCH } from '../../../constants';
-import { useShadow } from '../../../utils/useGlobal';
+import { SEARCH, SHADOW } from '../../../constants';
+import { useShadow } from '../../../utils/useShadow';
+import { useOutline } from './useOutline';
 
 export function _SearchSuggest({
-  hook: [suggests, setSuggests],
-  share: { setInput, setSuggestWindow }
+  suggests,
+  control: { setSuggests, setInput }
 }) {
-  const { clearShadow } = useShadow();
+  const { suggestBox, setSuggestBox } = useOutline();
+  const { shadowOf, clearShadow } = useShadow();
+
+  if (!suggests || SHADOW.SEARCH_BOX !== shadowOf || !suggestBox) return null;
   return (
     <div className="search__suggest">
       <ul>
@@ -18,7 +22,7 @@ export function _SearchSuggest({
               to={`/search/name/${p.name.replace(/(<b>)|(<\/b>)/g, '')}`}
               dangerouslySetInnerHTML={{ __html: p.name }}
               onClick={() => {
-                setSuggestWindow(false);
+                setSuggestBox(false);
                 setInput(p.name.replace(/(<b>)|(<\/b>)/g, ''));
                 setSuggests([]);
                 clearShadow();

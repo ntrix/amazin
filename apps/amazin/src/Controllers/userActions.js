@@ -9,13 +9,15 @@ import {
   userDeleteActions,
   userTopSellerListActions
 } from '../Features/User/UserSlice';
-import { STORAGE } from '../constants';
+import { Storage } from '../utils';
+import { KEY } from '../constants';
 
 export const register = (name, email, password, confirmPassword) =>
-  axiosPublic({ email, password })(userRegisterActions)(
-    userSigninActions._SUCCESS,
-    (_data) => localStorage.setItem(STORAGE.USERINFO, JSON.stringify(_data))
-  )('post', '/api/users/register', {
+  axiosPublic([userRegisterActions], {
+    req: { email, password },
+    extDispatch: userSigninActions._SUCCESS,
+    extHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
+  })('post', '/api/users/register', {
     name,
     email,
     password,
@@ -23,42 +25,50 @@ export const register = (name, email, password, confirmPassword) =>
   });
 
 export const signin = (email, password) =>
-  axiosPublic({ email, password })(userSigninActions)(null, (_data) =>
-    localStorage.setItem(STORAGE.USERINFO, JSON.stringify(_data))
-  )('post', '/api/users/signin', {
+  axiosPublic([userSigninActions], {
+    req: { email, password },
+    extHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
+  })('post', '/api/users/signin', {
     email,
     password
   });
 
 export const signout = () => (dispatch) => {
-  localStorage.removeItem(STORAGE.USERINFO);
-  localStorage.removeItem(STORAGE.CART_ITEMS);
-  localStorage.removeItem(STORAGE.SHIPPING_ADDRESS);
+  Storage[KEY.USER_INFO] = '';
+  Storage[KEY.CART_ITEMS] = '';
+  Storage[KEY.SHIPPING_ADDRESS] = '';
   dispatch(userSigninActions._RESET());
   document.location.href = '/signin';
 };
 
 export const detailsUser = (userId) =>
-  axiosPrivate(userId)(userDetailsActions)()('get', `/api/users/${userId}`);
+  axiosPrivate([userDetailsActions], { req: userId })(
+    'get',
+    `/api/users/${userId}`
+  );
 
 export const updateUserProfile = (user) =>
-  axiosPrivate(user)(userUpdateProfileActions)(
-    userSigninActions._SUCCESS,
-    (_data) => localStorage.setItem(STORAGE.USERINFO, JSON.stringify(_data))
-  )('put', `/api/users/profile`, user);
+  axiosPrivate([userUpdateProfileActions], {
+    req: user,
+    extDispatch: userSigninActions._SUCCESS,
+    extHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
+  })('put', `/api/users/profile`, user);
 
 export const updateUser = (user) =>
-  axiosPrivate(user)(userUpdateProfileActions, userUpdateActions)()(
+  axiosPrivate([userUpdateProfileActions, userUpdateActions], { req: user })(
     'put',
     `/api/users/${user._id}`,
     user
   );
 
 export const listUsers = () =>
-  axiosPrivate()(userListActions)()('get', '/api/users');
+  axiosPrivate([userListActions])('get', '/api/users');
 
 export const deleteUser = (userId) =>
-  axiosPrivate(userId)(userDeleteActions)()('delete', `/api/users/${userId}`);
+  axiosPrivate([userDeleteActions], { req: userId })(
+    'delete',
+    `/api/users/${userId}`
+  );
 
 export const listTopSellers = () =>
-  axiosPublic()(userTopSellerListActions)()('get', '/api/users/top-sellers');
+  axiosPublic([userTopSellerListActions])('get', '/api/users/top-sellers');

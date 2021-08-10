@@ -68,7 +68,7 @@ export default function ContactScreen() {
 
     setLoading(true);
     try {
-      await axios.post('https://mailsv.glitch.me/mail', data, {
+      await axios.post(process.env.REACT_APP_CONTACT_MAIL_SERVER, data, {
         //"/api/user/contact"
         headers: {
           mode: 'cors',
@@ -99,12 +99,12 @@ export default function ContactScreen() {
         <LoadingOrError xl statusOf={{ loading, error }} />
         <LoadingOrError xl statusOf={userUpdateProfile} />
 
-        <MessageBox variant="success" msg={message} />
-        {message && (
+        <MessageBox variant="success" show={message}>
+          {message}
           <Link to="/">
             <button className="primary">Back To Home Page</button>
           </Link>
-        )}
+        </MessageBox>
         {!message && (
           <>
             <CustomInput text="Your Name" hook={[name, setName]} />

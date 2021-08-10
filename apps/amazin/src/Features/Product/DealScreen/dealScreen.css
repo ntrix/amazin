@@ -29,7 +29,10 @@
 .deal-screen .react-multiple-carousel__arrow::before {
   font-size: 4rem;
 }
-.deal-screen .row.top {
+.deal-screen .screen__title {
+  margin-top: 2rem;
+}
+.deal-screen .screen__featured {
   background: -webkit-linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
   background: linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
 }

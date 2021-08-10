@@ -12,7 +12,8 @@ import { userAddressMapActions } from './UserSlice';
 
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';
-import { LOCATION, STORAGE } from '../../constants';
+import { LOCATION, KEY } from '../../constants';
+import { Storage } from '../../utils';
 
 const libs = ['places'];
 
@@ -73,7 +74,7 @@ export default function MapScreen({ history }) {
 
   const onConfirm = () => {
     const places = placeRef.current.getPlaces();
-    if (places && places.length === 1) {
+    if (places?.length === 1) {
       dispatch(
         userAddressMapActions._CONFIRM({
           lat: location.lat,
@@ -109,7 +110,7 @@ export default function MapScreen({ history }) {
   };
 
   const redirectBack = () => {
-    history.push(localStorage?.getItem(STORAGE.HISTORY) || '/');
+    history.push(Storage[KEY.HISTORY] || '/');
   };
 
   return googleApiKey ? (

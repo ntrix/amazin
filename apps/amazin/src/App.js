@@ -7,14 +7,16 @@ import {
   updateCurrencyRates
 } from './Controllers/productActions';
 import MainRoute from './Features/Route/MainRoute';
-import HeaderNav from './Features/Nav/HeaderNav';
+import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import SidebarMenu from './Features/Nav/SidebarMenu';
-import { pipe } from './utils';
 import './responsive.css';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
-import ErrorScreen from './Features/Auth/ErrorScreen';
-import { useShadow } from './utils/useGlobal';
-import { SHADOW, STORAGE } from './constants';
+import { useShadow } from './utils/useShadow';
+import { Storage, pipe } from './utils';
+import { SHADOW, KEY } from './constants';
+const ErrorScreen = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './Features/Auth/ErrorScreen')
+);
 
 export default function App() {
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ export default function App() {
     pipe.setCurrency(
       userInfo?.currency ||
         sessionCurrency ||
-        localStorage.getItem(STORAGE.CURRENCY) ||
+        Storage[KEY.CURRENCY] ||
         pipe.currency
     );
     setCurrency(pipe.currency);
@@ -45,7 +47,7 @@ export default function App() {
       >
         <ErrorBoundary FallbackComponent={ErrorScreen}>
           <header id="nav-bar">
-            <HeaderNav currency={currency} />
+            <HeaderNavBelt currency={currency} />
 
             <HeaderNavMain />
           </header>
@@ -57,7 +59,7 @@ export default function App() {
           <MainRoute />
 
           <div
-            className={`underlay-${shadowOf}`}
+            className={`shadow-of__${shadowOf}`}
             onClick={() => setShadowOf('')}
           />
         </main>

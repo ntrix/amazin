@@ -9,8 +9,8 @@ import { userUpdateProfileActions } from '../UserSlice';
 import './currencyScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
-import { pipe } from '../../../utils';
-import { STORAGE } from '../../../constants';
+import { Storage, pipe } from '../../../utils';
+import { KEY } from '../../../constants';
 
 export default function CurrencyScreen() {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export default function CurrencyScreen() {
   const [currency, setCurrency] = useState(cType || pipe.currency);
   const [newCurrency, setNewCurrency] = useState('');
 
-  let back = localStorage.getItem(STORAGE.HISTORY);
+  let back = Storage[KEY.HISTORY];
   back = !back || back.startsWith('/currency') ? '/' : back;
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function CurrencyScreen() {
   }, [cType, dispatch, userInfo?._id]);
 
   const submitHandler = () => {
-    localStorage.setItem(STORAGE.CURRENCY, currency);
+    Storage[KEY.CURRENCY] = currency;
     pipe.setCurrency(currency);
     dispatch(updateCurrencyRates());
     if (userInfo)
@@ -105,10 +105,11 @@ export default function CurrencyScreen() {
         <section className="col-50p">
           <h2 className="title"> Currency Settings</h2>
 
-          {newCurrency && (
+          {!!newCurrency && (
             <>
               <MessageBox variant="success" show>
-                Currency Setting has been changed to {pipe.getName(newCurrency)}
+                Currency Setting has been changed to{' '}
+                {pipe.longName[newCurrency]}
               </MessageBox>
 
               <br />
@@ -134,7 +135,7 @@ export default function CurrencyScreen() {
               <optgroup label="Select Currency">
                 {pipe.currencies.map((c, id) => (
                   <option value={c} key={id}>
-                    {pipe.getSymbol(c)} - {c} - {pipe.getName(c)}
+                    {pipe.getSymbol(c)} - {c} - {pipe.longName[c]}
                   </option>
                 ))}
               </optgroup>
@@ -145,13 +146,13 @@ export default function CurrencyScreen() {
             <p>
               {`Note: You will be shown prices in ${pipe.getSymbol(
                 currency
-              )} - ${currency} - ${pipe.getName(
+              )} - ${currency} - ${
+                pipe.longName[currency]
+              } on Amazin as a reference only. You may or may not be able to pay in ${pipe.getSymbol(
                 currency
-              )} on Amazin as a reference only. You may or may not be able to pay in ${pipe.getSymbol(
-                currency
-              )} - ${currency} - ${pipe.getName(
-                currency
-              )} see more details during checkout.`}
+              )} - ${currency} - ${
+                pipe.longName[currency]
+              } see more details during checkout.`}
             </p>
           )}
         </section>

@@ -4,8 +4,8 @@ export const Reducer = (stateKeyName) => ({
   _REQUEST: () => ({ loading: true }),
 
   _SUCCESS: (state, action) => {
+    // HTML response with Error? TODO moves to axios interceptor
     if (typeof action.payload === 'string' && action.payload.startsWith('<!'))
-      // HTML response with Error?
       return {
         loading: false,
         error: "Couldn't access Database Server!",

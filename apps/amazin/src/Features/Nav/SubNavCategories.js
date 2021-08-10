@@ -5,31 +5,34 @@ import LoadingOrError from '../../components/LoadingOrError';
 
 export function _SubNavCategories({
   first,
-  hook: { getFilterUrl, category, setCat }
+  category,
+  getUrl,
+  onPreload,
+  changeCategory
 }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
+  const { categories = [] } = productCategoryList;
 
   return (
     <header className="screen__header">
       <ul className="cat-nav">
-        <LoadingOrError statusOf={productCategoryList} />
+        {[first, ...categories].map((_cat, id) => (
+          <li
+            key={id}
+            className={_cat === category ? 'active' : ''}
+            onClick={changeCategory ? () => changeCategory(_cat) : null}
+            onMouseEnter={onPreload ? () => onPreload(_cat) : null}
+            onFocus={onPreload ? () => onPreload(_cat) : null}
+          >
+            {getUrl ? (
+              <Link to={getUrl({ category: _cat, page: 1 })}>{_cat}</Link>
+            ) : (
+              _cat
+            )}
+          </li>
+        ))}
 
-        {productCategoryList.categories &&
-          [first, ...productCategoryList.categories].map((label, id) => (
-            <li
-              key={id}
-              className={label === category ? 'active' : ''}
-              onClick={setCat ? () => setCat(label) : null}
-            >
-              {getFilterUrl ? (
-                <Link to={getFilterUrl({ category: label, page: 1 })}>
-                  {label}
-                </Link>
-              ) : (
-                label
-              )}
-            </li>
-          ))}
+        <LoadingOrError statusOf={productCategoryList} />
       </ul>
     </header>
   );

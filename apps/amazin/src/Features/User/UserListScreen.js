@@ -34,7 +34,7 @@ export default function UserListScreen({ history }) {
 
       <LoadingOrError xl statusOf={userList} />
 
-      {userList.success && (
+      {userList?.success && (
         <table className="table">
           <thead>
             <tr>
@@ -55,13 +55,13 @@ export default function UserListScreen({ history }) {
                 <td>{user.email}</td>
 
                 <td className="text-center success">
-                  {user.isSeller && (
+                  {!!user.isSeller && (
                     <i className="fa fa-check" aria-hidden="true"></i>
                   )}
                 </td>
 
                 <td className="text-center success">
-                  {user.isAdmin && (
+                  {!!user.isAdmin && (
                     <i className="fa fa-check" aria-hidden="true"></i>
                   )}
                 </td>

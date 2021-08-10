@@ -1,41 +1,30 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { NAV, SHADOW } from '../../../constants';
-import { useShadow } from '../../../utils/useGlobal';
+
 import SearchBtn from './SearchBtn';
 import SearchCatDropdown from './SearchCatDropdown';
 import SearchCatScope from './SearchCatScope';
 import SearchInput from './SearchInput';
 import SearchSuggest from './SearchSuggest';
+import { OutlineProvider, useOutline } from './useOutline';
+import { useShadow } from '../../../utils/useShadow';
+import { NAV, SHADOW } from '../../../constants';
 
-export function _SearchBox() {
+function NavSearch() {
   const history = useHistory();
   const { shadowOf, clearShadow } = useShadow('');
 
-  const [searchBoxOutline, setSearchBoxOutline] = useState(false);
-  const [scopeOutline, setScopeOutline] = useState(0);
+  const { outline, setScopeOutline, setSuggestBox } = useOutline();
   const [activeCat, setActiveCat] = useState(NAV.ALL);
   const [input, setInput] = useState('');
   const [suggests, setSuggests] = useState([]);
-  const [suggestWindow, setSuggestWindow] = useState(false);
 
-  const searchBoxRef = useRef(null);
-  const searchInputRef = useRef(null);
-
-  const share = {
-    searchInputRef,
-    setInput,
-    scopeOutline,
-    setScopeOutline,
-    setSearchBoxOutline,
-    setSuggests,
-    setSuggestWindow
-  };
+  const ref = useRef(null);
 
   const submitHandler = (e) => {
     e?.preventDefault();
     if (input) {
-      setSuggestWindow(false);
+      setSuggestBox(false);
       clearShadow();
       history.push(`/search/category/${activeCat}/name/${input}`);
     }
@@ -43,14 +32,14 @@ export function _SearchBox() {
 
   const handleClick = useCallback(
     (e) => {
-      if (!searchBoxRef.current.contains(e.target)) {
-        setSuggestWindow(false);
+      if (!ref.current.contains(e.target)) {
+        setSuggestBox(false);
         setScopeOutline(0);
         clearShadow();
       }
       return e;
     },
-    [searchBoxRef, clearShadow]
+    [ref, setSuggestBox, setScopeOutline, clearShadow]
   );
 
   /* detect click outside component to close categories search scope window */
@@ -64,27 +53,26 @@ export function _SearchBox() {
     return () => {
       document.removeEventListener('mousedown', handleClick);
     };
-  }, [scopeOutline, shadowOf, handleClick]);
+  }, [setScopeOutline, shadowOf, handleClick]);
 
   return (
-    <form
-      ref={searchBoxRef}
-      className={`search-box ${searchBoxOutline ? 'focus' : ''}`}
-    >
+    <form ref={ref} className={`search-box ${outline ? 'focus' : ''}`}>
       <div className="row--left">
-        <SearchCatScope activeCat={activeCat} share={share} />
-        <SearchCatDropdown hook={[activeCat, setActiveCat]} share={share} />
+        <SearchCatScope activeCat={activeCat} />
+
+        <SearchCatDropdown hook={[activeCat, setActiveCat]} />
       </div>
 
       <div className="row--fill">
         <SearchInput
-          hook={[input, setInput]}
-          submitHandler={submitHandler}
-          share={share}
+          input={input}
+          control={{ setInput, setSuggests, submitHandler }}
         />
-        {SHADOW.SEARCH_BOX === shadowOf && suggestWindow && !!input && (
-          <SearchSuggest hook={[suggests, setSuggests]} share={share} />
-        )}
+
+        <SearchSuggest
+          suggests={!!input && suggests}
+          control={{ setInput, setSuggests }}
+        />
       </div>
 
       <div className="row--right">
@@ -94,5 +82,11 @@ export function _SearchBox() {
   );
 }
 
-const SearchBox = React.memo(_SearchBox);
+const SearchBox = React.memo(() => (
+  <OutlineProvider>
+    <div className="nav__search">
+      <NavSearch />
+    </div>
+  </OutlineProvider>
+));
 export default SearchBox;

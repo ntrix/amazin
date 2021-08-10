@@ -1,6 +1,59 @@
-import { CURR_FORMAT, SRC_URL, NO_IMAGE, STORAGE } from '../constants';
+import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY } from '../constants';
+export { findSuggest } from './findSuggest';
 
-/* singleton for currency and all its pipes, rates, calculations */
+/* debounce & throttle for useShadow */
+export function debounce(func, duration) {
+  let id;
+  return function (...args) {
+    clearTimeout(id);
+    id = setTimeout(() => {
+      id = null;
+      return func.apply(this, args);
+    }, duration);
+  };
+}
+
+export function doThenDebounce(func, duration, id = null) {
+  return function (...args) {
+    if (!id) {
+      id = func.apply(this, args);
+      return;
+    }
+    clearTimeout(id);
+    id = setTimeout(() => {
+      id = null;
+      return func.apply(this, args);
+    }, duration);
+  };
+}
+
+export function throttle(func, duration) {
+  let isWaiting = false;
+  return function (...args) {
+    if (isWaiting) return;
+    func.apply(this, args);
+    isWaiting = true;
+    setTimeout(() => (isWaiting = false), duration);
+  };
+}
+
+/* Proxy for localStorage and Redux */
+export const Storage = new Proxy(KEY, {
+  get(obj, key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+      return localStorage.getItem(key);
+    }
+  },
+  set(obj, key, value) {
+    if (value === '') localStorage.removeItem(key);
+    else localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  }
+});
+
+/* Singleton for currency and all its pipes, rates, calculations */
 export const pipe = {
   currency: 'EUR',
   currencies: ['EUR', 'GBP', 'USD', 'PLN', 'CZK', 'CHF'],
@@ -12,6 +65,14 @@ export const pipe = {
     CZK: 27,
     PLN: 5,
     CHF: 1.1
+  },
+  longName: {
+    GBP: 'GB Pounds',
+    USD: 'US Dollar',
+    PLN: 'Polish Zloty',
+    CZK: 'Czech Koruna',
+    CHF: 'Swiss France',
+    EUR: 'Euro (Default)'
   },
   setCurrency(currency) {
     this.currency = currency;
@@ -62,86 +123,30 @@ export const savePath =
   (exceptionStartWith = '@') =>
   () => {
     if (!window.location.pathname.startsWith(exceptionStartWith))
-      localStorage.setItem(STORAGE.HISTORY, window.location.pathname);
+      Storage[KEY.HISTORY] = window.location.pathname;
   };
 
-/* adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
-export const sourceAdapter = (movies) =>
+/* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
+export const sourceAdapter = (movies, id) =>
   movies?.map((m) => ({
-    name: m.name || m.title || m.original_title || m.original_name,
+    name: m.name || m.title || m.original_title || 'Product Name',
     image:
-      m.image || [SRC_URL + m.poster_path, SRC_URL + m.backdrop_path].join('^'),
+      m.image ||
+      [SRC_URL + m.poster_path, SRC_URL + m.backdrop_path].join('^') ||
+      NO_IMAGE,
     rating: m.rating || m.vote_average / 2 || 0,
     numReviews: m.numReviews || m.vote_count || 0,
     description: m.description || m.overview,
     video: m.video,
     seller: m.seller,
-    _id: m._id
+    _id: m._id || `#${id}`,
+    price: 0,
+    deal: 1,
+    category: 'Product Category'
   }));
 
 /* create an array of 12 dummyMovies (a row) for videoRow(s) */
 export const dummyMovies = sourceAdapter(Array(12).fill(1));
-
-/* find suggestions util. for searchBox's dropdown suggest list */
-export const findSuggest = (() => {
-  const openTag = '<b>';
-  const closeTag = '</b>';
-  // eslint-disable-next-line
-  const escapeC = (s) => s.replace(/[\-#$\^*()+\[\]{}|\\,\'\"\&.?\s]/g, '\\$&');
-
-  const combinePhrases = new RegExp(escapeC(closeTag + openTag), 'g');
-
-  const group = new RegExp(
-    `(${escapeC(openTag)}[\\s\\S]+?${escapeC(closeTag)})`,
-    'g'
-  );
-
-  const findPriority = (string, word) => {
-    let prior = 0;
-    word = openTag + word + closeTag;
-    string.replace(group, (found) => {
-      prior = word === found ? 999 : Math.max(found.length, prior);
-    });
-    return prior;
-  };
-
-  return {
-    search(list, keyword) {
-      if (!list || !keyword) return [];
-
-      keyword = keyword.slice(0, 49);
-      const splittedKeys = keyword.split('');
-
-      const convertedKey = splittedKeys.reduce(
-        (acc, char) => `${acc}(${escapeC(char)})(.*?)`,
-        '(.*?)'
-      );
-      const regKey = new RegExp(convertedKey, 'i');
-
-      const replacer = splittedKeys.reduce(
-        (acc, _, i) => `${acc}${openTag}$${i * 2 + 2}${closeTag}$${i * 2 + 3}`,
-        '$1'
-      );
-
-      const result = list.reduce(
-        (acc, item) =>
-          regKey.test(item.name)
-            ? acc.concat({
-                name: item.name
-                  .replace(regKey, replacer)
-                  .replace(combinePhrases, ''),
-                _id: item._id
-              })
-            : acc,
-        []
-      );
-
-      return result.sort(
-        (a, b) => findPriority(b.name, keyword) - findPriority(a.name, keyword)
-      );
-    }
-  };
-})();
 
 export function shortName(user, length) {
   if (!user) return 'Sign In';

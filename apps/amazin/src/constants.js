@@ -14,13 +14,13 @@ export const SHADOW = {
   SIDEBAR: 'sidebar'
 };
 
-/* local storage and Redux */
-export const STORAGE = {
-  USERINFO: 'userInfo',
+/* localStorage and Redux */
+export const KEY = {
+  USER_INFO: 'userInfo',
   CART_ITEMS: 'cartItems',
   SHIPPING_ADDRESS: 'shippingAddress',
   CURRENCY: 'currency',
-  HISTORY: 'backToHistory'
+  HISTORY: 'history'
 };
 
 export const SHOW_ERROR_TIMEOUT = 9000;
@@ -53,7 +53,11 @@ export const CURR_FORMAT = 2;
 export const TAX = 0.19;
 
 /* Nav Menu label */
-export const NAV = { ALL_CATEGORIES: 'All Categories', ALL: 'All' };
+export const NAV = {
+  ALL_CATEGORIES: 'All Categories',
+  ALL: 'All',
+  DEAL: 'Deals'
+};
 export const getCatLabel = (cat) =>
   cat === NAV.ALL ? NAV.ALL_CATEGORIES : cat;
 
@@ -73,49 +77,53 @@ export const ratings = [
     name: '4stars & up',
     rating: 4
   },
-
   {
     name: '3stars & up',
     rating: 3
   },
-
   {
     name: '2stars & up',
     rating: 2
   },
-
   {
     name: '1stars & up',
     rating: 1
+  },
+  {
+    name: 'Any & up',
+    rating: 0
   }
 ];
 
 /* create 5 placeholders for seller info */
-export const dummySellers = Array(5).fill({
+export const DUMMYSELLERS = Array(5).fill({
   _id: '#',
   seller: { logo: NO_IMAGE, name: 'Anonymous Seller' }
 });
 
 /* create 5 placeholders for product info */
-export const dummyProducts = Array(6).fill({
-  _id: '#',
-  image: NO_IMAGE,
-  name: 'Product Name',
-  price: 0,
-  deal: 1,
-  category: 'Product Category',
-  rating: 0,
-  numReviews: 0
-});
+// export const dummyProducts = Array(6).fill({
+//   _id: '#',
+//   image: NO_IMAGE,
+//   name: 'Product Name',
+//   price: 0,
+//   deal: 1,
+//   category: 'Product Category',
+//   rating: 0,
+//   numReviews: 0
+// });
 
 /* VideoScreen */
 export const SRC_URL = 'https://image.tmdb.org/t/p/original/';
 export const TRENDING = 'Trending Now';
 export const TOP_RATED = 'Top Rated';
+export const NETFLUX = 'NETFLUX ORIGINALS';
+export const STORE = 'STORE';
+export const HOME = 'Home';
 
 const _API = process.env.REACT_APP_API_KEY;
 const _SOURCES = {
-  'NETFLUX ORIGINALS': `/discover/tv?api_key=${_API}&with_networks=213`,
+  [NETFLUX]: `/discover/tv?api_key=${_API}&with_networks=213`,
   'Action Movies': `/discover/movie?api_key=${_API}&with_genres=28`,
   'Comedy Movies': `/discover/movie?api_key=${_API}&with_genres=35`,
   'Horror Movies': `/discover/movie?api_key=${_API}&with_genres=27`,
@@ -125,7 +133,7 @@ const _SOURCES = {
   [TOP_RATED]: `/movie/top_rated?api_key=${_API}&language=en-US`
 };
 const _videoNavLabels = Object.keys(_SOURCES);
-_videoNavLabels.splice(1, 0, 'Home', 'STORE');
+_videoNavLabels.splice(1, 0, HOME, STORE);
 
 export const VIDEO = {
   GENRES: _videoNavLabels,

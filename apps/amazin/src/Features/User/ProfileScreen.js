@@ -72,7 +72,7 @@ export default function ProfileScreen() {
 
         <LoadingOrError xl statusOf={userDetails} />
 
-        {user && (
+        {!!user && (
           <>
             <LoadingOrError xl statusOf={userUpdateProfile} />
 
@@ -81,6 +81,7 @@ export default function ProfileScreen() {
 
             <PrivateRoute path="/profile/password" exact>
               <CustomInput
+                wrapClass="flex-col"
                 text="Old Password"
                 type="password"
                 onChange={setOldPassword}

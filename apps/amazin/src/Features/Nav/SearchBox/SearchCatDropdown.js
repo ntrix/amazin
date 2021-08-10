@@ -3,24 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { listAllProducts } from '../../../Controllers/productActions';
 
+import { useOutline } from './useOutline';
+import { useShadow } from '../../../utils/useShadow';
 import { getCatLabel, NAV } from '../../../constants';
-import { useShadow } from '../../../utils/useGlobal';
 
-export function _SearchCatDropdown({
-  hook: [activeCat, setActiveCat],
-  share: {
-    searchInputRef,
-    scopeOutline,
-    setScopeOutline,
-    setSearchBoxOutline,
-    setSuggestWindow
-  }
-}) {
+export function _SearchCatDropdown({ hook: [activeCat, setActiveCat] }) {
   const dispatch = useDispatch();
-  const { clearShadow } = useShadow('');
   const { success, categories } = useSelector(
     (state) => state.productCategoryList
   );
+  const { inputRef, setOutline, scopeOutline, setScopeOutline, setSuggestBox } =
+    useOutline();
+  const { clearShadow } = useShadow('');
 
   useEffect(() => {
     dispatch(listAllProducts({ category: activeCat }));
@@ -35,14 +29,14 @@ export function _SearchCatDropdown({
             className={`category ${cat === activeCat ? 'active' : ''}`}
             onClick={() => {
               if (cat === activeCat) {
-                setSearchBoxOutline(false);
+                setOutline(false);
                 setScopeOutline(-1);
                 return;
               }
-              searchInputRef.current.focus();
+              inputRef.current.focus();
               setActiveCat(cat);
               setScopeOutline(0);
-              setSuggestWindow(false);
+              setSuggestBox(false);
               clearShadow();
             }}
             onBlur={() => setScopeOutline(0)}

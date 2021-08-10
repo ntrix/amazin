@@ -6,7 +6,7 @@ export function _CustomInput({
   placeholder = `Enter ${text}`,
   hook,
   textarea = false,
-  noLabel = false,
+  label = text,
   wrapClass = '',
   ...rest
 }) {
@@ -16,10 +16,18 @@ export function _CustomInput({
     props.value = hook[0];
     props.onChange = (e) => hook[1](e.target.value);
   }
+
   return (
     <div className={wrapClass}>
-      {!noLabel && <label htmlFor={props.id}>{text}</label>}
-      {textarea ? <textarea {...props} /> : <input {...props} />}
+      {label !== 'none' && <label htmlFor={props.id}>{label}</label>}
+      {textarea ? (
+        <textarea {...props} />
+      ) : (
+        <input
+          value={type === 'button' || type === 'submit' ? text : rest.value}
+          {...props}
+        />
+      )}
     </div>
   );
 }

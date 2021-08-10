@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { pipe } from '../../../utils';
 
-export function _ProductScreen({ productId, product }) {
+export function _ProductScreen({
+  productId,
+  product: { price, countInStock }
+}) {
   const history = useHistory();
   const [qty, setQty] = useState(1);
 
@@ -18,8 +21,8 @@ export function _ProductScreen({ productId, product }) {
 
           <div className="price">
             <sup>{pipe.getSymbol()}</sup>
-            {pipe.getNote(product.price)}
-            <sup>{pipe.getCent(product.price)}</sup>
+            {pipe.getNote(price)}
+            <sup>{pipe.getCent(price)}</sup>
           </div>
         </div>
       </li>
@@ -29,7 +32,7 @@ export function _ProductScreen({ productId, product }) {
           <div>Status</div>
 
           <div>
-            {product.countInStock > 0 ? (
+            {countInStock > 0 ? (
               <span className="success">In Stock</span>
             ) : (
               <span className="danger">Unavailable</span>
@@ -38,7 +41,7 @@ export function _ProductScreen({ productId, product }) {
         </div>
       </li>
 
-      {product.countInStock > 0 && (
+      {countInStock > 0 && (
         <>
           <li>
             <div className="row">
@@ -48,7 +51,7 @@ export function _ProductScreen({ productId, product }) {
                 <div className="sprite__caret xl"></div>
 
                 <select value={qty} onChange={(e) => setQty(e.target.value)}>
-                  {[...Array(product.countInStock).keys()].map((x) => (
+                  {[...Array(countInStock).keys()].map((x) => (
                     <option key={x} value={x + 1}>
                       {x + 1}
                     </option>

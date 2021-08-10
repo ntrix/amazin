@@ -1,4 +1,5 @@
 import React from 'react';
+import { NO_IMAGE } from '../constants';
 
 function createSuspenseAPI(promise) {
   let state = 'loading';
@@ -12,23 +13,23 @@ function createSuspenseAPI(promise) {
       result = rejected;
     }
   );
+
   return {
     read() {
       if (state === 'loading') throw result;
       if (state === 'error') throw result;
       if (state === 'success') return result;
-      throw new Error('This is not an error');
+      throw new Error('No error');
     }
   };
 }
 
-function mapStateToAPI(state, payload = state) {
+function subscribeResource(state) {
   return {
-    read() {
-      if (state === 'loading') throw payload.loading;
-      if (state === 'error') throw payload.error;
-      if (state === 'success') return payload.success;
-      throw new Error('This is not an error');
+    read(prop) {
+      if (state.loading) throw new Promise();
+      if (state.error) throw state.error;
+      return state[prop] || prop;
     }
   };
 }
@@ -45,9 +46,10 @@ const sCached = {};
 
 function LazyComponent(tag) {
   return ({ src, ...props }) => {
+    if (!src) src = NO_IMAGE;
     if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
     return tag === 'img' ? (
-      <img src={sCached[src].read()} alt={props.alt} {...props} />
+      <img src={sCached[src]?.read() || src} alt={props.alt} {...props} />
     ) : (
       <div
         {...props}
@@ -65,7 +67,7 @@ const LazyBackground = LazyComponent('div');
 
 export {
   createSuspenseAPI,
-  mapStateToAPI,
+  subscribeResource,
   preloadImage,
   LazyBackground,
   LazyImg

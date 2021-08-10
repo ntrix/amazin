@@ -6,7 +6,8 @@ import { saveShippingAddress } from '../../Controllers/cartActions';
 
 import CheckoutSteps from './CheckoutSteps';
 import CustomInput from '../../components/CustomInput';
-import { STORAGE } from '../../constants';
+import { Storage } from '../../utils';
+import { KEY } from '../../constants';
 
 export default function ShippingAddressScreen({ history }) {
   const dispatch = useDispatch();
@@ -15,16 +16,17 @@ export default function ShippingAddressScreen({ history }) {
 
   const userAddressMap = useSelector((state) => state.userAddressMap);
   const { address: addressMap } = userAddressMap;
+  const { shippingAddress } = useSelector((state) => state.cart);
 
+  const [locate, setLocate] = useState({
+    lat: shippingAddress.lat,
+    lng: shippingAddress.lng
+  });
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
-
-  const { shippingAddress } = useSelector((state) => state.cart);
-  const [lat, setLat] = useState(shippingAddress.lat);
-  const [lng, setLng] = useState(shippingAddress.lng);
 
   useEffect(() => {
     setFullName(shippingAddress.fullName);
@@ -36,16 +38,10 @@ export default function ShippingAddressScreen({ history }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const newLat = addressMap ? addressMap.lat : lat;
-    const newLng = addressMap ? addressMap.lng : lng;
-    if (addressMap) {
-      setLat(addressMap.lat);
-      setLng(addressMap.lng);
-    }
-    let moveOn = true;
-    if (!newLat || !newLng)
-      moveOn = window.confirm('Continue setting your location?');
-    if (moveOn) {
+    const { lat, lng } = addressMap || locate;
+    if (addressMap) setLocate({ lat, lng });
+
+    if ((!lat || !lng) && window.confirm('Continue setting your location?')) {
       dispatch(
         saveShippingAddress({
           fullName,
@@ -53,8 +49,8 @@ export default function ShippingAddressScreen({ history }) {
           city,
           postalCode,
           country,
-          lat: newLat,
-          lng: newLng
+          lat,
+          lng
         })
       );
       history.push('/payment');
@@ -62,7 +58,7 @@ export default function ShippingAddressScreen({ history }) {
   };
 
   const location = useLocation();
-  const chooseOnMap = () => {
+  const locateOnMap = () => {
     dispatch(
       saveShippingAddress({
         fullName,
@@ -70,11 +66,11 @@ export default function ShippingAddressScreen({ history }) {
         city,
         postalCode,
         country,
-        lat,
-        lng
+        lat: locate.lat,
+        lng: locate.lng
       })
     );
-    localStorage.setItem(STORAGE.HISTORY, location.pathname);
+    Storage[KEY.HISTORY] = location.pathname;
     history.push('/map');
   };
 
@@ -97,19 +93,14 @@ export default function ShippingAddressScreen({ history }) {
         />
         <CustomInput text="Country" required hook={[country, setCountry]} />
 
-        <div>
-          <label htmlFor="chooseOnMap">Location</label>
-          <button type="button" onClick={chooseOnMap}>
-            Choose On Map
-          </button>
-        </div>
+        <CustomInput text="Locate On Map" type="button" onClick={locateOnMap} />
 
-        <div>
-          <label />
-          <button className="primary" type="submit">
-            Continue
-          </button>
-        </div>
+        <CustomInput
+          text="Continue"
+          type="submit"
+          className="primary btn"
+          label="none"
+        />
       </form>
     </div>
   );

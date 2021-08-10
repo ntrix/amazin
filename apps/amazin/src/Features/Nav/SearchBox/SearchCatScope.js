@@ -1,30 +1,30 @@
 import React from 'react';
 
+import { useOutline } from './useOutline';
+import { useShadow } from '../../../utils/useShadow';
 import { getCatLabel, SHADOW } from '../../../constants';
-import { useShadow } from '../../../utils/useGlobal';
 
-export function _SearchCatScope({
-  activeCat,
-  share: {
-    scopeOutline,
-    setScopeOutline,
-    setSearchBoxOutline,
-    setSuggestWindow
-  }
-}) {
+export function _SearchCatScope({ activeCat }) {
+  const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } =
+    useOutline();
   const { setShadowOf } = useShadow('');
+
+  const onClickOrFocus = () => {
+    setOutline(false);
+    setScopeOutline(1 - scopeOutline);
+    setSuggestBox(false);
+    setShadowOf(SHADOW.SCOPE);
+  };
 
   return (
     <div className="search-box__cat-scope">
       <div
         className={`cat-scope ${scopeOutline ? 'focus' : ''}`}
         tabIndex="1"
-        onClick={() => {
-          setSearchBoxOutline(false);
-          setScopeOutline(1 - scopeOutline);
-          setSuggestWindow(false);
-          setShadowOf(SHADOW.SCOPE);
-        }}
+        aria-label="category search scope"
+        onClick={onClickOrFocus}
+        onFocus={onClickOrFocus}
+        onBlur={() => setScopeOutline(1 - scopeOutline)}
       >
         <div className="cat-scope--facade">
           <span>{getCatLabel(activeCat)}</span>

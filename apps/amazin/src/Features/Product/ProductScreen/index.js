@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import ProductImages from './ProductImages';
 import ProductDescription from './ProductDescription';
 import ProductReview from './ProductReview';
 import ProductInStock from './ProductInStock';
@@ -10,7 +9,11 @@ import { detailsProduct } from '../../../Controllers/productActions';
 import SellerCard from '../SellerScreen/SellerCard';
 
 import LoadingOrError from '../../../components/LoadingOrError';
-import { STORAGE } from '../../../constants';
+import { KEY } from '../../../constants';
+import { loadingFallback } from '../../../components/Fallbacks';
+import { Storage } from '../../../utils';
+
+const ProductImages = React.lazy(() => import('./ProductImages'));
 
 export function _ProductScreen({ match }) {
   const dispatch = useDispatch();
@@ -20,28 +23,27 @@ export function _ProductScreen({ match }) {
   const { product } = productDetails;
 
   useEffect(() => {
-    dispatch(detailsProduct(productId)); // eslint-disable-next-line
-  }, [productId]);
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId]);
 
   return (
     <div>
       <LoadingOrError xl statusOf={productDetails} />
 
-      {productDetails.success && (
+      {productDetails?.success && (
         <div className="col-fill">
           <div>
             <div className="row search__banner">
-              <Link
-                to={localStorage?.getItem(STORAGE.HISTORY) || '/'}
-                className="ml-1"
-              >
+              <Link to={Storage[KEY.HISTORY] || '/'} className="ml-1">
                 Back to last section
               </Link>
             </div>
           </div>
 
           <div className="row top mt-1 p-1">
-            <ProductImages product={product} />
+            <Suspense fallback={loadingFallback}>
+              <ProductImages product={product} />
+            </Suspense>
 
             <ProductDescription product={product} />
 

@@ -1,18 +1,18 @@
 import { createSlice, Reducer } from '../../utils/ReduxToolKitClient';
-import { STORAGE } from '../../constants';
+import { KEY } from '../../constants';
 
 export const { actions: userRegisterActions, reducer: userRegisterReducer } =
   createSlice({
     name: 'userRegister',
     initialState: {},
-    reducers: Reducer(STORAGE.USERINFO)
+    reducers: Reducer(KEY.USER_INFO)
   });
 
 export const { actions: userSigninActions, reducer: userSigninReducer } =
   createSlice({
     name: 'userSignin',
     initialState: {},
-    reducers: Reducer(STORAGE.USERINFO)
+    reducers: Reducer(KEY.USER_INFO)
   });
 
 export const { actions: userDetailsActions, reducer: userDetailsReducer } =
