@@ -17,6 +17,7 @@
   height: 6rem;
   padding: 0 2rem 0 1rem;
   background: #131a21;
+  flex-wrap: nowrap;
 }
 
 .nav-belt > .nav__brand,

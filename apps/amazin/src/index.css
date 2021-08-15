@@ -51,7 +51,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --min-screen: 375px;
+  --min-screen: 360px;
 }
 body {
   height: 100vh;
