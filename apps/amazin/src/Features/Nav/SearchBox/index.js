@@ -1,14 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { useHistory } from 'react-router-dom';
 
-import SearchBtn from './SearchBtn';
-import SearchCatDropdown from './SearchCatDropdown';
 import SearchCatScope from './SearchCatScope';
 import SearchInput from './SearchInput';
-import SearchSuggest from './SearchSuggest';
+import SearchBtn from './SearchBtn';
 import { OutlineProvider, useOutline } from './useOutline';
 import { useShadow } from '../../../utils/useShadow';
 import { NAV, SHADOW } from '../../../constants';
+
+const SearchCatDropdown = lazy(() =>
+  import(/* webpackPrefetch: true */ './SearchCatDropdown')
+);
+const SearchSuggest = lazy(() =>
+  import(/* webpackPrefetch: true */ './SearchSuggest')
+);
 
 function NavSearch() {
   const history = useHistory();
@@ -60,7 +72,9 @@ function NavSearch() {
       <div className="row--left">
         <SearchCatScope activeCat={activeCat} />
 
-        <SearchCatDropdown hook={[activeCat, setActiveCat]} />
+        <Suspense fallback={null}>
+          <SearchCatDropdown hook={[activeCat, setActiveCat]} />
+        </Suspense>
       </div>
 
       <div className="row--fill">
@@ -69,10 +83,12 @@ function NavSearch() {
           control={{ setInput, setSuggests, submitHandler }}
         />
 
-        <SearchSuggest
-          suggests={!!input && suggests}
-          control={{ setInput, setSuggests }}
-        />
+        <Suspense fallback={null}>
+          <SearchSuggest
+            suggests={!!input && suggests}
+            control={{ setInput, setSuggests }}
+          />
+        </Suspense>
       </div>
 
       <div className="row--right">
