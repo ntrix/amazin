@@ -1,25 +1,30 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { signout } from '../../../Controllers/userActions';
 import '../nav.css';
 
-import CartLinkBtn from './CartLinkBtn';
-import LocatorLinkBtn from './LocatorLinkBtn';
 import LogoLinkBtn from './LogoLinkBtn';
+import LocatorLinkBtn from './LocatorLinkBtn';
+import SearchBox from '../SearchBox';
 import NavBtnControl from './NavBtnControl';
 import NavDropdownBtn from './NavDropdownBtn';
-import DropdownMenu from './DropdownMenu';
-import DropdownMenuCurrency from './DropdownMenuCurrency';
+import CartLinkBtn from './CartLinkBtn';
 import {
   signinMenuTemplate,
   userMenuCreator,
   sellerMenuCreator,
   adminMenuTemplate
 } from './navBeltTemplate';
-import SearchBox from '../SearchBox';
 import { useShadow } from '../../../utils/useShadow';
 import { savePath, shortName } from '../../../utils';
+
+const DropdownMenu = lazy(() =>
+  import(/* webpackPrefetch: true */ './DropdownMenu')
+);
+const DropdownMenuCurrency = lazy(() =>
+  import(/* webpackPrefetch: true */ './DropdownMenuCurrency')
+);
 
 export function _HeaderNavBelt({ currency }) {
   const dispatch = useDispatch();

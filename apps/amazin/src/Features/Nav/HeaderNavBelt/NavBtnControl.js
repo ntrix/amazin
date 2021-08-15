@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { SHADOW } from '../../../constants';
 import { useShadow } from '../../../utils/useShadow';
 import NavDropdownBtn from './NavDropdownBtn';
 
-function _NavBtnControl(props) {
+function _NavBtnControl({ children, ...props }) {
   const { setShadowSlow } = useShadow();
   // UX behavior: a touch on mobile device acts as hover
   //TODO accessibility: isFocus & isEnterKeyPressed = onClick
@@ -20,7 +20,9 @@ function _NavBtnControl(props) {
         setShadowSlow('')();
       }}
       {...props}
-    />
+    >
+      <Suspense fallback={null}>{children}</Suspense>
+    </NavDropdownBtn>
   );
 }
 
