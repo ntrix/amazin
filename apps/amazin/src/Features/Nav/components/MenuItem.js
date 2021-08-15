@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 
 import { useShadow } from '../../../utils/useShadow';
@@ -7,6 +7,7 @@ const InnerMenuItem = React.memo(
   ({ label, to, className, extFunction = null }) => {
     const history = useHistory();
     const { setShadowOf } = useShadow('');
+    const [extFn] = useState(() => (extFunction ? extFunction : null));
     if (!to && !className) return <strong>{label}</strong>;
 
     if (!to) return <div>{label}</div>;
@@ -33,7 +34,7 @@ const InnerMenuItem = React.memo(
         onClick={(e) => {
           e.stopPropagation();
           setShadowOf('');
-          if (extFunction) extFunction();
+          if (extFn) extFn();
           history.push(to);
         }}
       >
@@ -64,5 +65,11 @@ export const mapMenuItemProp = (
   key: `${id} ${label || className}`
 });
 
-const MenuItem = React.memo(_MenuItem);
+const MenuItem = React.memo(
+  _MenuItem,
+  (prev, next) =>
+    prev.label === next.label &&
+    prev.to === next.to &&
+    prev.className === next.className
+);
 export default MenuItem;

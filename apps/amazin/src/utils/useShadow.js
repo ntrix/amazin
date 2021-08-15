@@ -1,11 +1,11 @@
 import React, {
-  useRef,
   createContext,
+  useRef,
   useContext,
   useEffect,
   useState
 } from 'react';
-import { debounce } from '.';
+import { useDebounce } from './useDebounce';
 
 const ShadowContext = createContext();
 ShadowContext.displayName = 'ShadowContext';
@@ -13,10 +13,13 @@ ShadowContext.displayName = 'ShadowContext';
 function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
-  const setShadowOf = (_sh) => (_sh !== shadowOf ? _setShadowOf(_sh) : null);
+  const { debounce, clearBounce } = useDebounce(_setShadowOf, 500);
+  const { current: setShadowOf } = useRef((_sh) => {
+    clearBounce();
+    if (_sh !== shadowOf) _setShadowOf(_sh);
+  });
 
-  const { current } = useRef(debounce(setShadowOf, 500));
-  const setShadowSlow = (_sh) => () => current(_sh);
+  const setShadowSlow = (_sh) => () => debounce(_sh);
 
   const clearShadow = () => setShadowOf('');
 

@@ -47,7 +47,11 @@
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.7",
     "swiper": "^6.7.5",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "workbox-cacheable-response": "^6.2.2",
+    "workbox-expiration": "^6.2.2",
+    "workbox-routing": "^6.2.2",
+    "workbox-strategies": "^6.2.2"
   },
   "devDependencies": {
     "@babel/core": "7.12.13",

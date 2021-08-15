@@ -114,7 +114,7 @@ body {
   grid-template-rows: 99px 1fr 4rem;
   height: 100%;
 }
-header {
+header#nav-bar {
   grid-area: header;
   width: 100vw;
   min-width: var(--min-screen);
@@ -140,6 +140,7 @@ footer {
   /* max-width: 1500px; */
   padding: 0;
   justify-content: center;
+  background: #fff;
 }
 main.container {
   width: 100vw;
