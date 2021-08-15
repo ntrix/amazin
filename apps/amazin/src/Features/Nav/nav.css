@@ -299,6 +299,7 @@
 .search__suggest li a {
   display: block;
   height: 100%;
+  padding: 1rem;
   font-weight: 600;
   font-size: 1.5rem;
   color: #000;
