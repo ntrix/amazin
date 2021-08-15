@@ -6,13 +6,13 @@ import {
   listProductCategories,
   updateCurrencyRates
 } from './Controllers/productActions';
-import './responsive.css';
 import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import MainRoute from './Features/Route/MainRoute';
 import { useShadow } from './utils/useShadow';
 import { Storage, pipe } from './utils';
 import { SHADOW, KEY } from './constants';
+import './responsive.css';
 
 const ErrorScreen = React.lazy(() =>
   import(/* webpackPrefetch: true */ './Features/Auth/ErrorScreen')
