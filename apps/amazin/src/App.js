@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -6,16 +6,19 @@ import {
   listProductCategories,
   updateCurrencyRates
 } from './Controllers/productActions';
-import MainRoute from './Features/Route/MainRoute';
-import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
-import SidebarMenu from './Features/Nav/SidebarMenu';
 import './responsive.css';
+import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
+import MainRoute from './Features/Route/MainRoute';
 import { useShadow } from './utils/useShadow';
 import { Storage, pipe } from './utils';
 import { SHADOW, KEY } from './constants';
+
 const ErrorScreen = React.lazy(() =>
   import(/* webpackPrefetch: true */ './Features/Auth/ErrorScreen')
+);
+const SidebarMenu = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './Features/Nav/SidebarMenu')
 );
 
 export default function App() {
@@ -52,7 +55,9 @@ export default function App() {
             <HeaderNavMain />
           </header>
 
-          <SidebarMenu currency={currency} />
+          <Suspense fallback={null}>
+            <SidebarMenu currency={currency} />
+          </Suspense>
         </ErrorBoundary>
 
         <main className="container">
