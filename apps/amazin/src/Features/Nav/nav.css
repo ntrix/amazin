@@ -30,6 +30,7 @@
   border-radius: 2px;
   border: thin solid #0000;
   color: #fff;
+  outline: none;
 }
 .nav-belt > :focus,
 .nav-belt > :hover {
