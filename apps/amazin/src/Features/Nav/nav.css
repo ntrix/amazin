@@ -123,6 +123,7 @@
 }
 .search-box__cat-scope {
   display: flex;
+  user-select: none;
 }
 .search-box__cat-scope:focus {
   border: none;
@@ -319,6 +320,7 @@
 .dropdown {
   position: relative;
   cursor: pointer;
+  user-select: none;
 }
 .dropdown .fa-caret-down {
   float: right;
