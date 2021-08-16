@@ -15,6 +15,7 @@ import {
   CacheFirst
 } from 'workbox-strategies';
 import './responsive.css';
+import './font-awesome.css';
 
 // Used for filtering matches based on status code, header, or both
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
@@ -27,6 +28,7 @@ import(/* webpackPrefetch: true */ './index.css');
 import(/* webpackPrefetch: true */ './Features/Nav/nav.css');
 import(/* webpackPrefetch: true */ 'swiper/swiper-bundle.css');
 import(/* webpackPrefetch: true */ './responsive.css');
+import(/* webpackPrefetch: true */ './font-awesome.css');
 
 ReactDOM.render(
   <Provider store={store}>
