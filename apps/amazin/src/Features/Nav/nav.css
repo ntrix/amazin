@@ -316,6 +316,58 @@
   opacity: 0.85;
 }
 
+/* DROPDOWN CURRENCY */
+.sprite.flag {
+  height: 14px;
+  width: 22px;
+  margin: -1rem 3px 0 3px;
+  box-shadow: 0 0 0 1px #888;
+  background-image: url('../../img/flags-globe.png');
+}
+.EUR {
+  background-position: -29px -260px;
+}
+.GBP {
+  background-position: -83px -386px;
+}
+.USD {
+  background-position: -83px -404px;
+}
+.CZK {
+  background-position: -3px -350px;
+}
+.PLN {
+  background-position: -29px -314px;
+}
+.CHF {
+  background-position: -83px -296px;
+}
+.sprite.flag.xl {
+  height: 20px;
+  width: 32px;
+  margin: 0 1rem;
+  background-image: url('../../img/flags-globe.png');
+  box-shadow: 0 0 5px #0008;
+}
+.xl.EUR {
+  background-position: -38px -26px;
+}
+.xl.GBP {
+  background-position: -110px -194px;
+}
+.xl.USD {
+  background-position: -110px -218px;
+}
+.xl.CZK {
+  background-position: -2px -146px;
+}
+.xl.PLN {
+  background-position: -38px -98px;
+}
+.xl.CHF {
+  background-position: -110px -74px;
+}
+
 /* DROPDOWN MENU */
 .dropdown {
   position: relative;

@@ -1,6 +1,5 @@
 import React, { lazy } from 'react';
 import { Route, Switch } from './RouteBoundary';
-import CurrencyScreen from '../User/CurrencyScreen';
 import PrivateRoute from './PrivateRoute';
 import SellerRoute from './SellerRoute';
 import AdminRoute from './AdminRoute';
@@ -11,6 +10,9 @@ const Screen404 = lazy(() =>
 );
 const SigninScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Auth/SigninScreen')
+);
+const CurrencyScreen = lazy(() =>
+  import(/* webpackPrefetch: true */ '../User/CurrencyScreen')
 );
 const DealScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../Product/DealScreen')
