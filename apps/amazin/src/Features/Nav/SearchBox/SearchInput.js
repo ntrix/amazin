@@ -11,7 +11,8 @@ export function _SearchInput({
   control: { setInput, setSuggests, submitHandler }
 }) {
   const { productList } = useSelector((state) => state.productListAll);
-  const { inputRef, setOutline, setScopeOutline, setSuggestBox } = useOutline();
+  const { inputRef, suggestBox, setOutline, setScopeOutline, setSuggestBox } =
+    useOutline();
   const { shadowOf, setShadowOf, clearShadow } = useShadow('');
 
   const SuggestBoxDropdown = () => {
@@ -48,9 +49,10 @@ export function _SearchInput({
     setInput(value);
   };
 
-  const hideOnCallback = () => () => {
+  const hideSuggestBoxOnCallback = () => {
     setOutline(false);
-    setSuggestBox(false);
+    // Wait to execute any click on Suggest Box, closes on callback
+    return suggestBox ? () => setSuggestBox(false) : null;
   };
 
   return (
@@ -74,7 +76,7 @@ export function _SearchInput({
         onChange={(e) => {
           setInput(e.target.value);
         }}
-        onBlur={hideOnCallback}
+        onBlur={hideSuggestBoxOnCallback}
       ></input>
     </div>
   );
