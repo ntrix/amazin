@@ -8,7 +8,7 @@ import store from './store';
 
 import { ShadowProvider } from './utils/useShadow';
 
-import { registerRoute } from 'workbox-routing';
+import { registerRoute, setCatchHandler } from 'workbox-routing';
 import {
   NetworkFirst,
   StaleWhileRevalidate,
@@ -22,12 +22,16 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
-import { setCatchHandler } from 'workbox-routing';
-import(/* webpackPrefetch: true */ './App');
+
+import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2');
+import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2');
+import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2');
+import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Rg.woff2');
+
 import(/* webpackPrefetch: true */ './index.css');
-import(/* webpackPrefetch: true */ 'swiper/swiper-bundle.css');
 import(/* webpackPrefetch: true */ './responsive.css');
 import(/* webpackPrefetch: true */ './Features/Nav/nav.css');
+import(/* webpackPrefetch: true */ 'swiper/swiper-bundle.css');
 
 ReactDOM.render(
   <Provider store={store}>
