@@ -14,6 +14,7 @@ import {
   StaleWhileRevalidate,
   CacheFirst
 } from 'workbox-strategies';
+import './responsive.css';
 
 // Used for filtering matches based on status code, header, or both
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
@@ -22,6 +23,11 @@ import { ExpirationPlugin } from 'workbox-expiration';
 
 import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 import { setCatchHandler } from 'workbox-routing';
+import(/* webpackPrefetch: true */ './App');
+import(/* webpackPrefetch: true */ './index.css');
+import(/* webpackPrefetch: true */ 'swiper/swiper-bundle.css');
+import(/* webpackPrefetch: true */ './responsive.css');
+import(/* webpackPrefetch: true */ './Features/Nav/nav.css');
 
 ReactDOM.render(
   <Provider store={store}>
