@@ -112,14 +112,17 @@ export default function ProfileScreen() {
                   </div>
 
                   <CustomInput
+                    wrapClass="flex-col"
                     text="Seller Name"
                     hook={[sellerName, setSellerName]}
                   />
                   <CustomInput
+                    wrapClass="flex-col"
                     text="Seller Logo"
                     hook={[sellerLogo, setSellerLogo]}
                   />
                   <CustomInput
+                    wrapClass="flex-col"
                     text="Seller Description"
                     hook={[sellerDescription, setSellerDescription]}
                   />
