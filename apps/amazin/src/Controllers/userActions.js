@@ -41,6 +41,12 @@ export const signout = () => (dispatch) => {
   document.location.href = '/signin';
 };
 
+export const publicDetailsSeller = (userId) =>
+  axiosPublic([userDetailsActions], { req: userId })(
+    'get',
+    `/api/users/${userId}`
+  );
+
 export const detailsUser = (userId) =>
   axiosPrivate([userDetailsActions], { req: userId })(
     'get',

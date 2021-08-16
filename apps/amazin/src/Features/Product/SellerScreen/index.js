@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { listProducts } from '../../../Controllers/productActions';
-import { detailsUser } from '../../../Controllers/userActions';
+import { publicDetailsSeller } from '../../../Controllers/userActions';
 import SellerCard from './SellerCard';
 
 import Pagination from '../../../components/Pagination';
@@ -32,7 +32,7 @@ export function _SellerScreen({ match }) {
     `/seller/${sellerId}/order/${order}/pageNumber/${_page}`;
 
   useEffect(() => {
-    dispatch(detailsUser(sellerId));
+    dispatch(publicDetailsSeller(sellerId));
     dispatch(listProducts({ seller: sellerId, order: pOrder, pageNumber }));
   }, [dispatch, sellerId, pOrder, pageNumber]);
 
