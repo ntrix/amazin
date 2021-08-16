@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './fonts/fonts.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
 import store from './store';
@@ -24,6 +25,12 @@ import { ExpirationPlugin } from 'workbox-expiration';
 
 import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
+import(/* webpackPrefetch: true */ './fonts/AmazonEmber_W_SBd.woff2');
+import(/* webpackPrefetch: true */ './fonts/AmazonEmber_W_Bd.woff2');
+import(/* webpackPrefetch: true */ './fonts/AmazonEmber_W_He.woff2');
+import(/* webpackPrefetch: true */ './fonts/FontAwesome.woff2');
+
+import(/* webpackPrefetch: true */ './fonts/fonts.css');
 import(/* webpackPrefetch: true */ './index.css');
 import(/* webpackPrefetch: true */ './Features/Nav/nav.css');
 import(/* webpackPrefetch: true */ 'swiper/swiper-bundle.css');
