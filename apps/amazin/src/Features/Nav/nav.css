@@ -62,7 +62,8 @@
   color: #fff;
 }
 .logo__wrapper .logo {
-  width: 3.2rem;
+  width: 32px;
+  height: 32px;
   object-fit: cover;
   margin: 0 0 -0.5rem 0;
 }

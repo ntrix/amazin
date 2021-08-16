@@ -614,7 +614,8 @@ table th {
 .home__banner.home {
   position: absolute;
   width: 100%;
-  height: max(100%, 120vh);
+  height: 100%;
+  max-height: 110vh;
   background: url('./img/banner-bestseller.jpg') center 0 no-repeat;
   z-index: -1;
 }
