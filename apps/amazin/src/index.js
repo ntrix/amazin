@@ -20,7 +20,6 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
-import './responsive.css';
 import './fonts/fonts.css';
 import './fonts/font-awesome.css';
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2');
