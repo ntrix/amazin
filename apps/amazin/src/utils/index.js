@@ -2,7 +2,7 @@ import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY } from '../constants';
 export { findSuggest } from './findSuggest';
 
 /* debounce & throttle for useShadow */
-export function debounce(func, duration) {
+export function debounce(func, duration = 500) {
   let id;
   return function (...args) {
     clearTimeout(id);
@@ -13,7 +13,7 @@ export function debounce(func, duration) {
   };
 }
 
-export function doThenDebounce(func, duration, id = null) {
+export function doThenDebounce(func, duration = 500, id = null) {
   return function (...args) {
     if (!id) {
       id = func.apply(this, args);

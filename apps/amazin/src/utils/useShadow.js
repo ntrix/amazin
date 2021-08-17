@@ -13,7 +13,7 @@ ShadowContext.displayName = 'ShadowContext';
 function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
-  const { debounce, clearBounce } = useDebounce(_setShadowOf, 500);
+  const { debounce, clearBounce } = useDebounce(_setShadowOf);
   const { current: setShadowOf } = useRef((_sh) => {
     clearBounce();
     if (_sh !== shadowOf) _setShadowOf(_sh);
