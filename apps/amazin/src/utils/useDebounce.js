@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export function useDebounce(fn, duration) {
+export function useDebounce(fn, duration = 500) {
   const id = useRef(null);
   const { current: func } = useRef(fn);
   const { current: debounce } = useRef(_debounce);

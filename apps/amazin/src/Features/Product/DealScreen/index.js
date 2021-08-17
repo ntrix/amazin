@@ -58,7 +58,7 @@ export function _DealScreen() {
     );
     preloadingCat.current = _category;
   };
-  const { debounce: debouncePreload } = useDebounce(_preload, 500);
+  const { debounce: debouncePreload } = useDebounce(_preload);
 
   const changeCategory = useCallback(
     (_cat) => {

@@ -68,7 +68,3 @@ img.active {
   width: 100%;
   box-sizing: border-box;
 }
-.img-row .img-row__input {
-  display: flex;
-  flex-direction: column-reverse;
-}

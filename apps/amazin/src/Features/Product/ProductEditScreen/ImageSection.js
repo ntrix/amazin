@@ -16,17 +16,23 @@ function ImageSection({ hook: [images, setImages] }) {
   const [imagePreview, setImagePreview] = useState('');
   const [uploadInfo, setUploadInfo] = useState('');
 
-  const asyncUpdateImgs = async (newImages, bodyFormData, updateInfo) => {
+  const asyncUpdateImgs = async (_images, bodyFormData, updateInfo, method) => {
     setUploadState({ loading: true });
     try {
-      await axiosClient.patch('/api/uploads', bodyFormData, {
-        headers: {
-          enctype: 'multipart/form-data',
-          Authorization: `Bearer ${userInfo.token}`
-        }
-      });
-      setImages(newImages);
-      setUploadInfo(updateInfo);
+      const headers = {
+        enctype: 'multipart/form-data',
+        Authorization: `Bearer ${userInfo.token}`
+      };
+      if (method === 'post') {
+        const { data } = await axiosClient.post('/api/uploads', bodyFormData, {
+          headers
+        });
+        setImages([..._images, ...data]);
+        setUploadInfo(updateInfo);
+      } else {
+        await axiosClient.patch('/api/uploads', bodyFormData, { headers });
+        setImages(_images);
+      }
       setUploadState({ loading: false });
     } catch ({ message }) {
       setUploadState({ loading: false, error: message });
@@ -37,15 +43,15 @@ function ImageSection({ hook: [images, setImages] }) {
     const bodyFormData = new FormData();
     const { files } = e.target;
     const uploadImgsCount = files.length;
-    const uploadSize = Math.min(uploadImgsCount, MAX_IMAGES - images.length);
+    const maxFiles = Math.min(uploadImgsCount, MAX_IMAGES - images.length);
 
-    const uploadImgs = Array.from(files).slice(0, uploadSize);
-    uploadImgs.forEach((img) => bodyFormData.append('images', img));
+    for (let i = 0; i < maxFiles; i++) bodyFormData.append('images', files[i]);
     bodyFormData.append('productId', product._id);
     asyncUpdateImgs(
-      [...images, ...uploadImgs],
+      images,
       bodyFormData,
-      `${uploadSize} Images successfully uploaded!`
+      `${maxFiles} Images successfully uploaded!`,
+      'post'
     );
   };
 
@@ -93,14 +99,12 @@ function ImageSection({ hook: [images, setImages] }) {
 
         {images.map((img, id) => (
           <div className="row img-row" key={id}>
-            <div className="tab__w6">
-              <img
-                alt={`Preview ${id + 1}`}
-                className="small"
-                src={getImgUrl(product._id, img)}
-                onMouseEnter={() => setImagePreview(img)}
-              />
-            </div>
+            <img
+              alt={`Preview ${id + 1}`}
+              className="small"
+              src={getImgUrl(product._id, img)}
+              onMouseEnter={() => setImagePreview(img)}
+            />
 
             <CustomInput
               text={`Image ${id + 1}. ${['COVER', '[DEAL]'][id] || ''}`}
