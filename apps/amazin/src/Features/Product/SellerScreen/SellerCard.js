@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import Rating from '../../../components/Rating';
+import { LazyImg } from '../../../utils/suspenseClient';
 
 export function _SellerCard({
   user: { /*email,*/ seller = {} },
@@ -15,14 +16,19 @@ export function _SellerCard({
       <ul>
         <li>
           <div className="row start">
-            {seller.logo ? (
-              <div className="p-1">
-                <img className={size} src={seller.logo} alt={seller.name}></img>
-              </div>
-            ) : (
-              <h4>Seller</h4>
-            )}
-
+            <Suspense fallback={<h4>Seller</h4>}>
+              {seller.logo ? (
+                <div className="p-1">
+                  <LazyImg
+                    className={size}
+                    src={seller.logo}
+                    alt={seller.name}
+                  />
+                </div>
+              ) : (
+                <h4>Seller</h4>
+              )}
+            </Suspense>
             <div className="p-1">
               <h2>
                 {linkTo ? <Link to={linkTo}>{seller.name}</Link> : seller.name}

@@ -19,7 +19,7 @@ import LoadingOrError from '../components/LoadingOrError';
 import { loadingFallback } from '../components/Fallbacks';
 
 import 'swiper/swiper-bundle.css';
-import(/* webpackPreload: true */ 'swiper/swiper-bundle.css');
+import { LazyImg } from '../utils/suspenseClient';
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ './Product/components/ProductCard')
 );
@@ -69,22 +69,23 @@ export function _HomeScreen() {
               clickable: true
             }}
           >
-            <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
-
             {(sellers || DUMMYSELLERS).map((seller, id) => (
               <SwiperSlide key={id}>
-                <Link className="seller__card" to={`/seller/${seller._id}`}>
-                  <img
-                    className="seller__img"
-                    src={seller.seller.logo}
-                    alt={seller.seller.name}
-                  />
-                  <p className="legend">{seller.seller.name}</p>
-                </Link>
-                <LoadingOrError statusOf={userTopSellersList} />
+                <Suspense fallback={<h4>Top Seller</h4>}>
+                  <Link className="seller__card" to={`/seller/${seller._id}`}>
+                    <LazyImg
+                      className="seller__img"
+                      src={seller.seller.logo}
+                      alt={seller.seller.name}
+                    />
+                    <p className="legend">{seller.seller.name}</p>
+                  </Link>
+                </Suspense>
               </SwiperSlide>
             ))}
           </Swiper>
+          <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
+          <LoadingOrError statusOf={userTopSellersList} />
         </Suspense>
       </div>
 
