@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import './fonts/fonts.css';
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
@@ -15,27 +14,26 @@ import {
   StaleWhileRevalidate,
   CacheFirst
 } from 'workbox-strategies';
-import './responsive.css';
-import './fonts/font-awesome.css';
-
 // Used for filtering matches based on status code, header, or both
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 // Used to limit entries in cache, remove entries after a certain period of time
 import { ExpirationPlugin } from 'workbox-expiration';
-
 import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
+import './responsive.css';
+import './fonts/fonts.css';
+import './fonts/font-awesome.css';
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2');
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2');
-import(/* webpackPrefetch: true */ './fonts/AmazonEmber_W_Bd.woff2');
-import(/* webpackPrefetch: true */ './fonts/FontAwesome.woff2');
+import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2');
+import(/* webpackPreload: true */ './fonts/FontAwesome.woff2');
 
-import(/* webpackPrefetch: true */ './fonts/fonts.css');
-import(/* webpackPrefetch: true */ './index.css');
-import(/* webpackPrefetch: true */ './Features/Nav/nav.css');
-import(/* webpackPrefetch: true */ 'swiper/swiper-bundle.css');
-import(/* webpackPrefetch: true */ './responsive.css');
-import(/* webpackPrefetch: true */ './fonts/font-awesome.css');
+import(/* webpackPreload: true */ './fonts/fonts.css');
+import(/* webpackPreload: true */ './index.css');
+import(/* webpackPreload: true */ './Features/Nav/nav.css');
+import(/* webpackPreload: true */ 'swiper/swiper-bundle.css');
+import(/* webpackPreload: true */ './responsive.css');
+import(/* webpackPreload: true */ './fonts/font-awesome.css');
 
 ReactDOM.render(
   <Provider store={store}>
