@@ -805,3 +805,15 @@ table th {
 .no-image {
   background: #0002 !important;
 }
+
+/* product edit screen */
+.product-edit .img-row {
+  align-items: start;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+.img-row .img-row__input {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+}
