@@ -6,8 +6,9 @@ import { deleteOrder, listOrders } from '../../Controllers/orderActions';
 
 import { CURR_FORMAT, DD_MM_YYYY } from '../../constants';
 import LoadingOrError from '../../components/LoadingOrError';
+import Button from '../../components/Button';
 
-export default function OrderListScreen({ history, match }) {
+export default function OrderListScreen({ match }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const sellerMode = match.path.indexOf('/seller') >= 0;
@@ -67,23 +68,14 @@ export default function OrderListScreen({ history, match }) {
               </td>
 
               <td>
-                <button
-                  type="button"
-                  className="small"
-                  onClick={() => {
-                    history.push(`/order/${order._id}`);
-                  }}
-                >
-                  Info
-                </button>
-
-                <button
-                  type="button"
-                  className="small danger"
+                <Button
+                  xs
+                  className="danger"
+                  label="Del."
                   onClick={() => deleteHandler(order)}
-                >
-                  Delete
-                </button>
+                />
+
+                <Button xs label="Info" to={`/order/${order._id}`} />
               </td>
             </tr>
           ))}

@@ -6,6 +6,7 @@ import { detailsUser, updateUser } from '../../Controllers/userActions';
 
 import CustomInput from '../../components/CustomInput';
 import LoadingOrError from '../../components/LoadingOrError';
+import Button from '../../components/Button';
 
 export default function UserEditScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -73,9 +74,7 @@ export default function UserEditScreen({ history, match }) {
             />
 
             <div>
-              <button type="submit" className="primary">
-                Update
-              </button>
+              <Button primary type="submit" label="Update" />
             </div>
           </>
         )}

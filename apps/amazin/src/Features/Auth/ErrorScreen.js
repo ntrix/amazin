@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Button from '../../components/Button';
 import MessageBox from '../../components/MessageBox';
 
 /* TODO send errors report to server using Websocket */
@@ -15,13 +15,9 @@ const ErrorScreen = ({ error }) => (
         <div className="divider-inner"></div>
 
         <div className="container">
-          <Link to="/customer">
-            <button className="primary mb-1">Report this Error</button>
-          </Link>
+          <Button primary to="/customer" label="Report this Error" />
 
-          <Link to="/">
-            <button className="ml-1 mb-1">Back to Homepage</button>
-          </Link>
+          <Button to="/" className="ml-1" label="Back to Homepage" />
         </div>
       </div>
       <div className="divider"></div>

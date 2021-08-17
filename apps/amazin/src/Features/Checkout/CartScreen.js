@@ -6,6 +6,7 @@ import { addToCart, removeFromCart } from '../../Controllers/cartActions';
 import { getImgUrl, pipe } from '../../utils';
 
 import MessageBox from '../../components/MessageBox';
+import Button from '../../components/Button';
 
 export default function CartScreen(props) {
   const productId = props.match.params.id;
@@ -91,12 +92,10 @@ export default function CartScreen(props) {
                   <td className="tab__w6">{pipe.showPrice(item.price)}</td>
 
                   <td className="tab__w9">
-                    <button
-                      type="button"
+                    <Button
+                      label="Delete"
                       onClick={() => removeFromCartHandler(item.product)}
-                    >
-                      Delete
-                    </button>
+                    />
                   </td>
                 </tr>
               ))}
@@ -118,16 +117,13 @@ export default function CartScreen(props) {
             </li>
 
             <li>
-              <button
-                type="button"
-                onClick={checkoutHandler}
-                className={`primary block ${
-                  cartItems.length ? '' : ' disabled'
-                }`}
+              <Button
+                primary
+                label="Proceed to Buy"
+                className={`block ${cartItems.length ? '' : 'disabled'}`}
                 disabled={cartItems.length === 0}
-              >
-                Proceed to Buy
-              </button>
+                onClick={checkoutHandler}
+              />
             </li>
           </ul>
         </div>

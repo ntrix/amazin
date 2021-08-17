@@ -2,13 +2,13 @@ import { axios } from '../../utils/axiosClient';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 import { updateUserProfile } from '../../Controllers/userActions';
 import { userUpdateProfileActions } from './UserSlice';
 
 import MessageBox from '../../components/MessageBox';
 import CustomInput from '../../components/CustomInput';
 import LoadingOrError from '../../components/LoadingOrError';
+import Button from '../../components/Button';
 
 export default function ContactScreen() {
   const dispatch = useDispatch();
@@ -101,9 +101,7 @@ export default function ContactScreen() {
 
         <MessageBox variant="success" show={message}>
           {message}
-          <Link to="/">
-            <button className="primary">Back To Home Page</button>
-          </Link>
+          <Button to="/" primary label="Back To Home Page" />
         </MessageBox>
         {!message && (
           <>
@@ -149,9 +147,7 @@ export default function ContactScreen() {
             <br />
 
             <div>
-              <button className="primary" type="submit">
-                Send Your Message
-              </button>
+              <Button primary type="submit" label="Send Your Message" />
             </div>
           </>
         )}

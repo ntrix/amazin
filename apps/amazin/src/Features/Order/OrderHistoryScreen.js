@@ -5,8 +5,9 @@ import { listOrderMine } from '../../Controllers/orderActions';
 
 import { CURR_FORMAT, DD_MM_YYYY } from '../../constants';
 import LoadingOrError from '../../components/LoadingOrError';
+import Button from '../../components/Button';
 
-export default function OrderHistoryScreen(props) {
+export default function OrderHistoryScreen() {
   const dispatch = useDispatch();
   const orderMineList = useSelector((state) => state.orderMineList);
 
@@ -49,15 +50,7 @@ export default function OrderHistoryScreen(props) {
               </td>
 
               <td>
-                <button
-                  type="button"
-                  className="small"
-                  onClick={() => {
-                    props.history.push(`/order/${order._id}`);
-                  }}
-                >
-                  Details
-                </button>
+                <Button xs label="Info" to={`/order/${order._id}`} />
               </td>
             </tr>
           ))}
