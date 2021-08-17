@@ -11,7 +11,7 @@ export function _SearchCatScope({ activeCat }) {
 
   const onClickOrFocus = () => {
     setOutline(false);
-    setScopeOutline(1 - scopeOutline);
+    setScopeOutline(scopeOutline ? 1 - scopeOutline : -1);
     setSuggestBox(false);
     setShadowOf(SHADOW.SCOPE);
   };
@@ -24,7 +24,7 @@ export function _SearchCatScope({ activeCat }) {
         aria-label="category search scope"
         onClick={onClickOrFocus}
         onFocus={onClickOrFocus}
-        onBlur={() => setScopeOutline(1 - scopeOutline)}
+        onBlur={() => () => setScopeOutline(1 - scopeOutline)}
       >
         <div className="cat-scope--facade">
           <span>{getCatLabel(activeCat)}</span>

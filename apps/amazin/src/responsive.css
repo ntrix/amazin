@@ -63,6 +63,10 @@
     font-size: 12px;
     line-height: 1.2;
   }
+  .search__suggest {
+    width: 40vw;
+    left: unset;
+  }
 }
 /* >= cell-phone lanscape*/
 @media (max-width: 567px) {
@@ -86,6 +90,11 @@
   }
   .cat-scope span {
     max-width: 25px;
+  }
+  .search__suggest {
+    position: fixed;
+    width: 82vw;
+    left: 0;
   }
 }
 /* Mobile-xs portrait*/

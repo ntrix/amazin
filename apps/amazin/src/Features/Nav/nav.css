@@ -123,6 +123,7 @@
 }
 .search-box__cat-scope {
   display: flex;
+  user-select: none;
 }
 .search-box__cat-scope:focus {
   border: none;
@@ -173,8 +174,8 @@
   line-height: 33px;
   margin-right: 21px;
   margin-left: 5px;
-  min-width: 19px;
-  max-width: 200px;
+  min-width: 28px;
+  width: min(200px, 100%);
 }
 .cat-scope i {
   position: absolute;
@@ -319,6 +320,7 @@
 .dropdown {
   position: relative;
   cursor: pointer;
+  user-select: none;
 }
 .dropdown .fa-caret-down {
   float: right;

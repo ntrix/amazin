@@ -43,45 +43,47 @@ export function _HomeScreen() {
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
 
       <div>
-        <Swiper
-          spaceBetween={20}
-          navigation
-          effect="coverflow"
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView="auto"
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: true
-          }}
-          loop={true}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: false
-          }}
-          pagination={{
-            clickable: true
-          }}
-        >
-          <LoadingOrError statusOf={userTopSellersList} />
-          <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
+        <Suspense fallback={<div className="swiper-container" />}>
+          <Swiper
+            spaceBetween={20}
+            navigation
+            effect="coverflow"
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView="auto"
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: true
+            }}
+            loop={true}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: false
+            }}
+            pagination={{
+              clickable: true
+            }}
+          >
+            <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
 
-          {(sellers || DUMMYSELLERS).map((seller, id) => (
-            <SwiperSlide key={id}>
-              <Link className="seller__card" to={`/seller/${seller._id}`}>
-                <img
-                  className="seller__img"
-                  src={seller.seller.logo}
-                  alt={seller.seller.name}
-                />
-                <p className="legend">{seller.seller.name}</p>
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            {(sellers || DUMMYSELLERS).map((seller, id) => (
+              <SwiperSlide key={id}>
+                <Link className="seller__card" to={`/seller/${seller._id}`}>
+                  <img
+                    className="seller__img"
+                    src={seller.seller.logo}
+                    alt={seller.seller.name}
+                  />
+                  <p className="legend">{seller.seller.name}</p>
+                </Link>
+                <LoadingOrError statusOf={userTopSellersList} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Suspense>
       </div>
 
       <h2 className="screen__title">Featured Products</h2>
@@ -90,11 +92,13 @@ export function _HomeScreen() {
       <MessageBox hide={products?.length < 1}>No Product Found</MessageBox>
 
       <div className="screen__featured">
-        {products?.map((product) => (
-          <Suspense fallback={loadingFallback} key={product._id}>
-            <ProductCard product={product} />
-          </Suspense>
-        ))}
+        <Suspense fallback={loadingFallback}>
+          {products?.map((product) => (
+            <Suspense fallback={loadingFallback} key={product._id}>
+              <ProductCard product={product} />
+            </Suspense>
+          ))}
+        </Suspense>
       </div>
     </div>
   );

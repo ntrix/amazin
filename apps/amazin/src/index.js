@@ -56,12 +56,12 @@ setCatchHandler(async ({ event }) => {
 
 // Ensure your build step is configured to include /offline.html as part of your precache manifest.
 precacheAndRoute([
-  '/',
-  '/deal',
-  '/search/category/All/order/newest',
-  'banner/bestseller',
-  'video',
-  'customer'
+  { url: '/', revision: null },
+  { url: '/deal', revision: null },
+  { url: '/search/category/All/order/newest', revision: null },
+  { url: 'banner/bestseller', revision: null },
+  { url: 'video', revision: null },
+  { url: 'customer', revision: null }
 ]);
 
 // Cache CSS, JS, and Web Worker requests with a Stale While Revalidate strategy
