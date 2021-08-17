@@ -36,20 +36,20 @@ import(/* webpackPreload: true */ './responsive.css');
 import(/* webpackPreload: true */ './fonts/font-awesome.css');
 
 import(
-  /* webpackPrefetch: true */ './Features/Product/VideoScreen/videoScreen.css'
+  /* webpackPreload: true */ './Features/Product/VideoScreen/videoScreen.css'
 );
-import(/* webpackPrefetch: true */ 'react-multi-carousel/lib/styles.css');
+import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css');
 import(
-  /* webpackPrefetch: true */ './Features/Product/DealScreen/dealScreen.css'
-);
-import(
-  /* webpackPrefetch: true */ './Features/Product/ProductScreen/productScreen.css'
+  /* webpackPreload: true */ './Features/Product/DealScreen/dealScreen.css'
 );
 import(
-  /* webpackPrefetch: true */ './Features/User/CurrencyScreen/currencyScreen.css'
+  /* webpackPreload: true */ './Features/Product/ProductScreen/productScreen.css'
 );
 import(
-  /* webpackPrefetch: true */ './Features/User/CustomerScreen/customerScreen.css'
+  /* webpackPreload: true */ './Features/User/CurrencyScreen/currencyScreen.css'
+);
+import(
+  /* webpackPreload: true */ './Features/User/CustomerScreen/customerScreen.css'
 );
 
 ReactDOM.render(
