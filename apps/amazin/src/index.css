@@ -1,31 +1,3 @@
-@font-face {
-  font-family: 'Amazon Ember';
-  font-weight: 400;
-  src: url('./fonts/AmazonEmber_W_Rg.eot');
-  src: url('./fonts/AmazonEmber_W_Rg.woff2') format('woff2'),
-    url('./fonts/AmazonEmber_W_Rg.woff') format('woff');
-}
-@font-face {
-  font-family: 'Amazon Ember';
-  font-weight: 500;
-  src: url('./fonts/AmazonEmber_W_SBd.eot');
-  src: url('./fonts/AmazonEmber_W_SBd.woff2') format('woff2'),
-    url('./fonts/AmazonEmber_W_SBd.woff') format('woff');
-}
-@font-face {
-  font-family: 'Amazon Ember';
-  font-weight: 600;
-  src: url('./fonts/AmazonEmber_W_Bd.eot');
-  src: url('./fonts/AmazonEmber_W_Bd.woff2') format('woff2'),
-    url('./fonts/AmazonEmber_W_Bd.woff') format('woff');
-}
-@font-face {
-  font-family: 'Amazon Ember';
-  font-weight: 700;
-  src: url('./fonts/AmazonEmber_W_He.eot');
-  src: url('./fonts/AmazonEmber_W_He.woff2') format('woff2'),
-    url('./fonts/AmazonEmber_W_He.woff') format('woff');
-}
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
