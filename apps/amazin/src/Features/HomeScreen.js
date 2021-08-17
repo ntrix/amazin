@@ -54,7 +54,7 @@ export function _HomeScreen() {
             centeredSlides={true}
             slidesPerView="auto"
             autoplay={{
-              delay: 2500,
+              delay: 5000,
               disableOnInteraction: true
             }}
             loop={true}
