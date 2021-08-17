@@ -19,7 +19,6 @@ import LoadingOrError from '../components/LoadingOrError';
 import { loadingFallback } from '../components/Fallbacks';
 
 import 'swiper/swiper-bundle.css';
-import(/* webpackPreload: true */ 'swiper/swiper-bundle.css');
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ './Product/components/ProductCard')
 );
