@@ -54,9 +54,7 @@ export default function App() {
               <HeaderNavBelt currency={currency} />
             </Suspense>
 
-            <Suspense fallback={null}>
-              <HeaderNavMain />
-            </Suspense>
+            <HeaderNavMain />
           </header>
 
           <Suspense fallback={null}>
@@ -69,12 +67,10 @@ export default function App() {
             <MainRoute />
           </Suspense>
 
-          <Suspense fallback={null}>
-            <div
-              className={`shadow-of__${shadowOf}`}
-              onClick={() => setShadowOf('')}
-            />
-          </Suspense>
+          <div
+            className={`shadow-of__${shadowOf}`}
+            onClick={() => setShadowOf('')}
+          />
         </main>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
