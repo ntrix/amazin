@@ -50,9 +50,13 @@ export default function App() {
       >
         <ErrorBoundary FallbackComponent={ErrorScreen}>
           <header id="nav-bar">
-            <HeaderNavBelt currency={currency} />
+            <Suspense fallback={<h3>Amazin' Amazim Store</h3>}>
+              <HeaderNavBelt currency={currency} />
+            </Suspense>
 
-            <HeaderNavMain />
+            <Suspense fallback={null}>
+              <HeaderNavMain />
+            </Suspense>
           </header>
 
           <Suspense fallback={null}>
@@ -61,12 +65,16 @@ export default function App() {
         </ErrorBoundary>
 
         <main className="container">
-          <MainRoute />
+          <Suspense fallback={<h3>Loading...</h3>}>
+            <MainRoute />
+          </Suspense>
 
-          <div
-            className={`shadow-of__${shadowOf}`}
-            onClick={() => setShadowOf('')}
-          />
+          <Suspense fallback={null}>
+            <div
+              className={`shadow-of__${shadowOf}`}
+              onClick={() => setShadowOf('')}
+            />
+          </Suspense>
         </main>
         <footer className="row center">
           Amazin' eCommerce platform, all right reserved
