@@ -20,7 +20,7 @@ export default function ProductListScreen(props) {
 
   const { userInfo } = useSelector((state) => state.userSignin);
   const productList = useSelector((state) => state.productList);
-  const { products } = productList;
+  const { products, page, pages } = productList;
   const productCreate = useSelector((state) => state.productCreate);
   const productDelete = useSelector((state) => state.productDelete);
 
@@ -120,6 +120,8 @@ export default function ProductListScreen(props) {
                 userInfo.isAdmin ? '' : '/seller'
               }/pageNumber/${_page}`
             }
+            page={page}
+            pages={pages}
             help
           />
         </>
