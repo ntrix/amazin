@@ -6,13 +6,16 @@ import {
   listProductCategories,
   updateCurrencyRates
 } from './Controllers/productActions';
+import './index.css';
+import { ShadowProvider, useShadow } from './utils/useShadow';
 import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import MainRoute from './Features/Route/MainRoute';
-import { useShadow } from './utils/useShadow';
 import { Storage, pipe } from './utils';
 import { SHADOW, KEY } from './constants';
 import './responsive.css';
+import './fonts/fonts.css';
+import './fonts/font-awesome.css';
 
 const ErrorScreen = React.lazy(() =>
   import(/* webpackPrefetch: true */ './Features/Auth/ErrorScreen')
@@ -21,7 +24,7 @@ const SidebarMenu = React.lazy(() =>
   import(/* webpackPrefetch: true */ './Features/Nav/SidebarMenu')
 );
 
-export default function App() {
+function InnerApp() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const { sessionCurrency } = useSelector((state) => state.currencyType);
@@ -77,5 +80,13 @@ export default function App() {
         </footer>
       </div>
     </BrowserRouter>
+  );
+}
+
+export default function App() {
+  return (
+    <ShadowProvider>
+      <InnerApp />
+    </ShadowProvider>
   );
 }

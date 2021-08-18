@@ -1,12 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
 import store from './store';
-
-import { ShadowProvider } from './utils/useShadow';
 
 // import { registerRoute, setCatchHandler } from 'workbox-routing';
 // import {
@@ -20,8 +17,6 @@ import { ShadowProvider } from './utils/useShadow';
 // import { ExpirationPlugin } from 'workbox-expiration';
 // import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
-import './fonts/fonts.css';
-import './fonts/font-awesome.css';
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2');
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2');
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2');
@@ -53,11 +48,9 @@ import(
 
 ReactDOM.render(
   <Provider store={store}>
-    <ShadowProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </ShadowProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );
