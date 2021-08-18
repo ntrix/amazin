@@ -1,18 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export function _Pagination({ getUrl, page, pages, help = false }) {
+export function _Pagination({
+  getUrl,
+  page,
+  pages,
+  className = '',
+  help = false,
+  LinkTo = (props) => <Link {...props} />
+}) {
   return (
     <>
       <div className="row center pagination">
         {[...Array(pages || 0).keys()].map((x) => (
-          <Link
+          <LinkTo
             key={x}
-            className={x + 1 === page ? 'active' : ''}
+            className={`${x + 1 === page ? 'active' : ''} ${className}`}
             to={getUrl({ page: x + 1 })}
           >
             {x + 1}
-          </Link>
+          </LinkTo>
         ))}
       </div>
 
@@ -22,13 +29,13 @@ export function _Pagination({ getUrl, page, pages, help = false }) {
 
           <p>
             Visit the{' '}
-            <Link to="/customer">
+            <LinkTo to="/customer">
               <b>help section</b>
-            </Link>
+            </LinkTo>
             {' or '}
-            <Link to="/contact/subject/Help">
+            <LinkTo to="/contact/subject/Help">
               <b>contact us</b>
-            </Link>
+            </LinkTo>
             <br />
             <br />
           </p>

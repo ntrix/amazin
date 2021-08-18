@@ -1,4 +1,4 @@
-import Button from '.';
+import Button from '../Button';
 
 export default {
   component: Button,
@@ -16,7 +16,7 @@ const Args = {
   className: '',
   onFocus: fn,
   onClick: fn,
-  to: ''
+  to: undefined
 };
 const PrimaryArgs = { ...Args, primary: true, label: 'Primary' };
 
