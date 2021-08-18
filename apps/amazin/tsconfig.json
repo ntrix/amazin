@@ -14,7 +14,16 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
   "exclude": [
     "node_modules",
@@ -28,5 +37,6 @@
     {
       "path": "./.storybook/tsconfig.json"
     }
-  ]
+  ],
+  "include": ["../src"]
 }
