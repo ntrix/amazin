@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 import { updateCurrencyRates } from '../../../Controllers/productActions';
 import { updateUserProfile } from '../../../Controllers/userActions';
 import { currencyTypeActions } from '../../Product/ProductSlice';
@@ -11,6 +10,7 @@ import './currencyScreen.css';
 import MessageBox from '../../../components/MessageBox';
 import { Storage, pipe } from '../../../utils';
 import { KEY } from '../../../constants';
+import Button from '../../../components/Button';
 
 export default function CurrencyScreen() {
   const dispatch = useDispatch();
@@ -113,9 +113,7 @@ export default function CurrencyScreen() {
               </MessageBox>
 
               <br />
-              <Link to={back}>
-                <button className="primary">Back To Your Last Session</button>
-              </Link>
+              <Button to={back} primary label="Back To Your Last Session" />
               <div className="separator divider-inner"></div>
             </>
           )}
@@ -162,13 +160,9 @@ export default function CurrencyScreen() {
       <div className="divider-inner"></div>
       <div className="container">
         <div className="col-50p p-1">
-          <Link to={back}>
-            <button className="btn--xs">Cancel</button>
-          </Link>
+          <Button to={back} xs label="Cancel" />
 
-          <button className="btn primary btn--xs" onClick={submitHandler}>
-            Save Changes
-          </button>
+          <Button primary xs label="Save Changes" onClick={submitHandler} />
         </div>
       </div>
     </div>

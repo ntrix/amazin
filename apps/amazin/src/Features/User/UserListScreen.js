@@ -6,6 +6,7 @@ import { deleteUser, listUsers } from '../../Controllers/userActions';
 
 import MessageBox from '../../components/MessageBox';
 import LoadingOrError from '../../components/LoadingOrError';
+import Button from '../../components/Button';
 
 export default function UserListScreen({ history }) {
   const dispatch = useDispatch();
@@ -67,21 +68,14 @@ export default function UserListScreen({ history }) {
                 </td>
 
                 <td>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => history.push(`/user/${user._id}/edit`)}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    type="button"
-                    className="small danger"
+                  <Button
+                    xs
+                    className="danger"
+                    label="Del."
                     onClick={() => deleteHandler(user)}
-                  >
-                    Delete
-                  </button>
+                  />
+
+                  <Button xs label="Edit" to={`/user/${user._id}/edit`} />
                 </td>
               </tr>
             ))}

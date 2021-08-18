@@ -11,6 +11,7 @@ import {
 import { productCreateActions, productDeleteActions } from './ProductSlice';
 
 import LoadingOrError from '../../components/LoadingOrError';
+import Button from '../../components/Button';
 
 export default function ProductListScreen(props) {
   const dispatch = useDispatch();
@@ -64,9 +65,7 @@ export default function ProductListScreen(props) {
     <div>
       <div className="row p-1">
         <h1>Products</h1>
-        <button className="primary" onClick={createHandler}>
-          Create Product
-        </button>
+        <Button primary label="Create Product" onClick={createHandler} />
       </div>
 
       <LoadingOrError xl statusOf={productDelete} />
@@ -97,21 +96,18 @@ export default function ProductListScreen(props) {
                   <td>{product.brand}</td>
 
                   <td>
-                    <button
-                      className="small"
-                      onClick={() =>
-                        props.history.push(`/product/${product._id}/edit`)
-                      }
-                    >
-                      Edit
-                    </button>
-
-                    <button
-                      className="small danger"
+                    <Button
+                      xs
+                      className="danger"
+                      label="Del."
                       onClick={() => deleteHandler(product)}
-                    >
-                      Delete
-                    </button>
+                    />
+
+                    <Button
+                      xs
+                      label="Edit"
+                      to={`/product/${product._id}/edit`}
+                    />
                   </td>
                 </tr>
               ))}
