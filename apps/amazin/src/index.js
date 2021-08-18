@@ -1,9 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import App from './App';
-// import * as serviceWorker from './serviceWorker';
 import store from './store';
+// import * as serviceWorker from './serviceWorker';
 
 // import { registerRoute, setCatchHandler } from 'workbox-routing';
 // import {
@@ -17,6 +16,7 @@ import store from './store';
 // import { ExpirationPlugin } from 'workbox-expiration';
 // import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
+import App from './App';
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2');
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2');
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2');
