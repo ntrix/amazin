@@ -1,8 +1,8 @@
 import Pagination from '../Pagination';
 
 export default {
-  component: Pagination,
-  title: 'Pagination'
+  title: 'Components/Global/Pagination',
+  component: Pagination
 };
 
 const Template = (args) => <Pagination {...args} />;
