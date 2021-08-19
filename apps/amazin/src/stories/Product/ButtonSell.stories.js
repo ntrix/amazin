@@ -1,7 +1,7 @@
 import { SellerButton } from '../../Features/Product/VideoScreen/components/ButtonSell';
 
 export default {
-  title: 'Components/Module/Product/Video Screen/Button Sell',
+  title: 'Components/Features/Product/Video Screen/Button Sell',
   component: SellerButton
 };
 

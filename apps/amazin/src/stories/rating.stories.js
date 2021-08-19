@@ -1,7 +1,7 @@
 import Rating from '../components/Rating';
 
 export default {
-  title: 'Components/Global/Rating',
+  title: 'Components/Rating',
   component: Rating
 };
 

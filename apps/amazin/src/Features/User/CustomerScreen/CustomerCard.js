@@ -1,6 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-export const _CustomerCard = ({ img, label, line1, line2, to, className }) => {
+export const _CustomerCard = ({
+  img,
+  label,
+  line1,
+  line2,
+  to,
+  className,
+  baseUrl = ''
+}) => {
   const history = useHistory();
   return (
     <div className={`c-box ${className}`} onClick={() => history.push(to)}>
@@ -8,7 +16,7 @@ export const _CustomerCard = ({ img, label, line1, line2, to, className }) => {
         <div className="c-box__icon-wrapper">
           <img
             className="c-box__icon"
-            src={`/images/icon-${img}.png`}
+            src={`${baseUrl}/images/icon-${img}.png`}
             alt={'icon ' + img}
           ></img>
         </div>
@@ -30,6 +38,6 @@ const CustomerCard = React.memo(_CustomerCard);
 export default CustomerCard;
 
 export const mapCustomerCardProp = (
-  [img, label, line1, line2, to, className],
+  [img, label, line1, line2, to, className = ''],
   key
 ) => ({ img, label, line1, line2, to, className, key });

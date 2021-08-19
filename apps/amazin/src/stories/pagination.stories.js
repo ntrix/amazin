@@ -1,7 +1,7 @@
 import Pagination from '../components/Pagination';
 
 export default {
-  title: 'Components/Global/Pagination',
+  title: 'Components/Pagination',
   component: Pagination
 };
 
