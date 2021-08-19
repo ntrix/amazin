@@ -1,4 +1,4 @@
-import CustomInput from '../CustomInput';
+import CustomInput from '../components/CustomInput';
 
 export default {
   title: 'Components/Global/CustomInput',

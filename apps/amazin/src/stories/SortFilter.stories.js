@@ -1,5 +1,5 @@
-import SortFilter from '../SortFilter';
-import { SORT } from '../../constants';
+import SortFilter from '../components/SortFilter';
+import { SORT } from '../constants';
 
 export default {
   title: 'Components/Global/SortFilter',

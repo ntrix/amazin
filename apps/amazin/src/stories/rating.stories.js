@@ -1,4 +1,4 @@
-import Rating from '../Rating';
+import Rating from '../components/Rating';
 
 export default {
   title: 'Components/Global/Rating',

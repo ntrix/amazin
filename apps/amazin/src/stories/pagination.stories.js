@@ -1,4 +1,4 @@
-import Pagination from '../Pagination';
+import Pagination from '../components/Pagination';
 
 export default {
   title: 'Components/Global/Pagination',
