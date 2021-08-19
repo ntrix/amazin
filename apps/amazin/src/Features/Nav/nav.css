@@ -885,6 +885,7 @@ button.open-sidebar:hover {
 }
 .sort__filter {
   position: relative;
+  width: 18rem;
   margin-right: 2rem;
   border: thin solid #d5d9d9;
   outline: 0;
@@ -903,7 +904,6 @@ button.open-sidebar:hover {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 18rem;
   padding: 0px 2rem 2px 5rem;
   font-size: 11.5px;
   outline: none;
