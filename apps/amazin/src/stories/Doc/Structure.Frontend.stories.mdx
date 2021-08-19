@@ -1,0 +1,230 @@
+<Meta title="Structure/Frontend" />
+
+## Frontend
+
+```
+src
+├── App.js
+├── Controllers
+│   ├── cartActions.js
+│   ├── orderActions.js
+│   ├── productActions.js
+│   └── userActions.js
+├── Features
+│   ├── Auth
+│   │   ├── ErrorScreen.js
+│   │   ├── RegisterScreen.js
+│   │   ├── Screen404.js
+│   │   └── SigninScreen.js
+│   ├── Checkout
+│   │   ├── CartScreen.js
+│   │   ├── CartSlice.js
+│   │   ├── CheckoutSteps.js
+│   │   ├── PaymentMethodScreen.js
+│   │   └── ShippingAddressScreen.js
+│   ├── HomeScreen.js
+│   ├── Nav
+│   │   ├── HeaderNavBelt
+│   │   │   ├── CartLinkBtn.js
+│   │   │   ├── DropdownMenu.js
+│   │   │   ├── DropdownMenuCurrency.js
+│   │   │   ├── LocatorLinkBtn.js
+│   │   │   ├── LogoLinkBtn.js
+│   │   │   ├── NavBtnControl.js
+│   │   │   ├── NavDropdownBtn.js
+│   │   │   ├── index.js
+│   │   │   └── navBeltTemplate.js
+│   │   ├── HeaderNavMain
+│   │   │   ├── NavMainItem.js
+│   │   │   ├── OpenSidebarBtn.js
+│   │   │   ├── index.js
+│   │   │   └── navMainTemplate.js
+│   │   ├── SearchBanner.js
+│   │   ├── SearchBox
+│   │   │   ├── SearchBtn.js
+│   │   │   ├── SearchCatDropdown.js
+│   │   │   ├── SearchCatScope.js
+│   │   │   ├── SearchInput.js
+│   │   │   ├── SearchSuggest.js
+│   │   │   ├── index.js
+│   │   │   └── useOutline.js
+│   │   ├── SidebarMenu
+│   │   │   ├── index.js
+│   │   │   └── sidebarTemplate.js
+│   │   ├── SubNavCategories.js
+│   │   ├── components
+│   │   │   └── MenuItem.js
+│   │   └── nav.css
+│   ├── Order
+│   │   ├── OrderHistoryScreen.js
+│   │   ├── OrderListScreen.js
+│   │   ├── OrderSlice.js
+│   │   ├── OrderSumScreen
+│   │   │   ├── AdminDeliveryCard.js
+│   │   │   ├── OrderSumCard.js
+│   │   │   ├── PaypalCard.js
+│   │   │   ├── StatusBox.js
+│   │   │   └── index.js
+│   │   ├── PlaceOrderScreen.js
+│   │   └── components
+│   │       ├── ListRow.js
+│   │       ├── OrderItemsCard.js
+│   │       ├── PaymentMethodCard.js
+│   │       └── ShippingAddressCard.js
+│   ├── Product
+│   │   ├── DealScreen
+│   │   │   ├── dealScreen.css
+│   │   │   └── index.js
+│   │   ├── ProductEditScreen
+│   │   │   ├── ImageSection.js
+│   │   │   └── index.js
+│   │   ├── ProductListScreen.js
+│   │   ├── ProductScreen
+│   │   │   ├── ProductDescription.js
+│   │   │   ├── ProductImages.js
+│   │   │   ├── ProductInStock.js
+│   │   │   ├── ProductReview.js
+│   │   │   ├── index.js
+│   │   │   └── productScreen.css
+│   │   ├── ProductSlice.js
+│   │   ├── SearchScreen
+│   │   │   ├── SearchFilterColumn
+│   │   │   │   ├── FilterListItem.js
+│   │   │   │   └── index.js
+│   │   │   ├── SearchResultColumn.js
+│   │   │   └── index.js
+│   │   ├── SellerScreen
+│   │   │   ├── SellerCard.js
+│   │   │   └── index.js
+│   │   ├── VideoScreen
+│   │   │   ├── VideoNavHeader.js
+│   │   │   ├── VideoRow.js
+│   │   │   ├── components
+│   │   │   │   ├── ButtonBuy.js
+│   │   │   │   ├── ButtonSell.js
+│   │   │   │   ├── ButtonTrailer.js
+│   │   │   │   ├── UTube.js
+│   │   │   │   ├── VideoBanner.js
+│   │   │   │   └── VideoCard.js
+│   │   │   ├── index.js
+│   │   │   └── videoScreen.css
+│   │   └── components
+│   │       └── ProductCard.js
+│   ├── Route
+│   │   ├── AdminRoute.js
+│   │   ├── MainRoute.js
+│   │   ├── PrivateRoute.js
+│   │   ├── RouteBoundary.js
+│   │   └── SellerRoute.js
+│   └── User
+│       ├── ContactScreen.js
+│       ├── CurrencyScreen
+│       │   ├── currencyScreen.css
+│       │   └── index.js
+│       ├── CustomerScreen
+│       │   ├── CustomerCard.js
+│       │   ├── customerMenuTemplate.js
+│       │   ├── customerScreen.css
+│       │   └── index.js
+│       ├── MapScreen.js
+│       ├── ProfileScreen.js
+│       ├── UserEditScreen.js
+│       ├── UserListScreen.js
+│       └── UserSlice.js
+├── __tests__
+│   ├── App.js
+│   └── components
+│       └── Button.js
+├── components
+│   ├── Button
+│   ├── Button.js
+│   ├── CustomInput.js
+│   ├── Fallbacks.js
+│   ├── LoadingBox.js
+│   ├── LoadingOrError.js
+│   ├── MessageBox.js
+│   ├── Pagination.js
+│   ├── Rating.js
+│   └── SortFilter.js
+├── constants.js
+├── context
+├── data.js
+├── fonts
+│   ├── AmazonEmber_W_Bd.eot
+│   ├── AmazonEmber_W_Bd.woff
+│   ├── AmazonEmber_W_Bd.woff2
+│   ├── AmazonEmber_W_He.eot
+│   ├── AmazonEmber_W_He.woff
+│   ├── AmazonEmber_W_He.woff2
+│   ├── AmazonEmber_W_Rg.eot
+│   ├── AmazonEmber_W_Rg.woff
+│   ├── AmazonEmber_W_Rg.woff2
+│   ├── AmazonEmber_W_SBd.eot
+│   ├── AmazonEmber_W_SBd.woff
+│   ├── AmazonEmber_W_SBd.woff2
+│   ├── FontAwesome.eot
+│   ├── FontAwesome.svg
+│   ├── FontAwesome.ttf
+│   ├── FontAwesome.woff
+│   ├── FontAwesome.woff2
+│   ├── font-awesome.css
+│   └── fonts.css
+├── img
+│   ├── a.svg
+│   ├── banner-Save.jpg
+│   ├── banner-Save1.jpg
+│   ├── banner-alarm.jpg
+│   ├── banner-bestseller.jpg
+│   ├── banner-camera.jpg
+│   ├── banner-fs-lila.jpg
+│   ├── banner-fs.jpg
+│   ├── banner-giftbox.jpg
+│   ├── banner-ship.jpg
+│   ├── banner-shipping.jpg
+│   ├── flags-globe.png
+│   ├── flags.png
+│   ├── load-xs.gif
+│   ├── load.gif
+│   └── nav-sprite.png
+├── index.css
+├── index.js
+├── mock
+│   ├── index.js
+│   └── store.js
+├── react-app-env.d.ts
+├── responsive.css
+├── serviceWorker.js
+├── store.js
+├── stories
+│   ├── CustomInput.stories.js
+│   ├── Intro
+│   │   └── Intro.stories.mdx
+│   ├── LoadingBox.stories.js
+│   ├── MessageBox.stories.js
+│   ├── Nav
+│   │   └── CartLinkBtn.stories.js
+│   ├── Product
+│   │   ├── ButtonBuy.stories.js
+│   │   ├── ButtonSell.stories.js
+│   │   ├── Video
+│   │   └── VideoCard.stories.js
+│   ├── SortFilter.stories.js
+│   ├── User
+│   │   └── CustomerCard.stories.js
+│   ├── button.stories.js
+│   ├── img
+│   │   ├── nx-logo.png
+│   │   └── nx-react-cy.jpeg
+│   ├── pagination.stories.js
+│   └── rating.stories.js
+└── utils
+    ├── ReduxToolKitClient.js
+    ├── axiosClient.js
+    ├── findSuggest.js
+    ├── index.js
+    ├── suspenseClient.js
+    ├── useDebounce.js
+    └── useShadow.js
+
+43 directories, 178 files
+```
