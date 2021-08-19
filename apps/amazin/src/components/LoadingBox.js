@@ -7,12 +7,12 @@ export function _LoadingBox({ hide = false, xl = false, wrapClass = '' }) {
     <div className="loading">
       {xl ? (
         <>
-          <b>Loading..</b>
+          <b>Loading ..</b>
           <div className="sprite__loading--xl"></div>
         </>
       ) : (
         <>
-          Loading..
+          Loading ..
           <div className="sprite__loading"></div>
         </>
       )}
