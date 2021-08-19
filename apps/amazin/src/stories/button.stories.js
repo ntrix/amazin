@@ -1,11 +1,9 @@
-import Button from '../Button';
+import Button from '../components/Button';
 
 export default {
-  component: Button,
-  title: 'Button'
+  title: 'Components/Global/Button',
+  component: Button
 };
-
-function fn() {}
 
 const Args = {
   label: 'Secondary',
@@ -14,8 +12,8 @@ const Args = {
   primary: false,
   xs: false,
   className: '',
-  onFocus: fn,
-  onClick: fn,
+  onFocus: () => {},
+  onClick: () => {},
   to: undefined
 };
 const PrimaryArgs = { ...Args, primary: true, label: 'Primary' };

@@ -19,7 +19,7 @@ export function _CustomInput({
 
   return (
     <div className={wrapClass}>
-      {label !== 'none' && <label htmlFor={props.id}>{label}</label>}
+      {label !== 'none' && <label htmlFor={props.id}>{label + ' '}</label>}
       {textarea ? (
         <textarea {...props} />
       ) : (

@@ -1,8 +1,8 @@
-import Rating from '../Rating';
+import Rating from '../components/Rating';
 
 export default {
-  component: Rating,
-  title: 'Rating'
+  title: 'Components/Global/Rating',
+  component: Rating
 };
 
 const Template = (args) => <Rating {...args} />;
