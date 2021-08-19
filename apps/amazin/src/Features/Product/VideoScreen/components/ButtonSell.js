@@ -4,6 +4,12 @@ import { useHistory } from 'react-router-dom';
 import { productCreateActions } from '../../ProductSlice';
 import { createProduct } from '../../../../Controllers/productActions';
 
+export const SellerButton = (props) => (
+  <button className="banner__button mh-2" {...props}>
+    Sell This Movie
+  </button>
+);
+
 export function _ButtonSell() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,13 +29,10 @@ export function _ButtonSell() {
   };
 
   return (
-    <button
-      className="banner__button mh-2"
+    <SellerButton
       disabled={!userInfo?.isSeller}
       onClick={createSellingProduct}
-    >
-      Sell This Movie
-    </button>
+    />
   );
 }
 

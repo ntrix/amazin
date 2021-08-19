@@ -16,3 +16,7 @@ SortFirstOption.args = { ...Args };
 const LastArgs = { ...Args, order: SortOpt[SortOpt.length - 1].OPT };
 export const SortLastOption = Template.bind(LastArgs);
 SortLastOption.args = { ...LastArgs };
+
+const AllArgs = { ...Args, order: { options: SortOpt.map((a) => a.OPT) } };
+export const SortAllOption = Template.bind(AllArgs);
+SortAllOption.args = { ...AllArgs };

@@ -141,6 +141,7 @@
   height: 180px;
   width: 320px;
   border-radius: 6px;
+  color: #fff;
   border: 2px solid #44a9e200;
   transition: border 0.01s linear, transform 0.2s ease-in;
   overflow: hidden;
