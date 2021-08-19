@@ -26,7 +26,7 @@ export function _SellerScreen({ match }) {
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
   const productList = useSelector((state) => state.productList);
-  const { products } = productList;
+  const { products, page, pages } = productList;
 
   const getUrl = ({ order = pOrder, page: _page = pageNumber }) =>
     `/seller/${sellerId}/order/${order}/pageNumber/${_page}`;
@@ -54,7 +54,7 @@ export function _SellerScreen({ match }) {
       <div className="col-3 mt-1 p-1">
         <LoadingOrError xl statusOf={productList} />
 
-        <Pagination getUrl={getUrl} />
+        <Pagination getUrl={getUrl} page={page} pages={pages} />
 
         <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
 
@@ -66,7 +66,7 @@ export function _SellerScreen({ match }) {
           ))}
         </div>
 
-        <Pagination getUrl={getUrl} help />
+        <Pagination getUrl={getUrl} page={page} pages={pages} help />
       </div>
     </div>
   );
