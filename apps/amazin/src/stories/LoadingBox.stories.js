@@ -1,7 +1,7 @@
 import LoadingBox from '../components/LoadingBox';
 
 export default {
-  title: 'Components/Global/LoadingBox',
+  title: 'Components/Loading Box',
   component: LoadingBox
 };
 

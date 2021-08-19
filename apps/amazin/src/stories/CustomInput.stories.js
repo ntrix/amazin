@@ -1,7 +1,7 @@
 import CustomInput from '../components/CustomInput';
 
 export default {
-  title: 'Components/Global/CustomInput',
+  title: 'Components/Custom Input',
   component: CustomInput
 };
 

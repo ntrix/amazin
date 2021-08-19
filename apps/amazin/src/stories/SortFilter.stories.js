@@ -2,7 +2,7 @@ import SortFilter from '../components/SortFilter';
 import { SORT } from '../constants';
 
 export default {
-  title: 'Components/Global/SortFilter',
+  title: 'Components/Sort Filter',
   component: SortFilter
 };
 
