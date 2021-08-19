@@ -447,7 +447,7 @@ img.large {
 }
 
 /* Pagination */
-.pagination a {
+.pagination > * {
   padding: 1rem 1.5rem;
   margin: 0.5rem;
   border-radius: 3px;
@@ -462,16 +462,17 @@ img.large {
 }
 .pagination,
 .pagination ~ div {
+  margin-top: 2rem;
   z-index: 1;
   text-align: center;
 }
-.pagination a:not(.disabled):hover {
-  font-weight: 600;
+.pagination > *:not(.disabled):hover {
+  font-weight: 700;
   color: #000;
   background: #e3e6e6;
   cursor: pointer;
 }
-.pagination a.active {
+.pagination > *.active {
   font-weight: 700;
   color: #c35528;
 

@@ -110,6 +110,7 @@
   color: white;
   margin-left: 4rem;
   z-index: 0;
+  user-select: none;
 }
 .m-row:hover {
   z-index: 199;

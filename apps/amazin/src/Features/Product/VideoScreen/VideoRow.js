@@ -28,16 +28,16 @@ export function _VideoRow({ title, movies: _movies, portrait = false }) {
         <>
           <Carousel
             swipeable={true}
-            draggable={true}
+            draggable={false}
             showDots={false}
             responsive={responsive}
-            infinite={false}
+            infinite={true}
             autoPlay={false}
             keyBoardControl={true}
             customTransition="transform 300ms ease-in-out"
             transitionDuration={500}
             containerClass="carousel-container"
-            removeArrowOnDeviceType={['mobile']}
+            removeArrowOnDeviceType={[]}
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >

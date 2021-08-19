@@ -18,7 +18,7 @@ export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
       />
       <div className="m-card__background">
         <div className="m-card__text">
-          {movie?.description?.slice(0, 150) + '..'}
+          {(movie?.description?.slice(0, 150) || 'Description ') + '..'}
 
           <div className="m-card__rating">
             <Rating

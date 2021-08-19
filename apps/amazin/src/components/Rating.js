@@ -21,7 +21,7 @@ export function _Rating({ rating, numReviews, caption, steps = 5 }) {
       {caption ? (
         <span>{caption}</span>
       ) : (
-        <span>{`${numReviews} review${rating > 1 ? 's' : ''}`}</span>
+        <span>{`${numReviews} review${numReviews > 1 ? 's' : ''}`}</span>
       )}
     </div>
   );
