@@ -1,10 +1,10 @@
-import { VIDEO } from '../../constants';
-import ButtonBuy from '../../Features/Product/VideoScreen/components/ButtonBuy';
 import { SellerButton } from '../../Features/Product/VideoScreen/components/ButtonSell';
+import ButtonBuy from '../../Features/Product/VideoScreen/components/ButtonBuy';
 import Rating from '../../components/Rating';
 import { getImgUrl } from '../../utils';
+import { VIDEO } from '../../constants';
 
-const NO_IMAGE = 'https://amazim.store/images/no-image.png';
+const NO_IMAGE = process.env.STORYBOOK_BASE + '/images/no-image.png';
 const Template = (args) => <VideoCard {...args} />;
 
 function VideoCard({ movie, portrait }) {
