@@ -289,8 +289,8 @@ button {
   background: -webkit-linear-gradient(top, #f7f8fa, #e7e9ec);
   background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
 }
-select:hover,
-button:hover {
+select:not(.disabled, [disabled]):hover,
+button:not(.disabled, [disabled]):hover {
   background: #e0e3e8;
   background: -webkit-linear-gradient(top, #e7eaf0, #d9dce1);
   background: linear-gradient(to bottom, #e7eaf0, #d9dce1);
