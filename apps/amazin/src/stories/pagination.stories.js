@@ -5,9 +5,9 @@ export default {
   component: Pagination
 };
 
-const Template = (args) => <Pagination {...args} />;
+const Template = (props) => <Pagination {...props} />;
 
-const Args = {
+const args = {
   page: 1,
   pages: 9,
   help: false,
@@ -16,26 +16,20 @@ const Args = {
   LinkTo: (props) => <div {...props} />
 };
 
-const EmptyArgs = { ...Args, page: 0, pages: 1 };
-export const Empty = Template.bind(EmptyArgs);
-Empty.args = { ...EmptyArgs };
+export const Empty = Template.bind({});
+Empty.args = { ...args, page: 0, pages: 1 };
 
-const ActiveArgs = { ...Args, pages: 1 };
-export const Active = Template.bind(ActiveArgs);
-Active.args = { ...ActiveArgs };
+export const Active = Template.bind({});
+Active.args = { ...args, pages: 1 };
 
-const DisabledArgs = { ...Args, page: 2, pages: 3, className: 'disabled' };
-export const Disabled = Template.bind(DisabledArgs);
-Disabled.args = { ...DisabledArgs };
+export const Disabled = Template.bind({});
+Disabled.args = { ...args, page: 2, pages: 3, className: 'disabled' };
 
-const FirstPageArgs = { ...Args, page: 1 };
-export const FirstPage = Template.bind(FirstPageArgs);
-FirstPage.args = { ...Args };
+export const FirstPage = Template.bind({});
+FirstPage.args = { ...args, page: 1 };
 
-const LastPageArgs = { ...Args, page: Args.pages };
-export const LastPage = Template.bind(LastPageArgs);
-LastPage.args = { ...LastPageArgs };
+export const LastPage = Template.bind({});
+LastPage.args = { ...args, page: args.pages };
 
-const HelpArgs = { ...Args, page: 5, help: true };
-export const WithHelp = Template.bind(HelpArgs);
-WithHelp.args = { ...HelpArgs };
+export const WithHelp = Template.bind({});
+WithHelp.args = { ...args, page: 5, help: true };
