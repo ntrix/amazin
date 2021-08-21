@@ -904,7 +904,7 @@ button.open-sidebar:hover {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding: 0px 2rem 2px 5rem;
+  padding: 3px 2rem 3px 5.2rem;
   font-size: 11.5px;
   outline: none;
   border: none;
