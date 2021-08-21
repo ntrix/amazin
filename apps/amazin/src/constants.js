@@ -151,13 +151,13 @@ export const VIDEO = {
   EXAMPLES: [
     {
       name: 'Stranger Things',
-      image: ` ^${SRC_URL}56v2KjBlU4XaOv9rVYEQypROD7P.jpg`,
+      image: `${SRC_URL}x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg^${SRC_URL}56v2KjBlU4XaOv9rVYEQypROD7P.jpg`,
       description:
         'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.'
     },
     {
       name: "The Queen's Gambit",
-      image: ` ^${SRC_URL}34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg`,
+      image: `${SRC_URL}zU0htwkhNvBQdVSIKB9s6hgVeFK.jpg^${SRC_URL}34OGjFEbHj0E3lE2w0iTUVq0CBz.jpg`,
       description:
         'In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.'
     }

@@ -6,17 +6,13 @@ export default {
   component: SortFilter
 };
 
+const Template = (props) => <SortFilter {...props} />;
+
 const SortOpt = Object.values(SORT);
-const Template = (args) => <SortFilter {...args} />;
-const Args = { order: SortOpt[0].OPT, getUrl: () => {} };
+const args = { order: SortOpt[0].OPT, getUrl: () => {} };
 
-export const SortFirstOption = Template.bind(Args);
-SortFirstOption.args = { ...Args };
+export const FirstOption = Template.bind({});
+FirstOption.args = { ...args };
 
-const LastArgs = { ...Args, order: SortOpt[SortOpt.length - 1].OPT };
-export const SortLastOption = Template.bind(LastArgs);
-SortLastOption.args = { ...LastArgs };
-
-const AllArgs = { ...Args, order: { options: SortOpt.map((a) => a.OPT) } };
-export const SortAllOption = Template.bind(AllArgs);
-SortAllOption.args = { ...AllArgs };
+export const LastOption = Template.bind({});
+LastOption.args = { ...args, order: SortOpt[SortOpt.length - 1].OPT };

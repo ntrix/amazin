@@ -5,8 +5,8 @@ export default {
   component: ButtonBuy
 };
 
-const Template = (args) => <ButtonBuy {...args} />;
-const Args = { movie: undefined, LinkTo: (props) => <div {...props} /> };
+const Template = (props) => <ButtonBuy {...props} />;
+const args = { movie: undefined, LinkTo: (props) => <div {...props} /> };
 
-export const BuyRent = Template.bind(Args);
-BuyRent.args = { ...Args };
+export const BuyRent = Template.bind({});
+BuyRent.args = { ...args };

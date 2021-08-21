@@ -5,35 +5,29 @@ export default {
   component: Rating
 };
 
-const Template = (args) => <Rating {...args} />;
+const Template = (props) => <Rating {...props} />;
 
-const Args = {
+const args = {
   rating: 0,
   numReviews: 200,
   caption: '',
   steps: 5
 };
 
-const AverageArgs = { ...Args, rating: 2.5 };
-export const Average = Template.bind(AverageArgs);
-Average.args = { ...AverageArgs };
+export const Average = Template.bind({});
+Average.args = { ...args, rating: 2.5 };
 
-const GoodArgs = { ...Args, rating: 4.5 };
-export const Good = Template.bind(GoodArgs);
-Good.args = { ...GoodArgs };
+export const Good = Template.bind({});
+Good.args = { ...args, rating: 4.5 };
 
-const BadArgs = { ...Args, rating: 0.5 };
-export const Bad = Template.bind(BadArgs);
-Bad.args = { ...BadArgs };
+export const Bad = Template.bind({});
+Bad.args = { ...args, rating: 0.5 };
 
-const NoReviewArgs = { ...Args, numReviews: 0 };
-export const NoReview = Template.bind(NoReviewArgs);
-NoReview.args = { ...NoReviewArgs };
+export const NoReview = Template.bind({});
+NoReview.args = { ...args, numReviews: 0 };
 
-const Rating10StepsArgs = { ...Args, rating: 9.5, steps: 10 };
-export const Rating10Steps = Template.bind(Rating10StepsArgs);
-Rating10Steps.args = { ...Rating10StepsArgs };
+export const Rating10Steps = Template.bind({});
+Rating10Steps.args = { ...args, rating: 9.5, steps: 10 };
 
-const WithCaptionArgs = { ...Args, caption: ' Stars & Up' };
-export const WithCaption = Template.bind(WithCaptionArgs);
-WithCaption.args = { ...WithCaptionArgs };
+export const WithCaption = Template.bind({});
+WithCaption.args = { ...args, caption: ' Stars & Up' };

@@ -5,15 +5,14 @@ export default {
   component: SellerButton
 };
 
-const Template = (args) => <SellerButton {...args} />;
-const Args = {
+const Template = (props) => <SellerButton {...props} />;
+const args = {
   disabled: false,
   onClick: () => {}
 };
 
-export const SellerSell = Template.bind(Args);
-SellerSell.args = { ...Args };
+export const SellerSell = Template.bind({});
+SellerSell.args = { ...args };
 
-const DisabledArgs = { ...Args, disabled: true };
-export const Disabled = Template.bind(DisabledArgs);
-Disabled.args = { ...DisabledArgs };
+export const Disabled = Template.bind({});
+Disabled.args = { ...args, disabled: true };

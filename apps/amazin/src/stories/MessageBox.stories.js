@@ -5,28 +5,29 @@ export default {
   component: MessageBox
 };
 
-const Template = (args) => <MessageBox {...args} />;
+const Template = (props) => (
+  <div className="p-1">
+    <MessageBox {...props} />
+  </div>
+);
 
 const msg = 'Test Message Info Message Box Here';
 
-const Args = {
+const args = {
   msg,
   show: true,
   variant: 'info',
   wrapClass: ''
 };
 
-export const InfoMessage = Template.bind(Args);
-InfoMessage.args = { ...Args };
+export const InfoMessage = Template.bind(args);
+InfoMessage.args = { ...args };
 
-const ErrorMessageArgs = { ...Args, variant: 'danger' };
-export const ErrorMessage = Template.bind(ErrorMessageArgs);
-ErrorMessage.args = { ...ErrorMessageArgs };
+export const ErrorMessage = Template.bind({});
+ErrorMessage.args = { ...args, variant: 'danger' };
 
-const MultiMessagesArgs = { ...Args, msg: [msg, msg, msg] };
-export const MultiMessages = Template.bind(MultiMessagesArgs);
-MultiMessages.args = { ...MultiMessagesArgs };
+export const MultiMessages = Template.bind({});
+MultiMessages.args = { ...args, msg: [msg, msg, msg] };
 
-const SuccessMessageArgs = { ...Args, variant: 'success' };
-export const SuccessMessage = Template.bind(SuccessMessageArgs);
-SuccessMessage.args = { ...SuccessMessageArgs };
+export const SuccessMessage = Template.bind({});
+SuccessMessage.args = { ...args, variant: 'success' };
