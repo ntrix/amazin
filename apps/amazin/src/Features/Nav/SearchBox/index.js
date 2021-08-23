@@ -31,7 +31,7 @@ function NavSearch() {
   const [input, setInput] = useState('');
   const [suggests, setSuggests] = useState([]);
 
-  const ref = useRef(null);
+  const SearchBoxRef = useRef(null);
 
   const submitHandler = (e) => {
     e?.preventDefault();
@@ -44,14 +44,14 @@ function NavSearch() {
 
   const handleClick = useCallback(
     (e) => {
-      if (!ref.current.contains(e.target)) {
+      if (!SearchBoxRef.current.contains(e.target)) {
         setSuggestBox(false);
         setScopeOutline(0);
         setShadowOf('');
       }
       return e;
     },
-    [ref, setSuggestBox, setScopeOutline, setShadowOf]
+    [SearchBoxRef, setSuggestBox, setScopeOutline, setShadowOf]
   );
 
   /* detect click outside component to close categories search scope window */
@@ -68,7 +68,7 @@ function NavSearch() {
   }, [setScopeOutline, shadowOf, handleClick]);
 
   return (
-    <form ref={ref} className={`search-box ${outline ? 'focus' : ''}`}>
+    <form ref={SearchBoxRef} className={`search-box ${outline ? 'focus' : ''}`}>
       <div className="row--left">
         <SearchCatScope activeCat={activeCat} />
 
