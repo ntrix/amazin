@@ -10,7 +10,7 @@ export function _SearchSuggest({
   control: { setSuggests, setInput }
 }) {
   const { suggestBox, setSuggestBox } = useOutline();
-  const { shadowOf, clearShadow } = useShadow();
+  const { shadowOf, setShadowOf } = useShadow();
 
   if (!suggests || SHADOW.SEARCH_BOX !== shadowOf || !suggestBox) return null;
   return (
@@ -25,7 +25,7 @@ export function _SearchSuggest({
                 setSuggestBox(false);
                 setInput(p.name.replace(/(<b>)|(<\/b>)/g, ''));
                 setSuggests([]);
-                clearShadow();
+                setShadowOf('');
               }}
             ></Link>
           </li>

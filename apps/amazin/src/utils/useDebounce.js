@@ -1,10 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useCallback } from 'react';
 
 export function useDebounce(fn, duration = 500) {
   const id = useRef(null);
   const { current: func } = useRef(fn);
-  const { current: debounce } = useRef(_debounce);
-  const { current: clearBounce } = useRef(_clear);
+  const debounce = useCallback(_debounce, []);
+  const clearBounce = useCallback(_clear, []);
   function _debounce(...args) {
     clearTimeout(id.current);
     id.current = setTimeout(() => {

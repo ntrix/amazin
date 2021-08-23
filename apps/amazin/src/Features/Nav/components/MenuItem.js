@@ -1,12 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-import { useShadow } from '../../../utils/useShadow';
-
 const InnerMenuItem = React.memo(
-  ({ label, to, className, extFunction = null, children }) => {
+  ({ label, to, className, clearShadow, extFunction, children }) => {
     const history = useHistory();
-    const { setShadowOf } = useShadow('');
     if (!to && !className) return <strong>{label}</strong>;
 
     if (!to) return <div>{label}</div>;
@@ -32,7 +29,7 @@ const InnerMenuItem = React.memo(
         aria-label={label || className}
         onClick={(e) => {
           e.stopPropagation();
-          setShadowOf('');
+          clearShadow('');
           if (extFunction) extFunction();
           history.push(to);
         }}

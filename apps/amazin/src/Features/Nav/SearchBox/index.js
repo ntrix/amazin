@@ -24,7 +24,7 @@ const SearchSuggest = lazy(() =>
 
 function NavSearch() {
   const history = useHistory();
-  const { shadowOf, clearShadow } = useShadow('');
+  const { shadowOf, setShadowOf } = useShadow();
 
   const { outline, setScopeOutline, setSuggestBox } = useOutline();
   const [activeCat, setActiveCat] = useState(NAV.ALL);
@@ -37,7 +37,7 @@ function NavSearch() {
     e?.preventDefault();
     if (input) {
       setSuggestBox(false);
-      clearShadow();
+      setShadowOf('');
       history.push(`/search/category/${activeCat}/name/${input}`);
     }
   };
@@ -47,11 +47,11 @@ function NavSearch() {
       if (!ref.current.contains(e.target)) {
         setSuggestBox(false);
         setScopeOutline(0);
-        clearShadow();
+        setShadowOf('');
       }
       return e;
     },
-    [ref, setSuggestBox, setScopeOutline, clearShadow]
+    [ref, setSuggestBox, setScopeOutline, setShadowOf]
   );
 
   /* detect click outside component to close categories search scope window */

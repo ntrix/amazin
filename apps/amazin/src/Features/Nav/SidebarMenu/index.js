@@ -25,6 +25,7 @@ export function _SidebarMenu({ currency }) {
   const { categories } = productCategoryList;
   const { shadowOf, setShadowOf } = useShadow();
   const signOutHandler = useCallback(() => dispatch(signout()), [dispatch]);
+  const userName = useCallback((_s) => shortName(_s), []);
 
   return (
     <>
@@ -39,7 +40,10 @@ export function _SidebarMenu({ currency }) {
           <div className="sprite__close-btn"></div>
         </button>
 
-        <SidebarHeader userName={shortName(userInfo?.name)} />
+        <SidebarHeader
+          userName={userName(userInfo?.name)}
+          clearShadow={setShadowOf}
+        />
 
         <ul className="sidebar__list">
           <LoadingOrError statusOf={productCategoryList} />
@@ -55,7 +59,7 @@ export function _SidebarMenu({ currency }) {
           ]
             .map(mapArgsToProps)
             .map((props) => (
-              <MenuItem {...props} />
+              <MenuItem {...props} clearShadow={setShadowOf} />
             ))}
         </ul>
       </aside>

@@ -18,6 +18,7 @@ import {
 } from './navBeltTemplate';
 import { useShadow } from '../../../utils/useShadow';
 import { savePath, shortName } from '../../../utils';
+import { SHADOW } from 'src/constants';
 
 const DropdownMenu = lazy(() =>
   import(/* webpackPrefetch: true */ './DropdownMenu')
@@ -30,7 +31,8 @@ export function _HeaderNavBelt({ currency }) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { shadowOf } = useShadow();
+  const { shadowOf, setShadowOf } = useShadow();
+  const isDropped = SHADOW.NAV_DD === shadowOf;
 
   return (
     <div className="nav-belt row">
@@ -50,7 +52,11 @@ export function _HeaderNavBelt({ currency }) {
 
       {!userInfo && (
         <NavBtnControl labels="Hello, Sign in^Account^ & Lists">
-          <DropdownMenu show={shadowOf} ddMenuList={signinMenuTemplate} />
+          <DropdownMenu
+            show={isDropped}
+            ddMenuList={signinMenuTemplate}
+            clearShadow={setShadowOf}
+          />
         </NavBtnControl>
       )}
 
@@ -59,8 +65,9 @@ export function _HeaderNavBelt({ currency }) {
           labels={`Hello, ${shortName(userInfo?.name, 7)}^Account^ & Lists`}
         >
           <DropdownMenu
-            show={shadowOf}
+            show={isDropped}
             ddMenuList={userMenuCreator(userInfo, () => dispatch(signout()))}
+            clearShadow={setShadowOf}
           />
         </NavBtnControl>
       )}
@@ -68,15 +75,20 @@ export function _HeaderNavBelt({ currency }) {
       {!!userInfo?.isSeller && (
         <NavBtnControl wrapClass="nav__seller" labels="Seller^Desk">
           <DropdownMenu
-            show={shadowOf}
+            show={isDropped}
             ddMenuList={sellerMenuCreator(userInfo)}
+            clearShadow={setShadowOf}
           />
         </NavBtnControl>
       )}
 
       {!!userInfo?.isAdmin && (
         <NavBtnControl wrapClass="nav__admin phone--off" labels="Admin^Tools">
-          <DropdownMenu show={shadowOf} ddMenuList={adminMenuTemplate} />
+          <DropdownMenu
+            show={isDropped}
+            ddMenuList={adminMenuTemplate}
+            clearShadow={setShadowOf}
+          />
         </NavBtnControl>
       )}
 

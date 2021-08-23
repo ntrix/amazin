@@ -1,13 +1,13 @@
-import { shortName } from 'src/utils';
 import MenuItem from '../components/MenuItem';
 
-function SidebarHeader({ userName }) {
+function SidebarHeader({ userName, ...props }) {
   return (
     <ul>
       <MenuItem
-        label={'Hello, ' + shortName(userName)}
+        label={'Hello, ' + userName}
         to="/profile"
         className="sidebar__header"
+        {...props}
       >
         <div className="sprite__user"></div>
       </MenuItem>

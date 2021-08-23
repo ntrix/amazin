@@ -14,7 +14,7 @@ export function _SearchCatDropdown({ hook: [activeCat, setActiveCat] }) {
   );
   const { inputRef, setOutline, scopeOutline, setScopeOutline, setSuggestBox } =
     useOutline();
-  const { clearShadow } = useShadow('');
+  const { setShadowOf } = useShadow();
 
   useEffect(() => {
     dispatch(listAllProducts({ category: activeCat }));
@@ -37,7 +37,7 @@ export function _SearchCatDropdown({ hook: [activeCat, setActiveCat] }) {
               setActiveCat(cat);
               setScopeOutline(0);
               setSuggestBox(false);
-              clearShadow();
+              setShadowOf('');
             }}
             onBlur={() => setScopeOutline(0)}
           >
