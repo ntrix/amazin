@@ -13,13 +13,19 @@ ShadowContext.displayName = 'ShadowContext';
 function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
-  const { debounce, clearBounce } = useDebounce(_setShadowOf);
-  const setShadowOf = useCallback((_sh) => {
-    clearBounce();
-    if (_sh !== shadowOf) _setShadowOf(_sh);
-  }, []);
+  const [debounceShadow, clearDebounce] = useDebounce(_setShadowOf);
+  const setShadowOf = useCallback(
+    (_sh) => {
+      clearDebounce();
+      if (_sh !== shadowOf) _setShadowOf(_sh);
+    },
+    [_setShadowOf, clearDebounce, shadowOf]
+  );
 
-  const setShadowSlow = useCallback((_sh) => debounce(_sh), []);
+  const setShadowSlow = useCallback(
+    (_sh) => debounceShadow(_sh),
+    [debounceShadow]
+  );
 
   const value = { shadowOf, setShadowOf, setShadowSlow };
   return (
