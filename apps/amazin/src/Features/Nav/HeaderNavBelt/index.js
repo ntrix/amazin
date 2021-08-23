@@ -56,7 +56,7 @@ export function _HeaderNavBelt({ currency }) {
 
       {!!userInfo && (
         <NavBtnControl
-          labels={`Hello, ${shortName(userInfo, 7)}^Account^ & Lists`}
+          labels={`Hello, ${shortName(userInfo?.name, 7)}^Account^ & Lists`}
         >
           <DropdownMenu
             show={shadowOf}

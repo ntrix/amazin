@@ -778,7 +778,7 @@ button.open-sidebar:hover {
   line-height: 1.6rem;
   color: #111;
 }
-.sidebar .menu__link-item:not(.disabled):hover {
+.sidebar .menu__link-item:not(.disabled, .sidebar__header):hover {
   color: #111;
   background-color: #eaeded;
   cursor: pointer;
@@ -793,10 +793,11 @@ button.open-sidebar:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.sidebar a.sidebar__header,
-.sidebar a.sidebar__header:hover {
+.sidebar .sidebar__header,
+.sidebar .sidebar__header:hover {
   color: #fff;
   background: #232f3e;
+  cursor: pointer;
 }
 .sprite__user {
   display: inline-block;

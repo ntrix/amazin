@@ -151,10 +151,10 @@ export const sourceAdapter = (movies, id) =>
 /* create an array of 12 dummyMovies (a row) for videoRow(s) */
 export const dummyMovies = sourceAdapter(Array(12).fill(1));
 
-export function shortName(user, length) {
-  if (!user) return 'Sign In';
-  if (!length) return user.name;
-  const name = user.name.split(' ')[0];
+export function shortName(userName, length) {
+  if (!userName?.length) return 'Sign In';
+  if (!length) return userName;
+  const name = userName.split(' ')[0];
   return name.slice(0, length) + (name.length > length ? '..' : '');
 }
 
