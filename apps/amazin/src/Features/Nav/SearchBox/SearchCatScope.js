@@ -7,7 +7,7 @@ import { getCatLabel, SHADOW } from '../../../constants';
 export function _SearchCatScope({ activeCat }) {
   const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } =
     useOutline();
-  const { setShadowOf } = useShadow('');
+  const { setShadowOf } = useShadow();
 
   const onClickOrFocus = () => {
     setOutline(false);

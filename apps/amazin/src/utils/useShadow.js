@@ -1,9 +1,9 @@
 import React, {
   createContext,
-  useRef,
   useContext,
   useEffect,
-  useState
+  useState,
+  useCallback
 } from 'react';
 import { useDebounce } from './useDebounce';
 
@@ -13,34 +13,38 @@ ShadowContext.displayName = 'ShadowContext';
 function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
 
-  const { debounce, clearBounce } = useDebounce(_setShadowOf);
-  const { current: setShadowOf } = useRef((_sh) => {
-    clearBounce();
-    if (_sh !== shadowOf) _setShadowOf(_sh);
-  });
+  const [debounceShadow, clearDebounce] = useDebounce(_setShadowOf);
+  const setShadowOf = useCallback(
+    (_sh) => {
+      clearDebounce();
+      if (_sh !== shadowOf) _setShadowOf(_sh);
+    },
+    [_setShadowOf, clearDebounce, shadowOf]
+  );
 
-  const setShadowSlow = (_sh) => () => debounce(_sh);
+  const setShadowSlow = useCallback(
+    (_sh) => debounceShadow(_sh),
+    [debounceShadow]
+  );
 
-  const clearShadow = () => setShadowOf('');
-
-  const value = { shadowOf, setShadowOf, setShadowSlow, clearShadow };
+  const value = { shadowOf, setShadowOf, setShadowSlow };
   return (
     <ShadowContext.Provider value={value}>{children}</ShadowContext.Provider>
   );
 }
 
-function useShadow(initialState = '') {
+function useShadow(initialState) {
   const context = useContext(ShadowContext);
   if (context === undefined)
     throw new Error('useShadow must be used within a ShadowProvider');
 
-  const { shadowOf, setShadowOf, setShadowSlow, clearShadow } = context;
+  const { shadowOf, setShadowOf, setShadowSlow } = context;
 
   useEffect(() => {
-    if (initialState) setShadowOf(initialState);
+    if (initialState !== undefined) setShadowOf(initialState);
   }, [initialState, setShadowOf]);
 
-  return { shadowOf, setShadowOf, setShadowSlow, clearShadow };
+  return { shadowOf, setShadowOf, setShadowSlow };
 }
 
 export { ShadowProvider, useShadow };

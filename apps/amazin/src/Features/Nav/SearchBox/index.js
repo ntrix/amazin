@@ -24,34 +24,34 @@ const SearchSuggest = lazy(() =>
 
 function NavSearch() {
   const history = useHistory();
-  const { shadowOf, clearShadow } = useShadow('');
+  const { shadowOf, setShadowOf } = useShadow();
 
   const { outline, setScopeOutline, setSuggestBox } = useOutline();
   const [activeCat, setActiveCat] = useState(NAV.ALL);
   const [input, setInput] = useState('');
   const [suggests, setSuggests] = useState([]);
 
-  const ref = useRef(null);
+  const SearchBoxRef = useRef(null);
 
   const submitHandler = (e) => {
     e?.preventDefault();
     if (input) {
       setSuggestBox(false);
-      clearShadow();
+      setShadowOf('');
       history.push(`/search/category/${activeCat}/name/${input}`);
     }
   };
 
   const handleClick = useCallback(
     (e) => {
-      if (!ref.current.contains(e.target)) {
+      if (!SearchBoxRef.current.contains(e.target)) {
         setSuggestBox(false);
         setScopeOutline(0);
-        clearShadow();
+        setShadowOf('');
       }
       return e;
     },
-    [ref, setSuggestBox, setScopeOutline, clearShadow]
+    [SearchBoxRef, setSuggestBox, setScopeOutline, setShadowOf]
   );
 
   /* detect click outside component to close categories search scope window */
@@ -68,7 +68,7 @@ function NavSearch() {
   }, [setScopeOutline, shadowOf, handleClick]);
 
   return (
-    <form ref={ref} className={`search-box ${outline ? 'focus' : ''}`}>
+    <form ref={SearchBoxRef} className={`search-box ${outline ? 'focus' : ''}`}>
       <div className="row--left">
         <SearchCatScope activeCat={activeCat} />
 

@@ -1,81 +1,81 @@
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [
-  ["/"],
-  ["/deal"],
-  ["/search/category/All/order/newest"],
-  ["/banner/bestseller"],
-  ["/video"],
-  ["/customer"],
+const PrecacheConfig = [
+  // ["/"],
+  // ["/deal"],
+  // ["/search/category/All/order/newest"],
+  // ["/banner/bestseller"],
+  // ["/video"],
+  // ["/customer"],
 ];
 /* eslint-enable quotes, comma-spacing */
-var CacheNamePrefix =
-  "sw-precache-v1--" + (self.registration ? self.registration.scope : "") + "-";
+const CacheNamePrefix =
+  'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
-var IgnoreUrlParametersMatching = [/^utm_/];
+const IgnoreUrlParametersMatching = [/^utm_/];
 
-var addDirectoryIndex = function (originalUrl, index) {
-  var url = new URL(originalUrl);
-  if (url.pathname.slice(-1) === "/") {
+const addDirectoryIndex = function (originalUrl, index) {
+  const url = new URL(originalUrl);
+  if (url.pathname.slice(-1) === '/') {
     url.pathname += index;
   }
   return url.toString();
 };
 
-var getCacheBustedUrl = function (url, param) {
+const getCacheBustedUrl = function (url, param) {
   param = param || Date.now();
 
-  var urlWithCacheBusting = new URL(url);
+  const urlWithCacheBusting = new URL(url);
   urlWithCacheBusting.search +=
-    (urlWithCacheBusting.search ? "&" : "") + "sw-precache=" + param;
+    (urlWithCacheBusting.search ? '&' : '') + 'sw-precache=' + param;
 
   return urlWithCacheBusting.toString();
 };
 
-var isPathWhitelisted = function (whitelist, absoluteUrlString) {
+const isPathWhitelisted = function (whitelist, absoluteUrlString) {
   // If the whitelist is empty, then consider all URLs to be whitelisted.
   if (whitelist.length === 0) {
     return true;
   }
 
   // Otherwise compare each path regex to the path of the URL passed in.
-  var path = new URL(absoluteUrlString).pathname;
+  const path = new URL(absoluteUrlString).pathname;
   return whitelist.some(function (whitelistedPathRegex) {
     return path.match(whitelistedPathRegex);
   });
 };
 
-var populateCurrentCacheNames = function (
+const populateCurrentCacheNames = function (
   precacheConfig,
   cacheNamePrefix,
   baseUrl
 ) {
-  var absoluteUrlToCacheName = {};
-  var currentCacheNamesToAbsoluteUrl = {};
+  const absoluteUrlToCacheName = {};
+  const currentCacheNamesToAbsoluteUrl = {};
 
   precacheConfig.forEach(function (cacheOption) {
-    var absoluteUrl = new URL(cacheOption[0], baseUrl).toString();
-    var cacheName = cacheNamePrefix + absoluteUrl + "-" + cacheOption[1];
+    const absoluteUrl = new URL(cacheOption[0], baseUrl).toString();
+    const cacheName = cacheNamePrefix + absoluteUrl + '-' + cacheOption[1];
     currentCacheNamesToAbsoluteUrl[cacheName] = absoluteUrl;
     absoluteUrlToCacheName[absoluteUrl] = cacheName;
   });
 
   return {
     absoluteUrlToCacheName: absoluteUrlToCacheName,
-    currentCacheNamesToAbsoluteUrl: currentCacheNamesToAbsoluteUrl,
+    currentCacheNamesToAbsoluteUrl: currentCacheNamesToAbsoluteUrl
   };
 };
 
-var stripIgnoredUrlParameters = function (
+const stripIgnoredUrlParameters = function (
   originalUrl,
   ignoreUrlParametersMatching
 ) {
-  var url = new URL(originalUrl);
+  const url = new URL(originalUrl);
 
   url.search = url.search
     .slice(1) // Exclude initial '?'
-    .split("&") // Split into an array of 'key=value' strings
+    .split('&') // Split into an array of 'key=value' strings
     .map(function (kv) {
-      return kv.split("="); // Split each 'key=value' string into a [key, value] array
+      return kv.split('='); // Split each 'key=value' string into a [key, value] array
     })
     .filter(function (kv) {
       return ignoreUrlParametersMatching.every(function (ignoredRegex) {
@@ -83,20 +83,20 @@ var stripIgnoredUrlParameters = function (
       });
     })
     .map(function (kv) {
-      return kv.join("="); // Join each [key, value] array into a 'key=value' string
+      return kv.join('='); // Join each [key, value] array into a 'key=value' string
     })
-    .join("&"); // Join the array of 'key=value' strings into a string with '&' in between each
+    .join('&'); // Join the array of 'key=value' strings into a string with '&' in between each
 
   return url.toString();
 };
 
-var mappings = populateCurrentCacheNames(
+const mappings = populateCurrentCacheNames(
   PrecacheConfig,
   CacheNamePrefix,
   self.location
 );
-var AbsoluteUrlToCacheName = mappings.absoluteUrlToCacheName;
-var CurrentCacheNamesToAbsoluteUrl = mappings.currentCacheNamesToAbsoluteUrl;
+const AbsoluteUrlToCacheName = mappings.absoluteUrlToCacheName;
+const CurrentCacheNamesToAbsoluteUrl = mappings.currentCacheNamesToAbsoluteUrl;
 
 function deleteAllCaches() {
   return caches.keys().then(function (cacheNames) {
@@ -108,7 +108,7 @@ function deleteAllCaches() {
   });
 }
 
-self.addEventListener("install", function (event) {
+self.addEventListener('install', function (event) {
   event.waitUntil(
     // Take a look at each of the cache names we expect for this version.
     Promise.all(
@@ -125,14 +125,14 @@ self.addEventListener("install", function (event) {
               // Use the last bit of the cache name, which contains the hash,
               // as the cache-busting parameter.
               // See https://github.com/GoogleChrome/sw-precache/issues/100
-              var cacheBustParam = cacheName.split("-").pop();
-              var urlWithCacheBusting = getCacheBustedUrl(
+              const cacheBustParam = cacheName.split('-').pop();
+              const urlWithCacheBusting = getCacheBustedUrl(
                 CurrentCacheNamesToAbsoluteUrl[cacheName],
                 cacheBustParam
               );
 
-              var request = new Request(urlWithCacheBusting, {
-                credentials: "same-origin",
+              const request = new Request(urlWithCacheBusting, {
+                credentials: 'same-origin'
               });
               return fetch(request).then(function (response) {
                 if (response.ok) {
@@ -143,8 +143,8 @@ self.addEventListener("install", function (event) {
                 }
 
                 console.error(
-                  "Request for %s returned a response status %d, " +
-                    "so not attempting to cache it.",
+                  'Request for %s returned a response status %d, ' +
+                    'so not attempting to cache it.',
                   urlWithCacheBusting,
                   response.status
                 );
@@ -173,7 +173,7 @@ self.addEventListener("install", function (event) {
         });
       })
       .then(function () {
-        if (typeof self.skipWaiting === "function") {
+        if (typeof self.skipWaiting === 'function') {
           // Force the SW to transition from installing -> active state
           self.skipWaiting();
         }
@@ -181,40 +181,40 @@ self.addEventListener("install", function (event) {
   );
 });
 
-if (self.clients && typeof self.clients.claim === "function") {
-  self.addEventListener("activate", function (event) {
+if (self.clients && typeof self.clients.claim === 'function') {
+  self.addEventListener('activate', function (event) {
     event.waitUntil(self.clients.claim());
   });
 }
 
-self.addEventListener("message", function (event) {
-  if (event.data.command === "delete_all") {
-    console.log("About to delete all caches...");
+self.addEventListener('message', function (event) {
+  if (event.data.command === 'delete_all') {
+    console.log('About to delete all caches...');
     deleteAllCaches()
       .then(function () {
-        console.log("Caches deleted.");
+        console.log('Caches deleted.');
         event.ports[0].postMessage({
-          error: null,
+          error: null
         });
       })
       .catch(function (error) {
-        console.log("Caches not deleted:", error);
+        console.log('Caches not deleted:', error);
         event.ports[0].postMessage({
-          error: error,
+          error: error
         });
       });
   }
 });
 
-self.addEventListener("fetch", function (event) {
-  if (event.request.method === "GET") {
-    var urlWithoutIgnoredParameters = stripIgnoredUrlParameters(
+self.addEventListener('fetch', function (event) {
+  if (event.request.method === 'GET') {
+    const urlWithoutIgnoredParameters = stripIgnoredUrlParameters(
       event.request.url,
       IgnoreUrlParametersMatching
     );
 
-    var cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
-    var directoryIndex = "index.html";
+    const cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
+    const directoryIndex = 'index.html';
     if (!cacheName && directoryIndex) {
       urlWithoutIgnoredParameters = addDirectoryIndex(
         urlWithoutIgnoredParameters,
@@ -223,7 +223,7 @@ self.addEventListener("fetch", function (event) {
       cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
     }
 
-    var navigateFallback = "/index.html";
+    const navigateFallback = '/index.html';
     // Ideally, this would check for event.request.mode === 'navigate', but that is not widely
     // supported yet:
     // https://code.google.com/p/chromium/issues/detail?id=540967
@@ -231,13 +231,13 @@ self.addEventListener("fetch", function (event) {
     if (
       !cacheName &&
       navigateFallback &&
-      event.request.headers.has("accept") &&
-      event.request.headers.get("accept").includes("text/html") &&
+      event.request.headers.has('accept') &&
+      event.request.headers.get('accept').includes('text/html') &&
       /* eslint-disable quotes, comma-spacing */
       isPathWhitelisted([], event.request.url)
     ) {
       /* eslint-enable quotes, comma-spacing */
-      var navigateFallbackUrl = new URL(navigateFallback, self.location);
+      const navigateFallbackUrl = new URL(navigateFallback, self.location);
       cacheName = AbsoluteUrlToCacheName[navigateFallbackUrl.toString()];
     }
 
@@ -254,7 +254,7 @@ self.addEventListener("fetch", function (event) {
                 }
                 // If for some reason the response was deleted from the cache,
                 // raise and exception and fall back to the fetch() triggered in the catch().
-                throw Error("The cache " + cacheName + " is empty.");
+                throw Error('The cache ' + cacheName + ' is empty.');
               });
             });
           })

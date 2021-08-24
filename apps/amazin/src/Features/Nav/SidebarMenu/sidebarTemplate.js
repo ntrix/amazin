@@ -1,7 +1,7 @@
 import { SORT } from '../../../constants';
 import { pipe, savePath } from '../../../utils';
 
-export const sidebarMenuTemplate = [
+export const sidebarBase = [
   ['Trending'],
   ['Best Sellers', '/banner/bestseller'],
   ['Top Deals', '/deal'],
@@ -12,11 +12,9 @@ export const sidebarMenuTemplate = [
   ['Netflux Video', '/video']
 ];
 
-export const sidebarItemAdapter = (cat) => [cat, '/search/category/' + cat];
+export const sidebarCategoryAdapter = (cat) => [cat, '/search/category/' + cat];
 
-export function sidebarMenuCreator(currency, userInfo, signOutAction) {
-  currency = currency || userInfo?.currency || 'EUR';
-
+export function sidebarCurrencyCreator(currency = 'EUR') {
   return [
     ['separator'],
     ['Privacy & Setting'],
@@ -40,40 +38,43 @@ export function sidebarMenuCreator(currency, userInfo, signOutAction) {
     ['Statistics / AB Testing', 'disabled'],
     ['FAQ & Help', '/contact/subject/FAQ'],
     [''],
-    ['separator'],
+    ['separator']
+  ];
+}
+
+export function sidebarUserCreator(userName, signOutAction) {
+  return [
     ['separator'],
     ['Your Account'],
     ['Your Profile', '/profile'],
     ['Customer Service', '/customer'],
-    userInfo
+    userName
       ? ['Sign Out', '#signout', '', signOutAction]
       : ['Sign In', '/signin'],
     [''],
-    ['separator'],
+    ['separator']
+  ];
+}
+
+export function sidebarSellerCreator(isSeller) {
+  return [
     ['separator'],
     ['Seller Account'],
-    [
-      'Your Seller Profile',
-      userInfo?.isSeller ? '/profile/seller' : 'disabled'
-    ],
-    [
-      'Your Listing Products',
-      userInfo?.isSeller ? '/product-list' : 'disabled'
-    ],
-    ['Your Order List', userInfo?.isSeller ? '/order-list' : 'disabled'],
+    ['Your Seller Profile', isSeller ? '/profile/seller' : 'disabled'],
+    ['Your Listing Products', isSeller ? '/product-list' : 'disabled'],
+    ['Your Order List', isSeller ? '/order-list' : 'disabled'],
     [''],
-    ['separator'],
+    ['separator']
+  ];
+}
+
+export function sidebarAdminCreator(isAdmin) {
+  return [
     ['separator'],
     ['Administration'],
-    ['User Management', userInfo?.isAdmin ? '/user-list' : 'disabled'],
-    [
-      'All Product Catalogues',
-      userInfo?.isAdmin ? '/product-list' : 'disabled'
-    ],
-    [
-      'All Order Lists, Database',
-      userInfo?.isAdmin ? '/order-list' : 'disabled'
-    ],
+    ['User Management', isAdmin ? '/user-list' : 'disabled'],
+    ['All Product Catalogues', isAdmin ? '/product-list' : 'disabled'],
+    ['All Order Lists, Database', isAdmin ? '/order-list' : 'disabled'],
     [''],
     ['separator'],
     ['separator'],

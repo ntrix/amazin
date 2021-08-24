@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function _VideoNavHeader({ labels, hook: [active, setActive] }) {
+export function _VideoNavHeader({ labels, active, setActive }) {
   return (
     <nav className="m-header">
       <ul className="m-nav">

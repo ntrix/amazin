@@ -6,7 +6,11 @@ export default {
   component: SortFilter
 };
 
-const Template = (props) => <SortFilter {...props} />;
+const Template = (props) => (
+  <div className="p-1">
+    <SortFilter {...props} />
+  </div>
+);
 
 const SortOpt = Object.values(SORT);
 const args = { order: SortOpt[0].OPT, getUrl: () => {} };

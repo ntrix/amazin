@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useShadow } from '../../../utils/useShadow';
 
 export const _NavMainItem = ({ label, to, children }) => {
-  const { clearShadow } = useShadow();
+  const { setShadowOf } = useShadow();
 
   return (
     <div className="nav-main__item">
-      <Link to={to} onClick={clearShadow}>
+      <Link to={to} onClick={() => setShadowOf('')}>
         {children || label}
       </Link>
     </div>

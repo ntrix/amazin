@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 
-import { useShadow } from '../../../utils/useShadow';
-
 const InnerMenuItem = React.memo(
-  ({ label, to, className, extFunction = null }) => {
+  ({ label, to, className, clearShadow, extFunction, children }) => {
     const history = useHistory();
-    const { setShadowOf } = useShadow('');
-    const [extFn] = useState(() => (extFunction ? extFunction : null));
     if (!to && !className) return <strong>{label}</strong>;
 
     if (!to) return <div>{label}</div>;
@@ -33,11 +29,12 @@ const InnerMenuItem = React.memo(
         aria-label={label || className}
         onClick={(e) => {
           e.stopPropagation();
-          setShadowOf('');
-          if (extFn) extFn();
+          clearShadow('');
+          if (extFunction) extFunction();
           history.push(to);
         }}
       >
+        {children}
         {label}
       </div>
     );
@@ -54,7 +51,7 @@ const _MenuItem = ({ label, ...props }) => {
   );
 };
 
-export const mapMenuItemProp = (
+export const mapArgsToProps = (
   [label, to, className, extFunction = null],
   id
 ) => ({

@@ -1,6 +1,7 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CartLinkBtn({
+export function _CartLinkBtn({
   counter,
   LinkTo = (props) => <Link {...props} />,
   ...rest
@@ -19,4 +20,8 @@ function CartLinkBtn({
   );
 }
 
+const CartLinkBtn = React.memo(
+  _CartLinkBtn,
+  (prev, next) => prev.counter === next.counter
+);
 export default CartLinkBtn;

@@ -30,7 +30,11 @@ export function _VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
         </div>
 
         <div className="m-card__more">
-          <ButtonTrailer movie={movie} hook={[trailerUrl, setTrailerUrl]} />
+          <ButtonTrailer
+            movie={movie}
+            trailerUrl={trailerUrl}
+            setTrailerUrl={setTrailerUrl}
+          />
 
           <ButtonBuy movie={movie} />
         </div>

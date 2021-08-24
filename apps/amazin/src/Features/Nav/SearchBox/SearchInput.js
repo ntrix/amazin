@@ -13,7 +13,7 @@ export function _SearchInput({
   const { productList } = useSelector((state) => state.productListAll);
   const { inputRef, suggestBox, setOutline, setScopeOutline, setSuggestBox } =
     useOutline();
-  const { shadowOf, setShadowOf, clearShadow } = useShadow('');
+  const { shadowOf, setShadowOf } = useShadow();
 
   const SuggestBoxDropdown = () => {
     if (input) {
@@ -31,7 +31,7 @@ export function _SearchInput({
     const { value } = e.target;
     if (value.length === 0 || e.key === 'Escape') {
       setSuggestBox(false);
-      clearShadow();
+      setShadowOf('');
       return;
     }
     if (e.key === 'Enter') {

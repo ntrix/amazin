@@ -22,7 +22,7 @@
     }
   ],
 
-  "start_url": ".",
+  "start_url": "/",
   "background_color": "#eaeded",
   "display_override": ["window-control-overlay", "minimal-ui"],
   "display": "fullscreen",

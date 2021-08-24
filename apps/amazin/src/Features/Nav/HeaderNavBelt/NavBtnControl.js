@@ -11,7 +11,7 @@ function _NavBtnControl({ children, ...props }) {
     focus.current?.blur();
     focus.current = e.target;
     e.target.focus();
-    setShadowSlow(SHADOW.NAV_DD)();
+    setShadowSlow(SHADOW.NAV_DD);
   };
 
   //TODO accessibility: isFocus & isEnterKeyPressed = onClick
@@ -25,7 +25,7 @@ function _NavBtnControl({ children, ...props }) {
         focus.current?.blur();
         e.target.blur();
         focus.current = null;
-        setShadowSlow('')();
+        setShadowSlow('');
       }}
       {...props}
     >

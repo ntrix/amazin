@@ -2,10 +2,12 @@ import React from 'react';
 import movieTrailer from 'movie-trailer';
 
 import { sourceAdapter } from '../../../../utils';
+const defaultMovie = sourceAdapter([1])[0];
 
 export function _ButtonTrailer({
-  movie = sourceAdapter([1])[0],
-  hook: [trailerUrl, setTrailerUrl]
+  movie = defaultMovie,
+  trailerUrl,
+  setTrailerUrl
 }) {
   const searchTrailer = async () => {
     if (trailerUrl) setTrailerUrl('');
@@ -25,22 +27,15 @@ export function _ButtonTrailer({
       </button>
     );
 
-  return movie.video ? (
+  return (
     <button
       className="banner__button"
       disabled={movie.video === 'no trailer'}
-      onClick={() => setTrailerUrl(movie.video)}
+      onClick={() =>
+        movie.video ? setTrailerUrl(movie.video) : searchTrailer()
+      }
     >
-      <i className="fa fa-play"></i> Trailer
-    </button>
-  ) : (
-    <button
-      className="banner__button"
-      onClick={() => {
-        searchTrailer();
-      }}
-    >
-      <i className="fa fa-search"></i> Trailer
+      <i className={`fa fa-${movie.video ? 'play' : 'search'}`} /> Trailer
     </button>
   );
 }

@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { signout } from '../../../Controllers/userActions';
 
 import {
-  sidebarMenuTemplate,
-  sidebarItemAdapter,
-  sidebarMenuCreator
+  sidebarBase,
+  sidebarCategoryAdapter,
+  sidebarCurrencyCreator,
+  sidebarUserCreator,
+  sidebarSellerCreator,
+  sidebarAdminCreator
 } from './sidebarTemplate';
-import MenuItem, { mapMenuItemProp } from '../components/MenuItem';
+import MenuItem, { mapArgsToProps } from '../components/MenuItem';
 import LoadingOrError from '../../../components/LoadingOrError';
-import { shortName } from '../../../utils';
 import { useShadow } from '../../../utils/useShadow';
 import { SHADOW } from '../../../constants';
+import SidebarHeader from './SidebarHeader';
+import { shortName } from 'src/utils';
 
 export function _SidebarMenu({ currency }) {
   const dispatch = useDispatch();
@@ -21,6 +24,8 @@ export function _SidebarMenu({ currency }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories } = productCategoryList;
   const { shadowOf, setShadowOf } = useShadow();
+  const signOutHandler = useCallback(() => dispatch(signout()), [dispatch]);
+  const userName = useCallback((_s) => shortName(_s), []);
 
   return (
     <>
@@ -34,26 +39,27 @@ export function _SidebarMenu({ currency }) {
         >
           <div className="sprite__close-btn"></div>
         </button>
-        <ul>
-          <li onClick={() => setShadowOf('')}>
-            <Link to="/profile" className="sidebar__header">
-              <div className="sprite__user"></div>
-              {'Hello, ' + shortName(userInfo)}
-            </Link>
-          </li>
-        </ul>
+
+        <SidebarHeader
+          userName={userName(userInfo?.name)}
+          clearShadow={setShadowOf}
+        />
 
         <ul className="sidebar__list">
           <LoadingOrError statusOf={productCategoryList} />
 
           {[
-            ...sidebarMenuTemplate,
-            ...(categories?.map(sidebarItemAdapter) || []),
-            ...sidebarMenuCreator(currency, userInfo, () => dispatch(signout()))
+            ...sidebarBase,
+            ...(categories?.map(sidebarCategoryAdapter) || []),
+
+            ...sidebarCurrencyCreator(currency),
+            ...sidebarUserCreator(userInfo?.name, signOutHandler),
+            ...sidebarSellerCreator(userInfo?.isSeller),
+            ...sidebarAdminCreator(userInfo?.isAdmin)
           ]
-            .map(mapMenuItemProp)
+            .map(mapArgsToProps)
             .map((props) => (
-              <MenuItem {...props} />
+              <MenuItem {...props} clearShadow={setShadowOf} />
             ))}
         </ul>
       </aside>

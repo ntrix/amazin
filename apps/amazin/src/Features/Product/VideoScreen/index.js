@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,6 +24,7 @@ import {
   bannerFallback,
   delay
 } from '../../../components/Fallbacks';
+import { useSafeState } from '../../../utils/useSafeState';
 
 const VideoNavHeader = React.lazy(() =>
   import(/* webpackPrefetch: true */ './VideoNavHeader')
@@ -41,11 +42,9 @@ export default function VideoScreen() {
   const productCreate = useSelector((state) => state.productCreate);
 
   const [active, setActive] = useState(STORE);
-  const [externMovies, setExternMovies] = useState({});
-  const [storeMovies, setStoreMovies] = useState([]);
-  const [bannerMovies, setBannerMovies] = useState([]);
-
-  const isMounted = useRef(true);
+  const [externMovies, setExternMovies] = useSafeState({});
+  const [storeMovies, setStoreMovies] = useSafeState([]);
+  const [bannerMovies, setBannerMovies] = useSafeState([]);
 
   useEffect(() => {
     const _banner = {};
@@ -56,7 +55,7 @@ export default function VideoScreen() {
       _banner[_genre] = genreMovies[(Math.random() * genreMovies.length) | 0];
     });
     setBannerMovies(_banner);
-  }, [productList.success, externMovies, storeMovies]);
+  }, [productList.success, setBannerMovies, externMovies, storeMovies]);
 
   useEffect(() => {
     dispatch(
@@ -78,21 +77,24 @@ export default function VideoScreen() {
           _movieList[genre] = sourceAdapter(data.results);
         })
       );
-      if (isMounted.current) setExternMovies(_movieList);
+      setExternMovies(_movieList);
     })();
-
-    return () => (isMounted.current = false); // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     setStoreMovies(productList.products);
-  }, [productList.products]);
+  }, [productList.products, setStoreMovies]);
 
   return (
     <div className="container--full video-screen">
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={loadingFallback}>
-          <VideoNavHeader labels={VIDEO.GENRES} hook={[active, setActive]} />
+          <VideoNavHeader
+            labels={VIDEO.GENRES}
+            active={active}
+            setActive={setActive}
+          />
         </Suspense>
 
         <LoadingOrError xl statusOf={productCreate} />
