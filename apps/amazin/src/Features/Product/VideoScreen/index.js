@@ -24,7 +24,7 @@ import {
   bannerFallback,
   delay
 } from '../../../components/Fallbacks';
-import { useMounted } from '../../../utils/useSafeState';
+import { useSafeState } from '../../../utils/useSafeState';
 
 const VideoNavHeader = React.lazy(() =>
   import(/* webpackPrefetch: true */ './VideoNavHeader')
@@ -42,11 +42,9 @@ export default function VideoScreen() {
   const productCreate = useSelector((state) => state.productCreate);
 
   const [active, setActive] = useState(STORE);
-  const [externMovies, setExternMovies] = useState({});
-  const [storeMovies, setStoreMovies] = useState([]);
-  const [bannerMovies, setBannerMovies] = useState([]);
-
-  const mounted = useMounted();
+  const [externMovies, setExternMovies] = useSafeState({});
+  const [storeMovies, setStoreMovies] = useSafeState([]);
+  const [bannerMovies, setBannerMovies] = useSafeState([]);
 
   useEffect(() => {
     const _banner = {};
@@ -56,8 +54,8 @@ export default function VideoScreen() {
         : externMovies[_genre] || storeMovies || VIDEO.EXAMPLES;
       _banner[_genre] = genreMovies[(Math.random() * genreMovies.length) | 0];
     });
-    if (mounted.current) setBannerMovies(_banner);
-  }, [productList.success, mounted, externMovies, storeMovies]);
+    setBannerMovies(_banner);
+  }, [productList.success, setBannerMovies, externMovies, storeMovies]);
 
   useEffect(() => {
     dispatch(
@@ -79,14 +77,14 @@ export default function VideoScreen() {
           _movieList[genre] = sourceAdapter(data.results);
         })
       );
-      if (mounted.current) setExternMovies(_movieList);
+      setExternMovies(_movieList);
     })();
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (mounted.current) setStoreMovies(productList.products);
-  }, [productList.products, mounted]);
+    setStoreMovies(productList.products);
+  }, [productList.products, setStoreMovies]);
 
   return (
     <div className="container--full video-screen">
