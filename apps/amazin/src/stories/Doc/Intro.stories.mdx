@@ -2,12 +2,15 @@
 
 # Welcome to Amazin' Amazim Storybook
 
+
 ## A React Amazon (& Netflix & ...) Clone Project
+
 
 ## What is Storybook?
 
 Storybook is a tool for UI development. It makes development faster and easier by isolating components.
 This allows you to work on one component at a time. You can develop entire UIs without needing to start up a complex dev stack, force certain data into your database, or navigate around your application.
+
 
 ## What is Amazin' Amazim Storybook
 
@@ -21,10 +24,12 @@ This is the collection of components that I wrote for [amazim.store][amazim], in
 - Cards
 - And more to come ..
 
+
 ## What is Amazim?
 
 This is not only an online shop/ platform clone of Amazon, Netflix or something else built with a js-framework,
-but also a long term example experimenting some **modern**, **real-world**, **maybe unstable** React APIs, Nx, Mobile friendly PWA and also some Backend technologies in my freetime.
+but also a long term example experimenting some **modern**, **real-world**, **maybe unstable** React APIs, Nx, Mobile friendly PWA and also some Backend technologies in my spare time.
+
 
 ## Tech stack: MERN & Co.
 
@@ -34,8 +39,9 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 - [Nx CLI][nx]
 - [React JS][react]
+- [Redux][redux]
 - [Cypress][cy]
-- UI modules:
+- UI modules: [...]
 - [Vercel][vercel]
 
 ### Backend Stack
@@ -43,25 +49,41 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 ![Tech Stack Backtend][stackBE]
 - [Node JS][Node]
 - [Express JS][express]
-- [Mongo DB][mongo]
 
+- [Mongo DB][mongo]
+- [Mongoose][mongoose]
+- [Mongo DB Atlas][atlas]
 - [Heroku][heroku]
 - [optional AWS][aws]
 
 [nx]: https://nx.dev/
 [react]: https://reactjs.org/
+[redux]: https://redux.js.org/
 [node]: https://nodejs.org/
 [express]: https://expressjs.com/
 [mongo]: https://www.mongodb.com/
+[mongoose]: https://mongoosejs.com/
 [vercel]: https://vercel.com/
 [heroku]: https://www.heroku.com/
 
+
 ## Working application
 
-- Live demo: [amazim.store][amazim] or [amazin.ntien.com][amazin]
-- Source code: [github.com/ntrix/amazin][source]
+
+### Live demo, PWA, QR code:
+
+| **[amazim.store][amazim]**   | **[amazin.ntien.com][amazin]**   |
+| ---------------------------- | -------------------------------- |
+| ![amazim.store QR][qramazim] | ![amazin.ntien.com QR][qramazin] |
 
 ![Amazon Clone built with React and Node][demo]
+
+### Source code:
+
+Frontend: [github.com/ntrix/amazin][FE]
+
+Backend: [github.com/ntrix/amazin-be][BE]
+
 
 ## Learning by Doing
 
@@ -76,23 +98,26 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 | Part | Description                                                                     | Status |
 | ---- | ------------------------------------------------------------------------------- | ------ |
-| 01a  | [Database: MongoDB][atlas]                                                      | Done   |
-| 01b  | [Backend Simple Version][BE]                                                    | Done   |
-| 02a  | [Frontend Project][FE]                                                          | Done   |
-| 02b  | [Migration to Nx][Nx]                                                           | Done   |
-| 03a  | [Testing With React][testing]                                                   | Doing  |
-| 03b  | [Performance & Experiment some unstable React API][reactAPI]                    | Done   |
-| 03c  | [E2E testing with Cypress][cy]                                                  | Doing  |
-| 04a  | [AWS Cloud Backend?][aws]                                                       | **Todo**   |
-| 04b  | [Backend DB cache][redis]                                                       | Doing  |
-| 05   | [AB Testing, Error Tracing (React Profiler?)][profiler]                         | **Todo**   |
+| 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas]               | Done   |
+| 01b  | Backend v1: [Source][BE], [Node][Node], [Express][express]                      | Done   |
+| 01c  | Backend Deploy: [Heroku][heroku] / Firebase                                     | Done   |
+| 02a  | Frontend v2: [Source][FE], [React][react], [Redux][redux]                       | Done   |
+| 02b  | Frontend Deploy: [Vercel][vercel]                                               | Done   |
+| 03a  | Frontend v3: [Source][FEnx], Migration to [Nx][Nx]                              | Done   |
+| 03b  | [Testing in React][testing]                                                     | Doing  |
+| 03c  | E2E testing with [Cypress][cy]                                                  | Doing  |
+| 04   | Performance & Experiment some [unstable React API][reactAPI]                    | Done   |
+| 05a  | [AWS Cloud Backend?][aws]                                                       | **Todo**   |
+| 05b  | Backend [DB cache][redis]                                                       | Doing  |
+| 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]                         | **Todo**   |
 | ..   | ..                                                                              | ..     |
-| 09a  | [StoryBook UI Components, separate UI/UI libs][storybook]                       | Done   |
+| 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs                        | Done   |
 | 09b  | [Documentation][mdx]                                                            | Doing  |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [BE]: https://github.com/ntrix/amazin-be
 [FE]: https://github.com/ntrix/amazin
+[FEnx]: https://github.com/ntrix/amazin
 [testing]: https://testing-library.com/
 [reactAPI]: https://reactjs.org/docs/concurrent-mode-suspense.html
 [storybook]: https://storybook.js.org/
@@ -100,12 +125,14 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [swagger]: https://swagger.io/
 
 [stackFE]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/nx-react-cy.jpeg
-[stackBE]: hhttps://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/mongo-expresss-react-node-heroku-dbatlas.jpeg
+[stackBE]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/mongo-expresss-react-node-heroku-dbatlas.jpeg
 [demo]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/amazim-react-demo-ntien.gif
 [amazim]: https://amazim.store/
 [amazin]: https://amazin.ntien.com/
-[source]: https://github.com/ntrix/amazin
 [aws]: https://aws.com/
 [redis]: https://redis.com/
 [profiler]: https://reactjs.org/docs/profiler.html
 [mdx]: https://mdxjs.com/
+
+[qramazim]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode_amazim.store.jpeg
+[qramazin]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode_amazin.ntien.com.jpeg
