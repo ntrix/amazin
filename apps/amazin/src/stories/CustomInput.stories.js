@@ -1,13 +1,20 @@
 import CustomInput from '../components/CustomInput';
 
 export default {
-  title: 'Components/Custom Input',
+  title: 'Components/Form Custom Input',
   component: CustomInput
 };
 
-const Template = (args) => <CustomInput {...args} />;
+const Template = (props) => (
+  <div className="p-1">
+    <form className="form">
+      <CustomInput {...props} />
+    </form>
+  </div>
+);
+
 const text = 'Sample Text Input';
-const Args = {
+const args = {
   text,
   type: 'text',
   placeholder: `Enter ${text}`,
@@ -18,17 +25,14 @@ const Args = {
   rest: null
 };
 
-export const SameLabel = Template.bind(Args);
-SameLabel.args = { ...Args };
+export const SameLabel = Template.bind({});
+SameLabel.args = { ...args };
 
-const OptionalLabelArgs = { ...Args, label: 'Set Or Remove Label' };
-export const OptionalLabel = Template.bind(OptionalLabelArgs);
-OptionalLabel.args = { ...OptionalLabelArgs };
+export const OptionalLabel = Template.bind({});
+OptionalLabel.args = { ...args, label: 'Set Or Remove Label' };
 
-const InlineArgs = { ...Args, wrapClass: '' };
-export const Inline = Template.bind(InlineArgs);
-Inline.args = { ...InlineArgs };
+export const Inline = Template.bind({});
+Inline.args = { ...args, wrapClass: '' };
 
-const TextAreaArgs = { ...Args, textarea: true };
-export const TextArea = Template.bind(TextAreaArgs);
-TextArea.args = { ...TextAreaArgs };
+export const TextArea = Template.bind({});
+TextArea.args = { ...args, textarea: true };

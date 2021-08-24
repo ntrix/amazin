@@ -5,12 +5,15 @@ export default {
   component: LoadingBox
 };
 
-const Template = (args) => <LoadingBox {...args} />;
-const Args = { xl: false, wrapClass: '' };
+const Template = (props) => (
+  <div className="p-1">
+    <LoadingBox {...props} />
+  </div>
+);
+const args = { xl: false, wrapClass: '' };
 
-export const LoadingNormal = Template.bind(Args);
-LoadingNormal.args = { ...Args };
+export const LoadingNormal = Template.bind({});
+LoadingNormal.args = { ...args };
 
-const XLArgs = { ...Args, xl: true };
-export const LoadingXL = Template.bind(XLArgs);
-LoadingXL.args = { ...XLArgs };
+export const LoadingXL = Template.bind({});
+LoadingXL.args = { ...args, xl: true };
