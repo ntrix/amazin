@@ -3,8 +3,6 @@ import CustomerCard, {
   mapCustomerCardProp
 } from '../../Features/User/CustomerScreen/CustomerCard';
 
-const baseUrl = 'https://amazim.store';
-
 export default {
   title: 'Components/Features/User/Customer Card',
   component: CustomerCard
@@ -14,7 +12,7 @@ const Template = (args) => <CustomerCard {...args} />;
 
 const customerCards = customerMenuTemplate.map((p) => ({
   ...mapCustomerCardProp(p),
-  baseUrl
+  baseUrl: process.env.STORYBOOK_BASE
 }));
 
 export const Card0 = Template.bind(customerCards[0]);
