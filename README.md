@@ -1,94 +1,144 @@
+# Welcome to Amazin' Amazim Storybook
 
+## A React Amazon (& Netflix & ...) Clone Project
 
-# MyOrg
+## What is Storybook?
+
+Storybook is a tool for UI development. It makes development faster and easier by isolating components.
+This allows you to work on one component at a time. You can develop entire UIs without needing to start up a complex dev stack, force certain data into your database, or navigate around your application.
+
+## What is [Amazin' Amazim Storybook][amazin-story]
+
+This is the collection of components that I wrote for [amazim.store][amazim], includes
+
+- Buttons
+- Input
+- Rating
+- Pagination
+- MessageBox
+- Cards
+- And more to come ..
+
+[https://ntrix.github.io/amazin-story/][amazin-story] or [https://amazin-story.vercel.app/][amazin-story-vercel]
+
+## What is Amazim?
+
+This is not only an online shop/platform/clone of Amazon, Netflix or something else built with a js-framework,
+but also a long term example experimenting some **modern**, **real-world**, **maybe unstable** React APIs, Nx, Mobile friendly PWA and also some Backend technologies in my spare time.
+
+## Tech stack: MERN & Co.
+
+### Frontend Stack
+
+![Tech Stack Frontend][stackfe]
+
+- [Nx CLI][nx]
+- [React JS][react]
+- [Redux][redux]
+- [Cypress][cy]
+- UI modules:
+  - [Swiper][swiper]
+  - ...
+- [Vercel][vercel]
+
+### Backend Stack
+
+![Tech Stack Backtend][stackbe]
+
+- [Node JS][node]
+- [Express JS][express]
+
+- [Mongo DB][mongo]
+- [Mongoose][mongoose]
+- [Mongo DB Atlas][atlas]
+- [Heroku][heroku]
+- [optional AWS][aws]
+
+[nx]: https://nx.dev/
+[react]: https://reactjs.org/
+[redux]: https://redux.js.org/
+[swiper]: https://swiperjs.com/
+[node]: https://nodejs.org/
+[express]: https://expressjs.com/
+[mongo]: https://www.mongodb.com/
+[mongoose]: https://mongoosejs.com/
+[vercel]: https://vercel.com/
+[heroku]: https://www.heroku.com/
+
+## Working application
+
+### Live demo, PWA, QR code:
+
+| **[amazim.store][amazim]**   | **[amazin.ntien.com][amazin]**   |
+| ---------------------------- | -------------------------------- |
+| ![amazim.store QR][qramazim] | ![amazin.ntien.com QR][qramazin] |
+
+![Amazon Clone built with React and Node][demo]
+
+### Source code:
+
+Frontend: [github.com/ntrix/amazin][fenx]
+
+Frontend (old version): [github.com/ntrix/amazin/tree/org-cra][fev1]
+
+Backend: [github.com/ntrix/amazin-be][bev1]
+
+## Learning by Doing
+
+**"Divide to conquer"** - Lao Tsu (604-531 BC).
+
+When I look at the application, it is **huge**. When the task is huge, you usually don't know how to start working with them.
+I had to break the big task into smaller parts, do it step by step and enjoy learning.
+
+Yes, **Learning by Doing ** that's my approach. If you see a long path ahead, don't heap or run or give up, just divide the path(process) to steps and make (conquer) the first one, and then another one.
+I learned a lot of stuff, also renew and update my knowledge just by doing. You might too have a curiosity about the process of building the same scale app as well, but just let's do it.
+
+| Part | Description                                                       | Status   |
+| ---- | ----------------------------------------------------------------- | -------- |
+| 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas] | Done     |
+| 01b  | Backend v1: [Source][bev1], [Node][node], [Express][express]      | Done     |
+| 01c  | Backend Deploy: [Heroku][heroku] / Firebase                       | Done     |
+| 02a  | Frontend v1: [Source][fev1], [React][react], [Redux][redux]       | Done     |
+| 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
+| 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
+| 03b  | [Testing in React][testing]                                       | Doing    |
+| 03c  | E2E testing with [Cypress][cy]                                    | Doing    |
+| 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
+| 05a  | [AWS Cloud Backend?][aws]                                         | **Todo** |
+| 05b  | Backend [DB cache][redis]                                         | Doing    |
+| 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]           | **Todo** |
+| ..   | ..                                                                | ..       |
+| 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs          | Done     |
+| 09b  | [Documentation][mdx]                                              | Doing    |
+| 09c  | Migration to TypeScript                                           | **Todo** |
+
+[atlas]: https://www.mongodb.com/cloud/atlas
+[bev1]: https://github.com/ntrix/amazin-be
+[fev1]: https://github.com/ntrix/amazin/tree/org-cra
+[fenx]: https://github.com/ntrix/amazin
+[testing]: https://testing-library.com/
+[reactapi]: https://reactjs.org/docs/concurrent-mode-suspense.html
+[storybook]: https://storybook.js.org/
+[cy]: https://www.cypress.io/
+[swagger]: https://swagger.io/
+[stackfe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/nx-react-cy-redux-swiper-vercel-1000.png
+[stackbe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/mongo-expresss-react-node-atlas-mongoose-heroku-1000.png
+[amazim]: https://amazim.store/
+[amazin]: https://amazin.ntien.com/
+[aws]: https://aws.com/
+[redis]: https://redis.com/
+[profiler]: https://reactjs.org/docs/profiler.html
+[mdx]: https://mdxjs.com/
+[qramazim]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazim.store.png
+[qramazin]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazin.ntien.com.png
+[amazin-story]: https://ntrix.github.io/amazin-story/
+[amazin-story-vercel]: https://amazin-story.vercel.app/
+[demo]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/amazim-react-demo-ntien.gif
+
+## Nx Amazin' Amazim Store
 
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
 🔎 **Smart, Extensible Build Framework**
-
-## Adding capabilities to your workspace
-
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
-
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
-
-Below are our core plugins:
-
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/community) you could add.
-
-## Generate an application
-
-Run `nx g @nrwl/react:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@my-org/mylib`.
-
-## Development server
-
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
