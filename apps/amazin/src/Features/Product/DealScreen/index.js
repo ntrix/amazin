@@ -1,4 +1,10 @@
-import React, { Suspense, useCallback, useEffect, useRef } from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -8,14 +14,12 @@ import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
 import Carousel, { responsive, NAV, SORT } from '../../../constants';
-import LoadingOrError from '../../../components/LoadingOrError';
 import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
 import { dummyMovies } from '../../../utils';
 import { useDebounce } from '../../../utils/useDebounce';
 import { useShadow } from '../../../utils/useShadow';
-import { useSafeState } from '../../../utils/useSafeState';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/ProductCard')
@@ -31,7 +35,7 @@ export function _DealScreen() {
   const productList = useSelector((state) => state.productList);
   const { shadowOf } = useShadow();
 
-  const [list, setList, mounted] = useSafeState(null);
+  const [list, setList] = useState(null);
 
   const banner = useRef('');
   const category = useRef('');
@@ -71,69 +75,65 @@ export function _DealScreen() {
   }, [productList, setList, preloadingCat, category, paramCat, changeCategory]);
 
   return (
-    mounted.current && (
-      <>
-        <SubNavCategories
-          first={NAV.DEAL}
-          category={category.current}
-          changeCategory={changeCategory}
-          onPreload={(_cat) => (list ? debouncePreload(_cat) : null)}
-        />
+    <>
+      <SubNavCategories
+        first={NAV.DEAL}
+        category={category.current}
+        changeCategory={changeCategory}
+        onPreload={(_cat) => (list ? debouncePreload(_cat) : null)}
+      />
 
-        <div className={`deal-screen ${banner.current}`}>
-          <Carousel
-            swipeable={true}
-            draggable={true}
-            showDots={true}
-            responsive={responsive}
-            infinite={true}
-            autoPlay={!shadowOf}
-            autoPlaySpeed={3000}
-            keyBoardControl={true}
-            customTransition="transform 500ms ease-in-out"
-            transitionDuration={500}
-            centerMode={true}
-            containerClass="carousel-container"
-            removeArrowOnDeviceType={['mobile']}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-          >
-            {!list && <LoadingOrError statusOf={productList} />}
-            {mounted.current &&
-              (list?.products || dummyMovies).map((product, id) => (
-                <Suspense fallback={loadingFallback} key={id}>
-                  <ProductCard hasDeal product={product} />
-                </Suspense>
-              ))}
-          </Carousel>
+      <div className={`deal-screen ${banner.current}`}>
+        <Carousel
+          swipeable={true}
+          draggable={true}
+          showDots={true}
+          responsive={responsive}
+          infinite={true}
+          autoPlay={!shadowOf}
+          autoPlaySpeed={3000}
+          keyBoardControl={true}
+          customTransition="transform 500ms ease-in-out"
+          transitionDuration={500}
+          centerMode={true}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={['mobile']}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {(list?.products || dummyMovies).map((product, id) => (
+            <Suspense fallback={loadingFallback} key={id}>
+              <ProductCard hasDeal product={product} />
+            </Suspense>
+          ))}
+        </Carousel>
 
-          <MessageBox show={list?.products?.length < 1}>
-            No Deals On This Category!
-          </MessageBox>
+        <MessageBox show={list?.products?.length < 1}>
+          No Deals On This Category!
+        </MessageBox>
 
-          <h2 className="screen__title">Top Deals</h2>
+        <h2 className="screen__title">Top Deals</h2>
 
-          <div className="screen__featured">
-            <SearchBanner info={list}>
-              <SortFilter
-                order={order}
-                getUrl={({ order: _o }) =>
-                  `/deal/category/all/order/${_o}/pageNumber/1`
-                }
-              />
-            </SearchBanner>
+        <div className="screen__featured">
+          <SearchBanner info={list}>
+            <SortFilter
+              order={order}
+              getUrl={({ order: _o }) =>
+                `/deal/category/all/order/${_o}/pageNumber/1`
+              }
+            />
+          </SearchBanner>
 
-            <div className="row center">
-              {list?.products?.map((product, id) => (
-                <Suspense key={id} fallback={loadingFallback}>
-                  <ProductCard hasDeal product={product} />
-                </Suspense>
-              ))}
-            </div>
+          <div className="row center">
+            {list?.products?.map((product, id) => (
+              <Suspense key={id} fallback={loadingFallback}>
+                <ProductCard hasDeal product={product} />
+              </Suspense>
+            ))}
           </div>
         </div>
-      </>
-    )
+      </div>
+    </>
   );
 }
 
