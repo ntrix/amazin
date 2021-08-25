@@ -5,13 +5,15 @@ import { signout } from '../../../Controllers/userActions';
 
 import {
   sidebarBase,
-  sidebarCategoryAdapter,
   sidebarCurrencyCreator,
   sidebarUserCreator,
   sidebarSellerCreator,
   sidebarAdminCreator
 } from './sidebarTemplate';
-import MenuItem, { mapArgsToProps } from '../components/MenuItem';
+import MenuItem, {
+  NavCategoryAdapter,
+  mapArgsToProps
+} from '../components/MenuItem';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { useShadow } from '../../../utils/useShadow';
 import { SHADOW } from '../../../constants';
@@ -50,7 +52,7 @@ export function _SidebarMenu({ currency }) {
 
           {[
             ...sidebarBase,
-            ...(categories?.map(sidebarCategoryAdapter) || []),
+            ...(categories?.map(NavCategoryAdapter) || []),
 
             ...sidebarCurrencyCreator(currency),
             ...sidebarUserCreator(userInfo?.name, signOutHandler),

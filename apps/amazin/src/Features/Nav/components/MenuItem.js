@@ -62,6 +62,8 @@ export const mapArgsToProps = (
   key: `${id} ${label || className}`
 });
 
+export const NavCategoryAdapter = (cat) => [cat, '/search/category/' + cat];
+
 const MenuItem = React.memo(
   _MenuItem,
   (prev, next) =>

@@ -12,8 +12,6 @@ export const sidebarBase = [
   ['Netflux Video', '/video']
 ];
 
-export const sidebarCategoryAdapter = (cat) => [cat, '/search/category/' + cat];
-
 export function sidebarCurrencyCreator(currency = 'EUR') {
   return [
     ['separator'],

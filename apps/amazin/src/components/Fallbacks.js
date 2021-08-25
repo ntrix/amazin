@@ -7,7 +7,7 @@ export const bannerFallback = (
     style={{ position: 'relative', zIndex: 0, height: 448 }}
   >
     <br />
-    <LoadingBox xl />
+    <LoadingBox />
   </div>
 );
 
