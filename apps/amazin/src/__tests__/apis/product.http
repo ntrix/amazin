@@ -1,0 +1,47 @@
+@baseUrl = http://localhost:5000/api/
+
+# @name getAllProducts
+GET {{baseUrl}}products
+###
+
+# @name updateCurrencyRates
+# with .env API key only
+GET {{baseUrl}}config/rates
+###
+
+# @name listAllProducts
+GET {{baseUrl}}products?pageSize=999&category=
+###
+
+# @name listProducts
+GET {{baseUrl}}products?pageSize=6&pageNumber=&seller=&name=&category=&deal=0&min=0.01&max=0&rating=0&order=
+###
+
+# @name listProductCategorie
+GET {{baseUrl}}products/categories
+###
+
+@productId = 123
+@token =
+@content =
+
+# only with valid token
+
+# @name detailsProduct
+GET {{baseUrl}}products/{{productId}}
+###
+
+# @name createProduct
+POST {{baseUrl}}products
+###
+
+# @name updateProduct
+PUT {{baseUrl}}products/{{productId}}
+###
+
+# @name deleteProduc
+DELETE {{baseUrl}}products/{{productId}}
+###
+
+# @name createRevie
+POST {{baseUrl}}products/{{productId}}/reviews
