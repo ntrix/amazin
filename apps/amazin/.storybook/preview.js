@@ -9,7 +9,13 @@ import '../src/fonts/font-awesome.css';
 export const parameters = {
   options: {
     storySort: {
-      order: ['Intro', 'Structure', 'Components', ['Features', 'Button']]
+      order: [
+        'Intro',
+        'Structure',
+        ['Frontend', 'Public', 'Backend'],
+        'Components',
+        ['Features', 'Button']
+      ]
     }
   }
 };
