@@ -8,8 +8,9 @@ const PrecacheConfig = [
   // ["/customer"],
 ];
 /* eslint-enable quotes, comma-spacing */
-const CacheNamePrefix =
-  'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
+const CacheNamePrefix = `sw-precache-v1--${
+  self.registration ? self.registration.scope : ''
+}-`;
 
 const IgnoreUrlParametersMatching = [/^utm_/];
 
@@ -25,8 +26,9 @@ const getCacheBustedUrl = function (url, param) {
   param = param || Date.now();
 
   const urlWithCacheBusting = new URL(url);
-  urlWithCacheBusting.search +=
-    (urlWithCacheBusting.search ? '&' : '') + 'sw-precache=' + param;
+  urlWithCacheBusting.search += `${
+    urlWithCacheBusting.search ? '&' : ''
+  }sw-precache=${param}`;
 
   return urlWithCacheBusting.toString();
 };
@@ -54,15 +56,12 @@ const populateCurrentCacheNames = function (
 
   precacheConfig.forEach(function (cacheOption) {
     const absoluteUrl = new URL(cacheOption[0], baseUrl).toString();
-    const cacheName = cacheNamePrefix + absoluteUrl + '-' + cacheOption[1];
+    const cacheName = `${cacheNamePrefix + absoluteUrl}-${cacheOption[1]}`;
     currentCacheNamesToAbsoluteUrl[cacheName] = absoluteUrl;
     absoluteUrlToCacheName[absoluteUrl] = cacheName;
   });
 
-  return {
-    absoluteUrlToCacheName: absoluteUrlToCacheName,
-    currentCacheNamesToAbsoluteUrl: currentCacheNamesToAbsoluteUrl
-  };
+  return { absoluteUrlToCacheName, currentCacheNamesToAbsoluteUrl };
 };
 
 const stripIgnoredUrlParameters = function (
@@ -79,7 +78,7 @@ const stripIgnoredUrlParameters = function (
     })
     .filter(function (kv) {
       return ignoreUrlParametersMatching.every(function (ignoredRegex) {
-        return !ignoredRegex.test(kv[0]); // Return true iff the key doesn't match any of the regexes.
+        return !ignoredRegex.test(kv[0]); // Return true if the key doesn't match any of the regex-es.
       });
     })
     .map(function (kv) {
@@ -199,21 +198,19 @@ self.addEventListener('message', function (event) {
       })
       .catch(function (error) {
         console.log('Caches not deleted:', error);
-        event.ports[0].postMessage({
-          error: error
-        });
+        event.ports[0].postMessage({ error });
       });
   }
 });
 
 self.addEventListener('fetch', function (event) {
   if (event.request.method === 'GET') {
-    const urlWithoutIgnoredParameters = stripIgnoredUrlParameters(
+    let urlWithoutIgnoredParameters = stripIgnoredUrlParameters(
       event.request.url,
       IgnoreUrlParametersMatching
     );
 
-    const cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
+    let cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
     const directoryIndex = 'index.html';
     if (!cacheName && directoryIndex) {
       urlWithoutIgnoredParameters = addDirectoryIndex(
@@ -254,7 +251,7 @@ self.addEventListener('fetch', function (event) {
                 }
                 // If for some reason the response was deleted from the cache,
                 // raise and exception and fall back to the fetch() triggered in the catch().
-                throw Error('The cache ' + cacheName + ' is empty.');
+                throw Error(`The cache ${cacheName} is empty.`);
               });
             });
           })
