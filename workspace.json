@@ -59,7 +59,7 @@
           "outputs": ["{options.outputPath}"],
           "options": {
             "uiFramework": "@storybook/react",
-            "outputPath": "dist/storybook/amazin",
+            "outputPath": "../../__storybook/amazin-story",
             "config": {
               "configFolder": "apps/amazin/.storybook"
             }
