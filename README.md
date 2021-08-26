@@ -122,7 +122,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [cy]: https://www.cypress.io/
 [swagger]: https://swagger.io/
 [stackfe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/nx-react-cy-redux-swiper-vercel-1000.png
-[stackbe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/mongo-expresss-react-node-atlas-mongoose-heroku-1000.png
+[stackbe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/mongo-express-react-node-atlas-mongoose-heroku-1000.png
 [amazim]: https://amazim.store/
 [amazin]: https://amazin.ntien.com/
 [aws]: https://aws.com/
