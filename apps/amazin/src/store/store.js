@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
-import { cartReducer } from './Features/Checkout/CartSlice';
+import { cartReducer } from '../Features/Checkout/CartSlice';
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -10,7 +10,7 @@ import {
   orderListReducer,
   orderMineListReducer,
   orderPayReducer
-} from './Features/Order/OrderSlice';
+} from '../Features/Order/OrderSlice';
 import {
   productCategoryListReducer,
   productCreateReducer,
@@ -21,7 +21,7 @@ import {
   productReviewCreateReducer,
   productUpdateReducer,
   currencyTypeReducer
-} from './Features/Product/ProductSlice';
+} from '../Features/Product/ProductSlice';
 import {
   userAddressMapReducer,
   userDeleteReducer,
@@ -32,9 +32,9 @@ import {
   userTopSellerListReducer,
   userUpdateProfileReducer,
   userUpdateReducer
-} from './Features/User/UserSlice.js';
-import { Storage } from './utils';
-import { KEY } from './constants';
+} from '../Features/User/UserSlice.js';
+import { Storage } from '../utils';
+import { KEY } from '../constants';
 
 const preloadedState = {
   userSignin: { userInfo: Storage[KEY.USER_INFO] },
