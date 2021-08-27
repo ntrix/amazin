@@ -14,7 +14,7 @@ export const parameters = {
         'Structure',
         ['Frontend', 'Public', 'Backend'],
         'Components',
-        ['Features', 'Button']
+        ['Nav', 'Screens', 'Button']
       ]
     }
   }

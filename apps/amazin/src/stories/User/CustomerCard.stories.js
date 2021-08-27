@@ -4,7 +4,7 @@ import CustomerCard, {
 } from '../../screens/User/CustomerScreen/CustomerCard';
 
 export default {
-  title: 'Components/Features/User/Customer Card',
+  title: 'Components/Screens/User/Customer Card',
   component: CustomerCard
 };
 

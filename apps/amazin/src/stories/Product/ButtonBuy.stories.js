@@ -1,7 +1,7 @@
 import ButtonBuy from '../../screens/Product/VideoScreen/components/ButtonBuy';
 
 export default {
-  title: 'Components/Features/Product/Video Screen/Button Buy',
+  title: 'Components/Screens/Product/Video Screen/Button Buy',
   component: ButtonBuy
 };
 

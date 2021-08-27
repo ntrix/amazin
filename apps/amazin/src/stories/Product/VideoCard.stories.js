@@ -45,7 +45,7 @@ function VideoCard({ movie, portrait }) {
 }
 
 export default {
-  title: 'Components/Features/Product/Video Screen/Video Card',
+  title: 'Components/Screens/Product/Video Screen/Video Card',
   component: VideoCard
 };
 

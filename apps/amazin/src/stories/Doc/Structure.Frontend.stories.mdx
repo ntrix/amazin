@@ -42,25 +42,31 @@
 │   │   │   ├── robots.txt
 │   │   │   └── service-worker.js
 │   │   ├── src
-│   │   │   ├── App.js
-│   │   │   ├── Controllers
-│   │   │   │   ├── cartActions.js
-│   │   │   │   ├── orderActions.js
-│   │   │   │   ├── productActions.js
-│   │   │   │   └── userActions.js
-│   │   │   ├── Features
-│   │   │   │   ├── Auth
-│   │   │   │   │   ├── ErrorScreen.js
-│   │   │   │   │   ├── RegisterScreen.js
-│   │   │   │   │   ├── Screen404.js
-│   │   │   │   │   └── SigninScreen.js
-│   │   │   │   ├── Checkout
-│   │   │   │   │   ├── CartScreen.js
-│   │   │   │   │   ├── CartSlice.js
-│   │   │   │   │   ├── CheckoutSteps.js
-│   │   │   │   │   ├── PaymentMethodScreen.js
-│   │   │   │   │   └── ShippingAddressScreen.js
-│   │   │   │   ├── HomeScreen.js
+│   │   │   ├── __mocks__
+│   │   │   │   ├── index.js
+│   │   │   │   └── store.js
+│   │   │   ├── __tests__
+│   │   │   │   ├── App.js
+│   │   │   │   ├── apis
+│   │   │   │   │   └── product.http
+│   │   │   │   └── components
+│   │   │   │       └── Button.js
+│   │   │   ├── apis
+│   │   │   │   ├── axiosClient.js
+│   │   │   │   ├── cartAPI.js
+│   │   │   │   ├── orderAPI.js
+│   │   │   │   ├── productAPI.js
+│   │   │   │   └── userAPI.js
+│   │   │   ├── app
+│   │   │   │   ├── index.js
+│   │   │   │   └── responsive.css
+│   │   │   ├── components
+│   │   │   │   ├── Button.js
+│   │   │   │   ├── CustomInput.js
+│   │   │   │   ├── Fallbacks.js
+│   │   │   │   ├── LoadingBox.js
+│   │   │   │   ├── LoadingOrError.js
+│   │   │   │   ├── MessageBox.js
 │   │   │   │   ├── Nav
 │   │   │   │   │   ├── HeaderNavBelt
 │   │   │   │   │   │   ├── CartLinkBtn.js
@@ -94,10 +100,76 @@
 │   │   │   │   │   ├── components
 │   │   │   │   │   │   └── MenuItem.js
 │   │   │   │   │   └── nav.css
+│   │   │   │   ├── Pagination.js
+│   │   │   │   ├── Rating.js
+│   │   │   │   └── SortFilter.js
+│   │   │   ├── constants
+│   │   │   │   └── index.js
+│   │   │   ├── fonts
+│   │   │   │   ├── AmazonEmber_W_Bd.eot
+│   │   │   │   ├── AmazonEmber_W_Bd.woff
+│   │   │   │   ├── AmazonEmber_W_Bd.woff2
+│   │   │   │   ├── AmazonEmber_W_He.eot
+│   │   │   │   ├── AmazonEmber_W_He.woff
+│   │   │   │   ├── AmazonEmber_W_He.woff2
+│   │   │   │   ├── AmazonEmber_W_Rg.eot
+│   │   │   │   ├── AmazonEmber_W_Rg.woff
+│   │   │   │   ├── AmazonEmber_W_Rg.woff2
+│   │   │   │   ├── AmazonEmber_W_SBd.eot
+│   │   │   │   ├── AmazonEmber_W_SBd.woff
+│   │   │   │   ├── AmazonEmber_W_SBd.woff2
+│   │   │   │   ├── FontAwesome.eot
+│   │   │   │   ├── FontAwesome.svg
+│   │   │   │   ├── FontAwesome.ttf
+│   │   │   │   ├── FontAwesome.woff
+│   │   │   │   ├── FontAwesome.woff2
+│   │   │   │   ├── font-awesome.css
+│   │   │   │   └── fonts.css
+│   │   │   ├── hooks
+│   │   │   │   ├── useDebounce.js
+│   │   │   │   ├── useSafeState.js
+│   │   │   │   └── useShadow.js
+│   │   │   ├── img
+│   │   │   │   ├── a.svg
+│   │   │   │   ├── banner-Save.jpg
+│   │   │   │   ├── banner-Save1.jpg
+│   │   │   │   ├── banner-alarm.jpg
+│   │   │   │   ├── banner-bestseller.jpg
+│   │   │   │   ├── banner-camera.jpg
+│   │   │   │   ├── banner-fs-lila.jpg
+│   │   │   │   ├── banner-fs.jpg
+│   │   │   │   ├── banner-giftbox.jpg
+│   │   │   │   ├── banner-ship.jpg
+│   │   │   │   ├── banner-shipping.jpg
+│   │   │   │   ├── flags-globe.png
+│   │   │   │   ├── flags.png
+│   │   │   │   ├── load-xs.gif
+│   │   │   │   ├── load.gif
+│   │   │   │   └── nav-sprite.png
+│   │   │   ├── index.css
+│   │   │   ├── index.js
+│   │   │   ├── react-app-env.d.ts
+│   │   │   ├── routes
+│   │   │   │   ├── AdminRoute.js
+│   │   │   │   ├── MainRoute.js
+│   │   │   │   ├── PrivateRoute.js
+│   │   │   │   ├── RouteBoundary.js
+│   │   │   │   └── SellerRoute.js
+│   │   │   ├── screens
+│   │   │   │   ├── Auth
+│   │   │   │   │   ├── ErrorScreen.js
+│   │   │   │   │   ├── RegisterScreen.js
+│   │   │   │   │   ├── Screen404.js
+│   │   │   │   │   └── SigninScreen.js
+│   │   │   │   ├── Checkout
+│   │   │   │   │   ├── CartScreen.js
+│   │   │   │   │   ├── CheckoutSteps.js
+│   │   │   │   │   ├── PaymentMethodScreen.js
+│   │   │   │   │   └── ShippingAddressScreen.js
+│   │   │   │   ├── HomeScreen.js
 │   │   │   │   ├── Order
 │   │   │   │   │   ├── OrderHistoryScreen.js
 │   │   │   │   │   ├── OrderListScreen.js
-│   │   │   │   │   ├── OrderSlice.js
 │   │   │   │   │   ├── OrderSumScreen
 │   │   │   │   │   │   ├── AdminDeliveryCard.js
 │   │   │   │   │   │   ├── OrderSumCard.js
@@ -125,7 +197,6 @@
 │   │   │   │   │   │   ├── ProductReview.js
 │   │   │   │   │   │   ├── index.js
 │   │   │   │   │   │   └── productScreen.css
-│   │   │   │   │   ├── ProductSlice.js
 │   │   │   │   │   ├── SearchScreen
 │   │   │   │   │   │   ├── SearchFilterColumn
 │   │   │   │   │   │   │   ├── FilterListItem.js
@@ -149,12 +220,6 @@
 │   │   │   │   │   │   └── videoScreen.css
 │   │   │   │   │   └── components
 │   │   │   │   │       └── ProductCard.js
-│   │   │   │   ├── Route
-│   │   │   │   │   ├── AdminRoute.js
-│   │   │   │   │   ├── MainRoute.js
-│   │   │   │   │   ├── PrivateRoute.js
-│   │   │   │   │   ├── RouteBoundary.js
-│   │   │   │   │   └── SellerRoute.js
 │   │   │   │   └── User
 │   │   │   │       ├── ContactScreen.js
 │   │   │   │       ├── CurrencyScreen
@@ -168,72 +233,16 @@
 │   │   │   │       ├── MapScreen.js
 │   │   │   │       ├── ProfileScreen.js
 │   │   │   │       ├── UserEditScreen.js
-│   │   │   │       ├── UserListScreen.js
-│   │   │   │       └── UserSlice.js
-│   │   │   ├── __mocks__
-│   │   │   │   ├── index.js
-│   │   │   │   └── store.js
-│   │   │   ├── __tests__
-│   │   │   │   ├── App.js
-│   │   │   │   ├── apis
-│   │   │   │   │   └── product.http
-│   │   │   │   └── components
-│   │   │   │       └── Button.js
-│   │   │   ├── components
-│   │   │   │   ├── Button.js
-│   │   │   │   ├── CustomInput.js
-│   │   │   │   ├── Fallbacks.js
-│   │   │   │   ├── LoadingBox.js
-│   │   │   │   ├── LoadingOrError.js
-│   │   │   │   ├── MessageBox.js
-│   │   │   │   ├── Pagination.js
-│   │   │   │   ├── Rating.js
-│   │   │   │   └── SortFilter.js
-│   │   │   ├── constants.js
-│   │   │   ├── data.js
-│   │   │   ├── fonts
-│   │   │   │   ├── AmazonEmber_W_Bd.eot
-│   │   │   │   ├── AmazonEmber_W_Bd.woff
-│   │   │   │   ├── AmazonEmber_W_Bd.woff2
-│   │   │   │   ├── AmazonEmber_W_He.eot
-│   │   │   │   ├── AmazonEmber_W_He.woff
-│   │   │   │   ├── AmazonEmber_W_He.woff2
-│   │   │   │   ├── AmazonEmber_W_Rg.eot
-│   │   │   │   ├── AmazonEmber_W_Rg.woff
-│   │   │   │   ├── AmazonEmber_W_Rg.woff2
-│   │   │   │   ├── AmazonEmber_W_SBd.eot
-│   │   │   │   ├── AmazonEmber_W_SBd.woff
-│   │   │   │   ├── AmazonEmber_W_SBd.woff2
-│   │   │   │   ├── FontAwesome.eot
-│   │   │   │   ├── FontAwesome.svg
-│   │   │   │   ├── FontAwesome.ttf
-│   │   │   │   ├── FontAwesome.woff
-│   │   │   │   ├── FontAwesome.woff2
-│   │   │   │   ├── font-awesome.css
-│   │   │   │   └── fonts.css
-│   │   │   ├── img
-│   │   │   │   ├── a.svg
-│   │   │   │   ├── banner-Save.jpg
-│   │   │   │   ├── banner-Save1.jpg
-│   │   │   │   ├── banner-alarm.jpg
-│   │   │   │   ├── banner-bestseller.jpg
-│   │   │   │   ├── banner-camera.jpg
-│   │   │   │   ├── banner-fs-lila.jpg
-│   │   │   │   ├── banner-fs.jpg
-│   │   │   │   ├── banner-giftbox.jpg
-│   │   │   │   ├── banner-ship.jpg
-│   │   │   │   ├── banner-shipping.jpg
-│   │   │   │   ├── flags-globe.png
-│   │   │   │   ├── flags.png
-│   │   │   │   ├── load-xs.gif
-│   │   │   │   ├── load.gif
-│   │   │   │   └── nav-sprite.png
-│   │   │   ├── index.css
-│   │   │   ├── index.js
-│   │   │   ├── react-app-env.d.ts
-│   │   │   ├── responsive.css
+│   │   │   │       └── UserListScreen.js
 │   │   │   ├── serviceWorker.js
-│   │   │   ├── store.js
+│   │   │   ├── slice
+│   │   │   │   ├── CartSlice.js
+│   │   │   │   ├── OrderSlice.js
+│   │   │   │   ├── ProductSlice.js
+│   │   │   │   ├── ReduxToolKitClient.js
+│   │   │   │   └── UserSlice.js
+│   │   │   ├── store
+│   │   │   │   └── store.js
 │   │   │   ├── stories
 │   │   │   │   ├── CustomInput.stories.js
 │   │   │   │   ├── Doc
@@ -267,14 +276,9 @@
 │   │   │   │   ├── pagination.stories.js
 │   │   │   │   └── rating.stories.js
 │   │   │   └── utils
-│   │   │       ├── ReduxToolKitClient.js
-│   │   │       ├── axiosClient.js
 │   │   │       ├── findSuggest.js
 │   │   │       ├── index.js
-│   │   │       ├── suspenseClient.js
-│   │   │       ├── useDebounce.js
-│   │   │       ├── useSafeState.js
-│   │   │       └── useShadow.js
+│   │   │       └── suspenseClient.js
 │   │   └── tsconfig.json
 │   └── amazin-e2e
 │       ├── cypress.json
