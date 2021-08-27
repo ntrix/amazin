@@ -7,7 +7,7 @@ import {
   createProduct,
   deleteProduct,
   listProducts
-} from '../../Controllers/productActions';
+} from '../../apis/productAPI';
 import { productCreateActions, productDeleteActions } from './ProductSlice';
 
 import LoadingOrError from '../../components/LoadingOrError';

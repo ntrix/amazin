@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import axiosClient from '../../../utils/axiosClient';
-import { detailsOrder } from '../../../Controllers/orderActions';
-import { payOrder } from '../../../Controllers/orderActions';
-import { deliverOrder } from '../../../Controllers/orderActions';
+import axiosClient from '../../../apis/axiosClient';
+import { detailsOrder, payOrder, deliverOrder } from '../../../apis/orderAPI';
 import { orderDeliverActions, orderPayActions } from '../OrderSlice';
 
 import StatusBox from './StatusBox';

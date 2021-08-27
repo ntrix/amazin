@@ -1,8 +1,8 @@
-import { axios } from '../../utils/axiosClient';
+import { axios } from '../../apis/axiosClient';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { updateUserProfile } from '../../Controllers/userActions';
+import { updateUserProfile } from '../../apis/userAPI';
 import { userUpdateProfileActions } from './UserSlice';
 
 import MessageBox from '../../components/MessageBox';

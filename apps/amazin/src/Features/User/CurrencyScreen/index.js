@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { updateCurrencyRates } from '../../../Controllers/productActions';
-import { updateUserProfile } from '../../../Controllers/userActions';
+import { updateCurrencyRates } from '../../../apis/productAPI';
+import { updateUserProfile } from '../../../apis/userAPI';
 import { currencyTypeActions } from '../../Product/ProductSlice';
 import { userUpdateProfileActions } from '../UserSlice';
 import './currencyScreen.css';

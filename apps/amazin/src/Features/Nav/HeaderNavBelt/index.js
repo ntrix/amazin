@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signout } from '../../../Controllers/userActions';
+import { signout } from '../../../apis/userAPI';
 import '../nav.css';
 
 import LogoLinkBtn from './LogoLinkBtn';

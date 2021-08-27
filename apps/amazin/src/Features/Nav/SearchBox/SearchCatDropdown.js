@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { listAllProducts } from '../../../Controllers/productActions';
+import { listAllProducts } from '../../../apis/productAPI';
 
 import { useOutline } from './useOutline';
 import { useShadow } from '../../../utils/useShadow';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { savePaymentMethod } from '../../Controllers/cartActions';
+import { savePaymentMethod } from '../../apis/cartAPI';
 
 import CheckoutSteps from './CheckoutSteps';
 import CustomInput from '../../components/CustomInput';

@@ -1,4 +1,4 @@
-import { axiosPrivate } from '../utils/axiosClient';
+import { axiosPrivate } from './axiosClient';
 import { cartActions } from '../Features/Checkout/CartSlice.js';
 import {
   orderCreateActions,

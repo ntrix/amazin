@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { saveShippingAddress } from '../../Controllers/cartActions';
+import { saveShippingAddress } from '../../apis/cartAPI';
 
 import CheckoutSteps from './CheckoutSteps';
 import CustomInput from '../../components/CustomInput';

@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { listProducts } from '../../../Controllers/productActions';
+import { listProducts } from '../../../apis/productAPI';
 import './videoScreen.css';
 
 import MessageBox from '../../../components/MessageBox';

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import SortFilter from '../../../components/SortFilter';
-import { listProducts } from '../../../Controllers/productActions';
+import { listProducts } from '../../../apis/productAPI';
 import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';

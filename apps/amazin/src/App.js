@@ -2,10 +2,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import {
-  listProductCategories,
-  updateCurrencyRates
-} from './Controllers/productActions';
+import { listProductCategories, updateCurrencyRates } from './apis/productAPI';
 import './index.css';
 import { ShadowProvider, useShadow } from './utils/useShadow';
 import HeaderNavBelt from './Features/Nav/HeaderNavBelt';

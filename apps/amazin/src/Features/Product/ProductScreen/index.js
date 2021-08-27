@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ProductDescription from './ProductDescription';
 import ProductReview from './ProductReview';
 import ProductInStock from './ProductInStock';
-import { detailsProduct } from '../../../Controllers/productActions';
+import { detailsProduct } from '../../../apis/productAPI';
 import SellerCard from '../SellerScreen/SellerCard';
 
 import LoadingOrError from '../../../components/LoadingOrError';

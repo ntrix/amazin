@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { productCreateActions } from '../../ProductSlice';
-import { createProduct } from '../../../../Controllers/productActions';
+import { createProduct } from '../../../../apis/productAPI';
 
 export const SellerButton = (props) => (
   <button className="banner__button mh-2" {...props}>
