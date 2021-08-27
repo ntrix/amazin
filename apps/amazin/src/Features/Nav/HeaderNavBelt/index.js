@@ -16,7 +16,7 @@ import {
   sellerMenuCreator,
   adminMenuTemplate
 } from './navBeltTemplate';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import { savePath, shortName } from '../../../utils';
 import { SHADOW } from 'src/constants';
 

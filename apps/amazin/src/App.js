@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { listProductCategories, updateCurrencyRates } from './apis/productAPI';
 import './index.css';
-import { ShadowProvider, useShadow } from './utils/useShadow';
+import { ShadowProvider, useShadow } from './hooks/useShadow';
 import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
 import MainRoute from './routes/MainRoute';

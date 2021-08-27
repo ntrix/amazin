@@ -1,6 +1,6 @@
 import React from 'react';
 import { SHADOW } from '../../../constants';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 
 export function _OpenSidebarBtn() {
   const { setShadowOf } = useShadow();

@@ -15,7 +15,7 @@ import MenuItem, {
   mapArgsToProps
 } from '../components/MenuItem';
 import LoadingOrError from '../../../components/LoadingOrError';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import { SHADOW } from '../../../constants';
 import SidebarHeader from './SidebarHeader';
 import { shortName } from 'src/utils';

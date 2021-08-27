@@ -12,7 +12,7 @@ import SearchCatScope from './SearchCatScope';
 import SearchInput from './SearchInput';
 import SearchBtn from './SearchBtn';
 import { OutlineProvider, useOutline } from './useOutline';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import { NAV, SHADOW } from '../../../constants';
 
 const SearchCatDropdown = lazy(() =>

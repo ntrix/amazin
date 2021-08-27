@@ -18,8 +18,8 @@ import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
 import { dummyMovies } from '../../../utils';
-import { useDebounce } from '../../../utils/useDebounce';
-import { useShadow } from '../../../utils/useShadow';
+import { useDebounce } from '../../../hooks/useDebounce';
+import { useShadow } from '../../../hooks/useShadow';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/ProductCard')

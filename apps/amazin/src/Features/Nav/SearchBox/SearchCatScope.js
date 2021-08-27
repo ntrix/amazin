@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useOutline } from './useOutline';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import { getCatLabel, SHADOW } from '../../../constants';
 
 export function _SearchCatScope({ activeCat }) {

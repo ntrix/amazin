@@ -24,7 +24,7 @@ import {
   bannerFallback,
   delay
 } from '../../../components/Fallbacks';
-import { useSafeState } from '../../../utils/useSafeState';
+import { useSafeState } from '../../../hooks/useSafeState';
 
 const VideoNavHeader = React.lazy(() =>
   import(/* webpackPrefetch: true */ './VideoNavHeader')
