@@ -1,4 +1,4 @@
-import CartLinkBtn from '../../Features/Nav/HeaderNavBelt/CartLinkBtn';
+import CartLinkBtn from '../../components/Nav/HeaderNavBelt/CartLinkBtn';
 
 export default {
   title: 'Components/Features/Nav/Cart Link Button',

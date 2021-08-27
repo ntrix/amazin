@@ -24,7 +24,7 @@ import(/* webpackPreload: true */ './fonts/FontAwesome.woff2');
 
 import(/* webpackPreload: true */ './fonts/fonts.css');
 import(/* webpackPreload: true */ './index.css');
-import(/* webpackPreload: true */ './Features/Nav/nav.css');
+import(/* webpackPreload: true */ './components/Nav/nav.css');
 import(/* webpackPreload: true */ 'swiper/swiper-bundle.css');
 import(/* webpackPreload: true */ './app/responsive.css');
 import(/* webpackPreload: true */ './fonts/font-awesome.css');

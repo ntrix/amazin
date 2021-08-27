@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LoadingOrError from '../../components/LoadingOrError';
+import LoadingOrError from '../LoadingOrError';
 
 export function _SubNavCategories({
   first,

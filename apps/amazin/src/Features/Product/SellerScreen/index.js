@@ -12,7 +12,7 @@ import MessageBox from '../../../components/MessageBox';
 import LoadingOrError from '../../../components/LoadingOrError';
 import { SORT } from '../../../constants';
 import { loadingFallback } from '../../../components/Fallbacks';
-import SearchBanner from '../../Nav/SearchBanner';
+import SearchBanner from '../../../components/Nav/SearchBanner';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/ProductCard')

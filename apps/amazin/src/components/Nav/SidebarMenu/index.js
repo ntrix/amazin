@@ -14,7 +14,7 @@ import MenuItem, {
   NavCategoryAdapter,
   mapArgsToProps
 } from '../components/MenuItem';
-import LoadingOrError from '../../../components/LoadingOrError';
+import LoadingOrError from '../../LoadingOrError';
 import { useShadow } from '../../../hooks/useShadow';
 import { SHADOW } from '../../../constants';
 import SidebarHeader from './SidebarHeader';

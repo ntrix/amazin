@@ -14,8 +14,8 @@ import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
 import Carousel, { responsive, NAV, SORT } from '../../../constants';
-import SubNavCategories from '../../Nav/SubNavCategories';
-import SearchBanner from '../../Nav/SearchBanner';
+import SubNavCategories from '../../../components/Nav/SubNavCategories';
+import SearchBanner from '../../../components/Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
 import { dummyMovies } from '../../../utils';
 import { useDebounce } from '../../../hooks/useDebounce';

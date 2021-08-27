@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import LoadingOrError from '../../../components/LoadingOrError';
+import LoadingOrError from '../../LoadingOrError';
 import { NavCategoryAdapter } from '../components/MenuItem';
 import { navMainTemplate } from './navMainTemplate';
 import NavMainItem from './NavMainItem';

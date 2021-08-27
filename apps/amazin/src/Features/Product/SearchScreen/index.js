@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import { listProducts } from '../../../apis/productAPI';
 import SearchFilterColumn from './SearchFilterColumn';
 import SearchResultColumn from './SearchResultColumn';
-import SubNavCategories from '../../Nav/SubNavCategories';
+import SubNavCategories from '../../../components/Nav/SubNavCategories';
 
 import SortFilter from '../../../components/SortFilter';
 import Pagination from '../../../components/Pagination';
 import { NAV, SORT } from '../../../constants';
-import SearchBanner from '../../Nav/SearchBanner';
+import SearchBanner from '../../../components/Nav/SearchBanner';
 
 export function _SearchScreen() {
   const dispatch = useDispatch();
