@@ -1,5 +1,5 @@
-import { SellerButton } from '../../Features/Product/VideoScreen/components/ButtonSell';
-import ButtonBuy from '../../Features/Product/VideoScreen/components/ButtonBuy';
+import { SellerButton } from '../../screens/Product/VideoScreen/components/ButtonSell';
+import ButtonBuy from '../../screens/Product/VideoScreen/components/ButtonBuy';
 import Rating from '../../components/Rating';
 import { getImgUrl } from '../../utils';
 import { VIDEO } from '../../constants';
@@ -45,7 +45,7 @@ function VideoCard({ movie, portrait }) {
 }
 
 export default {
-  title: 'Components/Features/Product/Video Screen/Video Card',
+  title: 'Components/Screens/Product/Video Screen/Video Card',
   component: VideoCard
 };
 

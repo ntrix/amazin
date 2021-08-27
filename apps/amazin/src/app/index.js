@@ -5,8 +5,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
 import '../index.css';
 import { ShadowProvider, useShadow } from '../hooks/useShadow';
-import HeaderNavBelt from '../Features/Nav/HeaderNavBelt';
-import HeaderNavMain from '../Features/Nav/HeaderNavMain';
+import HeaderNavBelt from '../components/Nav/HeaderNavBelt';
+import HeaderNavMain from '../components/Nav/HeaderNavMain';
 import MainRoute from '../routes/MainRoute';
 import { Storage, pipe } from '../utils';
 import { SHADOW, KEY } from '../constants';
@@ -15,10 +15,10 @@ import '../fonts/fonts.css';
 import '../fonts/font-awesome.css';
 
 const ErrorScreen = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../Features/Auth/ErrorScreen')
+  import(/* webpackPrefetch: true */ '../screens/Auth/ErrorScreen')
 );
 const SidebarMenu = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../Features/Nav/SidebarMenu')
+  import(/* webpackPrefetch: true */ '../components/Nav/SidebarMenu')
 );
 
 function InnerApp() {

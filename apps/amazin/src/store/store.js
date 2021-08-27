@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
-import { cartReducer } from '../Features/Checkout/CartSlice';
+import { cartReducer } from '../slice/CartSlice';
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -10,7 +10,7 @@ import {
   orderListReducer,
   orderMineListReducer,
   orderPayReducer
-} from '../Features/Order/OrderSlice';
+} from '../slice/OrderSlice';
 import {
   productCategoryListReducer,
   productCreateReducer,
@@ -21,7 +21,7 @@ import {
   productReviewCreateReducer,
   productUpdateReducer,
   currencyTypeReducer
-} from '../Features/Product/ProductSlice';
+} from '../slice/ProductSlice';
 import {
   userAddressMapReducer,
   userDeleteReducer,
@@ -32,7 +32,7 @@ import {
   userTopSellerListReducer,
   userUpdateProfileReducer,
   userUpdateReducer
-} from '../Features/User/UserSlice.js';
+} from '../slice/UserSlice.js';
 import { Storage } from '../utils';
 import { KEY } from '../constants';
 

@@ -3,7 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Route as Router, Redirect, Switch } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 
-import ErrorScreen from '../Features/Auth/ErrorScreen';
+import ErrorScreen from '../screens/Auth/ErrorScreen';
 
 const Route = (props) => (
   <ErrorBoundary FallbackComponent={ErrorScreen}>

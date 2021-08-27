@@ -8,7 +8,7 @@ import {
   userListActions,
   userDeleteActions,
   userTopSellerListActions
-} from '../Features/User/UserSlice';
+} from '../slice/UserSlice';
 import { Storage } from '../utils';
 import { KEY } from '../constants';
 

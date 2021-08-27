@@ -1,5 +1,5 @@
 import { axiosPrivate } from './axiosClient';
-import { cartActions } from '../Features/Checkout/CartSlice.js';
+import { cartActions } from '../slice/CartSlice.js';
 import {
   orderCreateActions,
   orderDetailsActions,
@@ -8,7 +8,7 @@ import {
   orderListActions,
   orderDeleteActions,
   orderDeliverActions
-} from '../Features/Order/OrderSlice';
+} from '../slice/OrderSlice';
 import { KEY } from '../constants';
 import { Storage } from '../utils';
 
