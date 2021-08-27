@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useOutline } from './useOutline';
+import { useOutline } from '../../../hooks/useOutline';
 import { useShadow } from '../../../hooks/useShadow';
 import { getCatLabel, SHADOW } from '../../../constants';
 

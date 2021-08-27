@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { listAllProducts } from '../../../apis/productAPI';
 
-import { useOutline } from './useOutline';
+import { useOutline } from '../../../hooks/useOutline';
 import { useShadow } from '../../../hooks/useShadow';
 import { getCatLabel, NAV } from '../../../constants';
 
