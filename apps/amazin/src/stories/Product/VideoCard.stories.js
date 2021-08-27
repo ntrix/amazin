@@ -1,5 +1,5 @@
-import { SellerButton } from '../../Features/Product/VideoScreen/components/ButtonSell';
-import ButtonBuy from '../../Features/Product/VideoScreen/components/ButtonBuy';
+import { SellerButton } from '../../screens/Product/VideoScreen/components/ButtonSell';
+import ButtonBuy from '../../screens/Product/VideoScreen/components/ButtonBuy';
 import Rating from '../../components/Rating';
 import { getImgUrl } from '../../utils';
 import { VIDEO } from '../../constants';

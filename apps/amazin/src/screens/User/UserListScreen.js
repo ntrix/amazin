@@ -8,7 +8,7 @@ import MessageBox from '../../components/MessageBox';
 import LoadingOrError from '../../components/LoadingOrError';
 import Button from '../../components/Button';
 
-export default function UserListScreen({ history }) {
+export default function UserListScreen() {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList);
   const userDelete = useSelector((state) => state.userDelete);

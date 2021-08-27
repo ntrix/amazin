@@ -30,20 +30,20 @@ import(/* webpackPreload: true */ './app/responsive.css');
 import(/* webpackPreload: true */ './fonts/font-awesome.css');
 
 import(
-  /* webpackPreload: true */ './Features/Product/VideoScreen/videoScreen.css'
+  /* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css'
 );
 import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css');
 import(
-  /* webpackPreload: true */ './Features/Product/DealScreen/dealScreen.css'
+  /* webpackPreload: true */ './screens/Product/DealScreen/dealScreen.css'
 );
 import(
-  /* webpackPreload: true */ './Features/Product/ProductScreen/productScreen.css'
+  /* webpackPreload: true */ './screens/Product/ProductScreen/productScreen.css'
 );
 import(
-  /* webpackPreload: true */ './Features/User/CurrencyScreen/currencyScreen.css'
+  /* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css'
 );
 import(
-  /* webpackPreload: true */ './Features/User/CustomerScreen/customerScreen.css'
+  /* webpackPreload: true */ './screens/User/CustomerScreen/customerScreen.css'
 );
 
 ReactDOM.render(

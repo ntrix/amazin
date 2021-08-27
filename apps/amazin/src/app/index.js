@@ -15,7 +15,7 @@ import '../fonts/fonts.css';
 import '../fonts/font-awesome.css';
 
 const ErrorScreen = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../Features/Auth/ErrorScreen')
+  import(/* webpackPrefetch: true */ '../screens/Auth/ErrorScreen')
 );
 const SidebarMenu = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/Nav/SidebarMenu')
