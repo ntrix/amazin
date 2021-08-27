@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { signin, updateUserProfile } from '../../Controllers/userActions';
-import { updateCurrencyRates } from '../../Controllers/productActions';
+import { signin, updateUserProfile } from '../../apis/userAPI';
+import { updateCurrencyRates } from '../../apis/productAPI';
 
 import { pipe } from '../../utils';
 import CustomInput from '../../components/CustomInput';

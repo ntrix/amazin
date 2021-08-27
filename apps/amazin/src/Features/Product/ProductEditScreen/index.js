@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  detailsProduct,
-  updateProduct
-} from '../../../Controllers/productActions';
+import { detailsProduct, updateProduct } from '../../../apis/productAPI';
 import { productUpdateActions } from '../ProductSlice';
 
 import LoadingOrError from '../../../components/LoadingOrError';

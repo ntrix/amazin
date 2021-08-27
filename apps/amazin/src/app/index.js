@@ -2,26 +2,23 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import {
-  listProductCategories,
-  updateCurrencyRates
-} from './Controllers/productActions';
-import './index.css';
-import { ShadowProvider, useShadow } from './utils/useShadow';
-import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
-import HeaderNavMain from './Features/Nav/HeaderNavMain';
-import MainRoute from './Features/Route/MainRoute';
-import { Storage, pipe } from './utils';
-import { SHADOW, KEY } from './constants';
+import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
+import '../index.css';
+import { ShadowProvider, useShadow } from '../hooks/useShadow';
+import HeaderNavBelt from '../Features/Nav/HeaderNavBelt';
+import HeaderNavMain from '../Features/Nav/HeaderNavMain';
+import MainRoute from '../routes/MainRoute';
+import { Storage, pipe } from '../utils';
+import { SHADOW, KEY } from '../constants';
 import './responsive.css';
-import './fonts/fonts.css';
-import './fonts/font-awesome.css';
+import '../fonts/fonts.css';
+import '../fonts/font-awesome.css';
 
 const ErrorScreen = React.lazy(() =>
-  import(/* webpackPrefetch: true */ './Features/Auth/ErrorScreen')
+  import(/* webpackPrefetch: true */ '../Features/Auth/ErrorScreen')
 );
 const SidebarMenu = React.lazy(() =>
-  import(/* webpackPrefetch: true */ './Features/Nav/SidebarMenu')
+  import(/* webpackPrefetch: true */ '../Features/Nav/SidebarMenu')
 );
 
 function InnerApp() {

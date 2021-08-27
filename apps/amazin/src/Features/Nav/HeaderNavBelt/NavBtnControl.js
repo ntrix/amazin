@@ -1,6 +1,6 @@
 import React, { Suspense, useRef } from 'react';
 import { SHADOW } from '../../../constants';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import NavDropdownBtn from './NavDropdownBtn';
 
 function _NavBtnControl({ children, ...props }) {

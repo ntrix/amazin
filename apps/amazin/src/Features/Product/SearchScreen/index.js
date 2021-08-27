@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { listProducts } from '../../../Controllers/productActions';
+import { listProducts } from '../../../apis/productAPI';
 import SearchFilterColumn from './SearchFilterColumn';
 import SearchResultColumn from './SearchResultColumn';
 import SubNavCategories from '../../Nav/SubNavCategories';

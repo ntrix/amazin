@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { orderDeleteActions } from '../Order/OrderSlice';
-import { deleteOrder, listOrders } from '../../Controllers/orderActions';
+import { deleteOrder, listOrders } from '../../apis/orderAPI';
 
 import { CURR_FORMAT, DD_MM_YYYY } from '../../constants';
 import LoadingOrError from '../../components/LoadingOrError';

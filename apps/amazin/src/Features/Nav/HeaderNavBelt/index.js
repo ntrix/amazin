@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signout } from '../../../Controllers/userActions';
+import { signout } from '../../../apis/userAPI';
 import '../nav.css';
 
 import LogoLinkBtn from './LogoLinkBtn';
@@ -16,7 +16,7 @@ import {
   sellerMenuCreator,
   adminMenuTemplate
 } from './navBeltTemplate';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import { savePath, shortName } from '../../../utils';
 import { SHADOW } from 'src/constants';
 

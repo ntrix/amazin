@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import SortFilter from '../../../components/SortFilter';
-import { listProducts } from '../../../Controllers/productActions';
+import { listProducts } from '../../../apis/productAPI';
 import './dealScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
@@ -18,8 +18,8 @@ import SubNavCategories from '../../Nav/SubNavCategories';
 import SearchBanner from '../../Nav/SearchBanner';
 import { loadingFallback } from '../../../components/Fallbacks';
 import { dummyMovies } from '../../../utils';
-import { useDebounce } from '../../../utils/useDebounce';
-import { useShadow } from '../../../utils/useShadow';
+import { useDebounce } from '../../../hooks/useDebounce';
+import { useShadow } from '../../../hooks/useShadow';
 
 const ProductCard = React.lazy(() =>
   import(/* webpackPrefetch: true */ '../components/ProductCard')

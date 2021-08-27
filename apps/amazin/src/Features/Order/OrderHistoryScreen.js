@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { listOrderMine } from '../../Controllers/orderActions';
+import { listOrderMine } from '../../apis/orderAPI';
 
 import { CURR_FORMAT, DD_MM_YYYY } from '../../constants';
 import LoadingOrError from '../../components/LoadingOrError';

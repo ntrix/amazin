@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import axiosClient from '../../../utils/axiosClient';
+import axiosClient from '../../../apis/axiosClient';
 
 import LoadingOrError from '../../../components/LoadingOrError';
 import MessageBox from '../../../components/MessageBox';

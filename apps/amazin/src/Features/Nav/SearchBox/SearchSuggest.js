@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { SEARCH, SHADOW } from '../../../constants';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import { useOutline } from './useOutline';
 
 export function _SearchSuggest({

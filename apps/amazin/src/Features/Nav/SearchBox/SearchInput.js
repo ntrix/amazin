@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { useOutline } from './useOutline';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 import { SHADOW } from '../../../constants';
 import { findSuggest } from '../../../utils';
 

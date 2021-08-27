@@ -127,13 +127,13 @@ export const savePath =
   };
 
 /* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
-const getImgURL = (url) => (url ? SRC_URL + url : '');
+const getFullUrl = (url) => (url ? SRC_URL + url : '');
 export const sourceAdapter = (movies, id) =>
   movies?.map((m) => ({
     name: m.name || m.title || m.original_title || 'Product Name',
     image:
       m.image ||
-      `${getImgURL(m.poster_path)}${m.backdrop_path ? '^' : ''}${getImgURL(
+      `${getFullUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getFullUrl(
         m.backdrop_path
       )}` ||
       NO_IMAGE,

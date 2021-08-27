@@ -2,8 +2,8 @@ import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
-import { listProducts } from '../../../Controllers/productActions';
-import { publicDetailsSeller } from '../../../Controllers/userActions';
+import { listProducts } from '../../../apis/productAPI';
+import { publicDetailsSeller } from '../../../apis/userAPI';
 import SellerCard from './SellerCard';
 
 import Pagination from '../../../components/Pagination';

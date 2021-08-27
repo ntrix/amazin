@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { listProducts } from '../../../Controllers/productActions';
+import { listProducts } from '../../../apis/productAPI';
 import './videoScreen.css';
 
 import MessageBox from '../../../components/MessageBox';
@@ -24,7 +24,7 @@ import {
   bannerFallback,
   delay
 } from '../../../components/Fallbacks';
-import { useSafeState } from '../../../utils/useSafeState';
+import { useSafeState } from '../../../hooks/useSafeState';
 
 const VideoNavHeader = React.lazy(() =>
   import(/* webpackPrefetch: true */ './VideoNavHeader')

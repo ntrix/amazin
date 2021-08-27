@@ -6,7 +6,7 @@ import { NavCategoryAdapter } from '../components/MenuItem';
 import { navMainTemplate } from './navMainTemplate';
 import NavMainItem from './NavMainItem';
 import OpenSidebarBtn from './OpenSidebarBtn';
-import { useShadow } from '../../../utils/useShadow';
+import { useShadow } from '../../../hooks/useShadow';
 
 export function _HeaderNavMain() {
   const productCategoryList = useSelector((state) => state.productCategoryList);

@@ -7,7 +7,7 @@ import {
   StandaloneSearchBox
 } from '@react-google-maps/api';
 
-import axiosClient from '../../utils/axiosClient';
+import axiosClient from '../../apis/axiosClient';
 import { userAddressMapActions } from './UserSlice';
 
 import LoadingBox from '../../components/LoadingBox';

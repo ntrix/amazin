@@ -2,8 +2,8 @@ import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
-import { listProducts } from '../Controllers/productActions';
-import { listTopSellers } from '../Controllers/userActions';
+import { listProducts } from '../apis/productAPI';
+import { listTopSellers } from '../apis/userAPI';
 import SwiperCore, {
   Navigation,
   EffectCoverflow,

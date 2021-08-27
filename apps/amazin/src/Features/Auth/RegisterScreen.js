@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { register } from '../../Controllers/userActions';
+import { register } from '../../apis/userAPI';
 
 import CustomInput from '../../components/CustomInput';
 import LoadingOrError from '../../components/LoadingOrError';

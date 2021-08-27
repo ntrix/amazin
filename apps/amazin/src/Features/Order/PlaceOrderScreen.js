@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { orderCreateActions } from './OrderSlice';
-import { createOrder } from '../../Controllers/orderActions';
+import { createOrder } from '../../apis/orderAPI';
 
 import OrderItemsCard from './components/OrderItemsCard';
 import ShippingAddressCard from './components/ShippingAddressCard';
