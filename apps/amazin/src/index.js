@@ -16,7 +16,7 @@ import store from './store';
 // import { ExpirationPlugin } from 'workbox-expiration';
 // import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
-import App from './App';
+import App from './app';
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2');
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2');
 import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2');
@@ -26,7 +26,7 @@ import(/* webpackPreload: true */ './fonts/fonts.css');
 import(/* webpackPreload: true */ './index.css');
 import(/* webpackPreload: true */ './Features/Nav/nav.css');
 import(/* webpackPreload: true */ 'swiper/swiper-bundle.css');
-import(/* webpackPreload: true */ './responsive.css');
+import(/* webpackPreload: true */ './app/responsive.css');
 import(/* webpackPreload: true */ './fonts/font-awesome.css');
 
 import(
