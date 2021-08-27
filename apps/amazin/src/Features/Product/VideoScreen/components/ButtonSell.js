@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { productCreateActions } from '../../ProductSlice';
+import { productCreateActions } from '../../../../slice/ProductSlice';
 import { createProduct } from '../../../../apis/productAPI';
 
 export const SellerButton = (props) => (

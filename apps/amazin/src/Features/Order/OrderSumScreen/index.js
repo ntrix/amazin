@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import axiosClient from '../../../apis/axiosClient';
 import { detailsOrder, payOrder, deliverOrder } from '../../../apis/orderAPI';
-import { orderDeliverActions, orderPayActions } from '../OrderSlice';
+import {
+  orderDeliverActions,
+  orderPayActions
+} from '../../../slice/OrderSlice';
 
 import StatusBox from './StatusBox';
 import OrderItemsCard from '../components/OrderItemsCard';

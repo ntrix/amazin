@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-import { cartActions } from '../Features/Checkout/CartSlice.js';
+import { cartActions } from '../slice/CartSlice.js';
 import { KEY, DUMMYSELLERS } from '../constants';
 import { Storage } from '../utils';
 

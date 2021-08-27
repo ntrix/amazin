@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '../../utils/ReduxToolKitClient';
+import { createSlice, Reducer } from './ReduxToolKitClient';
 
 export const { actions: orderCreateActions, reducer: orderCreateReducer } =
   createSlice({

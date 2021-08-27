@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { updateUserProfile } from '../../apis/userAPI';
-import { userUpdateProfileActions } from './UserSlice';
+import { userUpdateProfileActions } from '../../slice/UserSlice';
 
 import MessageBox from '../../components/MessageBox';
 import CustomInput from '../../components/CustomInput';

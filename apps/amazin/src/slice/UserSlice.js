@@ -1,5 +1,5 @@
-import { createSlice, Reducer } from '../../utils/ReduxToolKitClient';
-import { KEY } from '../../constants';
+import { createSlice, Reducer } from './ReduxToolKitClient';
+import { KEY } from '../constants';
 
 export const { actions: userRegisterActions, reducer: userRegisterReducer } =
   createSlice({

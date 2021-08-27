@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { userUpdateActions } from './UserSlice';
+import { userUpdateActions } from '../../slice/UserSlice';
 import { detailsUser, updateUser } from '../../apis/userAPI';
 
 import CustomInput from '../../components/CustomInput';

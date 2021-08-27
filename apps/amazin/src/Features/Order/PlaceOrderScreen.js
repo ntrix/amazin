@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { orderCreateActions } from './OrderSlice';
+import { orderCreateActions } from '../../slice/OrderSlice';
 import { createOrder } from '../../apis/orderAPI';
 
 import OrderItemsCard from './components/OrderItemsCard';

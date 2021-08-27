@@ -9,7 +9,7 @@ import {
   productUpdateActions,
   productDeleteActions,
   productReviewCreateActions
-} from '../Features/Product/ProductSlice';
+} from '../slice/ProductSlice';
 import { pipe } from '../utils';
 import { NAV } from '../constants';
 

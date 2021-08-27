@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { userUpdateProfileActions } from './UserSlice';
+import { userUpdateProfileActions } from '../../slice/UserSlice';
 import { detailsUser, updateUserProfile } from '../../apis/userAPI';
 
 import MessageBox from '../../components/MessageBox';

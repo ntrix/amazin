@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { productReviewCreateActions } from '../ProductSlice';
+import { productReviewCreateActions } from '../../../slice/ProductSlice';
 import { createReview, detailsProduct } from '../../../apis/productAPI';
 
 import MessageBox from '../../../components/MessageBox';

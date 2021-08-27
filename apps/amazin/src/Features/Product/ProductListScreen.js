@@ -8,7 +8,10 @@ import {
   deleteProduct,
   listProducts
 } from '../../apis/productAPI';
-import { productCreateActions, productDeleteActions } from './ProductSlice';
+import {
+  productCreateActions,
+  productDeleteActions
+} from '../../slice/ProductSlice';
 
 import LoadingOrError from '../../components/LoadingOrError';
 import Button from '../../components/Button';

@@ -1,4 +1,4 @@
-import { createSlice } from '../../utils/ReduxToolKitClient';
+import { createSlice } from './ReduxToolKitClient';
 
 export const { actions: cartActions, reducer: cartReducer } = createSlice({
   name: 'cart',

@@ -8,7 +8,7 @@ import {
 } from '@react-google-maps/api';
 
 import axiosClient from '../../apis/axiosClient';
-import { userAddressMapActions } from './UserSlice';
+import { userAddressMapActions } from '../../slice/UserSlice';
 
 import LoadingBox from '../../components/LoadingBox';
 import MessageBox from '../../components/MessageBox';

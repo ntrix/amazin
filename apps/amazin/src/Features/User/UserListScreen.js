@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { userDetailsActions } from './UserSlice';
+import { userDetailsActions } from '../../slice/UserSlice';
 import { deleteUser, listUsers } from '../../apis/userAPI';
 
 import MessageBox from '../../components/MessageBox';
