@@ -7,7 +7,7 @@ import './index.css';
 import { ShadowProvider, useShadow } from './utils/useShadow';
 import HeaderNavBelt from './Features/Nav/HeaderNavBelt';
 import HeaderNavMain from './Features/Nav/HeaderNavMain';
-import MainRoute from './Features/Route/MainRoute';
+import MainRoute from './routes/MainRoute';
 import { Storage, pipe } from './utils';
 import { SHADOW, KEY } from './constants';
 import './responsive.css';

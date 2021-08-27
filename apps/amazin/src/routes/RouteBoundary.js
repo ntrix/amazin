@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Route as Router, Redirect, Switch } from 'react-router-dom';
-import LoadingBox from '../../components/LoadingBox';
+import LoadingBox from '../components/LoadingBox';
 
-import ErrorScreen from '../Auth/ErrorScreen';
+import ErrorScreen from '../Features/Auth/ErrorScreen';
 
 const Route = (props) => (
   <ErrorBoundary FallbackComponent={ErrorScreen}>

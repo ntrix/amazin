@@ -5,7 +5,7 @@ import { userUpdateProfileActions } from './UserSlice';
 import { detailsUser, updateUserProfile } from '../../apis/userAPI';
 
 import MessageBox from '../../components/MessageBox';
-import PrivateRoute from '../Route/PrivateRoute';
+import PrivateRoute from '../../routes/PrivateRoute';
 import CustomInput from '../../components/CustomInput';
 import LoadingOrError from '../../components/LoadingOrError';
 
