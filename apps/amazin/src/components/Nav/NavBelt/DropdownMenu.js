@@ -1,7 +1,7 @@
 import React from 'react';
 import MenuItem, { mapArgsToProps } from '../MenuItem';
 
-const _DropdownMenu = ({ show, ddMenuList, clearShadow }) => {
+function DropdownMenu({ show, ddMenuList, clearShadow }) {
   return (
     <ul className={`dropdown__menu ${show ? 'show' : ''}`}>
       {ddMenuList.map(mapArgsToProps).map((props) => (
@@ -9,7 +9,6 @@ const _DropdownMenu = ({ show, ddMenuList, clearShadow }) => {
       ))}
     </ul>
   );
-};
+}
 
-const DropdownMenu = React.memo(_DropdownMenu);
-export default DropdownMenu;
+export default React.memo(DropdownMenu);
