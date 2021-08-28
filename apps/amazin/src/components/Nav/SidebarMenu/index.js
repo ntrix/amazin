@@ -10,10 +10,7 @@ import {
   sidebarSellerCreator,
   sidebarAdminCreator
 } from './sidebarTemplate';
-import MenuItem, {
-  NavCategoryAdapter,
-  mapArgsToProps
-} from '../components/MenuItem';
+import MenuItem, { NavCategoryAdapter, mapArgsToProps } from '../MenuItem';
 import LoadingOrError from '../../LoadingOrError';
 import { useShadow } from '../../../hooks/useShadow';
 import { SHADOW } from '../../../constants';

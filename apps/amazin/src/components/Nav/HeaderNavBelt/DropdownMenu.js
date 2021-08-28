@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuItem, { mapArgsToProps } from '../components/MenuItem';
+import MenuItem, { mapArgsToProps } from '../MenuItem';
 
 const _DropdownMenu = ({ show, ddMenuList, clearShadow }) => {
   return (
