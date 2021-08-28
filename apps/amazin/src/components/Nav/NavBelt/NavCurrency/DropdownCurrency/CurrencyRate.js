@@ -1,5 +1,5 @@
 import React from 'react';
-import { RATES_SOURCE } from '../../../../constants';
+import { RATES_SOURCE } from '../../../../../constants';
 
 function CurrencyRate({ currency }) {
   return (

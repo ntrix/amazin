@@ -1,5 +1,5 @@
 import React from 'react';
-import { pipe } from '../../../../utils';
+import { pipe } from '../../../../../utils';
 import DropdownCurrencyItem from './DropdownCurrencyItem';
 import CurrencyRate from './CurrencyRate';
 

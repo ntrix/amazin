@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import NavBtnControl from './NavBtnControl';
+import NavBtnControl from '../NavBtnControl';
 const DropdownCurrency = lazy(() => import(/* webpackPrefetch: true */ './DropdownCurrency'));
 
 function NavCurrency({ currency }) {
