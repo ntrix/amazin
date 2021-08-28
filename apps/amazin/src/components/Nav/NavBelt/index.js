@@ -1,30 +1,24 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { memo } from 'react';
 import '../nav.css';
-import LogoLinkBtn from './LogoLinkBtn';
-import LocatorLinkBtn from './LocatorLinkBtn';
+import NavLogo from './NavLogo';
+import NavLocator from './NavLocator';
 import SearchBox from '../SearchBox';
 import NavDropdownBtn from './NavDropdownBtn';
-import CartLinkBtn from './CartLinkBtn';
-import { useShadow } from '../../../hooks/useShadow';
-import { savePath } from '../../../utils';
-import { SHADOW } from 'src/constants';
 import NavCurrency from './NavCurrency';
 import NavUser from './NavUser';
+import NavCart from './NavCart';
 
 function NavBelt({ currency }) {
-  const { cartItems } = useSelector((state) => state.cart);
-  const { shadowOf, setShadowOf } = useShadow();
   return (
     <div className="nav-belt row">
-      <LogoLinkBtn to="/" />
-      <LocatorLinkBtn to="/map" onClick={savePath()} />
+      <NavLogo to="/" />
+      <NavLocator to="/map" />
       <SearchBox />
       <NavCurrency currency={currency} />
-      <NavUser show={SHADOW.NAV_DD === shadowOf} clearShadow={setShadowOf} />
+      <NavUser />
       <NavDropdownBtn disabled={!!'TODO'} wrapClass="nav__return tablet--off" labels="Return^& Orders" />
-      <CartLinkBtn to="/cart" counter={cartItems.length} />
+      <NavCart to="/cart" />
     </div>
   );
 }
-export default React.memo(NavBelt);
+export default memo(NavBelt);

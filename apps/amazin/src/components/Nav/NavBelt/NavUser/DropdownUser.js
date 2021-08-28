@@ -1,14 +1,17 @@
-import React from 'react';
+import { memo } from 'react';
+import { SHADOW } from 'src/constants';
+import { useShadow } from '../../../../hooks/useShadow';
 import MenuItem, { mapArgsToProps } from '../../MenuItem';
 
-function DropdownUser({ show, ddMenuList, clearShadow }) {
+function DropdownUser({ ddMenuList }) {
+  const { shadowOf, setShadowOf } = useShadow();
   return (
-    <ul className={`dropdown__menu ${show ? 'show' : ''}`}>
+    <ul className={`dropdown__menu ${SHADOW.NAV_DD === shadowOf ? 'show' : ''}`}>
       {ddMenuList.map(mapArgsToProps).map((props) => (
-        <MenuItem {...props} clearShadow={clearShadow} />
+        <MenuItem {...props} clearShadow={setShadowOf} />
       ))}
     </ul>
   );
 }
 
-export default React.memo(DropdownUser);
+export default memo(DropdownUser);
