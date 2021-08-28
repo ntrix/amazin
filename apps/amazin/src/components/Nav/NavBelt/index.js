@@ -27,7 +27,7 @@ const DropdownMenuCurrency = lazy(() =>
   import(/* webpackPrefetch: true */ './DropdownMenuCurrency')
 );
 
-export function _HeaderNavBelt({ currency }) {
+export function _NavBelt({ currency }) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.userSignin);
@@ -103,5 +103,5 @@ export function _HeaderNavBelt({ currency }) {
   );
 }
 
-const HeaderNavBelt = React.memo(_HeaderNavBelt);
-export default HeaderNavBelt;
+const NavBelt = React.memo(_NavBelt);
+export default NavBelt;

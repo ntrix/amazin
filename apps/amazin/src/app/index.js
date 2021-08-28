@@ -5,7 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
 import '../index.css';
 import { ShadowProvider, useShadow } from '../hooks/useShadow';
-import HeaderNavBelt from '../components/Nav/HeaderNavBelt';
+import NavBelt from '../components/Nav/NavBelt';
 import HeaderNavMain from '../components/Nav/HeaderNavMain';
 import MainRoute from '../routes/MainRoute';
 import { Storage, pipe } from '../utils';
@@ -51,7 +51,7 @@ function InnerApp() {
         <ErrorBoundary FallbackComponent={ErrorScreen}>
           <header id="nav-bar">
             <Suspense fallback={<h3>Amazin' Amazim Store</h3>}>
-              <HeaderNavBelt currency={currency} />
+              <NavBelt currency={currency} />
             </Suspense>
 
             <HeaderNavMain />
