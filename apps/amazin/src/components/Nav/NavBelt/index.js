@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import '../nav.css';
 import NavLogo from './NavLogo';
 import NavLocator from './NavLocator';
 import SearchBox from '../SearchBox';
