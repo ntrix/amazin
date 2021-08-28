@@ -6,7 +6,7 @@ import { createUserTemplate } from './userTemplate';
 import { createSellerTemplate } from './sellerTemplate';
 import { adminTemplate } from './adminTemplate';
 import { shortName } from '../../../../utils';
-const DropdownMenu = lazy(() => import(/* webpackPrefetch: true */ '../DropdownMenu'));
+const DropdownUser = lazy(() => import(/* webpackPrefetch: true */ './DropdownUser'));
 
 export default function useMenuCreator() {
   const dispatch = useDispatch();
