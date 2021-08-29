@@ -1,15 +1,23 @@
 import { lazy, Suspense, useState } from 'react';
+import { SHADOW } from 'src/constants';
+import { useShadow } from 'src/hooks/useShadow';
+import { useOutline } from '../useOutline';
 import SearchInput from './SearchInput';
-const SearchSuggest = lazy(() => import(/* webpackPrefetch: true */ './SearchSuggest'));
+const SearchSuggests = lazy(() => import(/* webpackPrefetch: true */ './SearchSuggests'));
 
 export default function BoxMiddle(props) {
+  const { suggestBox } = useOutline();
+  const { shadowOf } = useShadow();
   const [suggests, setSuggests] = useState([]);
-
   return (
     <div className="row--fill">
       <SearchInput {...props} setSuggests={setSuggests} />
       <Suspense fallback={null}>
-        <SearchSuggest suggests={!!props.input && suggests} setInput={props.setInput} setSuggests={setSuggests} />
+        {!!(props.input && suggests && suggestBox & (SHADOW.NAV_SEARCH === shadowOf)) && (
+          <div className="search__suggest">
+            <ul children={<SearchSuggests suggests={suggests} setInput={props.setInput} setSuggests={setSuggests} />} />
+          </div>
+        )}
       </Suspense>
     </div>
   );
