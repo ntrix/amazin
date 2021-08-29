@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useOutline } from './useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 import { SHADOW } from 'src/constants';
-export function useOutsideClick() {
+
+export function useOutsideClick(NavSearchRef) {
   const { shadowOf, setShadowOf } = useShadow();
   const { setScopeOutline, setSuggestBox } = useOutline();
-  const NavSearchRef = useRef(null);
+
   const handleOutsideClick = useCallback((e) => {
     if (!NavSearchRef.current || NavSearchRef.current.contains(e.target)) return;
     setSuggestBox(false);
@@ -20,5 +21,4 @@ export function useOutsideClick() {
     }
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, [setScopeOutline, shadowOf, handleOutsideClick]);
-  return { NavSearchRef };
 }
