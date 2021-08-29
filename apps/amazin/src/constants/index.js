@@ -58,7 +58,7 @@ export const NAV = {
   ALL: 'All',
   DEAL: 'Deals'
 };
-export const getCatLabel = (cat) => (cat === NAV.ALL ? NAV.ALL_CATEGORIES : cat);
+export const CatLabel = { [NAV.ALL]: NAV.ALL_CATEGORIES };
 
 /* price range filter width label name */
 export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map((max, i, arr) => ({

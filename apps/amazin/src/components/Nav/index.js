@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './nav.css';
 import NavBelt from './NavBelt';
 import NavMain from './NavMain';
@@ -10,4 +11,4 @@ function Nav({ currency }) {
     </header>
   );
 }
-export default Nav;
+export default memo(Nav);

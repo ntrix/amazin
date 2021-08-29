@@ -1,11 +1,10 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, memo, Suspense, useState } from 'react';
 import { SHADOW } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 import { useOutline } from '../useOutline';
 import SearchInput from './SearchInput';
 const SearchSuggests = lazy(() => import(/* webpackPrefetch: true */ './SearchSuggests'));
-
-export default function BoxMiddle(props) {
+function BoxMiddle(props) {
   const { suggestBox } = useOutline();
   const { shadowOf } = useShadow();
   const [suggests, setSuggests] = useState([]);
@@ -22,3 +21,4 @@ export default function BoxMiddle(props) {
     </div>
   );
 }
+export default memo(BoxMiddle);

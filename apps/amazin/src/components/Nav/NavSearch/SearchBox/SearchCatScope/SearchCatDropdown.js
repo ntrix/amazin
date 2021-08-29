@@ -1,45 +1,26 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listAllProducts } from '../../../../../apis/productAPI';
+import { NAV } from 'src/constants';
+import { listAllProducts } from 'src/apis/productAPI';
 import { useOutline } from '../../useOutline';
-import { useShadow } from '../../../../../hooks/useShadow';
-import { getCatLabel, NAV } from '../../../../../constants';
+import SearchCatItem from './SearchCatItem';
 
 function SearchCatDropdown({ activeCat, setActiveCat }) {
   const dispatch = useDispatch();
-  const { success, categories } = useSelector((state) => state.productCategoryList);
-  const { inputRef, setOutline, scopeOutline, setScopeOutline, setSuggestBox } = useOutline();
-  const { setShadowOf } = useShadow();
+  const { categories } = useSelector((state) => state.productCategoryList);
+  const { scopeOutline } = useOutline();
   useEffect(() => {
     dispatch(listAllProducts({ category: activeCat }));
-  }, [dispatch, activeCat, success]);
+  }, [dispatch, activeCat]);
 
   return scopeOutline > 0 && categories ? (
     <div className="cat-scope__dropdown">
       <ul className="dropdown__list">
-        {[NAV.ALL, ...categories].map((cat, i) => (
-          <li
-            key={i}
-            className={`category ${cat === activeCat ? 'active' : ''}`}
-            onClick={() => {
-              if (cat === activeCat) {
-                setOutline(false);
-                setScopeOutline(-1);
-                return;
-              }
-              inputRef.current.focus();
-              setActiveCat(cat);
-              setScopeOutline(0);
-              setSuggestBox(false);
-              setShadowOf('');
-            }}
-            onBlur={() => setScopeOutline(0)}
-          >
-            <i className="fa fa-check"></i> {getCatLabel(cat)}
-          </li>
+        {[NAV.ALL, ...categories].map((cat, key) => (
+          <SearchCatItem key={key} cat={cat} isActive={activeCat === cat} setActiveCat={setActiveCat} />
         ))}
       </ul>
     </div>
   ) : null;
 }
-export default memo(SearchCatDropdown);
+export default memo(SearchCatDropdown, (prev, next) => prev.activeCat === next.activeCat);

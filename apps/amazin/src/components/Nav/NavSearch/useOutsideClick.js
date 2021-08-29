@@ -3,12 +3,12 @@ import { useOutline } from './useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 import { SHADOW } from 'src/constants';
 
-export function useOutsideClick(NavSearchRef) {
+export function useOutsideClick(navSearchRef) {
   const { shadowOf, setShadowOf } = useShadow();
   const { setScopeOutline, setSuggestBox } = useOutline();
 
   const handleOutsideClick = useCallback((e) => {
-    if (!NavSearchRef.current || NavSearchRef.current.contains(e.target)) return;
+    if (!navSearchRef.current || navSearchRef.current.contains(e.target)) return;
     setSuggestBox(false);
     setScopeOutline(0);
     setShadowOf(''); // eslint-disable-next-line

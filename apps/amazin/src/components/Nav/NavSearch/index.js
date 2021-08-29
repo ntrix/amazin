@@ -1,22 +1,23 @@
 import { memo, useRef } from 'react';
 import SearchBox from './SearchBox';
-import { OutlineProvider, useOutline } from './useOutline';
+import { OutlineProvider } from './useOutline';
 import { useOutsideClick } from './useOutsideClick';
 
 function NavSearch() {
-  const { outline } = useOutline();
-  const NavSearchRef = useRef();
-  useOutsideClick(NavSearchRef);
+  const navSearchRef = useRef();
+  useOutsideClick(navSearchRef);
   return (
-    <div ref={NavSearchRef} className="nav__search">
-      <SearchBox className={`search-box ${outline ? 'focus' : ''}`} />
+    <div ref={navSearchRef} className="nav__search">
+      <SearchBox />
     </div>
   );
 }
+const NavSearchMemo = memo(NavSearch);
+
 function NavSearchWithOutline() {
   return (
     <OutlineProvider>
-      <NavSearch />
+      <NavSearchMemo />
     </OutlineProvider>
   );
 }

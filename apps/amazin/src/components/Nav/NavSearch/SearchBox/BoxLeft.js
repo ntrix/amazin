@@ -1,8 +1,8 @@
-import { lazy, Suspense } from 'react';
+import { lazy, memo, Suspense } from 'react';
 import SearchCatScope from './SearchCatScope';
 const SearchCatDropdown = lazy(() => import(/* webpackPrefetch: true */ './SearchCatScope/SearchCatDropdown'));
 
-export default function BoxLeft(props) {
+function BoxLeft(props) {
   return (
     <div className="row--left">
       <SearchCatScope {...props} />
@@ -12,3 +12,4 @@ export default function BoxLeft(props) {
     </div>
   );
 }
+export default memo(BoxLeft);

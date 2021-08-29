@@ -1,21 +1,24 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { NAV } from 'src/constants';
-import useSubmit from './useSubmit';
+import { useOutline } from '../useOutline';
+import { useSubmit } from './useSubmit';
 import BoxLeft from './BoxLeft';
 import BoxMiddle from './BoxMiddle';
 import BoxRight from './BoxRight';
 
-export default function SearchBox(props) {
-  const [input, setInput] = useState('');
+function SearchBox() {
+  const { outline } = useOutline();
   const [activeCat, setActiveCat] = useState(NAV.ALL);
-  const [submitFn] = useSubmit();
-  const submitHandler = useCallback((e) => submitFn(e, input, activeCat), [submitFn, input, activeCat]);
+  const [input, setInput] = useState('');
+  const { handleSubmit } = useSubmit();
+  const submitCallBack = useCallback((e) => handleSubmit(e, input, activeCat), [handleSubmit, input, activeCat]);
 
   return (
-    <form {...props}>
+    <form className={`search-box ${outline ? 'focus' : ''}`}>
       <BoxLeft activeCat={activeCat} setActiveCat={setActiveCat} />
-      <BoxMiddle input={input} setInput={setInput} submitHandler={submitHandler} />
-      <BoxRight submitHandler={submitHandler} />
+      <BoxMiddle input={input} setInput={setInput} submitHandler={submitCallBack} />
+      <BoxRight submitHandler={submitCallBack} />
     </form>
   );
 }
+export default memo(SearchBox);

@@ -1,29 +1,18 @@
 import { memo } from 'react';
 import { useOutline } from '../../useOutline';
-import { useShadow } from '../../../../../hooks/useShadow';
-import { getCatLabel, SHADOW } from '../../../../../constants';
+import { CatLabel } from 'src/constants';
+import { useClickOrFocus } from './useClickFocus';
 
 function SearchCatScope({ activeCat }) {
-  const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } = useOutline();
-  const { setShadowOf } = useShadow();
-  const onClickOrFocus = () => {
-    setOutline(false);
-    setScopeOutline(scopeOutline ? 1 - scopeOutline : -1);
-    setSuggestBox(false);
-    setShadowOf(SHADOW.SCOPE);
-  };
+  const { scopeOutline, setScopeOutline } = useOutline();
+  const { onClickOrFocus } = useClickOrFocus();
+  const wrapClass = `cat-scope ${scopeOutline ? 'focus' : ''}`;
+  const doThenBlur = () => () => setScopeOutline(1 - scopeOutline);
   return (
-    <div className="search-box__cat-scope">
-      <div
-        className={`cat-scope ${scopeOutline ? 'focus' : ''}`}
-        tabIndex="1"
-        aria-label="category search scope"
-        onClick={onClickOrFocus}
-        onFocus={onClickOrFocus}
-        onBlur={() => () => setScopeOutline(1 - scopeOutline)}
-      >
+    <div className="search-box__cat-scope" aria-label="category search scope">
+      <div className={wrapClass} tabIndex="1" onClick={onClickOrFocus} onFocus={onClickOrFocus} onBlur={doThenBlur}>
         <div className="cat-scope--facade">
-          <span>{getCatLabel(activeCat)}</span>
+          <span>{CatLabel[activeCat] ?? activeCat}</span>
           <i className="fa fa-caret-down"></i>
         </div>
       </div>
