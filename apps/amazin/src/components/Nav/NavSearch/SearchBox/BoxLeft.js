@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import SearchCatScope from './SearchCatScope';
-const SearchCatDropdown = lazy(() => import(/* webpackPrefetch: true */ './SearchCatDropdown'));
+const SearchCatDropdown = lazy(() => import(/* webpackPrefetch: true */ './SearchCatScope/SearchCatDropdown'));
 
 export default function BoxLeft(props) {
   return (

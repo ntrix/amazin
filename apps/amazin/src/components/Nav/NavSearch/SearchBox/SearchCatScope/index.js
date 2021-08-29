@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { useOutline } from '../useOutline';
-import { useShadow } from '../../../../hooks/useShadow';
-import { getCatLabel, SHADOW } from '../../../../constants';
+import { useOutline } from '../../useOutline';
+import { useShadow } from '../../../../../hooks/useShadow';
+import { getCatLabel, SHADOW } from '../../../../../constants';
 
 function SearchCatScope({ activeCat }) {
   const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } = useOutline();

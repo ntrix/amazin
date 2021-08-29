@@ -1,9 +1,9 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listAllProducts } from '../../../../apis/productAPI';
-import { useOutline } from '../useOutline';
-import { useShadow } from '../../../../hooks/useShadow';
-import { getCatLabel, NAV } from '../../../../constants';
+import { listAllProducts } from '../../../../../apis/productAPI';
+import { useOutline } from '../../useOutline';
+import { useShadow } from '../../../../../hooks/useShadow';
+import { getCatLabel, NAV } from '../../../../../constants';
 
 function SearchCatDropdown({ activeCat, setActiveCat }) {
   const dispatch = useDispatch();
