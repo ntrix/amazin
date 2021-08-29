@@ -5,14 +5,11 @@ import { SEARCH, SHADOW } from '../../../constants';
 import { useShadow } from '../../../hooks/useShadow';
 import { useOutline } from '../../../hooks/useOutline';
 
-export function _SearchSuggest({
-  suggests,
-  control: { setSuggests, setInput }
-}) {
+export function _SearchSuggest({ suggests, control: { setSuggests, setInput } }) {
   const { suggestBox, setSuggestBox } = useOutline();
   const { shadowOf, setShadowOf } = useShadow();
 
-  if (!suggests || SHADOW.SEARCH_BOX !== shadowOf || !suggestBox) return null;
+  if (!suggests || SHADOW.NAV_SEARCH !== shadowOf || !suggestBox) return null;
   return (
     <div className="search__suggest">
       <ul>

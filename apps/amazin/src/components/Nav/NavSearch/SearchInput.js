@@ -6,13 +6,9 @@ import { useShadow } from '../../../hooks/useShadow';
 import { SHADOW } from '../../../constants';
 import { findSuggest } from '../../../utils';
 
-export function _SearchInput({
-  input,
-  control: { setInput, setSuggests, submitHandler }
-}) {
+export function _SearchInput({ input, control: { setInput, setSuggests, submitHandler } }) {
   const { productList } = useSelector((state) => state.productListAll);
-  const { inputRef, suggestBox, setOutline, setScopeOutline, setSuggestBox } =
-    useOutline();
+  const { inputRef, suggestBox, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { shadowOf, setShadowOf } = useShadow();
 
   const SuggestBoxDropdown = () => {
@@ -20,7 +16,7 @@ export function _SearchInput({
       const newSuggests = findSuggest.search(productList, input);
       if (newSuggests.length) {
         setSuggests(newSuggests);
-        setShadowOf(SHADOW.SEARCH_BOX);
+        setShadowOf(SHADOW.NAV_SEARCH);
         setSuggestBox(true);
       }
     }
@@ -41,8 +37,8 @@ export function _SearchInput({
     setSuggestBox(true);
 
     const newSuggests = findSuggest.search(productList, value);
-    if (SHADOW.SEARCH_BOX !== shadowOf && newSuggests.length) {
-      setShadowOf(SHADOW.SEARCH_BOX);
+    if (SHADOW.NAV_SEARCH !== shadowOf && newSuggests.length) {
+      setShadowOf(SHADOW.NAV_SEARCH);
       setOutline(true);
     }
     setSuggests(newSuggests);

@@ -384,7 +384,7 @@
 .shadow-of__ {
   opacity: 0;
 }
-.shadow-of__searchBox,
+.shadow-of__navSearch,
 .shadow-of__navDrop {
   position: absolute;
   display: block;

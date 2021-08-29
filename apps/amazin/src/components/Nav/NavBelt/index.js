@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import NavLogo from './NavLogo';
 import NavLocator from './NavLocator';
-import SearchBox from '../SearchBox';
+import NavSearch from '../NavSearch';
 import NavDropdownBtn from './NavDropdownBtn';
 import NavCurrency from './NavCurrency';
 import NavUser from './NavUser';
@@ -12,7 +12,7 @@ function NavBelt({ currency }) {
     <div className="nav-belt row">
       <NavLogo to="/" />
       <NavLocator to="/map" />
-      <SearchBox />
+      <NavSearch />
       <NavCurrency currency={currency} />
       <NavUser />
       <NavDropdownBtn disabled={!!'TODO'} wrapClass="nav__return tablet--off" labels="Return^& Orders" />
