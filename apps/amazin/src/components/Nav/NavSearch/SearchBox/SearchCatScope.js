@@ -1,21 +1,17 @@
-import React from 'react';
+import { memo } from 'react';
+import { useOutline } from '../useOutline';
+import { useShadow } from '../../../../hooks/useShadow';
+import { getCatLabel, SHADOW } from '../../../../constants';
 
-import { useOutline } from '../../../hooks/useOutline';
-import { useShadow } from '../../../hooks/useShadow';
-import { getCatLabel, SHADOW } from '../../../constants';
-
-export function _SearchCatScope({ activeCat }) {
-  const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } =
-    useOutline();
+function SearchCatScope({ activeCat }) {
+  const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
-
   const onClickOrFocus = () => {
     setOutline(false);
     setScopeOutline(scopeOutline ? 1 - scopeOutline : -1);
     setSuggestBox(false);
     setShadowOf(SHADOW.SCOPE);
   };
-
   return (
     <div className="search-box__cat-scope">
       <div
@@ -34,6 +30,4 @@ export function _SearchCatScope({ activeCat }) {
     </div>
   );
 }
-
-const SearchCatScope = React.memo(_SearchCatScope);
-export default SearchCatScope;
+export default memo(SearchCatScope);

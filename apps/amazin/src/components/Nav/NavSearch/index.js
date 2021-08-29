@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { OutlineProvider, useOutline } from '../../../hooks/useOutline';
 import SearchBox from './SearchBox';
+import { OutlineProvider, useOutline } from './useOutline';
 import { useOutsideClick } from './useOutsideClick';
 
 function NavSearch() {

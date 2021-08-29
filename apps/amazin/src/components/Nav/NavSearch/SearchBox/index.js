@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import SearchCatScope from './SearchCatScope';
 import SearchInput from './SearchInput';
 import SearchBtn from './SearchBtn';
-import { useOutline } from '../../../hooks/useOutline';
-import { useShadow } from '../../../hooks/useShadow';
-import { NAV } from '../../../constants';
+import { useOutline } from '../useOutline';
+import { useShadow } from '../../../../hooks/useShadow';
+import { NAV } from '../../../../constants';
 const SearchCatDropdown = lazy(() => import(/* webpackPrefetch: true */ './SearchCatDropdown'));
 const SearchSuggest = lazy(() => import(/* webpackPrefetch: true */ './SearchSuggest'));
 

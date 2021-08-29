@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useOutline } from '../../../hooks/useOutline';
+import { useOutline } from './useOutline';
 import { useShadow } from '../../../hooks/useShadow';
 import { SHADOW } from '../../../constants';
 

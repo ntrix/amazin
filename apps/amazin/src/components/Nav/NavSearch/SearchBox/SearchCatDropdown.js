@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { listAllProducts } from '../../../../apis/productAPI';
+import { useOutline } from '../useOutline';
+import { useShadow } from '../../../../hooks/useShadow';
+import { getCatLabel, NAV } from '../../../../constants';
 
-import { listAllProducts } from '../../../apis/productAPI';
-
-import { useOutline } from '../../../hooks/useOutline';
-import { useShadow } from '../../../hooks/useShadow';
-import { getCatLabel, NAV } from '../../../constants';
-
-export function _SearchCatDropdown({ hook: [activeCat, setActiveCat] }) {
+function SearchCatDropdown({ hook: [activeCat, setActiveCat] }) {
   const dispatch = useDispatch();
-  const { success, categories } = useSelector(
-    (state) => state.productCategoryList
-  );
-  const { inputRef, setOutline, scopeOutline, setScopeOutline, setSuggestBox } =
-    useOutline();
+  const { success, categories } = useSelector((state) => state.productCategoryList);
+  const { inputRef, setOutline, scopeOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
-
   useEffect(() => {
     dispatch(listAllProducts({ category: activeCat }));
   }, [dispatch, activeCat, success]);
@@ -48,6 +42,4 @@ export function _SearchCatDropdown({ hook: [activeCat, setActiveCat] }) {
     </div>
   ) : null;
 }
-
-const SearchCatDropdown = React.memo(_SearchCatDropdown);
-export default SearchCatDropdown;
+export default memo(SearchCatDropdown);

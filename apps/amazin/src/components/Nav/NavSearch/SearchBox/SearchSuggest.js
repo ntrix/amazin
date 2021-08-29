@@ -1,14 +1,12 @@
-import React from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { SEARCH, SHADOW } from '../../../../constants';
+import { useShadow } from '../../../../hooks/useShadow';
+import { useOutline } from '../useOutline';
 
-import { SEARCH, SHADOW } from '../../../constants';
-import { useShadow } from '../../../hooks/useShadow';
-import { useOutline } from '../../../hooks/useOutline';
-
-export function _SearchSuggest({ suggests, control: { setSuggests, setInput } }) {
+function SearchSuggest({ suggests, control: { setSuggests, setInput } }) {
   const { suggestBox, setSuggestBox } = useOutline();
   const { shadowOf, setShadowOf } = useShadow();
-
   if (!suggests || SHADOW.NAV_SEARCH !== shadowOf || !suggestBox) return null;
   return (
     <div className="search__suggest">
@@ -31,6 +29,4 @@ export function _SearchSuggest({ suggests, control: { setSuggests, setInput } })
     </div>
   );
 }
-
-const SearchSuggest = React.memo(_SearchSuggest);
-export default SearchSuggest;
+export default memo(SearchSuggest);
