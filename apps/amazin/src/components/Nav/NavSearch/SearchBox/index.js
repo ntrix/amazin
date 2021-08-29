@@ -9,7 +9,7 @@ export default function SearchBox(props) {
   const [input, setInput] = useState('');
   const [activeCat, setActiveCat] = useState(NAV.ALL);
   const [submitFn] = useSubmit();
-  const submitHandler = useCallback((e) => submitFn(e, input, activeCat), [input, activeCat]);
+  const submitHandler = useCallback((e) => submitFn(e, input, activeCat), [submitFn, input, activeCat]);
 
   return (
     <form {...props}>

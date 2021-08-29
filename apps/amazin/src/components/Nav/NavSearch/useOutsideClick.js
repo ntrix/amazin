@@ -19,6 +19,6 @@ export function useOutsideClick(NavSearchRef) {
       document.removeEventListener('mousedown', handleOutsideClick);
       setScopeOutline(0);
     }
-    return () => document.removeEventListener('mousedown', handleOutsideClick);
-  }, [setScopeOutline, shadowOf, handleOutsideClick]);
+    return () => document.removeEventListener('mousedown', handleOutsideClick); // eslint-disable-next-line
+  }, []);
 }
