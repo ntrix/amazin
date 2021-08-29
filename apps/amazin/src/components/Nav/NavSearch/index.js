@@ -1,31 +1,17 @@
-import React, {
-  lazy,
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import SearchCatScope from './SearchCatScope';
 import SearchInput from './SearchInput';
 import SearchBtn from './SearchBtn';
 import { OutlineProvider, useOutline } from '../../../hooks/useOutline';
 import { useShadow } from '../../../hooks/useShadow';
 import { NAV, SHADOW } from '../../../constants';
-
-const SearchCatDropdown = lazy(() =>
-  import(/* webpackPrefetch: true */ './SearchCatDropdown')
-);
-const SearchSuggest = lazy(() =>
-  import(/* webpackPrefetch: true */ './SearchSuggest')
-);
+const SearchCatDropdown = lazy(() => import(/* webpackPrefetch: true */ './SearchCatDropdown'));
+const SearchSuggest = lazy(() => import(/* webpackPrefetch: true */ './SearchSuggest'));
 
 function NavSearch() {
   const history = useHistory();
   const { shadowOf, setShadowOf } = useShadow();
-
   const { outline, setScopeOutline, setSuggestBox } = useOutline();
   const [activeCat, setActiveCat] = useState(NAV.ALL);
   const [input, setInput] = useState('');
@@ -42,7 +28,7 @@ function NavSearch() {
     }
   };
 
-  const handleClick = useCallback(
+  const handleOutsideClick = useCallback(
     (e) => {
       if (!SearchBoxRef.current.contains(e.target)) {
         setSuggestBox(false);
@@ -56,16 +42,15 @@ function NavSearch() {
 
   /* detect click outside component to close categories search scope window */
   useEffect(() => {
-    if (SHADOW.SCOPE === shadowOf)
-      document.addEventListener('mousedown', handleClick);
+    if (SHADOW.SCOPE === shadowOf) document.addEventListener('mousedown', handleOutsideClick);
     if (SHADOW.NAV_DD === shadowOf) {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
       setScopeOutline(0);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [setScopeOutline, shadowOf, handleClick]);
+  }, [setScopeOutline, shadowOf, handleOutsideClick]);
 
   return (
     <form ref={SearchBoxRef} className={`search-box ${outline ? 'focus' : ''}`}>
@@ -78,16 +63,10 @@ function NavSearch() {
       </div>
 
       <div className="row--fill">
-        <SearchInput
-          input={input}
-          control={{ setInput, setSuggests, submitHandler }}
-        />
+        <SearchInput input={input} control={{ setInput, setSuggests, submitHandler }} />
 
         <Suspense fallback={null}>
-          <SearchSuggest
-            suggests={!!input && suggests}
-            control={{ setInput, setSuggests }}
-          />
+          <SearchSuggest suggests={!!input && suggests} control={{ setInput, setSuggests }} />
         </Suspense>
       </div>
 
