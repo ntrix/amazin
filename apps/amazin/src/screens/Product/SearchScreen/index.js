@@ -52,21 +52,14 @@ export function _SearchScreen() {
 
   return (
     <div className="search-screen">
-      <SubNavCategories
-        first={NAV.ALL}
-        category={category}
-        getUrl={getFilterUrl}
-      />
+      <SubNavCategories first={NAV.ALL} category={category} getUrl={getFilterUrl} />
 
       <SearchBanner>
         <SortFilter order={order} getUrl={getFilterUrl} />
       </SearchBanner>
 
       <div className="row top search-screen__result">
-        <SearchFilterColumn
-          searchFilters={{ category, max, rating }}
-          getFilterUrl={getFilterUrl}
-        />
+        <SearchFilterColumn searchFilters={{ category, max, rating }} getFilterUrl={getFilterUrl} />
 
         <div className="col-9">
           <SearchResultColumn />

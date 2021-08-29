@@ -1,10 +1,4 @@
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
+import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -21,17 +15,11 @@ import { dummyMovies } from '../../../utils';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { useShadow } from '../../../hooks/useShadow';
 
-const ProductCard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../components/ProductCard')
-);
+const ProductCard = React.lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 export function _DealScreen() {
   const dispatch = useDispatch();
-  const {
-    category: paramCat = NAV.DEAL,
-    order = SORT.BESTSELLING.OPT,
-    pageNumber = 1
-  } = useParams();
+  const { category: paramCat = NAV.DEAL, order = SORT.BESTSELLING.OPT, pageNumber = 1 } = useParams();
   const productList = useSelector((state) => state.productList);
   const { shadowOf } = useShadow();
 
@@ -70,8 +58,7 @@ export function _DealScreen() {
 
   useEffect(() => {
     if (!category.current) changeCategory(paramCat);
-    if (productList.success && category.current === preloadingCat.current)
-      setList(productList);
+    if (productList.success && category.current === preloadingCat.current) setList(productList);
   }, [productList, setList, preloadingCat, category, paramCat, changeCategory]);
 
   return (
@@ -108,20 +95,13 @@ export function _DealScreen() {
           ))}
         </Carousel>
 
-        <MessageBox show={list?.products?.length < 1}>
-          No Deals On This Category!
-        </MessageBox>
+        <MessageBox show={list?.products?.length < 1}>No Deals On This Category!</MessageBox>
 
         <h2 className="screen__title">Top Deals</h2>
 
         <div className="screen__featured">
           <SearchBanner info={list}>
-            <SortFilter
-              order={order}
-              getUrl={({ order: _o }) =>
-                `/deal/category/all/order/${_o}/pageNumber/1`
-              }
-            />
+            <SortFilter order={order} getUrl={({ order: _o }) => `/deal/category/all/order/${_o}/pageNumber/1`} />
           </SearchBanner>
 
           <div className="row center">
