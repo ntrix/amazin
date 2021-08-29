@@ -1,30 +1,15 @@
-import React from 'react';
+import { memo } from 'react';
 
-export function _LoadingBox({ hide = false, xl = false, wrapClass = '' }) {
+function LoadingBox({ hide = false, xl = false, wrapClass = '' }) {
   if (hide) return null;
 
   const innerComponent = () => (
     <div className="loading">
-      {xl ? (
-        <>
-          <b>Loading ..</b>
-          <div className="sprite__loading--xl"></div>
-        </>
-      ) : (
-        <>
-          Loading ..
-          <div className="sprite__loading"></div>
-        </>
-      )}
+      {xl ? <b>Loading ..</b> : <>Loading ..</>}
+      <div className={`sprite__loading${xl ? '--xl' : ''}`} />
     </div>
   );
-
-  return !wrapClass ? (
-    innerComponent()
-  ) : (
-    <div className={wrapClass}>{innerComponent()}</div>
-  );
+  return !wrapClass ? innerComponent() : <div className={wrapClass}>{innerComponent()}</div>;
 }
 
-const LoadingBox = React.memo(_LoadingBox);
-export default LoadingBox;
+export default memo(LoadingBox);

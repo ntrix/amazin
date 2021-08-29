@@ -1,12 +1,6 @@
-import React from 'react';
+import { memo } from 'react';
 
-export function _MessageBox({
-  show = false,
-  msg,
-  variant,
-  wrapClass = '',
-  children
-}) {
+function MessageBox({ show = false, msg, variant, wrapClass = '', children }) {
   if (!show && !msg?.length) return null;
 
   const infos = msg || children;
@@ -25,12 +19,6 @@ export function _MessageBox({
     </div>
   );
 
-  return !wrapClass ? (
-    innerComponent()
-  ) : (
-    <div className={wrapClass}>{innerComponent()}</div>
-  );
+  return !wrapClass ? innerComponent() : <div className={wrapClass}>{innerComponent()}</div>;
 }
-
-const MessageBox = React.memo(_MessageBox);
-export default MessageBox;
+export default memo(MessageBox);

@@ -1,9 +1,9 @@
-import React, { Suspense, useRef } from 'react';
+import { memo, Suspense, useRef } from 'react';
 import { SHADOW } from '../../../constants';
 import { useShadow } from '../../../hooks/useShadow';
 import NavDropdownBtn from './NavDropdownBtn';
 
-function _NavBtnControl({ children, ...props }) {
+function NavBtnControl({ children, ...props }) {
   const { setShadowOf, setShadowSlow } = useShadow();
   const focus = useRef(null);
   const onHover = (e) => {
@@ -40,6 +40,4 @@ function _NavBtnControl({ children, ...props }) {
     </NavDropdownBtn>
   );
 }
-
-const NavBtnControl = React.memo(_NavBtnControl);
-export default NavBtnControl;
+export default memo(NavBtnControl);

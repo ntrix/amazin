@@ -12,7 +12,6 @@ function SearchCatDropdown({ activeCat, setActiveCat }) {
   useEffect(() => {
     dispatch(listAllProducts({ category: activeCat }));
   }, [dispatch, activeCat]);
-
   return scopeOutline > 0 && categories ? (
     <div className="cat-scope__dropdown">
       <ul className="dropdown__list">

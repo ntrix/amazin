@@ -1,8 +1,9 @@
-import { lazy } from 'react';
+import { lazy, memo } from 'react';
 import NavBtnControl from '../NavBtnControl';
 import useMenuCreator from './useMenuCreator';
 const DropdownUser = lazy(() => import(/* webpackPrefetch: true */ './DropdownUser'));
-export default function NavUser(props) {
+
+function NavUser(props) {
   const { userInfo, userName, userMenu, sellerMenu, adminMenu } = useMenuCreator();
   return (
     <>
@@ -22,3 +23,4 @@ export default function NavUser(props) {
     </>
   );
 }
+export default memo(NavUser);

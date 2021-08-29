@@ -14,6 +14,7 @@ export default function useMenuCreator() {
   const [userName, setUserName] = useState('');
   const [userMenu, setUserMenu] = useState([]);
   const [sellerMenu, setSellerMenu] = useState([]);
+
   useEffect(() => {
     setUserName(!userInfo ? 'Sign in' : shortName(userInfo.name, 7));
     setUserMenu(!userInfo ? signinTemplate : createUserTemplate(userInfo, signoutHandler));
