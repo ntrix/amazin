@@ -1,15 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { memo } from 'react';
+import { useHistory } from 'react-router';
+import { useShadow } from 'src/hooks/useShadow';
 
-export const _NavMainItem = ({ label, to, children, clearShadow }) => {
+function NavMainItem({ label, to, children }) {
+  const history = useHistory();
+  const { setShadowOf } = useShadow();
   return (
     <div className="nav-main__item">
-      <Link to={to} onClick={() => clearShadow('')}>
+      <div
+        onClick={() => {
+          setShadowOf('');
+          history.push(to);
+        }}
+      >
         {children || label}
-      </Link>
+      </div>
     </div>
   );
-};
+}
 
-const NavMainItem = React.memo(_NavMainItem);
-export default NavMainItem;
+export default memo(NavMainItem);
