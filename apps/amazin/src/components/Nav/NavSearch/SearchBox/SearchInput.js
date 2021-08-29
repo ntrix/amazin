@@ -5,7 +5,7 @@ import { useShadow } from '../../../../hooks/useShadow';
 import { SHADOW } from '../../../../constants';
 import { findSuggest } from '../../../../utils';
 
-function SearchInput({ input, control: { setInput, setSuggests, submitHandler } }) {
+function SearchInput({ input, setInput, setSuggests, submitHandler }) {
   const { productList } = useSelector((state) => state.productListAll);
   const { inputRef, suggestBox, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { shadowOf, setShadowOf } = useShadow();

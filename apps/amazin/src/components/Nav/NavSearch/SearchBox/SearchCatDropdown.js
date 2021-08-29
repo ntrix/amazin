@@ -5,7 +5,7 @@ import { useOutline } from '../useOutline';
 import { useShadow } from '../../../../hooks/useShadow';
 import { getCatLabel, NAV } from '../../../../constants';
 
-function SearchCatDropdown({ hook: [activeCat, setActiveCat] }) {
+function SearchCatDropdown({ activeCat, setActiveCat }) {
   const dispatch = useDispatch();
   const { success, categories } = useSelector((state) => state.productCategoryList);
   const { inputRef, setOutline, scopeOutline, setScopeOutline, setSuggestBox } = useOutline();
