@@ -12,10 +12,13 @@ export function useDebounce(fn, duration = 500) {
     },
     [fn, duration]
   );
-  const clearDebounceFn = useCallback(() => {
-    clearTimeout(id.current);
-    id.current = null;
-    return null;
-  }, []);
+  const clearDebounceFn = useCallback(
+    (...args) => {
+      clearTimeout(id.current);
+      id.current = null;
+      return args ? fn.apply(this, args) : null;
+    },
+    [fn]
+  );
   return [debounceFn, clearDebounceFn];
 }

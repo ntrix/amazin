@@ -7,8 +7,7 @@ export function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
   const [debounceShadow, clearDebounce] = useDebounce(_setShadowOf);
   const setShadowOf = useCallback((_sh) => {
-    clearDebounce();
-    if (_sh !== shadowOf) _setShadowOf(_sh);
+    clearDebounce(_sh !== shadowOf ? _sh : undefined);
     // eslint-disable-next-line
   }, []);
   const setShadowSlow = useCallback((_sh) => debounceShadow(_sh), [debounceShadow]);
