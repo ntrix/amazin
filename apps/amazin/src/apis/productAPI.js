@@ -19,17 +19,11 @@ const updatePipe = (data) =>
   });
 
 export const updateCurrencyRates = () =>
-  axiosPublic([currencyTypeActions], { extHandler: updatePipe })(
-    'get',
-    '/api/config/rates'
-  );
+  axiosPublic([currencyTypeActions], { successHandler: updatePipe })('get', '/api/config/rates');
 
 export const listAllProducts = ({ pageSize = 999, category = '' }) => {
   if (category === NAV.ALL) category = '';
-  return axiosPublic([productListAllActions])(
-    'get',
-    `/api/products?pageSize=${pageSize}&category=${category}`
-  );
+  return axiosPublic([productListAllActions])('get', `/api/products?pageSize=${pageSize}&category=${category}`);
 };
 
 export const listProducts = ({
@@ -52,34 +46,19 @@ export const listProducts = ({
   );
 };
 
-export const listProductCategories = () =>
-  axiosPublic([productCategoryListActions])('get', `/api/products/categories`);
+export const listProductCategories = () => axiosPublic([productCategoryListActions])('get', `/api/products/categories`);
 
 export const detailsProduct = (productId) =>
-  axiosPublic([productDetailsActions], { req: productId })(
-    'get',
-    `/api/products/${productId}`
-  );
+  axiosPublic([productDetailsActions], { requestPayload: productId })('get', `/api/products/${productId}`);
 
 export const createProduct = () =>
-  axiosPrivate([productCreateActions], { selector: (_data) => _data.product })(
-    'post',
-    '/api/products',
-    {}
-  );
+  axiosPrivate([productCreateActions], { selector: (_data) => _data.product })('post', '/api/products', {});
 
 export const updateProduct = (product) =>
-  axiosPrivate([productUpdateActions], { req: product })(
-    'put',
-    `/api/products/${product._id}`,
-    product
-  );
+  axiosPrivate([productUpdateActions], { requestPayload: product })('put', `/api/products/${product._id}`, product);
 
 export const deleteProduct = (productId) =>
-  axiosPrivate([productDeleteActions], { req: productId })(
-    'delete',
-    `/api/products/${productId}`
-  );
+  axiosPrivate([productDeleteActions], { requestPayload: productId })('delete', `/api/products/${productId}`);
 
 export const createReview = (productId, review) =>
   axiosPrivate([productReviewCreateActions], {

@@ -8,14 +8,10 @@ const axiosClient = axios.create({
 const axiosRedux =
   (authorization) =>
   (
-    [
-      onRequestDispatcher,
-      onSuccessDispatcher = onRequestDispatcher,
-      onFailDispatcher = onSuccessDispatcher
-    ],
-    { req = null, extDispatch, extHandler, selector = (d) => d } = {}
+    [onRequestDispatcher, onSuccessDispatcher = onRequestDispatcher, onFailDispatcher = onSuccessDispatcher],
+    { requestPayload = null, successDispatcher, successHandler, selector = (d) => d } = {}
   ) =>
-  (method = 'get', url = '', reqData = null) =>
+  (method = 'get', url = '', requestData = null) =>
   async (dispatch, getState) => {
     const headers = {};
     if (authorization) {
@@ -24,20 +20,22 @@ const axiosRedux =
       } = getState();
       headers.Authorization = `Bearer ${userInfo.token}`;
     }
-    dispatch(onRequestDispatcher._REQUEST(req));
+    dispatch(onRequestDispatcher._REQUEST(requestPayload));
 
     try {
       const { data } = await axios({
         method,
         headers,
-        data: reqData,
+        data: requestData,
         url: process.env.REACT_APP_BACKEND_URL + url,
         mode: 'cors'
       });
+      // HTML response with Error?
+      if (typeof data === 'string' && data.startsWith('<!')) throw new Error("Couldn't access Database Server!");
 
       dispatch(onSuccessDispatcher._SUCCESS(selector(data)));
-      if (extDispatch) dispatch(extDispatch(data));
-      if (extHandler) extHandler(data);
+      if (successDispatcher) dispatch(successDispatcher(data));
+      if (successHandler) successHandler(data);
     } catch (error) {
       const message = error.response?.data?.message || error.message;
       dispatch(onFailDispatcher._FAIL(message));
@@ -46,6 +44,5 @@ const axiosRedux =
 
 const axiosPublic = axiosRedux(false);
 const axiosPrivate = axiosRedux(true);
-
 export default axiosClient;
 export { axios, axiosPublic, axiosPrivate };

@@ -14,9 +14,9 @@ import { KEY } from '../constants';
 
 export const register = (name, email, password, confirmPassword) =>
   axiosPublic([userRegisterActions], {
-    req: { email, password },
-    extDispatch: userSigninActions._SUCCESS,
-    extHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
+    requestPayload: { email, password },
+    successDispatcher: userSigninActions._SUCCESS,
+    successHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
   })('post', '/api/users/register', {
     name,
     email,
@@ -26,8 +26,8 @@ export const register = (name, email, password, confirmPassword) =>
 
 export const signin = (email, password) =>
   axiosPublic([userSigninActions], {
-    req: { email, password },
-    extHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
+    requestPayload: { email, password },
+    successHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
   })('post', '/api/users/signin', {
     email,
     password
@@ -42,39 +42,28 @@ export const signout = () => (dispatch) => {
 };
 
 export const publicDetailsSeller = (userId) =>
-  axiosPublic([userDetailsActions], { req: userId })(
-    'get',
-    `/api/users/${userId}`
-  );
+  axiosPublic([userDetailsActions], { requestPayload: userId })('get', `/api/users/${userId}`);
 
 export const detailsUser = (userId) =>
-  axiosPrivate([userDetailsActions], { req: userId })(
-    'get',
-    `/api/users/${userId}`
-  );
+  axiosPrivate([userDetailsActions], { requestPayload: userId })('get', `/api/users/${userId}`);
 
 export const updateUserProfile = (user) =>
   axiosPrivate([userUpdateProfileActions], {
-    req: user,
-    extDispatch: userSigninActions._SUCCESS,
-    extHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
+    requestPayload: user,
+    successDispatcher: userSigninActions._SUCCESS,
+    successHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
   })('put', `/api/users/profile`, user);
 
 export const updateUser = (user) =>
-  axiosPrivate([userUpdateProfileActions, userUpdateActions], { req: user })(
+  axiosPrivate([userUpdateProfileActions, userUpdateActions], { requestPayload: user })(
     'put',
     `/api/users/${user._id}`,
     user
   );
 
-export const listUsers = () =>
-  axiosPrivate([userListActions])('get', '/api/users');
+export const listUsers = () => axiosPrivate([userListActions])('get', '/api/users');
 
 export const deleteUser = (userId) =>
-  axiosPrivate([userDeleteActions], { req: userId })(
-    'delete',
-    `/api/users/${userId}`
-  );
+  axiosPrivate([userDeleteActions], { requestPayload: userId })('delete', `/api/users/${userId}`);
 
-export const listTopSellers = () =>
-  axiosPublic([userTopSellerListActions])('get', '/api/users/top-sellers');
+export const listTopSellers = () => axiosPublic([userTopSellerListActions])('get', '/api/users/top-sellers');
