@@ -7,7 +7,6 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const { data } = await axiosClient.get(`/api/products/${productId}`);
   const { cart } = getState();
   const { cartItems } = cart;
-
   if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     dispatch(
       cartActions._ADD_ITEM_FAIL(
@@ -30,7 +29,6 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
         qty
       })
     );
-
     Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
   }
 };
