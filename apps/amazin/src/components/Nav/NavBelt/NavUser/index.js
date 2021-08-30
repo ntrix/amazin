@@ -1,5 +1,5 @@
 import { lazy, memo } from 'react';
-import NavBtnControl from '../NavBtnControl';
+import NavButton from '../NavButton';
 import useMenuCreator from './useMenuCreator';
 const DropdownUser = lazy(() => import(/* webpackPrefetch: true */ './DropdownUser'));
 
@@ -7,18 +7,18 @@ function NavUser(props) {
   const { userInfo, userName, userMenu, sellerMenu, adminMenu } = useMenuCreator();
   return (
     <>
-      <NavBtnControl labels={`Hello, ${userName}^Account^ & Lists`}>
+      <NavButton labels={`Hello, ${userName}^Account^ & Lists`}>
         <DropdownUser {...props} ddMenuList={userMenu} />
-      </NavBtnControl>
+      </NavButton>
       {userInfo?.isSeller && (
-        <NavBtnControl wrapClass="nav__seller" labels="Seller^Desk">
+        <NavButton wrapClass="nav__seller" labels="Seller^Desk">
           <DropdownUser {...props} ddMenuList={sellerMenu} />
-        </NavBtnControl>
+        </NavButton>
       )}
       {userInfo?.isAdmin && (
-        <NavBtnControl wrapClass="nav__admin phone--off" labels="Admin^Tools">
+        <NavButton wrapClass="nav__admin phone--off" labels="Admin^Tools">
           <DropdownUser {...props} ddMenuList={adminMenu} />
-        </NavBtnControl>
+        </NavButton>
       )}
     </>
   );
