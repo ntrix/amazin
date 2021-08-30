@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import { MAX_IMAGES } from 'src/constants';
 import { getImgUrl } from 'src/utils';
 import axiosClient from 'src/apis/axiosClient';
@@ -81,6 +82,7 @@ export default function ImageSection({ hook: [images, setImages] }) {
         <label htmlFor="image-1-cover">
           Uploaded Images ({images.length} of {MAX_IMAGES})<p>(You can also enter extern Image Links here)</p>
         </label>
+
         {images.map((img, id) => (
           <div className="row img-row" key={id}>
             <img
@@ -105,6 +107,7 @@ export default function ImageSection({ hook: [images, setImages] }) {
           </div>
         ))}
       </div>
+
       <div className="row center">
         <img alt="Preview" className="mt-1 medium" src={getImgUrl(product._id, imagePreview)} />
       </div>

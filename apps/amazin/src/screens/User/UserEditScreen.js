@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { detailsUser, updateUser } from 'src/apis/userAPI';
 import { userUpdateActions } from 'src/slice/UserSlice';
 import Button from 'src/components/Button';
@@ -46,6 +47,7 @@ export default function UserEditScreen({ history, match }) {
           <LoadingOrError xl statusOf={userDetails} />
           <LoadingOrError xl statusOf={userUpdate} />
         </div>
+
         {userDetails?.success && (
           <>
             <CustomInput text="Name" hook={[name, setName]} />
@@ -64,6 +66,7 @@ export default function UserEditScreen({ history, match }) {
               checked={isAdmin}
               onChange={(e) => setIsAdmin(e.target.checked)}
             />
+
             <div>
               <Button primary type="submit" label="Update" />
             </div>

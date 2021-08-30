@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import SwiperCore, { Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+
 import { listProducts } from 'src/apis/productAPI';
 import { listTopSellers } from 'src/apis/userAPI';
 import { LazyImg } from 'src/utils/suspenseClient';
@@ -67,13 +68,16 @@ function HomeScreen() {
               </SwiperSlide>
             ))}
           </Swiper>
+
           <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
           <LoadingOrError statusOf={userTopSellersList} />
         </Suspense>
       </div>
+
       <h2 className="screen__title">Featured Products</h2>
       <LoadingOrError xl statusOf={productList} />
       <MessageBox hide={products?.length < 1}>No Product Found</MessageBox>
+
       <div className="screen__featured">
         <Suspense fallback={loadingFallback}>
           {products?.map((product) => (
@@ -86,4 +90,5 @@ function HomeScreen() {
     </div>
   );
 }
+
 export default memo(HomeScreen);

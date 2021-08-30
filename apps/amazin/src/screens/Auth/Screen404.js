@@ -12,12 +12,14 @@ export default function Screen404() {
           </h3>
         </header>
         <div className="divider-inner"></div>
+
         <div className="container">
           <MessageBox variant="danger" show>
             <h2>404: Page not found</h2>
           </MessageBox>
         </div>
         <div className="divider-inner"></div>
+
         <div className="container">
           <Button primary to="/customer" label="Report this Error" />
           <Button to="/" className="ml-1" label="Back to Homepage" />

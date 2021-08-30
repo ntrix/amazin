@@ -1,5 +1,6 @@
 import { memo, useState } from 'react';
 import { useHistory } from 'react-router';
+
 import { pipe } from 'src/utils';
 
 function ProductScreen({ productId, product: { price, countInStock } }) {
@@ -15,7 +16,6 @@ function ProductScreen({ productId, product: { price, countInStock } }) {
       <li>
         <div className="row">
           <div>Price</div>
-
           <div className="price">
             <sup>{pipe.getSymbol()}</sup>
             {pipe.getNote(price)}
@@ -23,6 +23,7 @@ function ProductScreen({ productId, product: { price, countInStock } }) {
           </div>
         </div>
       </li>
+
       <li>
         <div className="row">
           <div>Status</div>
@@ -31,6 +32,7 @@ function ProductScreen({ productId, product: { price, countInStock } }) {
           </div>
         </div>
       </li>
+
       {countInStock > 0 && (
         <>
           <li>
@@ -48,6 +50,7 @@ function ProductScreen({ productId, product: { price, countInStock } }) {
               </div>
             </div>
           </li>
+
           <li>
             <button onClick={addToCartHandler} className="primary block">
               Add to Cart
@@ -58,4 +61,5 @@ function ProductScreen({ productId, product: { price, countInStock } }) {
     </ul>
   );
 }
+
 export default memo(ProductScreen);

@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+
 import { Redirect, Route } from 'src/layouts/SuspenseRoute';
 
 export default function PrivateRoute({ component: Component, ...rest }) {

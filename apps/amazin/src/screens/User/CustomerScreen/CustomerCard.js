@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 
 function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }) {
   const history = useHistory();
+
   return (
     <div className={`c-box ${className}`} onClick={() => history.push(to)}>
       <div className="c-box__inner">

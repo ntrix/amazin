@@ -1,6 +1,8 @@
 import { memo } from 'react';
+
 import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
+
 /* TODO send errors report to server using Websocket */
 function ErrorScreen({ error }) {
   return (
@@ -13,6 +15,7 @@ function ErrorScreen({ error }) {
           <div className="divider-inner"></div>
           <div className="container">
             <Button primary to="/customer" label="Report this Error" />
+
             <Button to="/" className="ml-1" label="Back to Homepage" />
           </div>
         </div>
@@ -21,4 +24,5 @@ function ErrorScreen({ error }) {
     </div>
   );
 }
+
 export default memo(ErrorScreen);

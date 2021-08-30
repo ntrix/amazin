@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 export function NavCart({ to }) {
   const history = useHistory();
   const { cartItems } = useSelector((state) => state.cart);
+
   return (
     <div className="nav__cart flex" tabIndex="2" onClick={() => history.push(to)}>
       <div>

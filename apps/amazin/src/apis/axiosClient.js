@@ -44,5 +44,6 @@ const axiosRedux =
 
 const axiosPublic = axiosRedux(false);
 const axiosPrivate = axiosRedux(true);
+
 export default axiosClient;
 export { axios, axiosPublic, axiosPrivate };

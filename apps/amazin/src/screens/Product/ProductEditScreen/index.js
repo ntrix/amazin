@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { detailsProduct, updateProduct } from 'src/apis/productAPI';
 import { productUpdateActions } from 'src/slice/ProductSlice';
 import ImageSection from './ImageSection';
@@ -12,6 +13,7 @@ export default function ProductEditScreen({ history, match }) {
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
   const productUpdate = useSelector((state) => state.productUpdate);
+
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [deal, setDeal] = useState('');
@@ -79,10 +81,12 @@ export default function ProductEditScreen({ history, match }) {
         {productDetails?.success && (
           <>
             <LoadingOrError xl statusOf={productUpdate} />
+
             <CustomInput text="Name" hook={[name, setName]} />
             <CustomInput text="Price" hook={[price, setPrice]} />
             <CustomInput text="Ship" hook={[ship, setShip]} />
             <CustomInput text="Deal" hook={[deal, setDeal]} />
+
             <ImageSection hook={[images, setImages]} />
             <CustomInput text="Video Link or Youtube VID" hook={[video, setVideo]} />
             <CustomInput text="Category" hook={[category, setCategory]} />
@@ -90,6 +94,7 @@ export default function ProductEditScreen({ history, match }) {
             <CustomInput text="Count In Stock" hook={[countInStock, setCountInStock]} />
             <CustomInput text="Description" textarea rows="3" hook={[description, setDescription]} />
             <br />
+
             <div>
               <button className="primary" type="submit">
                 Update

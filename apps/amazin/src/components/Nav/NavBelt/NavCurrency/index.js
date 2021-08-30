@@ -1,4 +1,5 @@
 import { memo, lazy } from 'react';
+
 import NavButton from '../NavButton';
 const DropdownCurrency = lazy(() => import(/* webpackPrefetch: true */ './DropdownCurrency'));
 

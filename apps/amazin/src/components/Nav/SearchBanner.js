@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 function SearchBanner({ info, children }) {
   const productList = useSelector((state) => state.productList);
   const { products, page, count } = info || productList;
+
   const size = products?.length || 0;
   const fromItem = size * (page - 1);
   const toItem = Math.min(fromItem + size, count);
@@ -17,4 +18,5 @@ function SearchBanner({ info, children }) {
     </div>
   );
 }
+
 export default memo(SearchBanner);

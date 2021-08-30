@@ -1,11 +1,12 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import axios from 'axios';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from 'src/apis/productAPI';
+
 import './videoScreen.css';
-import { TRENDING, TOP_RATED, VIDEO, NETFLUX, HOME, STORE } from 'src/constants';
+import axios from 'axios';
+import { listProducts } from 'src/apis/productAPI';
 import { sourceAdapter } from 'src/utils';
+import { TRENDING, TOP_RATED, VIDEO, NETFLUX, HOME, STORE } from 'src/constants';
 import { ErrorFallback, loadingFallback, bannerFallback, delay } from 'src/components/Fallbacks';
 import { useSafeState } from 'src/hooks/useSafeState';
 import MessageBox from 'src/components/MessageBox';
@@ -65,10 +66,13 @@ export default function VideoScreen() {
         <Suspense fallback={loadingFallback}>
           <VideoNavHeader labels={VIDEO.GENRES} active={active} setActive={setActive} />
         </Suspense>
+
         <LoadingOrError xl statusOf={productCreate} />
+
         <Suspense fallback={bannerFallback}>
           <VideoBanner movie={bannerMovies[active]} youtubeTrailer />
         </Suspense>
+
         <Suspense fallback={loadingFallback}>
           {!!externMovies &&
             (active === HOME ? (
@@ -80,11 +84,13 @@ export default function VideoScreen() {
             ))}
           <LoadingOrError xl statusOf={productList} />
           <MessageBox show={productList?.success && storeMovies?.length < 1}>Sold Out/ No Product Found</MessageBox>
+
           <VideoRow title="IN STOCK: READY TO BUY" movies={storeMovies} portrait={active !== NETFLUX} />
           {active !== TRENDING && <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />}
           {active !== TOP_RATED && <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />}
         </Suspense>
         <div className="banner__divider"></div>
+
         <Suspense fallback={loadingFallback}>
           <VideoBanner bottom movie={bannerMovies[active]} />
         </Suspense>

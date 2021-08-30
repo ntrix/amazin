@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { deleteUser, listUsers } from 'src/apis/userAPI';
 import { userDetailsActions } from 'src/slice/UserSlice';
 import Button from 'src/components/Button';
@@ -15,6 +16,7 @@ export default function UserListScreen() {
     dispatch(listUsers());
     dispatch(userDetailsActions._RESET());
   }, [dispatch, userDelete.success]);
+
   const deleteHandler = (user) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteUser(user._id));
@@ -29,6 +31,7 @@ export default function UserListScreen() {
         User Deleted Successfully
       </MessageBox>
       <LoadingOrError xl statusOf={userList} />
+
       {userList?.success && (
         <table className="table">
           <thead>
@@ -41,6 +44,7 @@ export default function UserListScreen() {
               <th className="tab__w12">ACTIONS</th>
             </tr>
           </thead>
+
           <tbody>
             {userList.users.map((user) => (
               <tr key={user._id}>
@@ -53,6 +57,7 @@ export default function UserListScreen() {
                 <td className="text-center success">
                   {!!user.isAdmin && <i className="fa fa-check" aria-hidden="true"></i>}
                 </td>
+
                 <td>
                   <Button xs className="danger" label="Del." onClick={() => deleteHandler(user)} />
                   <Button xs label="Edit" to={`/user/${user._id}/edit`} />

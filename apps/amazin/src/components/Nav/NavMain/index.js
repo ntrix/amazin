@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
+
 import { navMainTemplate } from './navMainTemplate';
 import { NavCategoryAdapter } from '../MenuItem';
 import NavMainItem from './NavMainItem';
@@ -8,6 +9,7 @@ import LoadingOrError from 'src/components/LoadingOrError';
 
 function NavMain() {
   const productCategoryList = useSelector((state) => state.productCategoryList);
+
   return (
     <div className="nav-main row">
       <div className="nav__left" children={<OpenSidebarBtn />} />
@@ -27,4 +29,5 @@ function NavMain() {
     </div>
   );
 }
+
 export default memo(NavMain);

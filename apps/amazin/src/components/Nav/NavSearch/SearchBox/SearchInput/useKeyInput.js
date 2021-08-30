@@ -1,13 +1,15 @@
 import { useSelector } from 'react-redux';
+
 import { useOutline } from '../../useOutline';
 import { useShadow } from 'src/hooks/useShadow';
-import { SHADOW } from 'src/constants';
 import { findSuggest } from 'src/utils';
+import { SHADOW } from 'src/constants';
 
 export function useKeyInput(setInput, setSuggests, submitHandler) {
   const { productList } = useSelector((state) => state.productListAll);
   const { setOutline, setSuggestBox } = useOutline();
   const { shadowOf, setShadowOf } = useShadow();
+
   const handleKeyInput = ({ target: { value }, key }) => {
     if (value.length === 0 || key === 'Escape') {
       setSuggestBox(false);
@@ -24,5 +26,6 @@ export function useKeyInput(setInput, setSuggests, submitHandler) {
     setInput(value);
     return null;
   };
+
   return [handleKeyInput];
 }

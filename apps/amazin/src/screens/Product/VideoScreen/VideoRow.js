@@ -1,5 +1,6 @@
 import { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import { dummyMovies } from 'src/utils';
 import { loadingFallback } from 'src/components/Fallbacks';
 import Carousel, { responsive } from 'src/constants';
@@ -16,6 +17,7 @@ function VideoRow({ title, movies: _movies, portrait = false }) {
   }, [productList.success, _movies]);
 
   if (!movies?.length) return null;
+
   return (
     <div className="m-row">
       <h2>{title}</h2>
@@ -42,10 +44,12 @@ function VideoRow({ title, movies: _movies, portrait = false }) {
               </Suspense>
             ))}
           </Carousel>
+
           <UTube trailerUrl={trailerUrl} />
         </>
       )}
     </div>
   );
 }
+
 export default memo(VideoRow);
