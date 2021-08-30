@@ -7,7 +7,6 @@ import { createReview, detailsProduct } from 'src/apis/productAPI';
 import MessageBox from 'src/components/MessageBox';
 import Rating from 'src/components/Rating';
 import LoadingOrError from 'src/components/LoadingOrError';
-
 function ProductReview({ productId }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);

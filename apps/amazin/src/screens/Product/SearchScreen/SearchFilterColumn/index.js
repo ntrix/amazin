@@ -16,7 +16,6 @@ function SearchFilterColumn({ searchFilters: { category, max, rating }, getFilte
         <h4>Department</h4>
         <div>
           <LoadingOrError statusOf={productCategoryList} />
-
           <ListItem filter={{ category: NAV.ALL }} active={NAV.ALL === category} text="Any" />
           {categories?.map((_cat, id) => (
             <ListItem key={id} filter={{ category: _cat }} active={_cat === category} text={_cat} />
