@@ -4,7 +4,6 @@ import { createListItem } from './listItemCreator';
 import { NAV, prices, ratings } from 'src/constants';
 import Rating from 'src/components/Rating';
 import LoadingOrError from 'src/components/LoadingOrError';
-
 function SearchFilterColumn({ searchFilters: { category, max, rating }, getFilterUrl }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories } = productCategoryList;
