@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useShadow } from 'src/hooks/useShadow';
 import { useOutline } from '../useOutline';
+import { useShadow } from 'src/hooks/useShadow';
 
 export function useSubmit() {
   const history = useHistory();

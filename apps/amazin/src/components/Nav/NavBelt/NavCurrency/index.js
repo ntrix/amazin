@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import { memo, lazy } from 'react';
 import NavButton from '../NavButton';
 const DropdownCurrency = lazy(() => import(/* webpackPrefetch: true */ './DropdownCurrency'));
 
@@ -14,4 +14,4 @@ function NavCurrency({ currency }) {
   );
 }
 
-export default React.memo(NavCurrency);
+export default memo(NavCurrency);

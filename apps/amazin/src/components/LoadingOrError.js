@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import { memo, cloneElement, useEffect, useRef, useState } from 'react';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { SHOW_ERROR_TIMEOUT } from '../constants';
@@ -17,7 +17,7 @@ function LoadingOrError({ statusOf, wrapClass = '', errorMsg = '', xl = false, v
   const innerComponent = () => {
     if (loading) return <LoadingBox xl={xl} />;
     if (error && !hideError) return <MessageBox msg={errorMsg || error} variant={variant ?? 'danger'} />;
-    return children ? React.cloneElement(children, Object.assign(children.props, rest)) : null;
+    return children ? cloneElement(children, Object.assign(children.props, rest)) : null;
   };
   return !wrapClass || !children ? innerComponent() : <div className={wrapClass}>{innerComponent()}</div>;
 }

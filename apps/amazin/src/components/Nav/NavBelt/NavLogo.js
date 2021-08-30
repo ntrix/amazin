@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router';
 
-import Logo from '../../../img/a.svg';
+import Logo from 'src/img/a.svg';
 
 function NavLogo({ to }) {
   const history = useHistory();

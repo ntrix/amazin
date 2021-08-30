@@ -1,15 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
-
-import axiosClient from '../../apis/axiosClient';
-import { userAddressMapActions } from '../../slice/UserSlice';
-
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
-import { LOCATION, KEY } from '../../constants';
-import { Storage } from '../../utils';
-
+import axiosClient from 'src/apis/axiosClient';
+import { userAddressMapActions } from 'src/slice/UserSlice';
+import { Storage } from 'src/utils';
+import { LOCATION, KEY } from 'src/constants';
+import MessageBox from 'src/components/MessageBox';
+import LoadingBox from 'src/components/LoadingBox';
 const libs = ['places'];
 
 export default function MapScreen({ history }) {
@@ -19,7 +16,6 @@ export default function MapScreen({ history }) {
   const [location, setLocation] = useState(center);
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
-
   const mapRef = useRef(null);
   const placeRef = useRef(null);
   const markerRef = useRef(null);
@@ -112,7 +108,6 @@ export default function MapScreen({ history }) {
     <div className="container--fluid">
       <MessageBox msg={error} />
       <MessageBox variant="success" msg={info} />
-
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="sample-map"
@@ -127,15 +122,12 @@ export default function MapScreen({ history }) {
               <button className="danger btn-left" onClick={redirectBack}>
                 Cancel
               </button>
-
               <input type="text" placeholder="Enter your address" className="col-fill"></input>
-
               <button className="primary btn-right" onClick={onConfirm}>
                 Confirm
               </button>
             </div>
           </StandaloneSearchBox>
-
           <Marker position={location} onLoad={onMarkerLoad}></Marker>
         </GoogleMap>
       </LoadScript>

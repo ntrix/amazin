@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 
 import FilterListItem from './FilterListItem';
 
-import LoadingOrError from '../../../../components/LoadingOrError';
-import Rating from '../../../../components/Rating';
-import { NAV, prices, ratings } from '../../../../constants';
+import LoadingOrError from 'src/components/LoadingOrError';
+import Rating from 'src/components/Rating';
+import { NAV, prices, ratings } from 'src/constants';
 
-export function _SearchFilterColumn({
-  searchFilters: { category, max, rating },
-  getFilterUrl
-}) {
+function SearchFilterColumn({ searchFilters: { category, max, rating }, getFilterUrl }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories } = productCategoryList;
 
@@ -24,19 +21,10 @@ export function _SearchFilterColumn({
         <div>
           <LoadingOrError statusOf={productCategoryList} />
 
-          <ListItem
-            filter={{ category: NAV.ALL }}
-            active={NAV.ALL === category}
-            text="Any"
-          />
+          <ListItem filter={{ category: NAV.ALL }} active={NAV.ALL === category} text="Any" />
 
           {categories?.map((_cat, id) => (
-            <ListItem
-              key={id}
-              filter={{ category: _cat }}
-              active={_cat === category}
-              text={_cat}
-            />
+            <ListItem key={id} filter={{ category: _cat }} active={_cat === category} text={_cat} />
           ))}
         </div>
 
@@ -45,12 +33,7 @@ export function _SearchFilterColumn({
 
         <div>
           {prices.map((p, id) => (
-            <ListItem
-              key={id}
-              filter={{ min: p.min, max: p.max }}
-              active={`${p.max}` === `${max}`}
-              text={p.name}
-            />
+            <ListItem key={id} filter={{ min: p.min, max: p.max }} active={`${p.max}` === `${max}`} text={p.name} />
           ))}
         </div>
 
@@ -59,11 +42,7 @@ export function _SearchFilterColumn({
 
         <div>
           {ratings.map((r, id) => (
-            <ListItem
-              key={id}
-              filter={{ rating: r.rating }}
-              active={`${r.rating}` === `${rating}`}
-            >
+            <ListItem key={id} filter={{ rating: r.rating }} active={`${r.rating}` === `${rating}`}>
               <Rating caption={' & up'} rating={r.rating}></Rating>
             </ListItem>
           ))}
@@ -72,6 +51,4 @@ export function _SearchFilterColumn({
     </div>
   );
 }
-
-const SearchFilterColumn = React.memo(_SearchFilterColumn);
-export default SearchFilterColumn;
+export default memo(SearchFilterColumn);

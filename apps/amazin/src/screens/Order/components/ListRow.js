@@ -1,17 +1,13 @@
-import React from 'react';
-import { pipe } from '../../../utils';
+import { pipe } from 'src/utils';
 
-const ListRow = ({ label, toShow, active }) => (
-  <>
-    {(toShow || toShow === 0) && (
-      <li>
-        <div className={`row ${active ? 'active' : ''}`}>
-          <div>{label}</div>
-          <div>{pipe.showPrice(toShow)}</div>
-        </div>
-      </li>
-    )}{' '}
-  </>
-);
-
-export default ListRow;
+export default function ListRow({ label, toShow, active }) {
+  if (!toShow && toShow !== 0) return null;
+  return (
+    <li>
+      <div className={`row ${active ? 'active' : ''}`}>
+        <div>{label}</div>
+        <div>{pipe.showPrice(toShow)}</div>
+      </div>
+    </li>
+  );
+}

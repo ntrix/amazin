@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import LoadingOrError from '../../LoadingOrError';
 import SubNavItem from './SubNavItem';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 function SubNavCategories({ first, ...props }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);

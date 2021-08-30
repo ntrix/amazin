@@ -1,15 +1,11 @@
-import React from 'react';
+import { memo } from 'react';
 
-export function _VideoNavHeader({ labels, active, setActive }) {
+function VideoNavHeader({ labels, active, setActive }) {
   return (
     <nav className="m-header">
       <ul className="m-nav">
         {labels.map((label, id) => (
-          <li
-            key={id}
-            className={label === active ? ' active' : ''}
-            onClick={() => setActive(label)}
-          >
+          <li key={id} className={label === active ? ' active' : ''} onClick={() => setActive(label)}>
             {label.split(' ')[0]}
           </li>
         ))}
@@ -17,6 +13,4 @@ export function _VideoNavHeader({ labels, active, setActive }) {
     </nav>
   );
 }
-
-const VideoNavHeader = React.memo(_VideoNavHeader);
-export default VideoNavHeader;
+export default memo(VideoNavHeader);

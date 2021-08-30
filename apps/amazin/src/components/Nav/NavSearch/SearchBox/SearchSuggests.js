@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { SEARCH } from '../../../../constants';
-import { useShadow } from '../../../../hooks/useShadow';
 import { useOutline } from '../useOutline';
+import { SEARCH } from 'src/constants';
+import { useShadow } from 'src/hooks/useShadow';
 
 export default function SearchSuggests({ suggests, setSuggests, setInput }) {
   const { setSuggestBox } = useOutline();

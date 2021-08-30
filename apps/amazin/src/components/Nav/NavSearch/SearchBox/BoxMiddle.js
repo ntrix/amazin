@@ -4,6 +4,7 @@ import { useShadow } from 'src/hooks/useShadow';
 import { useOutline } from '../useOutline';
 import SearchInput from './SearchInput';
 const SearchSuggests = lazy(() => import(/* webpackPrefetch: true */ './SearchSuggests'));
+
 function BoxMiddle(props) {
   const { suggestBox } = useOutline();
   const { shadowOf } = useShadow();

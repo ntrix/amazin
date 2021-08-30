@@ -1,25 +1,13 @@
-import React from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { LazyImg } from 'src/utils/suspenseClient';
+import { getImgUrl, pipe, savePath } from 'src/utils';
+import { DUMMYSELLERS, NO_IMAGE } from 'src/constants';
+import Rating from 'src/components/Rating';
 
-import Rating from '../../../components/Rating';
-import { DUMMYSELLERS, NO_IMAGE } from '../../../constants';
-import { getImgUrl, pipe, savePath } from '../../../utils';
-import { LazyImg } from '../../../utils/suspenseClient';
-
-export function _ProductCard({
+function ProductCard({
   hasDeal = false,
-  product: {
-    _id,
-    name,
-    image,
-    rating,
-    numReviews,
-    price,
-    deal,
-    category,
-    ship,
-    seller
-  }
+  product: { _id, name, image, rating, numReviews, price, deal, category, ship, seller }
 }) {
   const imgs = image.split('^');
   const imgUrl = getImgUrl(_id, imgs[!!hasDeal] || imgs[0] || NO_IMAGE);
@@ -30,14 +18,11 @@ export function _ProductCard({
         <Link to={`/product/${_id}`} onClick={savePath()}>
           <LazyImg className="thumbnail" src={imgUrl} alt={name} />
         </Link>
-
         <div className="card__body">
           <Link to={`/product/${_id}`} onClick={savePath()}>
             <h2>{name}</h2>
           </Link>
-
           <Rating rating={rating} numReviews={numReviews}></Rating>
-
           <div>
             <div>
               <span className={`price ${hasDeal ? 'danger' : ''}`}>
@@ -67,10 +52,7 @@ export function _ProductCard({
               <>
                 <sub>Shipping: {pipe.showPrice(ship)} excl.</sub>
                 <div>
-                  <Link
-                    to={`/seller/${seller._id}`}
-                    className="row end text-right"
-                  >
+                  <Link to={`/seller/${seller._id}`} className="row end text-right">
                     Seller & Store
                     <br />
                     {seller?.seller?.name || DUMMYSELLERS.name}
@@ -84,6 +66,4 @@ export function _ProductCard({
     </div>
   );
 }
-
-const ProductCard = React.memo(_ProductCard);
-export default ProductCard;
+export default memo(ProductCard);

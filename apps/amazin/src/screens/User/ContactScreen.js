@@ -1,21 +1,19 @@
-import { axios } from '../../apis/axiosClient';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { updateUserProfile } from '../../apis/userAPI';
-import { userUpdateProfileActions } from '../../slice/UserSlice';
-
-import MessageBox from '../../components/MessageBox';
-import CustomInput from '../../components/CustomInput';
-import LoadingOrError from '../../components/LoadingOrError';
-import Button from '../../components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { axios } from 'src/apis/axiosClient';
+import { updateUserProfile } from 'src/apis/userAPI';
+import { userUpdateProfileActions } from 'src/slice/UserSlice';
+import Button from 'src/components/Button';
+import MessageBox from 'src/components/MessageBox';
+import CustomInput from 'src/components/CustomInput';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 export default function ContactScreen() {
   const dispatch = useDispatch();
   const { subject: paramSub } = useParams();
   const { userInfo } = useSelector((state) => state.userSignin);
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
@@ -41,7 +39,6 @@ export default function ContactScreen() {
   const submitHandler = async (e) => {
     setError(false);
     e.preventDefault();
-
     const data = {
       text,
       email,
@@ -57,7 +54,6 @@ export default function ContactScreen() {
     validate(!email, 'Please enter your email!');
     validate(!name, 'Please enter your name!');
     if (errors.length) return setError(errors);
-
     if ('Seller' === subject)
       return dispatch(
         updateUserProfile({
@@ -78,9 +74,7 @@ export default function ContactScreen() {
       });
       setLoading(false);
       if ('Admin' === paramSub) {
-        setMessage(
-          'Your Apply has been sent. Please wait 48 hours for processing!'
-        );
+        setMessage('Your Apply has been sent. Please wait 48 hours for processing!');
         return false;
       }
       setMessage('Thank you! Your message has been sent.');
@@ -95,10 +89,8 @@ export default function ContactScreen() {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <h1>Contact Us</h1>
-
         <LoadingOrError xl statusOf={{ loading, error }} />
         <LoadingOrError xl statusOf={userUpdateProfile} />
-
         <MessageBox variant="success" show={message}>
           {message}
           <Button to="/" primary label="Back To Home Page" />
@@ -106,17 +98,12 @@ export default function ContactScreen() {
         {!message && (
           <>
             <CustomInput text="Your Name" hook={[name, setName]} />
-
             <CustomInput text="Email" type="email" hook={[email, setEmail]} />
-
             <div>
               <label htmlFor="subject">Subject</label>
               <div className="select-wrapper">
                 <div className="sprite__caret xl"></div>
-                <select
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                >
+                <select value={subject} onChange={(e) => setSubject(e.target.value)}>
                   {!userInfo?.isSeller && 'Seller' === paramSub && (
                     <option value="Seller">Verify My Seller Account</option>
                   )}
@@ -137,15 +124,8 @@ export default function ContactScreen() {
                 </select>
               </div>
             </div>
-
-            <CustomInput
-              textarea
-              rows="10"
-              text="Your Message"
-              hook={[text, setText]}
-            />
+            <CustomInput textarea rows="10" text="Your Message" hook={[text, setText]} />
             <br />
-
             <div>
               <Button primary type="submit" label="Send Your Message" />
             </div>

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signout } from '../../../../apis/userAPI';
+import { shortName } from 'src/utils';
+import { signout } from 'src/apis/userAPI';
 import { signinTemplate } from './signinTemplate';
 import { createUserTemplate } from './userTemplate';
 import { createSellerTemplate } from './sellerTemplate';
 import { adminTemplate } from './adminTemplate';
-import { shortName } from '../../../../utils';
 
-export default function useMenuCreator() {
+export function useDropMenuCreator() {
   const dispatch = useDispatch();
   const signoutHandler = useCallback(() => dispatch(signout()), [dispatch]);
   const { userInfo } = useSelector((state) => state.userSignin);

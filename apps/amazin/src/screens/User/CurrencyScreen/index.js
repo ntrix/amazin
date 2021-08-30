@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { updateCurrencyRates } from '../../../apis/productAPI';
-import { updateUserProfile } from '../../../apis/userAPI';
-import { currencyTypeActions } from '../../../slice/ProductSlice';
-import { userUpdateProfileActions } from '../../../slice/UserSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCurrencyRates } from 'src/apis/productAPI';
+import { updateUserProfile } from 'src/apis/userAPI';
+import { currencyTypeActions } from 'src/slice/ProductSlice';
+import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import './currencyScreen.css';
-
-import MessageBox from '../../../components/MessageBox';
-import { Storage, pipe } from '../../../utils';
-import { KEY } from '../../../constants';
-import Button from '../../../components/Button';
+import { Storage, pipe } from 'src/utils';
+import { KEY } from 'src/constants';
+import Button from 'src/components/Button';
+import MessageBox from 'src/components/MessageBox';
 
 export default function CurrencyScreen() {
   const dispatch = useDispatch();
   const { cType } = useParams();
   const { userInfo } = useSelector((state) => state.userSignin);
-
   const [currency, setCurrency] = useState(cType || pipe.currency);
   const [newCurrency, setNewCurrency] = useState('');
-
   let back = Storage[KEY.HISTORY];
   back = !back || back.startsWith('/currency') ? '/' : back;
 
@@ -51,12 +48,7 @@ export default function CurrencyScreen() {
       <header className="container flex">
         <div className="col-50p">
           <h2 className="title">Language Settings</h2>
-
-          <p className="sub-title">
-            Select the language you prefer for browsing, shopping, and
-            communications.
-          </p>
-
+          <p className="sub-title">Select the language you prefer for browsing, shopping, and communications.</p>
           <div className="languages">
             <ul className="max-30">
               <li className="language active">
@@ -67,7 +59,6 @@ export default function CurrencyScreen() {
                   </span>
                 </div>
               </li>
-
               <li className="separator"></li>
               {[
                 ['Deutsch', 'DE', 'Übersetzen'],
@@ -86,30 +77,24 @@ export default function CurrencyScreen() {
                 </li>
               ))}
             </ul>
-
             <br />
           </div>
         </div>
-
         <div className="col-50p">
           <b>Translation</b>
           <p className="disabled">
-            We'll translate the most important information for your browsing,
-            shopping, and communications.
+            We'll translate the most important information for your browsing, shopping, and communications.
           </p>
         </div>
       </header>
-
       <div className="divider-inner"></div>
       <div className="container currencies">
         <section className="col-50p">
           <h2 className="title"> Currency Settings</h2>
-
           {!!newCurrency && (
             <>
               <MessageBox variant="success" show>
-                Currency Setting has been changed to{' '}
-                {pipe.longName[newCurrency]}
+                Currency Setting has been changed to {pipe.longName[newCurrency]}
               </MessageBox>
 
               <br />
@@ -117,7 +102,6 @@ export default function CurrencyScreen() {
               <div className="separator divider-inner"></div>
             </>
           )}
-
           <p>Select the currency you want to shop with.</p>
           <div className="select-wrapper col-50p">
             <div className="sprite__caret"></div>
@@ -139,29 +123,22 @@ export default function CurrencyScreen() {
               </optgroup>
             </select>
           </div>
-
           {currency !== 'EUR' && (
             <p>
-              {`Note: You will be shown prices in ${pipe.getSymbol(
-                currency
-              )} - ${currency} - ${
+              {`Note: You will be shown prices in ${pipe.getSymbol(currency)} - ${currency} - ${
                 pipe.longName[currency]
               } on Amazin as a reference only. You may or may not be able to pay in ${pipe.getSymbol(
                 currency
-              )} - ${currency} - ${
-                pipe.longName[currency]
-              } see more details during checkout.`}
+              )} - ${currency} - ${pipe.longName[currency]} see more details during checkout.`}
             </p>
           )}
         </section>
         <div className="col-50p"></div>
       </div>
-
       <div className="divider-inner"></div>
       <div className="container">
         <div className="col-50p p-1">
           <Button to={back} xs label="Cancel" />
-
           <Button primary xs label="Save Changes" onClick={submitHandler} />
         </div>
       </div>

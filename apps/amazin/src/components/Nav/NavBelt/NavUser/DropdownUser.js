@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { SHADOW } from 'src/constants';
-import { useShadow } from '../../../../hooks/useShadow';
+import { useShadow } from 'src/hooks/useShadow';
 import MenuItem, { mapArgsToProps } from '../../MenuItem';
 
 function DropdownUser({ ddMenuList }) {

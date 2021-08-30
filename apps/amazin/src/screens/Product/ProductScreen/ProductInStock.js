@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import { memo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { pipe } from '../../../utils';
+import { pipe } from 'src/utils';
 
-export function _ProductScreen({
-  productId,
-  product: { price, countInStock }
-}) {
+function ProductScreen({ productId, product: { price, countInStock } }) {
   const history = useHistory();
   const [qty, setQty] = useState(1);
 
@@ -26,30 +23,21 @@ export function _ProductScreen({
           </div>
         </div>
       </li>
-
       <li>
         <div className="row">
           <div>Status</div>
-
           <div>
-            {countInStock > 0 ? (
-              <span className="success">In Stock</span>
-            ) : (
-              <span className="danger">Unavailable</span>
-            )}
+            {countInStock > 0 ? <span className="success">In Stock</span> : <span className="danger">Unavailable</span>}
           </div>
         </div>
       </li>
-
       {countInStock > 0 && (
         <>
           <li>
             <div className="row">
               <div>Quantity</div>
-
               <div className="select-wrapper">
                 <div className="sprite__caret xl"></div>
-
                 <select value={qty} onChange={(e) => setQty(e.target.value)}>
                   {[...Array(countInStock).keys()].map((x) => (
                     <option key={x} value={x + 1}>
@@ -60,7 +48,6 @@ export function _ProductScreen({
               </div>
             </div>
           </li>
-
           <li>
             <button onClick={addToCartHandler} className="primary block">
               Add to Cart
@@ -71,6 +58,4 @@ export function _ProductScreen({
     </ul>
   );
 }
-
-const ProductScreen = React.memo(_ProductScreen);
-export default ProductScreen;
+export default memo(ProductScreen);

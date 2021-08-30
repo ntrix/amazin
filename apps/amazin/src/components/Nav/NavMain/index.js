@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import LoadingOrError from '../../LoadingOrError';
-import { NavCategoryAdapter } from '../MenuItem';
 import { navMainTemplate } from './navMainTemplate';
+import { NavCategoryAdapter } from '../MenuItem';
 import NavMainItem from './NavMainItem';
 import OpenSidebarBtn from './OpenSidebarBtn';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 function NavMain() {
   const productCategoryList = useSelector((state) => state.productCategoryList);

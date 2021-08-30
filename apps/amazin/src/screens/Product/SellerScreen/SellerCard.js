@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
+import { memo, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import Rating from '../../../components/Rating';
-import { LazyImg } from '../../../utils/suspenseClient';
+import { LazyImg } from 'src/utils/suspenseClient';
+import Rating from 'src/components/Rating';
 
-export function _SellerCard({
+function SellerCard({
   user: { /*email,*/ seller = {} },
   size = 'small',
   linkTo = false,
@@ -19,44 +19,30 @@ export function _SellerCard({
             <Suspense fallback={<h4>Seller</h4>}>
               {seller.logo ? (
                 <div className="p-1">
-                  <LazyImg
-                    className={size}
-                    src={seller.logo}
-                    alt={seller.name}
-                  />
+                  <LazyImg className={size} src={seller.logo} alt={seller.name} />
                 </div>
               ) : (
                 <h4>Seller</h4>
               )}
             </Suspense>
             <div className="p-1">
-              <h2>
-                {linkTo ? <Link to={linkTo}>{seller.name}</Link> : seller.name}
-              </h2>
+              <h2>{linkTo ? <Link to={linkTo}>{seller.name}</Link> : seller.name}</h2>
             </div>
           </div>
         </li>
-
         {!!rating && (
           <li>
-            <Rating
-              rating={seller.rating}
-              numReviews={seller.numReviews}
-            ></Rating>
+            <Rating rating={seller.rating} numReviews={seller.numReviews}></Rating>
           </li>
         )}
-
         {!!mailTo && (
           <li>
             <a href={`mailto:${'a@b.c'}`}>Contact Seller</a>
           </li>
         )}
-
         {!!info && <li>{seller.description}</li>}
       </ul>
     </div>
   );
 }
-
-const SellerCard = React.memo(_SellerCard);
-export default SellerCard;
+export default memo(SellerCard);

@@ -29,22 +29,12 @@ import(/* webpackPreload: true */ 'swiper/swiper-bundle.css');
 import(/* webpackPreload: true */ './app/responsive.css');
 import(/* webpackPreload: true */ './fonts/font-awesome.css');
 
-import(
-  /* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css'
-);
+import(/* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css');
 import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css');
-import(
-  /* webpackPreload: true */ './screens/Product/DealScreen/dealScreen.css'
-);
-import(
-  /* webpackPreload: true */ './screens/Product/ProductScreen/productScreen.css'
-);
-import(
-  /* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css'
-);
-import(
-  /* webpackPreload: true */ './screens/User/CustomerScreen/customerScreen.css'
-);
+import(/* webpackPreload: true */ './screens/Product/DealScreen/dealScreen.css');
+import(/* webpackPreload: true */ './screens/Product/ProductScreen/productScreen.css');
+import(/* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css');
+import(/* webpackPreload: true */ './screens/User/CustomerScreen/customerScreen.css');
 
 ReactDOM.render(
   <Provider store={store}>
