@@ -1,49 +1,26 @@
-import React from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-export function _Pagination({
-  getUrl,
-  page,
-  pages,
-  className = '',
-  help = false,
-  LinkTo = (props) => <Link {...props} />
-}) {
+function Pagination({ getUrl, page, pages, className = '', help = false, LinkTo = (props) => <Link {...props} /> }) {
+  const getClass = (x) => `${x + 1 === page ? 'active' : ''} ${className}`;
   return (
     <>
       <div className="row center pagination">
         {[...Array(pages || 0).keys()].map((x) => (
-          <LinkTo
-            key={x}
-            className={`${x + 1 === page ? 'active' : ''} ${className}`}
-            to={getUrl({ page: x + 1 })}
-          >
-            {x + 1}
-          </LinkTo>
+          <LinkTo key={x} to={getUrl({ page: x + 1 })} className={getClass(x)} children={x + 1} />
         ))}
       </div>
-
       {!!help && (
         <div>
           <h2>Do you need help?</h2>
-
-          <p>
-            Visit the{' '}
-            <LinkTo to="/customer">
-              <b>help section</b>
-            </LinkTo>
+          <p className="p-1 mb-1">
+            Visit the <LinkTo to="/customer" children={<b>help section</b>} />
             {' or '}
-            <LinkTo to="/contact/subject/Help">
-              <b>contact us</b>
-            </LinkTo>
-            <br />
-            <br />
+            <LinkTo to="/contact/subject/Help" children={<b>contact us</b>} />
           </p>
         </div>
       )}
     </>
   );
 }
-
-const Pagination = React.memo(_Pagination);
-export default Pagination;
+export default memo(Pagination);

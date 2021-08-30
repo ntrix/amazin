@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { signout } from '../../../apis/userAPI';
+import { signout } from 'src/apis/userAPI';
 import {
   sidebarBase,
   sidebarCurrencyCreator,
@@ -9,14 +8,14 @@ import {
   sidebarSellerCreator,
   sidebarAdminCreator
 } from './sidebarTemplate';
-import MenuItem, { NavCategoryAdapter, mapArgsToProps } from '../MenuItem';
-import LoadingOrError from '../../LoadingOrError';
-import { useShadow } from '../../../hooks/useShadow';
-import { SHADOW } from '../../../constants';
-import SidebarHeader from './SidebarHeader';
+import { useShadow } from 'src/hooks/useShadow';
+import { SHADOW } from 'src/constants';
 import { shortName } from 'src/utils';
+import MenuItem, { NavCategoryAdapter, mapArgsToProps } from '../MenuItem';
+import SidebarHeader from './SidebarHeader';
+import LoadingOrError from 'src/components/LoadingOrError';
 
-export function _SidebarMenu({ currency }) {
+function SidebarMenu({ currency }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCategoryList = useSelector((state) => state.productCategoryList);
@@ -56,6 +55,4 @@ export function _SidebarMenu({ currency }) {
     </>
   );
 }
-
-const SidebarMenu = React.memo(_SidebarMenu);
-export default SidebarMenu;
+export default memo(SidebarMenu);

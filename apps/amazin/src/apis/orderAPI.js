@@ -14,40 +14,28 @@ import { Storage } from '../utils';
 
 export const createOrder = (order) =>
   axiosPrivate([orderCreateActions], {
-    req: order,
-    extDispatch: cartActions._EMPTY,
-    extHandler: () => (Storage[KEY.CART_ITEMS] = ''),
+    requestPayload: order,
+    successDispatcher: cartActions._EMPTY,
+    successHandler: () => (Storage[KEY.CART_ITEMS] = ''),
     selector: (_data) => _data.order
   })('post', '/api/orders', order);
 
 export const detailsOrder = (orderId) =>
-  axiosPrivate([orderDetailsActions], { req: orderId })(
-    'get',
-    `/api/orders/${orderId}`
-  );
+  axiosPrivate([orderDetailsActions], { requestPayload: orderId })('get', `/api/orders/${orderId}`);
 
 export const payOrder = (order, paymentResult) =>
-  axiosPrivate([orderPayActions], { req: { order, paymentResult } })(
+  axiosPrivate([orderPayActions], { requestPayload: { order, paymentResult } })(
     'put',
     `/api/orders/${order._id}/pay`,
     paymentResult
   );
 
-export const listOrderMine = () =>
-  axiosPrivate([orderMineListActions])('get', '/api/orders/mine');
+export const listOrderMine = () => axiosPrivate([orderMineListActions])('get', '/api/orders/mine');
 
-export const listOrders = ({ seller = '' }) =>
-  axiosPrivate([orderListActions])('get', `/api/orders?seller=${seller}`);
+export const listOrders = ({ seller = '' }) => axiosPrivate([orderListActions])('get', `/api/orders?seller=${seller}`);
 
 export const deleteOrder = (orderId) =>
-  axiosPrivate([orderDeleteActions], { req: orderId })(
-    'delete',
-    `/api/orders/${orderId}`
-  );
+  axiosPrivate([orderDeleteActions], { requestPayload: orderId })('delete', `/api/orders/${orderId}`);
 
 export const deliverOrder = (orderId) =>
-  axiosPrivate([orderDeliverActions], { req: orderId })(
-    'put',
-    `/api/orders/${orderId}/deliver`,
-    {}
-  );
+  axiosPrivate([orderDeliverActions], { requestPayload: orderId })('put', `/api/orders/${orderId}/deliver`, {});

@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-
-import { saveShippingAddress } from '../../apis/cartAPI';
-
+import { saveShippingAddress } from 'src/apis/cartAPI';
 import CheckoutSteps from './CheckoutSteps';
-import CustomInput from '../../components/CustomInput';
-import { Storage } from '../../utils';
-import { KEY } from '../../constants';
+import CustomInput from 'src/components/CustomInput';
+import { Storage } from 'src/utils';
+import { KEY } from 'src/constants';
 
 export default function ShippingAddressScreen({ history }) {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   if (!userInfo) history.push('/signin');
-
   const userAddressMap = useSelector((state) => state.userAddressMap);
   const { address: addressMap } = userAddressMap;
   const { shippingAddress } = useSelector((state) => state.cart);
-
   const [locate, setLocate] = useState({
     lat: shippingAddress.lat,
     lng: shippingAddress.lng
@@ -77,30 +73,17 @@ export default function ShippingAddressScreen({ history }) {
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2></CheckoutSteps>
-
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Shipping Address</h1>
         </div>
-
         <CustomInput text="Full Name" required hook={[fullName, setFullName]} />
         <CustomInput text="Address" required hook={[address, setAddress]} />
         <CustomInput text="City" required hook={[city, setCity]} />
-        <CustomInput
-          text="Postal Code"
-          required
-          hook={[postalCode, setPostalCode]}
-        />
+        <CustomInput text="Postal Code" required hook={[postalCode, setPostalCode]} />
         <CustomInput text="Country" required hook={[country, setCountry]} />
-
         <CustomInput text="Locate On Map" type="button" onClick={locateOnMap} />
-
-        <CustomInput
-          text="Continue"
-          type="submit"
-          className="primary btn"
-          label="none"
-        />
+        <CustomInput text="Continue" type="submit" className="primary btn" label="none" />
       </form>
     </div>
   );

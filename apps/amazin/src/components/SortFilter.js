@@ -1,21 +1,15 @@
-import React from 'react';
+import { memo } from 'react';
 import { useHistory } from 'react-router';
 import { SORT } from '../constants';
 
-export function _SortFilter({ order, getUrl }) {
+function SortFilter({ order, getUrl }) {
   const history = useHistory();
-
+  const changeFilter = (e) => history.push(getUrl({ order: e.target.value }));
   return (
     <div className="sort__filter">
       <label htmlFor="filter__options">Sort by</label>
       <div className="sprite__caret"></div>
-      <select
-        id="filter__options"
-        value={order}
-        onChange={(e) => {
-          history.push(getUrl({ order: e.target.value }));
-        }}
-      >
+      <select id="filter__options" value={order} onChange={changeFilter}>
         <optgroup label="Sort by:">
           {Object.values(SORT).map((filter, id) => (
             <option value={filter.OPT} key={id}>
@@ -27,6 +21,4 @@ export function _SortFilter({ order, getUrl }) {
     </div>
   );
 }
-
-const SortFilter = React.memo(_SortFilter);
-export default SortFilter;
+export default memo(SortFilter);

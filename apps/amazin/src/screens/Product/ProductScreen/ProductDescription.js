@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import './productScreen.css';
-import Rating from '../../../components/Rating';
-import { pipe } from '../../../utils';
+import Rating from 'src/components/Rating';
+import { pipe } from 'src/utils';
 
-export function _ProductDescription({
-  product: { name, rating, numReviews, deal, price, description }
-}) {
+function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }) {
   return (
     <div className="col-1 mh-2">
       <ul>
@@ -46,6 +44,4 @@ export function _ProductDescription({
     </div>
   );
 }
-
-const ProductDescription = React.memo(_ProductDescription);
-export default ProductDescription;
+export default memo(ProductDescription);

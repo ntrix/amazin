@@ -1,4 +1,4 @@
-import { SORT } from '../../../constants';
+import { SORT } from 'src/constants';
 
 export const navMainTemplate = [
   ['Netflux Video', '/video'],

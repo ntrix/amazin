@@ -1,7 +1,7 @@
-import React from 'react';
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
 
-export function _SearchBanner({ info, children }) {
+function SearchBanner({ info, children }) {
   const productList = useSelector((state) => state.productList);
   const { products, page, count } = info || productList;
   const size = products?.length || 0;
@@ -11,13 +11,10 @@ export function _SearchBanner({ info, children }) {
   return (
     <div className="row search__banner">
       <div className="search__counter">
-        {fromItem + (toItem ? 1 : 0) || 0} - {toItem || 0} of {count || 0}{' '}
-        Results
+        {fromItem + (toItem ? 1 : 0) || 0} - {toItem || 0} of {count || 0} Results
       </div>
       {children}
     </div>
   );
 }
-
-const SearchBanner = React.memo(_SearchBanner);
-export default SearchBanner;
+export default memo(SearchBanner);

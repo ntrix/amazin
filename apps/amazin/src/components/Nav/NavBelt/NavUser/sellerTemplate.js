@@ -4,10 +4,7 @@ export function createSellerTemplate(userInfo) {
   return [
     ['Profile'],
     ['Seller Profile', '/profile/seller'],
-    [
-      'Apply An Admin Account',
-      !userInfo?.isAdmin ? '/contact/subject/Admin' : 'disabled'
-    ],
+    ['Apply An Admin Account', !userInfo?.isAdmin ? '/contact/subject/Admin' : 'disabled'],
     ['separator'],
     ['Listing'],
     ['Product Lists & Catalogues', '/product-list/seller'],

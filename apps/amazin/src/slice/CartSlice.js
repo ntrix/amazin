@@ -16,9 +16,7 @@ export const { actions: cartActions, reducer: cartReducer } = createSlice({
         return {
           ...state,
           error,
-          cartItems: state.cartItems.map((x) =>
-            x.product === existItem.product ? item : x
-          )
+          cartItems: state.cartItems.map((x) => (x.product === existItem.product ? item : x))
         };
       } else {
         return { ...state, error: '', cartItems: [...state.cartItems, item] };

@@ -9,7 +9,7 @@ export const MAX_IMAGES = 8;
 /* shadow background layer */
 export const SHADOW = {
   SCOPE: 'scope',
-  SEARCH_BOX: 'searchBox',
+  NAV_SEARCH: 'navSearch',
   NAV_DD: 'navDrop',
   SIDEBAR: 'sidebar'
 };
@@ -58,17 +58,14 @@ export const NAV = {
   ALL: 'All',
   DEAL: 'Deals'
 };
-export const getCatLabel = (cat) =>
-  cat === NAV.ALL ? NAV.ALL_CATEGORIES : cat;
+export const CatLabel = { [NAV.ALL]: NAV.ALL_CATEGORIES };
 
 /* price range filter width label name */
-export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map(
-  (max, i, arr) => ({
-    max,
-    min: arr[i - 1] || 0,
-    name: `${+arr[i - 1] | 0} to ${max | 0} EUR`
-  })
-);
+export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map((max, i, arr) => ({
+  max,
+  min: arr[i - 1] || 0,
+  name: `${+arr[i - 1] | 0} to ${max | 0} EUR`
+}));
 prices[0] = { min: 0, max: 0, name: 'Any' };
 
 /* rating stars filter */

@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-const Button = ({
+function Button({
   wrapClass = '',
   to = '',
   label = '',
@@ -10,29 +11,12 @@ const Button = ({
   ariaLabel = label || wrapClass || className,
   children,
   ...props
-}) => {
+}) {
+  className = `${primary ? 'primary' : ''} ${xs ? 'btn--xs' : ''} ${className} mb-1`;
   const innerButton = (_props) => (
-    <button
-      className={`${primary ? 'primary' : ''} ${
-        xs ? 'btn--xs' : ''
-      } ${className} mb-1`}
-      ariaLabel={ariaLabel}
-      {..._props}
-    >
-      {label || children}
-    </button>
+    <button className={className} ariaLabel={ariaLabel} {..._props} children={label || children} />
   );
-
-  if (to)
-    return (
-      <Link to={to} {...props}>
-        {innerButton()}
-      </Link>
-    );
-
-  if (!wrapClass) return innerButton(props);
-
-  return <div className={wrapClass}>{innerButton(props)}</div>;
-};
-
-export default Button;
+  if (to) return <Link to={to} {...props} children={innerButton()} />;
+  return !wrapClass ? innerButton(props) : <div className={wrapClass}>{innerButton(props)}</div>;
+}
+export default memo(Button);

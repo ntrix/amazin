@@ -1,5 +1,5 @@
 import { memo } from 'react';
-function NavDropdownBtn({
+function NavBtnDropdown({
   wrapClass = 'nav__user',
   line2Class = '',
   line2ExtClass = 'tablet--off',
@@ -23,4 +23,4 @@ function NavDropdownBtn({
     </div>
   );
 }
-export default memo(NavDropdownBtn);
+export default memo(NavBtnDropdown);

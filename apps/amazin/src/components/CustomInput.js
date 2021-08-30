@@ -1,6 +1,5 @@
-import React from 'react';
-
-export function _CustomInput({
+import { memo } from 'react';
+function CustomInput({
   text,
   type = 'text',
   placeholder = `Enter ${text}`,
@@ -16,21 +15,12 @@ export function _CustomInput({
     props.value = hook[0];
     props.onChange = (e) => hook[1](e.target.value);
   }
-
+  const value = type === 'button' || type === 'submit' ? text : rest.value;
   return (
     <div className={wrapClass}>
       {label !== 'none' && <label htmlFor={props.id}>{label + ' '}</label>}
-      {textarea ? (
-        <textarea {...props} />
-      ) : (
-        <input
-          value={type === 'button' || type === 'submit' ? text : rest.value}
-          {...props}
-        />
-      )}
+      {textarea ? <textarea {...props} /> : <input value={value} {...props} />}
     </div>
   );
 }
-
-const CustomInput = React.memo(_CustomInput);
-export default CustomInput;
+export default memo(CustomInput);

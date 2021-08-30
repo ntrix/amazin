@@ -1,5 +1,5 @@
-import React from 'react';
-import { pipe } from '../../../../../utils';
+import { memo } from 'react';
+import { pipe } from 'src/utils';
 import DropdownCurrencyItem from './DropdownCurrencyItem';
 import CurrencyRate from './CurrencyRate';
 
@@ -17,4 +17,4 @@ function DropdownCurrency({ currency }) {
     </ul>
   );
 }
-export default React.memo(DropdownCurrency);
+export default memo(DropdownCurrency);

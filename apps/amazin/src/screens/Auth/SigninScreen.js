@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { signin, updateUserProfile } from '../../apis/userAPI';
-import { updateCurrencyRates } from '../../apis/productAPI';
-
-import { pipe } from '../../utils';
-import CustomInput from '../../components/CustomInput';
-import LoadingOrError from '../../components/LoadingOrError';
+import { pipe } from 'src/utils';
+import { updateCurrencyRates } from 'src/apis/productAPI';
+import { signin, updateUserProfile } from 'src/apis/userAPI';
+import CustomInput from 'src/components/CustomInput';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 export default function SigninScreen({ location, history }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const redirect = location.search ? location.search.split('=')[1] : '/';
-
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
@@ -45,29 +41,15 @@ export default function SigninScreen({ location, history }) {
         <div>
           <h1>Sign In</h1>
         </div>
-
         <LoadingOrError statusOf={userSignin} />
-
-        <CustomInput
-          text="Email"
-          type="email"
-          required
-          hook={[email, setEmail]}
-        />
-        <CustomInput
-          text="Password"
-          type="password"
-          required
-          hook={[password, setPassword]}
-        />
-
+        <CustomInput text="Email" type="email" required hook={[email, setEmail]} />
+        <CustomInput text="Password" type="password" required hook={[password, setPassword]} />
         <div>
           <label />
           <button className="primary" type="submit">
             Sign In
           </button>
         </div>
-
         <div>
           <label />
           <div>

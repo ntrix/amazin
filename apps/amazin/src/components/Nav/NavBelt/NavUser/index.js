@@ -1,24 +1,26 @@
-import { lazy } from 'react';
-import NavBtnControl from '../NavBtnControl';
-import useMenuCreator from './useMenuCreator';
+import { lazy, memo } from 'react';
+import { useDropMenuCreator } from './useDropMenuCreator';
+import NavButton from '../NavButton';
 const DropdownUser = lazy(() => import(/* webpackPrefetch: true */ './DropdownUser'));
-export default function NavUser(props) {
-  const { userInfo, userName, userMenu, sellerMenu, adminMenu } = useMenuCreator();
+
+function NavUser(props) {
+  const { userInfo, userName, userMenu, sellerMenu, adminMenu } = useDropMenuCreator();
   return (
     <>
-      <NavBtnControl labels={`Hello, ${userName}^Account^ & Lists`}>
+      <NavButton labels={`Hello, ${userName}^Account^ & Lists`}>
         <DropdownUser {...props} ddMenuList={userMenu} />
-      </NavBtnControl>
+      </NavButton>
       {userInfo?.isSeller && (
-        <NavBtnControl wrapClass="nav__seller" labels="Seller^Desk">
+        <NavButton wrapClass="nav__seller" labels="Seller^Desk">
           <DropdownUser {...props} ddMenuList={sellerMenu} />
-        </NavBtnControl>
+        </NavButton>
       )}
       {userInfo?.isAdmin && (
-        <NavBtnControl wrapClass="nav__admin phone--off" labels="Admin^Tools">
+        <NavButton wrapClass="nav__admin phone--off" labels="Admin^Tools">
           <DropdownUser {...props} ddMenuList={adminMenu} />
-        </NavBtnControl>
+        </NavButton>
       )}
     </>
   );
 }
+export default memo(NavUser);

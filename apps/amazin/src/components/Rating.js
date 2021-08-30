@@ -1,31 +1,20 @@
-import React from 'react';
+import { memo } from 'react';
 
-export function _Rating({ rating, numReviews, caption, steps = 5 }) {
+function Rating({ rating, numReviews, caption, steps = 5 }) {
+  const isHalf = (test, className) => (test ? className : '');
   return (
     <div className="rating">
       <span>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].slice(0, steps).map((star) => (
           <i
-            className={
-              star <= rating + 0.5
-                ? star === rating + 0.5
-                  ? 'fa fa-star-half-o'
-                  : 'fa fa-star'
-                : 'fa fa-star-o'
-            }
+            className={`fa fa-star${star <= rating + 0.5 ? isHalf(star === rating + 0.5, '-half-o') : '-o'}`}
             key={star}
-          ></i>
+          />
         ))}
       </span>
-
-      {caption ? (
-        <span>{caption}</span>
-      ) : (
-        <span>{`${numReviews} review${numReviews > 1 ? 's' : ''}`}</span>
-      )}
+      <span>{caption || `${numReviews} review${numReviews > 1 ? 's' : ''}`}</span>
     </div>
   );
 }
 
-const Rating = React.memo(_Rating);
-export default Rating;
+export default memo(Rating);

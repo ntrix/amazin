@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  StandaloneSearchBox
-} from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
 
 import axiosClient from '../../apis/axiosClient';
 import { userAddressMapActions } from '../../slice/UserSlice';
@@ -127,20 +122,13 @@ export default function MapScreen({ history }) {
           onLoad={onLoad}
           onIdle={onIdle}
         >
-          <StandaloneSearchBox
-            onLoad={onLoadPlaces}
-            onPlacesChanged={onPlacesChanged}
-          >
+          <StandaloneSearchBox onLoad={onLoadPlaces} onPlacesChanged={onPlacesChanged}>
             <div className="address-box col-fill">
               <button className="danger btn-left" onClick={redirectBack}>
                 Cancel
               </button>
 
-              <input
-                type="text"
-                placeholder="Enter your address"
-                className="col-fill"
-              ></input>
+              <input type="text" placeholder="Enter your address" className="col-fill"></input>
 
               <button className="primary btn-right" onClick={onConfirm}>
                 Confirm

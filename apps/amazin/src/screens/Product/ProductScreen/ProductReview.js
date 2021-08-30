@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import MessageBox from '../../../components/MessageBox';
 import Rating from '../../../components/Rating';
 import LoadingOrError from '../../../components/LoadingOrError';
 
-export function _ProductReview({ productId }) {
+function ProductReview({ productId }) {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.userSignin);
@@ -32,9 +32,7 @@ export function _ProductReview({ productId }) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (comment && rating) {
-      dispatch(
-        createReview(productId, { rating, comment, name: userInfo.name })
-      );
+      dispatch(createReview(productId, { rating, comment, name: userInfo.name }));
     } else {
       alert('Please enter comment and rating');
     }
@@ -44,9 +42,7 @@ export function _ProductReview({ productId }) {
     <div className="p-1">
       <h2 id="reviews">Reviews</h2>
 
-      <MessageBox show={product.reviews.length === 0}>
-        There is no review
-      </MessageBox>
+      <MessageBox show={product.reviews.length === 0}>There is no review</MessageBox>
 
       <ul>
         {product.reviews.map((review, id) => (
@@ -69,11 +65,7 @@ export function _ProductReview({ productId }) {
                 <label htmlFor="rating">Rating</label>
                 <div className="select-wrapper">
                   <div className="sprite__caret xl"></div>
-                  <select
-                    id="rating"
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                  >
+                  <select id="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
                     <option value="">Select...</option>
                     <option value="1">1- Poor</option>
                     <option value="2">2- Fair</option>
@@ -86,11 +78,7 @@ export function _ProductReview({ productId }) {
 
               <div>
                 <label htmlFor="comment">Comment</label>
-                <textarea
-                  id="comment"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                ></textarea>
+                <textarea id="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
               </div>
 
               <div>
@@ -112,6 +100,4 @@ export function _ProductReview({ productId }) {
     </div>
   );
 }
-
-const ProductReview = React.memo(_ProductReview);
-export default ProductReview;
+export default memo(ProductReview);

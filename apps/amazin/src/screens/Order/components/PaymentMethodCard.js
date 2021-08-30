@@ -1,6 +1,4 @@
-import React from 'react';
-
-function PaymentMethodCard({ payment, children }) {
+export default function PaymentMethodCard({ payment, children }) {
   return (
     <li className="card card__body">
       <h2>Payment</h2>
@@ -11,5 +9,3 @@ function PaymentMethodCard({ payment, children }) {
     </li>
   );
 }
-
-export default PaymentMethodCard;

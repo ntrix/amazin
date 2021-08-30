@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import NavLogo from './NavLogo';
 import NavLocator from './NavLocator';
-import SearchBox from '../SearchBox';
-import NavDropdownBtn from './NavDropdownBtn';
+import NavSearch from '../NavSearch';
+import NavBtnDropdown from './NavButton/NavBtnDropdown';
 import NavCurrency from './NavCurrency';
 import NavUser from './NavUser';
 import NavCart from './NavCart';
@@ -12,10 +12,10 @@ function NavBelt({ currency }) {
     <div className="nav-belt row">
       <NavLogo to="/" />
       <NavLocator to="/map" />
-      <SearchBox />
+      <NavSearch />
       <NavCurrency currency={currency} />
       <NavUser />
-      <NavDropdownBtn disabled={!!'TODO'} wrapClass="nav__return tablet--off" labels="Return^& Orders" />
+      <NavBtnDropdown disabled={!!'TODO'} wrapClass="nav__return tablet--off" labels="Return^& Orders" />
       <NavCart to="/cart" />
     </div>
   );
