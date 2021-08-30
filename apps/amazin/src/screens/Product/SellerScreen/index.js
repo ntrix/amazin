@@ -1,24 +1,22 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { memo, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
-import { listProducts } from '../../../apis/productAPI';
-import { publicDetailsSeller } from '../../../apis/userAPI';
+import { listProducts } from 'src/apis/productAPI';
+import { publicDetailsSeller } from 'src/apis/userAPI';
 import SellerCard from './SellerCard';
 
-import Pagination from '../../../components/Pagination';
-import SortFilter from '../../../components/SortFilter';
-import MessageBox from '../../../components/MessageBox';
-import LoadingOrError from '../../../components/LoadingOrError';
-import { SORT } from '../../../constants';
-import { loadingFallback } from '../../../components/Fallbacks';
-import SearchBanner from '../../../components/Nav/SearchBanner';
+import Pagination from 'src/components/Pagination';
+import SortFilter from 'src/components/SortFilter';
+import MessageBox from 'src/components/MessageBox';
+import LoadingOrError from 'src/components/LoadingOrError';
+import { SORT } from 'src/constants';
+import { loadingFallback } from 'src/components/Fallbacks';
+import SearchBanner from 'src/components/Nav/SearchBanner';
 
-const ProductCard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ '../components/ProductCard')
-);
+const ProductCard = React.lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
-export function _SellerScreen({ match }) {
+function SellerScreen({ match }) {
   const dispatch = useDispatch();
   const { pageNumber = 1, order: pOrder = SORT.BESTSELLING.OPT } = useParams();
   const sellerId = match.params.id;
@@ -71,6 +69,4 @@ export function _SellerScreen({ match }) {
     </div>
   );
 }
-
-const SellerScreen = React.memo(_SellerScreen);
-export default SellerScreen;
+export default memo(SellerScreen);

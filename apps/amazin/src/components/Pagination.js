@@ -13,12 +13,10 @@ function Pagination({ getUrl, page, pages, className = '', help = false, LinkTo 
       {!!help && (
         <div>
           <h2>Do you need help?</h2>
-          <p>
+          <p className="p-1 mb-1">
             Visit the <LinkTo to="/customer" children={<b>help section</b>} />
             {' or '}
             <LinkTo to="/contact/subject/Help" children={<b>contact us</b>} />
-            <br />
-            <br />
           </p>
         </div>
       )}

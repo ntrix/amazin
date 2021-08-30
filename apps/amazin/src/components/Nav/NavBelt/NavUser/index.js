@@ -1,10 +1,10 @@
 import { lazy, memo } from 'react';
+import { useDropMenuCreator } from './useDropMenuCreator';
 import NavButton from '../NavButton';
-import useMenuCreator from './useMenuCreator';
 const DropdownUser = lazy(() => import(/* webpackPrefetch: true */ './DropdownUser'));
 
 function NavUser(props) {
-  const { userInfo, userName, userMenu, sellerMenu, adminMenu } = useMenuCreator();
+  const { userInfo, userName, userMenu, sellerMenu, adminMenu } = useDropMenuCreator();
   return (
     <>
       <NavButton labels={`Hello, ${userName}^Account^ & Lists`}>

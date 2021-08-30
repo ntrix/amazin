@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import axiosClient from '../../../apis/axiosClient';
-import { detailsOrder, payOrder, deliverOrder } from '../../../apis/orderAPI';
-import {
-  orderDeliverActions,
-  orderPayActions
-} from '../../../slice/OrderSlice';
-
+import axiosClient from 'src/apis/axiosClient';
+import { detailsOrder, payOrder, deliverOrder } from 'src/apis/orderAPI';
+import { orderDeliverActions, orderPayActions } from 'src/slice/OrderSlice';
 import StatusBox from './StatusBox';
 import OrderItemsCard from '../components/OrderItemsCard';
 import OrderSumCard from './OrderSumCard';
 import PaypalCard from './PaypalCard';
 import AdminDeliveryCard from './AdminDeliveryCard';
-
 import ShippingAddressCard from '../components/ShippingAddressCard';
 import PaymentMethodCard from '../components/PaymentMethodCard';
-import LoadingOrError from '../../../components/LoadingOrError';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 export default function OrderSumScreen({ match }) {
   const dispatch = useDispatch();
@@ -25,7 +19,6 @@ export default function OrderSumScreen({ match }) {
   const { order } = orderDetails;
   const orderPay = useSelector((state) => state.orderPay);
   const orderDeliver = useSelector((state) => state.orderDeliver);
-
   const [sdkReady, setSdkReady] = useState(false);
 
   useEffect(() => {
@@ -41,29 +34,16 @@ export default function OrderSumScreen({ match }) {
       document.body.appendChild(script);
     };
 
-    if (
-      !order ||
-      orderPay.success ||
-      orderDeliver.success ||
-      order._id !== orderId
-    ) {
+    if (!order || orderPay.success || orderDeliver.success || order._id !== orderId) {
       dispatch(orderPayActions._RESET());
       dispatch(orderDeliverActions._RESET());
       dispatch(detailsOrder(orderId));
       return;
     }
-
     if (order?.isPaid) return;
     if (!window.paypal) addPayPalSdk();
     else setSdkReady(true);
-  }, [
-    dispatch,
-    order,
-    setSdkReady,
-    orderId,
-    orderPay.success,
-    orderDeliver.success
-  ]);
+  }, [dispatch, order, setSdkReady, orderId, orderPay.success, orderDeliver.success]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
@@ -76,39 +56,21 @@ export default function OrderSumScreen({ match }) {
   return (
     <div className="screen--light">
       <LoadingOrError xl statusOf={orderDetails} />
-
       <h1 className="p-1">Order {order?._id || 'No.'}</h1>
-
       {!!order && (
         <div className="row top">
           <ul className="col-3">
             <ShippingAddressCard address={order.shippingAddress}>
-              <StatusBox
-                textOf="Delivered"
-                statusOf={order.isDelivered}
-                when={order.deliveredAt}
-              />
+              <StatusBox textOf="Delivered" statusOf={order.isDelivered} when={order.deliveredAt} />
             </ShippingAddressCard>
-
             <PaymentMethodCard payment={order.paymentMethod}>
-              <StatusBox
-                textOf="Paid"
-                statusOf={order.isPaid}
-                when={order.paidAt}
-              />
+              <StatusBox textOf="Paid" statusOf={order.isPaid} when={order.paidAt} />
             </PaymentMethodCard>
-
             <OrderItemsCard items={order.orderItems} />
           </ul>
-
           <ul className="col-1">
             <OrderSumCard order={order} />
-
-            <PaypalCard
-              sdkReady={sdkReady}
-              successPaymentHandler={successPaymentHandler}
-            />
-
+            <PaypalCard sdkReady={sdkReady} successPaymentHandler={successPaymentHandler} />
             <AdminDeliveryCard deliverHandler={deliverHandler} />
           </ul>
         </div>

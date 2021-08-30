@@ -1,5 +1,5 @@
-import { SORT } from '../../../constants';
-import { pipe, savePath } from '../../../utils';
+import { SORT } from 'src/constants';
+import { pipe, savePath } from 'src/utils';
 
 export const sidebarBase = [
   ['Trending'],
@@ -17,18 +17,8 @@ export function sidebarCurrencyCreator(currency = 'EUR') {
     ['separator'],
     ['Privacy & Setting'],
     ['Your Favorite List', 'disabled'],
-    [
-      '',
-      '/currency/cType/' + currency,
-      'sprite flag xl ' + currency,
-      savePath('/curr')
-    ],
-    [
-      pipe.longName[currency],
-      '/currency/cType/' + currency,
-      'pl-8',
-      savePath('/curr')
-    ],
+    ['', '/currency/cType/' + currency, 'sprite flag xl ' + currency, savePath('/curr')],
+    [pipe.longName[currency], '/currency/cType/' + currency, 'pl-8', savePath('/curr')],
     ['Currency Setting', '/currency/cType/EUR', '', savePath('/curr')],
     ['Your Browsing History', 'disabled'],
     ['Shipping Address', '/shipping'],
@@ -46,9 +36,7 @@ export function sidebarUserCreator(userName, signOutAction) {
     ['Your Account'],
     ['Your Profile', '/profile'],
     ['Customer Service', '/customer'],
-    userName
-      ? ['Sign Out', '#signout', '', signOutAction]
-      : ['Sign In', '/signin'],
+    userName ? ['Sign Out', '#signout', '', signOutAction] : ['Sign In', '/signin'],
     [''],
     ['separator']
   ];

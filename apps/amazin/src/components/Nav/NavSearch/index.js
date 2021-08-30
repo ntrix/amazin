@@ -1,7 +1,7 @@
 import { memo, useRef } from 'react';
-import SearchBox from './SearchBox';
 import { OutlineProvider } from './useOutline';
 import { useOutsideClick } from './useOutsideClick';
+import SearchBox from './SearchBox';
 
 function NavSearch() {
   const navSearchRef = useRef();

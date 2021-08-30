@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { addToCart, removeFromCart } from '../../apis/cartAPI';
-import { getImgUrl, pipe } from '../../utils';
-
-import MessageBox from '../../components/MessageBox';
-import Button from '../../components/Button';
+import { addToCart, removeFromCart } from 'src/apis/cartAPI';
+import { getImgUrl, pipe } from 'src/utils';
+import MessageBox from 'src/components/MessageBox';
+import Button from 'src/components/Button';
 
 export default function CartScreen(props) {
   const productId = props.match.params.id;
-  const qty = props.location.search
-    ? Number(props.location.search.split('=')[1])
-    : 1;
+  const qty = props.location.search ? Number(props.location.search.split('=')[1]) : 1;
   const cart = useSelector((state) => state.cart);
   const { cartItems, error } = cart;
   const dispatch = useDispatch();
@@ -34,9 +30,7 @@ export default function CartScreen(props) {
     <div className="screen--light row top">
       <div className="col-2">
         <h1 className="p-1">Shopping Cart</h1>
-
         <MessageBox msg={error} variant="danger" />
-
         {cartItems.length === 0 ? (
           <MessageBox show>
             Your cart is still empty.{' '}
@@ -47,7 +41,6 @@ export default function CartScreen(props) {
         ) : (
           <table className="table">
             <thead></thead>
-
             <tbody>
               {cartItems.map((item, id) => (
                 <tr className="row" key={id}>
@@ -60,25 +53,16 @@ export default function CartScreen(props) {
                       ></img>
                     </Link>
                   </td>
-
                   <td className="tab__rest">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </td>
-
                   <td className="tab__w9">
                     <div className="select-wrapper">
                       <div className="sprite__caret xl"></div>
                       <select
                         className="tab__w6"
                         value={item.qty}
-                        onChange={(e) =>
-                          dispatch(
-                            addToCart(
-                              item.product,
-                              -item.qty + Number(e.target.value)
-                            )
-                          )
-                        }
+                        onChange={(e) => dispatch(addToCart(item.product, -item.qty + Number(e.target.value)))}
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
                           <option key={x} value={x + 1}>
@@ -88,14 +72,9 @@ export default function CartScreen(props) {
                       </select>
                     </div>
                   </td>
-
                   <td className="tab__w6">{pipe.showPrice(item.price)}</td>
-
                   <td className="tab__w9">
-                    <Button
-                      label="Delete"
-                      onClick={() => removeFromCartHandler(item.product)}
-                    />
+                    <Button label="Delete" onClick={() => removeFromCartHandler(item.product)} />
                   </td>
                 </tr>
               ))}
@@ -103,19 +82,15 @@ export default function CartScreen(props) {
           </table>
         )}
       </div>
-
       <div className="col-1">
         <div className="card card__body">
           <ul>
             <li>
               <h2>
                 Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :{' '}
-                {pipe.showPrice(
-                  cartItems.reduce((a, c) => a + c.price * c.qty, 0)
-                )}
+                {pipe.showPrice(cartItems.reduce((a, c) => a + c.price * c.qty, 0))}
               </h2>
             </li>
-
             <li>
               <Button
                 primary

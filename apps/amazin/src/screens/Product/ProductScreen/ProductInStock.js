@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useHistory } from 'react-router';
-import { pipe } from '../../../utils';
+import { pipe } from 'src/utils';
 
-export function _ProductScreen({
-  productId,
-  product: { price, countInStock }
-}) {
+function ProductScreen({ productId, product: { price, countInStock } }) {
   const history = useHistory();
   const [qty, setQty] = useState(1);
 
@@ -32,11 +29,7 @@ export function _ProductScreen({
           <div>Status</div>
 
           <div>
-            {countInStock > 0 ? (
-              <span className="success">In Stock</span>
-            ) : (
-              <span className="danger">Unavailable</span>
-            )}
+            {countInStock > 0 ? <span className="success">In Stock</span> : <span className="danger">Unavailable</span>}
           </div>
         </div>
       </li>
@@ -71,6 +64,4 @@ export function _ProductScreen({
     </ul>
   );
 }
-
-const ProductScreen = React.memo(_ProductScreen);
-export default ProductScreen;
+export default memo(ProductScreen);

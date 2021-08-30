@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { listProducts } from '../../../apis/productAPI';
+import { listProducts } from 'src/apis/productAPI';
 import SearchFilterColumn from './SearchFilterColumn';
 import SearchResultColumn from './SearchResultColumn';
-import SubNavCategories from '../../../components/Nav/SubNavCategories';
+import SubNavCategories from 'src/components/Nav/SubNavCategories';
 
-import SortFilter from '../../../components/SortFilter';
-import Pagination from '../../../components/Pagination';
-import { NAV, SORT } from '../../../constants';
-import SearchBanner from '../../../components/Nav/SearchBanner';
+import SortFilter from 'src/components/SortFilter';
+import Pagination from 'src/components/Pagination';
+import { NAV, SORT } from 'src/constants';
+import SearchBanner from 'src/components/Nav/SearchBanner';
 
-export function _SearchScreen() {
+function SearchScreen() {
   const dispatch = useDispatch();
   const {
     name = NAV.ALL,
@@ -69,6 +69,4 @@ export function _SearchScreen() {
     </div>
   );
 }
-
-const SearchScreen = React.memo(_SearchScreen);
-export default SearchScreen;
+export default memo(SearchScreen);

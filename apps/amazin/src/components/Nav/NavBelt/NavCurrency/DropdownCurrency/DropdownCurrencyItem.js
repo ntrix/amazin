@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { pipe, savePath } from '../../../../../utils';
+import { pipe, savePath } from 'src/utils';
 
 function DropdownCurrencyItem({ label, currency }) {
   const history = useHistory();

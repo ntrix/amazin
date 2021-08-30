@@ -1,8 +1,9 @@
-import React, { Suspense, useState } from 'react';
-import { loadingFallback } from '../../../components/Fallbacks';
-import { getImgUrl } from '../../../utils';
-import { LazyImg } from '../../../utils/suspenseClient';
-export function _ProductScreen({ product }) {
+import React, { memo, Suspense, useState } from 'react';
+import { loadingFallback } from 'src/components/Fallbacks';
+import { getImgUrl } from 'src/utils';
+import { LazyImg } from 'src/utils/suspenseClient';
+
+function ProductScreen({ product }) {
   const [activeImg, setActiveImg] = useState(0);
 
   return (
@@ -15,9 +16,7 @@ export function _ProductScreen({ product }) {
               src={getImgUrl(product._id, img)}
               onMouseEnter={() => setActiveImg(id)}
               onClick={() => setActiveImg(id)}
-              className={`product__thumbnail ${
-                id === activeImg ? 'active' : ''
-              }`}
+              className={`product__thumbnail ${id === activeImg ? 'active' : ''}`}
             />
           </Suspense>
         ))}
@@ -35,6 +34,4 @@ export function _ProductScreen({ product }) {
     </div>
   );
 }
-
-const ProductScreen = React.memo(_ProductScreen);
-export default ProductScreen;
+export default memo(ProductScreen);

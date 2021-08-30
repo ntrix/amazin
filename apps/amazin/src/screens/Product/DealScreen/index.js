@@ -1,30 +1,25 @@
-import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, memo, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
-import SortFilter from '../../../components/SortFilter';
-import { listProducts } from '../../../apis/productAPI';
 import './dealScreen.css';
+import { listProducts } from 'src/apis/productAPI';
+import { loadingFallback } from 'src/components/Fallbacks';
+import { dummyMovies } from 'src/utils';
+import { useDebounce } from 'src/hooks/useDebounce';
+import { useShadow } from 'src/hooks/useShadow';
+import Carousel, { responsive, NAV, SORT } from 'src/constants';
+import SortFilter from 'src/components/SortFilter';
+import MessageBox from 'src/components/MessageBox';
+import SubNavCategories from 'src/components/Nav/SubNavCategories';
+import SearchBanner from 'src/components/Nav/SearchBanner';
+const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
-import MessageBox from '../../../components/MessageBox';
-import Carousel, { responsive, NAV, SORT } from '../../../constants';
-import SubNavCategories from '../../../components/Nav/SubNavCategories';
-import SearchBanner from '../../../components/Nav/SearchBanner';
-import { loadingFallback } from '../../../components/Fallbacks';
-import { dummyMovies } from '../../../utils';
-import { useDebounce } from '../../../hooks/useDebounce';
-import { useShadow } from '../../../hooks/useShadow';
-
-const ProductCard = React.lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
-
-export function _DealScreen() {
+function DealScreen() {
   const dispatch = useDispatch();
   const { category: paramCat = NAV.DEAL, order = SORT.BESTSELLING.OPT, pageNumber = 1 } = useParams();
   const productList = useSelector((state) => state.productList);
   const { shadowOf } = useShadow();
-
   const [list, setList] = useState(null);
-
   const banner = useRef('');
   const category = useRef('');
   const preloadingCat = useRef('');
@@ -69,7 +64,6 @@ export function _DealScreen() {
         changeCategory={changeCategory}
         onPreload={(_cat) => (list ? debouncePreload(_cat) : null)}
       />
-
       <div className={`deal-screen ${banner.current}`}>
         <Carousel
           swipeable={true}
@@ -94,16 +88,12 @@ export function _DealScreen() {
             </Suspense>
           ))}
         </Carousel>
-
         <MessageBox show={list?.products?.length < 1}>No Deals On This Category!</MessageBox>
-
         <h2 className="screen__title">Top Deals</h2>
-
         <div className="screen__featured">
           <SearchBanner info={list}>
             <SortFilter order={order} getUrl={({ order: _o }) => `/deal/category/all/order/${_o}/pageNumber/1`} />
           </SearchBanner>
-
           <div className="row center">
             {list?.products?.map((product, id) => (
               <Suspense key={id} fallback={loadingFallback}>
@@ -116,6 +106,4 @@ export function _DealScreen() {
     </>
   );
 }
-
-const DealScreen = React.memo(_DealScreen);
-export default DealScreen;
+export default memo(DealScreen);

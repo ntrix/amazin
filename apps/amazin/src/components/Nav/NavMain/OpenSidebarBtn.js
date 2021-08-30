@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { SHADOW } from '../../../constants';
-import { useShadow } from '../../../hooks/useShadow';
+import { SHADOW } from 'src/constants';
+import { useShadow } from 'src/hooks/useShadow';
 
 function OpenSidebarBtn() {
   const { setShadowOf } = useShadow();
