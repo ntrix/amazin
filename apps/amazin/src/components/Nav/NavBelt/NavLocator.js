@@ -1,12 +1,15 @@
 import { useHistory } from 'react-router';
+
 import { savePath } from 'src/utils';
 
 function NavLocator({ to }) {
   const history = useHistory();
+
   const handleClick = () => {
     savePath();
     history.push(to);
   };
+
   return (
     <div className="nav__locator flex" aria-label="Address Locator" onClick={handleClick}>
       <div className="sprite__locator"></div>

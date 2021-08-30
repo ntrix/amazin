@@ -1,9 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+
 import { pipe, savePath } from 'src/utils';
 
 function DropdownCurrencyItem({ label, currency }) {
   const history = useHistory();
+
   return (
     <li>
       <div
@@ -21,4 +23,5 @@ function DropdownCurrencyItem({ label, currency }) {
     </li>
   );
 }
+
 export default React.memo(DropdownCurrencyItem);

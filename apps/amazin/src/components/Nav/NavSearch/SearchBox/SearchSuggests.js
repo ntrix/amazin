@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 import { useOutline } from '../useOutline';
 import { SEARCH } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
@@ -6,6 +7,7 @@ import { useShadow } from 'src/hooks/useShadow';
 export default function SearchSuggests({ suggests, setSuggests, setInput }) {
   const { setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
+
   return suggests?.slice(0, SEARCH.MAX_SUGGESTS).map((p, id) => (
     <li key={id}>
       <Link

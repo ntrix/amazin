@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import './productScreen.css';
 import { pipe } from 'src/utils';
 import Rating from 'src/components/Rating';
@@ -10,9 +11,11 @@ function ProductDescription({ product: { name, rating, numReviews, deal, price, 
         <li>
           <h1>{name}</h1>
         </li>
+
         <li>
           <Rating rating={rating} numReviews={numReviews} />
         </li>
+
         <li>
           <div>
             <span className={`price ${deal ? 'danger' : ''}`}>
@@ -31,6 +34,7 @@ function ProductDescription({ product: { name, rating, numReviews, deal, price, 
             )}
           </div>
         </li>
+
         <li>
           Description:
           <p>{description}</p>

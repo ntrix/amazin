@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
+
 import axiosClient from 'src/apis/axiosClient';
 import { userAddressMapActions } from 'src/slice/UserSlice';
 import { Storage } from 'src/utils';
@@ -108,6 +109,7 @@ export default function MapScreen({ history }) {
     <div className="container--fluid">
       <MessageBox msg={error} />
       <MessageBox variant="success" msg={info} />
+
       <LoadScript libraries={libs} googleMapsApiKey={googleApiKey}>
         <GoogleMap
           id="sample-map"
@@ -128,6 +130,7 @@ export default function MapScreen({ history }) {
               </button>
             </div>
           </StandaloneSearchBox>
+
           <Marker position={location} onLoad={onMarkerLoad}></Marker>
         </GoogleMap>
       </LoadScript>

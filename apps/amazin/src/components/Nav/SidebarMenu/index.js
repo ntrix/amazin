@@ -1,5 +1,6 @@
 import { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { signout } from 'src/apis/userAPI';
 import {
   sidebarBase,
@@ -21,7 +22,9 @@ function SidebarMenu({ currency }) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { categories } = productCategoryList;
   const { shadowOf, setShadowOf } = useShadow();
+
   const signOutHandler = useCallback(() => dispatch(signout()), [dispatch]);
+
   const userName = useCallback((_s) => shortName(_s), []);
 
   return (
@@ -30,7 +33,9 @@ function SidebarMenu({ currency }) {
         <button id="btn--close-sidebar" onClick={() => setShadowOf('')} aria-label="Close Sidebar">
           <div className="sprite__close-btn"></div>
         </button>
+
         <SidebarHeader userName={userName(userInfo?.name)} clearShadow={setShadowOf} />
+
         <ul className="sidebar__list">
           <LoadingOrError statusOf={productCategoryList} />
           {[
@@ -47,6 +52,7 @@ function SidebarMenu({ currency }) {
             ))}
         </ul>
       </aside>
+
       <label
         className={SHADOW.SIDEBAR === shadowOf ? 'click-catcher' : ''}
         htmlFor="btn--close-sidebar"
@@ -55,4 +61,5 @@ function SidebarMenu({ currency }) {
     </>
   );
 }
+
 export default memo(SidebarMenu);

@@ -11,6 +11,7 @@ const opts = {
 
 export default function UTube({ trailerUrl }) {
   if (!trailerUrl) return null;
+
   return (
     <div className="trailer__frame">
       <YouTube className="movie__trailer" videoId={trailerUrl === -1 ? 'k4D7cuDAvXE' : trailerUrl} opts={opts} />

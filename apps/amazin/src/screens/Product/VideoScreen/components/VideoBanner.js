@@ -1,4 +1,5 @@
 import { memo, useState } from 'react';
+
 import { VIDEO } from 'src/constants';
 import { LazyBackground } from 'src/utils/suspenseClient';
 import UTube from './UTube';
@@ -8,6 +9,7 @@ import ButtonTrailer from './ButtonTrailer';
 
 function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
+
   return (
     <>
       <LazyBackground
@@ -21,6 +23,7 @@ function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
         {!!bottom && <div className="banner--fade-top" />}
         <div className="banner__contents">
           <h1 className="banner__title">{movie?.name}</h1>
+
           {!bottom && (
             <>
               <div className="banner__buttons">
@@ -40,4 +43,5 @@ function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
     </>
   );
 }
+
 export default memo(VideoBanner);

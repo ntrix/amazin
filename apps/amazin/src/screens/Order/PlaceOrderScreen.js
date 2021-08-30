@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { orderCreateActions } from 'src/slice/OrderSlice';
 import { createOrder } from 'src/apis/orderAPI';
 import OrderItemsCard from './components/OrderItemsCard';
@@ -15,6 +16,7 @@ export default function PlaceOrderScreen({ history }) {
   //fixes cart object is not extensible
   const cart = { ...useSelector((state) => state.cart) };
   if (!cart.paymentMethod) history.push('/payment');
+
   const orderCreate = useSelector((state) => state.orderCreate);
   cart.itemsPrice = cart.cartItems?.reduce((a, c) => a + c.qty * c.price, 0);
 
@@ -24,9 +26,11 @@ export default function PlaceOrderScreen({ history }) {
   cart.shippingPrice = cart.itemsPrice > 100 ? 0 : ship;
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice;
   cart.taxPrice = cart.totalPrice / (1 + TAX);
+
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
+
   useEffect(() => {
     if (orderCreate.success) {
       history.push(`/order/${orderCreate.order._id}`);
@@ -37,6 +41,7 @@ export default function PlaceOrderScreen({ history }) {
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+
       <h1 className="p-1">Place Order</h1>
       <div className="row top">
         <ul className="col-2">
@@ -44,6 +49,7 @@ export default function PlaceOrderScreen({ history }) {
           <PaymentMethodCard payment={cart.paymentMethod} />
           <OrderItemsCard items={cart.cartItems} />
         </ul>
+
         <div className="col-1">
           <ul className="card card__body">
             <h2>Order Summary</h2>
@@ -62,6 +68,7 @@ export default function PlaceOrderScreen({ history }) {
                 </button>
               </>
             )}
+
             <LoadingOrError xl statusOf={orderCreate} />
           </ul>
         </div>

@@ -9,6 +9,7 @@ function LoadingBox({ hide = false, xl = false, wrapClass = '' }) {
       <div className={`sprite__loading${xl ? '--xl' : ''}`} />
     </div>
   );
+
   return !wrapClass ? innerComponent() : <div className={wrapClass}>{innerComponent()}</div>;
 }
 

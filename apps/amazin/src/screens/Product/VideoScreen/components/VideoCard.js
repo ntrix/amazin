@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { NO_IMAGE } from 'src/constants';
 import { getImgUrl } from 'src/utils';
 import { LazyImg } from 'src/utils/suspenseClient';
@@ -20,15 +21,18 @@ export function VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
             <Rating rating={movie?.rating * 2} steps={10} numReviews={movie?.numReviews} />
           </div>
         </div>
+
         <div className="m-card__more">
           <ButtonTrailer movie={movie} trailerUrl={trailerUrl} setTrailerUrl={setTrailerUrl} />
           <ButtonBuy movie={movie} />
         </div>
       </div>
+
       <div className="m-card__info">
         <div className="m-card__name">{movie.name}</div>
       </div>
     </div>
   );
 }
+
 export default memo(VideoCard);

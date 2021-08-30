@@ -1,4 +1,5 @@
 import { memo, Suspense, useState } from 'react';
+
 import { loadingFallback } from 'src/components/Fallbacks';
 import { LazyImg } from 'src/utils/suspenseClient';
 import { getImgUrl } from 'src/utils';
@@ -20,6 +21,7 @@ function ProductScreen({ product }) {
           </Suspense>
         ))}
       </div>
+
       <div className="tab__rest">
         <Suspense fallback={loadingFallback}>
           <LazyImg
@@ -32,4 +34,5 @@ function ProductScreen({ product }) {
     </div>
   );
 }
+
 export default memo(ProductScreen);

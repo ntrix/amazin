@@ -1,12 +1,14 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
+
 import { useOutline } from '../../useOutline';
 import { useShadow } from 'src/hooks/useShadow';
-import { SHADOW } from 'src/constants';
 import { findSuggest } from 'src/utils';
+import { SHADOW } from 'src/constants';
 
 export function useSuggestBox(setSuggests) {
   const { productList } = useSelector((state) => state.productListAll);
+
   const { suggestBox, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
@@ -25,5 +27,6 @@ export function useSuggestBox(setSuggests) {
     setOutline(false); // Wait to execute any click on Suggest Box, closes on callback
     return suggestBox ? hideSuggestBox() : null; // eslint-disable-next-line
   }, []);
+
   return [showSuggestBox, doThenHideSuggestBox, hideSuggestBox];
 }

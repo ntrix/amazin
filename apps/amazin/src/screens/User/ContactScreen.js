@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { axios } from 'src/apis/axiosClient';
 import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
@@ -47,9 +48,7 @@ export default function ContactScreen() {
     };
 
     const errors = [];
-    const validate = (err, msg) => {
-      if (err) errors.push(msg);
-    };
+    const validate = (err, msg) => (err ? errors.push(msg) : null);
     validate(!text, 'Please enter your message!');
     validate(!email, 'Please enter your email!');
     validate(!name, 'Please enter your name!');
@@ -91,14 +90,17 @@ export default function ContactScreen() {
         <h1>Contact Us</h1>
         <LoadingOrError xl statusOf={{ loading, error }} />
         <LoadingOrError xl statusOf={userUpdateProfile} />
+
         <MessageBox variant="success" show={message}>
           {message}
           <Button to="/" primary label="Back To Home Page" />
         </MessageBox>
+
         {!message && (
           <>
             <CustomInput text="Your Name" hook={[name, setName]} />
             <CustomInput text="Email" type="email" hook={[email, setEmail]} />
+
             <div>
               <label htmlFor="subject">Subject</label>
               <div className="select-wrapper">
@@ -124,6 +126,7 @@ export default function ContactScreen() {
                 </select>
               </div>
             </div>
+
             <CustomInput textarea rows="10" text="Your Message" hook={[text, setText]} />
             <br />
             <div>

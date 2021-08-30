@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback } from 'react';
+
 import { useDebounce } from './useDebounce';
 const ShadowContext = createContext();
 ShadowContext.displayName = 'ShadowContext';
@@ -6,6 +7,7 @@ ShadowContext.displayName = 'ShadowContext';
 export function ShadowProvider({ children }) {
   const [shadowOf, _setShadowOf] = useState('');
   const [debounceShadow, clearDebounce] = useDebounce(_setShadowOf);
+
   const setShadowOf = useCallback((_sh) => {
     clearDebounce(_sh !== shadowOf ? _sh : undefined);
     // eslint-disable-next-line

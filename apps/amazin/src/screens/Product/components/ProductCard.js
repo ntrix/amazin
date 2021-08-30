@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
+
 import { LazyImg } from 'src/utils/suspenseClient';
 import { getImgUrl, pipe, savePath } from 'src/utils';
 import { DUMMYSELLERS, NO_IMAGE } from 'src/constants';
@@ -18,11 +19,14 @@ function ProductCard({
         <Link to={`/product/${_id}`} onClick={savePath()}>
           <LazyImg className="thumbnail" src={imgUrl} alt={name} />
         </Link>
+
         <div className="card__body">
           <Link to={`/product/${_id}`} onClick={savePath()}>
             <h2>{name}</h2>
           </Link>
+
           <Rating rating={rating} numReviews={numReviews}></Rating>
+
           <div>
             <div>
               <span className={`price ${hasDeal ? 'danger' : ''}`}>

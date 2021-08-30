@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import InnerMenuItem from './InnerMenuItem';
 
 export const mapArgsToProps = ([label, to, className, extFunction = null], id) => ({

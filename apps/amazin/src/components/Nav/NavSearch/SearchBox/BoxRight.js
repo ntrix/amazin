@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import SearchBtn from './SearchBtn';
 
 function BoxRight({ submitHandler }) {

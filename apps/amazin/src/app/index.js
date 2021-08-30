@@ -2,17 +2,17 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
+
 import '../index.css';
+import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
 import { ShadowProvider, useShadow } from '../hooks/useShadow';
-import MainRoute from '../routes/MainRoute';
 import { Storage, pipe } from '../utils';
 import { SHADOW, KEY } from '../constants';
+import MainRoute from '../routes/MainRoute';
 import './responsive.css';
 import '../fonts/fonts.css';
 import '../fonts/font-awesome.css';
 import Nav from 'src/components/Nav';
-
 const ErrorScreen = React.lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/ErrorScreen'));
 const SidebarMenu = React.lazy(() => import(/* webpackPrefetch: true */ '../components/Nav/SidebarMenu'));
 

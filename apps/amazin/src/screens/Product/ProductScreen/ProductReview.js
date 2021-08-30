@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { productReviewCreateActions } from 'src/slice/ProductSlice';
 import { createReview, detailsProduct } from 'src/apis/productAPI';
 import MessageBox from 'src/components/MessageBox';
@@ -38,6 +39,7 @@ function ProductReview({ productId }) {
     <div className="p-1">
       <h2 id="reviews">Reviews</h2>
       <MessageBox show={product.reviews.length === 0}>There is no review</MessageBox>
+
       <ul>
         {product.reviews.map((review, id) => (
           <li key={id}>
@@ -47,6 +49,7 @@ function ProductReview({ productId }) {
             <p>{review.comment}</p>
           </li>
         ))}
+
         <li>
           {userInfo ? (
             <form className="form" onSubmit={submitHandler}>
@@ -77,6 +80,7 @@ function ProductReview({ productId }) {
                   Submit
                 </button>
               </div>
+
               <LoadingOrError statusOf={productReviewCreate} />
             </form>
           ) : (
@@ -89,4 +93,5 @@ function ProductReview({ productId }) {
     </div>
   );
 }
+
 export default memo(ProductReview);

@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { useOutline } from '../../useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 import { CatLabel } from 'src/constants';
@@ -6,6 +7,7 @@ import { CatLabel } from 'src/constants';
 function SearchCatItem({ cat, isActive, setActiveCat }) {
   const { inputRef, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
+
   return (
     <li
       className={`category ${isActive ? 'active' : ''}`}
@@ -27,4 +29,5 @@ function SearchCatItem({ cat, isActive, setActiveCat }) {
     </li>
   );
 }
+
 export default memo(SearchCatItem);
