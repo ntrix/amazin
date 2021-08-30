@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { SEARCH, SHADOW } from '../../../constants';
 import { useShadow } from '../../../hooks/useShadow';
-import { useOutline } from './useOutline';
+import { useOutline } from '../../../hooks/useOutline';
 
 export function _SearchSuggest({
   suggests,

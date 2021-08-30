@@ -1,11 +1,11 @@
-import CartLinkBtn from '../../components/Nav/HeaderNavBelt/CartLinkBtn';
+import NavCart from '../../components/Nav/NavBelt/NavCart';
 
 export default {
   title: 'Components/Nav/Cart Link Button',
-  component: CartLinkBtn
+  component: NavCart
 };
 
-const Template = (args) => <CartLinkBtn {...args} />;
+const Template = (args) => <NavCart {...args} />;
 const Args = { counter: 0, LinkTo: (props) => <div {...props} /> };
 
 export const CartEmpty = Template.bind(Args);

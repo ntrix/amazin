@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import SearchCatScope from './SearchCatScope';
 import SearchInput from './SearchInput';
 import SearchBtn from './SearchBtn';
-import { OutlineProvider, useOutline } from './useOutline';
+import { OutlineProvider, useOutline } from '../../../hooks/useOutline';
 import { useShadow } from '../../../hooks/useShadow';
 import { NAV, SHADOW } from '../../../constants';
 

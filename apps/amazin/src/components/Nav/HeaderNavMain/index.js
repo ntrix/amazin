@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import LoadingOrError from '../../LoadingOrError';
-import { NavCategoryAdapter } from '../components/MenuItem';
+import { NavCategoryAdapter } from '../MenuItem';
 import { navMainTemplate } from './navMainTemplate';
 import NavMainItem from './NavMainItem';
 import OpenSidebarBtn from './OpenSidebarBtn';
