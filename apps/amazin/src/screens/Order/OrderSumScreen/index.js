@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import axiosClient from 'src/apis/axiosClient';
 import { detailsOrder, payOrder, deliverOrder } from 'src/apis/orderAPI';
 import { orderDeliverActions, orderPayActions } from 'src/slice/OrderSlice';
@@ -56,6 +57,7 @@ export default function OrderSumScreen({ match }) {
   return (
     <div className="screen--light">
       <LoadingOrError xl statusOf={orderDetails} />
+
       <h1 className="p-1">Order {order?._id || 'No.'}</h1>
       {!!order && (
         <div className="row top">
@@ -63,14 +65,18 @@ export default function OrderSumScreen({ match }) {
             <ShippingAddressCard address={order.shippingAddress}>
               <StatusBox textOf="Delivered" statusOf={order.isDelivered} when={order.deliveredAt} />
             </ShippingAddressCard>
+
             <PaymentMethodCard payment={order.paymentMethod}>
               <StatusBox textOf="Paid" statusOf={order.isPaid} when={order.paidAt} />
             </PaymentMethodCard>
+
             <OrderItemsCard items={order.orderItems} />
           </ul>
           <ul className="col-1">
             <OrderSumCard order={order} />
+
             <PaypalCard sdkReady={sdkReady} successPaymentHandler={successPaymentHandler} />
+
             <AdminDeliveryCard deliverHandler={deliverHandler} />
           </ul>
         </div>

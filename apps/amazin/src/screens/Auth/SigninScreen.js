@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { pipe } from 'src/utils';
 import { updateCurrencyRates } from 'src/apis/productAPI';
 import { signin, updateUserProfile } from 'src/apis/userAPI';
@@ -42,14 +43,17 @@ export default function SigninScreen({ location, history }) {
           <h1>Sign In</h1>
         </div>
         <LoadingOrError statusOf={userSignin} />
+
         <CustomInput text="Email" type="email" required hook={[email, setEmail]} />
         <CustomInput text="Password" type="password" required hook={[password, setPassword]} />
+
         <div>
           <label />
           <button className="primary" type="submit">
             Sign In
           </button>
         </div>
+
         <div>
           <label />
           <div>

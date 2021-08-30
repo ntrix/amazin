@@ -21,4 +21,5 @@ function MessageBox({ show = false, msg, variant, wrapClass = '', children }) {
 
   return !wrapClass ? innerComponent() : <div className={wrapClass}>{innerComponent()}</div>;
 }
+
 export default memo(MessageBox);

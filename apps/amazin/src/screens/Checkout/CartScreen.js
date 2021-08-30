@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { addToCart, removeFromCart } from 'src/apis/cartAPI';
 import { getImgUrl, pipe } from 'src/utils';
 import MessageBox from 'src/components/MessageBox';
 import Button from 'src/components/Button';
 
 export default function CartScreen(props) {
+  const dispatch = useDispatch();
   const productId = props.match.params.id;
   const qty = props.location.search ? Number(props.location.search.split('=')[1]) : 1;
   const cart = useSelector((state) => state.cart);
   const { cartItems, error } = cart;
-  const dispatch = useDispatch();
+
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -26,11 +28,13 @@ export default function CartScreen(props) {
   const checkoutHandler = () => {
     props.history.push('/signin?redirect=shipping');
   };
+
   return (
     <div className="screen--light row top">
       <div className="col-2">
         <h1 className="p-1">Shopping Cart</h1>
         <MessageBox msg={error} variant="danger" />
+
         {cartItems.length === 0 ? (
           <MessageBox show>
             Your cart is still empty.{' '}
@@ -82,6 +86,7 @@ export default function CartScreen(props) {
           </table>
         )}
       </div>
+
       <div className="col-1">
         <div className="card card__body">
           <ul>

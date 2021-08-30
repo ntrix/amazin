@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+
 import { Route, Switch } from 'src/layouts/SuspenseRoute';
 import PrivateRoute from './PrivateRoute';
 import SellerRoute from './SellerRoute';

@@ -1,6 +1,7 @@
 import { lazy, memo, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { detailsProduct } from 'src/apis/productAPI';
 import { KEY } from 'src/constants';
 import { Storage } from 'src/utils';
@@ -25,6 +26,7 @@ function ProductScreen({ match }) {
   return (
     <div>
       <LoadingOrError xl statusOf={productDetails} />
+
       {productDetails?.success && (
         <div className="col-fill">
           <div>
@@ -38,12 +40,14 @@ function ProductScreen({ match }) {
             <Suspense fallback={loadingFallback}>
               <ProductImages product={product} />
             </Suspense>
+
             <ProductDescription product={product} />
             <div className="col-1">
               <SellerCard user={product.seller} linkTo={`/seller/${product.seller._id}`} />
               <ProductInStock productId={productId} product={product} />
             </div>
           </div>
+
           <ProductReview productId={productId} />
         </div>
       )}

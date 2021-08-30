@@ -4,6 +4,7 @@ export function useDdoThenDebounce(fn, duration) {
   const id = useRef(null);
   const { current: func } = useRef(fn);
   const { current: f } = useRef(_f);
+
   function _f(...args) {
     if (!id.current) {
       id.current = func.apply(this, args);

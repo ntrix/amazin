@@ -1,10 +1,12 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
+
 import { SORT } from '../constants';
 
 function SortFilter({ order, getUrl }) {
   const history = useHistory();
   const changeFilter = (e) => history.push(getUrl({ order: e.target.value }));
+
   return (
     <div className="sort__filter">
       <label htmlFor="filter__options">Sort by</label>
@@ -21,4 +23,5 @@ function SortFilter({ order, getUrl }) {
     </div>
   );
 }
+
 export default memo(SortFilter);

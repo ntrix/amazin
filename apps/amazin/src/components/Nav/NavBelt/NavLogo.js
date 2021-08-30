@@ -4,6 +4,7 @@ import Logo from 'src/img/a.svg';
 
 function NavLogo({ to }) {
   const history = useHistory();
+
   return (
     <div className="nav__brand phone--off" onClick={() => history.push(to)}>
       <div className="logo__wrapper">

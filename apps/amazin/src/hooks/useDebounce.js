@@ -2,6 +2,7 @@ import { useRef, useCallback } from 'react';
 
 export function useDebounce(fn, duration = 500) {
   const id = useRef(null);
+
   const debounceFn = useCallback(
     (...args) => {
       clearTimeout(id.current);
@@ -12,6 +13,7 @@ export function useDebounce(fn, duration = 500) {
     },
     [fn, duration]
   );
+
   const clearDebounceFn = useCallback(
     (...args) => {
       clearTimeout(id.current);
@@ -20,5 +22,6 @@ export function useDebounce(fn, duration = 500) {
     },
     [fn]
   );
+
   return [debounceFn, clearDebounceFn];
 }

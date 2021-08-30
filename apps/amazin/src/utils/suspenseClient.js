@@ -1,4 +1,3 @@
-import React from 'react';
 import { NO_IMAGE } from '../constants';
 
 function createSuspenseAPI(promise) {
@@ -65,10 +64,4 @@ function LazyComponent(tag) {
 const LazyImg = LazyComponent('img');
 const LazyBackground = LazyComponent('div');
 
-export {
-  createSuspenseAPI,
-  subscribeResource,
-  preloadImage,
-  LazyBackground,
-  LazyImg
-};
+export { createSuspenseAPI, subscribeResource, preloadImage, LazyBackground, LazyImg };

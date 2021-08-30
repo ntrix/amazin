@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
+
 import { sourceAdapter } from 'src/utils';
 
 function ButtonBuy({ movie = sourceAdapter([1])[0], LinkTo = (props) => <Link {...props} /> }) {
@@ -15,4 +16,5 @@ function ButtonBuy({ movie = sourceAdapter([1])[0], LinkTo = (props) => <Link {.
     </LinkTo>
   );
 }
+
 export default memo(ButtonBuy);

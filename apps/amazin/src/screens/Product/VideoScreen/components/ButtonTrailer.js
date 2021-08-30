@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import movieTrailer from 'movie-trailer';
+
 import { sourceAdapter } from 'src/utils';
 const defaultMovie = sourceAdapter([1])[0];
 
@@ -14,12 +15,14 @@ function ButtonTrailer({ movie = defaultMovie, trailerUrl, setTrailerUrl }) {
         })
         .catch(() => setTrailerUrl(-1));
   };
+
   if (trailerUrl)
     return (
       <button className="banner__button" onClick={() => setTrailerUrl('')}>
         <i className="fa fa-stop"></i> Close
       </button>
     );
+
   return (
     <button
       className="banner__button"
@@ -30,4 +33,5 @@ function ButtonTrailer({ movie = defaultMovie, trailerUrl, setTrailerUrl }) {
     </button>
   );
 }
+
 export default memo(ButtonTrailer);

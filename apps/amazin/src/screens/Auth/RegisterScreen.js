@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { register } from 'src/apis/userAPI';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
@@ -32,10 +33,12 @@ export default function RegisterScreen({ location, history }) {
           <h1>Create Account</h1>
         </div>
         <LoadingOrError statusOf={userRegister} />
+
         <CustomInput text="Name" required hook={[name, setName]} />
         <CustomInput text="Email" type="email" required hook={[email, setEmail]} />
         <CustomInput text="Password" type="password" required hook={[password, setPassword]} />
         <CustomInput text="Confirm Password" type="password" required hook={[confirmPassword, setConfirmPassword]} />
+
         <div>
           <label />
           <button className="primary" type="submit">

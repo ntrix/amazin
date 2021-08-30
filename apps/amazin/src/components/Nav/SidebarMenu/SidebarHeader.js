@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import MenuItem from '../MenuItem';
 
 function SidebarHeader({ userName, ...props }) {

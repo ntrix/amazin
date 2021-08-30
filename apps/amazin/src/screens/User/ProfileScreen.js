@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { detailsUser, updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import PrivateRoute from 'src/routes/PrivateRoute';
@@ -13,6 +14,7 @@ export default function ProfileScreen() {
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -70,13 +72,17 @@ export default function ProfileScreen() {
         {!!user && (
           <>
             <LoadingOrError xl statusOf={userUpdateProfile} />
+
             <CustomInput text="Name" hook={[name, setName]} />
             <CustomInput text="Email" type="email" hook={[email, setEmail]} />
+
             <PrivateRoute path="/profile/password" exact>
               <CustomInput wrapClass="flex-col" text="Old Password" type="password" onChange={setOldPassword} />
             </PrivateRoute>
+
             <CustomInput text="Password" type="password" onChange={setPassword} />
             <CustomInput text="Confirm Password" type="password" autoComplete="off" onChange={setConfirmPassword} />
+
             <PrivateRoute path="/profile/seller" exact>
               {!user.isSeller ? (
                 <MessageBox variant="danger" show>
@@ -103,6 +109,7 @@ export default function ProfileScreen() {
               </MessageBox>
             </div>
             <br />
+
             <div>
               <button className="primary" type="submit">
                 Update

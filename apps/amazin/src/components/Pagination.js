@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Pagination({ getUrl, page, pages, className = '', help = false, LinkTo = (props) => <Link {...props} /> }) {
   const getClass = (x) => `${x + 1 === page ? 'active' : ''} ${className}`;
+
   return (
     <>
       <div className="row center pagination">
@@ -10,6 +11,7 @@ function Pagination({ getUrl, page, pages, className = '', help = false, LinkTo 
           <LinkTo key={x} to={getUrl({ page: x + 1 })} className={getClass(x)} children={x + 1} />
         ))}
       </div>
+
       {!!help && (
         <div>
           <h2>Do you need help?</h2>
@@ -23,4 +25,5 @@ function Pagination({ getUrl, page, pages, className = '', help = false, LinkTo 
     </>
   );
 }
+
 export default memo(Pagination);

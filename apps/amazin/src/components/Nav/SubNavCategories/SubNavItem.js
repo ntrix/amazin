@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 
 function SubNavItem({ _cat, category, getUrl, onPreload, changeCategory }) {
   const history = useHistory();
+
   return (
     <li
       className={_cat === category ? 'active' : ''}

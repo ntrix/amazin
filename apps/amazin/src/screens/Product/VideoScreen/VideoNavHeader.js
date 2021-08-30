@@ -13,4 +13,5 @@ function VideoNavHeader({ labels, active, setActive }) {
     </nav>
   );
 }
+
 export default memo(VideoNavHeader);

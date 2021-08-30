@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 function NavBtnDropdown({
   wrapClass = 'nav__user',
   line2Class = '',
@@ -8,7 +9,8 @@ function NavBtnDropdown({
   disabled = false,
   ...props
 }) {
-  const [line1 = '', line2 = '', line2Ext = ''] = labels.split('^'); // classes:[wrapClass,[col1, [row11, row12]],[col2, [row21, row22]]]
+  const [line1 = '', line2 = '', line2Ext = ''] = labels.split('^');
+  // classes:[wrapClass,[col1, [row11, row12]],[col2, [row21, row22]]]
   return (
     <div className={`${wrapClass} ${disabled ? ' disabled dark' : ''} dropdown`} {...props}>
       <div>
@@ -23,4 +25,5 @@ function NavBtnDropdown({
     </div>
   );
 }
+
 export default memo(NavBtnDropdown);

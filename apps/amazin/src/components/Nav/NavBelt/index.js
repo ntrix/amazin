@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import NavLogo from './NavLogo';
 import NavLocator from './NavLocator';
 import NavSearch from '../NavSearch';
@@ -20,4 +21,5 @@ function NavBelt({ currency }) {
     </div>
   );
 }
+
 export default memo(NavBelt);

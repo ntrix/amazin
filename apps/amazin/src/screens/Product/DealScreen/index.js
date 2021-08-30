@@ -1,6 +1,7 @@
 import { lazy, memo, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
 import './dealScreen.css';
 import { listProducts } from 'src/apis/productAPI';
 import { loadingFallback } from 'src/components/Fallbacks';
@@ -88,12 +89,15 @@ function DealScreen() {
             </Suspense>
           ))}
         </Carousel>
+
         <MessageBox show={list?.products?.length < 1}>No Deals On This Category!</MessageBox>
+
         <h2 className="screen__title">Top Deals</h2>
         <div className="screen__featured">
           <SearchBanner info={list}>
             <SortFilter order={order} getUrl={({ order: _o }) => `/deal/category/all/order/${_o}/pageNumber/1`} />
           </SearchBanner>
+
           <div className="row center">
             {list?.products?.map((product, id) => (
               <Suspense key={id} fallback={loadingFallback}>
