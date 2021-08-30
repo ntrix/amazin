@@ -1,16 +1,14 @@
-import React, { memo, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
 import { listProducts } from 'src/apis/productAPI';
+import { NAV, SORT } from 'src/constants';
 import SearchFilterColumn from './SearchFilterColumn';
 import SearchResultColumn from './SearchResultColumn';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
-
+import SearchBanner from 'src/components/Nav/SearchBanner';
 import SortFilter from 'src/components/SortFilter';
 import Pagination from 'src/components/Pagination';
-import { NAV, SORT } from 'src/constants';
-import SearchBanner from 'src/components/Nav/SearchBanner';
 
 function SearchScreen() {
   const dispatch = useDispatch();
@@ -53,14 +51,11 @@ function SearchScreen() {
   return (
     <div className="search-screen">
       <SubNavCategories first={NAV.ALL} category={category} getUrl={getFilterUrl} />
-
       <SearchBanner>
         <SortFilter order={order} getUrl={getFilterUrl} />
       </SearchBanner>
-
       <div className="row top search-screen__result">
         <SearchFilterColumn searchFilters={{ category, max, rating }} getFilterUrl={getFilterUrl} />
-
         <div className="col-9">
           <SearchResultColumn />
           <Pagination getUrl={getFilterUrl} page={page} pages={pages} help />

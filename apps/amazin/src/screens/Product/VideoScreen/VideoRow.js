@@ -1,19 +1,14 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import Carousel, { responsive } from '../../../constants';
-import UTube from './components/UTube';
-
-import { loadingFallback } from '../../../components/Fallbacks';
+import { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { dummyMovies } from '../../../utils';
+import { dummyMovies } from 'src/utils';
+import { loadingFallback } from 'src/components/Fallbacks';
+import Carousel, { responsive } from 'src/constants';
+import UTube from './components/UTube';
+const VideoCard = lazy(() => import(/* webpackPrefetch: true */ './components/VideoCard'));
 
-const VideoCard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ './components/VideoCard')
-);
-
-export function _VideoRow({ title, movies: _movies, portrait = false }) {
+function VideoRow({ title, movies: _movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
   const [movies, setMovies] = useState(dummyMovies);
-
   const productList = useSelector((state) => state.productList);
 
   useEffect(() => {
@@ -43,22 +38,14 @@ export function _VideoRow({ title, movies: _movies, portrait = false }) {
           >
             {movies.map((movie, id) => (
               <Suspense fallback={loadingFallback} key={id}>
-                <VideoCard
-                  movie={movie}
-                  portrait={portrait}
-                  trailerUrl={trailerUrl}
-                  setTrailerUrl={setTrailerUrl}
-                />
+                <VideoCard movie={movie} portrait={portrait} trailerUrl={trailerUrl} setTrailerUrl={setTrailerUrl} />
               </Suspense>
             ))}
           </Carousel>
-
           <UTube trailerUrl={trailerUrl} />
         </>
       )}
     </div>
   );
 }
-
-const VideoRow = React.memo(_VideoRow);
-export default VideoRow;
+export default memo(VideoRow);

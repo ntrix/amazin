@@ -1,21 +1,16 @@
-import React, { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { productReviewCreateActions } from '../../../slice/ProductSlice';
-import { createReview, detailsProduct } from '../../../apis/productAPI';
-
-import MessageBox from '../../../components/MessageBox';
-import Rating from '../../../components/Rating';
-import LoadingOrError from '../../../components/LoadingOrError';
-
+import { productReviewCreateActions } from 'src/slice/ProductSlice';
+import { createReview, detailsProduct } from 'src/apis/productAPI';
+import MessageBox from 'src/components/MessageBox';
+import Rating from 'src/components/Rating';
+import LoadingOrError from 'src/components/LoadingOrError';
 function ProductReview({ productId }) {
   const dispatch = useDispatch();
-
   const { userInfo } = useSelector((state) => state.userSignin);
   const { product } = useSelector((state) => state.productDetails);
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
-
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
@@ -41,9 +36,7 @@ function ProductReview({ productId }) {
   return (
     <div className="p-1">
       <h2 id="reviews">Reviews</h2>
-
       <MessageBox show={product.reviews.length === 0}>There is no review</MessageBox>
-
       <ul>
         {product.reviews.map((review, id) => (
           <li key={id}>
@@ -53,14 +46,12 @@ function ProductReview({ productId }) {
             <p>{review.comment}</p>
           </li>
         ))}
-
         <li>
           {userInfo ? (
             <form className="form" onSubmit={submitHandler}>
               <div>
                 <h2>Write a customer review</h2>
               </div>
-
               <div>
                 <label htmlFor="rating">Rating</label>
                 <div className="select-wrapper">
@@ -75,19 +66,16 @@ function ProductReview({ productId }) {
                   </select>
                 </div>
               </div>
-
               <div>
                 <label htmlFor="comment">Comment</label>
                 <textarea id="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
               </div>
-
               <div>
                 <label />
                 <button className="primary" type="submit">
                   Submit
                 </button>
               </div>
-
               <LoadingOrError statusOf={productReviewCreate} />
             </form>
           ) : (

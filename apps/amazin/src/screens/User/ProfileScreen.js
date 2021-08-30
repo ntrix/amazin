@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { userUpdateProfileActions } from '../../slice/UserSlice';
-import { detailsUser, updateUserProfile } from '../../apis/userAPI';
-
-import MessageBox from '../../components/MessageBox';
-import PrivateRoute from '../../routes/PrivateRoute';
-import CustomInput from '../../components/CustomInput';
-import LoadingOrError from '../../components/LoadingOrError';
+import { detailsUser, updateUserProfile } from 'src/apis/userAPI';
+import { userUpdateProfileActions } from 'src/slice/UserSlice';
+import PrivateRoute from 'src/routes/PrivateRoute';
+import CustomInput from 'src/components/CustomInput';
+import MessageBox from 'src/components/MessageBox';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 export default function ProfileScreen() {
   const dispatch = useDispatch();
@@ -15,7 +13,6 @@ export default function ProfileScreen() {
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -69,37 +66,17 @@ export default function ProfileScreen() {
         <div>
           <h1>User Profile</h1>
         </div>
-
         <LoadingOrError xl statusOf={userDetails} />
-
         {!!user && (
           <>
             <LoadingOrError xl statusOf={userUpdateProfile} />
-
             <CustomInput text="Name" hook={[name, setName]} />
             <CustomInput text="Email" type="email" hook={[email, setEmail]} />
-
             <PrivateRoute path="/profile/password" exact>
-              <CustomInput
-                wrapClass="flex-col"
-                text="Old Password"
-                type="password"
-                onChange={setOldPassword}
-              />
+              <CustomInput wrapClass="flex-col" text="Old Password" type="password" onChange={setOldPassword} />
             </PrivateRoute>
-
-            <CustomInput
-              text="Password"
-              type="password"
-              onChange={setPassword}
-            />
-            <CustomInput
-              text="Confirm Password"
-              type="password"
-              autoComplete="off"
-              onChange={setConfirmPassword}
-            />
-
+            <CustomInput text="Password" type="password" onChange={setPassword} />
+            <CustomInput text="Confirm Password" type="password" autoComplete="off" onChange={setConfirmPassword} />
             <PrivateRoute path="/profile/seller" exact>
               {!user.isSeller ? (
                 <MessageBox variant="danger" show>
@@ -110,17 +87,8 @@ export default function ProfileScreen() {
                   <div>
                     <h2>Seller</h2>
                   </div>
-
-                  <CustomInput
-                    wrapClass="flex-col"
-                    text="Seller Name"
-                    hook={[sellerName, setSellerName]}
-                  />
-                  <CustomInput
-                    wrapClass="flex-col"
-                    text="Seller Logo"
-                    hook={[sellerLogo, setSellerLogo]}
-                  />
+                  <CustomInput wrapClass="flex-col" text="Seller Name" hook={[sellerName, setSellerName]} />
+                  <CustomInput wrapClass="flex-col" text="Seller Logo" hook={[sellerLogo, setSellerLogo]} />
                   <CustomInput
                     wrapClass="flex-col"
                     text="Seller Description"
@@ -129,14 +97,12 @@ export default function ProfileScreen() {
                 </>
               )}
             </PrivateRoute>
-
             <div>
               <MessageBox variant="success" show={userUpdateProfile.success}>
                 Profile Updated Successfully
               </MessageBox>
             </div>
             <br />
-
             <div>
               <button className="primary" type="submit">
                 Update

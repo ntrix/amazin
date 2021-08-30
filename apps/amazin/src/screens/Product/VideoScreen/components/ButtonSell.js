@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { productCreateActions } from '../../../../slice/ProductSlice';
-import { createProduct } from '../../../../apis/productAPI';
+import { createProduct } from 'src/apis/productAPI';
+import { productCreateActions } from 'src/slice/ProductSlice';
 
 export const SellerButton = (props) => (
   <button className="banner__button mh-2" {...props}>
@@ -10,10 +10,9 @@ export const SellerButton = (props) => (
   </button>
 );
 
-export function _ButtonSell() {
+function ButtonSell() {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCreate = useSelector((state) => state.productCreate);
 
@@ -28,13 +27,6 @@ export function _ButtonSell() {
     dispatch(createProduct());
   };
 
-  return (
-    <SellerButton
-      disabled={!userInfo?.isSeller}
-      onClick={createSellingProduct}
-    />
-  );
+  return <SellerButton disabled={!userInfo?.isSeller} onClick={createSellingProduct} />;
 }
-
-const ButtonSell = React.memo(_ButtonSell);
-export default ButtonSell;
+export default memo(ButtonSell);

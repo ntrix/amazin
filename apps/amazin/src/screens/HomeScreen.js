@@ -1,32 +1,20 @@
-import React, { Suspense, useEffect } from 'react';
+import { lazy, memo, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-
-import { listProducts } from '../apis/productAPI';
-import { listTopSellers } from '../apis/userAPI';
-import SwiperCore, {
-  Navigation,
-  EffectCoverflow,
-  Scrollbar,
-  Autoplay,
-  Pagination
-} from 'swiper';
+import SwiperCore, { Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-import MessageBox from '../components/MessageBox';
-import { DUMMYSELLERS } from '../constants';
-import LoadingOrError from '../components/LoadingOrError';
-import { loadingFallback } from '../components/Fallbacks';
-
 import 'swiper/swiper-bundle.css';
-import { LazyImg } from '../utils/suspenseClient';
-const ProductCard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ './Product/components/ProductCard')
-);
-
+import { listProducts } from 'src/apis/productAPI';
+import { listTopSellers } from 'src/apis/userAPI';
+import { LazyImg } from 'src/utils/suspenseClient';
+import { DUMMYSELLERS } from 'src/constants';
+import { loadingFallback } from 'src/components/Fallbacks';
+import MessageBox from 'src/components/MessageBox';
+import LoadingOrError from 'src/components/LoadingOrError';
+const ProductCard = lazy(() => import(/* webpackPrefetch: true */ './Product/components/ProductCard'));
 SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
-export function _HomeScreen() {
+function HomeScreen() {
   const dispatch = useDispatch();
   const { banner = 'home' } = useParams();
   const productList = useSelector((state) => state.productList);
@@ -43,7 +31,6 @@ export function _HomeScreen() {
     <div className="home-screen">
       <div className={`home__banner ${banner}`}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
-
       <div>
         <Suspense fallback={<div className="swiper-container" />}>
           <Swiper
@@ -73,11 +60,7 @@ export function _HomeScreen() {
               <SwiperSlide key={id}>
                 <Suspense fallback={<h4>Top Seller</h4>}>
                   <Link className="seller__card" to={`/seller/${seller._id}`}>
-                    <LazyImg
-                      className="seller__img"
-                      src={seller.seller.logo}
-                      alt={seller.seller.name}
-                    />
+                    <LazyImg className="seller__img" src={seller.seller.logo} alt={seller.seller.name} />
                     <p className="legend">{seller.seller.name}</p>
                   </Link>
                 </Suspense>
@@ -88,12 +71,9 @@ export function _HomeScreen() {
           <LoadingOrError statusOf={userTopSellersList} />
         </Suspense>
       </div>
-
       <h2 className="screen__title">Featured Products</h2>
-
       <LoadingOrError xl statusOf={productList} />
       <MessageBox hide={products?.length < 1}>No Product Found</MessageBox>
-
       <div className="screen__featured">
         <Suspense fallback={loadingFallback}>
           {products?.map((product) => (
@@ -106,6 +86,4 @@ export function _HomeScreen() {
     </div>
   );
 }
-
-const HomeScreen = React.memo(_HomeScreen);
-export default HomeScreen;
+export default memo(HomeScreen);

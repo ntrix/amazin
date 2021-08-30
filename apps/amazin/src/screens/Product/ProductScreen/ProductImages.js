@@ -1,11 +1,10 @@
-import React, { memo, Suspense, useState } from 'react';
+import { memo, Suspense, useState } from 'react';
 import { loadingFallback } from 'src/components/Fallbacks';
-import { getImgUrl } from 'src/utils';
 import { LazyImg } from 'src/utils/suspenseClient';
+import { getImgUrl } from 'src/utils';
 
 function ProductScreen({ product }) {
   const [activeImg, setActiveImg] = useState(0);
-
   return (
     <div className="col-2 flex mr-1">
       <div className="tab__w6 flex-col">
@@ -21,7 +20,6 @@ function ProductScreen({ product }) {
           </Suspense>
         ))}
       </div>
-
       <div className="tab__rest">
         <Suspense fallback={loadingFallback}>
           <LazyImg

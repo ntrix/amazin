@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { userDetailsActions } from '../../slice/UserSlice';
-import { deleteUser, listUsers } from '../../apis/userAPI';
-
-import MessageBox from '../../components/MessageBox';
-import LoadingOrError from '../../components/LoadingOrError';
-import Button from '../../components/Button';
+import { deleteUser, listUsers } from 'src/apis/userAPI';
+import { userDetailsActions } from 'src/slice/UserSlice';
+import Button from 'src/components/Button';
+import MessageBox from 'src/components/MessageBox';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 export default function UserListScreen() {
   const dispatch = useDispatch();
@@ -26,15 +24,11 @@ export default function UserListScreen() {
   return (
     <div>
       <h1 className="p-1">Users</h1>
-
       <LoadingOrError xl statusOf={userDelete} />
-
       <MessageBox variant="success" show={userDelete.success}>
         User Deleted Successfully
       </MessageBox>
-
       <LoadingOrError xl statusOf={userList} />
-
       {userList?.success && (
         <table className="table">
           <thead>
@@ -47,34 +41,20 @@ export default function UserListScreen() {
               <th className="tab__w12">ACTIONS</th>
             </tr>
           </thead>
-
           <tbody>
             {userList.users.map((user) => (
               <tr key={user._id}>
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-
                 <td className="text-center success">
-                  {!!user.isSeller && (
-                    <i className="fa fa-check" aria-hidden="true"></i>
-                  )}
+                  {!!user.isSeller && <i className="fa fa-check" aria-hidden="true"></i>}
                 </td>
-
                 <td className="text-center success">
-                  {!!user.isAdmin && (
-                    <i className="fa fa-check" aria-hidden="true"></i>
-                  )}
+                  {!!user.isAdmin && <i className="fa fa-check" aria-hidden="true"></i>}
                 </td>
-
                 <td>
-                  <Button
-                    xs
-                    className="danger"
-                    label="Del."
-                    onClick={() => deleteHandler(user)}
-                  />
-
+                  <Button xs className="danger" label="Del." onClick={() => deleteHandler(user)} />
                   <Button xs label="Edit" to={`/user/${user._id}/edit`} />
                 </td>
               </tr>

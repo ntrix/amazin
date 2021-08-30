@@ -1,12 +1,8 @@
-import React from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { sourceAdapter } from 'src/utils';
 
-import { sourceAdapter } from '../../../../utils';
-
-export function _ButtonBuy({
-  movie = sourceAdapter([1])[0],
-  LinkTo = (props) => <Link {...props} />
-}) {
+function ButtonBuy({ movie = sourceAdapter([1])[0], LinkTo = (props) => <Link {...props} /> }) {
   return (
     <LinkTo
       disabled={!movie.seller}
@@ -19,6 +15,4 @@ export function _ButtonBuy({
     </LinkTo>
   );
 }
-
-const ButtonBuy = React.memo(_ButtonBuy);
-export default ButtonBuy;
+export default memo(ButtonBuy);

@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
-
+import { memo } from 'react';
 import './productScreen.css';
-import Rating from 'src/components/Rating';
 import { pipe } from 'src/utils';
+import Rating from 'src/components/Rating';
 
 function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }) {
   return (
@@ -11,11 +10,9 @@ function ProductDescription({ product: { name, rating, numReviews, deal, price, 
         <li>
           <h1>{name}</h1>
         </li>
-
         <li>
           <Rating rating={rating} numReviews={numReviews} />
         </li>
-
         <li>
           <div>
             <span className={`price ${deal ? 'danger' : ''}`}>
@@ -23,7 +20,6 @@ function ProductDescription({ product: { name, rating, numReviews, deal, price, 
               {pipe.getNote(price)}
               <sup>{pipe.getCent(price)}</sup>
             </span>
-
             {deal > 0 && (
               <span className="pull-right">
                 <b className="price strike">
@@ -35,7 +31,6 @@ function ProductDescription({ product: { name, rating, numReviews, deal, price, 
             )}
           </div>
         </li>
-
         <li>
           Description:
           <p>{description}</p>

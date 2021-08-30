@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { pipe } from 'src/utils';
 
@@ -23,26 +23,21 @@ function ProductScreen({ productId, product: { price, countInStock } }) {
           </div>
         </div>
       </li>
-
       <li>
         <div className="row">
           <div>Status</div>
-
           <div>
             {countInStock > 0 ? <span className="success">In Stock</span> : <span className="danger">Unavailable</span>}
           </div>
         </div>
       </li>
-
       {countInStock > 0 && (
         <>
           <li>
             <div className="row">
               <div>Quantity</div>
-
               <div className="select-wrapper">
                 <div className="sprite__caret xl"></div>
-
                 <select value={qty} onChange={(e) => setQty(e.target.value)}>
                   {[...Array(countInStock).keys()].map((x) => (
                     <option key={x} value={x + 1}>
@@ -53,7 +48,6 @@ function ProductScreen({ productId, product: { price, countInStock } }) {
               </div>
             </div>
           </li>
-
           <li>
             <button onClick={addToCartHandler} className="primary block">
               Add to Cart
