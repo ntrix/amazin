@@ -1,26 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
-import Pagination from '../../components/Pagination';
-import {
-  createProduct,
-  deleteProduct,
-  listProducts
-} from '../../apis/productAPI';
-import {
-  productCreateActions,
-  productDeleteActions
-} from '../../slice/ProductSlice';
-
-import LoadingOrError from '../../components/LoadingOrError';
-import Button from '../../components/Button';
+import { createProduct, deleteProduct, listProducts } from 'src/apis/productAPI';
+import { productCreateActions, productDeleteActions } from 'src/slice/ProductSlice';
+import Pagination from 'src/components/Pagination';
+import Button from 'src/components/Button';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 export default function ProductListScreen(props) {
   const dispatch = useDispatch();
   const { pageNumber = 1 } = useParams();
   const sellerMode = props.match.path.indexOf('/seller') >= 0;
-
   const { userInfo } = useSelector((state) => state.userSignin);
   const productList = useSelector((state) => state.productList);
   const { products, page, pages } = productList;
@@ -70,11 +60,9 @@ export default function ProductListScreen(props) {
         <h1>Products</h1>
         <Button primary label="Create Product" onClick={createHandler} />
       </div>
-
       <LoadingOrError xl statusOf={productDelete} />
       <LoadingOrError xl statusOf={productCreate} />
       <LoadingOrError xl statusOf={productList} />
-
       {!!products && (
         <>
           <table className="table">
@@ -88,7 +76,6 @@ export default function ProductListScreen(props) {
                 <th className="tab__w12">ACTIONS</th>
               </tr>
             </thead>
-
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
@@ -97,32 +84,16 @@ export default function ProductListScreen(props) {
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
-
                   <td>
-                    <Button
-                      xs
-                      className="danger"
-                      label="Del."
-                      onClick={() => deleteHandler(product)}
-                    />
-
-                    <Button
-                      xs
-                      label="Edit"
-                      to={`/product/${product._id}/edit`}
-                    />
+                    <Button xs className="danger" label="Del." onClick={() => deleteHandler(product)} />
+                    <Button xs label="Edit" to={`/product/${product._id}/edit`} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-
           <Pagination
-            getUrl={({ page: _page }) =>
-              `/product-list${
-                userInfo.isAdmin ? '' : '/seller'
-              }/pageNumber/${_page}`
-            }
+            getUrl={({ page: _page }) => `/product-list${userInfo.isAdmin ? '' : '/seller'}/pageNumber/${_page}`}
             page={page}
             pages={pages}
             help
