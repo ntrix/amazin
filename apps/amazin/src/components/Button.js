@@ -15,7 +15,7 @@ function Button({
   className = `${primary ? 'primary' : ''} ${xs ? 'btn--xs' : ''} ${className} mb-1`;
 
   const innerButton = (_props) => (
-    <button className={className} ariaLabel={ariaLabel} {..._props} children={label || children} />
+    <button className={className} aria-label={ariaLabel} {..._props} children={label || children} />
   );
 
   if (to) return <Link to={to} {...props} children={innerButton()} />;
