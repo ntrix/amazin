@@ -15,7 +15,10 @@ export function useCurrency() {
   const { userInfo } = useSelector((state) => state.userSignin);
   const [currency, setCurrency] = useState(cType || pipe.currency);
   const [changedCurrency, setChangedCurrency] = useState('');
+
   const CURR = `${pipe.symbol[currency]} - ${currency} - ${pipe.longName[currency]}`;
+  const hist = Storage[KEY.HISTORY];
+  const back = !hist || hist.startsWith('/currency') ? '/' : hist;
 
   useEffect(() => {
     setChangedCurrency('');
@@ -32,5 +35,5 @@ export function useCurrency() {
     setChangedCurrency(currency);
   };
 
-  return { CURR, currency, setCurrency, changedCurrency, submitChange };
+  return { CURR, back, currency, setCurrency, changedCurrency, submitChange };
 }

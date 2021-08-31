@@ -1,16 +1,11 @@
-import { KEY } from 'src/constants';
-import { Storage, pipe } from 'src/utils';
+import { pipe } from 'src/utils';
 import { useCurrency } from './useCurrency';
 import Button from 'src/components/Button';
 import CurrencyOptions from './CurrencyOptions';
 import SuccessModal from 'src/components/SuccessModal';
 
 export default function CurrencySection() {
-  const { CURR, currency, setCurrency, changedCurrency, submitChange } = useCurrency();
-
-  const hist = Storage[KEY.HISTORY];
-  const back = !hist || hist.startsWith('/currency') ? '/' : hist;
-
+  const { CURR, back, currency, setCurrency, changedCurrency, submitChange } = useCurrency();
   return (
     <>
       <div className="container currencies">
@@ -19,7 +14,6 @@ export default function CurrencySection() {
           {!!changedCurrency && (
             <SuccessModal msg={`Currency Setting has been changed to ${pipe.longName[changedCurrency]}`} back={back} />
           )}
-
           <CurrencyOptions currency={currency} setCurrency={setCurrency} />
 
           {currency !== 'EUR' && (
@@ -35,7 +29,6 @@ export default function CurrencySection() {
       <div className="container">
         <div className="col-50p p-1">
           <Button to={back} xs label="Cancel" />
-
           <Button primary xs label="Save Changes" onClick={submitChange} />
         </div>
       </div>
