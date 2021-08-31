@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Button from 'src/components/Button';
 
+import { useSigninEffect } from './useSigninEffect';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
-import { useSigninEffect } from './useSigninEffect';
+import PageRedirect from 'src/components/PageRedirect';
 
 export default function SigninScreen({ location, history }) {
   const [email, setEmail] = useState('');
@@ -22,11 +22,9 @@ export default function SigninScreen({ location, history }) {
         <br />
         <Button primary className="mt-1 col-fill" type="submit" label="Sign In" />
 
-        <div>
-          <div className="mt-1">
-            New customer? <Link to={`/register?redirect=${redirect}`} children={<b>Create your account</b>} />
-          </div>
-        </div>
+        <PageRedirect to={`/register?redirect=${redirect}`} label="New customer?">
+          <b>Create your account</b>
+        </PageRedirect>
       </form>
     </div>
   );
