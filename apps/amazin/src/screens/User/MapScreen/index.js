@@ -8,7 +8,7 @@ import MessageBox from 'src/components/MessageBox';
 import LoadingBox from 'src/components/LoadingBox';
 const libs = ['places'];
 
-export default function MapScreen() {
+export default function MapScreen({ history }) {
   const [center, setCenter] = useState(LOCATION);
   const [location, setLocation] = useState(center);
   const [error, setError] = useState('');
@@ -18,7 +18,7 @@ export default function MapScreen() {
   const mapAPI = useMapLocator(placeRef, setCenter, setLocation, setError);
   const { onLoadPlaces, onPlacesChanged, getUserCurrentLocation } = mapAPI;
   const { onLoad, onIdle, onMarkerLoad } = useMap(setLocation);
-  const { onConfirm, redirectBack } = useMapSubmit(setInfo, setError);
+  const { onConfirm, redirectBack } = useMapSubmit(history, setInfo, setError);
 
   const { googleApiKey } = useMapApiKey(getUserCurrentLocation, setError);
   if (!googleApiKey) return <LoadingBox xl />;

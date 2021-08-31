@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 
 import axiosClient from 'src/apis/axiosClient';
 import { userAddressMapActions } from 'src/slice/UserSlice';
@@ -70,8 +69,7 @@ export function useMap(setLocation) {
   return { onLoad, onIdle, onMarkerLoad };
 }
 
-export function useMapSubmit(setInfo, setError) {
-  const history = useHistory();
+export function useMapSubmit(history, setInfo, setError) {
   const dispatch = useDispatch();
 
   const onConfirm = (placeRef, { lat, lng }) => {
@@ -83,10 +81,13 @@ export function useMapSubmit(setInfo, setError) {
     dispatch(userAddressMapActions._CONFIRM({ lat, lng, address, name, vicinity, googleAddressId }));
 
     setInfo('location selected successfully.');
-    return history.push('/shipping');
+    history.push('/shipping');
+    return null;
   };
 
-  const redirectBack = () => history.push(Storage[KEY.HISTORY] || '/');
+  const redirectBack = () => {
+    history.push(Storage[KEY.HISTORY] || '/');
+  };
 
   return { onConfirm, redirectBack };
 }

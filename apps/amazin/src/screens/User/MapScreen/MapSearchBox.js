@@ -1,4 +1,4 @@
-export default function MapSearchBox(redirectBack, onConfirm) {
+export default function MapSearchBox({ redirectBack, onConfirm }) {
   return (
     <div className="address-box col-fill">
       <button className="danger btn-left" onClick={redirectBack}>
