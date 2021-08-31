@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import './customerScreen.css';
 import { customerMenuTemplate } from './customerMenuTemplate';
 import CustomerCard, { mapCustomerCardProp } from './CustomerCard';
+import CustomerHelpSection from './CustomerHelpSection';
 
 export default function CustomerScreen() {
   const { user } = useSelector((state) => state.userSignin);
@@ -25,20 +26,7 @@ export default function CustomerScreen() {
           ))}
           <div className="separator mb-1"></div>
 
-          <section className="help-section col-fill">
-            <label htmlFor="search-faq">
-              <h3>
-                Search the help library
-                <i> Type something like, "question about a charge"</i>
-              </h3>
-            </label>
-
-            <input type="text" id="search-faq"></input>
-
-            <h1>Browse Help Topics </h1>
-            <h2>In construction</h2>
-            <p>Help Section:</p>
-          </section>
+          <CustomerHelpSection />
         </div>
       </div>
     </div>

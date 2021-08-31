@@ -63,20 +63,26 @@ export default function MainRoute() {
       />
       <Route path="/deal" component={DealScreen} exact />
       <Route path="/deal/category/:category/order/:order/pageNumber/:pageNumber" component={DealScreen} exact />
-      <PrivateRoute path="/order-history" component={OrderHistoryScreen} />
-      <PrivateRoute path="/profile" component={ProfileScreen} />
-      <PrivateRoute path="/map" component={MapScreen} />
-      <AdminRoute path="/product-list" component={ProductListScreen} exact />
-      <AdminRoute path="/product-list/pageNumber/:pageNumber" component={ProductListScreen} exact />
-      <AdminRoute path="/order-list" component={OrderListScreen} exact />
-      <AdminRoute path="/user-list" component={UserListScreen} />
-      <AdminRoute path="/user/:id/edit" component={UserEditScreen} />
-      <SellerRoute path="/product-list/seller" component={ProductListScreen} exact />
-      <SellerRoute path="/product-list/seller/pageNumber/:pageNumber" component={ProductListScreen} exact />
-      <SellerRoute path="/order-list/seller" component={OrderListScreen} />
+      <TokenRoutes />
       <Route path="/banner/:banner" component={HomeScreen} exact />
       <Route path="/" component={HomeScreen} exact />
       <Route component={Screen404} exact />
     </Switch>
   );
 }
+
+const TokenRoutes = () => (
+  <Switch>
+    <PrivateRoute path="/order-history" component={OrderHistoryScreen} />
+    <PrivateRoute path="/profile" component={ProfileScreen} />
+    <PrivateRoute path="/map" component={MapScreen} />
+    <AdminRoute path="/product-list" component={ProductListScreen} exact />
+    <AdminRoute path="/product-list/pageNumber/:pageNumber" component={ProductListScreen} exact />
+    <AdminRoute path="/order-list" component={OrderListScreen} exact />
+    <AdminRoute path="/user-list" component={UserListScreen} />
+    <AdminRoute path="/user/:id/edit" component={UserEditScreen} />
+    <SellerRoute path="/product-list/seller" component={ProductListScreen} exact />
+    <SellerRoute path="/product-list/seller/pageNumber/:pageNumber" component={ProductListScreen} exact />
+    <SellerRoute path="/order-list/seller" component={OrderListScreen} />
+  </Switch>
+);
