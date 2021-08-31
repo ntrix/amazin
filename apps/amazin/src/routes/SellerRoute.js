@@ -2,10 +2,17 @@ import { useSelector } from 'react-redux';
 
 import { Redirect, Route } from 'src/layouts/SuspenseRoute';
 
-export default function SellerRoute({ component: Component, ...rest }) {
+export function SellerBaseRoute({ component: Component, userRole, ...rest }) {
   const { userInfo } = useSelector((state) => state.userSignin);
 
   return (
-    <Route {...rest} render={(props) => (userInfo?.isSeller ? <Component {...props} /> : <Redirect to="/signin" />)} />
+    <Route
+      {...rest}
+      render={(props) => (userInfo && userInfo[userRole] ? <Component {...props} /> : <Redirect to="/signin" />)}
+    />
   );
+}
+
+export default function SellerRoute(props) {
+  return <SellerBaseRoute userRole="isSeller" {...props} />;
 }
