@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { useRegisterEffect } from './useRegisterEffect';
 import Button from 'src/components/Button';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
+import PageRedirect from 'src/components/PageRedirect';
 
 export default function RegisterScreen({ location, history }) {
   const [name, setName] = useState('');
@@ -26,11 +26,9 @@ export default function RegisterScreen({ location, history }) {
         <br />
         <Button primary className="mt-1 col-fill" type="submit" label="Register" />
 
-        <div>
-          <div className="mt-1">
-            Already have an account? <Link to={`/signin?redirect=${redirect}`} children={<b>Sign-In</b>} />
-          </div>
-        </div>
+        <PageRedirect label="Already have an account?" to={`/signin?redirect=${redirect}`}>
+          <b>Sign-In</b>
+        </PageRedirect>
       </form>
     </div>
   );
