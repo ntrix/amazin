@@ -63,10 +63,9 @@ export default function MainRoute() {
       />
       <Route path="/deal" component={DealScreen} exact />
       <Route path="/deal/category/:category/order/:order/pageNumber/:pageNumber" component={DealScreen} exact />
-      <TokenRoutes />
       <Route path="/banner/:banner" component={HomeScreen} exact />
       <Route path="/" component={HomeScreen} exact />
-      <Route component={Screen404} exact />
+      <TokenRoutes />
     </Switch>
   );
 }
@@ -84,5 +83,6 @@ const TokenRoutes = () => (
     <SellerRoute path="/product-list/seller" component={ProductListScreen} exact />
     <SellerRoute path="/product-list/seller/pageNumber/:pageNumber" component={ProductListScreen} exact />
     <SellerRoute path="/order-list/seller" component={OrderListScreen} />
+    <Route component={Screen404} exact />
   </Switch>
 );
