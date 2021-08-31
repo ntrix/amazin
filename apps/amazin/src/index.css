@@ -44,7 +44,7 @@ body {
 .disabled,
 .disabled *,
 .disabled:hover {
-  cursor: default;
+  cursor: unset !important;
   color: #6e6e6e !important;
   outline: none !important;
   border-color: transparent !important;
