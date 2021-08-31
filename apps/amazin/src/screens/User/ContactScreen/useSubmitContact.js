@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import { axios } from 'src/apis/axiosClient';
 import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
+const MAIL_SERVER = process.env.REACT_APP_CONTACT_MAIL_SERVER;
+const HEADERS = { 'Content-Type': 'application/json' };
 
 const checkError = (data) => {
   const errors = [];
@@ -30,15 +32,10 @@ export function useSubmitContact(setLoading, setMessage, setError) {
     if ('Seller' === data.subject) return dispatch(updateUserProfile({ userId: userInfo._id, verify: true }));
 
     dispatch(userUpdateProfileActions._RESET());
-    setLoading(true);
+    setLoading(true); // "/api/user/contact"
     try {
-      await axios.post(process.env.REACT_APP_CONTACT_MAIL_SERVER, data, {
-        headers: {
-          mode: 'cors', // "/api/user/contact"
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        }
-      });
+      const headers = { mode: 'cors', headers: HEADERS, body: JSON.stringify(data) };
+      await axios.post(MAIL_SERVER, data, { headers });
       setLoading(false);
 
       if ('Admin' !== paramSub) setMessage('Thank you! Your message has been sent.');
