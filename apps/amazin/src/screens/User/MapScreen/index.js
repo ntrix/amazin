@@ -2,9 +2,7 @@ import { useRef, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
 
 import { LOCATION } from 'src/constants';
-import { useMapApiKey } from './useMapApiKey';
-import { useMapPosition } from './useMapPosition';
-import { useMapSubmit } from './useMapSubmit';
+import { useMapApiKey, useMap, useMapLocator, useMapSubmit } from './useMapAPIs';
 import MapSearchBox from './MapSearchBox';
 import MessageBox from 'src/components/MessageBox';
 import LoadingBox from 'src/components/LoadingBox';
@@ -17,8 +15,9 @@ export default function MapScreen() {
   const [info, setInfo] = useState('');
   const placeRef = useRef(null);
 
-  const mapAPI = useMapPosition(placeRef, setCenter, setLocation, setError);
-  const { onLoad, onMarkerLoad, onLoadPlaces, onIdle, onPlacesChanged, getUserCurrentLocation } = mapAPI;
+  const mapAPI = useMapLocator(placeRef, setCenter, setLocation, setError);
+  const { onLoadPlaces, onPlacesChanged, getUserCurrentLocation } = mapAPI;
+  const { onLoad, onIdle, onMarkerLoad } = useMap(setLocation);
   const { onConfirm, redirectBack } = useMapSubmit(setInfo, setError);
 
   const { googleApiKey } = useMapApiKey(getUserCurrentLocation, setError);
