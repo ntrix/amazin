@@ -68,16 +68,16 @@ function registerValidSW(swUrl, config) {
             console.log('See https://bit.ly/CRA-PWA.');
 
             // Execute callback
-            if (config && config.onUpdate) config.onUpdate(registration);
-          } else {
-            // At this point, everything has been precached.
-            // It's the perfect time to display a
-            // "Content is cached for offline use." message.
-            console.log('Content is cached for offline use.');
-
-            // Execute callback
-            if (config && config.onSuccess) config.onSuccess(registration);
+            if (config?.onUpdate) config.onUpdate(registration);
+            return;
           }
+          // At this point, everything has been precached.
+          // It's the perfect time to display a
+          // "Content is cached for offline use." message.
+          console.log('Content is cached for offline use.');
+
+          // Execute callback
+          if (config?.onSuccess) config.onSuccess(registration);
         };
       };
     })
