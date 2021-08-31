@@ -16,23 +16,12 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
         }) in this order`
       )
     );
-  } else {
-    dispatch(
-      cartActions._ADD_ITEM({
-        name: data.name,
-        image: data.image,
-        price: data.price,
-        countInStock: data.countInStock,
-        product: data._id,
-        ship: data.ship,
-        deal: data.deal,
-        seller: data.seller,
-        qty
-      })
-    );
-
-    Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
+    return;
   }
+  const { _id: product, ...rest } = data;
+  // product, name, image, price, countInStock, ship, deal, seller, qty
+  dispatch(cartActions._ADD_ITEM({ product, qty, ...rest }));
+  Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
 export const removeFromCart = (productId) => (dispatch, getState) => {
