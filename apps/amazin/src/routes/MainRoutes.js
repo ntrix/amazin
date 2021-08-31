@@ -33,7 +33,7 @@ const ProfileScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/
 const UserEditScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/UserEditScreen'));
 const UserListScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/UserListScreen'));
 
-export default function MainRoute() {
+export default function MainRoutes() {
   return (
     <Switch>
       <Route path="/currency/cType/:cType" component={CurrencyScreen} exact />

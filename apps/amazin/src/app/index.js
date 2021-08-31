@@ -8,7 +8,7 @@ import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
 import { ShadowProvider, useShadow } from '../hooks/useShadow';
 import { Storage, pipe } from '../utils';
 import { SHADOW, KEY } from '../constants';
-import MainRoute from '../routes/MainRoute';
+import MainRoutes from '../routes/MainRoutes';
 import './responsive.css';
 import '../fonts/fonts.css';
 import '../fonts/font-awesome.css';
@@ -46,7 +46,7 @@ function InnerApp() {
 
         <main className="container">
           <Suspense fallback={<h3>Loading...</h3>}>
-            <MainRoute />
+            <MainRoutes />
           </Suspense>
 
           <div className={`shadow-of__${shadowOf}`} onClick={() => setShadowOf('')} />
