@@ -14,14 +14,14 @@ export function useCurrency() {
   const { cType } = useParams();
   const { userInfo } = useSelector((state) => state.userSignin);
   const [currency, setCurrency] = useState(cType || pipe.currency);
-  const [changedCurrency, setChangedCurrency] = useState('');
+  const [newCurr, setNewCurr] = useState('');
 
   const CURR = `${pipe.symbol[currency]} - ${currency} - ${pipe.longName[currency]}`;
   const hist = Storage[KEY.HISTORY];
   const back = !hist || hist.startsWith('/currency') ? '/' : hist;
 
   useEffect(() => {
-    setChangedCurrency('');
+    setNewCurr('');
     setCurrency(cType || pipe.currency);
     if (!userInfo?._id) dispatch(userUpdateProfileActions._RESET());
   }, [cType, dispatch, userInfo?._id]);
@@ -32,8 +32,8 @@ export function useCurrency() {
     dispatch(updateCurrencyRates());
     if (userInfo) dispatch(updateUserProfile({ userId: userInfo._id, currency }));
     dispatch(currencyTypeActions._CHANGE(currency));
-    setChangedCurrency(currency);
+    setNewCurr(currency);
   };
 
-  return { CURR, back, currency, setCurrency, changedCurrency, submitChange };
+  return { CURR, back, currency, setCurrency, newCurr, submitChange };
 }
