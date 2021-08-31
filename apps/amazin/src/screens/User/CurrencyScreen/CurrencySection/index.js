@@ -5,15 +5,13 @@ import CurrencyOptions from './CurrencyOptions';
 import SuccessModal from 'src/components/SuccessModal';
 
 export default function CurrencySection() {
-  const { CURR, back, currency, setCurrency, changedCurrency, submitChange } = useCurrency();
+  const { CURR, back, currency, setCurrency, newCurr, submitChange } = useCurrency();
   return (
     <>
       <div className="container currencies">
         <section className="col-50p">
           <h2 className="title"> Currency Settings</h2>
-          {!!changedCurrency && (
-            <SuccessModal msg={`Currency Setting has been changed to ${pipe.longName[changedCurrency]}`} back={back} />
-          )}
+          {!!newCurr && <SuccessModal msg={`Currency has been changed to ${pipe.longName[newCurr]}`} back={back} />}
           <CurrencyOptions currency={currency} setCurrency={setCurrency} />
 
           {currency !== 'EUR' && (
