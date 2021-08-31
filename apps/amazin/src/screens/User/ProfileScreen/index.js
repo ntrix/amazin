@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { useUserProfile } from './useUserProfile';
-import { useSellerProfile } from './useSellerProfile';
+
+import { useUserProfile, useSellerProfile } from './useProfile';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Button from 'src/components/Button';
