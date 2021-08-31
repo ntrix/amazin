@@ -14,9 +14,7 @@ export default function Screen404() {
         <div className="divider-inner"></div>
 
         <div className="container">
-          <MessageBox variant="danger" show>
-            <h2>404: Page not found</h2>
-          </MessageBox>
+          <MessageBox variant="danger" show children={<h2>404: Page not found</h2>} />
         </div>
         <div className="divider-inner"></div>
 
