@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-
+import { KEY } from '../constants';
 import { cartReducer } from '../slice/CartSlice';
+import { Storage } from '../utils';
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -12,15 +13,15 @@ import {
   orderPayReducer
 } from '../slice/OrderSlice';
 import {
+  currencyTypeReducer,
   productCategoryListReducer,
   productCreateReducer,
   productDeleteReducer,
   productDetailsReducer,
-  productListReducer,
   productListAllReducer,
+  productListReducer,
   productReviewCreateReducer,
-  productUpdateReducer,
-  currencyTypeReducer
+  productUpdateReducer
 } from '../slice/ProductSlice';
 import {
   userAddressMapReducer,
@@ -33,8 +34,6 @@ import {
   userUpdateProfileReducer,
   userUpdateReducer
 } from '../slice/UserSlice.js';
-import { Storage } from '../utils';
-import { KEY } from '../constants';
 
 const preloadedState = {
   userSignin: { userInfo: Storage[KEY.USER_INFO] },
@@ -48,32 +47,32 @@ const preloadedState = {
 const store = configureStore({
   preloadedState,
   reducer: {
-    currencyType: currencyTypeReducer,
-    productList: productListReducer,
-    productListAll: productListAllReducer,
-    productDetails: productDetailsReducer,
-    cart: cartReducer,
-    userSignin: userSigninReducer,
-    userRegister: userRegisterReducer,
-    orderCreate: orderCreateReducer,
-    orderDetails: orderDetailsReducer,
-    orderPay: orderPayReducer,
-    orderMineList: orderMineListReducer,
-    userDetails: userDetailsReducer,
-    userUpdateProfile: userUpdateProfileReducer,
-    userUpdate: userUpdateReducer,
-    productCreate: productCreateReducer,
-    productUpdate: productUpdateReducer,
-    productDelete: productDeleteReducer,
-    orderList: orderListReducer,
-    orderDelete: orderDeleteReducer,
-    orderDeliver: orderDeliverReducer,
-    userList: userListReducer,
-    userDelete: userDeleteReducer,
-    userTopSellersList: userTopSellerListReducer,
-    productCategoryList: productCategoryListReducer,
+    userAddressMap: userAddressMapReducer,
     productReviewCreate: productReviewCreateReducer,
-    userAddressMap: userAddressMapReducer
+    productCategoryList: productCategoryListReducer,
+    userTopSellersList: userTopSellerListReducer,
+    userDelete: userDeleteReducer,
+    userList: userListReducer,
+    orderDeliver: orderDeliverReducer,
+    orderDelete: orderDeleteReducer,
+    orderList: orderListReducer,
+    productDelete: productDeleteReducer,
+    productUpdate: productUpdateReducer,
+    productCreate: productCreateReducer,
+    userUpdate: userUpdateReducer,
+    userUpdateProfile: userUpdateProfileReducer,
+    userDetails: userDetailsReducer,
+    orderMineList: orderMineListReducer,
+    orderPay: orderPayReducer,
+    orderDetails: orderDetailsReducer,
+    orderCreate: orderCreateReducer,
+    userRegister: userRegisterReducer,
+    userSignin: userSigninReducer,
+    cart: cartReducer,
+    productDetails: productDetailsReducer,
+    productListAll: productListAllReducer,
+    productList: productListReducer,
+    currencyType: currencyTypeReducer
   },
   middleware: [thunk],
   devTools: process.env.NODE_ENV !== 'production'
