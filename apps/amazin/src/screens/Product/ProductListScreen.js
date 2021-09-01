@@ -7,6 +7,7 @@ import { productCreateActions, productDeleteActions } from 'src/slice/ProductSli
 import Pagination from 'src/components/Pagination';
 import Button from 'src/components/Button';
 import LoadingOrError from 'src/components/LoadingOrError';
+import BaseTable from 'src/layouts/BaseTable';
 
 export default function ProductListScreen(props) {
   const dispatch = useDispatch();
@@ -68,33 +69,22 @@ export default function ProductListScreen(props) {
 
       {!!products && (
         <>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>USER_ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th className="tab__w12">ACTIONS</th>
+          <BaseTable
+            header={['USER_ID', 'NAME', 'PRICE', 'CATEGORY', 'BRAND']}
+            body={products.map((product) => (
+              <tr key={product._id}>
+                <td>{product._id}</td>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
+                <td>{product.category}</td>
+                <td>{product.brand}</td>
+                <td>
+                  <Button xs className="danger" label="Del." onClick={() => deleteHandler(product)} />
+                  <Button xs label="Edit" to={`/product/${product._id}/edit`} />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
-                  <td>
-                    <Button xs className="danger" label="Del." onClick={() => deleteHandler(product)} />
-                    <Button xs label="Edit" to={`/product/${product._id}/edit`} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ))}
+          />
 
           <Pagination
             getUrl={({ page: _page }) => `/product-list${userInfo.isAdmin ? '' : '/seller'}/pageNumber/${_page}`}
