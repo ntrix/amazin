@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -11,6 +11,8 @@ export function useProductList(match, history) {
   const { userInfo } = useSelector((state) => state.userSignin);
   const productCreate = useSelector((state) => state.productCreate);
   const productDelete = useSelector((state) => state.productDelete);
+  // only find results match seller id or all results for admin
+  const { current: seller } = useRef(match.path.indexOf('/seller') >= 0 ? userInfo._id : '');
 
   useEffect(() => {
     if (productCreate.success) {
@@ -19,11 +21,9 @@ export function useProductList(match, history) {
     }
     if (productDelete.success) dispatch(productDeleteActions._RESET());
 
-    // only find results match seller id or all results for admin
-    const seller = match.path.indexOf('/seller') >= 0 ? userInfo._id : '';
     // min = 0 to find all products no matter what price it is (0.00) to edit
     dispatch(listProducts({ pageNumber, seller, min: '0' }));
-  }, [dispatch, history, productCreate, productDelete.success, userInfo, pageNumber]);
+  }, [dispatch, history, productCreate, productDelete.success, seller, pageNumber]);
 
   const deleteHandler = (product) =>
     window.confirm('Are you sure to delete?') ? dispatch(deleteProduct(product._id)) : null;
