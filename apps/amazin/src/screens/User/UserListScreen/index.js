@@ -1,24 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { deleteUser, listUsers } from 'src/apis/userAPI';
-import { userDetailsActions } from 'src/slice/UserSlice';
-import Button from 'src/components/Button';
+import { useUserList } from './useUserList';
+import Table from '../../Product/ProductListScreen/Table';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
-import Table from '../../Product/ProductListScreen/Table';
 
 export default function UserListScreen() {
-  const dispatch = useDispatch();
-  const userList = useSelector((state) => state.userList);
-  const userDelete = useSelector((state) => state.userDelete);
-
-  useEffect(() => {
-    dispatch(listUsers());
-    dispatch(userDetailsActions._RESET());
-  }, [dispatch, userDelete.success]);
-
-  const deleteHandler = (user) => (window.confirm('Are you sure?') ? dispatch(deleteUser(user._id)) : null);
+  const { userList, userDelete, deleteHandler } = useUserList();
 
   return (
     <div>
