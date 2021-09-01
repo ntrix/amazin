@@ -9,12 +9,13 @@ import ButtonTrailer from './ButtonTrailer';
 
 function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
+  const description = movie?.description ? movie.description.slice(0, 150) + '..' : '';
 
   return (
     <>
       <LazyBackground
         className={`banner ${movie?.image ? '' : 'no-image'}`}
-        src={movie?.image ? movie.image.split('^')[1] : VIDEO.BANNER}
+        src={movie?.image?.split('^')[1] ?? VIDEO.BANNER}
         style={{
           backgroundSize: 'cover',
           backgroundPosition: `center ${bottom ? '0' : 'center'}`
@@ -31,9 +32,7 @@ function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
                 <ButtonBuy movie={movie} />
                 <ButtonSell />
               </div>
-              <h1 className="banner__description">
-                {movie?.description ? movie.description.slice(0, 150) + '..' : ''}
-              </h1>
+              <h1 className="banner__description">{description}</h1>
             </>
           )}
         </div>
