@@ -18,12 +18,13 @@ function CustomInput({
     props.onChange = (e) => hook[1](e.target.value);
   }
 
-  const value = type === 'button' || type === 'submit' ? text : rest.value;
+  const val = type === 'button' || type === 'submit' ? text : '';
+  const { value } = rest;
 
   return (
     <div className={wrapClass}>
       {label !== 'none' && <label htmlFor={props.id}>{label + ' '}</label>}
-      {textarea ? <textarea {...props} /> : <input value={value} {...props} />}
+      {textarea ? <textarea {...props} /> : <input value={val || value} {...props} />}
     </div>
   );
 }
