@@ -6,6 +6,8 @@ import { userDetailsActions } from 'src/slice/UserSlice';
 import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
+import BaseTable from 'src/layouts/BaseTable';
+import CheckCell from 'src/components/CheckCell';
 
 export default function UserListScreen() {
   const dispatch = useDispatch();
@@ -33,39 +35,22 @@ export default function UserListScreen() {
       <LoadingOrError xl statusOf={userList} />
 
       {userList?.success && (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>USER_ID</th>
-              <th>NAME</th>
-              <th>EMAIL</th>
-              <th>SELLER</th>
-              <th>ADMIN</th>
-              <th className="tab__w12">ACTIONS</th>
+        <BaseTable
+          header={['USER_ID', 'NAME', 'EMAIL', 'SELLER', 'ADMIN']}
+          body={userList.users.map((user) => (
+            <tr key={user._id}>
+              <td>{user._id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <CheckCell check={user.isSeller} />
+              <CheckCell check={user.isAdmin} />
+              <td>
+                <Button xs className="danger" label="Del." onClick={() => deleteHandler(user)} />
+                <Button xs label="Edit" to={`/user/${user._id}/edit`} />
+              </td>
             </tr>
-          </thead>
-
-          <tbody>
-            {userList.users.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td className="text-center success">
-                  {!!user.isSeller && <i className="fa fa-check" aria-hidden="true"></i>}
-                </td>
-                <td className="text-center success">
-                  {!!user.isAdmin && <i className="fa fa-check" aria-hidden="true"></i>}
-                </td>
-
-                <td>
-                  <Button xs className="danger" label="Del." onClick={() => deleteHandler(user)} />
-                  <Button xs label="Edit" to={`/user/${user._id}/edit`} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          ))}
+        />
       )}
     </div>
   );
