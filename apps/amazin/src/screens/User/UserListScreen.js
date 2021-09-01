@@ -6,8 +6,7 @@ import { userDetailsActions } from 'src/slice/UserSlice';
 import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
-import BaseTable from 'src/layouts/BaseTable';
-import CheckCell from 'src/components/CheckCell';
+import Table from '../Product/ProductListScreen/Table';
 
 export default function UserListScreen() {
   const dispatch = useDispatch();
@@ -35,21 +34,12 @@ export default function UserListScreen() {
       <LoadingOrError xl statusOf={userList} />
 
       {userList?.success && (
-        <BaseTable
+        <Table
           header={['USER_ID', 'NAME', 'EMAIL', 'SELLER', 'ADMIN']}
-          body={userList.users.map((user) => (
-            <tr key={user._id}>
-              <td>{user._id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <CheckCell check={user.isSeller} />
-              <CheckCell check={user.isAdmin} />
-              <td>
-                <Button xs className="danger" label="Del." onClick={() => deleteHandler(user)} />
-                <Button xs label="Edit" to={`/user/${user._id}/edit`} />
-              </td>
-            </tr>
-          ))}
+          keys={['_id', 'name', 'email', 'isSeller', 'isAdmin']}
+          data={userList.users}
+          deleteHandler={deleteHandler}
+          createBtn={(user) => <Button xs label="Edit" to={`/user/${user._id}/edit`} />}
         />
       )}
     </div>
