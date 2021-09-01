@@ -24,7 +24,7 @@ export default function RegisterScreen({ location, history }) {
         <CustomInput text="Password" type="password" required hook={[password, setPassword]} />
         <CustomInput text="Confirm Password" type="password" required hook={[confirmPassword, setConfirmPassword]} />
         <br />
-        <Button primary className="mt-1 col-fill" type="submit" label="Register" />
+        <Button primary fill type="submit" label="Register" />
 
         <PageRedirect label="Already have an account?" to={`/signin?redirect=${redirect}`}>
           <b>Sign-In</b>

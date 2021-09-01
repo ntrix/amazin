@@ -31,7 +31,7 @@ export default function ContactScreen() {
           <CustomInput text="Email" type="email" hook={[email, setEmail]} />
           <ContactSubject hook={[subject, setSubject]} />
           <CustomInput textarea rows="10" text="Your Message" hook={[text, setText]} />
-          <Button primary type="submit" className="col-fill mt-2" label="Send Your Message" />
+          <Button primary fill type="submit" label="Send Your Message" />
         </>
       )}
     </form>

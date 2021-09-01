@@ -29,7 +29,7 @@ export default function ProfileScreen() {
           Profile Updated Successfully
         </MessageBox>
 
-        <Button primary type="submit" className="col-fill mt-2" label="Update" />
+        <Button primary fill type="submit" label="Update" />
       </form>
     </div>
   );
