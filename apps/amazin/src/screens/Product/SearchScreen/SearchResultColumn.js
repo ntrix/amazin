@@ -5,7 +5,6 @@ import { loadingFallback } from 'src/components/Fallbacks';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
-
 function SearchResultColumn() {
   const productList = useSelector((state) => state.productList);
   const { products, loading } = productList;

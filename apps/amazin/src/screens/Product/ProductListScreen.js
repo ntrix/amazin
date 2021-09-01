@@ -62,11 +62,9 @@ export default function ProductListScreen(props) {
         <h1>Products</h1>
         <Button primary label="Create Product" onClick={createHandler} />
       </div>
-
       <LoadingOrError xl statusOf={productDelete} />
       <LoadingOrError xl statusOf={productCreate} />
       <LoadingOrError xl statusOf={productList} />
-
       {!!products && (
         <>
           <BaseTable
@@ -85,7 +83,6 @@ export default function ProductListScreen(props) {
               </tr>
             ))}
           />
-
           <Pagination
             getUrl={({ page: _page }) => `/product-list${userInfo.isAdmin ? '' : '/seller'}/pageNumber/${_page}`}
             page={page}
