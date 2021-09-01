@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { savePaymentMethod } from 'src/apis/cartAPI';
 import CheckoutSteps from './CheckoutSteps';
-import CustomInput from 'src/components/CustomInput';
+import CustomRadio from 'src/components/CustomRadio';
 
 export default function PaymentMethodScreen({ history }) {
   const dispatch = useDispatch();
@@ -26,24 +26,9 @@ export default function PaymentMethodScreen({ history }) {
           <h1>Payment Method</h1>
         </div>
 
-        <CustomInput
-          wrapClass="flex"
-          text="PayPal"
-          required
-          checked
-          name="paymentMethod"
-          type="radio"
-          hook={['PayPal', setPaymentMethod]}
-        />
+        <CustomRadio name="paymentMethod" checked text="PayPal" hook={['PayPal', setPaymentMethod]} />
 
-        <CustomInput
-          wrapClass="flex"
-          text="Stripe"
-          required
-          name="paymentMethod"
-          type="radio"
-          hook={['Stripe', setPaymentMethod]}
-        />
+        <CustomRadio name="paymentMethod" text="Stripe" hook={['Stripe', setPaymentMethod]} />
 
         <div>
           <label />

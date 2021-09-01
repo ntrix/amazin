@@ -6,6 +6,7 @@ import { userUpdateActions } from 'src/slice/UserSlice';
 import Button from 'src/components/Button';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
+import CustomCheck from 'src/components/CustomCheck';
 
 export default function UserEditScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -52,21 +53,8 @@ export default function UserEditScreen({ history, match }) {
           <>
             <CustomInput text="Name" hook={[name, setName]} />
             <CustomInput text="Email" type="email" hook={[email, setEmail]} />
-            <CustomInput
-              wrapClass="flex"
-              text="Seller Account"
-              type="checkbox"
-              checked={isSeller}
-              onChange={(e) => setIsSeller(e.target.checked)}
-            />
-            <CustomInput
-              wrapClass="flex"
-              text="Administrator"
-              type="checkbox"
-              checked={isAdmin}
-              onChange={(e) => setIsAdmin(e.target.checked)}
-            />
-
+            <CustomCheck text="Seller Account" checked={isSeller} onChange={setIsSeller} />
+            <CustomCheck text="Administrator" checked={isAdmin} onChange={setIsAdmin} />
             <div>
               <Button primary type="submit" label="Update" />
             </div>
