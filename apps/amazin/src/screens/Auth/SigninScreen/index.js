@@ -20,7 +20,7 @@ export default function SigninScreen({ location, history }) {
         <CustomInput text="Email" type="email" required hook={[email, setEmail]} />
         <CustomInput text="Password" type="password" required hook={[password, setPassword]} />
         <br />
-        <Button primary className="mt-1 col-fill" type="submit" label="Sign In" />
+        <Button primary fill type="submit" label="Sign In" />
 
         <PageRedirect to={`/register?redirect=${redirect}`} label="New customer?">
           <b>Create your account</b>
