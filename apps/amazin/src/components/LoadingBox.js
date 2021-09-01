@@ -2,11 +2,12 @@ import { memo } from 'react';
 
 function LoadingBox({ hide = false, xl = false, wrapClass = '' }) {
   if (hide) return null;
-
+  const Loader = xl ? <b>Loading ..</b> : <>Loading ..</>;
+  const mode = 'sprite__loading' + (xl ? '--xl' : '');
   const innerComponent = () => (
     <div className="loading">
-      {xl ? <b>Loading ..</b> : <>Loading ..</>}
-      <div className={`sprite__loading${xl ? '--xl' : ''}`} />
+      {Loader}
+      <div className={mode} />
     </div>
   );
 

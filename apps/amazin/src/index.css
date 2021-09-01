@@ -44,7 +44,7 @@ body {
 .disabled,
 .disabled *,
 .disabled:hover {
-  cursor: default;
+  cursor: unset !important;
   color: #6e6e6e !important;
   outline: none !important;
   border-color: transparent !important;
@@ -180,11 +180,17 @@ main > col-fill {
 .mt-1 {
   margin-top: 1rem;
 }
+.mt-2 {
+  margin-top: 2rem;
+}
 .mr-1 {
   margin-right: 1rem;
 }
 .mb-1 {
   margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 2rem;
 }
 .ml-1 {
   margin-left: 1rem;

@@ -7,8 +7,8 @@ function CurrencyRate({ currency }) {
     <>
       <li className="list-label">Currency Calculator</li>
       <li className="calculator disabled">
-        <div className="disabled">€ - EUR - Euro</div>
-        <div className="disabled">Base</div>
+        <div>€ - EUR - Euro</div>
+        <div>Base</div>
       </li>
       <li className="separator" />
       <li className="list-label">

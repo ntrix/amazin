@@ -1,14 +1,16 @@
-export default function ShippingAddressCard({ address, children }) {
+import StatusBox from '../OrderSumScreen/StatusBox';
+import InfoCard from './InfoCard';
+
+export default function ShippingAddressCard({ address: adr, order }) {
   return (
-    <li className="card card__body">
-      <h2>Shipping</h2>
-      {!!address && (
+    <InfoCard label="Shipping">
+      {!!adr && (
         <p>
-          <strong>Name:</strong> {address.fullName} <br />
-          <strong>Address: </strong> {address.address},{address.city}, {address.postalCode},{address.country}
+          <strong>Name:</strong> {adr.fullName} <br />
+          <strong>Address: </strong> {adr.address}, {adr.city}, {adr.postalCode}, {adr.country}
         </p>
       )}
-      {children}
-    </li>
+      {order && <StatusBox textOf="Delivered" statusOf={order.isDelivered} when={order.deliveredAt} />}
+    </InfoCard>
   );
 }

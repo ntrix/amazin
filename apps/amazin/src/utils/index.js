@@ -74,22 +74,22 @@ export const pipe = {
     CHF: 'Swiss France',
     EUR: 'Euro (Default)'
   },
+  symbol: {
+    GBP: '£',
+    USD: '$',
+    PLN: 'zł',
+    CZK: 'Kč',
+    CHF: 'CHf',
+    EUR: '€'
+  },
   setCurrency(currency) {
     this.currency = currency;
   },
   updateRates(newRates) {
-    if (newRates?.length)
-      this.currencies.map((c) => (this.rates[c] = newRates[c]));
+    if (newRates?.length) this.currencies.map((c) => (this.rates[c] = newRates[c]));
   },
   getSymbol(currency = this.currency) {
-    return {
-      GBP: '£',
-      USD: '$',
-      PLN: 'zł',
-      CZK: 'Kč',
-      CHF: 'CHf',
-      EUR: '€'
-    }[currency];
+    return this.symbol[currency];
   },
   getName(currency) {
     return {
@@ -122,8 +122,7 @@ export const pipe = {
 export const savePath =
   (exceptionStartWith = '@') =>
   () => {
-    if (!window.location.pathname.startsWith(exceptionStartWith))
-      Storage[KEY.HISTORY] = window.location.pathname;
+    if (!window.location.pathname.startsWith(exceptionStartWith)) Storage[KEY.HISTORY] = window.location.pathname;
   };
 
 /* Adapter pattern (or create placeholders if not exists) for video movies source from 3rd party API */
@@ -132,11 +131,7 @@ export const sourceAdapter = (movies, id) =>
   movies?.map((m) => ({
     name: m.name || m.title || m.original_title || 'Product Name',
     image:
-      m.image ||
-      `${getFullUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getFullUrl(
-        m.backdrop_path
-      )}` ||
-      NO_IMAGE,
+      m.image || `${getFullUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getFullUrl(m.backdrop_path)}` || NO_IMAGE,
     rating: m.rating || m.vote_average / 2 || 0,
     numReviews: m.numReviews || m.vote_count || 0,
     description: m.description || m.overview,

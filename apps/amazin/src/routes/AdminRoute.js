@@ -1,11 +1,5 @@
-import { useSelector } from 'react-redux';
+import { SellerBaseRoute } from './SellerRoute';
 
-import { Redirect, Route } from 'src/layouts/SuspenseRoute';
-
-export default function AdminRoute({ component: Component, ...rest }) {
-  const { userInfo } = useSelector((state) => state.userSignin);
-
-  return (
-    <Route {...rest} render={(props) => (userInfo?.isAdmin ? <Component {...props} /> : <Redirect to="/signin" />)} />
-  );
+export default function AdminRoute(props) {
+  return <SellerBaseRoute userRole="isAdmin" {...props} />;
 }
