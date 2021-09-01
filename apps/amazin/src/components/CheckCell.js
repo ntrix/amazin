@@ -1,3 +1,4 @@
-export default function CheckCell({ check }) {
-  return <td className="text-center success">{!!check && <i className="fa fa-check" aria-hidden="true" />}</td>;
+export default function CheckCell({ children }) {
+  if (typeof children !== 'boolean') return <td>{children}</td>;
+  return <td className="text-center success">{!!children && <i className="fa fa-check" aria-hidden="true" />}</td>;
 }
