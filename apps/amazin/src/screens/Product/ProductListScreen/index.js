@@ -25,7 +25,7 @@ export default function ProductListScreen({ match, history }) {
           keys={['_id', 'name', 'price', 'category', 'brand']}
           data={products}
           deleteHandler={deleteHandler}
-          createBtn={(product) => <Button xs label="Edit" to={`/product/${product._id}/edit`} />}
+          to="/product/"
         />
       )}
 

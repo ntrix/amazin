@@ -6,7 +6,7 @@ import { userDetailsActions } from 'src/slice/UserSlice';
 import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
-import Table from '../Product/ProductListScreen/Table';
+import Table from '../../Product/ProductListScreen/Table';
 
 export default function UserListScreen() {
   const dispatch = useDispatch();
@@ -18,20 +18,14 @@ export default function UserListScreen() {
     dispatch(userDetailsActions._RESET());
   }, [dispatch, userDelete.success]);
 
-  const deleteHandler = (user) => {
-    if (window.confirm('Are you sure?')) {
-      dispatch(deleteUser(user._id));
-    }
-  };
+  const deleteHandler = (user) => (window.confirm('Are you sure?') ? dispatch(deleteUser(user._id)) : null);
 
   return (
     <div>
       <h1 className="p-1">Users</h1>
-      <LoadingOrError xl statusOf={userDelete} />
-      <MessageBox variant="success" show={userDelete.success}>
-        User Deleted Successfully
-      </MessageBox>
       <LoadingOrError xl statusOf={userList} />
+      <LoadingOrError statusOf={userDelete} />
+      <MessageBox variant="success" show={userDelete.success} children="User Deleted Successfully" />
 
       {userList?.success && (
         <Table
@@ -39,7 +33,7 @@ export default function UserListScreen() {
           keys={['_id', 'name', 'email', 'isSeller', 'isAdmin']}
           data={userList.users}
           deleteHandler={deleteHandler}
-          createBtn={(user) => <Button xs label="Edit" to={`/user/${user._id}/edit`} />}
+          to="/user/"
         />
       )}
     </div>

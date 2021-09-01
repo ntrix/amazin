@@ -2,7 +2,7 @@ import Button from 'src/components/Button';
 import CheckCell from 'src/components/CheckCell';
 import BaseTable from 'src/layouts/BaseTable';
 
-export default function Table({ header, keys, data, deleteHandler, createBtn }) {
+export default function Table({ header, keys, data, deleteHandler, to }) {
   return (
     <BaseTable
       header={header.map((h) => h.toUpperCase())}
@@ -14,7 +14,7 @@ export default function Table({ header, keys, data, deleteHandler, createBtn }) 
 
           <td>
             {!!deleteHandler && <Button xs className="danger" label="Del." onClick={() => deleteHandler(row)} />}
-            {createBtn(row)}
+            {!!to && <Button xs label="Edit" to={`${to}${row._id}/edit`} />}
           </td>
         </tr>
       ))}
