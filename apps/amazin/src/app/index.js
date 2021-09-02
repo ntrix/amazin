@@ -17,7 +17,7 @@ import Nav from 'src/components/Nav';
 const ErrorScreen = React.lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/ErrorScreen'));
 const SidebarMenu = React.lazy(() => import(/* webpackPrefetch: true */ '../components/Nav/SidebarMenu'));
 
-function InnerApp() {
+function App() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userSignin);
   const { sessionCurrency } = useSelector((state) => state.currencyType);
@@ -26,6 +26,7 @@ function InnerApp() {
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
 
   useEffect(() => {
+    /* TODO clean up currency, extract to redux or context pattern */
     pipe.setCurrency(userInfo?.currency || sessionCurrency || Storage[KEY.CURRENCY] || pipe.currency);
     setCurrency(pipe.currency);
     dispatch(updateCurrencyRates());
@@ -52,10 +53,6 @@ function InnerApp() {
   );
 }
 
-export default function App() {
-  return (
-    <ShadowProvider>
-      <InnerApp />
-    </ShadowProvider>
-  );
+export default function AppWithShadow() {
+  return <ShadowProvider children={<App />} />;
 }
