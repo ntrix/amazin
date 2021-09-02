@@ -1,9 +1,10 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import '../index.css';
+import { SuspenseNull, SuspenseText } from 'src/components/CustomSuspense';
 import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
 import { ShadowProvider, useShadow } from '../hooks/useShadow';
 import { Storage, pipe } from '../utils';
@@ -35,19 +36,13 @@ function InnerApp() {
     <BrowserRouter>
       <div className={`container--grid ${SHADOW.SIDEBAR === shadowOf ? 'scroll--off' : ''}`}>
         <ErrorBoundary FallbackComponent={ErrorScreen}>
-          <Suspense fallback={<h3>Amazin' Amazim Store</h3>}>
-            <Nav currency={currency} />
-          </Suspense>
+          <SuspenseText children={<Nav currency={currency} />} />
 
-          <Suspense fallback={null}>
-            <SidebarMenu currency={currency} />
-          </Suspense>
+          <SuspenseNull children={<SidebarMenu currency={currency} />} />
         </ErrorBoundary>
 
         <main className="container">
-          <Suspense fallback={<h3>Loading...</h3>}>
-            <MainRoutes />
-          </Suspense>
+          <SuspenseText children={<MainRoutes />} />
 
           <div className={`shadow-of__${shadowOf}`} onClick={() => setShadowOf('')} />
         </main>

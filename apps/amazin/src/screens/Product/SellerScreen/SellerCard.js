@@ -1,6 +1,7 @@
-import { memo, Suspense } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
+import { SuspenseSeller } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import Rating from 'src/components/Rating';
 
@@ -17,7 +18,7 @@ function SellerCard({
       <ul>
         <li>
           <div className="row start">
-            <Suspense fallback={<h4>Seller</h4>}>
+            <SuspenseSeller>
               {seller.logo ? (
                 <div className="p-1">
                   <LazyImg className={size} src={seller.logo} alt={seller.name} />
@@ -25,7 +26,7 @@ function SellerCard({
               ) : (
                 <h4>Seller</h4>
               )}
-            </Suspense>
+            </SuspenseSeller>
 
             <div className="p-1">
               <h2>{linkTo ? <Link to={linkTo}>{seller.name}</Link> : seller.name}</h2>

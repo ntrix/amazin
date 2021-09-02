@@ -25,3 +25,17 @@ export function SuspenseLoad(props) {
 export function SuspenseBanner(props) {
   return <Suspense fallback={bannerFallback} {...props} />;
 }
+
+export function SuspenseSeller(props) {
+  return <Suspense fallback={<h4>Seller</h4>} {...props} />;
+}
+
+export function SuspenseText(props) {
+  return <Suspense fallback={<h3>Amazin' Amazim. Loading...</h3>} {...props} />;
+}
+
+export function SuspenseNull(props) {
+  return <Suspense fallback={null} {...props} />;
+}
+
+export { Suspense };

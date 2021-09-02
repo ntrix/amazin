@@ -1,7 +1,8 @@
-import { memo, Suspense, useRef } from 'react';
+import { memo, useRef } from 'react';
 
-import NavBtnDropdown from './NavBtnDropdown';
+import { SuspenseNull } from 'src/components/CustomSuspense';
 import { useBtnControl } from './useBtnControl';
+import NavBtnDropdown from './NavBtnDropdown';
 
 function NavButton({ children, ...props }) {
   const focus = useRef(null);
@@ -20,7 +21,7 @@ function NavButton({ children, ...props }) {
       }}
       {...props}
     >
-      <Suspense fallback={null}>{children}</Suspense>
+      <SuspenseNull children={children} />
     </NavBtnDropdown>
   );
 }
