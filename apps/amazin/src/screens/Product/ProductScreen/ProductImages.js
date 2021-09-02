@@ -4,32 +4,28 @@ import { SuspenseLoad } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl } from 'src/utils';
 
-function ProductImages({ product }) {
-  const [activeImg, setActiveImg] = useState(0);
+function ProductImages({ product: { image, _id } }) {
+  const [active, setActive] = useState(0);
+  const urls = (image ?? '').split('^').map((img) => getImgUrl(_id, img));
+
   return (
     <div className="col-2 flex mr-1">
       <div className="tab__w6 flex-col">
-        {product?.image?.split('^').map((img, id) => (
+        {urls.map((url, id) => (
           <SuspenseLoad key={id}>
             <LazyImg
-              alt={`${product.name} small ${id}`}
-              src={getImgUrl(product._id, img)}
-              onMouseEnter={() => setActiveImg(id)}
-              onClick={() => setActiveImg(id)}
-              className={`product__thumbnail ${id === activeImg ? 'active' : ''}`}
+              alt={`thumbnail ${id}`}
+              src={url}
+              onMouseEnter={() => setActive(id)}
+              onClick={() => setActive(id)}
+              className={`product__thumbnail ${id === active ? 'active' : ''}`}
             />
           </SuspenseLoad>
         ))}
       </div>
 
       <div className="tab__rest">
-        <SuspenseLoad>
-          <LazyImg
-            className="large"
-            src={getImgUrl(product._id, product?.image?.split('^')[activeImg])}
-            alt={`${product.name} ${activeImg}`}
-          />
-        </SuspenseLoad>
+        <SuspenseLoad children={<LazyImg className="large" src={urls[active]} alt={active} />} />
       </div>
     </div>
   );
