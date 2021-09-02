@@ -1,21 +1,15 @@
 import { memo } from 'react';
 
+const toArray = (strArray) => (Array.isArray(strArray) ? strArray : [strArray]);
+
 function MessageBox({ show = false, msg, variant, wrapClass = '', children }) {
   if (!show && !msg?.length) return null;
 
-  const infos = msg || children;
-
   const innerComponent = () => (
     <div className={`alert alert--${variant || 'info'}`}>
-      {Array.isArray(infos) ? (
-        <ul>
-          {infos.map((info, id) => (
-            <li key={id}>{info}</li>
-          ))}
-        </ul>
-      ) : (
-        infos
-      )}
+      {toArray(msg || children).map((row, id) => (
+        <li key={id}>{row}</li>
+      ))}
     </div>
   );
 
