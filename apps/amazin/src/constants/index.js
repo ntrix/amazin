@@ -161,6 +161,30 @@ export const VIDEO = {
   ]
 };
 
+/* swiper config */
+export const SWIPER_CONFIG = {
+  spaceBetween: 20,
+  navigation: true,
+  effect: 'coverflow',
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: 'auto',
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: true
+  },
+  loop: true,
+  coverflowEffect: {
+    rotate: 50,
+    stretch: 0,
+    depth: 100,
+    modifier: 1,
+    slideShadows: false
+  },
+  pagination: {
+    clickable: true
+  }
+};
 /* responsive resolutions for multi-carousel */
 export const responsive = {
   superLargeDesktop: {
