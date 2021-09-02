@@ -4,50 +4,18 @@ import { Link } from 'react-router-dom';
 import { SuspenseSeller } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import Rating from 'src/components/Rating';
-
-function SellerCard({
-  user: { /*email,*/ seller = {} },
-  size = 'small',
-  linkTo = false,
-  rating = true,
-  mailTo = false,
-  info = false
-}) {
+/* don't show user {email} */
+function SellerCard({ user: { seller = {} }, size = 'small', to = '', rating = true, mail = false, info = false }) {
   return (
     <div className="card card__body m-0">
-      <ul>
-        <li>
-          <div className="row start">
-            <SuspenseSeller>
-              {seller.logo ? (
-                <div className="p-1">
-                  <LazyImg className={size} src={seller.logo} alt={seller.name} />
-                </div>
-              ) : (
-                <h4>Seller</h4>
-              )}
-            </SuspenseSeller>
+      <div className="row start p-1">
+        <SuspenseSeller children={<LazyImg className={size} src={seller.logo} alt={seller.name} />} />
+        <h2>{to ? <Link to={to}>{seller.name}</Link> : seller.name}</h2>
+      </div>
 
-            <div className="p-1">
-              <h2>{linkTo ? <Link to={linkTo}>{seller.name}</Link> : seller.name}</h2>
-            </div>
-          </div>
-        </li>
-
-        {!!rating && (
-          <li>
-            <Rating rating={seller.rating} numReviews={seller.numReviews}></Rating>
-          </li>
-        )}
-
-        {!!mailTo && (
-          <li>
-            <a href={`mailto:${'a@b.c'}`}>Contact Seller</a>
-          </li>
-        )}
-
-        {!!info && <li>{seller.description}</li>}
-      </ul>
+      {!!rating && <Rating rating={seller.rating} numReviews={seller.numReviews} />}
+      {!!mail && <div children={<a href={`mailto:${'a@b.c'}`}>Contact Seller</a>} />}
+      {!!info && <div>{seller.description}</div>}
     </div>
   );
 }

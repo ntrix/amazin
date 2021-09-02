@@ -37,7 +37,7 @@ function SellerScreen({ match }) {
 
       <div className="col-1 p-1">
         <LoadingOrError statusOf={userDetails} />
-        {!!user && <SellerCard user={user} size="medium" mailTo info />}
+        {!!user && <SellerCard user={user} size="medium" mail info />}
         <div className="card card__body m-0">
           <br />
           <SortFilter order={pOrder} getUrl={getUrl} />

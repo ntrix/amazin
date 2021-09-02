@@ -41,7 +41,7 @@ function ProductScreen({ match }) {
 
             <ProductDescription product={product} />
             <div className="col-1">
-              <SellerCard user={product.seller} linkTo={`/seller/${product.seller._id}`} />
+              <SellerCard user={product.seller} to={`/seller/${product.seller._id}`} />
               <ProductInStock productId={productId} product={product} />
             </div>
           </div>
