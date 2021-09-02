@@ -8,7 +8,7 @@ import { SHADOW } from 'src/constants';
 export function useSuggestBox(setSuggests) {
   const { productList } = useSelector((state) => state.productListAll);
 
-  const { suggestBox, setOutline, setScopeOutline, setSuggestBox } = useOutline();
+  const { setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
   const showBox = (input) => {
@@ -23,9 +23,9 @@ export function useSuggestBox(setSuggests) {
     setSuggestBox(true);
   };
 
-  const hideBoxOnCallback = () => {
+  const hideBoxOnCallback = () => () => {
     setOutline(false); // Wait to execute any click on Suggest Box, closes on callback
-    return suggestBox ? () => setSuggestBox(false) : null;
+    setSuggestBox(false);
   };
 
   return { showBox, hideBoxOnCallback };
