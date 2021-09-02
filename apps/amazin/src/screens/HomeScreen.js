@@ -5,11 +5,11 @@ import SwiperCore, { Navigation, EffectCoverflow, Scrollbar, Autoplay, Paginatio
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 
+import { Suspense, SuspenseLoad, SuspenseSeller } from 'src/components/CustomSuspense';
 import { listProducts } from 'src/apis/productAPI';
 import { listTopSellers } from 'src/apis/userAPI';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import { DUMMYSELLERS } from 'src/constants';
-import { SuspenseLoad } from 'src/components/CustomSuspense';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ './Product/components/ProductCard'));
@@ -33,7 +33,7 @@ function HomeScreen() {
       <div className={`home__banner ${banner}`}></div>
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       <div>
-        <SuspenseLoad fallback={<div className="swiper-container" />}>
+        <Suspense fallback={<div className="swiper-container" />}>
           <Swiper
             spaceBetween={20}
             navigation
@@ -57,21 +57,21 @@ function HomeScreen() {
               clickable: true
             }}
           >
-            {(sellers || DUMMYSELLERS).map((seller, id) => (
-              <SwiperSlide key={id}>
-                <SuspenseLoad fallback={<h4>Top Seller</h4>}>
-                  <Link className="seller__card" to={`/seller/${seller._id}`}>
-                    <LazyImg className="seller__img" src={seller.seller.logo} alt={seller.seller.name} />
-                    <p className="legend">{seller.seller.name}</p>
+            {(sellers || DUMMYSELLERS).map(({ seller: { logo, name }, _id }, key) => (
+              <SwiperSlide key={key}>
+                <SuspenseSeller>
+                  <Link className="seller__card" to={`/seller/${_id}`}>
+                    <LazyImg className="seller__img" src={logo} alt={name} />
+                    <p className="legend">{name}</p>
                   </Link>
-                </SuspenseLoad>
+                </SuspenseSeller>
               </SwiperSlide>
             ))}
           </Swiper>
 
           <MessageBox hide={sellers?.length < 1}>No Seller Found</MessageBox>
           <LoadingOrError statusOf={userTopSellersList} />
-        </SuspenseLoad>
+        </Suspense>
       </div>
 
       <h2 className="screen__title">Featured Products</h2>
