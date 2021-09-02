@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,7 +7,7 @@ import axios from 'axios';
 import { listProducts } from 'src/apis/productAPI';
 import { sourceAdapter } from 'src/utils';
 import { TRENDING, TOP_RATED, VIDEO, NETFLUX, HOME, STORE } from 'src/constants';
-import { ErrorFallback, loadingFallback, bannerFallback, delay } from 'src/components/Fallbacks';
+import { ErrorFallback, SuspenseLoad, delay, SuspenseBanner } from 'src/components/CustomSuspense';
 import { useSafeState } from 'src/hooks/useSafeState';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
@@ -63,17 +63,13 @@ export default function VideoScreen() {
   return (
     <div className="container--full video-screen">
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={loadingFallback}>
-          <VideoNavHeader labels={VIDEO.GENRES} active={active} setActive={setActive} />
-        </Suspense>
+        <SuspenseLoad children={<VideoNavHeader labels={VIDEO.GENRES} active={active} setActive={setActive} />} />
 
         <LoadingOrError xl statusOf={productCreate} />
 
-        <Suspense fallback={bannerFallback}>
-          <VideoBanner movie={bannerMovies[active]} youtubeTrailer />
-        </Suspense>
+        <SuspenseBanner children={<VideoBanner movie={bannerMovies[active]} youtubeTrailer />} />
 
-        <Suspense fallback={loadingFallback}>
+        <SuspenseLoad>
           {!!externMovies &&
             (active === HOME ? (
               Object.keys(VIDEO.SRC).map((_genre) => (
@@ -88,12 +84,10 @@ export default function VideoScreen() {
           <VideoRow title="IN STOCK: READY TO BUY" movies={storeMovies} portrait={active !== NETFLUX} />
           {active !== TRENDING && <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />}
           {active !== TOP_RATED && <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />}
-        </Suspense>
+        </SuspenseLoad>
         <div className="banner__divider"></div>
 
-        <Suspense fallback={loadingFallback}>
-          <VideoBanner bottom movie={bannerMovies[active]} />
-        </Suspense>
+        <SuspenseLoad children={<VideoBanner bottom movie={bannerMovies[active]} />} />
       </ErrorBoundary>
     </div>
   );

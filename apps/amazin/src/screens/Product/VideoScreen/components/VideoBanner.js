@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 
 import { VIDEO } from 'src/constants';
-import { LazyBackground } from 'src/utils/suspenseClient';
+import { LazyBackground } from 'src/apis/suspenseAPI';
 import UTube from './UTube';
 import ButtonBuy from './ButtonBuy';
 import ButtonSell from './ButtonSell';
@@ -11,16 +11,14 @@ import Header from 'src/layouts/Header';
 function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
   const description = movie?.description ? movie.description.slice(0, 150) + '..' : '';
+  const backgroundPosition = `center ${bottom ? '0' : 'center'}`;
 
   return (
     <>
       <LazyBackground
         className={`banner ${movie?.image ? '' : 'no-image'}`}
         src={movie?.image?.split('^')[1] ?? VIDEO.BANNER}
-        style={{
-          backgroundSize: 'cover',
-          backgroundPosition: `center ${bottom ? '0' : 'center'}`
-        }}
+        style={{ backgroundSize: 'cover', backgroundPosition }}
       >
         {!!bottom && <div className="banner--fade-top" />}
         <div className="banner__contents">

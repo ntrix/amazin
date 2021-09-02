@@ -8,11 +8,8 @@ import Header from 'src/layouts/Header';
 function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }) {
   return (
     <div className="col-1 mh-2">
+      <Header label={name} />
       <ul>
-        <li>
-          <Header label={name} />
-        </li>
-
         <li>
           <Rating rating={rating} numReviews={numReviews} />
         </li>
@@ -37,7 +34,7 @@ function ProductDescription({ product: { name, rating, numReviews, deal, price, 
         </li>
 
         <li>
-          Description:
+          <b>Description:</b>
           <p>{description}</p>
         </li>
       </ul>

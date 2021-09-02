@@ -1,11 +1,11 @@
-import { lazy, memo, Suspense, useEffect } from 'react';
+import { lazy, memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { listProducts } from 'src/apis/productAPI';
 import { publicDetailsSeller } from 'src/apis/userAPI';
 import { SORT } from 'src/constants';
-import { loadingFallback } from 'src/components/Fallbacks';
+import { SuspenseLoad } from 'src/components/CustomSuspense';
 import SellerCard from './SellerCard';
 import Pagination from 'src/components/Pagination';
 import SortFilter from 'src/components/SortFilter';
@@ -52,9 +52,7 @@ function SellerScreen({ match }) {
         <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
         <div className="row center">
           {products?.map((product) => (
-            <Suspense fallback={loadingFallback} key={product._id}>
-              <ProductCard product={product} />
-            </Suspense>
+            <SuspenseLoad key={product._id} children={<ProductCard product={product} />} />
           ))}
         </div>
 

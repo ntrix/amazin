@@ -15,10 +15,8 @@ function createSuspenseAPI(promise) {
 
   return {
     read() {
-      if (state === 'loading') throw result;
-      if (state === 'error') throw result;
       if (state === 'success') return result;
-      throw new Error('No error');
+      throw result;
     }
   };
 }

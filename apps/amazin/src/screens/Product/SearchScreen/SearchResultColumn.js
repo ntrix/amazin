@@ -1,7 +1,7 @@
-import { lazy, memo, Suspense } from 'react';
+import { lazy, memo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { loadingFallback } from 'src/components/Fallbacks';
+import { SuspenseLoad } from 'src/components/CustomSuspense';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
@@ -21,9 +21,7 @@ function SearchResultColumn() {
           </MessageBox>
 
           {products?.map((product, id) => (
-            <Suspense fallback={loadingFallback} key={id}>
-              <ProductCard product={product} />
-            </Suspense>
+            <SuspenseLoad key={id} children={<ProductCard product={product} />} />
           ))}
         </>
       )}
