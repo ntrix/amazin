@@ -9,6 +9,7 @@ import AdminDeliveryCard from './AdminDeliveryCard';
 import ShippingAddressCard from '../components/ShippingAddressCard';
 import PaymentMethodCard from '../components/PaymentMethodCard';
 import LoadingOrError from 'src/components/LoadingOrError';
+import Header from 'src/layouts/Header';
 
 export default function OrderSumScreen({ match }) {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function OrderSumScreen({ match }) {
     <div className="screen--light">
       <LoadingOrError xl statusOf={{ loading, error }} />
 
-      <h1 className="p-1">Order {order?._id || 'No.'}</h1>
+      <Header p1>Order {order?._id || 'No.'}</Header>
       {!!order && (
         <div className="row top">
           <ul className="col-3">

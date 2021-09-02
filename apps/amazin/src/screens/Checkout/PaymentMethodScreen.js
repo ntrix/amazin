@@ -5,6 +5,7 @@ import { savePaymentMethod } from 'src/apis/cartAPI';
 import CheckoutSteps from './CheckoutSteps';
 import CustomRadio from 'src/components/CustomRadio';
 import Button from 'src/components/Button';
+import Header from 'src/layouts/Header';
 
 export default function PaymentMethodScreen({ history }) {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function PaymentMethodScreen({ history }) {
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 />
       <form className="form" onSubmit={submitHandler}>
-        <h1>Payment Method</h1>
+        <Header label="Payment Method" />
 
         <CustomRadio name="paymentMethod" checked text="PayPal" hook={['PayPal', setPaymentMethod]} />
         <CustomRadio name="paymentMethod" text="Stripe" hook={['Stripe', setPaymentMethod]} />

@@ -6,6 +6,7 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import Button from 'src/components/Button';
 import UserProfileSection from './UserProfileSection';
 import SellerProfileSection from './SellerProfileSection';
+import Header from 'src/layouts/Header';
 
 export default function ProfileScreen() {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
@@ -18,7 +19,7 @@ export default function ProfileScreen() {
   return (
     <div>
       <form className="form" onSubmit={(e) => submitUpdate(e, { sellerName, sellerLogo, sellerDescription })}>
-        <h1 className="mt-1">User Profile</h1>
+        <Header label="User Profile" />
         <LoadingOrError xl statusOf={userDetails} />
 
         <UserProfileSection {...userProfile} />

@@ -1,3 +1,5 @@
+import Header from 'src/layouts/Header';
+
 function CustomerHelpSection() {
   return (
     <section className="help-section col-fill">
@@ -10,7 +12,7 @@ function CustomerHelpSection() {
 
       <input type="text" id="search-faq"></input>
 
-      <h1>Browse Help Topics </h1>
+      <Header label="Browse Help Topics " />
       <h2>In construction</h2>
       <p>Help Section:</p>
     </section>

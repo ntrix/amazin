@@ -6,6 +6,7 @@ import { addToCart, removeFromCart } from 'src/apis/cartAPI';
 import { getImgUrl, pipe } from 'src/utils';
 import MessageBox from 'src/components/MessageBox';
 import Button from 'src/components/Button';
+import Header from 'src/layouts/Header';
 
 export default function CartScreen(props) {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function CartScreen(props) {
   return (
     <div className="screen--light row top">
       <div className="col-2">
-        <h1 className="p-1">Shopping Cart</h1>
+        <Header p1 label="Shopping Cart" />
         <MessageBox msg={error} variant="danger" />
 
         {cartItems.length === 0 ? (

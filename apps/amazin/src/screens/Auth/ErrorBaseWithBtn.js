@@ -1,5 +1,6 @@
 import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
+import Header from 'src/layouts/Header';
 
 const defaultTitle = 'SORRY! Something wrong happens!';
 
@@ -8,7 +9,7 @@ function ErrorBaseWithBtn({ title = defaultTitle, subTitle = '', message, childr
     <>
       <div className="c-screen customer">
         <div className="container">
-          <h1 className="title">{title}</h1>
+          <Header title label={title} />
           <h3 className="sub-title">{subTitle}</h3>
         </div>
         <div className="divider-inner" />

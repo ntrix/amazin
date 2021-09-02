@@ -5,6 +5,7 @@ import Pagination from 'src/components/Pagination';
 import Button from 'src/components/Button';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Table from './Table';
+import Header from 'src/layouts/Header';
 
 export default function ProductListScreen({ match, history }) {
   const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList(match, history);
@@ -13,7 +14,7 @@ export default function ProductListScreen({ match, history }) {
   return (
     <div>
       <div className="row p-1">
-        <h1>Products</h1>
+        <Header title label="Products" />
         <Button primary label="Create Product" onClick={createHandler} />
       </div>
 

@@ -3,13 +3,14 @@ import { memo } from 'react';
 import './productScreen.css';
 import { pipe } from 'src/utils';
 import Rating from 'src/components/Rating';
+import Header from 'src/layouts/Header';
 
 function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }) {
   return (
     <div className="col-1 mh-2">
       <ul>
         <li>
-          <h1>{name}</h1>
+          <Header label={name} />
         </li>
 
         <li>

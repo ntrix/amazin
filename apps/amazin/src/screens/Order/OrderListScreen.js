@@ -5,6 +5,7 @@ import { orderDeleteActions } from 'src/slice/OrderSlice';
 import { deleteOrder, listOrders } from 'src/apis/orderAPI';
 import LoadingOrError from 'src/components/LoadingOrError';
 import OrderTable from './components/OrderTable';
+import Header from 'src/layouts/Header';
 
 export default function OrderListScreen({ match }) {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export default function OrderListScreen({ match }) {
 
   return (
     <div>
-      <h1 className="p-1">Orders</h1>
+      <Header p1 label="Orders" />
       <LoadingOrError xl statusOf={orderList} />
       <LoadingOrError xl statusOf={orderDelete} />
       <OrderTable orderList={orderList} deleteHandler={deleteHandler} />
