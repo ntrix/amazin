@@ -9,7 +9,7 @@ import { Suspense, SuspenseLoad, SuspenseSeller } from 'src/components/CustomSus
 import { listProducts } from 'src/apis/productAPI';
 import { listTopSellers } from 'src/apis/userAPI';
 import { LazyImg } from 'src/apis/suspenseAPI';
-import { DUMMYSELLERS } from 'src/constants';
+import { DUMMYSELLERS, SWIPER_CONFIG } from 'src/constants';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ './Product/components/ProductCard'));
@@ -34,29 +34,7 @@ function HomeScreen() {
       <h2 className="home-screen__title">Top Sellers, Top Products</h2>
       <div>
         <Suspense fallback={<div className="swiper-container" />}>
-          <Swiper
-            spaceBetween={20}
-            navigation
-            effect="coverflow"
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView="auto"
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: true
-            }}
-            loop={true}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: false
-            }}
-            pagination={{
-              clickable: true
-            }}
-          >
+          <Swiper {...SWIPER_CONFIG}>
             {(sellers || DUMMYSELLERS).map(({ seller: { logo, name }, _id }, key) => (
               <SwiperSlide key={key}>
                 <SuspenseSeller>

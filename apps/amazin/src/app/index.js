@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -14,8 +14,8 @@ import './responsive.css';
 import '../fonts/fonts.css';
 import '../fonts/font-awesome.css';
 import Nav from 'src/components/Nav';
-const ErrorScreen = React.lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/ErrorScreen'));
-const SidebarMenu = React.lazy(() => import(/* webpackPrefetch: true */ '../components/Nav/SidebarMenu'));
+const ErrorScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/ErrorScreen'));
+const SidebarMenu = lazy(() => import(/* webpackPrefetch: true */ '../components/Nav/SidebarMenu'));
 
 function App() {
   const dispatch = useDispatch();
@@ -34,22 +34,20 @@ function App() {
   }, [dispatch, userInfo?.currency, sessionCurrency]);
 
   return (
-    <BrowserRouter>
-      <div className={`container--grid ${SHADOW.SIDEBAR === shadowOf ? 'scroll--off' : ''}`}>
+    <div className={`container--grid ${SHADOW.SIDEBAR === shadowOf ? 'scroll--off' : ''}`}>
+      <BrowserRouter>
         <ErrorBoundary FallbackComponent={ErrorScreen}>
           <SuspenseText children={<Nav currency={currency} />} />
-
           <SuspenseNull children={<SidebarMenu currency={currency} />} />
         </ErrorBoundary>
 
         <main className="container">
           <SuspenseText children={<MainRoutes />} />
-
           <div className={`shadow-of__${shadowOf}`} onClick={() => setShadowOf('')} />
         </main>
-        <footer className="row center">Amazin' eCommerce platform, all right reserved</footer>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+      <footer className="row center">Amazin' Amazim Store, eCommerce platform, all right reserved</footer>
+    </div>
   );
 }
 
