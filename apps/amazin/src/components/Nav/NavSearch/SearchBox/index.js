@@ -13,15 +13,15 @@ function SearchBox() {
   const { outline } = useOutline();
   const { handleSubmit } = useSubmit();
 
-  const submitCallBack = useCallback((e) => handleSubmit(e, input, activeCat), [handleSubmit, input, activeCat]);
+  const submitSearchCb = useCallback((e) => handleSubmit(e, input, activeCat), [handleSubmit, input, activeCat]);
 
   return (
     <form className={`search-box ${outline ? 'focus' : ''}`}>
       <BoxLeft activeCat={activeCat} setActiveCat={setActiveCat} />
 
-      <BoxMiddle input={input} setInput={setInput} submitHandler={submitCallBack} />
+      <BoxMiddle input={input} setInput={setInput} submitSearch={submitSearchCb} />
 
-      <BoxRight submitHandler={submitCallBack} />
+      <BoxRight submitSearch={submitSearchCb} />
     </form>
   );
 }
