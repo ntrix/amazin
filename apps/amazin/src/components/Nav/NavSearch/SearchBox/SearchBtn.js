@@ -1,12 +1,12 @@
 import { memo } from 'react';
 
-function SearchBtn({ submitHandler }) {
+function SearchBtn({ submitSearch }) {
   const handleKeyPress = (e) => {
-    if (e?.key === 'Enter' || e?.key === ' ') submitHandler();
+    if (e?.key === 'Enter' || e?.key === ' ') submitSearch();
   };
 
   return (
-    <div className="search__btn" tabIndex="1" aria-label="Go" onClick={submitHandler} onKeyUp={handleKeyPress}>
+    <div className="search__btn" tabIndex="1" aria-label="Go" onClick={submitSearch} onKeyUp={handleKeyPress}>
       <span className="sprite__search-btn">
         <input type="submit" value="Go"></input>
       </span>

@@ -1,18 +1,18 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 import { useOutline } from '../../useOutline';
 import { useSuggestBox } from './useSuggestBox';
 import { useKeyInput } from './useKeyInput';
 
-function SearchInput({ input, setInput, setSuggests, submitHandler }) {
+function SearchInput({ input, setInput, setSuggests, submitSearch }) {
   const { inputRef, setOutline } = useOutline();
-  const [showSuggestBox, hideSuggestBoxOnCallback] = useSuggestBox(setSuggests);
-  const [handleKeyInput] = useKeyInput(setInput, setSuggests, submitHandler);
+  const { showBox, hideBoxOnCallback } = useSuggestBox(setSuggests);
+  const { handleKeyInput } = useKeyInput(setInput, setSuggests, submitSearch);
 
-  const onClickOrFocus = useCallback(() => {
-    showSuggestBox(input);
-    setOutline(true); // eslint-disable-next-line
-  }, []);
+  const onClickOrFocus = () => {
+    showBox(input);
+    setOutline(true);
+  };
 
   return (
     <div className="search__input">
@@ -30,7 +30,7 @@ function SearchInput({ input, setInput, setSuggests, submitHandler }) {
         onFocus={onClickOrFocus}
         onKeyUp={handleKeyInput}
         onChange={(e) => setInput(e.target.value)}
-        onBlur={hideSuggestBoxOnCallback}
+        onBlur={hideBoxOnCallback}
       ></input>
     </div>
   );
