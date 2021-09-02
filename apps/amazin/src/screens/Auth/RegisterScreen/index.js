@@ -5,6 +5,7 @@ import Button from 'src/components/Button';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
 import PageRedirect from 'src/components/PageRedirect';
+import Header from 'src/layouts/Header';
 
 export default function RegisterScreen({ location, history }) {
   const [name, setName] = useState('');
@@ -16,7 +17,7 @@ export default function RegisterScreen({ location, history }) {
   return (
     <div>
       <form className="form" onSubmit={(e) => submitRegister(e, { name, email, password, confirmPassword })}>
-        <h1>Create Account</h1>
+        <Header label="Create Account" />
         <LoadingOrError statusOf={userRegister} />
 
         <CustomInput text="Name" required hook={[name, setName]} />

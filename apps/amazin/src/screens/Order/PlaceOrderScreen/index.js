@@ -5,6 +5,7 @@ import PaymentMethodCard from '../components/PaymentMethodCard';
 import CheckoutSteps from '../../Checkout/CheckoutSteps';
 import OrderSumCard from '../OrderSumScreen/OrderSumCard';
 import LoadingOrError from 'src/components/LoadingOrError';
+import Header from 'src/layouts/Header';
 
 export default function PlaceOrderScreen({ history }) {
   const { cart, orderCreate, placeOrderHandler } = useCart(history);
@@ -12,7 +13,7 @@ export default function PlaceOrderScreen({ history }) {
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
 
-      <h1 className="p-1">Place Order</h1>
+      <Header p1 label="Place Order" />
       <div className="row top">
         <ul className="col-2">
           <ShippingAddressCard address={cart.shippingAddress} />

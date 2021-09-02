@@ -4,6 +4,7 @@ import './customerScreen.css';
 import { customerMenuTemplate } from './customerMenuTemplate';
 import CustomerCard, { mapCustomerCardProp } from './CustomerCard';
 import CustomerHelpSection from './CustomerHelpSection';
+import Header from 'src/layouts/Header';
 
 export default function CustomerScreen() {
   const { user } = useSelector((state) => state.userSignin);
@@ -11,7 +12,7 @@ export default function CustomerScreen() {
   return (
     <div className="c-screen customer">
       <header className="container">
-        <h1 className="title">We’re here to help, {user?.username || ''}</h1>
+        <Header title>We’re here to help, {user?.username || ''}</Header>
         <h3 className="sub-title">
           We’ll walk you through fixing most things here or connect you to someone if you need more help.
         </h3>

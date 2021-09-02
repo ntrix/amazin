@@ -7,6 +7,7 @@ import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
 import ContactSubject from './ContactSubject';
 import SuccessModal from 'src/components/SuccessModal';
+import Header from 'src/layouts/Header';
 
 export default function ContactScreen() {
   const [name, setName] = useState('');
@@ -21,7 +22,7 @@ export default function ContactScreen() {
 
   return (
     <form className="form" onSubmit={(e) => submitContact(e, { name, email, subject, text })}>
-      <h1>Contact Us</h1>
+      <Header label="Contact Us" />
       <LoadingOrError xl statusOf={{ loading, error }} />
 
       <SuccessModal msg={message} label="Back To Home Page" />

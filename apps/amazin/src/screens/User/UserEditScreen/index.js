@@ -5,6 +5,7 @@ import Button from 'src/components/Button';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
 import CustomCheck from 'src/components/CustomCheck';
+import Header from 'src/layouts/Header';
 
 export default function UserEditScreen({ history, match }) {
   const [name, setName] = useState('');
@@ -18,7 +19,7 @@ export default function UserEditScreen({ history, match }) {
   return (
     <div>
       <form className="form" onSubmit={submitUser(name, email, seller, admin)}>
-        <h1>Edit User {name}</h1>
+        <Header>Edit User ${name}</Header>
         <LoadingOrError xl statusOf={{ loading, error, ...userUpdate }} />
 
         {!!user && (

@@ -7,6 +7,7 @@ import CheckoutSteps from './CheckoutSteps';
 import CustomInput from 'src/components/CustomInput';
 import { Storage } from 'src/utils';
 import { KEY } from 'src/constants';
+import Header from 'src/layouts/Header';
 
 export default function ShippingAddressScreen({ history }) {
   const dispatch = useDispatch();
@@ -75,9 +76,7 @@ export default function ShippingAddressScreen({ history }) {
     <div className="screen--light">
       <CheckoutSteps step1 step2></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
-        <div>
-          <h1>Shipping Address</h1>
-        </div>
+        <Header label="Shipping Address" />
         <CustomInput text="Full Name" required hook={[fullName, setFullName]} />
         <CustomInput text="Address" required hook={[address, setAddress]} />
         <CustomInput text="City" required hook={[city, setCity]} />

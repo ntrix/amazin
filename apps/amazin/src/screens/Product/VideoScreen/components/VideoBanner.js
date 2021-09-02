@@ -6,6 +6,7 @@ import UTube from './UTube';
 import ButtonBuy from './ButtonBuy';
 import ButtonSell from './ButtonSell';
 import ButtonTrailer from './ButtonTrailer';
+import Header from 'src/layouts/Header';
 
 function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
@@ -23,7 +24,7 @@ function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
       >
         {!!bottom && <div className="banner--fade-top" />}
         <div className="banner__contents">
-          <h1 className="banner__title">{movie?.name}</h1>
+          <Header title className="banner__title" label={movie?.name} />
 
           {!bottom && (
             <>
@@ -32,7 +33,7 @@ function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
                 <ButtonBuy movie={movie} />
                 <ButtonSell />
               </div>
-              <h1 className="banner__description">{description}</h1>
+              <h4 className="banner__description">{description}</h4>
             </>
           )}
         </div>

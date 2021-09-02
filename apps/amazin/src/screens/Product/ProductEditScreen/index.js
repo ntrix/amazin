@@ -6,6 +6,7 @@ import { productUpdateActions } from 'src/slice/ProductSlice';
 import ImageSection from './ImageSection';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
+import Header from 'src/layouts/Header';
 
 export default function ProductEditScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ export default function ProductEditScreen({ history, match }) {
         onSubmit={submitHandler}
         // encType="multipart/form-data"
       >
-        <h1>Edit Product {productId}</h1>
+        <Header>Edit Product ${productId}</Header>
         <LoadingOrError xl statusOf={productDetails} />
         {productDetails?.success && (
           <>

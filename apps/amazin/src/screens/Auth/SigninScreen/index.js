@@ -5,6 +5,7 @@ import { useSigninEffect } from './useSigninEffect';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
 import PageRedirect from 'src/components/PageRedirect';
+import Header from 'src/layouts/Header';
 
 export default function SigninScreen({ location, history }) {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ export default function SigninScreen({ location, history }) {
   return (
     <div>
       <form className="form" onSubmit={(e) => submitSignin(e, { email, password })}>
-        <h1>Sign In</h1>
+        <Header label="Sign In" />
         <LoadingOrError statusOf={userSignin} />
 
         <CustomInput text="Email" type="email" required hook={[email, setEmail]} />

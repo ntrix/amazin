@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listOrderMine } from 'src/apis/orderAPI';
 import LoadingOrError from 'src/components/LoadingOrError';
 import OrderTable from './components/OrderTable';
+import Header from 'src/layouts/Header';
 
 export default function OrderHistoryScreen() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function OrderHistoryScreen() {
 
   return (
     <div>
-      <h1 className="p-1">Order History</h1>
+      <Header p1 label="Order History" />
       <LoadingOrError xl statusOf={orderMineList} />
       <OrderTable orderList={orderMineList} />
     </div>
