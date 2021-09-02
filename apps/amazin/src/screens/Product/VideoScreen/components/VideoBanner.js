@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 
 import { VIDEO } from 'src/constants';
-import { LazyBackground } from 'src/utils/suspenseClient';
+import { LazyBackground } from 'src/apis/suspenseAPI';
 import UTube from './UTube';
 import ButtonBuy from './ButtonBuy';
 import ButtonSell from './ButtonSell';

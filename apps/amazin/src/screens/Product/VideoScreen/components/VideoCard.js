@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { NO_IMAGE } from 'src/constants';
 import { getImgUrl } from 'src/utils';
-import { LazyImg } from 'src/utils/suspenseClient';
+import { LazyImg } from 'src/apis/suspenseAPI';
 import ButtonBuy from './ButtonBuy';
 import ButtonTrailer from './ButtonTrailer';
 import Rating from 'src/components/Rating';

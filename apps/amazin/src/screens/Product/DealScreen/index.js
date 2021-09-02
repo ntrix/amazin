@@ -1,10 +1,10 @@
-import { lazy, memo, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import './dealScreen.css';
 import { listProducts } from 'src/apis/productAPI';
-import { loadingFallback } from 'src/components/Fallbacks';
+import { SuspenseLoad } from 'src/components/CustomSuspense';
 import { dummyMovies } from 'src/utils';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { useShadow } from 'src/hooks/useShadow';
@@ -84,9 +84,7 @@ function DealScreen() {
           itemClass="carousel-item-padding-40-px"
         >
           {(list?.products || dummyMovies).map((product, id) => (
-            <Suspense fallback={loadingFallback} key={id}>
-              <ProductCard hasDeal product={product} />
-            </Suspense>
+            <SuspenseLoad key={id} children={<ProductCard hasDeal product={product} />} />
           ))}
         </Carousel>
 
@@ -100,9 +98,7 @@ function DealScreen() {
 
           <div className="row center">
             {list?.products?.map((product, id) => (
-              <Suspense key={id} fallback={loadingFallback}>
-                <ProductCard hasDeal product={product} />
-              </Suspense>
+              <SuspenseLoad key={id} children={<ProductCard hasDeal product={product} />} />
             ))}
           </div>
         </div>

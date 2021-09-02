@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { LazyImg } from 'src/utils/suspenseClient';
+import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl, pipe, savePath } from 'src/utils';
 import { DUMMYSELLERS, NO_IMAGE } from 'src/constants';
 import Rating from 'src/components/Rating';

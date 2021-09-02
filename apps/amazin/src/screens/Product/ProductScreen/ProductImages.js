@@ -1,16 +1,16 @@
-import { memo, Suspense, useState } from 'react';
+import { memo, useState } from 'react';
 
-import { loadingFallback } from 'src/components/Fallbacks';
-import { LazyImg } from 'src/utils/suspenseClient';
+import { SuspenseLoad } from 'src/components/CustomSuspense';
+import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl } from 'src/utils';
 
-function ProductScreen({ product }) {
+function ProductImages({ product }) {
   const [activeImg, setActiveImg] = useState(0);
   return (
     <div className="col-2 flex mr-1">
       <div className="tab__w6 flex-col">
         {product?.image?.split('^').map((img, id) => (
-          <Suspense fallback={loadingFallback} key={id}>
+          <SuspenseLoad key={id}>
             <LazyImg
               alt={`${product.name} small ${id}`}
               src={getImgUrl(product._id, img)}
@@ -18,21 +18,21 @@ function ProductScreen({ product }) {
               onClick={() => setActiveImg(id)}
               className={`product__thumbnail ${id === activeImg ? 'active' : ''}`}
             />
-          </Suspense>
+          </SuspenseLoad>
         ))}
       </div>
 
       <div className="tab__rest">
-        <Suspense fallback={loadingFallback}>
+        <SuspenseLoad>
           <LazyImg
             className="large"
             src={getImgUrl(product._id, product?.image?.split('^')[activeImg])}
             alt={`${product.name} ${activeImg}`}
           />
-        </Suspense>
+        </SuspenseLoad>
       </div>
     </div>
   );
 }
 
-export default memo(ProductScreen);
+export default memo(ProductImages);

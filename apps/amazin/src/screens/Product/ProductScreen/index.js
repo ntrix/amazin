@@ -1,11 +1,11 @@
-import { lazy, memo, Suspense, useEffect } from 'react';
+import { lazy, memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { detailsProduct } from 'src/apis/productAPI';
 import { KEY } from 'src/constants';
 import { Storage } from 'src/utils';
-import { loadingFallback } from 'src/components/Fallbacks';
+import { SuspenseLoad } from 'src/components/CustomSuspense';
 import SellerCard from '../SellerScreen/SellerCard';
 import ProductDescription from './ProductDescription';
 import ProductReview from './ProductReview';
@@ -37,9 +37,7 @@ function ProductScreen({ match }) {
             </div>
           </div>
           <div className="row top mt-1 p-1">
-            <Suspense fallback={loadingFallback}>
-              <ProductImages product={product} />
-            </Suspense>
+            <SuspenseLoad children={<ProductImages product={product} />} />
 
             <ProductDescription product={product} />
             <div className="col-1">
