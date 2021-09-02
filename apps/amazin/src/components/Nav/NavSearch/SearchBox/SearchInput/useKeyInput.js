@@ -15,9 +15,12 @@ export function useKeyInput(setInput, setSuggests, submitHandler) {
       setSuggestBox(false);
       return setShadowOf('');
     }
+
     if (key === 'Enter') return submitHandler();
+
     setSuggestBox(true);
-    const newSuggests = findSuggest.search(productList, value);
+    const newSuggests = findSuggest(productList, value);
+
     if (SHADOW.NAV_SEARCH !== shadowOf && newSuggests.length) {
       setShadowOf(SHADOW.NAV_SEARCH);
       setOutline(true);
