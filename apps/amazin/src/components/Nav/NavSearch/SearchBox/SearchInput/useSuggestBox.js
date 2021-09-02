@@ -15,14 +15,17 @@ export function useSuggestBox(setSuggests) {
   const showSuggestBox = useCallback((input) => {
     setScopeOutline(0);
     if (!input) return;
-    const newSuggests = findSuggest.search(productList, input);
+
+    const newSuggests = findSuggest(productList, input);
     if (!newSuggests.length) return;
+
     setSuggests(newSuggests);
     setShadowOf(SHADOW.NAV_SEARCH);
     setSuggestBox(true); // eslint-disable-next-line
   }, []);
 
   const hideSuggestBox = useCallback(() => setSuggestBox(false), [setSuggestBox]);
+
   const doThenHideSuggestBox = useCallback(() => {
     setOutline(false); // Wait to execute any click on Suggest Box, closes on callback
     return suggestBox ? hideSuggestBox() : null; // eslint-disable-next-line
