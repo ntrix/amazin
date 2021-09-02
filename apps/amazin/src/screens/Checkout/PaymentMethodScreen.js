@@ -15,8 +15,7 @@ export default function PaymentMethodScreen({ history }) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
-    if (cartItems.length) history.push('/place-order');
-    else history.push('/cart');
+    history.push(cartItems.length ? '/place-order' : '/cart');
   };
 
   return (
