@@ -637,7 +637,7 @@ table th {
 .home-screen__title {
   position: relative;
   top: 9rem;
-  left: -24rem;
+  left: 24rem;
   margin: 0 auto;
   font-size: 26px;
   font-weight: 600;
