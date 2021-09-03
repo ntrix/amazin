@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { useContact } from './useContact';
-import { useSubmitContact } from './useSubmitContact';
+import { useContact, useSubmitContact } from './useContact';
 import Button from 'src/components/Button';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
