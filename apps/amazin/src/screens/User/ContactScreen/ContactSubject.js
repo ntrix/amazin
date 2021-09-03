@@ -1,20 +1,8 @@
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
-import LoadingOrError from 'src/components/LoadingOrError';
 
-const subjectTemplate = [
-  'Account',
-  'Ads - Advertisement',
-  'Customer Service',
-  'FAQ',
-  'Help Desk',
-  'Orders - Your Order(s)',
-  'Payment',
-  'Report Something Suspicious',
-  'Returns & Refund',
-  'Shipping Address',
-  'Others ..'
-];
+import { subjectTemplate } from './SubjectTemplate';
+import LoadingOrError from 'src/components/LoadingOrError';
 
 export default function ContactSubject({ hook: [subject, setSubject] }) {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
@@ -31,8 +19,8 @@ export default function ContactSubject({ hook: [subject, setSubject] }) {
           <select value={subject} onChange={(e) => setSubject(e.target.value)}>
             {!userInfo?.isSeller && 'Seller' === paramSub && <option value="Seller">Verify My Seller Account</option>}
             {!userInfo?.isAdmin && 'Admin' === paramSub && <option value="Admin">Apply To Be Administrator</option>}
-            {subjectTemplate.map((opt) => (
-              <option value={opt.split(' ')[0]}>{opt}</option>
+            {subjectTemplate.map((opt, id) => (
+              <option key={id} value={opt.split(' ')[0]} children={opt} />
             ))}
           </select>
         </div>
