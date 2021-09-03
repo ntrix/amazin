@@ -41,6 +41,9 @@ body {
 .active {
   font-weight: 600;
 }
+[disabled],
+[disabled] *,
+[disabled]:hover,
 .disabled,
 .disabled *,
 .disabled:hover {
@@ -317,8 +320,8 @@ button.primary {
   background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
   color: #111;
 }
-.btn.primary:not(.disabled):hover,
-button.primary:not(.disabled):hover {
+.btn.primary:not(.disabled, [disabled]):hover,
+button.primary:not(.disabled, [disabled]):hover {
   background: #f0c14b;
   background: -webkit-linear-gradient(top, #f7dfa5, #f3a847);
   background: linear-gradient(to bottom, #f7dfa5, #f3a847);
@@ -472,7 +475,7 @@ img.large {
   z-index: 1;
   text-align: center;
 }
-.pagination > *:not(.disabled):hover {
+.pagination > *:not(.disabled, [disabled]):hover {
   font-weight: 700;
   color: #000;
   background: #e3e6e6;
