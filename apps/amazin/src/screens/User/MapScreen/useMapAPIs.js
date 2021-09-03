@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import axiosClient from 'src/apis/axiosClient';
+import { useSafeState } from 'src/hooks/useSafeState';
 import { userAddressMapActions } from 'src/slice/UserSlice';
 import { KEY } from 'src/constants';
 import { Storage } from 'src/utils';
 
 /* TODO extract to common/shared hooks only for getting Api Key */
 export function useMapApiKey(getUserCurrentLocation, setError) {
-  const [googleApiKey, setGoogleApiKey] = useState('');
+  const [googleApiKey, setGoogleApiKey] = useSafeState('');
 
   useEffect(() => {
     try {
@@ -21,7 +22,7 @@ export function useMapApiKey(getUserCurrentLocation, setError) {
       /* TODO errors report to server, websocket */
       setError(err);
     }
-  }, [setError, getUserCurrentLocation]);
+  }, [setError, getUserCurrentLocation, setGoogleApiKey]);
 
   return { googleApiKey };
 }
@@ -54,11 +55,9 @@ export function useMapLocator(placeRef, setCenter, setLocation, setError) {
 
 export function useMap(setLocation) {
   const markerRef = useRef(null);
-
   const onMarkerLoad = (marker) => (markerRef.current = marker);
 
   const mapRef = useRef(null);
-
   const onLoad = (map) => (mapRef.current = map);
 
   const onIdle = () => {
@@ -74,7 +73,6 @@ export function useMapSubmit(history, setInfo, setError) {
 
   const onConfirm = (placeRef, { lat, lng }) => {
     const places = placeRef.current.getPlaces();
-
     if (places?.length !== 1) return setError('Please enter your address');
 
     const { formatted_address: address, name, vicinity, id: googleAddressId } = places[0];
