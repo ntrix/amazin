@@ -15,10 +15,9 @@ export function useKeyInput(setInput, setSuggests, submitSearch) {
       case 'Enter':
         return submitSearch();
       case 'Escape':
-        if (value.length === 0) {
-          setSuggestBox(false);
-          return setShadowOf('');
-        } else return null;
+        if (value.length !== 0) return null;
+        setSuggestBox(false);
+        return setShadowOf('');
       default: {
         setSuggestBox(true);
         const newSuggests = findSuggest(productList, value);
@@ -28,8 +27,7 @@ export function useKeyInput(setInput, setSuggests, submitSearch) {
           setOutline(true);
         }
         setSuggests(newSuggests);
-        setInput(value);
-        return null;
+        return setInput(value);
       }
     }
   };
