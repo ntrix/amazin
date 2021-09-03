@@ -564,11 +564,15 @@
 
 /* CART */
 .nav__cart .cart__counter {
-  margin: 0 0 6px 6px;
-  font-weight: 600;
+  margin: 0 0 7px 6px;
+  font-weight: 700;
   font-size: 18px;
   color: #f80;
   text-align: center;
+}
+.nav__cart .cart__counter.--js-3digits {
+  margin: -3px 0 10px 6px;
+  font-size: 14px;
 }
 .nav__cart {
   padding: 7px;
