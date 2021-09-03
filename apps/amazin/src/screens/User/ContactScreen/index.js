@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { useContact } from './useContact';
-import { useSubmitContact } from './useSubmitContact';
+import { useContact, useSubmitContact } from './useContact';
 import Button from 'src/components/Button';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
@@ -17,8 +16,8 @@ export default function ContactScreen() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(false);
   const [error, setError] = useState([]);
-  useContact(setName, setEmail, setSubject, setMessage);
-  const { submitContact } = useSubmitContact(setLoading, setMessage, setError);
+  const userId = useContact(setName, setEmail, setSubject, setMessage);
+  const { submitContact } = useSubmitContact(userId, setLoading, setMessage, setError);
 
   return (
     <form className="form" onSubmit={(e) => submitContact(e, { name, email, subject, text })}>
