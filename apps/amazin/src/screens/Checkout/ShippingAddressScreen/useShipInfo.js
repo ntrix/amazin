@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
+import { useSafeState } from 'src/hooks/useSafeState';
 import { saveShippingAddress } from 'src/apis/cartAPI';
 import { Storage } from 'src/utils';
 import { KEY } from 'src/constants';
@@ -13,7 +14,7 @@ export function useShipInfo(history) {
 
   const { address: mapAddress } = useSelector((state) => state.userAddressMap);
   const { shippingAddress } = useSelector((state) => state.cart);
-  const [shipInfo, setShipInfo] = useState(shippingAddress);
+  const [shipInfo, setShipInfo] = useSafeState(shippingAddress);
 
   const location = useLocation();
   const locateOnMap = () => {
@@ -24,7 +25,7 @@ export function useShipInfo(history) {
 
   useEffect(() => {
     setShipInfo(shippingAddress);
-  }, [shippingAddress]);
+  }, [shippingAddress, setShipInfo]);
 
   const submitShipInfo = (e) => {
     e.preventDefault();
