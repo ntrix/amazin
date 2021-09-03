@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-google-maps/api';
 
 import { LOCATION } from 'src/constants';
@@ -6,13 +6,14 @@ import { useMapApiKey, useMap, useMapLocator, useMapSubmit } from './useMapAPIs'
 import MapSearchBox from './MapSearchBox';
 import MessageBox from 'src/components/MessageBox';
 import LoadingBox from 'src/components/LoadingBox';
+import { useSafeState } from 'src/hooks/useSafeState';
 const libs = ['places'];
 
 export default function MapScreen({ history }) {
-  const [center, setCenter] = useState(LOCATION);
-  const [location, setLocation] = useState(center);
-  const [error, setError] = useState('');
-  const [info, setInfo] = useState('');
+  const [center, setCenter] = useSafeState(LOCATION);
+  const [location, setLocation] = useSafeState(center);
+  const [error, setError] = useSafeState('');
+  const [info, setInfo] = useSafeState('');
   const placeRef = useRef(null);
 
   const mapAPI = useMapLocator(placeRef, setCenter, setLocation, setError);
