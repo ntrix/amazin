@@ -1,26 +1,28 @@
 import { createSlice } from './ReduxToolKitClient';
 
+/* also check in backend */
+const checkStock = ({ qty, countInStock }, exItem) => ({
+  error: qty + exItem.qty > countInStock ? `There are only ${countInStock} products in stock` : '',
+  qty: Math.min(qty + exItem.qty, countInStock)
+});
+
+const cartUpdate = (cart, item, exItem) => cart.map((ex) => (ex.product === exItem.product ? item : ex));
+
 export const { actions: cartActions, reducer: cartReducer } = createSlice({
   name: 'cart',
   initialState: { cartItems: [] },
   reducers: {
     _ADD_ITEM(state, action) {
-      const item = action.payload;
-      const existItem = state.cartItems.find((x) => x.product === item.product);
-      if (existItem) {
-        const error =
-          item.qty + existItem.qty > item.countInStock
-            ? `There are only ${item.countInStock} products left in stock`
-            : '';
-        item.qty = Math.min(item.qty + existItem.qty, item.countInStock);
-        return {
-          ...state,
-          error,
-          cartItems: state.cartItems.map((x) => (x.product === existItem.product ? item : x))
-        };
-      } else {
-        return { ...state, error: '', cartItems: [...state.cartItems, item] };
-      }
+      const newItem = action.payload;
+      const { cartItems: cart } = state;
+      const exItem = cart.find((x) => x.product === newItem.product);
+      // updates cart if new item added
+      if (!exItem) return { ...state, error: '', cartItems: [...cart, newItem] };
+
+      const { error, qty } = checkStock(newItem, exItem);
+      // or just updates quantity if item is already exist in cart
+      newItem.qty = qty;
+      return { ...state, error, cartItems: cartUpdate(cart, newItem, exItem) };
     },
     _REMOVE_ITEM: (state, action) => ({
       ...state,
