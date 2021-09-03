@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { useContact } from './useContact';
-import { useSubmitContact } from './useSubmitContact';
+import { useContact, useSubmitContact } from './useContact';
 import Button from 'src/components/Button';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
@@ -14,19 +13,17 @@ export default function ContactScreen() {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [text, setText] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(false);
-  const [error, setError] = useState([]);
-  useContact(setName, setEmail, setSubject, setMessage);
-  const { submitContact } = useSubmitContact(setLoading, setMessage, setError);
+  const [status, setStatus] = useState({});
+  useContact(setName, setEmail, setSubject, setStatus);
+  const { submitContact } = useSubmitContact(setStatus);
 
   return (
     <form className="form" onSubmit={(e) => submitContact(e, { name, email, subject, text })}>
       <Header label="Contact Us" />
-      <LoadingOrError xl statusOf={{ loading, error }} />
+      <LoadingOrError xl statusOf={status} />
 
-      <SuccessModal msg={message} label="Back To Home Page" />
-      {!message && (
+      <SuccessModal msg={status.message} label="Back To Home Page" />
+      {!status.message && (
         <>
           <CustomInput text="Your Name" hook={[name, setName]} />
           <CustomInput text="Email" type="email" hook={[email, setEmail]} />
