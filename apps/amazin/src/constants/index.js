@@ -23,7 +23,7 @@ export const KEY = {
   HISTORY: 'history'
 };
 
-export const SHOW_ERROR_TIMEOUT = 9000;
+export const SHOW_ERROR_TIMEOUT = 15000;
 
 /* Location HTW */
 export const LOCATION = {
