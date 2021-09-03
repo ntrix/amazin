@@ -2,26 +2,34 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 function Button({
-  wrapClass = '',
-  to = '',
   label = '',
   primary = false,
-  xs = false,
   fill = false,
+  xs = false,
   className = '',
-  ariaLabel = label || wrapClass || className,
+  ariaLabel = label || className,
   children,
   ...props
 }) {
-  className = `${primary ? 'primary ' : ''}${xs ? 'btn--xs ' : ''}${fill ? 'col-fill ' : ''}mt-1 mb-1 ${className}`;
+  const classNames = [
+    primary ? 'primary ' : '',
+    fill ? 'col-fill ' : '',
+    xs ? 'btn--xs ' : '',
+    className,
+    ' mt-1 mb-1'
+  ].join('');
 
-  const innerButton = (_props) => (
-    <button className={className} aria-label={ariaLabel} {..._props} children={label || children} />
-  );
-
-  if (to) return <Link to={to} {...props} children={innerButton()} />;
-
-  return !wrapClass ? innerButton(props) : <div className={wrapClass}>{innerButton(props)}</div>;
+  return <button className={classNames} aria-label={ariaLabel} {...props} children={label || children} />;
 }
 
-export default memo(Button);
+function OuterButton({ wrapClass = '', to = '', ...props }) {
+  if (to) return <Link to={to} {...props} children={<Button {...props} />} />;
+  if (!wrapClass) return <Button {...props} />;
+  return (
+    <div className={wrapClass}>
+      <Button {...props} />
+    </div>
+  );
+}
+
+export default memo(OuterButton);
