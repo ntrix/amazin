@@ -1,8 +1,53 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useParams } from 'react-router';
+import { axios } from 'src/apis/axiosClient';
+import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
+
+const MAIL_SERVER = process.env.REACT_APP_CONTACT_MAIL_SERVER;
+const HEADERS = { mode: 'cors', headers: { 'Content-Type': 'application/json' } };
+
+const checkError = ({ text, email, name }) => {
+  const errors = [];
+  const validate = (err, msg) => (err ? errors.push(msg) : null);
+
+  validate(!text, 'Please enter your message!');
+  validate(!email, 'Please enter your email!');
+  validate(!name, 'Please enter your name!');
+  return errors;
+};
+
+export function useSubmitContact(setLoading, setMessage, setError) {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+
+  const submitContact = async (e, data = {}) => {
+    e.preventDefault();
+
+    const errors = checkError(data);
+    setError(errors);
+    if (errors.length) return;
+    if ('Seller' === data.subject) {
+      dispatch(updateUserProfile({ userId: userInfo._id, verify: true }));
+      return;
+    }
+
+    setLoading(true);
+    dispatch(userUpdateProfileActions._RESET());
+    try {
+      setMessage('Thank you! Your message is being sent.');
+      await axios.post(MAIL_SERVER, data, { headers: { ...HEADERS, body: JSON.stringify(data) } });
+      setMessage('Your message has been sent successfully.');
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      setError([err.message]);
+    }
+  };
+
+  return { submitContact };
+}
 
 export function useContact(setName, setEmail, setSubject, setMessage) {
   const dispatch = useDispatch();
