@@ -6,6 +6,7 @@ import MessageBox from './MessageBox';
 
 function InnerBox({ statusOf, errorMsg = '', xl = false, variant, children, ...rest }) {
   const { loading = false, error = false } = statusOf;
+
   if (loading) return <LoadingBox xl={xl} />;
   if (error) return <MessageBox msg={errorMsg || error} variant={variant ?? 'danger'} />;
   return children ? cloneElement(children, Object.assign(children.props, rest)) : null;
