@@ -4,17 +4,16 @@ function CustomInput({
   text,
   type = 'text',
   placeholder = `Enter ${text}`,
-  hook = [],
+  hook: [state, setState] = [],
   textarea = false,
   label = text,
   wrapClass = '',
   ...rest
 }) {
   const id = text.split(' ').join('-').toLowerCase(); // create #id for .css
-  const [state = rest.value, setState] = hook;
   const onChange = setState ? (e) => setState(e.target.value) : undefined;
   const value = type === 'button' || type === 'submit' ? text : state;
-  const props = { id, text, type, placeholder, ...rest, value, onChange };
+  const props = { id, text, type, placeholder, value, onChange, ...rest };
 
   return (
     <div className={wrapClass}>
