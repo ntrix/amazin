@@ -23,7 +23,7 @@ function Button({
 }
 
 function OuterButton({ wrapClass = '', to = '', ...props }) {
-  if (to) return <Link to={to} {...props} children={<Button {...props} />} />;
+  if (to) return <Link to={to} children={<Button {...props} />} />;
   if (!wrapClass) return <Button {...props} />;
   return (
     <div className={wrapClass}>
