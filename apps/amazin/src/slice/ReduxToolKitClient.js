@@ -21,3 +21,5 @@ export const Reducer = (stateKeyName) => ({
   }),
   _RESET: () => ({})
 });
+
+export const adapter = (name, initialState, reducers) => ({ name, initialState, reducers });
