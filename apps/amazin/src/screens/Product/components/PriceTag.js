@@ -1,13 +1,10 @@
 import { pipe } from 'src/utils';
+import PriceNow from './PriceNow';
 
 export default function PriceTag({ price, deal }) {
   return (
     <div>
-      <span className={`price ${deal ? 'danger' : ''}`}>
-        <sup>{pipe.getSymbol()}</sup>
-        {pipe.getNote(price)}
-        <sup>{pipe.getCent(price)}</sup>
-      </span>
+      <PriceNow price={price} deal={deal} />
       {deal > 0 && (
         <span className="pull-right">
           <b className="price strike">
