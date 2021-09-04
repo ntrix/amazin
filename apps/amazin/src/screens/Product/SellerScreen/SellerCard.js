@@ -5,7 +5,14 @@ import { SuspenseSeller } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import Rating from 'src/components/Rating';
 /* don't show user {email} */
-function SellerCard({ user: { seller = {} }, size = 'small', to = '', rating = true, mail = false, info = false }) {
+function SellerCard({
+  user: { seller = {} },
+  size = 'small mr-1',
+  to = '',
+  rating = true,
+  mail = false,
+  info = false
+}) {
   return (
     <div className="card card__body m-0">
       <div className="row start p-1">
