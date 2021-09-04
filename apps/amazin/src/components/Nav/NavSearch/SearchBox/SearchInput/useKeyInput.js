@@ -13,12 +13,14 @@ export function useKeyInput(setInput, setSuggests, submitSearch) {
   const handleKeyInput = ({ target: { value }, key }) => {
     switch (key) {
       case 'Enter':
-        return submitSearch();
+        submitSearch();
+        break;
       case 'Escape':
-        if (value.length !== 0) return null;
+        if (value.length !== 0) break;
         setSuggestBox(false);
-        return setShadowOf('');
-      default: {
+        setShadowOf('');
+        break;
+      default:
         setSuggestBox(true);
         const newSuggests = findSuggest(productList, value);
 
@@ -27,8 +29,7 @@ export function useKeyInput(setInput, setSuggests, submitSearch) {
           setOutline(true);
         }
         setSuggests(newSuggests);
-        return setInput(value);
-      }
+        setInput(value);
     }
   };
 
