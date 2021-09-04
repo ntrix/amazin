@@ -5,6 +5,7 @@ import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl, pipe, savePath } from 'src/utils';
 import { DUMMYSELLERS, NO_IMAGE } from 'src/constants';
 import Rating from 'src/components/Rating';
+import PriceTag from './PriceTag';
 
 function ProductCard({
   hasDeal = false,
@@ -28,23 +29,7 @@ function ProductCard({
           <Rating rating={rating} numReviews={numReviews}></Rating>
 
           <div>
-            <div>
-              <span className={`price ${hasDeal ? 'danger' : ''}`}>
-                <sup>{pipe.getSymbol()}</sup>
-                {pipe.getNote(price)}
-                <sup>{pipe.getCent(price)}</sup>
-              </span>
-
-              {!!hasDeal && (
-                <span className="pull-right">
-                  <b className="price strike">
-                    <sup>{pipe.getSymbol()}</sup>
-                    {pipe.getPrice(price / (1 - deal / 100))}
-                  </b>
-                  {`  (${deal}% off`}
-                </span>
-              )}
-            </div>
+            <PriceTag price={price} deal={hasDeal} />
 
             {hasDeal ? (
               <div>
