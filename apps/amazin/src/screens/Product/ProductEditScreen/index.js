@@ -7,6 +7,7 @@ import ImageSection from './ImageSection';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Header from 'src/layouts/Header';
+import Button from 'src/components/Button';
 
 export default function ProductEditScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -53,30 +54,14 @@ export default function ProductEditScreen({ history, match }) {
   const submitHandler = (e) => {
     e.preventDefault();
     // TODO: dispatch update product
-    dispatch(
-      updateProduct({
-        name,
-        price,
-        deal,
-        ship,
-        video,
-        category,
-        brand,
-        countInStock,
-        description,
-        _id: productId,
-        image: images.join('^')
-      })
-    );
+    const _id = productId;
+    const image = images.join('^');
+    dispatch(updateProduct({ name, price, deal, ship, video, category, brand, countInStock, description, _id, image }));
   };
 
   return (
     <div className="product-edit">
-      <form
-        className="form"
-        onSubmit={submitHandler}
-        // encType="multipart/form-data"
-      >
+      <form className="form" onSubmit={submitHandler}>
         <Header>Edit Product ${productId}</Header>
         <LoadingOrError xl statusOf={productDetails} />
         {productDetails?.success && (
@@ -94,13 +79,8 @@ export default function ProductEditScreen({ history, match }) {
             <CustomInput text="Brand" hook={[brand, setBrand]} />
             <CustomInput text="Count In Stock" hook={[countInStock, setCountInStock]} />
             <CustomInput text="Description" textarea rows="3" hook={[description, setDescription]} />
-            <br />
 
-            <div>
-              <button className="primary" type="submit">
-                Update
-              </button>
-            </div>
+            <Button primary fill type="submit" className="mt-2" label="Update" />
           </>
         )}
       </form>
