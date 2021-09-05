@@ -35,14 +35,10 @@ export function useAsyncUpload(setImages) {
   return { uploadState, asyncUploadImgs };
 }
 
-export function useImageHandlers(images, setImages, asyncUploadImgs) {
-  const { product } = useSelector((state) => state.productDetails);
-
-  const addImgs = (e) => {
+export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
+  const addImgs = ({ target: { files } }) => {
     const bodyFormData = new FormData();
-    const { files } = e.target;
-    const uploadImgsCount = files.length;
-    const maxFiles = Math.min(uploadImgsCount, MAX_IMAGES - images.length);
+    const maxFiles = Math.min(files.length, MAX_IMAGES - images.length);
 
     for (let i = 0; i < maxFiles; i++) bodyFormData.append('images', files[i]);
     bodyFormData.append('productId', product._id);
