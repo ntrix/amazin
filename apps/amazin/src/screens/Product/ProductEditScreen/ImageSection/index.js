@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { MAX_IMAGES } from 'src/constants';
-import { useUploadImages, useAsyncUpload, useImageHandlers } from './useImageHandlers';
+import { useUploadImages, useAsyncUpload, useImageHandlers, useImageDelete } from './useImageHandlers';
 import ImageRow from '../ImageRow';
 import NewImageInput from './NewImageInput';
 import LoadingOrError from 'src/components/LoadingOrError';
@@ -12,6 +12,7 @@ export default function ImageSection({ product, images, setImages }) {
   const { uploadState, asyncUploadImgs } = useAsyncUpload(setImages);
   const { addImgs, addImgOnEnter } = useUploadImages(product, images, setImages, asyncUploadImgs);
   const imageHandlers = { ...useImageHandlers(product, images, setImages, asyncUploadImgs), uploadState };
+  const { deleteImg } = useImageDelete(product, images, asyncUploadImgs);
 
   return (
     <>
@@ -21,7 +22,14 @@ export default function ImageSection({ product, images, setImages }) {
         </label>
 
         {images.map((img, id) => (
-          <ImageRow key={id} id={id} img={img} setPreview={setPreview} imageHandlers={imageHandlers} />
+          <ImageRow
+            key={id}
+            id={id}
+            img={img}
+            setPreview={setPreview}
+            imageHandlers={imageHandlers}
+            deleteImg={deleteImg}
+          />
         ))}
       </div>
 

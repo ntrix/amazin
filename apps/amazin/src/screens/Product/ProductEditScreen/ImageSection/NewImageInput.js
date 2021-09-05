@@ -7,7 +7,7 @@ export default function NewImageInput({ hook, addImgs, addImgOnEnter }) {
       Add
       <CustomInput text="New Images" name="images" type="file" multiple onChange={addImgs} />
       Or
-      <CustomInput text="Image Link" hook={hook} onKeyUp={addImgOnEnter(preview)} />
+      <CustomInput text="Image Link" onKeyUp={addImgOnEnter(preview)} hook={hook} />
     </div>
   );
 }
