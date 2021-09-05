@@ -8,8 +8,8 @@ export default function Table({ header, keys, data, deleteHandler, to }) {
       header={header.map((h) => h.toUpperCase())}
       body={data.map((row) => (
         <tr key={row._id}>
-          {keys.map((col) => (
-            <CheckCell children={row[col]} />
+          {keys.map((col, id) => (
+            <CheckCell key={`${row._id} ${id}`} children={row[col]} />
           ))}
 
           <td>
