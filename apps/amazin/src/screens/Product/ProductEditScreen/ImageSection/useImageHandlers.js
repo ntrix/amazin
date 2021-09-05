@@ -35,8 +35,10 @@ export function useAsyncUpload(setImages) {
   return { uploadState, asyncUploadImgs };
 }
 
-export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
-  const addImgs = ({ target: { files } }) => {
+export function useUploadImages(product, images, setImages, asyncUploadImgs) {
+  const addImgs = (e) => {
+    console.log('addd');
+    const { files } = e.target;
     const bodyFormData = new FormData();
     const maxFiles = Math.min(files.length, MAX_IMAGES - images.length);
 
@@ -45,7 +47,15 @@ export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
     asyncUploadImgs(images, bodyFormData, `${maxFiles} Images successfully uploaded!`, 'post');
   };
 
+  const addImgOnEnter = (preview) => (e) => e.key === 'Enter' ? setImages([...images, preview]) : null;
+
+  return { addImgs, addImgOnEnter };
+}
+
+export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
   const deleteImg = (idx) => (e) => {
+    console.log('del');
+
     e.preventDefault();
     if (!window.confirm('Do you really want to delete this image?')) return;
     /* TODO: delete image on cloudinary and update immediately to DB */
@@ -64,9 +74,7 @@ export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
     if (id > 0) setImages([...images.slice(0, id - 1), images[id], images[id - 1], ...images.slice(id + 1)]);
   };
 
-  const addImgOnEnter = (imagePreview) => (e) => e.key === 'Enter' ? setImages([...images, imagePreview]) : null;
-
   const getImgLink = (img) => getImgUrl(product._id, img);
 
-  return { addImgs, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getImgLink };
+  return { updateImgLink, moveUpImg, deleteImg, getImgLink };
 }

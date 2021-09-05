@@ -5,7 +5,7 @@ export default function ImageRow({ id, img, setPreview, imageHandlers }) {
   const label = `Image ${id + 1}. ${['COVER', '[DEAL]'][id] || ''}`;
 
   return (
-    <div className="row img-row" key={id}>
+    <div className="row img-row">
       <img alt={`Preview ${id + 1}`} className="small" src={getImgLink(img)} onMouseEnter={() => setPreview(img)} />
       <CustomInput text={label} wrapClass="img-row__input" className="row" value={img} onChange={updateImgLink(id)} />
       <button onClick={deleteImg(id)} disabled={uploadState.loading}>

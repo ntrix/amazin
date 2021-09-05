@@ -1,13 +1,16 @@
 import { useState } from 'react';
 
 import { MAX_IMAGES } from 'src/constants';
-import { useAsyncUpload, useImageHandlers } from './useImageHandlers';
+import { useUploadImages, useAsyncUpload, useImageHandlers } from './useImageHandlers';
 import ImageRow from '../ImageRow';
 import NewImageInput from './NewImageInput';
+import LoadingOrError from 'src/components/LoadingOrError';
+import MessageBox from 'src/components/MessageBox';
 
 export default function ImageSection({ product, images, setImages }) {
   const [preview, setPreview] = useState('');
   const { uploadState, asyncUploadImgs } = useAsyncUpload(setImages);
+  const { addImgs, addImgOnEnter } = useUploadImages(product, images, setImages, asyncUploadImgs);
   const imageHandlers = { ...useImageHandlers(product, images, setImages, asyncUploadImgs), uploadState };
 
   return (
@@ -18,15 +21,19 @@ export default function ImageSection({ product, images, setImages }) {
         </label>
 
         {images.map((img, id) => (
-          <ImageRow id={id} img={img} setPreview={setPreview} imageHandlers={imageHandlers} />
+          <ImageRow key={id} id={id} img={img} setPreview={setPreview} imageHandlers={imageHandlers} />
         ))}
       </div>
 
       <div className="row center">
         <img alt="Preview" className="mt-1 medium" src={imageHandlers.getImgLink(preview)} />
+        <LoadingOrError statusOf={uploadState} />
+        <MessageBox variant="info" msg={uploadState.msg} />
       </div>
 
-      {images.length < MAX_IMAGES && <NewImageInput hook={[preview, setPreview]} imageHandlers={imageHandlers} />}
+      {images.length < MAX_IMAGES && (
+        <NewImageInput hook={[preview, setPreview]} addImgs={addImgs} addImgOnEnter={addImgOnEnter} />
+      )}
     </>
   );
 }
