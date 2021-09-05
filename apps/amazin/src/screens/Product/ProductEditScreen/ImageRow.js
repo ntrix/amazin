@@ -1,7 +1,7 @@
 import CustomInput from 'src/components/CustomInput';
 
-export default function ImageRow({ id, img, setPreview, imageHandlers }) {
-  const { uploadState, getImgLink, updateImgLink, deleteImg, moveUpImg } = imageHandlers;
+export default function ImageRow({ id, img, setPreview, imgHandlers }) {
+  const { uploadState, getImgLink, updateImgLink, deleteImg, moveUpImg } = imgHandlers;
   const label = `Image ${id + 1}. ${['COVER', '[DEAL]'][id] || ''}`;
 
   return (

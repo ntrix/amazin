@@ -35,7 +35,9 @@ export function useAsyncUpload(setImages) {
   return { uploadState, asyncUploadImgs };
 }
 
-export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
+export function useImgFileHandlers(product, images, setImages) {
+  const { uploadState, asyncUploadImgs } = useAsyncUpload(setImages);
+
   const addImgs = ({ target: { files } }) => {
     const bodyFormData = new FormData();
     const maxFiles = Math.min(files.length, MAX_IMAGES - images.length);
@@ -56,7 +58,10 @@ export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
     bodyFormData.append('image', newImages.join('^'));
     asyncUploadImgs(newImages, bodyFormData);
   };
+  return { uploadState, addImgs, deleteImg };
+}
 
+export function useImgLinkHandlers(product, images, setImages) {
   const updateImgLink = (id) => (e) => setImages(images.map((img, i) => (i === id ? e.target.value : img)));
 
   const moveUpImg = (id) => (e) => {
@@ -68,5 +73,5 @@ export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
 
   const getImgLink = (img) => getImgUrl(product._id, img);
 
-  return { addImgs, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getImgLink };
+  return { updateImgLink, moveUpImg, addImgOnEnter, getImgLink };
 }
