@@ -1,5 +1,5 @@
 export { createSlice } from '@reduxjs/toolkit';
-export const Reducer = (stateKeyName) => ({
+export const createReducers = (stateKeyName, overwriteReducers) => ({
   _REQUEST: () => ({ loading: true }),
   _SUCCESS: (state, action) => {
     // noname saved state?
@@ -19,7 +19,8 @@ export const Reducer = (stateKeyName) => ({
     loading: false,
     error: action.payload
   }),
-  _RESET: () => ({})
+  _RESET: () => ({}),
+  ...overwriteReducers
 });
 
 export const adapter = (name, initialState, reducers) => ({ name, initialState, reducers });

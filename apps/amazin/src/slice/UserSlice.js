@@ -1,36 +1,36 @@
-import { adapter, createSlice, Reducer } from './ReduxToolKitClient';
+import { adapter, createSlice, createReducers } from './ReduxToolKitClient';
 import { KEY } from '../constants';
 
 export const { actions: userRegisterActions, reducer: userRegisterReducer } = createSlice(
-  adapter('userRegister', {}, Reducer(KEY.USER_INFO))
+  adapter('userRegister', {}, createReducers(KEY.USER_INFO))
 );
 
 export const { actions: userSigninActions, reducer: userSigninReducer } = createSlice(
-  adapter('userSignin', {}, Reducer(KEY.USER_INFO))
+  adapter('userSignin', {}, createReducers(KEY.USER_INFO))
 );
 
 export const { actions: userDetailsActions, reducer: userDetailsReducer } = createSlice(
-  adapter('userDetails', { loading: true }, { ...Reducer('user'), _RESET: () => ({ loading: true }) })
+  adapter('userDetails', { loading: true }, { ...createReducers('user'), _RESET: () => ({ loading: true }) })
 );
 
 export const { actions: userUpdateProfileActions, reducer: userUpdateProfileReducer } = createSlice(
-  adapter('userUpdateProfile', {}, Reducer())
+  adapter('userUpdateProfile', {}, createReducers())
 );
 
 export const { actions: userUpdateActions, reducer: userUpdateReducer } = createSlice(
-  adapter('userUpdate', {}, Reducer())
+  adapter('userUpdate', {}, createReducers())
 );
 
 export const { actions: userListActions, reducer: userListReducer } = createSlice(
-  adapter('userList', { loading: true }, Reducer('users'))
+  adapter('userList', { loading: true }, createReducers('users'))
 );
 
 export const { actions: userDeleteActions, reducer: userDeleteReducer } = createSlice(
-  adapter('userDelete', {}, Reducer())
+  adapter('userDelete', {}, createReducers())
 );
 
 export const { actions: userTopSellerListActions, reducer: userTopSellerListReducer } = createSlice(
-  adapter('userTopSellerList', { loading: true }, Reducer('users'))
+  adapter('userTopSellerList', { loading: true }, createReducers('users'))
 );
 
 export const { actions: userAddressMapActions, reducer: userAddressMapReducer } = createSlice(
