@@ -9,10 +9,10 @@ export default function ImageRow({ id, img, setPreview, imageHandlers }) {
       <img alt={`Preview ${id + 1}`} className="small" src={getImgLink(img)} onMouseEnter={() => setPreview(img)} />
       <CustomInput text={label} wrapClass="img-row__input" className="row" value={img} onChange={updateImgLink(id)} />
       <button onClick={deleteImg(id)} disabled={uploadState.loading}>
-        <i className="fa danger fa-close"></i>
+        <i className="fa danger fa-close" />
       </button>
-      <button onClick={moveUpImg(id)} disabled={uploadState.loading}>
-        <i className="fa success tab__w3 fa-arrow-circle-up"></i>
+      <button disabled={uploadState.loading} onClick={moveUpImg(id)}>
+        <i className="tab__w3 success fa fa-arrow-circle-up" />
       </button>
     </div>
   );

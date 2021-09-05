@@ -5,10 +5,10 @@ import { useAsyncUpload, useImageHandlers } from './useImageHandlers';
 import ImageRow from '../ImageRow';
 import NewImageInput from './NewImageInput';
 
-export default function ImageSection({ images, setImages }) {
+export default function ImageSection({ product, images, setImages }) {
   const [preview, setPreview] = useState('');
   const { uploadState, asyncUploadImgs } = useAsyncUpload(setImages);
-  const imageHandlers = { ...useImageHandlers(images, setImages, asyncUploadImgs), uploadState };
+  const imageHandlers = { ...useImageHandlers(product, images, setImages, asyncUploadImgs), uploadState };
 
   return (
     <>
