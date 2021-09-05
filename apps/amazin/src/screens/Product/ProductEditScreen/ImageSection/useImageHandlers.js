@@ -16,13 +16,13 @@ export function useAsyncUpload(setImages) {
   const { userInfo } = useSelector((state) => state.userSignin);
   const [uploadState, setUploadState] = useState({ loading: false });
 
-  const asyncUploadImgs = async (images, bodyFormData, msg, method) => {
+  const asyncUploadImgs = async (images, bodyFormData, method) => {
     setUploadState({ loading: true });
     try {
       if (method === 'post') {
         const { data } = await axiosClient.post('/api/uploads', bodyFormData, config(userInfo));
         setImages([...images, ...data]);
-        setUploadState({ loading: false, msg });
+        setUploadState({ loading: false, msg: 'Images successfully uploaded!' });
         return;
       }
       await axiosClient.patch('/api/uploads', bodyFormData, config(userInfo));
@@ -35,18 +35,14 @@ export function useAsyncUpload(setImages) {
   return { uploadState, asyncUploadImgs };
 }
 
-export function useImageHandlers(images, setImages, asyncUploadImgs) {
-  const { product } = useSelector((state) => state.productDetails);
-
-  const addImgs = (e) => {
+export function useImageHandlers(product, images, setImages, asyncUploadImgs) {
+  const addImgs = ({ target: { files } }) => {
     const bodyFormData = new FormData();
-    const { files } = e.target;
-    const uploadImgsCount = files.length;
-    const maxFiles = Math.min(uploadImgsCount, MAX_IMAGES - images.length);
+    const maxFiles = Math.min(files.length, MAX_IMAGES - images.length);
 
     for (let i = 0; i < maxFiles; i++) bodyFormData.append('images', files[i]);
     bodyFormData.append('productId', product._id);
-    asyncUploadImgs(images, bodyFormData, `${maxFiles} Images successfully uploaded!`, 'post');
+    asyncUploadImgs(images, bodyFormData, 'post');
   };
 
   const deleteImg = (idx) => (e) => {
