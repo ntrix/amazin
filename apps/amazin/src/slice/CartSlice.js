@@ -6,7 +6,7 @@ const checkStock = ({ qty, countInStock }, exItem) => ({
   qty: Math.min(qty + exItem.qty, countInStock)
 });
 
-const cartUpdate = (cart, item, exItem) => cart.map((ex) => (ex.product === exItem.product ? item : ex));
+const updateItems = (cart, item, exItem) => cart.map((ex) => (ex.product === exItem.product ? item : ex));
 
 export const { actions: cartActions, reducer: cartReducer } = createSlice({
   name: 'cart',
@@ -22,7 +22,7 @@ export const { actions: cartActions, reducer: cartReducer } = createSlice({
       const { error, qty } = checkStock(newItem, exItem);
       // or just updates quantity if item is already exist in cart
       newItem.qty = qty;
-      return { ...state, error, cartItems: cartUpdate(cart, newItem, exItem) };
+      return { ...state, error, cartItems: updateItems(cart, newItem, exItem) };
     },
     _REMOVE_ITEM: (state, action) => ({
       ...state,
