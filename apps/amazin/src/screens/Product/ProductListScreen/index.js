@@ -7,8 +7,8 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import Table from './Table';
 import Header from 'src/layouts/Header';
 
-export default function ProductListScreen({ match, history }) {
-  const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList(match, history);
+export default function ProductListScreen({ history, match }) {
+  const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList(history, match);
   const { products, page, pages, loading, error } = useSelector((state) => state.productList);
 
   return (
