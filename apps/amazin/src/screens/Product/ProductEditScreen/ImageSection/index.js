@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
 import { MAX_IMAGES } from 'src/constants';
-import { useImageHandlers } from './useImageHandlers';
+import { useAsyncUpload, useImageHandlers } from './useImageHandlers';
 import ImageRow from '../ImageRow';
 import NewImageInput from './NewImageInput';
 
 export default function ImageSection({ images, setImages }) {
   const [preview, setPreview] = useState('');
-  const imageHandlers = useImageHandlers(images, setImages);
+  const { uploadState, asyncUploadImgs } = useAsyncUpload(setImages);
+  const imageHandlers = { ...useImageHandlers(images, setImages, asyncUploadImgs), uploadState };
 
   return (
     <>

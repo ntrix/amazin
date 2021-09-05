@@ -12,27 +12,31 @@ const config = (userInfo) => ({
   }
 });
 
-export function useImageHandlers(images, setImages) {
+export function useAsyncUpload(setImages) {
   const { userInfo } = useSelector((state) => state.userSignin);
-  const { product } = useSelector((state) => state.productDetails);
   const [uploadState, setUploadState] = useState({ loading: false });
 
-  const asyncUpdateImgs = async (_images, bodyFormData, updateInfo, method) => {
+  const asyncUploadImgs = async (images, bodyFormData, msg, method) => {
     setUploadState({ loading: true });
     try {
       if (method === 'post') {
         const { data } = await axiosClient.post('/api/uploads', bodyFormData, config(userInfo));
-        setImages([..._images, ...data]);
-        setUploadState({ loading: false, msg: updateInfo });
+        setImages([...images, ...data]);
+        setUploadState({ loading: false, msg });
         return;
       }
       await axiosClient.patch('/api/uploads', bodyFormData, config(userInfo));
-      setImages(_images);
+      setImages(images);
       setUploadState({ loading: false });
     } catch ({ message }) {
       setUploadState({ loading: false, error: message });
     }
   };
+  return { uploadState, asyncUploadImgs };
+}
+
+export function useImageHandlers(images, setImages, asyncUploadImgs) {
+  const { product } = useSelector((state) => state.productDetails);
 
   const addImgs = (e) => {
     const bodyFormData = new FormData();
@@ -42,7 +46,7 @@ export function useImageHandlers(images, setImages) {
 
     for (let i = 0; i < maxFiles; i++) bodyFormData.append('images', files[i]);
     bodyFormData.append('productId', product._id);
-    asyncUpdateImgs(images, bodyFormData, `${maxFiles} Images successfully uploaded!`, 'post');
+    asyncUploadImgs(images, bodyFormData, `${maxFiles} Images successfully uploaded!`, 'post');
   };
 
   const deleteImg = (idx) => (e) => {
@@ -54,7 +58,7 @@ export function useImageHandlers(images, setImages) {
     bodyFormData.append('imgLink', images[idx]);
     bodyFormData.append('productId', product._id);
     bodyFormData.append('image', newImages.join('^'));
-    asyncUpdateImgs(newImages, bodyFormData);
+    asyncUploadImgs(newImages, bodyFormData);
   };
 
   const updateImgLink = (id) => (e) => setImages(images.map((img, i) => (i === id ? e.target.value : img)));
@@ -68,5 +72,5 @@ export function useImageHandlers(images, setImages) {
 
   const getImgLink = (img) => getImgUrl(product._id, img);
 
-  return { uploadState, addImgs, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getImgLink };
+  return { addImgs, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getImgLink };
 }
