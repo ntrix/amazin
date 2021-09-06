@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Redirect, Route } from 'src/layouts/SuspenseRoute';
+import { Redirect, Route } from 'src/routes/SuspenseRoute';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   const { userInfo } = useSelector((state) => state.userSignin);
