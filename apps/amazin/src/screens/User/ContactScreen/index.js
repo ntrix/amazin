@@ -1,12 +1,10 @@
 import { useState } from 'react';
 
 import { useContact, useSubmitContact } from './useContact';
-import Button from 'src/components/Button';
-import CustomInput from 'src/components/CustomInput';
-import LoadingOrError from 'src/components/LoadingOrError';
-import ContactSubject from './ContactSubject';
+import Form from 'src/layouts/Form';
 import SuccessModal from 'src/components/SuccessModal';
-import Header from 'src/layouts/Header';
+import CustomInput from 'src/components/CustomInput';
+import ContactSubject from './ContactSubject';
 
 export default function ContactScreen() {
   const [name, setName] = useState('');
@@ -18,20 +16,21 @@ export default function ContactScreen() {
   const { submitContact } = useSubmitContact(setStatus);
 
   return (
-    <form className="form" onSubmit={(e) => submitContact(e, { name, email, subject, text })}>
-      <Header label="Contact Us" />
-      <LoadingOrError xl statusOf={status} />
-
-      <SuccessModal msg={status.message} label="Back To Home Page" />
+    <>
+      <SuccessModal className="form" msg={status.message} label="Back To Home Page" />
       {!status.message && (
-        <>
+        <Form
+          header="Contact Us"
+          statusOf={status}
+          onSubmit={(e) => submitContact(e, { name, email, subject, text })}
+          btn="Send Your Message"
+        >
           <CustomInput text="Your Name" hook={[name, setName]} />
           <CustomInput text="Email" type="email" hook={[email, setEmail]} />
           <ContactSubject hook={[subject, setSubject]} />
           <CustomInput textarea rows="10" text="Your Message" hook={[text, setText]} />
-          <Button primary fill type="submit" label="Send Your Message" />
-        </>
+        </Form>
       )}
-    </form>
+    </>
   );
 }

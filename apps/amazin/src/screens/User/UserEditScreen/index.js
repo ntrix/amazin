@@ -1,11 +1,9 @@
 import { useState } from 'react';
 
 import { useUserEdit } from './useUserEdit';
-import Button from 'src/components/Button';
+import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
-import LoadingOrError from 'src/components/LoadingOrError';
 import CustomCheck from 'src/components/CustomCheck';
-import Header from 'src/layouts/Header';
 
 export default function UserEditScreen({ history, match }) {
   const [name, setName] = useState('');
@@ -16,22 +14,17 @@ export default function UserEditScreen({ history, match }) {
   const editUser = useUserEdit([setName, setEmail, setSeller, setAdmin], history, match);
   const { user, loading, error, userUpdate, submitUser } = editUser;
 
-  return (
-    <div>
-      <form className="form" onSubmit={submitUser(name, email, seller, admin)}>
-        <Header>Edit User ${name}</Header>
-        <LoadingOrError xl statusOf={{ loading, error, ...userUpdate }} />
-
-        {!!user && (
-          <>
-            <CustomInput text="Name" hook={[name, setName]} />
-            <CustomInput text="Email" type="email" hook={[email, setEmail]} />
-            <CustomCheck text="Seller Account" checked={seller} onChange={setSeller} />
-            <CustomCheck text="Administrator" checked={admin} onChange={setAdmin} />
-            <Button primary fill type="submit" label="Update" />
-          </>
-        )}
-      </form>
-    </div>
-  );
+  return user ? (
+    <Form
+      header={`Edit User ${name}`}
+      statusOf={{ loading, error, ...userUpdate }}
+      onSubmit={submitUser(name, email, seller, admin)}
+      btn="Update"
+    >
+      <CustomInput text="Name" hook={[name, setName]} />
+      <CustomInput text="Email" type="email" hook={[email, setEmail]} />
+      <CustomCheck text="Seller Account" checked={seller} onChange={setSeller} />
+      <CustomCheck text="Administrator" checked={admin} onChange={setAdmin} />
+    </Form>
+  ) : null;
 }

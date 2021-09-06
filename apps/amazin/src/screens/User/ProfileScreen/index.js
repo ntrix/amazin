@@ -1,12 +1,10 @@
 import { useSelector } from 'react-redux';
 
 import { useUserProfile, useSellerProfile } from './useProfile';
-import MessageBox from 'src/components/MessageBox';
-import LoadingOrError from 'src/components/LoadingOrError';
-import Button from 'src/components/Button';
+import Form from 'src/layouts/Form';
 import UserProfileSection from './UserProfileSection';
 import SellerProfileSection from './SellerProfileSection';
-import Header from 'src/layouts/Header';
+import MessageBox from 'src/components/MessageBox';
 
 export default function ProfileScreen() {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
@@ -17,21 +15,19 @@ export default function ProfileScreen() {
   const { sellerName, sellerLogo, sellerDescription } = sellerProfile;
 
   return (
-    <div>
-      <form className="form" onSubmit={(e) => submitUpdate(e, { sellerName, sellerLogo, sellerDescription })}>
-        <Header label="User Profile" />
-        <LoadingOrError xl statusOf={userDetails} />
+    <Form
+      header="User Profile"
+      statusOf={userDetails}
+      onSubmit={(e) => submitUpdate(e, { sellerName, sellerLogo, sellerDescription })}
+      btn="Update"
+    >
+      <UserProfileSection {...userProfile} />
 
-        <UserProfileSection {...userProfile} />
+      <SellerProfileSection {...sellerProfile} />
 
-        <SellerProfileSection {...sellerProfile} />
-
-        <MessageBox variant="success" show={userDetails?.user && userUpdateProfile.success}>
-          Profile Updated Successfully
-        </MessageBox>
-
-        <Button primary fill type="submit" label="Update" />
-      </form>
-    </div>
+      <MessageBox variant="success" show={userDetails?.user && userUpdateProfile.success}>
+        Profile Updated Successfully
+      </MessageBox>
+    </Form>
   );
 }
