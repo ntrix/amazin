@@ -62,14 +62,21 @@ export function useImgFileHandlers(product, images, setImages) {
 }
 
 export function useImgLinkHandlers(product, images, setImages) {
-  const updateImgLink = (e, id) => setImages(images.map((img, i) => (i === id ? e.target.value : img)));
+  const updateImgLink = (e, id) => {
+    const newImgs = images.slice(0);
+    newImgs[id] = e.target.value;
+    setImages(newImgs);
+  };
 
   const moveUpImg = (e, id) => {
     e.preventDefault();
-    if (id > 0) setImages([...images.slice(0, id - 1), images[id], images[id - 1], ...images.slice(id + 1)]);
+    if (id < 1) return;
+    const newImgs = images.slice(0);
+    [newImgs[id], newImgs[id - 1]] = [newImgs[id - 1], newImgs[id]];
+    setImages(newImgs);
   };
 
-  const addImgOnEnter = (e, img) => (e.key === 'Enter' ? setImages([...images, img]) : null);
+  const addImgOnEnter = (e, img) => e.key === 'Enter' && setImages([...images, img]);
 
   const getSrc = (img) => getImgUrl(product._id, img);
 
