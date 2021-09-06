@@ -11,25 +11,21 @@ export function useKeyInput(setInput, setSuggests, submitSearch) {
   const { shadowOf, setShadowOf } = useShadow();
 
   const handleKeyInput = ({ target: { value }, key }) => {
-    switch (key) {
-      case 'Enter':
-        return submitSearch();
-      case 'Escape':
-        if (value.length !== 0) return null;
-        setSuggestBox(false);
-        return setShadowOf('');
-      default: {
-        setSuggestBox(true);
-        const newSuggests = findSuggest(productList, value);
+    if ('Enter' === key) return submitSearch();
 
-        if (SHADOW.NAV_SEARCH !== shadowOf && newSuggests.length) {
-          setShadowOf(SHADOW.NAV_SEARCH);
-          setOutline(true);
-        }
-        setSuggests(newSuggests);
-        return setInput(value);
-      }
+    if ('Escape' === key || value.length === 0) {
+      setSuggestBox(false);
+      return setShadowOf('');
     }
+
+    const newSuggests = findSuggest(productList, value);
+    setSuggests(newSuggests);
+    setSuggestBox(true);
+    setInput(value);
+    if (SHADOW.NAV_SEARCH === shadowOf || !newSuggests.length) return null;
+
+    setShadowOf(SHADOW.NAV_SEARCH);
+    return setOutline(true);
   };
 
   return { handleKeyInput };

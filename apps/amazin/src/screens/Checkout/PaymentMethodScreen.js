@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { savePaymentMethod } from 'src/apis/cartAPI';
 import CheckoutSteps from './CheckoutSteps';
+import Form from 'src/layouts/Form';
 import CustomRadio from 'src/components/CustomRadio';
-import Button from 'src/components/Button';
-import Header from 'src/layouts/Header';
 
 export default function PaymentMethodScreen({ history }) {
   const dispatch = useDispatch();
@@ -22,14 +21,10 @@ export default function PaymentMethodScreen({ history }) {
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 />
-      <form className="form" onSubmit={submitHandler}>
-        <Header label="Payment Method" />
-
+      <Form header="Payment Method" onSubmit={submitHandler} btn="Continue">
         <CustomRadio name="paymentMethod" checked text="PayPal" hook={['PayPal', setPaymentMethod]} />
         <CustomRadio name="paymentMethod" text="Stripe" hook={['Stripe', setPaymentMethod]} />
-
-        <Button primary fill type="submit" label="Continue" />
-      </form>
+      </Form>
     </div>
   );
 }

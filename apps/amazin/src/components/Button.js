@@ -15,8 +15,8 @@ function Button({
     primary ? 'primary ' : '',
     fill ? 'col-fill ' : '',
     xs ? 'btn--xs ' : '',
-    className,
-    ' mt-1 mb-2'
+    'mt-1 mb-2 ',
+    className
   ].join('');
 
   return <button className={classNames} aria-label={ariaLabel} {...props} children={label || children} />;

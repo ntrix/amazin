@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { detailsProduct, updateProduct } from 'src/apis/productAPI';
 import { productUpdateActions } from 'src/slice/ProductSlice';
+import Form from 'src/layouts/Form';
 import ImageSection from './ImageSection';
 import CustomInput from 'src/components/CustomInput';
-import LoadingOrError from 'src/components/LoadingOrError';
-import Header from 'src/layouts/Header';
-import Button from 'src/components/Button';
 
 export default function ProductEditScreen({ history, match }) {
   const dispatch = useDispatch();
@@ -61,29 +59,26 @@ export default function ProductEditScreen({ history, match }) {
 
   return (
     <div className="product-edit">
-      <form className="form" onSubmit={submitHandler}>
-        <Header>Edit Product ${productId}</Header>
-        <LoadingOrError xl statusOf={productDetails} />
-        {productDetails?.success && (
-          <>
-            <LoadingOrError xl statusOf={productUpdate} />
+      {productDetails?.success && (
+        <Form
+          header={`Edit Product ${productId}`}
+          statusOf={{ ...productDetails, ...productUpdate }}
+          onSubmit={submitHandler}
+          btn="Update"
+        >
+          <CustomInput text="Name" hook={[name, setName]} />
+          <CustomInput text="Price" hook={[price, setPrice]} />
+          <CustomInput text="Ship" hook={[ship, setShip]} />
+          <CustomInput text="Deal" hook={[deal, setDeal]} />
 
-            <CustomInput text="Name" hook={[name, setName]} />
-            <CustomInput text="Price" hook={[price, setPrice]} />
-            <CustomInput text="Ship" hook={[ship, setShip]} />
-            <CustomInput text="Deal" hook={[deal, setDeal]} />
-
-            <ImageSection product={product} images={images} setImages={setImages} />
-            <CustomInput text="Video Link or Youtube VID" hook={[video, setVideo]} />
-            <CustomInput text="Category" hook={[category, setCategory]} />
-            <CustomInput text="Brand" hook={[brand, setBrand]} />
-            <CustomInput text="Count In Stock" hook={[countInStock, setCountInStock]} />
-            <CustomInput text="Description" textarea rows="3" hook={[description, setDescription]} />
-
-            <Button primary fill type="submit" className="mt-2" label="Update" />
-          </>
-        )}
-      </form>
+          <ImageSection product={product} images={images} setImages={setImages} />
+          <CustomInput text="Video Link or Youtube VID" hook={[video, setVideo]} />
+          <CustomInput text="Category" hook={[category, setCategory]} />
+          <CustomInput text="Brand" hook={[brand, setBrand]} />
+          <CustomInput text="Count In Stock" hook={[countInStock, setCountInStock]} />
+          <CustomInput text="Description" textarea rows="3" hook={[description, setDescription]} />
+        </Form>
+      )}
     </div>
   );
 }

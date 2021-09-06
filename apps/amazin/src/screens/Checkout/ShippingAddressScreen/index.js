@@ -1,7 +1,7 @@
 import { useShipInfo } from './useShipInfo';
 import CheckoutSteps from '../CheckoutSteps';
+import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
-import Header from 'src/layouts/Header';
 import Button from 'src/components/Button';
 
 export default function ShippingAddressScreen({ history }) {
@@ -16,16 +16,14 @@ export default function ShippingAddressScreen({ history }) {
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2 />
-      <form className="form" onSubmit={submitShipInfo}>
-        <Header label="Shipping Address" />
+      <Form header="Shipping Address" onSubmit={submitShipInfo} btn="Continue">
         <CustomInput text="Full Name" required hook={[shipInfo.fullName, setFullName]} />
         <CustomInput text="Address" required hook={[shipInfo.address, setAddress]} />
         <CustomInput text="City" required hook={[shipInfo.city, setCity]} />
         <CustomInput text="Postal Code" required hook={[shipInfo.postalCode, setPostalCode]} />
         <CustomInput text="Country" required hook={[shipInfo.country, setCountry]} />
         <Button fill className="mt-2" onClick={locateOnMap} label="Locate On Map" />
-        <Button primary fill type="submit" label="Continue" />
-      </form>
+      </Form>
     </div>
   );
 }
