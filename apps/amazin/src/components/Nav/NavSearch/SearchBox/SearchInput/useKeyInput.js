@@ -8,21 +8,25 @@ import { SHADOW } from 'src/constants';
 export function useKeyInput(setInput, setSuggests, submitSearch) {
   const { productList } = useSelector((state) => state.productListAll);
   const { setOutline, setSuggestBox } = useOutline();
-  const { shadowOf, setShadowOf } = useShadow();
+  const { setShadowOf } = useShadow();
 
   const handleKeyInput = ({ target: { value }, key }) => {
-    if ('Enter' === key) return submitSearch();
+    switch (key) {
+      case 'Enter':
+        return submitSearch();
 
-    if ('Escape' === key) {
-      setSuggestBox(false);
-      return setShadowOf('');
+      case 'Escape':
+        setSuggestBox(false);
+        return setShadowOf('');
+
+      default:
     }
-
+    if (!value.length) return setShadowOf('');
     const newSuggests = findSuggest(productList, value);
     setSuggests(newSuggests);
     setSuggestBox(true);
     setInput(value);
-    if (SHADOW.NAV_SEARCH === shadowOf || !newSuggests.length) return null;
+    if (!newSuggests.length) return null;
 
     setShadowOf(SHADOW.NAV_SEARCH);
     return setOutline(true);
