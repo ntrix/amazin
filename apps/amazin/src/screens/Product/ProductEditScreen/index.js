@@ -73,7 +73,7 @@ export default function ProductEditScreen({ history, match }) {
             <CustomInput text="Ship" hook={[ship, setShip]} />
             <CustomInput text="Deal" hook={[deal, setDeal]} />
 
-            <ImageSection hook={[images, setImages]} />
+            <ImageSection product={product} images={images} setImages={setImages} />
             <CustomInput text="Video Link or Youtube VID" hook={[video, setVideo]} />
             <CustomInput text="Category" hook={[category, setCategory]} />
             <CustomInput text="Brand" hook={[brand, setBrand]} />
