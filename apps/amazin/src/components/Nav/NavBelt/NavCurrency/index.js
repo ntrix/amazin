@@ -1,9 +1,12 @@
 import { memo, lazy } from 'react';
+import { useShadow } from 'src/hooks/useShadow';
 
 import NavButton from '../NavButton';
 const DropdownCurrency = lazy(() => import(/* webpackPrefetch: true */ './DropdownCurrency'));
 
-function NavCurrency({ currency }) {
+function NavCurrency() {
+  const { currency } = useShadow();
+
   return (
     <NavButton
       wrapClass="nav__currency mobile--off"

@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { detailsUser, updateUserProfile } from 'src/apis/userAPI';
+import { useShadow } from 'src/hooks/useShadow';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 
 export function useUserProfile() {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
   const { user } = useSelector((state) => state.userDetails);
+  const { userInfo } = useShadow();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

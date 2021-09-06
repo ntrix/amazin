@@ -5,6 +5,7 @@ import { axios } from 'src/apis/axiosClient';
 import { MAIL_SERVER, HEADERS } from 'src/constants';
 import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
+import { useShadow } from 'src/hooks/useShadow';
 
 const checkError = ({ text, email, name }) => {
   const error = [];
@@ -18,7 +19,7 @@ const checkError = ({ text, email, name }) => {
 
 export function useSubmitContact(setStatus) {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
 
   async function submitContact(e, data) {
     e.preventDefault();
@@ -44,20 +45,20 @@ export function useSubmitContact(setStatus) {
 
 export function useContact(setName, setEmail, setSubject, setStatus) {
   const dispatch = useDispatch();
-  const { subject: paramSub } = useParams();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { subject: pSubject } = useParams();
+  const { userInfo } = useShadow();
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 
   useEffect(() => {
     setName(userInfo?.name);
     setEmail(userInfo?.email);
-    setSubject(paramSub);
-  }, [userInfo, paramSub, setName, setEmail, setSubject]);
+    setSubject(pSubject);
+  }, [userInfo, pSubject, setName, setEmail, setSubject]);
 
   useEffect(() => {
-    setSubject(paramSub);
-    if ('Seller' !== paramSub || !userUpdateProfile.success) return;
+    setSubject(pSubject);
+    if ('Seller' !== pSubject || !userUpdateProfile.success) return;
     dispatch(userUpdateProfileActions._RESET());
     setStatus({ message: 'Seller Account verified successfully!' });
-  }, [dispatch, paramSub, userUpdateProfile.success, setSubject, setStatus]);
+  }, [dispatch, pSubject, userUpdateProfile.success, setSubject, setStatus]);
 }

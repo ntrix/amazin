@@ -1,19 +1,15 @@
 import { lazy } from 'react';
 
 import { Route, Switch } from 'src/routes/SuspenseRoute';
-import PrivateRoute from './PrivateRoute';
-import SellerRoute from './SellerRoute';
-import AdminRoute from './AdminRoute';
 import HomeScreen from '../screens/HomeScreen';
+import TokenRoutes from './TokenRoutes';
 
-const Screen404 = lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/Screen404'));
 const SigninScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/SigninScreen'));
 const CurrencyScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/CurrencyScreen'));
 const DealScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/DealScreen'));
 const RegisterScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/RegisterScreen'));
 const SellerScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/SellerScreen'));
 const SearchScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/SearchScreen'));
-const MapScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/MapScreen'));
 const VideoScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/VideoScreen'));
 const ProductScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/ProductScreen'));
 const ContactScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/ContactScreen'));
@@ -23,15 +19,9 @@ const PaymentMethodScreen = lazy(() => import(/* webpackPrefetch: true */ '../sc
 const ShippingAddressScreen = lazy(() =>
   import(/* webpackPrefetch: true */ '../screens/Checkout/ShippingAddressScreen')
 );
-const OrderHistoryScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/OrderHistoryScreen'));
-const OrderListScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/OrderListScreen'));
 const OrderSumScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/OrderSumScreen'));
 const PlaceOrderScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/PlaceOrderScreen'));
 const ProductEditScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/ProductEditScreen'));
-const ProductListScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/ProductListScreen'));
-const ProfileScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/ProfileScreen'));
-const UserEditScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/UserEditScreen'));
-const UserListScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/UserListScreen'));
 
 export default function MainRoutes() {
   return (
@@ -69,20 +59,3 @@ export default function MainRoutes() {
     </Switch>
   );
 }
-
-const TokenRoutes = () => (
-  <Switch>
-    <PrivateRoute path="/order-history" component={OrderHistoryScreen} />
-    <PrivateRoute path="/profile" component={ProfileScreen} />
-    <PrivateRoute path="/map" component={MapScreen} />
-    <AdminRoute path="/product-list" component={ProductListScreen} exact />
-    <AdminRoute path="/product-list/pageNumber/:pageNumber" component={ProductListScreen} exact />
-    <AdminRoute path="/order-list" component={OrderListScreen} exact />
-    <AdminRoute path="/user-list" component={UserListScreen} />
-    <AdminRoute path="/user/:id/edit" component={UserEditScreen} />
-    <SellerRoute path="/product-list/seller" component={ProductListScreen} exact />
-    <SellerRoute path="/product-list/seller/pageNumber/:pageNumber" component={ProductListScreen} exact />
-    <SellerRoute path="/order-list/seller" component={OrderListScreen} />
-    <Route component={Screen404} exact />
-  </Switch>
-);
