@@ -13,7 +13,7 @@ export function useKeyInput(setInput, setSuggests, submitSearch) {
   const handleKeyInput = ({ target: { value }, key }) => {
     if ('Enter' === key) return submitSearch();
 
-    if ('Escape' === key || value.length === 0) {
+    if ('Escape' === key) {
       setSuggestBox(false);
       return setShadowOf('');
     }
