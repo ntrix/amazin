@@ -30,7 +30,7 @@
   height: 3rem;
   margin: 2rem 0 1rem 0;
 }
-select#currency {
+select#select-currency {
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -38,12 +38,12 @@ select#currency {
   padding: 0 24px 0 6px;
 }
 
-#currency optgroup {
+#select-currency optgroup {
   font-style: normal;
   font-weight: 400;
   color: #aaa;
 }
-#currency option {
+#select-currency option {
   color: #000;
 }
 .btn--xs {

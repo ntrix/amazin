@@ -1,3 +1,4 @@
+import CustomSelect from 'src/components/CustomSelect';
 import { pipe } from 'src/utils';
 
 export default function CurrencyOptions({ currency, setCurrency }) {
@@ -6,21 +7,24 @@ export default function CurrencyOptions({ currency, setCurrency }) {
     setCurrency(e.target.value);
   };
 
+  const currencies = pipe.currencies.map((c) => ({
+    value: c,
+    children: `${pipe.symbol[c]} - ${c} - ${pipe.longName[c]}`
+  }));
+
   return (
     <>
-      <p>Select the currency you want to shop with.</p>
-      <div className="select-wrapper col-50p">
-        <div className="sprite__caret"></div>
-        <select id="currency" value={currency} data-select="true" onChange={handleChange}>
-          <optgroup label="Select Currency">
-            {pipe.currencies.map((c, id) => (
-              <option value={c} key={id}>
-                {pipe.symbol[c]} - {c} - {pipe.longName[c]}
-              </option>
-            ))}
-          </optgroup>
-        </select>
-      </div>
+      <h2 className="title"> Currency Settings</h2>
+      <CustomSelect
+        label="Select the currency you want to shop with."
+        wrapClass="col-50p"
+        optgroup="Select Currency"
+        list={currencies}
+        value={currency}
+        data-select="true"
+        small
+        onChange={handleChange}
+      />
     </>
   );
 }

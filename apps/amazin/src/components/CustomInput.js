@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { createId } from 'src/utils';
 
 function CustomInput({
   text,
@@ -10,7 +11,7 @@ function CustomInput({
   wrapClass = '',
   ...rest
 }) {
-  const id = text.split(' ').join('-').toLowerCase(); // create #id for .css
+  const id = createId(text); // create #id for .css
   const onChange = setState ? (e) => setState(e.target.value) : undefined;
   const value = type === 'button' || type === 'submit' ? text : state;
   const props = { id, text, type, placeholder, value, onChange, ...rest };

@@ -3,6 +3,9 @@ export { findSuggest } from './findSuggest';
 
 export const castArray = (strArray) => (Array.isArray(strArray) ? strArray : [strArray]);
 
+/* create #id for .css */
+export const createId = (text) => text?.split(' ').join('-').toLowerCase();
+
 /* Proxy for localStorage and Redux, mostly used for local storage */
 export const Storage = new Proxy(KEY, {
   get(obj, key) {
