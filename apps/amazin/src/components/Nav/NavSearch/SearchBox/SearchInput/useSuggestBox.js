@@ -1,14 +1,10 @@
-import { useSelector } from 'react-redux';
-
 import { useOutline } from '../../useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 import { findSuggest } from 'src/utils';
 import { SHADOW } from 'src/constants';
 
 export function useSuggestBox(setSuggests) {
-  const { productList } = useSelector((state) => state.productListAll);
-
-  const { setOutline, setScopeOutline, setSuggestBox } = useOutline();
+  const { productList, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
   const showBox = (input) => {
