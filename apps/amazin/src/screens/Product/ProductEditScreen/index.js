@@ -11,7 +11,7 @@ export default function ProductEditScreen({ history, match }) {
   const dispatch = useDispatch();
   const productId = match.params.id;
   const productDetails = useSelector((state) => state.productDetails);
-  const { product } = productDetails;
+  const { product, loading, error } = productDetails;
   const productUpdate = useSelector((state) => state.productUpdate);
 
   const [name, setName] = useState('');
@@ -62,7 +62,7 @@ export default function ProductEditScreen({ history, match }) {
       {productDetails?.success && (
         <Form
           header={`Edit Product ${productId}`}
-          statusOf={{ ...productDetails, ...productUpdate }}
+          statusOf={{ loading, error, ...productUpdate }}
           onSubmit={submitHandler}
           btn="Update"
         >
