@@ -18,7 +18,11 @@ function CartRowItem({ item, addHandler, removeHandler }) {
         <Link to={`/product/${product}`}>{name}</Link>
       </td>
       <td className="tab__w9">
-        <CustomSelect max={countInStock} value={qty} onChange={(val) => addHandler(product, -qty + val)} />
+        <CustomSelect
+          max={countInStock}
+          value={qty ?? 1}
+          onChange={(e) => addHandler(product, Number(e.target.value - qty))}
+        />
       </td>
       <td className="tab__w6">{pipe.showPrice(price)}</td>
       <td className="tab__w9">
