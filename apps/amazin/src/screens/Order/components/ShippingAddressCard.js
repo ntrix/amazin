@@ -1,14 +1,17 @@
 import StatusBox from '../OrderSumScreen/StatusBox';
 import InfoCard from './InfoCard';
+import RowLegend from 'src/components/RowLegend';
 
 export default function ShippingAddressCard({ address: adr, order }) {
   return (
     <InfoCard label="Shipping">
       {!!adr && (
-        <p>
-          <strong>Name:</strong> {adr.fullName} <br />
-          <strong>Address: </strong> {adr.address}, {adr.city}, {adr.postalCode}, {adr.country}
-        </p>
+        <>
+          <RowLegend strong label="Name: " children={adr.fullName} />
+          <RowLegend strong label="Address: ">
+            {adr.address}, {adr.city}, {adr.postalCode}, {adr.country}
+          </RowLegend>
+        </>
       )}
       {order && <StatusBox textOf="Delivered" statusOf={order.isDelivered} when={order.deliveredAt} />}
     </InfoCard>

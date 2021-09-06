@@ -1,6 +1,6 @@
 import { createId } from 'src/utils';
 
-export default function CustomSelect({ label, wrapClass = '', optgroup, list, max = 1, small = false, ...props }) {
+export default function CustomSelect({ label, wrapClass = '', optgroup = '', list, max = 1, small = false, ...props }) {
   const selectList =
     list ||
     Array(max)
