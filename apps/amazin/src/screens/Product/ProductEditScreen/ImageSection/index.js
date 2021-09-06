@@ -1,14 +1,19 @@
 import { useState } from 'react';
 
 import { MAX_IMAGES } from 'src/constants';
+import { getImgUrl } from 'src/utils';
 import { useImgFileHandlers, useImgLinkHandlers } from './useImageHandlers';
-import ImageRow from '../ImageRow';
 import NewImageInput from './NewImageInput';
+import ImageRows from '../ImageRows';
 
 export default function ImageSection({ product, images, setImages }) {
   const [preview, setPreview] = useState('');
-  const imgFileHandlers = useImgFileHandlers(product, images, setImages);
-  const imgHandlers = { ...useImgLinkHandlers(product, images, setImages), ...imgFileHandlers };
+  const { uploadState, addImgs, deleteImg } = useImgFileHandlers(product, images, setImages);
+  const { updateImgLink, moveUpImg, addImgOnEnter } = useImgLinkHandlers(product, images, setImages);
+
+  const getSrc = (img) => getImgUrl(product._id, img);
+
+  const imgHandlers = { uploadState, addImgs, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getSrc };
 
   return (
     <>
@@ -17,13 +22,11 @@ export default function ImageSection({ product, images, setImages }) {
           Uploaded Images ({images.length} of {MAX_IMAGES})<p>(or extern Image Links here)</p>
         </label>
 
-        {images.map((img, id) => (
-          <ImageRow id={id} img={img} setPreview={setPreview} imgHandlers={imgHandlers} />
-        ))}
+        <ImageRows images={images} setPreview={setPreview} imgHandlers={imgHandlers} />
       </div>
 
       <div className="row center">
-        <img alt="Preview" className="mt-1 medium" src={imgHandlers.getImgLink(preview)} />
+        <img alt="Preview" className="mt-1 medium" src={getSrc(preview)} />
       </div>
 
       {images.length < MAX_IMAGES && <NewImageInput hook={[preview, setPreview]} imgHandlers={imgHandlers} />}

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import axiosClient from 'src/apis/axiosClient';
 import { MAX_IMAGES } from 'src/constants';
-import { getImgUrl } from 'src/utils';
 
 const config = (userInfo) => ({
   headers: {
@@ -69,9 +68,7 @@ export function useImgLinkHandlers(product, images, setImages) {
     if (id > 0) setImages([...images.slice(0, id - 1), images[id], images[id - 1], ...images.slice(id + 1)]);
   };
 
-  const addImgOnEnter = (imagePreview) => (e) => e.key === 'Enter' ? setImages([...images, imagePreview]) : null;
+  const addImgOnEnter = (img) => (e) => e.key === 'Enter' ? setImages([...images, img]) : null;
 
-  const getImgLink = (img) => getImgUrl(product._id, img);
-
-  return { updateImgLink, moveUpImg, addImgOnEnter, getImgLink };
+  return { updateImgLink, moveUpImg, addImgOnEnter };
 }
