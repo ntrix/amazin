@@ -6,10 +6,11 @@ import { deleteOrder, listOrders } from 'src/apis/orderAPI';
 import LoadingOrError from 'src/components/LoadingOrError';
 import OrderTable from './components/OrderTable';
 import Header from 'src/layouts/Header';
+import { useShadow } from 'src/hooks/useShadow';
 
 export default function OrderListScreen({ match }) {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
   const sellerMode = match.path.indexOf('/seller') >= 0;
   const orderList = useSelector((state) => state.orderList);
   const orderDelete = useSelector((state) => state.orderDelete);

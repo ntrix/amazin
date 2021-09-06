@@ -18,7 +18,7 @@ export default function ProductListScreen({ history, match }) {
         <Button primary label="Create Product" onClick={createHandler} />
       </div>
 
-      <LoadingOrError xl statusOf={{ error, loading, ...productDelete, ...productCreate }} />
+      <LoadingOrError xl statusOf={{ loading, error, ...productDelete, ...productCreate }} />
 
       {!!products && (
         <Table

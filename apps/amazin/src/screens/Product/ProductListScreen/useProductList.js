@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { createProduct, deleteProduct, listProducts } from 'src/apis/productAPI';
+import { useShadow } from 'src/hooks/useShadow';
 import { productCreateActions, productDeleteActions } from 'src/slice/ProductSlice';
 
 export function useProductList(history, match = {}) {
   const dispatch = useDispatch();
   const { pageNumber = 1 } = useParams();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
   const productCreate = useSelector((state) => state.productCreate);
   const productDelete = useSelector((state) => state.productDelete);
   // eslint-disable-next-line
@@ -37,5 +38,5 @@ export function useProductList(history, match = {}) {
   // make authenticated url for pagination
   const authUrl = ({ page: _page }) => `/product-list${userInfo.isAdmin ? '' : '/seller'}/pageNumber/${_page}`;
 
-  return { userInfo, authUrl, productCreate, productDelete, deleteHandler, createHandler };
+  return { authUrl, productCreate, productDelete, deleteHandler, createHandler };
 }

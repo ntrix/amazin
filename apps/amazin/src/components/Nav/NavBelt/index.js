@@ -8,13 +8,13 @@ import NavCurrency from './NavCurrency';
 import NavUser from './NavUser';
 import NavCart from './NavCart';
 
-function NavBelt({ currency }) {
+function NavBelt() {
   return (
     <div className="nav-belt row">
       <NavLogo to="/" />
       <NavLocator to="/map" />
       <NavSearch />
-      <NavCurrency currency={currency} />
+      <NavCurrency />
       <NavUser />
       <NavBtnDropdown disabled={!!'TODO'} wrapClass="nav__return tablet--off" labels="Return^& Orders" />
       <NavCart to="/cart" />
