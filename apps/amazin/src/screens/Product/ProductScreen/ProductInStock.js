@@ -1,8 +1,8 @@
 import { memo, useState } from 'react';
-import Button from 'src/components/Button';
-import QtySelect from 'src/components/QtySelect';
 
 import PriceNow from '../components/PriceNow';
+import CustomSelect from 'src/components/CustomSelect';
+import Button from 'src/components/Button';
 
 function ProductInStock({ productId, product: { price, countInStock } }) {
   const [qty, setQty] = useState(1);
@@ -25,7 +25,7 @@ function ProductInStock({ productId, product: { price, countInStock } }) {
         <>
           <div className="row">
             <p>Quantity</p>
-            <QtySelect max={countInStock} value={qty} onChange={setQty} />
+            <CustomSelect max={countInStock} value={qty} onChange={setQty} />
           </div>
 
           <Button primary fill to={`/cart/${productId}?qty=${qty}`} label="Add to Cart" />

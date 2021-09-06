@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
+
 import { getImgUrl, pipe } from 'src/utils';
 import Button from 'src/components/Button';
-import QtySelect from 'src/components/QtySelect';
+import CustomSelect from 'src/components/CustomSelect';
 
 function CartRowItem({ item, addHandler, removeHandler }) {
   const { product, name, price, image, qty, countInStock } = item;
@@ -17,7 +18,7 @@ function CartRowItem({ item, addHandler, removeHandler }) {
         <Link to={`/product/${product}`}>{name}</Link>
       </td>
       <td className="tab__w9">
-        <QtySelect max={countInStock} value={qty} onChange={(val) => addHandler(product, -qty + val)} />
+        <CustomSelect max={countInStock} value={qty} onChange={(val) => addHandler(product, -qty + val)} />
       </td>
       <td className="tab__w6">{pipe.showPrice(price)}</td>
       <td className="tab__w9">

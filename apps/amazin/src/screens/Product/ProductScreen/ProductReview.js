@@ -2,12 +2,14 @@ import { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { productReviewCreateActions } from 'src/slice/ProductSlice';
 import { createReview, detailsProduct } from 'src/apis/productAPI';
+import { productReviewCreateActions } from 'src/slice/ProductSlice';
+import { RATING_OPTS, REVIEWS_PER_PAGE } from 'src/constants';
 import Form from 'src/layouts/Form';
 import MessageBox from 'src/components/MessageBox';
-import Rating from 'src/components/Rating';
-const REVIEWS_PER_PAGE = 9;
+import ReviewCard from 'src/components/ReviewCard';
+import CustomSelect from 'src/components/CustomSelect';
+import CustomInput from 'src/components/CustomInput';
 
 function ProductReview({ productId }) {
   const dispatch = useDispatch();
@@ -27,53 +29,30 @@ function ProductReview({ productId }) {
     }
   }, [dispatch, productId, productReviewCreate.success]);
 
-  const submitHandler = (e) => {
+  const submitReview = (e) => {
     e.preventDefault();
-    if (comment && rating) {
-      dispatch(createReview(productId, { rating, comment, name: userInfo.name }));
-    } else {
-      alert('Please enter comment and rating');
-    }
+    if (!comment || !rating) alert('Please enter comment and rating');
+    else dispatch(createReview(productId, { rating, comment, name: userInfo.name }));
   };
 
   return (
     <div className="p-1">
       <h2 id="reviews">Reviews</h2>
       <MessageBox show={product.reviews.length === 0}>There is no review</MessageBox>
-      {/* TODO pagination for reviews */}
+      {/* TODO pagination for review section */}
       <ul>
         {product.reviews.slice(0, REVIEWS_PER_PAGE).map((review, id) => (
-          <li key={id}>
-            <strong>{review.name}</strong>
-            <Rating rating={review.rating} caption=" "></Rating>
-            <p>{review.createdAt.substring(0, 10)}</p>
-            <p>{review.comment}</p>
-          </li>
+          <ReviewCard key={id} review={review} />
         ))}
       </ul>
       <MessageBox show={!userInfo}>
         Please <Link to="/signin">Sign In</Link> to write a review
       </MessageBox>
       {!!userInfo && (
-        <Form header="Write a customer review" statusOf={productReviewCreate} onSubmit={submitHandler} btn="Submit">
-          <div>
-            <label htmlFor="rating">Rating</label>
-            <div className="select-wrapper">
-              <div className="sprite__caret xl"></div>
-              <select id="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
-                <option value="">Select...</option>
-                <option value="1">1- Poor</option>
-                <option value="2">2- Fair</option>
-                <option value="3">3- Good</option>
-                <option value="4">4- Very good</option>
-                <option value="5">5- Exzellent</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label htmlFor="comment">Comment</label>
-            <textarea id="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-          </div>
+        <Form header="Write a customer review" statusOf={productReviewCreate} onSubmit={submitReview} btn="Submit">
+          <CustomSelect label="Rating" list={RATING_OPTS} value={rating} onChange={(e) => setRating(e.target.value)} />
+
+          <CustomInput textarea text="Comment" rows="5" value={comment} onChange={(e) => setComment(e.target.value)} />
         </Form>
       )}
     </div>
