@@ -1,19 +1,20 @@
-export default function CustomSelect({ label, list, max = 1, ...props }) {
-  const selectList =
-    list ||
-    Array(max)
-      .fill(0)
-      .map((_, id) => ({ value: id + 1 }));
+import { MAX_ITEM } from 'src/constants';
+import { createId } from 'src/utils';
+
+const Selects = ({ list }) =>
+  list.map(({ value, children }) => <option key={value} value={value} children={children || value} />);
+
+export default function CustomSelect({ label, wrapClass = '', optgroup = '', list, max = 1, small = false, ...props }) {
+  const _max = Math.min(MAX_ITEM, max);
+  const selects = list || [...Array(_max).keys()].map((key) => ({ value: key + 1 }));
 
   return (
     <>
       {!!label && <label htmlFor={label}>{label}</label>}
-      <div className="select-wrapper">
-        <div className="sprite__caret xl" />
-        <select id={label} className="tab__w6" {...props}>
-          {selectList.map(({ value, children }) => (
-            <option key={value} value={value} children={children || value} />
-          ))}
+      <div className={'select-wrapper ' + wrapClass}>
+        <div className={`sprite__caret${small ? '' : ' xl'}`} />
+        <select id={createId(optgroup || label)} className="tab__w6" {...props}>
+          {optgroup ? <optgroup label={optgroup} children={<Selects list={selects} />} /> : <Selects list={selects} />}
         </select>
       </div>
     </>

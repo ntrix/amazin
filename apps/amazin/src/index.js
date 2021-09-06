@@ -33,8 +33,8 @@ import(/* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css
 import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css');
 import(/* webpackPreload: true */ './screens/Product/DealScreen/dealScreen.css');
 import(/* webpackPreload: true */ './screens/Product/ProductScreen/productScreen.css');
-import(/* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css');
 import(/* webpackPreload: true */ './screens/User/CustomerScreen/customerScreen.css');
+import(/* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css');
 
 ReactDOM.render(
   <Provider store={store}>
