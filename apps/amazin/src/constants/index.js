@@ -3,6 +3,9 @@ import 'react-multi-carousel/lib/styles.css';
 
 export const RATES_SOURCE = process.env.REACT_APP_RATES_SOURCE; // REACT_APP_RATES_SOURCE_ORG
 
+/* max products pro order */
+export const MAX_ITEM = 100;
+
 /* ProductScreen reviews */
 export const REVIEWS_PER_PAGE = 9;
 export const RATING_OPTS = [
