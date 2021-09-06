@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { shortName } from 'src/utils';
 import { signout } from 'src/apis/userAPI';
@@ -7,10 +7,11 @@ import { signinTemplate } from './signinTemplate';
 import { createUserTemplate } from './userTemplate';
 import { createSellerTemplate } from './sellerTemplate';
 import { adminTemplate } from './adminTemplate';
+import { useShadow } from 'src/hooks/useShadow';
 
 export function useDropMenuCreator() {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
 
   const [userName, setUserName] = useState('');
   const [userMenu, setUserMenu] = useState([]);

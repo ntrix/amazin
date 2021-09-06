@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { createReview, detailsProduct } from 'src/apis/productAPI';
 import { productReviewCreateActions } from 'src/slice/ProductSlice';
 import { RATING_OPTS, REVIEWS_PER_PAGE } from 'src/constants';
+import { useShadow } from 'src/hooks/useShadow';
 import Form from 'src/layouts/Form';
 import MessageBox from 'src/components/MessageBox';
 import ReviewCard from 'src/components/ReviewCard';
@@ -13,7 +14,7 @@ import CustomInput from 'src/components/CustomInput';
 
 function ProductReview({ productId }) {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
   const { product } = useSelector((state) => state.productDetails);
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const [rating, setRating] = useState(0);

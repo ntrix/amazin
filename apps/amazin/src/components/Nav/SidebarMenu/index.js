@@ -16,16 +16,14 @@ import MenuItem, { NavCategoryAdapter, mapArgsToProps } from '../MenuItem';
 import SidebarHeader from './SidebarHeader';
 import LoadingOrError from 'src/components/LoadingOrError';
 
-function SidebarMenu({ currency }) {
+function SidebarMenu() {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
-  const productCategoryList = useSelector((state) => state.productCategoryList);
-  const { categories } = productCategoryList;
-  const { shadowOf, setShadowOf } = useShadow();
+  const { categories, loading, error } = useSelector((state) => state.productCategoryList);
+  const { currency, userInfo, shadowOf, setShadowOf } = useShadow();
 
   const signOutHandler = useCallback(() => dispatch(signout()), [dispatch]);
 
-  const userName = useCallback((_s) => shortName(_s), []);
+  const getShortName = useCallback((_s) => shortName(_s), []);
 
   return (
     <>
@@ -34,10 +32,10 @@ function SidebarMenu({ currency }) {
           <div className="sprite__close-btn"></div>
         </button>
 
-        <SidebarHeader userName={userName(userInfo?.name)} clearShadow={setShadowOf} />
+        <SidebarHeader userName={getShortName(userInfo?.name)} />
 
         <ul className="sidebar__list">
-          <LoadingOrError statusOf={productCategoryList} />
+          <LoadingOrError statusOf={(loading, error)} />
           {[
             ...sidebarBase,
             ...(categories?.map(NavCategoryAdapter) || []),
@@ -45,11 +43,9 @@ function SidebarMenu({ currency }) {
             ...sidebarUserCreator(userInfo?.name, signOutHandler),
             ...sidebarSellerCreator(userInfo?.isSeller),
             ...sidebarAdminCreator(userInfo?.isAdmin)
-          ]
-            .map(mapArgsToProps)
-            .map((props) => (
-              <MenuItem {...props} clearShadow={setShadowOf} />
-            ))}
+          ].map((args) => (
+            <MenuItem {...mapArgsToProps(args)} />
+          ))}
         </ul>
       </aside>
 
@@ -57,7 +53,7 @@ function SidebarMenu({ currency }) {
         className={SHADOW.SIDEBAR === shadowOf ? 'click-catcher' : ''}
         htmlFor="btn--close-sidebar"
         aria-label="close sidebar area"
-      ></label>
+      />
     </>
   );
 }

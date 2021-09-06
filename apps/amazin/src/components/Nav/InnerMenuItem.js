@@ -1,8 +1,10 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
+import { useShadow } from 'src/hooks/useShadow';
 
-function InnerMenuItem({ label, to = '', className, clearShadow, extFunction, children }) {
+function InnerMenuItem({ label, to = '', className, extFunction, children }) {
   const history = useHistory();
+  const { setShadowOf } = useShadow();
 
   switch (to.slice(0, 8)) {
     case '':
@@ -21,7 +23,7 @@ function InnerMenuItem({ label, to = '', className, clearShadow, extFunction, ch
           aria-label={`${label} ${className}`}
           onClick={(e) => {
             e.stopPropagation();
-            clearShadow('');
+            setShadowOf('');
             if (extFunction) extFunction();
             history.push(to);
           }}

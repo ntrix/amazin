@@ -6,10 +6,11 @@ import { useSafeState } from 'src/hooks/useSafeState';
 import { saveShippingAddress } from 'src/apis/cartAPI';
 import { Storage } from 'src/utils';
 import { KEY } from 'src/constants';
+import { useShadow } from 'src/hooks/useShadow';
 
 export function useShipInfo(history) {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
   if (!userInfo) history.push('/signin');
 
   const { address: mapAddress } = useSelector((state) => state.userAddressMap);

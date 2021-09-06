@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import axiosClient from 'src/apis/axiosClient';
 import { MAX_IMAGES } from 'src/constants';
+import { useShadow } from 'src/hooks/useShadow';
 import { getImgUrl } from 'src/utils';
 
 const config = (userInfo) => ({
@@ -13,7 +13,7 @@ const config = (userInfo) => ({
 });
 
 export function useAsyncUpload(setImages) {
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
   const [uploadState, setUploadState] = useState({ loading: false });
 
   const asyncUploadImgs = async (images, bodyFormData, msg, method) => {
