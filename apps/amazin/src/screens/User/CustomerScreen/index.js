@@ -1,18 +1,17 @@
-import { useSelector } from 'react-redux';
-
 import './customerScreen.css';
 import { customerMenuTemplate } from './customerMenuTemplate';
+import { useShadow } from 'src/hooks/useShadow';
 import CustomerCard, { mapCustomerCardProp } from './CustomerCard';
 import CustomerHelpSection from './CustomerHelpSection';
 import Header from 'src/layouts/Header';
 
 export default function CustomerScreen() {
-  const { user } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
 
   return (
     <div className="c-screen customer">
       <header className="container">
-        <Header title>We’re here to help, {user?.username || ''}</Header>
+        <Header title>We’re here to help, {userInfo?.name || ''}</Header>
         <h3 className="sub-title">
           We’ll walk you through fixing most things here or connect you to someone if you need more help.
         </h3>

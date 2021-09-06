@@ -5,6 +5,8 @@ import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
 function InnerBox({ statusOf, errorMsg = '', xl = false, variant, children, ...rest }) {
+  if (!statusOf) return null;
+
   const { loading = false, error = false } = statusOf;
 
   if (loading) return <LoadingBox xl={xl} />;
@@ -22,7 +24,7 @@ function LoadingOrError({ wrapClass = '', ...props }) {
       timeoutId.current = setTimeout(() => setHideError(true), SHOW_ERROR_TIMEOUT);
     }
     return () => clearTimeout(timeoutId.current);
-  }, [props.statusOf.error]);
+  }, [props.statusOf?.error]);
 
   if (hideError) return null;
   if (!wrapClass || !props.children) return <InnerBox {...props} />;

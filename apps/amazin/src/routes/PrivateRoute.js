@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useShadow } from 'src/hooks/useShadow';
 
 import { Redirect, Route } from 'src/routes/SuspenseRoute';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { userInfo } = useShadow();
   const redirect = rest?.path?.slice(1) || '/';
 
   return (
