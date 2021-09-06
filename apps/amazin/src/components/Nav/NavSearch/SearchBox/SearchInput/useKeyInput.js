@@ -11,13 +11,16 @@ export function useKeyInput(setInput, setSuggests, submitSearch) {
   const { shadowOf, setShadowOf } = useShadow();
 
   const handleKeyInput = ({ target: { value }, key }) => {
-    if ('Enter' === key) return submitSearch();
+    switch (key) {
+      case 'Enter':
+        return submitSearch();
 
-    if ('Escape' === key) {
-      setSuggestBox(false);
-      return setShadowOf('');
+      case 'Escape':
+        setSuggestBox(false);
+        return setShadowOf('');
+
+      default:
     }
-
     const newSuggests = findSuggest(productList, value);
     setSuggests(newSuggests);
     setSuggestBox(true);
