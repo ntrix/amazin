@@ -2,11 +2,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { axios } from 'src/apis/axiosClient';
+import { MAIL_SERVER, HEADERS } from 'src/constants';
 import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
-
-const MAIL_SERVER = process.env.REACT_APP_CONTACT_MAIL_SERVER;
-const HEADERS = { mode: 'cors', headers: { 'Content-Type': 'application/json' } };
 
 const checkError = ({ text, email, name }) => {
   const error = [];

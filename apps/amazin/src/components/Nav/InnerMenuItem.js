@@ -1,5 +1,4 @@
 import { memo } from 'react';
-
 import { useHistory } from 'react-router';
 
 function InnerMenuItem({ label, to, className, clearShadow, extFunction, children }) {
@@ -14,7 +13,7 @@ function InnerMenuItem({ label, to, className, clearShadow, extFunction, childre
   return (
     <div
       className={'menu__link-item ' + className}
-      aria-label={label || className}
+      aria-label={`${label} ${className}`}
       onClick={(e) => {
         e.stopPropagation();
         clearShadow('');
