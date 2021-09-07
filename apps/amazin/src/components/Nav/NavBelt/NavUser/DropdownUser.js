@@ -4,11 +4,11 @@ import { useShadow } from 'src/hooks/useShadow';
 import MenuItem, { mapArgsToProps } from '../../MenuItem';
 
 function DropdownUser({ ddMenuList }) {
-  const { shadowOf, setShadowOf } = useShadow();
+  const { shadowOf } = useShadow();
   return (
     <ul className={`dropdown__menu ${SHADOW.NAV_DD === shadowOf ? 'show' : ''}`}>
-      {ddMenuList.map(mapArgsToProps).map((props) => (
-        <MenuItem {...props} clearShadow={setShadowOf} />
+      {ddMenuList.map((args, id) => (
+        <MenuItem {...mapArgsToProps(args, id)} />
       ))}
     </ul>
   );

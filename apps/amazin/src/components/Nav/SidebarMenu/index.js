@@ -35,8 +35,8 @@ function SidebarMenu() {
         ...sidebarUserCreator(userInfo?.name, signOutHandler),
         ...sidebarSellerCreator(userInfo?.isSeller),
         ...sidebarAdminCreator(userInfo?.isAdmin)
-      ].map((args) => (
-        <MenuItem {...mapArgsToProps(args)} />
+      ].map((args, id) => (
+        <MenuItem {...mapArgsToProps(args, id)} />
       ))}
     </ShadowWrapper>
   );
