@@ -20,6 +20,7 @@ function ProductScreen({ match: { params } }) {
   }, [params.id, dispatch]);
 
   if (!success) return <LoadingOrError xl statusOf={{ loading, error }} />;
+
   return (
     <div className="col-fill">
       <BackBanner />

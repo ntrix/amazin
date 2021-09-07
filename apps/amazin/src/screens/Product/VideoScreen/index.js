@@ -7,7 +7,6 @@ import { delay, ErrorFallback, SuspenseBanner, SuspenseLoad } from 'src/componen
 import { useMovieList } from './useMovieList';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
-
 const VideoNavHeader = lazy(() => import(/* webpackPrefetch: true */ './VideoNavHeader'));
 const VideoBanner = lazy(() => import(/* webpackPrefetch: true */ './components/VideoBanner'));
 const VideoRow = lazy(() => import(/* webpackPrefetch: true */ './VideoRow').then(delay(3000)));
