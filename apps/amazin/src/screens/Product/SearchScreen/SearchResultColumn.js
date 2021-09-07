@@ -1,18 +1,15 @@
 import { lazy, memo } from 'react';
-import { useSelector } from 'react-redux';
 
 import { SuspenseLoad } from 'src/components/CustomSuspense';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
-function SearchResultColumn() {
-  const productList = useSelector((state) => state.productList);
-  const { products, loading } = productList;
 
+function SearchResultColumn({list:{ products, loading, error }}) {
   return (
     <div className="row center search__results">
       {(!products || products.length < 2) && <div className="placeholder"></div>}
-      <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
+      <LoadingOrError xl wrapClass="placeholder" statusOf={{loading, error}} />
 
       {!loading && (
         <>

@@ -20,6 +20,7 @@ function ProductScreen({ match: { params } }) {
   }, [params.id, dispatch]);
 
   if (!success) return <LoadingOrError xl statusOf={{ loading, error }} />;
+
   return (
     <div className="col-fill">
       <BackBanner />
@@ -33,7 +34,7 @@ function ProductScreen({ match: { params } }) {
         </div>
       </div>
 
-      <ProductReview productId={params.id} />
+      <ProductReview productId={params.id} reviews={product.reviews} />
     </div>
   );
 }

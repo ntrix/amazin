@@ -1,18 +1,11 @@
-import { useSelector } from 'react-redux';
 import PrivateRoute from 'src/routes/PrivateRoute';
 import CustomInput from 'src/components/CustomInput';
-import LoadingOrError from 'src/components/LoadingOrError';
 
-export default function UserProfileSection(props) {
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const userDetails = useSelector((state) => state.userDetails);
-
-  const { name, setName, email, setEmail, setPassword, setOldPassword, setConfirmPassword } = props;
+export default function UserProfileSection({ userDetails, hooks }) {
+  const { name, setName, email, setEmail, setPassword, setOldPassword, setConfirmPassword } = hooks;
 
   return userDetails?.user ? (
     <>
-      <LoadingOrError xl statusOf={userUpdateProfile} />
-
       <CustomInput text="Name" hook={[name, setName]} />
       <CustomInput text="Email" type="email" hook={[email, setEmail]} />
 

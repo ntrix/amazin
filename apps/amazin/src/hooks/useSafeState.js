@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 export function useMounted() {
   const mountedRef = useRef(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     mountedRef.current = true;
     return () => (mountedRef.current = false);
   }, []);
@@ -17,7 +17,7 @@ export function useSafeState(init) {
 
   const safeSetState = useCallback(
     (newState) => {
-      if (mountedRef.current && newState) setState(newState);
+      if (mountedRef.current) setState(newState);
     },
     [mountedRef]
   );
