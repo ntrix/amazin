@@ -92,7 +92,7 @@ function DealScreen() {
 
         <h2 className="screen__title">Top Deals</h2>
         <div className="screen__featured">
-          <SearchBanner info={list}>
+          <SearchBanner list={list}>
             <SortFilter order={order} getUrl={({ order: _o }) => `/deal/category/all/order/${_o}/pageNumber/1`} />
           </SearchBanner>
 
