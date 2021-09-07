@@ -1,19 +1,18 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { MAX_2DIGITS, MAX_CART_QTY } from 'src/constants';
 import NavBtnFacade from './NavButton/NavBtnFacade';
-
-const MAX_QTY = 9999; // noway :)
 
 export function NavCart({ to }) {
   const { cartItems } = useSelector((state) => state.cart);
   const count = Math.min(
     cartItems.reduce((a, c) => a + c.qty, 0),
-    MAX_QTY
+    MAX_CART_QTY
   );
 
   return (
     <NavBtnFacade label="cart" to={to} className="pc-low--off" text="Shopping-^Basket">
-      <div className={`cart__counter${count > 99 ? ' --js-3digits' : ''}`}>{count}</div>
+      <div className={`cart__counter${count > MAX_2DIGITS ? ' --js-3digits' : ''}`}>{count}</div>
     </NavBtnFacade>
   );
 }
