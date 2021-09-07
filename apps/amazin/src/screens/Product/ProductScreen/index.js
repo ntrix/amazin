@@ -33,7 +33,7 @@ function ProductScreen({ match: { params } }) {
         </div>
       </div>
 
-      <ProductReview productId={params.id} />
+      <ProductReview productId={params.id} reviews={product.reviews} />
     </div>
   );
 }
