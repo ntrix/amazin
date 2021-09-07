@@ -14,13 +14,16 @@ import Pagination from 'src/components/Pagination';
 
 function SearchScreen() {
   const { order, category, max, rating, getFilterUrl } = useSearchFilter();
-  const { page, pages } = useSelector((state) => state.productList);
+  const productList = useSelector((state) => state.productList);
+  const { page, pages } = productList;
 
   return (
     <div className="search-screen">
       <SubNavCategories first={NAV.ALL} category={category} getUrl={getFilterUrl} />
 
-      <SearchBanner children={<SortFilter order={order} getUrl={getFilterUrl} />} />
+      <SearchBanner list={productList}>
+        <SortFilter order={order} getUrl={getFilterUrl} />
+      </SearchBanner>
 
       <div className="row top search-screen__result">
         <SearchFilterColumn searchFilters={{ category, max, rating }} getFilterUrl={getFilterUrl} />

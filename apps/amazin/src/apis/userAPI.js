@@ -15,7 +15,7 @@ import { KEY } from '../constants';
 export const register = (name, email, password, confirmPassword) =>
   axiosPublic([userRegisterActions], {
     requestPayload: { email, password },
-    successDispatcher: userSigninActions._SUCCESS,
+    successAction: userSigninActions._SUCCESS,
     successHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
   })('post', '/api/users/register', {
     name,
@@ -50,7 +50,7 @@ export const detailsUser = (userId) =>
 export const updateUserProfile = (user) =>
   axiosPrivate([userUpdateProfileActions], {
     requestPayload: user,
-    successDispatcher: userSigninActions._SUCCESS,
+    successAction: userSigninActions._SUCCESS,
     successHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
   })('put', `/api/users/profile`, user);
 

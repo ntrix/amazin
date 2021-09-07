@@ -33,7 +33,7 @@ function SellerScreen({ match }) {
 
   return (
     <div className="row top">
-      <SearchBanner />
+      <SearchBanner list={productList} />
 
       <div className="col-1 p-1">
         <LoadingOrError statusOf={userDetails} />

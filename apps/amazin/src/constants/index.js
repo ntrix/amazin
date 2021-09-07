@@ -3,6 +3,10 @@ import 'react-multi-carousel/lib/styles.css';
 
 export const RATES_SOURCE = process.env.REACT_APP_RATES_SOURCE; // REACT_APP_RATES_SOURCE_ORG
 
+/* cart, NavCart */
+export const MAX_CART_QTY = 9999; // noway :)
+export const MAX_2DIGITS = 99;
+
 /* contact screen, mail server */
 export const MAIL_SERVER = process.env.REACT_APP_CONTACT_MAIL_SERVER;
 export const HEADERS = { mode: 'cors', headers: { 'Content-Type': 'application/json' } };
