@@ -14,6 +14,7 @@ import Pagination from 'src/components/Pagination';
 
 function SearchScreen() {
   const { order, category, max, rating, getFilterUrl } = useSearchFilter();
+  const productCategoryList = useSelector((state) => state.productCategoryList);
   const productList = useSelector((state) => state.productList);
   const { page, pages } = productList;
 
@@ -26,7 +27,11 @@ function SearchScreen() {
       </SearchBanner>
 
       <div className="row top search-screen__result">
-        <SearchFilterColumn searchFilters={{ category, max, rating }} getFilterUrl={getFilterUrl} />
+        <SearchFilterColumn
+          categoryList={productCategoryList}
+          searchFilters={{ category, max, rating }}
+          getFilterUrl={getFilterUrl}
+        />
         <div className="col-9">
           <SearchResultColumn list={productList} />
           <Pagination getUrl={getFilterUrl} page={page} pages={pages} help />
