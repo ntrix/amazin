@@ -10,12 +10,12 @@ function ShadowWrapper({ header, children }) {
 
   return (
     <>
-      {header}
-
       <aside className={`sidebar ${isOpened ? 'opened' : ''}`}>
         <button id={id} onClick={() => setShadowOf('')} aria-label="Close Sidebar">
           <div className="sprite__close-btn"></div>
         </button>
+
+        {header}
 
         <ul className="sidebar__list">{children}</ul>
       </aside>
