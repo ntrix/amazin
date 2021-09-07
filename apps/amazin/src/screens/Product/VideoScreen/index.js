@@ -6,7 +6,7 @@ import './videoScreen.css';
 import axios from 'axios';
 import { listProducts } from 'src/apis/productAPI';
 import { sourceAdapter } from 'src/utils';
-import { TRENDING, TOP_RATED, VIDEO, NETFLUX, HOME, STORE } from 'src/constants';
+import { TRENDING, TOP_RATED, VIDEO, NETFLUX, HOME, STORE, IN_STOCK } from 'src/constants';
 import { ErrorFallback, SuspenseLoad, delay, SuspenseBanner } from 'src/components/CustomSuspense';
 import { useSafeState } from 'src/hooks/useSafeState';
 import MessageBox from 'src/components/MessageBox';
@@ -17,31 +17,24 @@ const VideoRow = React.lazy(() => import(/* webpackPrefetch: true */ './VideoRow
 
 export default function VideoScreen() {
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
+  const { products, success, loading, error } = useSelector((state) => state.productList);
   const productCreate = useSelector((state) => state.productCreate);
   const [active, setActive] = useState(STORE);
   const [externMovies, setExternMovies] = useSafeState({});
-  const [storeMovies, setStoreMovies] = useSafeState([]);
+  const [stockMovies, setStockMovies] = useSafeState({ [IN_STOCK]: [] });
   const [bannerMovies, setBannerMovies] = useSafeState([]);
 
   useEffect(() => {
     const _banner = {};
     VIDEO.GENRES.forEach((_genre) => {
-      const genreMovies = !productList.success ? VIDEO.EMPTY : externMovies[_genre] || storeMovies || VIDEO.EXAMPLES;
+      const genreMovies = !success ? VIDEO.EMPTY : externMovies[_genre] || stockMovies[IN_STOCK] || VIDEO.EXAMPLES;
       _banner[_genre] = genreMovies[(Math.random() * genreMovies.length) | 0];
     });
     setBannerMovies(_banner);
-  }, [productList.success, setBannerMovies, externMovies, storeMovies]);
+  }, [success, setBannerMovies, externMovies, stockMovies]);
 
   useEffect(() => {
-    dispatch(
-      listProducts({
-        seller: process.env.REACT_APP_SELLER,
-        category: 'Video',
-        pageSize: 11,
-        order: 'oldest'
-      })
-    );
+    dispatch(listProducts({ seller: VIDEO.SELLER, category: 'Video', pageSize: 11, order: 'oldest' }));
 
     (async function fetchData() {
       const _movieList = {};
@@ -57,8 +50,8 @@ export default function VideoScreen() {
   }, []);
 
   useEffect(() => {
-    setStoreMovies(productList.products);
-  }, [productList.products, setStoreMovies]);
+    if (products) setStockMovies({ [IN_STOCK]: products.filter((p) => p.seller._id === VIDEO.SELLER) });
+  }, [products, setStockMovies]);
 
   return (
     <div className="container--full video-screen">
@@ -73,17 +66,18 @@ export default function VideoScreen() {
           {!!externMovies &&
             (active === HOME ? (
               Object.keys(VIDEO.SRC).map((_genre) => (
-                <VideoRow key={_genre} title={_genre} movies={externMovies[_genre]} portrait={_genre === NETFLUX} />
+                <VideoRow key={_genre} title={_genre} movies={externMovies} portrait={_genre === NETFLUX} />
               ))
             ) : (
-              <VideoRow title={active} movies={externMovies[active]} portrait={active === NETFLUX} />
+              <VideoRow title={active} movies={externMovies} portrait={active === NETFLUX} />
             ))}
-          <LoadingOrError xl statusOf={productList} />
-          <MessageBox show={productList?.success && storeMovies?.length < 1}>Sold Out/ No Product Found</MessageBox>
+          <LoadingOrError xl statusOf={{ loading, error }} />
 
-          <VideoRow title="IN STOCK: READY TO BUY" movies={storeMovies} portrait={active !== NETFLUX} />
-          {active !== TRENDING && <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />}
-          {active !== TOP_RATED && <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />}
+          <VideoRow title={IN_STOCK} movies={stockMovies} portrait={active !== NETFLUX} />
+          <MessageBox msg={success && products.length < 1 && 'Sold Out/ No Product Found'} />
+
+          {active !== TRENDING && <VideoRow title={TRENDING} movies={externMovies} />}
+          {active !== TOP_RATED && <VideoRow title={TOP_RATED} movies={externMovies} />}
         </SuspenseLoad>
         <div className="banner__divider"></div>
 

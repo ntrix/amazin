@@ -139,6 +139,7 @@ export const TOP_RATED = 'Top Rated';
 export const NETFLUX = 'NETFLUX ORIGINALS';
 export const STORE = 'STORE';
 export const HOME = 'Home';
+export const IN_STOCK = 'IN STOCK: READY TO BUY';
 
 const _API = process.env.REACT_APP_API_KEY;
 const _SOURCES = {
@@ -155,6 +156,7 @@ const _videoNavLabels = Object.keys(_SOURCES);
 _videoNavLabels.splice(1, 0, HOME, STORE);
 
 export const VIDEO = {
+  SELLER: process.env.REACT_APP_SELLER,
   GENRES: _videoNavLabels,
   SRC: _SOURCES,
   URL: 'https://api.themoviedb.org/3',
