@@ -1,94 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useDispatch, useSelector } from 'react-redux';
 
 import './videoScreen.css';
-import axios from 'axios';
-import { listProducts } from 'src/apis/productAPI';
-import { sourceAdapter } from 'src/utils';
-import { TRENDING, TOP_RATED, VIDEO, NETFLUX, HOME, STORE } from 'src/constants';
-import { ErrorFallback, SuspenseLoad, delay, SuspenseBanner } from 'src/components/CustomSuspense';
-import { useSafeState } from 'src/hooks/useSafeState';
-import MessageBox from 'src/components/MessageBox';
+import { HOME, IN_STOCK, NETFLUX, STORE, TOP_RATED, TRENDING, VIDEO } from 'src/constants';
+import { ErrorFallback, SuspenseBanner, SuspenseLoad, Suspense } from 'src/components/CustomSuspense';
+import { useMovieList } from './useMovieList';
 import LoadingOrError from 'src/components/LoadingOrError';
-const VideoNavHeader = React.lazy(() => import(/* webpackPrefetch: true */ './VideoNavHeader'));
-const VideoBanner = React.lazy(() => import(/* webpackPrefetch: true */ './components/VideoBanner'));
-const VideoRow = React.lazy(() => import(/* webpackPrefetch: true */ './VideoRow').then(delay(3000)));
+import MessageBox from 'src/components/MessageBox';
+import VideoNavHeader from './VideoNavHeader';
+import VideoBanner from './components/VideoBanner';
+import VideoRow from './VideoRow';
+import { dummyMovies } from 'src/utils';
 
 export default function VideoScreen() {
-  const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
-  const productCreate = useSelector((state) => state.productCreate);
   const [active, setActive] = useState(STORE);
-  const [externMovies, setExternMovies] = useSafeState({});
-  const [storeMovies, setStoreMovies] = useSafeState([]);
-  const [bannerMovies, setBannerMovies] = useSafeState([]);
-
-  useEffect(() => {
-    const _banner = {};
-    VIDEO.GENRES.forEach((_genre) => {
-      const genreMovies = !productList.success ? VIDEO.EMPTY : externMovies[_genre] || storeMovies || VIDEO.EXAMPLES;
-      _banner[_genre] = genreMovies[(Math.random() * genreMovies.length) | 0];
-    });
-    setBannerMovies(_banner);
-  }, [productList.success, setBannerMovies, externMovies, storeMovies]);
-
-  useEffect(() => {
-    dispatch(
-      listProducts({
-        seller: process.env.REACT_APP_SELLER,
-        category: 'Video',
-        pageSize: 11,
-        order: 'oldest'
-      })
-    );
-
-    (async function fetchData() {
-      const _movieList = {};
-      await Promise.all(
-        Object.keys(VIDEO.SRC).map(async (genre) => {
-          const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre]).catch();
-          _movieList[genre] = sourceAdapter(data.results);
-        })
-      );
-      setExternMovies(_movieList);
-    })();
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    setStoreMovies(productList.products);
-  }, [productList.products, setStoreMovies]);
+  const { externMovies, bannerMovies, stockMovies, productCreate, productList } = useMovieList();
 
   return (
     <div className="container--full video-screen">
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <SuspenseLoad children={<VideoNavHeader labels={VIDEO.GENRES} active={active} setActive={setActive} />} />
-
         <LoadingOrError xl statusOf={productCreate} />
 
         <SuspenseBanner children={<VideoBanner movie={bannerMovies[active]} youtubeTrailer />} />
-
-        <SuspenseLoad>
-          {!!externMovies &&
-            (active === HOME ? (
-              Object.keys(VIDEO.SRC).map((_genre) => (
-                <VideoRow key={_genre} title={_genre} movies={externMovies[_genre]} portrait={_genre === NETFLUX} />
-              ))
-            ) : (
-              <VideoRow title={active} movies={externMovies[active]} portrait={active === NETFLUX} />
-            ))}
+        <Suspense fallback={VideoRowsFallBack}>
+          {active === HOME ? (
+            Object.keys(VIDEO.SRC).map((_genre) => (
+              <VideoRow key={_genre} title={_genre} movies={externMovies} portrait={_genre === NETFLUX} />
+            ))
+          ) : (
+            <VideoRow title={active} movies={externMovies} portrait={active === NETFLUX} />
+          )}
           <LoadingOrError xl statusOf={productList} />
-          <MessageBox show={productList?.success && storeMovies?.length < 1}>Sold Out/ No Product Found</MessageBox>
+          <VideoRow title={IN_STOCK} movies={stockMovies} portrait={active !== NETFLUX} />
+          <MessageBox msg={productList?.products?.length < 1 && 'Sold Out/ No Product Found'} />
 
-          <VideoRow title="IN STOCK: READY TO BUY" movies={storeMovies} portrait={active !== NETFLUX} />
-          {active !== TRENDING && <VideoRow title={TRENDING} movies={externMovies[TRENDING]} />}
-          {active !== TOP_RATED && <VideoRow title={TOP_RATED} movies={externMovies[TOP_RATED]} />}
-        </SuspenseLoad>
-        <div className="banner__divider"></div>
+          {active !== TRENDING && <VideoRow title={TRENDING} movies={externMovies} />}
+          {active !== TOP_RATED && <VideoRow title={TOP_RATED} movies={externMovies} />}
+        </Suspense>
 
+        <div className="banner__divider" />
         <SuspenseLoad children={<VideoBanner bottom movie={bannerMovies[active]} />} />
       </ErrorBoundary>
     </div>
   );
 }
+
+const VideoRowsFallBack = (
+  <>
+    <VideoRow title={IN_STOCK} movies={{ [IN_STOCK]: dummyMovies }} portrait />
+    <VideoRow title={TRENDING} movies={{ [TRENDING]: dummyMovies }} />
+  </>
+);

@@ -1,13 +1,14 @@
 import { memo } from 'react';
 
 import { NO_IMAGE } from 'src/constants';
-import { getImgUrl } from 'src/utils';
+import { dummyMovies, getImgUrl } from 'src/utils';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import ButtonBuy from './ButtonBuy';
 import ButtonTrailer from './ButtonTrailer';
 import Rating from 'src/components/Rating';
+import LoadingBox from 'src/components/LoadingBox';
 
-export function VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
+export function VideoCard({ movie, portrait, trailerUrl, setTrailerUrl, children }) {
   return (
     <div className={`m-card ${portrait ? 'm-card--portrait' : ''}`}>
       <LazyImg
@@ -29,10 +30,16 @@ export function VideoCard({ movie, portrait, trailerUrl, setTrailerUrl }) {
       </div>
 
       <div className="m-card__info">
-        <div className="m-card__name">{movie.name}</div>
+        <div className="m-card__name">{children || movie.name}</div>
       </div>
     </div>
   );
 }
 
 export default memo(VideoCard);
+
+export const VideoCardFallBack = ({ portrait = false }) => (
+  <VideoCard movie={dummyMovies[0]} portrait={portrait} trailerUrl="" setTrailerUrl={() => null}>
+    <LoadingBox />
+  </VideoCard>
+);
