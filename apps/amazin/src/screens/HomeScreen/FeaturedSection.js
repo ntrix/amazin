@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { SuspenseLoad } from 'src/components/CustomSuspense';
+import { SusProductCard } from '../Product/components/ProductCard';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
-import ProductCard from '../Product/components/ProductCard';
 
 function FeaturedSection() {
   const { products, loading, error } = useSelector((state) => state.productList);
@@ -17,7 +17,7 @@ function FeaturedSection() {
       <div className="screen__featured">
         <SuspenseLoad>
           {products?.map((product) => (
-            <SuspenseLoad key={product._id} children={<ProductCard product={product} />} />
+            <SusProductCard key={product._id} product={product} />
           ))}
         </SuspenseLoad>
       </div>
