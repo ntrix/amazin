@@ -1,4 +1,4 @@
-import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY } from '../constants';
+import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY, NO_IMAGE_P } from '../constants';
 export { findSuggest } from './findSuggest';
 
 export const castArray = (strArray) => (Array.isArray(strArray) ? strArray : [strArray]);
@@ -98,7 +98,9 @@ export const savePath =
 const getUrl = (url) => (url ? SRC_URL + url : '');
 const getName = (m) => m.name || m.title || m.original_title || 'Product Name';
 const getImage = (m) =>
-  m.image || `${getUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getUrl(m.backdrop_path)}` || NO_IMAGE;
+  m.image ||
+  `${getUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getUrl(m.backdrop_path)}` ||
+  `${NO_IMAGE_P}^${NO_IMAGE}`;
 
 export const sourceAdapter = (movies, id) =>
   movies?.map((m) => ({
@@ -114,6 +116,9 @@ export const sourceAdapter = (movies, id) =>
     deal: 1,
     category: 'Product Category'
   }));
+
+/* create an array of 6 dummyProducts (a2 rows) for product card & screen */
+export const dummyProducts = sourceAdapter(Array(6).fill(1));
 
 /* create an array of 12 dummyMovies (a row) for videoRow(s) */
 export const dummyMovies = sourceAdapter(Array(12).fill(1));

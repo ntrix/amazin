@@ -1,20 +1,19 @@
-import { lazy, memo, useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import './dealScreen.css';
 import { listProducts } from 'src/apis/productAPI';
-import { SuspenseLoad } from 'src/components/CustomSuspense';
 import { dummyMovies } from 'src/utils';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { useShadow } from 'src/hooks/useShadow';
 import { useSafeState } from 'src/hooks/useSafeState';
 import Carousel, { responsive, NAV, SORT } from 'src/constants';
+import { SusProductCard, SusProductList } from '../components/ProductCard';
 import SortFilter from 'src/components/SortFilter';
 import MessageBox from 'src/components/MessageBox';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SearchBanner from 'src/components/Nav/SearchBanner';
-const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function DealScreen() {
   const dispatch = useDispatch();
@@ -85,7 +84,7 @@ function DealScreen() {
           itemClass="carousel-item-padding-40-px"
         >
           {(list?.products || dummyMovies).map((product, id) => (
-            <SuspenseLoad key={id} children={<ProductCard hasDeal product={product} />} />
+            <SusProductCard key={id} hasDeal product={product} />
           ))}
         </Carousel>
 
@@ -93,14 +92,16 @@ function DealScreen() {
 
         <h2 className="screen__title">Top Deals</h2>
         <div className="screen__featured">
-          <SearchBanner info={list}>
+          <SearchBanner list={list}>
             <SortFilter order={order} getUrl={({ order: _o }) => `/deal/category/all/order/${_o}/pageNumber/1`} />
           </SearchBanner>
 
           <div className="row center">
-            {list?.products?.map((product, id) => (
-              <SuspenseLoad key={id} children={<ProductCard hasDeal product={product} />} />
-            ))}
+            <SusProductList>
+              {list?.products?.map((product, id) => (
+                <SusProductCard key={id} hasDeal product={product} />
+              ))}
+            </SusProductList>
           </div>
         </div>
       </div>

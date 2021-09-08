@@ -1,10 +1,10 @@
-import { lazy, memo } from 'react';
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { SuspenseLoad } from 'src/components/CustomSuspense';
+import { SusProductCard, SusProductList } from '../components/ProductCard';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
-const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
+
 function SearchResultColumn() {
   const productList = useSelector((state) => state.productList);
   const { products, loading } = productList;
@@ -14,17 +14,14 @@ function SearchResultColumn() {
       {(!products || products.length < 2) && <div className="placeholder"></div>}
       <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
 
-      {!loading && (
-        <>
-          <MessageBox wrapClass="placeholder" show={products?.length < 1}>
-            No Product Found
-          </MessageBox>
+      <MessageBox wrapClass="placeholder" msg={!loading && products?.length < 1 && 'No Product Found'} />
 
-          {products?.map((product, id) => (
-            <SuspenseLoad key={id} children={<ProductCard product={product} />} />
-          ))}
-        </>
-      )}
+      <SusProductList>
+        {products?.map((product, id) => (
+          <SusProductCard key={id} product={product} />
+        ))}
+      </SusProductList>
+
       {(!products || products.length < 3) && <div className="placeholder"></div>}
       <div className="row divider-inner"></div>
     </div>

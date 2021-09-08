@@ -1,10 +1,7 @@
 import { memo } from 'react';
-import { useSelector } from 'react-redux';
 
-function SearchBanner({ info, children }) {
-  const productList = useSelector((state) => state.productList);
-  const { products, page, count } = info || productList;
-
+function SearchBanner({ list, children }) {
+  const { products = null, page = 1, count = 0 } = list ?? {};
   const size = products?.length || 0;
   const fromItem = size * (page - 1);
   const toItem = Math.min(fromItem + size, count);
@@ -12,7 +9,7 @@ function SearchBanner({ info, children }) {
   return (
     <div className="row search__banner">
       <div className="search__counter">
-        {fromItem + (toItem ? 1 : 0) || 0} - {toItem || 0} of {count || 0} Results
+        {fromItem + (toItem ? 1 : 0)} - {toItem} of {count} Results
       </div>
       {children}
     </div>

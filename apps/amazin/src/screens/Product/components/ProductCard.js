@@ -2,8 +2,9 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { LazyImg } from 'src/apis/suspenseAPI';
-import { getImgUrl, pipe, savePath } from 'src/utils';
+import { dummyProducts, getImgUrl, pipe, savePath } from 'src/utils';
 import { DUMMYSELLERS, NO_IMAGE } from 'src/constants';
+import { Suspense } from 'src/components/CustomSuspense';
 import Rating from 'src/components/Rating';
 import PriceTag from './PriceTag';
 
@@ -55,4 +56,19 @@ function ProductCard({
     </div>
   );
 }
+
 export default memo(ProductCard);
+
+export const ProductCardFallback = <ProductCard hasDeal product={dummyProducts[0]} />;
+
+export const SusProductCard = (props) => (
+  <Suspense fallback={ProductCardFallback}>
+    <ProductCard {...props} />
+  </Suspense>
+);
+
+export const ProductListFallback = dummyProducts.map((_, id) => (
+  <ProductCard key={id} hasDeal product={dummyProducts[0]} />
+));
+
+export const SusProductList = ({ children }) => <Suspense fallback={ProductListFallback}>{children}</Suspense>;
