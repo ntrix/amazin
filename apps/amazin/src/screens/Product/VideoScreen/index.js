@@ -25,16 +25,16 @@ export default function VideoScreen() {
         <SuspenseBanner children={<VideoBanner movie={bannerMovies[active]} youtubeTrailer />} />
         <Suspense fallback={VideoRowsFallBack}>
           {active === HOME &&
-            Object.keys(VIDEO.SRC).map((_genre) => (
-              <VideoRow key={_genre} title={_genre} movies={externMovies} portrait={_genre === NETFLUX} />
+            Object.keys(VIDEO.SRC).map((genre) => (
+              <VideoRow key={genre} genre={genre} movies={externMovies} portrait={genre === NETFLUX} />
             ))}
-          {active !== HOME && <VideoRow title={active} movies={externMovies} portrait={active === NETFLUX} />}
-          <VideoRow title={IN_STOCK} movies={stockMovies} portrait={active !== NETFLUX} />
+          {active !== HOME && <VideoRow genre={active} movies={externMovies} portrait={active === NETFLUX} />}
+          <VideoRow label={IN_STOCK} genre={STORE} movies={stockMovies} portrait={active !== NETFLUX} />
           <LoadingOrError xl statusOf={productList} />
           <MessageBox msg={productList?.products?.length < 1 && 'Sold Out/ No Product Found'} />
 
-          {active !== TRENDING && <VideoRow title={TRENDING} movies={externMovies} />}
-          {active !== TOP_RATED && <VideoRow title={TOP_RATED} movies={externMovies} />}
+          {active !== TRENDING && <VideoRow genre={TRENDING} movies={externMovies} />}
+          {active !== TOP_RATED && <VideoRow genre={TOP_RATED} movies={externMovies} />}
         </Suspense>
 
         <div className="banner__divider" />
@@ -46,7 +46,7 @@ export default function VideoScreen() {
 
 const VideoRowsFallBack = (
   <>
-    <VideoRow title={IN_STOCK} movies={{ [IN_STOCK]: dummyMovies }} portrait />
-    <VideoRow title={TRENDING} movies={{ [TRENDING]: dummyMovies }} />
+    <VideoRow label={IN_STOCK} genre={STORE} movies={{ [STORE]: dummyMovies }} portrait />
+    <VideoRow genre={TRENDING} movies={{ [TRENDING]: dummyMovies }} />
   </>
 );

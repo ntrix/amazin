@@ -5,15 +5,13 @@ import VideoCard, { VideoCardFallBack } from './components/VideoCard';
 import Carousel, { responsive } from 'src/constants';
 import UTube from './components/UTube';
 
-function VideoRow({ title, movies, portrait = false }) {
+function VideoRow({ label, genre, movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
 
-  if (!movies[title]?.length) return null;
-
-  return (
+  return movies[genre]?.length ? (
     <div className="m-row">
-      <h2>{title}</h2>
-      {!!movies[title] && (
+      <h2>{label || genre}</h2>
+      {!!movies[genre] && (
         <Carousel
           swipeable={true}
           draggable={false}
@@ -29,7 +27,7 @@ function VideoRow({ title, movies, portrait = false }) {
           dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
         >
-          {movies[title]?.map((movie, id) => (
+          {movies[genre]?.map((movie, id) => (
             <Suspense key={id} fallback={<VideoCardFallBack portrait={portrait} />}>
               <VideoCard movie={movie} portrait={portrait} trailerUrl={trailerUrl} setTrailerUrl={setTrailerUrl} />
             </Suspense>
@@ -39,7 +37,7 @@ function VideoRow({ title, movies, portrait = false }) {
 
       <UTube trailerUrl={trailerUrl} />
     </div>
-  );
+  ) : null;
 }
 
 export default memo(VideoRow);

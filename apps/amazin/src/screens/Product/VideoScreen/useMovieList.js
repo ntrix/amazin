@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import './videoScreen.css';
 import { listProducts } from 'src/apis/productAPI';
-import { STORE, IN_STOCK, VIDEO } from 'src/constants';
+import { STORE, VIDEO } from 'src/constants';
 import { useSafeState } from 'src/hooks/useSafeState';
 import { dummyMovies, sourceAdapter } from 'src/utils';
 
@@ -24,30 +24,28 @@ export function useMovieList() {
   const productList = useSelector((state) => state.productList);
   const { products } = productList;
   const productCreate = useSelector((state) => state.productCreate);
-  const [bannerMovies, setBannerMovies, isMounted] = useSafeState({});
-  const [stockMovies, setStockMovies] = useState({ [IN_STOCK]: dummyMovies });
+  const [stockMovies, setStockMovies, isMounted] = useSafeState({ [STORE]: dummyMovies });
   const [externMovies, setExternMovies] = useState({ [STORE]: dummyMovies });
+  const [bannerMovies, setBannerMovies] = useState({});
 
   useEffect(() => {
     fetchMovies().then((movies) => (isMounted.current ? setExternMovies(movies) : null));
-    dispatch(listProducts({ seller: VIDEO.SELLER, category: 'Video', pageSize: 11, order: 'oldest' }));
-  }, [isMounted, dispatch]);
+  }, [isMounted]);
 
   useEffect(() => {
-    if (!isMounted.current || stockMovies[IN_STOCK] !== dummyMovies) return;
-
-    if (products?.[0].seller?._id === VIDEO.SELLER) setStockMovies({ [IN_STOCK]: products });
-  }, [isMounted, products, stockMovies]);
+    if (products?.[0].seller?._id === VIDEO.SELLER) setStockMovies({ [STORE]: products });
+    else dispatch(listProducts({ seller: VIDEO.SELLER, category: 'Video', pageSize: 11, order: 'oldest' }));
+  }, [products, setStockMovies, dispatch]);
 
   useEffect(() => {
-    if (externMovies[STORE] === dummyMovies || stockMovies[IN_STOCK] === dummyMovies) return;
+    if (!isMounted.current || externMovies[STORE] === dummyMovies || stockMovies[STORE] === dummyMovies) return;
 
     const bannerMoviesArray = VIDEO.GENRES.map((genre) => {
-      const genreMovies = externMovies[genre] || stockMovies[IN_STOCK];
+      const genreMovies = externMovies[genre] || stockMovies[STORE];
       return [genre, genreMovies[(Math.random() * genreMovies.length) | 0]];
     });
     setBannerMovies(Object.fromEntries(bannerMoviesArray));
-  }, [externMovies, stockMovies, setBannerMovies]);
+  }, [isMounted, externMovies, stockMovies, setBannerMovies]);
 
   return { productList, productCreate, externMovies, stockMovies, bannerMovies };
 }
