@@ -117,7 +117,7 @@ export const sourceAdapter = (movies, id) =>
     category: 'Product Category'
   }));
 
-/* create an array of 6 dummyProducts (a2 rows) for product card & screen */
+/* create an array of 6 dummyProducts (a2 rows) for ProductCard & Screen */
 export const dummyProducts = sourceAdapter(Array(6).fill(1));
 
 /* create an array of 12 dummyMovies (a row) for videoRow(s) */
