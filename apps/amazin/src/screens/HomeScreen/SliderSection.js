@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Suspense } from 'src/components/CustomSuspense';
 import { DUMMYSELLERS, SWIPER_CONFIG } from 'src/constants';
@@ -13,7 +14,9 @@ SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 const SwiperFallBack = <div className="swiper-container" />;
 
-function SliderSection({ sellersList: { users: sellers, loading, error } }) {
+function SliderSection() {
+  const { users: sellers, loading, error } = useSelector((state) => state.userTopSellersList);
+
   return (
     <Suspense fallback={SwiperFallBack}>
       <Swiper {...SWIPER_CONFIG}>

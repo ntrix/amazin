@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { createListItem } from './listItemCreator';
 import { NAV, prices, ratings } from 'src/constants';
@@ -11,16 +12,17 @@ const FilterLabel = ({ label, children }) => (
   </li>
 );
 
-function SearchFilterColumn({ categoryList, searchFilters: { category, max, rating }, getFilterUrl }) {
+function SearchFilterColumn({ searchFilters: { category, max, rating }, getFilterUrl }) {
+  const productCategoryList = useSelector((state) => state.productCategoryList);
   const ListItem = memo(createListItem(getFilterUrl));
 
   return (
     <div className="search__filter">
       <ul>
         <FilterLabel label="Department" />
-        <LoadingOrError statusOf={categoryList} />
+        <LoadingOrError statusOf={productCategoryList} />
         <ListItem filter={{ category: NAV.ALL }} active={NAV.ALL === category} text="Any" />
-        {categoryList.categories?.map((_cat, id) => (
+        {productCategoryList.categories?.map((_cat, id) => (
           <ListItem key={id} filter={{ category: _cat }} active={_cat === category} text={_cat} />
         ))}
 

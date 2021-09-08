@@ -10,11 +10,10 @@ import SearchBanner from 'src/components/Nav/SearchBanner';
 import SortFilter from 'src/components/SortFilter';
 import Pagination from 'src/components/Pagination';
 
-/* this is New Releases Screen (at first) */
+/* this is New Releases Screen at first */
 
 function SearchScreen() {
   const { order, category, max, rating, getFilterUrl } = useSearchFilter();
-  const productCategoryList = useSelector((state) => state.productCategoryList);
   const productList = useSelector((state) => state.productList);
   const { page, pages } = productList;
 
@@ -22,18 +21,12 @@ function SearchScreen() {
     <div className="search-screen">
       <SubNavCategories first={NAV.ALL} category={category} getUrl={getFilterUrl} />
 
-      <SearchBanner list={productList}>
-        <SortFilter order={order} getUrl={getFilterUrl} />
-      </SearchBanner>
+      <SearchBanner list={productList} children={<SortFilter order={order} getUrl={getFilterUrl} />} />
 
       <div className="row top search-screen__result">
-        <SearchFilterColumn
-          categoryList={productCategoryList}
-          searchFilters={{ category, max, rating }}
-          getFilterUrl={getFilterUrl}
-        />
+        <SearchFilterColumn searchFilters={{ category, max, rating }} getFilterUrl={getFilterUrl} />
         <div className="col-9">
-          <SearchResultColumn list={productList} />
+          <SearchResultColumn />
           <Pagination getUrl={getFilterUrl} page={page} pages={pages} help />
         </div>
       </div>

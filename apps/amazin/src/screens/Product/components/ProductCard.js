@@ -67,6 +67,8 @@ export const SusProductCard = (props) => (
   </Suspense>
 );
 
-export const ProductListFallback = dummyProducts.map(() => <ProductCard hasDeal product={dummyProducts[0]} />);
+export const ProductListFallback = dummyProducts.map((_, id) => (
+  <ProductCard key={id} hasDeal product={dummyProducts[0]} />
+));
 
 export const SusProductList = ({ children }) => <Suspense fallback={ProductListFallback}>{children}</Suspense>;

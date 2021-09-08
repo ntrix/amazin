@@ -1,14 +1,18 @@
 import { memo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { SusProductCard, SusProductList } from '../components/ProductCard';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 
-function SearchResultColumn({ list: { products, loading, error } }) {
+function SearchResultColumn() {
+  const productList = useSelector((state) => state.productList);
+  const { products, loading } = productList;
+
   return (
     <div className="row center search__results">
       {(!products || products.length < 2) && <div className="placeholder"></div>}
-      <LoadingOrError xl wrapClass="placeholder" statusOf={{ loading, error }} />
+      <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
 
       <MessageBox wrapClass="placeholder" msg={!loading && products?.length < 1 && 'No Product Found'} />
 
