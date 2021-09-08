@@ -97,11 +97,7 @@ function DealScreen() {
           </SearchBanner>
 
           <div className="row center">
-            <SusProductList>
-              {list?.products?.map((product, id) => (
-                <SusProductCard key={id} hasDeal product={product} />
-              ))}
-            </SusProductList>
+            <SusProductList products={list?.products} />
           </div>
         </div>
       </div>

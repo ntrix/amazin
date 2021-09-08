@@ -71,4 +71,10 @@ export const ProductListFallback = dummyProducts.map((_, id) => (
   <ProductCard key={id} hasDeal product={dummyProducts[0]} />
 ));
 
-export const SusProductList = ({ children }) => <Suspense fallback={ProductListFallback}>{children}</Suspense>;
+export const SusProductList = ({ products }) => (
+  <Suspense fallback={ProductListFallback}>
+    {products?.map((product, id) => (
+      <SusProductCard key={product._id || id} hasDeal product={product} />
+    ))}
+  </Suspense>
+);
