@@ -26,6 +26,7 @@ export const RATING_OPTS = [
 ];
 
 export const NO_IMAGE = '/images/no-image.png';
+export const NO_IMAGE_P = '/images/no-image-p.png';
 export const MAX_IMAGES = 8;
 
 /* shadow background layer */

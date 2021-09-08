@@ -1,4 +1,4 @@
-import { lazy, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, memo, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import { SuspenseLoad } from 'src/components/CustomSuspense';
 import { dummyMovies } from 'src/utils';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { useShadow } from 'src/hooks/useShadow';
+import { useSafeState } from 'src/hooks/useSafeState';
 import Carousel, { responsive, NAV, SORT } from 'src/constants';
 import SortFilter from 'src/components/SortFilter';
 import MessageBox from 'src/components/MessageBox';
@@ -20,7 +21,7 @@ function DealScreen() {
   const { category: paramCat = NAV.DEAL, order = SORT.BESTSELLING.OPT, pageNumber = 1 } = useParams();
   const productList = useSelector((state) => state.productList);
   const { shadowOf } = useShadow();
-  const [list, setList] = useState(null);
+  const [list, setList] = useSafeState(null);
   const banner = useRef('');
   const category = useRef('');
   const preloadingCat = useRef('');
