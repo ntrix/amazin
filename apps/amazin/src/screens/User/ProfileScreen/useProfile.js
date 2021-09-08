@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { detailsUser, updateUserProfile } from 'src/apis/userAPI';
 import { useShadow } from 'src/hooks/useShadow';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 
-export function useUserProfile() {
+export function useUserProfile({ user }) {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.userDetails);
   const { userInfo } = useShadow();
 
   const [name, setName] = useState('');
@@ -27,17 +26,16 @@ export function useUserProfile() {
     setOldPassword('');
   }, [dispatch, userInfo._id, user]);
 
-  const submitUpdate = (e, updatedSeller) => {
+  const submitUpdate = (e, updatedSellerInfo) => {
     e.preventDefault();
-    const updatedUser = { name, email, password, oldPassword, confirmPassword, userId: user._id };
-    dispatch(updateUserProfile({ ...updatedUser, ...updatedSeller }));
+    const updatedInfo = { name, email, password, oldPassword, confirmPassword, userId: user._id };
+    dispatch(updateUserProfile({ ...updatedInfo, ...updatedSellerInfo }));
   };
 
   return { name, setName, email, setEmail, setPassword, setOldPassword, setConfirmPassword, submitUpdate };
 }
 
-export function useSellerProfile() {
-  const { user } = useSelector((state) => state.userDetails);
+export function useSellerProfile({ user }) {
   const [sellerName, setSellerName] = useState('');
   const [sellerLogo, setSellerLogo] = useState('');
   const [sellerDescription, setSellerDescription] = useState('');

@@ -2,11 +2,8 @@ import { Suspense } from 'react';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
-export const bannerFallback = (
-  <div className="home__banner bestseller" style={{ position: 'relative', zIndex: 0, height: 448 }}>
-    <br />
-    <LoadingBox />
-  </div>
+export const BannerFallback = () => (
+  <div className="home__banner bestseller" style={{ position: 'relative', zIndex: 0, height: 448 }} />
 );
 
 export const loadingFallback = <LoadingBox />;
@@ -23,7 +20,7 @@ export function SuspenseLoad(props) {
 }
 
 export function SuspenseBanner(props) {
-  return <Suspense fallback={bannerFallback} {...props} />;
+  return <Suspense fallback={<BannerFallback />} {...props} />;
 }
 
 export function SuspenseSeller(props) {

@@ -15,7 +15,7 @@ import { Storage } from '../utils';
 export const createOrder = (order) =>
   axiosPrivate([orderCreateActions], {
     requestPayload: order,
-    successDispatcher: cartActions._EMPTY,
+    successAction: cartActions._EMPTY,
     successHandler: () => (Storage[KEY.CART_ITEMS] = ''),
     selector: (_data) => _data.order
   })('post', '/api/orders', order);

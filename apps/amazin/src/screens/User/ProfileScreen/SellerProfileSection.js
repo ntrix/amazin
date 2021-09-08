@@ -1,11 +1,9 @@
-import { useSelector } from 'react-redux';
 import PrivateRoute from 'src/routes/PrivateRoute';
 import CustomInput from 'src/components/CustomInput';
 import MessageBox from 'src/components/MessageBox';
 
-export default function SellerProfileSection(props) {
-  const userDetails = useSelector((state) => state.userDetails);
-  const { sellerName, setSellerName, sellerLogo, setSellerLogo, sellerDescription, setSellerDescription } = props;
+export default function SellerProfileSection({ userDetails, hooks }) {
+  const { sellerName, setSellerName, sellerLogo, setSellerLogo, sellerDescription, setSellerDescription } = hooks;
 
   return (
     <PrivateRoute path="/profile/seller" exact>
