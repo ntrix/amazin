@@ -1,9 +1,9 @@
-import { lazy, memo, useState } from 'react';
+import { memo, useState } from 'react';
 
-import { SuspenseLoad } from 'src/components/CustomSuspense';
+import { Suspense } from 'src/components/CustomSuspense';
+import VideoCard, { VideoCardFallBack } from './components/VideoCard';
 import Carousel, { responsive } from 'src/constants';
 import UTube from './components/UTube';
-const VideoCard = lazy(() => import(/* webpackPrefetch: true */ './components/VideoCard'));
 
 function VideoRow({ title, movies, portrait = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
@@ -30,9 +30,9 @@ function VideoRow({ title, movies, portrait = false }) {
           itemClass="carousel-item-padding-40-px"
         >
           {movies[title]?.map((movie, id) => (
-            <SuspenseLoad key={id}>
+            <Suspense key={id} fallback={<VideoCardFallBack portrait={portrait} />}>
               <VideoCard movie={movie} portrait={portrait} trailerUrl={trailerUrl} setTrailerUrl={setTrailerUrl} />
-            </SuspenseLoad>
+            </Suspense>
           ))}
         </Carousel>
       )}
