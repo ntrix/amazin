@@ -1,9 +1,12 @@
 import { memo } from 'react';
-import ProductCard, { SusProductList } from '../Product/components/ProductCard';
+import { useSelector } from 'react-redux';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
+import { SusProductCard, SusProductList } from '../Product/components/ProductCard';
 
-function FeaturedSection({ productList: { products, loading, error } }) {
+function FeaturedSection() {
+  const productList = useSelector((state) => state.productList);
+  const { products, loading, error } = productList;
   return (
     <>
       <h2 className="screen__title">Featured Products</h2>
@@ -13,7 +16,7 @@ function FeaturedSection({ productList: { products, loading, error } }) {
       <div className="screen__featured">
         <SusProductList>
           {products?.map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <SusProductCard key={product._id} product={product} />
           ))}
         </SusProductList>
       </div>
