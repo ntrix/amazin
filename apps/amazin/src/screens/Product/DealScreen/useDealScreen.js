@@ -12,13 +12,8 @@ export function useDealScreen() {
   const { category: paramCat = NAV.DEAL, order = SORT.BESTSELLING.OPT, pageNumber = 1 } = useParams();
   const productList = useSelector((state) => state.productList);
   const [list, setList] = useSafeState(productList);
-  const banner = useRef('');
   const cat = useRef('');
   const preloadingCat = useRef('');
-
-  useEffect(() => {
-    banner.current = Math.random() < 0.5 ? 'screen--1' : '';
-  }, [cat, paramCat, order, pageNumber]);
 
   const _preload = (c) => {
     dispatch(listProducts({ pageNumber, order, category: c === NAV.DEAL ? '' : c, deal: 1, pageSize: 990 }));
@@ -42,5 +37,5 @@ export function useDealScreen() {
 
   const preloadCat = useCallback((category) => (list ? debouncePreload(category) : null), [list, debouncePreload]);
 
-  return { list, order, banner, cat, changeCat, preloadCat };
+  return { paramCat, list, order, cat, changeCat, preloadCat };
 }

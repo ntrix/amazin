@@ -1,4 +1,4 @@
-import { memo, lazy } from 'react';
+import { memo, lazy, useRef, useEffect } from 'react';
 
 import './dealScreen.css';
 import { dummyMovies } from 'src/utils';
@@ -13,8 +13,13 @@ import SearchBanner from 'src/components/Nav/SearchBanner';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function DealScreen() {
+  const banner = useRef('');
   const { shadowOf } = useShadow();
-  const { banner, list, order, cat, changeCat, preloadCat } = useDealScreen();
+  const { paramCat, list, order, cat, changeCat, preloadCat } = useDealScreen();
+
+  useEffect(() => {
+    banner.current = Math.random() < 0.5 ? 'screen--1' : '';
+  }, [cat, paramCat, order]);
 
   return (
     <>
