@@ -1,18 +1,16 @@
-import { memo, lazy, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { listProducts } from 'src/apis/productAPI';
 import { publicDetailsSeller } from 'src/apis/userAPI';
 import { SORT } from 'src/constants';
-import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
 import SellerCard from './SellerCard';
 import Pagination from 'src/components/Pagination';
 import SortFilter from 'src/components/SortFilter';
-import MessageBox from 'src/components/MessageBox';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import LoadingOrError from 'src/components/LoadingOrError';
-const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
+import ProductColumn from '../components/ProductColumn';
 
 function SellerScreen({ match }) {
   const dispatch = useDispatch();
@@ -21,7 +19,7 @@ function SellerScreen({ match }) {
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
   const productList = useSelector((state) => state.productList);
-  const { products, page, pages } = productList;
+  const { page, pages } = productList;
 
   const getUrl = ({ order = pOrder, page: _page = pageNumber }) =>
     `/seller/${sellerId}/order/${order}/pageNumber/${_page}`;
@@ -45,19 +43,8 @@ function SellerScreen({ match }) {
       </div>
 
       <div className="col-3 mt-1 p-1">
-        <LoadingOrError xl statusOf={productList} />
-
         <Pagination getUrl={getUrl} page={page} pages={pages} />
-
-        <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
-        <div className="row center">
-          <SusProductList>
-            {products?.map((product, id) => (
-              <SusProductCard key={id} children={<ProductCard product={product} />} />
-            ))}
-          </SusProductList>
-        </div>
-
+        <ProductColumn productList={productList} />
         <Pagination getUrl={getUrl} page={page} pages={pages} help />
       </div>
     </div>
