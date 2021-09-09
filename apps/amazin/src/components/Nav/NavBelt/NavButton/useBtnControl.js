@@ -14,6 +14,7 @@ export function useBtnControl(focus) {
   // UX behavior: a touch on mobile device acts as hover action on Desktop
   const handleClick = (e) => {
     focus.current?.blur();
+    document.activeElement.blur();
     focus.current = e.target;
     setShadowOf(SHADOW.NAV_DD);
   };

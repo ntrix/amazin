@@ -177,6 +177,12 @@ main > col-fill {
 .p-1 {
   padding: 1rem;
 }
+.pr-1 {
+  padding-right: 1rem;
+}
+.pr-3 {
+  padding-right: 3rem;
+}
 .m-0 {
   margin: 0 !important;
 }

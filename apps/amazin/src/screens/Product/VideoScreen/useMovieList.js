@@ -33,7 +33,7 @@ export function useMovieList() {
   }, [isMounted]);
 
   useEffect(() => {
-    if (products?.[0].seller?._id === VIDEO.SELLER) setStockMovies({ [STORE]: products });
+    if (products?.every(({ seller }) => seller?._id === VIDEO.SELLER)) setStockMovies({ [STORE]: products });
     else dispatch(listProducts({ seller: VIDEO.SELLER, category: 'Video', pageSize: 11, order: 'oldest' }));
   }, [products, setStockMovies, dispatch]);
 

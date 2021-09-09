@@ -1,20 +1,22 @@
-import { memo } from 'react';
+import { memo, Suspense } from 'react';
 
 import { NO_IMAGE } from 'src/constants';
-import { dummyMovies, getImgUrl } from 'src/utils';
+import { getImgUrl } from 'src/utils';
 import { LazyImg } from 'src/apis/suspenseAPI';
+import { ImgFallback } from 'src/components/Fallbacks';
 import ButtonBuy from './ButtonBuy';
 import ButtonTrailer from './ButtonTrailer';
 import Rating from 'src/components/Rating';
-import LoadingBox from 'src/components/LoadingBox';
 
 export function VideoCard({ movie, portrait, trailerUrl, setTrailerUrl, children }) {
   return (
     <div className={`m-card ${portrait ? 'm-card--portrait' : ''}`}>
-      <LazyImg
-        src={getImgUrl(movie._id, movie.image ? movie.image.split('^')[1 - portrait] : NO_IMAGE)}
-        alt={movie.name}
-      />
+      <Suspense fallback={<ImgFallback portrait={portrait} />}>
+        <LazyImg
+          src={getImgUrl(movie._id, movie.image ? movie.image.split('^')[1 - portrait] : NO_IMAGE)}
+          alt={movie.name}
+        />
+      </Suspense>
       <div className="m-card__background">
         <div className="m-card__text">
           {(movie?.description?.slice(0, 150) || 'Description ') + '..'}
@@ -37,9 +39,3 @@ export function VideoCard({ movie, portrait, trailerUrl, setTrailerUrl, children
 }
 
 export default memo(VideoCard);
-
-export const VideoCardFallBack = ({ portrait = false }) => (
-  <VideoCard movie={dummyMovies[0]} portrait={portrait} trailerUrl="" setTrailerUrl={() => null}>
-    <LoadingBox />
-  </VideoCard>
-);

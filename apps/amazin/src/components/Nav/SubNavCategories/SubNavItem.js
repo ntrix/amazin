@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
 
-function SubNavItem({ _cat, category, getUrl, onPreload, changeCategory }) {
+function SubNavItem({ _cat, category, getUrl, onPreload, changeCat }) {
   const history = useHistory();
 
   return (
@@ -10,7 +10,7 @@ function SubNavItem({ _cat, category, getUrl, onPreload, changeCategory }) {
       onMouseEnter={onPreload ? () => onPreload(_cat) : null}
       onFocus={onPreload ? () => onPreload(_cat) : null}
       onClick={() => {
-        if (changeCategory) changeCategory(_cat);
+        if (changeCat) changeCat(_cat);
         if (getUrl) history.push(getUrl({ category: _cat, page: 1 }));
       }}
     >

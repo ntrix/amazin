@@ -1,26 +1,16 @@
 import { Suspense } from 'react';
+import { bannerFallback, ProductCardFallback, productListFallback } from './Fallbacks';
 import LoadingBox from './LoadingBox';
-import MessageBox from './MessageBox';
-
-export const BannerFallback = () => (
-  <div className="home__banner bestseller" style={{ position: 'relative', zIndex: 0, height: 448 }} />
-);
-
-export const loadingFallback = <LoadingBox />;
 
 export const delay = (time) => (promiseResult) =>
   new Promise((resolve) => setTimeout(() => resolve(promiseResult), time));
 
-export function ErrorFallback({ error }) {
-  return <MessageBox variant="danger" msg={error.message} />;
-}
-
 export function SuspenseLoad(props) {
-  return <Suspense fallback={loadingFallback} {...props} />;
+  return <Suspense fallback={<LoadingBox />} {...props} />;
 }
 
 export function SuspenseBanner(props) {
-  return <Suspense fallback={<BannerFallback />} {...props} />;
+  return <Suspense fallback={bannerFallback} {...props} />;
 }
 
 export function SuspenseSeller(props) {
@@ -34,5 +24,9 @@ export function SuspenseText(props) {
 export function SuspenseNull(props) {
   return <Suspense fallback={null} {...props} />;
 }
+
+export const SusProductCard = ({ children }) => <Suspense fallback={<ProductCardFallback />}>{children}</Suspense>;
+
+export const SusProductList = ({ children }) => <Suspense fallback={productListFallback}>{children}</Suspense>;
 
 export { Suspense };

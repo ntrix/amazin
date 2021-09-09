@@ -12,9 +12,10 @@ import ReviewCard from 'src/components/ReviewCard';
 import CustomSelect from 'src/components/CustomSelect';
 import CustomInput from 'src/components/CustomInput';
 
-function ProductReview({ productId, reviews }) {
+function ProductReview({ productId }) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
+  const { product } = useSelector((state) => state.productDetails);
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -38,10 +39,10 @@ function ProductReview({ productId, reviews }) {
   return (
     <div className="p-1">
       <h2 id="reviews">Reviews</h2>
-      <MessageBox show={reviews.length === 0}>There is no review</MessageBox>
+      <MessageBox show={product.reviews.length === 0}>There is no review</MessageBox>
       {/* TODO pagination for review section */}
       <ul>
-        {reviews.slice(0, REVIEWS_PER_PAGE).map((review, id) => (
+        {product.reviews.slice(0, REVIEWS_PER_PAGE).map((review, id) => (
           <ReviewCard key={id} review={review} />
         ))}
       </ul>
