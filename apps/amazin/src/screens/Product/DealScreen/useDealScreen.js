@@ -6,12 +6,10 @@ import { useDebounce } from 'src/hooks/useDebounce';
 import { listProducts } from 'src/apis/productAPI';
 import { NAV, SORT } from 'src/constants';
 
-export function useDealScreen(cat, param) {
+export function usePreload(list, param) {
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
   const preloadingCat = useRef('');
-  const [list, setList] = useSafeState(null);
-  const { category: paramCat = NAV.DEAL, order = SORT.BESTSELLING.OPT, pageNumber = 1 } = param;
+  const { order = SORT.BESTSELLING.OPT, pageNumber = 1 } = param;
 
   const _preload = (c) => {
     dispatch(listProducts({ pageNumber, order, category: c === NAV.DEAL ? '' : c, deal: 1, pageSize: 990 }));
@@ -22,13 +20,22 @@ export function useDealScreen(cat, param) {
 
   const preloadCat = useCallback((category) => (list ? debouncePreload(category) : null), [list, debouncePreload]);
 
+  return { order, preloadingCat, preloadCat, debouncePreload };
+}
+
+export function useDealScreen(cat, param) {
+  const productList = useSelector((state) => state.productList);
+  const [list, setList] = useSafeState(null);
+  const { category: paramCat = NAV.DEAL } = param;
+  const { order, preloadingCat, preloadCat, debouncePreload } = usePreload(list, param);
+
   const changeCat = useCallback(
     (category) => {
       cat.current = category;
       setList(preloadingCat.current !== category ? null : productList);
       if (preloadingCat.current !== category) debouncePreload(category);
     },
-    [cat, productList, setList, debouncePreload]
+    [cat, preloadingCat, productList, setList, debouncePreload]
   );
 
   useEffect(() => {
