@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
@@ -12,7 +12,7 @@ import SortFilter from 'src/components/SortFilter';
 import MessageBox from 'src/components/MessageBox';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import LoadingOrError from 'src/components/LoadingOrError';
-import ProductCard from '../components/ProductCard';
+const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function SellerScreen({ match }) {
   const dispatch = useDispatch();

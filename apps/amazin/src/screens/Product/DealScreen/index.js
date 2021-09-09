@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, lazy } from 'react';
 
 import './dealScreen.css';
 import { dummyMovies } from 'src/utils';
@@ -10,7 +10,7 @@ import SortFilter from 'src/components/SortFilter';
 import MessageBox from 'src/components/MessageBox';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SearchBanner from 'src/components/Nav/SearchBanner';
-import ProductCard from '../components/ProductCard';
+const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function DealScreen() {
   const { shadowOf } = useShadow();

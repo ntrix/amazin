@@ -10,7 +10,6 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
 import VideoNavHeader from './VideoNavHeader';
 import VideoBanner from './components/VideoBanner';
-
 const VideoRow = lazy(() => import(/* webpackPrefetch: true */ './VideoRow'));
 
 export default function VideoScreen() {

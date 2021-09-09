@@ -1,10 +1,10 @@
-import { memo } from 'react';
+import { lazy, memo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { SuspenseLoad, SusProductCard } from 'src/components/CustomSuspense';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
-import ProductCard from '../Product/components/ProductCard';
+const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../Product/components/ProductCard'));
 
 function FeaturedSection() {
   const { products, loading, error } = useSelector((state) => state.productList);

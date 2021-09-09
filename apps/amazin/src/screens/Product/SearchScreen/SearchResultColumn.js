@@ -1,10 +1,10 @@
-import { memo } from 'react';
+import { memo, lazy } from 'react';
 import { useSelector } from 'react-redux';
 
 import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
-import ProductCard from '../components/ProductCard';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
+const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function SearchResultColumn() {
   const productList = useSelector((state) => state.productList);
