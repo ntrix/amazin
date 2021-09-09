@@ -12,6 +12,13 @@
 │   │   ├── package.json
 │   │   ├── public
 │   │   │   ├── apple-touch-icon-512.png
+│   │   │   ├── awesome
+│   │   │   │   ├── FontAwesome.eot
+│   │   │   │   ├── FontAwesome.svg
+│   │   │   │   ├── FontAwesome.ttf
+│   │   │   │   ├── FontAwesome.woff
+│   │   │   │   ├── FontAwesome.woff2
+│   │   │   │   └── font-awesome.min.css
 │   │   │   ├── chrome-icon-circle-192.png
 │   │   │   ├── favicon.ico
 │   │   │   ├── images
@@ -30,13 +37,8 @@
 │   │   │   │   ├── icon-video.png
 │   │   │   │   ├── logo1.png
 │   │   │   │   ├── logo2.png
-│   │   │   │   ├── no-image.png
-│   │   │   │   ├── p1.jpg
-│   │   │   │   ├── p2.jpg
-│   │   │   │   ├── p3.jpg
-│   │   │   │   ├── p4.jpg
-│   │   │   │   ├── p5.jpg
-│   │   │   │   └── p6.jpg
+│   │   │   │   ├── no-image-p.png
+│   │   │   │   └── no-image.png
 │   │   │   ├── index.html
 │   │   │   ├── manifest.json
 │   │   │   ├── robots.txt
@@ -56,53 +58,94 @@
 │   │   │   │   ├── cartAPI.js
 │   │   │   │   ├── orderAPI.js
 │   │   │   │   ├── productAPI.js
+│   │   │   │   ├── suspenseAPI.js
 │   │   │   │   └── userAPI.js
 │   │   │   ├── app
+│   │   │   │   ├── Nav.js
 │   │   │   │   ├── index.js
+│   │   │   │   ├── nav.css
 │   │   │   │   └── responsive.css
 │   │   │   ├── components
 │   │   │   │   ├── Button.js
+│   │   │   │   ├── CheckCell.js
+│   │   │   │   ├── CustomCheck.js
 │   │   │   │   ├── CustomInput.js
+│   │   │   │   ├── CustomRadio.js
+│   │   │   │   ├── CustomSelect.js
+│   │   │   │   ├── CustomSuspense.js
 │   │   │   │   ├── Fallbacks.js
 │   │   │   │   ├── LoadingBox.js
 │   │   │   │   ├── LoadingOrError.js
 │   │   │   │   ├── MessageBox.js
 │   │   │   │   ├── Nav
-│   │   │   │   │   ├── HeaderNavBelt
-│   │   │   │   │   │   ├── CartLinkBtn.js
-│   │   │   │   │   │   ├── DropdownMenu.js
-│   │   │   │   │   │   ├── DropdownMenuCurrency.js
-│   │   │   │   │   │   ├── LocatorLinkBtn.js
-│   │   │   │   │   │   ├── LogoLinkBtn.js
-│   │   │   │   │   │   ├── NavBtnControl.js
-│   │   │   │   │   │   ├── NavDropdownBtn.js
-│   │   │   │   │   │   ├── index.js
-│   │   │   │   │   │   └── navBeltTemplate.js
-│   │   │   │   │   ├── HeaderNavMain
+│   │   │   │   │   ├── InnerMenuItem.js
+│   │   │   │   │   ├── MenuItem.js
+│   │   │   │   │   ├── NavBelt
+│   │   │   │   │   │   ├── NavButton
+│   │   │   │   │   │   │   ├── NavBtnDropdown.js
+│   │   │   │   │   │   │   ├── NavBtnFacade.js
+│   │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   │   └── useBtnControl.js
+│   │   │   │   │   │   ├── NavCart.js
+│   │   │   │   │   │   ├── NavCurrency
+│   │   │   │   │   │   │   ├── DropdownCurrency
+│   │   │   │   │   │   │   │   ├── CurrencyRate.js
+│   │   │   │   │   │   │   │   ├── DropdownCurrencyItem.js
+│   │   │   │   │   │   │   │   └── index.js
+│   │   │   │   │   │   │   └── index.js
+│   │   │   │   │   │   ├── NavLocator.js
+│   │   │   │   │   │   ├── NavLogo.js
+│   │   │   │   │   │   ├── NavUser
+│   │   │   │   │   │   │   ├── DropdownUser.js
+│   │   │   │   │   │   │   ├── adminTemplate.js
+│   │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   │   ├── sellerTemplate.js
+│   │   │   │   │   │   │   ├── signinTemplate.js
+│   │   │   │   │   │   │   ├── useDropMenuCreator.js
+│   │   │   │   │   │   │   └── userTemplate.js
+│   │   │   │   │   │   └── index.js
+│   │   │   │   │   ├── NavMain
 │   │   │   │   │   │   ├── NavMainItem.js
 │   │   │   │   │   │   ├── OpenSidebarBtn.js
 │   │   │   │   │   │   ├── index.js
 │   │   │   │   │   │   └── navMainTemplate.js
-│   │   │   │   │   ├── SearchBanner.js
-│   │   │   │   │   ├── SearchBox
-│   │   │   │   │   │   ├── SearchBtn.js
-│   │   │   │   │   │   ├── SearchCatDropdown.js
-│   │   │   │   │   │   ├── SearchCatScope.js
-│   │   │   │   │   │   ├── SearchInput.js
-│   │   │   │   │   │   ├── SearchSuggest.js
+│   │   │   │   │   ├── NavSearch
+│   │   │   │   │   │   ├── SearchBox
+│   │   │   │   │   │   │   ├── BoxLeft.js
+│   │   │   │   │   │   │   ├── BoxMiddle.js
+│   │   │   │   │   │   │   ├── BoxRight.js
+│   │   │   │   │   │   │   ├── SearchBtn.js
+│   │   │   │   │   │   │   ├── SearchCatScope
+│   │   │   │   │   │   │   │   ├── SearchCatDropdown.js
+│   │   │   │   │   │   │   │   ├── SearchCatItem.js
+│   │   │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   │   │   └── useClickFocus.js
+│   │   │   │   │   │   │   ├── SearchInput
+│   │   │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   │   │   ├── useKeyInput.js
+│   │   │   │   │   │   │   │   └── useSuggestBox.js
+│   │   │   │   │   │   │   ├── SearchSuggests.js
+│   │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   │   └── useSubmit.js
 │   │   │   │   │   │   ├── index.js
-│   │   │   │   │   │   └── useOutline.js
+│   │   │   │   │   │   ├── useOutline.js
+│   │   │   │   │   │   └── useOutsideClick.js
+│   │   │   │   │   ├── SearchBanner.js
 │   │   │   │   │   ├── SidebarMenu
+│   │   │   │   │   │   ├── ShadowWrapper.js
 │   │   │   │   │   │   ├── SidebarHeader.js
 │   │   │   │   │   │   ├── index.js
 │   │   │   │   │   │   └── sidebarTemplate.js
-│   │   │   │   │   ├── SubNavCategories.js
-│   │   │   │   │   ├── components
-│   │   │   │   │   │   └── MenuItem.js
-│   │   │   │   │   └── nav.css
+│   │   │   │   │   └── SubNavCategories
+│   │   │   │   │       ├── SubNavItem.js
+│   │   │   │   │       └── index.js
+│   │   │   │   ├── PageRedirect.js
 │   │   │   │   ├── Pagination.js
 │   │   │   │   ├── Rating.js
-│   │   │   │   └── SortFilter.js
+│   │   │   │   ├── ReviewCard.js
+│   │   │   │   ├── RowLegend.js
+│   │   │   │   ├── SortFilter.js
+│   │   │   │   └── SuccessModal.js
 │   │   │   ├── constants
 │   │   │   │   └── index.js
 │   │   │   ├── fonts
@@ -127,6 +170,7 @@
 │   │   │   │   └── fonts.css
 │   │   │   ├── hooks
 │   │   │   │   ├── useDebounce.js
+│   │   │   │   ├── useDoThenDebounce.js
 │   │   │   │   ├── useSafeState.js
 │   │   │   │   └── useShadow.js
 │   │   │   ├── img
@@ -145,28 +189,49 @@
 │   │   │   │   ├── flags.png
 │   │   │   │   ├── load-xs.gif
 │   │   │   │   ├── load.gif
-│   │   │   │   └── nav-sprite.png
+│   │   │   │   ├── nav-sprite.png
+│   │   │   │   └── travoltaNotFound.gif
 │   │   │   ├── index.css
 │   │   │   ├── index.js
+│   │   │   ├── layouts
+│   │   │   │   ├── BaseTable.js
+│   │   │   │   ├── Form.js
+│   │   │   │   └── Header.js
 │   │   │   ├── react-app-env.d.ts
 │   │   │   ├── routes
 │   │   │   │   ├── AdminRoute.js
-│   │   │   │   ├── MainRoute.js
+│   │   │   │   ├── MainRoutes.js
 │   │   │   │   ├── PrivateRoute.js
-│   │   │   │   ├── RouteBoundary.js
-│   │   │   │   └── SellerRoute.js
+│   │   │   │   ├── SellerRoute.js
+│   │   │   │   ├── SuspenseRoute.js
+│   │   │   │   └── TokenRoutes.js
 │   │   │   ├── screens
 │   │   │   │   ├── Auth
+│   │   │   │   │   ├── ErrorBaseWithBtn.js
 │   │   │   │   │   ├── ErrorScreen.js
-│   │   │   │   │   ├── RegisterScreen.js
+│   │   │   │   │   ├── RegisterScreen
+│   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   └── useRegisterEffect.js
 │   │   │   │   │   ├── Screen404.js
-│   │   │   │   │   └── SigninScreen.js
+│   │   │   │   │   └── SigninScreen
+│   │   │   │   │       ├── index.js
+│   │   │   │   │       └── useSigninEffect.js
 │   │   │   │   ├── Checkout
-│   │   │   │   │   ├── CartScreen.js
+│   │   │   │   │   ├── CartScreen
+│   │   │   │   │   │   ├── CartRowItem.js
+│   │   │   │   │   │   ├── CartTable.js
+│   │   │   │   │   │   ├── SumCard.js
+│   │   │   │   │   │   └── index.js
 │   │   │   │   │   ├── CheckoutSteps.js
 │   │   │   │   │   ├── PaymentMethodScreen.js
-│   │   │   │   │   └── ShippingAddressScreen.js
-│   │   │   │   ├── HomeScreen.js
+│   │   │   │   │   └── ShippingAddressScreen
+│   │   │   │   │       ├── index.js
+│   │   │   │   │       └── useShipInfo.js
+│   │   │   │   ├── HomeScreen
+│   │   │   │   │   ├── FeaturedSection.js
+│   │   │   │   │   ├── SellerSlide.js
+│   │   │   │   │   ├── SliderSection.js
+│   │   │   │   │   └── index.js
 │   │   │   │   ├── Order
 │   │   │   │   │   ├── OrderHistoryScreen.js
 │   │   │   │   │   ├── OrderListScreen.js
@@ -175,22 +240,37 @@
 │   │   │   │   │   │   ├── OrderSumCard.js
 │   │   │   │   │   │   ├── PaypalCard.js
 │   │   │   │   │   │   ├── StatusBox.js
-│   │   │   │   │   │   └── index.js
-│   │   │   │   │   ├── PlaceOrderScreen.js
+│   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   └── usePaypal.js
+│   │   │   │   │   ├── PlaceOrderScreen
+│   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   └── useCart.js
 │   │   │   │   │   └── components
+│   │   │   │   │       ├── InfoCard.js
 │   │   │   │   │       ├── ListRow.js
+│   │   │   │   │       ├── OrderItem.js
 │   │   │   │   │       ├── OrderItemsCard.js
+│   │   │   │   │       ├── OrderTable.js
 │   │   │   │   │       ├── PaymentMethodCard.js
 │   │   │   │   │       └── ShippingAddressCard.js
 │   │   │   │   ├── Product
 │   │   │   │   │   ├── DealScreen
 │   │   │   │   │   │   ├── dealScreen.css
-│   │   │   │   │   │   └── index.js
+│   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   └── useDealScreen.js
 │   │   │   │   │   ├── ProductEditScreen
-│   │   │   │   │   │   ├── ImageSection.js
+│   │   │   │   │   │   ├── ImageRows.js
+│   │   │   │   │   │   ├── ImageSection
+│   │   │   │   │   │   │   ├── NewImageInput.js
+│   │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   │   └── useImageHandlers.js
 │   │   │   │   │   │   └── index.js
-│   │   │   │   │   ├── ProductListScreen.js
+│   │   │   │   │   ├── ProductListScreen
+│   │   │   │   │   │   ├── Table.js
+│   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   └── useProductList.js
 │   │   │   │   │   ├── ProductScreen
+│   │   │   │   │   │   ├── BackBanner.js
 │   │   │   │   │   │   ├── ProductDescription.js
 │   │   │   │   │   │   ├── ProductImages.js
 │   │   │   │   │   │   ├── ProductInStock.js
@@ -199,10 +279,10 @@
 │   │   │   │   │   │   └── productScreen.css
 │   │   │   │   │   ├── SearchScreen
 │   │   │   │   │   │   ├── SearchFilterColumn
-│   │   │   │   │   │   │   ├── FilterListItem.js
-│   │   │   │   │   │   │   └── index.js
-│   │   │   │   │   │   ├── SearchResultColumn.js
-│   │   │   │   │   │   └── index.js
+│   │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   │   └── listItemCreator.js
+│   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   └── useSearchFilter.js
 │   │   │   │   │   ├── SellerScreen
 │   │   │   │   │   │   ├── SellerCard.js
 │   │   │   │   │   │   └── index.js
@@ -217,23 +297,52 @@
 │   │   │   │   │   │   │   ├── VideoBanner.js
 │   │   │   │   │   │   │   └── VideoCard.js
 │   │   │   │   │   │   ├── index.js
+│   │   │   │   │   │   ├── useMovieList.js
 │   │   │   │   │   │   └── videoScreen.css
 │   │   │   │   │   └── components
-│   │   │   │   │       └── ProductCard.js
+│   │   │   │   │       ├── PriceNow.js
+│   │   │   │   │       ├── PriceTag.js
+│   │   │   │   │       ├── ProductCard.js
+│   │   │   │   │       └── ProductColumn.js
 │   │   │   │   └── User
-│   │   │   │       ├── ContactScreen.js
+│   │   │   │       ├── ContactScreen
+│   │   │   │       │   ├── ContactSubject.js
+│   │   │   │       │   ├── SubjectTemplate.js
+│   │   │   │       │   ├── index.js
+│   │   │   │       │   └── useContact.js
 │   │   │   │       ├── CurrencyScreen
+│   │   │   │       │   ├── CurrencySection
+│   │   │   │       │   │   ├── CurrencyOptions.js
+│   │   │   │       │   │   ├── index.js
+│   │   │   │       │   │   └── useCurrency.js
+│   │   │   │       │   ├── LanguageSection
+│   │   │   │       │   │   ├── LanguageOption.js
+│   │   │   │       │   │   ├── LanguageOptions.js
+│   │   │   │       │   │   ├── index.js
+│   │   │   │       │   │   └── languageTemplate.js
 │   │   │   │       │   ├── currencyScreen.css
 │   │   │   │       │   └── index.js
 │   │   │   │       ├── CustomerScreen
 │   │   │   │       │   ├── CustomerCard.js
+│   │   │   │       │   ├── CustomerHelpSection.js
 │   │   │   │       │   ├── customerMenuTemplate.js
 │   │   │   │       │   ├── customerScreen.css
 │   │   │   │       │   └── index.js
-│   │   │   │       ├── MapScreen.js
-│   │   │   │       ├── ProfileScreen.js
-│   │   │   │       ├── UserEditScreen.js
-│   │   │   │       └── UserListScreen.js
+│   │   │   │       ├── MapScreen
+│   │   │   │       │   ├── MapSearchBox.js
+│   │   │   │       │   ├── index.js
+│   │   │   │       │   └── useMapAPIs.js
+│   │   │   │       ├── ProfileScreen
+│   │   │   │       │   ├── SellerProfileSection.js
+│   │   │   │       │   ├── UserProfileSection.js
+│   │   │   │       │   ├── index.js
+│   │   │   │       │   └── useProfile.js
+│   │   │   │       ├── UserEditScreen
+│   │   │   │       │   ├── index.js
+│   │   │   │       │   └── useUserEdit.js
+│   │   │   │       └── UserListScreen
+│   │   │   │           ├── index.js
+│   │   │   │           └── useUserList.js
 │   │   │   ├── serviceWorker.js
 │   │   │   ├── slice
 │   │   │   │   ├── CartSlice.js
@@ -277,8 +386,7 @@
 │   │   │   │   └── rating.stories.js
 │   │   │   └── utils
 │   │   │       ├── findSuggest.js
-│   │   │       ├── index.js
-│   │   │       └── suspenseClient.js
+│   │   │       └── index.js
 │   │   └── tsconfig.json
 │   └── amazin-e2e
 │       ├── cypress.json
