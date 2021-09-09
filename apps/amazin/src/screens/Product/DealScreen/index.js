@@ -1,20 +1,28 @@
-import { memo, lazy } from 'react';
+import { lazy, memo, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 
 import './dealScreen.css';
-import { dummyMovies } from 'src/utils';
 import { useShadow } from 'src/hooks/useShadow';
-import Carousel, { responsive, NAV } from 'src/constants';
+import { dummyMovies } from 'src/utils';
 import { useDealScreen } from './useDealScreen';
 import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
-import SortFilter from 'src/components/SortFilter';
+import Carousel, { NAV, responsive } from 'src/constants';
 import MessageBox from 'src/components/MessageBox';
-import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SearchBanner from 'src/components/Nav/SearchBanner';
+import SubNavCategories from 'src/components/Nav/SubNavCategories';
+import SortFilter from 'src/components/SortFilter';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function DealScreen() {
+  const param = useParams();
+  const banner = useRef('');
+  const cat = useRef('');
   const { shadowOf } = useShadow();
-  const { banner, list, order, cat, changeCat, preloadCat } = useDealScreen();
+  const { order, list, preloadCat, changeCat } = useDealScreen(cat, param);
+
+  useEffect(() => {
+    banner.current = Math.random() < 0.5 ? 'screen--1' : '';
+  }, [cat, param]);
 
   return (
     <>

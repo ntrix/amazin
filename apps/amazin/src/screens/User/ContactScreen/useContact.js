@@ -7,7 +7,7 @@ import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
-const checkError = ({ text, email, name }) => {
+const compoundErrors = ({ text, email, name }) => {
   const error = [];
   const validate = (err, msg) => (err ? error.push(msg) : null);
 
@@ -17,6 +17,16 @@ const checkError = ({ text, email, name }) => {
   return error;
 };
 
+const asyncSendMessage = async (data, setStatus) => {
+  setStatus({ loading: true, message: 'Your message is being sent.' });
+  try {
+    await axios.post(MAIL_SERVER, data, { headers: { ...HEADERS, body: JSON.stringify(data) } });
+    setStatus({ message: 'Thank you! Your message has been sent.' });
+  } catch (err) {
+    setStatus({ error: [err.message] });
+  }
+};
+
 export function useSubmitContact(setStatus) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
@@ -24,20 +34,13 @@ export function useSubmitContact(setStatus) {
   async function submitContact(e, data) {
     e.preventDefault();
 
-    const error = checkError(data);
+    const error = compoundErrors(data);
     if (error.length) return setStatus({ error });
 
     if ('Seller' === data.subject) return dispatch(updateUserProfile({ userId: userInfo._id, verify: true }));
 
-    setStatus({ loading: true, message: 'Your message is being sent.' });
-    dispatch(userUpdateProfileActions._RESET());
-    try {
-      await axios.post(MAIL_SERVER, data, { headers: { ...HEADERS, body: JSON.stringify(data) } });
-      setStatus({ message: 'Thank you! Your message has been sent.' });
-    } catch (err) {
-      setStatus({ error: [err.message] });
-    }
-    return null;
+    asyncSendMessage(data, setStatus);
+    return dispatch(userUpdateProfileActions._RESET());
   }
 
   return { submitContact };
