@@ -153,7 +153,7 @@
   height: 380px;
   width: 253px;
 }
-.m-card:hover {
+.m-card:not(.fallback):hover {
   border: 2px solid #44a9e2;
   border-bottom: transparent;
   background: #44a9e2;
@@ -165,7 +165,7 @@
   margin: -30px;
   position: absolute;
 }
-.m-card--portrait:hover {
+.m-card--portrait:not(.fallback):hover {
   width: 313px;
 }
 .m-card__background {

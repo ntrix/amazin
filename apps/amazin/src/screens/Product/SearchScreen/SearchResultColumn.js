@@ -1,7 +1,8 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { SusProductList } from '../components/ProductCard';
+import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
+import ProductCard from '../components/ProductCard';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 
@@ -11,17 +12,19 @@ function SearchResultColumn() {
 
   return (
     <div className="row center search__results">
-      {(!products || products.length < 2) && <div className="placeholder"></div>}
-      <LoadingOrError xl wrapClass="placeholder" statusOf={productList} />
+      <LoadingOrError wrapClass="placeholder" statusOf={productList} />
 
       <MessageBox wrapClass="placeholder" msg={!loading && products?.length < 1 && 'No Product Found'} />
 
       <div className="row center">
-        <SusProductList products={products} />
+        <SusProductList>
+          {products?.map((product, id) => (
+            <SusProductCard key={id} children={<ProductCard product={product} />} />
+          ))}
+        </SusProductList>
       </div>
 
-      {(!products || products.length < 3) && <div className="placeholder"></div>}
-      <div className="row divider-inner"></div>
+      <div className="row divider-inner" />
     </div>
   );
 }

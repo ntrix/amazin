@@ -5,11 +5,12 @@ import { dummyMovies } from 'src/utils';
 import { useShadow } from 'src/hooks/useShadow';
 import Carousel, { responsive, NAV } from 'src/constants';
 import { useDealScreen } from './useDealScreen';
-import { SusProductCard, SusProductList } from '../components/ProductCard';
+import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
 import SortFilter from 'src/components/SortFilter';
 import MessageBox from 'src/components/MessageBox';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SearchBanner from 'src/components/Nav/SearchBanner';
+import ProductCard from '../components/ProductCard';
 
 function DealScreen() {
   const { shadowOf } = useShadow();
@@ -37,7 +38,7 @@ function DealScreen() {
           itemClass="carousel-item-padding-40-px"
         >
           {(list?.products || dummyMovies).map((product, id) => (
-            <SusProductCard key={id} hasDeal product={product} />
+            <SusProductCard key={id} children={<ProductCard hasDeal product={product} />} />
           ))}
         </Carousel>
 
@@ -50,7 +51,11 @@ function DealScreen() {
           </SearchBanner>
 
           <div className="row center">
-            <SusProductList products={list?.products} />
+            <SusProductList>
+              {list?.products?.map((product, id) => (
+                <SusProductCard key={id} children={<ProductCard hasDeal product={product} />} />
+              ))}
+            </SusProductList>
           </div>
         </div>
       </div>

@@ -5,13 +5,14 @@ import { useParams } from 'react-router';
 import { listProducts } from 'src/apis/productAPI';
 import { publicDetailsSeller } from 'src/apis/userAPI';
 import { SORT } from 'src/constants';
-import { SusProductList } from '../components/ProductCard';
+import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
 import SellerCard from './SellerCard';
 import Pagination from 'src/components/Pagination';
 import SortFilter from 'src/components/SortFilter';
 import MessageBox from 'src/components/MessageBox';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import LoadingOrError from 'src/components/LoadingOrError';
+import ProductCard from '../components/ProductCard';
 
 function SellerScreen({ match }) {
   const dispatch = useDispatch();
@@ -50,7 +51,11 @@ function SellerScreen({ match }) {
 
         <MessageBox show={products?.length < 1}>No Product Found</MessageBox>
         <div className="row center">
-          <SusProductList products={products} />
+          <SusProductList>
+            {products?.map((product, id) => (
+              <SusProductCard key={id} children={<ProductCard product={product} />} />
+            ))}
+          </SusProductList>
         </div>
 
         <Pagination getUrl={getUrl} page={page} pages={pages} help />
