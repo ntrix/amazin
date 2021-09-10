@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import NavBtnFacade from './NavButton/NavBtnFacade';
+import IconButton from './NavButton/IconButton';
 
 function NavLocator({ to }) {
-  return <NavBtnFacade label="locator" to={to} className="tablet--off" text="Deliver to your^Location?" />;
+  return <IconButton label="locator" to={to} className="tablet--off" text="Deliver to your^Location?" />;
 }
 
 export default memo(NavLocator);

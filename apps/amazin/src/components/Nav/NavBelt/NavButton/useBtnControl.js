@@ -1,23 +1,24 @@
 import { SHADOW } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 
-export function useBtnControl(focus) {
+export function useBtnControl() {
   const { setShadowOf, setShadowSlow } = useShadow();
 
   const onHover = (e) => {
-    focus.current?.blur();
+    if (e.target !== document.activeElement) document.activeElement.blur();
     // simulate focus as onClick
-    focus.current = e.target;
     e.target.focus();
     setShadowSlow(SHADOW.NAV_DD);
   };
   // UX behavior: a touch on mobile device acts as hover action on Desktop
-  const handleClick = (e) => {
-    focus.current?.blur();
-    document.activeElement.blur();
-    focus.current = e.target;
+  const handleClick = () => {
     setShadowOf(SHADOW.NAV_DD);
   };
+
+  const onBlur = () => {
+    if (document.body !== document.activeElement) document.activeElement.blur();
+    setShadowSlow('');
+  };
   //TODO accessibility: isFocus & isEnterKeyPressed = onClick
-  return { onHover, handleClick, setShadowSlow };
+  return { onHover, handleClick, onBlur };
 }
