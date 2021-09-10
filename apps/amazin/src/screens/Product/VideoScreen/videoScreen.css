@@ -285,6 +285,9 @@
   top: 1rem;
   bottom: 0;
 }
+.m-row .react-multiple-carousel__arrow:not(.disabled, [disabled]) {
+  background: rgba(0, 0, 0, 0.8);
+}
 .m-row .react-multiple-carousel__arrow::before {
   font-size: 36px;
   font-weight: bold;

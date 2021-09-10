@@ -23,8 +23,10 @@
   padding: 0 3rem;
   border-radius: 0;
   top: 0;
-  background: transparent;
   text-shadow: 2px 2px 2px #111;
+}
+.deal-screen .react-multiple-carousel__arrow:not(.disabled, [disabled]) {
+  background: transparent;
 }
 .deal-screen .react-multiple-carousel__arrow::before {
   font-size: 4rem;
