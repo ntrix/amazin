@@ -8,17 +8,17 @@ const axiosClient = axios.create({
 const getTokenHeader = (getState) => ({ Authorization: `Bearer ${getState()?.userSignin?.userInfo?.token}` });
 
 const axiosRedux =
-  (authorization) =>
+  (authorization: boolean | undefined) =>
   (
     [action, actionBySuccess = action, actionByFail = actionBySuccess],
-    { requestPayload = null, successAction, successHandler, selector = (d) => d } = {}
+    { successAction, successHandler, selector = (d) => d }: { any; any; any } = {}
   ) =>
   (method = 'get', url = '', requestData = null) =>
   async (dispatch, getState) => {
     const headers = authorization && getTokenHeader(getState);
     url = process.env.REACT_APP_BACKEND_URL + url;
 
-    dispatch(action._REQUEST(requestPayload));
+    dispatch(action._REQUEST());
 
     try {
       const { data } = await axios({ method, headers, url, data: requestData, mode: 'cors' });

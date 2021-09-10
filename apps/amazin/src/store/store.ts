@@ -32,7 +32,7 @@ import {
   userTopSellerListReducer,
   userUpdateProfileReducer,
   userUpdateReducer
-} from '../slice/UserSlice.js';
+} from '../slice/UserSlice';
 import { Storage } from '../utils';
 import { KEY } from '../constants';
 
