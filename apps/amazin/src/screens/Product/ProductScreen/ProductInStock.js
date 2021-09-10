@@ -19,7 +19,7 @@ function ProductInStock({ productId, product: { price, countInStock } }) {
       {countInStock > 0 && (
         <>
           <RowLegend label="Quantity">
-            <CustomSelect max={countInStock} value={qty} onChange={setQty} />
+            <CustomSelect max={countInStock} value={qty} onChange={(e) => setQty(e.target.value)} />
           </RowLegend>
 
           <Button primary fill to={`/cart/${productId}?qty=${qty}`} label="Add to Cart" />
