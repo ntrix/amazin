@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-function NavBtnDropdown({
+function DropdownButton({
   wrapClass = 'nav__user',
   line2Class = '',
   line2ExtClass = 'tablet--off',
@@ -26,4 +26,4 @@ function NavBtnDropdown({
   );
 }
 
-export default memo(NavBtnDropdown);
+export default memo(DropdownButton);

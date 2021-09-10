@@ -1,28 +1,16 @@
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 
 import { SuspenseNull } from 'src/components/CustomSuspense';
 import { useBtnControl } from './useBtnControl';
-import NavBtnDropdown from './NavBtnDropdown';
+import DropdownButton from './DropdownButton';
 
 function NavButton({ children, ...props }) {
-  const focus = useRef(null);
-  const { onHover, handleClick, setShadowSlow } = useBtnControl(focus);
+  const { onHover, handleClick, onBlur } = useBtnControl();
 
   return (
-    <NavBtnDropdown
-      tabIndex="2"
-      onMouseEnter={onHover}
-      onClick={handleClick}
-      onMouseLeave={(e) => {
-        focus.current?.blur();
-        e.target.blur();
-        focus.current = null;
-        setShadowSlow('');
-      }}
-      {...props}
-    >
+    <DropdownButton tabIndex="2" onMouseEnter={onHover} onClick={handleClick} onMouseLeave={onBlur} {...props}>
       <SuspenseNull children={children} />
-    </NavBtnDropdown>
+    </DropdownButton>
   );
 }
 

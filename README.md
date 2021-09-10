@@ -135,6 +135,12 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [amazin-story-vercel]: https://amazin-story.vercel.app/
 [demo]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/amazim-react-demo-ntien.gif
 
+## Code Climate
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/c63323239801d458e190/maintainability)](https://codeclimate.com/github/ntrix/amazin/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c63323239801d458e190/test_coverage)](https://codeclimate.com/github/ntrix/amazin/test_coverage)
+
 ## Nx Amazin' Amazim Store
 
 This project was generated using [Nx](https://nx.dev).

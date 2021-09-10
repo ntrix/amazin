@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { MAX_2DIGITS, MAX_CART_QTY } from 'src/constants';
-import NavBtnFacade from './NavButton/NavBtnFacade';
+import IconButton from './NavButton/IconButton';
 
 export function NavCart({ to }) {
   const { cartItems } = useSelector((state) => state.cart);
@@ -11,9 +11,9 @@ export function NavCart({ to }) {
   );
 
   return (
-    <NavBtnFacade label="cart" to={to} className="pc-low--off" text="Shopping-^Basket">
+    <IconButton label="cart" to={to} className="pc-low--off" text="Shopping-^Basket">
       <div className={`cart__counter${count > MAX_2DIGITS ? ' --js-3digits' : ''}`}>{count}</div>
-    </NavBtnFacade>
+    </IconButton>
   );
 }
 
