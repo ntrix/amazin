@@ -2,30 +2,47 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "allowJs": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "target": "es2015",
+    "jsx": "react-jsx",
+    "types": [
+      "react"
+    ],
+    "module": "esNext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "declaration": false,
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "strict": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "typeRoots": [
+      "./types",
+      "node_modules/@types"
+    ],
+    "strictNullChecks": true,
+    "allowJs": true
   },
   "exclude": [
+    "dist",
     "node_modules",
     "tmp",
     "**/*.stories.ts",
@@ -38,5 +55,7 @@
       "path": "./.storybook/tsconfig.json"
     }
   ],
-  "include": ["../src"]
+  "include": [
+    "../src"
+  ]
 }
