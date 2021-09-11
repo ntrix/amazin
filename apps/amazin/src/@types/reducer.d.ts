@@ -1,5 +1,7 @@
-import rootReducer from "src/reducer/reducer"
+import store, { rootReducer } from 'src/store';
 
 declare global {
-  type AppState = ReturnType<typeof rootReducer>
+  type AppState = ReturnType<typeof rootReducer>;
+  // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+  type AppDispatch = typeof store.dispatch;
 }

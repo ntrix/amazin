@@ -1,10 +1,9 @@
 import { SliceCaseReducers } from '@reduxjs/toolkit';
-import { RootState } from 'src/store';
 
 export { createSlice } from '@reduxjs/toolkit';
-export const createReducers = (stateKeyName = '', overwriteReducers?: SliceCaseReducers<RootState>) => ({
+export const createReducers = (stateKeyName = '', overwriteReducers?: SliceCaseReducers<AppState>) => ({
   _REQUEST: () => ({ loading: true }),
-  _SUCCESS: (state, action) => {
+  _SUCCESS: (state: AppState, action: SliceAction) => {
     // noname saved state?
     return stateKeyName === '...'
       ? {
@@ -18,7 +17,7 @@ export const createReducers = (stateKeyName = '', overwriteReducers?: SliceCaseR
           success: true
         };
   },
-  _FAIL: (state, action) => ({
+  _FAIL: (state: AppState, action: SliceAction) => ({
     loading: false,
     error: action.payload
   }),
@@ -26,7 +25,7 @@ export const createReducers = (stateKeyName = '', overwriteReducers?: SliceCaseR
   ...overwriteReducers
 });
 
-export const adapter = (name: string, initialState: RootState, reducers: SliceCaseReducers<RootState>) => ({
+export const adapter = (name: string, initialState: AppState, reducers: SliceCaseReducers<AppState>) => ({
   initialState,
   reducers,
   name

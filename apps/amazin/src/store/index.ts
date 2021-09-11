@@ -45,42 +45,40 @@ const preloadedState = {
   }
 };
 
+export const rootReducer = {
+  currencyType: currencyTypeReducer,
+  productList: productListReducer,
+  productListAll: productListAllReducer,
+  productDetails: productDetailsReducer,
+  cart: cartReducer,
+  userSignin: userSigninReducer,
+  userRegister: userRegisterReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
+  orderMineList: orderMineListReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
+  userUpdate: userUpdateReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productDelete: productDeleteReducer,
+  orderList: orderListReducer,
+  orderDelete: orderDeleteReducer,
+  orderDeliver: orderDeliverReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userTopSellersList: userTopSellerListReducer,
+  productCategoryList: productCategoryListReducer,
+  productReviewCreate: productReviewCreateReducer,
+  userAddressMap: userAddressMapReducer
+};
+
 const store = configureStore({
   preloadedState,
-  reducer: {
-    currencyType: currencyTypeReducer,
-    productList: productListReducer,
-    productListAll: productListAllReducer,
-    productDetails: productDetailsReducer,
-    cart: cartReducer,
-    userSignin: userSigninReducer,
-    userRegister: userRegisterReducer,
-    orderCreate: orderCreateReducer,
-    orderDetails: orderDetailsReducer,
-    orderPay: orderPayReducer,
-    orderMineList: orderMineListReducer,
-    userDetails: userDetailsReducer,
-    userUpdateProfile: userUpdateProfileReducer,
-    userUpdate: userUpdateReducer,
-    productCreate: productCreateReducer,
-    productUpdate: productUpdateReducer,
-    productDelete: productDeleteReducer,
-    orderList: orderListReducer,
-    orderDelete: orderDeleteReducer,
-    orderDeliver: orderDeliverReducer,
-    userList: userListReducer,
-    userDelete: userDeleteReducer,
-    userTopSellersList: userTopSellerListReducer,
-    productCategoryList: productCategoryListReducer,
-    productReviewCreate: productReviewCreateReducer,
-    userAddressMap: userAddressMapReducer
-  },
+  reducer: rootReducer,
   middleware: [thunk],
   devTools: process.env.NODE_ENV !== 'production'
 });
 
 export default store;
-
-export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;

@@ -1,4 +1,4 @@
-interface Res {
-  data: any
-  message: string
-}
+type Res = {
+  data: any;
+  statusText: string;
+};

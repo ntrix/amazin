@@ -1,4 +1,3 @@
-import { RootState } from 'src/store';
 import { adapter, createSlice } from './ReduxToolKitClient';
 
 /* also check qty in backend (countInStock) */
@@ -15,7 +14,7 @@ export const { actions: cartActions, reducer: cartReducer } = createSlice(
     'cart',
     { cartItems: [] },
     {
-      _ADD_ITEM(state: RootState, action: SliceAction) {
+      _ADD_ITEM(state: AppState, action: SliceAction) {
         const newItem = action.payload;
         const { cartItems } = state;
         const exItem = cartItems.find((x: ItemType) => x.product === newItem.product);
@@ -27,24 +26,24 @@ export const { actions: cartActions, reducer: cartReducer } = createSlice(
         newItem.qty = qty;
         return { ...state, error, cartItems: updateItems(cartItems, newItem, exItem) };
       },
-      _REMOVE_ITEM: (state: RootState, action: SliceAction) => ({
+      _REMOVE_ITEM: (state: AppState, action: SliceAction) => ({
         ...state,
         error: '',
         cartItems: state.cartItems.filter((x) => x.product !== action.payload)
       }),
-      _SAVE_SHIPPING_ADDRESS: (state: RootState, action: SliceAction) => ({
+      _SAVE_SHIPPING_ADDRESS: (state: AppState, action: SliceAction) => ({
         ...state,
         shippingAddress: action.payload
       }),
-      _SAVE_PAYMENT_METHOD: (state: RootState, action: SliceAction) => ({
+      _SAVE_PAYMENT_METHOD: (state: AppState, action: SliceAction) => ({
         ...state,
         paymentMethod: action.payload
       }),
-      _ADD_ITEM_FAIL: (state: RootState, action: SliceAction) => ({
+      _ADD_ITEM_FAIL: (state: AppState, action: SliceAction) => ({
         ...state,
         error: action.payload
       }),
-      _EMPTY: (state: RootState) => ({ ...state, error: '', cartItems: [] })
+      _EMPTY: (state: AppState) => ({ ...state, error: '', cartItems: [] })
     }
   )
 );

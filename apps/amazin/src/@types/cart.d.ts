@@ -1,9 +1,11 @@
-interface ItemType {
-  product: Product;
+type ItemType = {
   name: string;
-  price: number;
   qty: number;
+  price: number;
   countInStock: number;
-}
+  image?: string;
+  seller?: UserType;
+  product: ProductType;
+};
 
-type CartType = ItemType[] | [];
+type CartType = ItemType[];
