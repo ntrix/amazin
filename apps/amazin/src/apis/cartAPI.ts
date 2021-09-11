@@ -1,9 +1,9 @@
 import axiosClient from './axiosClient';
 import { cartActions } from '../slice/CartSlice';
-import { KEY, DUMMYSELLERS } from '../constants';
+import { KEY, DUMMY_SELLER } from '../constants';
 import { Storage } from '../utils';
 
-export const addToCart = (productId, qty) => async (dispatch, getState) => {
+export const addToCart = (productId: string, qty: number) => async (dispatch: AppDispatch, getState: AppState) => {
   const { data } = await axiosClient.get(`/api/products/${productId}`);
   const { cart } = getState();
   const { cartItems } = cart;
@@ -12,7 +12,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
     dispatch(
       cartActions._ADD_ITEM_FAIL(
         `Can't Add Item Of Other Supplier. Buy Only From The Same Seller (${
-          cartItems[0].seller.seller.name || DUMMYSELLERS.name
+          cartItems[0].seller.seller.name || DUMMY_SELLER.name
         }) in this order`
       )
     );
@@ -24,16 +24,16 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
-export const removeFromCart = (productId) => (dispatch, getState) => {
+export const removeFromCart = (productId: string) => (dispatch: AppDispatch, getState: AppState) => {
   dispatch(cartActions._REMOVE_ITEM(productId));
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
-export const saveShippingAddress = (data) => (dispatch) => {
+export const saveShippingAddress = (data) => (dispatch: AppDispatch) => {
   dispatch(cartActions._SAVE_SHIPPING_ADDRESS(data));
   Storage[KEY.SHIPPING_ADDRESS] = data;
 };
 
-export const savePaymentMethod = (data) => (dispatch) => {
+export const savePaymentMethod = (data) => (dispatch: AppDispatch) => {
   dispatch(cartActions._SAVE_PAYMENT_METHOD(data));
 };

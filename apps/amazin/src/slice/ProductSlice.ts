@@ -6,7 +6,9 @@ export const { actions: currencyTypeActions, reducer: currencyTypeReducer } = cr
   adapter(
     'currencyType',
     { loading: true, rates },
-    createReducers('...', { _CHANGE: (state, action) => ({ ...state, sessionCurrency: action.payload }) })
+    createReducers('...', {
+      _CHANGE: (state: AppState, action: SliceAction) => ({ ...state, sessionCurrency: action.payload })
+    })
   )
 );
 

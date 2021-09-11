@@ -55,15 +55,15 @@ type pipeType = {
   symbol: typeof symbol;
   currency: string;
   currencies: string[];
-  setCurrency: fnType;
-  updateRates: fnType;
-  getSymbol: fnType;
-  getName: fnType;
-  getRate: fnType;
-  getPrice: fnType;
-  getNote: fnType;
-  getCent: fnType;
-  showPrice: fnType;
+  setCurrency: FnType;
+  updateRates: FnType;
+  getSymbol: FnType;
+  getName: FnType;
+  getRate: FnType;
+  getPrice: FnType;
+  getNote: FnType;
+  getCent: FnType;
+  showPrice: FnType;
 };
 export const pipe: pipeType = {
   rates,

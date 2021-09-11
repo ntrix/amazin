@@ -1,46 +1,56 @@
-interface Product {
+type ReviewType = {
+  name: string;
+  comment: string;
+  rating: NumberString;
+};
+
+type ProductType = {
   _id: string;
   name: string;
-  price: number;
-}
-
-interface ResGetProductApi extends Res {
-  data: {
-    products: Product[];
-  };
-}
-
-interface ResGetProduct extends ActionRedux {
-  payload: ResGetProductApi;
-}
-
-interface ResGetProductItemApi extends Res {
-  data: {
-    product: Product;
-  };
-}
-
-interface ResGetProductItem extends ActionRedux {
-  payload: ResGetProductItemApi;
-}
-
-interface MovieType {
-  _id?: string;
-  name?: ReturnType;
-  image?: ReturnType;
-  vote_average?: number;
-  rating?: number;
-  vote_count?: number;
-  numReviews?: number;
-  overview?: string;
-  description?: string;
+  seller?: UserType;
+  image?: string;
   video?: string;
-  seller?: any;
+  brand?: string;
+  category?: string;
+  subcategory?: string;
+  description?: string;
   price?: number;
   deal?: number;
-  category?: string;
+  ship?: number;
+  countInStock?: number;
+  rating?: number;
+  numReviews?: number;
+  reviews?: ReviewType;
+};
+
+type VideoType = {
   title?: string;
   original_title?: string;
   poster_path?: string;
   backdrop_path: string;
-}
+  vote_average?: number;
+  vote_count?: number;
+  overview?: string;
+};
+
+type MovieType = VideoType & ProductType;
+
+type ResGetProductApi = Res & {
+  data: {
+    products: ProductType[];
+  };
+};
+
+type ResGetProduct = ActionRedux & {
+  payload: ResGetProductApi;
+};
+
+type ResGetProductItemApi = Res & {
+  data: {
+    product: ProductType;
+  };
+};
+
+type ResGetProductItem = ActionRedux & {
+  payload: ResGetProductItemApi;
+};

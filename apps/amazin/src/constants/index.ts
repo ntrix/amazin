@@ -116,10 +116,13 @@ export const ratings = [
 ];
 
 /* create 5 placeholders for seller info */
-export const DUMMYSELLERS = Array(5).fill({
+export const DUMMY_SELLER: SellerType = { name: 'Anonymous Seller', logo: NO_IMAGE };
+export const DUMMY_USER: UserType = {
   _id: '#',
-  seller: { logo: NO_IMAGE, name: 'Anonymous Seller' }
-});
+  name: 'Anonymous User',
+  seller: DUMMY_SELLER
+};
+export const DUMMYSELLERS = Array(5).fill(DUMMY_USER);
 
 /* create 5 placeholders for product info */
 // export const dummyProducts = Array(6).fill({

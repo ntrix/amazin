@@ -1,11 +1,11 @@
-import axios, { AxiosError, Method } from 'axios';
+import axios, { Method } from 'axios';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
   headers: { mode: 'cors' }
 });
 
-const getTokenHeader = (getState) => ({
+const getTokenHeader = (getState: AppState) => ({
   Authorization: `Bearer ${getState()?.userSignin?.userInfo?.token}`,
   mode: 'cors'
 });
@@ -16,8 +16,8 @@ const axiosRedux =
     [action, actionBySuccess = action, actionByFail = actionBySuccess]: SliceAction[],
     { successAction, successHandler, selector = (d) => d }: OptionFns = {}
   ) =>
-  (method: Method | undefined = 'get', url = '', requestData = null) =>
-  async (dispatch, getState) => {
+  (method: Method | undefined = 'get', url = '', requestData?: unknown) =>
+  async (dispatch: AppDispatch, getState: AppState) => {
     const headers = authorization && getTokenHeader(getState);
     url = process.env.REACT_APP_BACKEND_URL + url;
 
@@ -31,8 +31,8 @@ const axiosRedux =
       dispatch(actionBySuccess._SUCCESS(selector(data)));
       if (successAction) dispatch(successAction(data));
       if (successHandler) successHandler(data);
-    } catch (error: AxiosErrorType) {
-      dispatch(actionByFail._FAIL(error.message || error.response?.data?.message));
+    } catch (error) {
+      if (error instanceof Error) dispatch(actionByFail._FAIL(error.message));
     }
   };
 

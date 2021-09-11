@@ -13,7 +13,7 @@ import {
 import { pipe } from '../utils';
 import { NAV } from '../constants';
 
-const updatePipe = (data) =>
+const updatePipe = (data: { rates: number[] }) =>
   pipe.currencies.forEach((c) => {
     if (data.rates && data.rates[c]) pipe.rates[c] = data.rates[c];
   });
@@ -48,10 +48,11 @@ export const listProducts = ({
 
 export const listProductCategories = () => axiosPublic([productCategoryListActions])('get', `/api/products/categories`);
 
-export const detailsProduct = (productId) => axiosPublic([productDetailsActions])('get', `/api/products/${productId}`);
+export const detailsProduct = (productId: string) =>
+  axiosPublic([productDetailsActions])('get', `/api/products/${productId}`);
 
 export const createProduct = () =>
-  axiosPrivate([productCreateActions], { selector: (_data) => _data.product })('post', '/api/products', {});
+  axiosPrivate([productCreateActions], { selector: (_data) => _data.product })('post', '/api/products');
 
 export const updateProduct = (product) =>
   axiosPrivate([productUpdateActions])('put', `/api/products/${product._id}`, product);
