@@ -1,4 +1,4 @@
-import axios, { Method } from 'axios';
+import axios, { AxiosError, Method } from 'axios';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -31,9 +31,8 @@ const axiosRedux =
       dispatch(actionBySuccess._SUCCESS(selector(data)));
       if (successAction) dispatch(successAction(data));
       if (successHandler) successHandler(data);
-    } catch (error: any) {
-      const message: string = error.response?.data?.message || error.message;
-      dispatch(actionByFail._FAIL(message));
+    } catch (error: AxiosErrorType) {
+      dispatch(actionByFail._FAIL(error.message || error.response?.data?.message));
     }
   };
 
