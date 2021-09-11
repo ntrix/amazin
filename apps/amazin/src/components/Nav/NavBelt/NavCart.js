@@ -6,7 +6,7 @@ import IconButton from './NavButton/IconButton';
 export function NavCart({ to }) {
   const { cartItems } = useSelector((state) => state.cart);
   const count = Math.min(
-    cartItems.reduce((a, c) => a + c.qty, 0),
+    cartItems.reduce((acc, item) => acc + item.qty, 0),
     MAX_CART_QTY
   );
 

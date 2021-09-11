@@ -13,7 +13,7 @@ import {
 import { pipe } from '../utils';
 import { NAV } from '../constants';
 
-const updatePipe = (data) =>
+const updatePipe = (data: { rates: number[] }) =>
   pipe.currencies.forEach((c) => {
     if (data.rates && data.rates[c]) pipe.rates[c] = data.rates[c];
   });
@@ -48,17 +48,17 @@ export const listProducts = ({
 
 export const listProductCategories = () => axiosPublic([productCategoryListActions])('get', `/api/products/categories`);
 
-export const detailsProduct = (productId) =>
-  axiosPublic([productDetailsActions], { requestPayload: productId })('get', `/api/products/${productId}`);
+export const detailsProduct = (productId: string) =>
+  axiosPublic([productDetailsActions])('get', `/api/products/${productId}`);
 
 export const createProduct = () =>
-  axiosPrivate([productCreateActions], { selector: (_data) => _data.product })('post', '/api/products', {});
+  axiosPrivate([productCreateActions], { selector: (_data) => _data.product })('post', '/api/products');
 
 export const updateProduct = (product) =>
-  axiosPrivate([productUpdateActions], { requestPayload: product })('put', `/api/products/${product._id}`, product);
+  axiosPrivate([productUpdateActions])('put', `/api/products/${product._id}`, product);
 
 export const deleteProduct = (productId) =>
-  axiosPrivate([productDeleteActions], { requestPayload: productId })('delete', `/api/products/${productId}`);
+  axiosPrivate([productDeleteActions])('delete', `/api/products/${productId}`);
 
 export const createReview = (productId, review) =>
   axiosPrivate([productReviewCreateActions], {

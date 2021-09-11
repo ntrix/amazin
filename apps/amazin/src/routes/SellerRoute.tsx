@@ -1,9 +1,9 @@
-import { useShadow } from 'src/hooks/useShadow';
+import { useSelector } from 'react-redux';
 
 import { Redirect, Route } from 'src/routes/SuspenseRoute';
 
 export function SellerBaseRoute({ component: Component, userRole, ...rest }) {
-  const { userInfo } = useShadow();
+  const { userInfo } = useSelector((state) => state.userSignin);
 
   return (
     <Route
