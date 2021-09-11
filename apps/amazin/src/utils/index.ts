@@ -163,7 +163,7 @@ export function debounce<T extends unknown[], U>(callback: (...args: T) => Promi
   };
 }
 
-function throttle<T extends unknown[], U>(func: (...args: T) => void | U, wait = 500) {
+export function throttle<T extends unknown[], U>(func: (...args: T) => void | U, wait = 500) {
   let isCalled = false;
 
   return (...args: T): void | U => {

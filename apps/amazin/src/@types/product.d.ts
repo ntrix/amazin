@@ -1,9 +1,7 @@
 interface Product {
   _id: string;
   name: string;
-  qty: number;
   price: number;
-  countInStock: number;
 }
 
 interface ResGetProductApi extends Res {
