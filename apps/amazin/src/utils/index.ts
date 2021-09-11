@@ -115,7 +115,7 @@ const getImage = (m: MovieType) =>
   `${getUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getUrl(m.backdrop_path)}` ||
   `${NO_IMAGE_P}^${NO_IMAGE}`;
 
-export const sourceAdapter = (movies: MovieType[] | Product[], id?: number) =>
+export const sourceAdapter = (movies: MovieType[] | ProductType[], id?: number) =>
   movies?.map((m) => ({
     _id: m._id || `#${id}`,
     name: getName(m),
