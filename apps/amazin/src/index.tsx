@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import store from './store/store';
+import store from './store';
 // import * as serviceWorker from './serviceWorker';
 
 // import { registerRoute, setCatchHandler } from 'workbox-routing';
