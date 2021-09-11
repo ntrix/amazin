@@ -10,18 +10,10 @@ const getTokenHeader = (getState) => ({
   mode: 'cors'
 });
 
-type fnType = (d?: unknown) => unknown;
-type optFn = fnType | undefined;
-interface OptionFns {
-  successAction?: optFn;
-  successHandler?: optFn;
-  selector?: optFn;
-}
-
 const axiosRedux =
   (authorization: true | undefined) =>
   (
-    [action, actionBySuccess = action, actionByFail = actionBySuccess]: any[],
+    [action, actionBySuccess = action, actionByFail = actionBySuccess]: SliceAction[],
     { successAction, successHandler, selector = (d) => d }: OptionFns = {}
   ) =>
   (method: Method | undefined = 'get', url = '', requestData = null) =>

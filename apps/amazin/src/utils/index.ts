@@ -1,86 +1,99 @@
 import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY, NO_IMAGE_P } from '../constants';
 export { findSuggest } from './findSuggest';
 
-export const castArray = (strArray) => (Array.isArray(strArray) ? strArray : [strArray]);
+export const castArray = (strArray: string | string[]) => (Array.isArray(strArray) ? strArray : [strArray]);
 
 /* create #id for .css */
-export const createId = (text) => text?.split(' ').join('-').toLowerCase();
+export const createId = (text: string | undefined) => text?.split(' ').join('-').toLowerCase();
 
 /* Proxy for localStorage and Redux, mostly used for local storage */
 export const Storage = new Proxy(KEY, {
   get(obj, key) {
     try {
-      return JSON.parse(localStorage.getItem(key));
+      return JSON.parse(localStorage.getItem(String(key)) ?? '');
     } catch (e) {
-      return localStorage.getItem(key);
+      return localStorage.getItem(String(key));
     }
   },
   set(obj, key, value) {
-    if (value === '') localStorage.removeItem(key);
-    else localStorage.setItem(key, JSON.stringify(value));
+    if (value === '') localStorage.removeItem(String(key));
+    else localStorage.setItem(String(key), JSON.stringify(value));
     return true;
   }
 });
 
 /* util for currency and all its pipes, rates, calculations, can use intl instead */
-export const pipe = {
+const rates = {
+  //default dummy rate
+  EUR: 1,
+  USD: 1.2,
+  GBP: 0.9,
+  CZK: 27,
+  PLN: 5,
+  CHF: 1.1
+};
+const longName = {
+  GBP: 'GB Pounds',
+  USD: 'US Dollar',
+  PLN: 'Polish Zloty',
+  CZK: 'Czech Koruna',
+  CHF: 'Swiss France',
+  EUR: 'Euro (Default)'
+};
+const symbol = {
+  GBP: '£',
+  USD: '$',
+  PLN: 'zł',
+  CZK: 'Kč',
+  CHF: 'CHf',
+  EUR: '€'
+};
+
+type pipeType = {
+  rates: typeof rates;
+  longName: typeof longName;
+  symbol: typeof symbol;
+  currency: string;
+  currencies: string[];
+  setCurrency: fnType;
+  updateRates: fnType;
+  getSymbol: fnType;
+  getName: fnType;
+  getRate: fnType;
+  getPrice: fnType;
+  getNote: fnType;
+  getCent: fnType;
+  showPrice: fnType;
+};
+export const pipe: pipeType = {
+  rates,
+  longName,
+  symbol,
   currency: 'EUR',
   currencies: ['EUR', 'GBP', 'USD', 'PLN', 'CZK', 'CHF'],
-  rates: {
-    //default dummy rate
-    EUR: 1,
-    USD: 1.2,
-    GBP: 0.9,
-    CZK: 27,
-    PLN: 5,
-    CHF: 1.1
-  },
-  longName: {
-    GBP: 'GB Pounds',
-    USD: 'US Dollar',
-    PLN: 'Polish Zloty',
-    CZK: 'Czech Koruna',
-    CHF: 'Swiss France',
-    EUR: 'Euro (Default)'
-  },
-  symbol: {
-    GBP: '£',
-    USD: '$',
-    PLN: 'zł',
-    CZK: 'Kč',
-    CHF: 'CHf',
-    EUR: '€'
-  },
   setCurrency(currency) {
     this.currency = currency;
   },
-  updateRates(newRates) {
+  updateRates(newRates: number[]): void {
     if (newRates?.length) this.currencies.map((c) => (this.rates[c] = newRates[c]));
   },
-  getSymbol(currency = this.currency) {
-    return this.symbol[currency];
+  getSymbol(currency: string): string {
+    return this.symbol[currency || this.currency];
   },
-  getName(currency) {
-    return {
-      GBP: 'GB Pounds',
-      USD: 'US Dollar',
-      PLN: 'Polish Zloty',
-      CZK: 'Czech Koruna',
-      CHF: 'Swiss France',
-      EUR: 'Euro (Default)'
-    }[currency || this.currency];
+  getName(currency: string): number {
+    return longName[currency || this.currency];
   },
-  getRate(currency) {
-    return this.rates[currency || this.currency] || 1;
+  getRate(currency: string): number {
+    return rates[currency || this.currency] || 1;
   },
-  getPrice(price = 0, rate = this.getRate()) {
-    return (price * rate).toFixed(CURR_FORMAT);
+  getPrice(price = 0, rate: number | undefined): string {
+    return (price * (rate || this.getRate())).toFixed(CURR_FORMAT);
   },
-  getNote(price = 0, rate = this.getRate()) {
-    return ((price * rate) | 0).toString();
+  getNote(price = 0, rate) {
+    return ((price * (rate || this.getRate())) | 0).toString();
   },
-  getCent(price = 0, rate = this.getRate()) {
-    return (price * rate).toFixed(CURR_FORMAT).slice(-CURR_FORMAT);
+  getCent(price = 0, rate) {
+    return (price * (rate || this.getRate())).toFixed(CURR_FORMAT).slice(-CURR_FORMAT);
   },
   showPrice(price) {
     return `${this.getSymbol()} ${this.getPrice(price)}`;
@@ -95,14 +108,14 @@ export const savePath =
   };
 
 /* Adapter pattern (or create placeholders, default values if movie products are not exists) for video movies source from 3rd party API */
-const getUrl = (url) => (url ? SRC_URL + url : '');
-const getName = (m) => m.name || m.title || m.original_title || 'Product Name';
-const getImage = (m) =>
+const getUrl = (url: string | undefined) => (url ? SRC_URL + url : '');
+const getName = (m: MovieType) => m.name || m.title || m.original_title || 'Product Name';
+const getImage = (m: MovieType) =>
   m.image ||
   `${getUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getUrl(m.backdrop_path)}` ||
   `${NO_IMAGE_P}^${NO_IMAGE}`;
 
-export const sourceAdapter = (movies, id) =>
+export const sourceAdapter = (movies: MovieType[] | Product[], id?: number) =>
   movies?.map((m) => ({
     _id: m._id || `#${id}`,
     name: getName(m),
@@ -132,44 +145,34 @@ export const getImgUrl = (productId, imgName) => {
     : `${process.env.REACT_APP_IMG_BASE_URL}${productId}/${imgName}`;
 };
 
-export function shortName(userName, length) {
+export function shortName(userName: string | undefined, length?: number): string {
   if (!userName?.length) return 'Sign In';
   if (!length) return userName;
   const name = userName.split(' ')[0];
   return name.slice(0, length) + (name.length > length ? '..' : '');
 }
 
-export function debounce(func, duration = 500) {
-  let id;
-  return function (...args) {
-    clearTimeout(id);
-    id = setTimeout(() => {
-      id = null;
-      return func.apply(this, args);
-    }, duration);
+export function debounce<T extends unknown[], U>(callback: (...args: T) => PromiseLike<U> | U, wait = 500) {
+  let timer: NodeJS.Timeout;
+
+  return (...args: T): Promise<U> => {
+    clearTimeout(timer);
+    return new Promise((resolve) => {
+      timer = setTimeout(() => resolve(callback(...args)), wait);
+    });
   };
 }
 
-export function doThenDebounce(func, duration = 500, id = null) {
+function throttle(func: Function, wait: number) {
+  let isCalled = false;
+
   return function (...args) {
-    if (!id) {
-      id = func.apply(this, args);
-      return;
+    if (!isCalled) {
+      func(...args);
+      isCalled = true;
+      setTimeout(function () {
+        isCalled = false;
+      }, wait);
     }
-    clearTimeout(id);
-    id = setTimeout(() => {
-      id = null;
-      return func.apply(this, args);
-    }, duration);
-  };
-}
-
-export function throttle(func, duration) {
-  let isWaiting = false;
-  return function (...args) {
-    if (isWaiting) return;
-    func.apply(this, args);
-    isWaiting = true;
-    setTimeout(() => (isWaiting = false), duration);
   };
 }
