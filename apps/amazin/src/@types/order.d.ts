@@ -7,3 +7,12 @@ type AddressType = {
   lat?: number;
   lng?: number;
 };
+
+type OrderType = ItemType;
+
+type PaymentType = {
+  id: string;
+  status: string;
+  update_time: string;
+  email_address: string;
+};

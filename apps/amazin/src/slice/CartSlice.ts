@@ -29,7 +29,7 @@ export const { actions: cartActions, reducer: cartReducer } = createSlice(
       _REMOVE_ITEM: (state: AppState, action: SliceAction) => ({
         ...state,
         error: '',
-        cartItems: state.cartItems.filter((x) => x.product !== action.payload)
+        cartItems: state.cartItems.filter((x: ItemType) => x.product !== action.payload)
       }),
       _SAVE_SHIPPING_ADDRESS: (state: AppState, action: SliceAction) => ({
         ...state,

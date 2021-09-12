@@ -35,6 +35,17 @@ type VideoType = {
 
 type MovieType = VideoType & ProductType;
 
+type ProductListType = {
+  products: ProductType[];
+  page: number;
+  count: number;
+  category: string;
+  pages: number;
+};
+
+/* only Product name for search and suggest function */
+type PNameType = { name: string };
+
 type ResGetProductApi = Res & {
   data: {
     products: ProductType[];
