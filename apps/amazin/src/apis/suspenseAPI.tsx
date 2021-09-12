@@ -1,38 +1,39 @@
+import { CSSProperties } from 'react';
 import { NO_IMAGE } from '../constants';
 
-function createSuspenseAPI(promise) {
-  let state = 'loading';
-  let result = promise.then(
+function createSuspenseAPI<Promise>(promise: PromiseLike<string>) {
+  let status = 'loading';
+  let result: string | PromiseLike<string | void> = promise.then(
     (resolved) => {
-      state = 'success';
+      status = 'success';
       result = resolved;
     },
     (rejected) => {
-      state = 'error';
+      status = 'error';
       result = rejected;
     }
   );
 
   return {
     read() {
-      if (state === 'success') return result;
+      if (status === 'success') return result;
       throw result;
     }
   };
 }
 
-function subscribeResource(state) {
+function subscribeResource(state: AppState) {
   return {
-    read(prop) {
-      if (state.loading) throw new Promise();
+    read(props: unknown) {
+      if (state.loading) throw new Promise(() => void 0);
       if (state.error) throw state.error;
-      return state[prop] || prop;
+      return state[props] || props;
     }
   };
 }
 
-function preloadImage(src) {
-  return new Promise((resolve) => {
+function preloadImage(src: string) {
+  return new Promise<string>((resolve) => {
     const img = document.createElement('img');
     img.src = src;
     img.onload = () => resolve(src);
@@ -41,11 +42,18 @@ function preloadImage(src) {
 
 const sCached = {};
 
-function LazyComponent(tag) {
-  return ({ src, ...props }) => {
-    if (!src) src = NO_IMAGE;
+type PropType = {
+  src?: string;
+  style: CSSProperties | undefined;
+  alt?: string | undefined;
+  placeholder?: string | undefined;
+};
+
+function LazyComponent(as: string) {
+  return ({ src = NO_IMAGE, ...props }: PropType) => {
     if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
-    return tag === 'img' ? (
+
+    return as === 'img' ? (
       <img src={sCached[src]?.read() || src} alt={props.alt} {...props} />
     ) : (
       <div
