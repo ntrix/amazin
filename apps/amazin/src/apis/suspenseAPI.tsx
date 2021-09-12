@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import { NO_IMAGE } from '../constants';
 
-function createSuspenseAPI<Promise>(promise: PromiseLike<string>) {
+function createSuspenseAPI(promise: PromiseLike<string>) {
   let status = 'loading';
   let result: string | PromiseLike<string | void> = promise.then(
     (resolved) => {
@@ -43,8 +43,8 @@ function preloadImage(src: string) {
 const sCached = {};
 
 type PropType = {
-  src?: string;
-  style: CSSProperties | undefined;
+  src: string;
+  style?: CSSProperties | undefined;
   alt?: string | undefined;
   placeholder?: string | undefined;
 };

@@ -54,13 +54,13 @@ export const detailsProduct = (productId: string) =>
 export const createProduct = () =>
   axiosPrivate([productCreateActions], { selector: (_data) => _data.product })('post', '/api/products');
 
-export const updateProduct = (product) =>
+export const updateProduct = (product: ProductType) =>
   axiosPrivate([productUpdateActions])('put', `/api/products/${product._id}`, product);
 
-export const deleteProduct = (productId) =>
+export const deleteProduct = (productId: string) =>
   axiosPrivate([productDeleteActions])('delete', `/api/products/${productId}`);
 
-export const createReview = (productId, review) =>
+export const createReview = (productId: ProductType, review: ReviewType) =>
   axiosPrivate([productReviewCreateActions], {
     selector: (_data) => _data.review
   })('post', `/api/products/${productId}/reviews`, review);
