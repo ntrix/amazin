@@ -1,14 +1,14 @@
 import { useRef, useCallback } from 'react';
 
-export function useDebounce(fn, duration = 500) {
-  const id = useRef(null);
+export function useDebounce(fn: FnType, duration = 500) {
+  const id = useRef(0);
 
   const debounceFn = useCallback(
     (...args) => {
       clearTimeout(id.current);
-      id.current = setTimeout(() => {
-        id.current = null;
-        return fn.apply(this, args);
+      id.current = window.setTimeout(() => {
+        id.current = 0;
+        return fn(...args);
       }, duration);
     },
     [fn, duration]
@@ -17,8 +17,8 @@ export function useDebounce(fn, duration = 500) {
   const clearDebounceFn = useCallback(
     (...args) => {
       clearTimeout(id.current);
-      id.current = null;
-      return args ? fn.apply(this, args) : null;
+      id.current = 0;
+      return args ? fn(...args) : null;
     },
     [fn]
   );

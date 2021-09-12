@@ -4,12 +4,12 @@ import { KEY } from 'src/constants';
 import { pipe, Storage } from 'src/utils';
 
 import { useDebounce } from './useDebounce';
-const ShadowContext = createContext();
+const ShadowContext = createContext({});
 ShadowContext.displayName = 'ShadowContext';
 
 export function ShadowProvider({ children }) {
-  const { userInfo } = useSelector((state) => state.userSignin);
-  const { sessionCurrency } = useSelector((state) => state.currencyType);
+  const { userInfo } = useSelector((state: AppState) => state.userSignin);
+  const { sessionCurrency } = useSelector((state: AppState) => state.currencyType);
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
 
   useEffect(() => {

@@ -5,13 +5,15 @@ export function useMounted() {
 
   useLayoutEffect(() => {
     mountedRef.current = true;
-    return () => (mountedRef.current = false);
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
 
   return mountedRef;
 }
 
-export function useSafeState(init) {
+export function useSafeState(init: unknown) {
   const mountedRef = useMounted();
   const [state, setState] = useState(init);
 
