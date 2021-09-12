@@ -10,7 +10,7 @@ export const { actions: userSigninActions, reducer: userSigninReducer } = create
 );
 
 export const { actions: userDetailsActions, reducer: userDetailsReducer } = createSlice(
-  adapter('userDetails', { loading: true }, { ...createReducers('user'), _RESET: () => ({ loading: true }) })
+  adapter('userDetails', { loading: true }, createReducers('user', { _RESET: () => ({ loading: true }) }))
 );
 
 export const { actions: userUpdateProfileActions, reducer: userUpdateProfileReducer } = createSlice(
