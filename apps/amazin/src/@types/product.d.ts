@@ -43,7 +43,7 @@ type ProductListType = {
   pages: number;
 };
 
-/* only Product name for search and suggest function */
+/* only product name for search and suggest function */
 type PNameType = { name: string };
 
 type ResGetProductApi = Res & {
