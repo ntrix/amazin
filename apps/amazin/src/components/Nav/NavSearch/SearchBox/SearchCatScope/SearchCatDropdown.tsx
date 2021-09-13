@@ -6,9 +6,9 @@ import { useOutline } from '../../useOutline';
 import { NAV } from 'src/constants';
 import SearchCatItem from './SearchCatItem';
 
-function SearchCatDropdown({ activeCat, setActiveCat }) {
+function SearchCatDropdown({ activeCat, setActiveCat }: { activeCat: string; setActiveCat: SetState }) {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state.productCategoryList);
+  const { categories } = useSelector((state: AppState) => state.productCategoryList);
   const { scopeOutline } = useOutline();
 
   useEffect(() => {

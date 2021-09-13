@@ -4,10 +4,26 @@ import { KEY } from 'src/constants';
 import { pipe, Storage } from 'src/utils';
 
 import { useDebounce } from './useDebounce';
-const ShadowContext = createContext({});
+
+type ShadowType = {
+  userInfo?: AppState;
+  currency: string;
+  shadowOf: string;
+  setCurrency: SetState;
+  setShadowOf: FnType;
+  setShadowSlow: FnType;
+};
+
+const ShadowContext = createContext<ShadowType>({
+  currency: 'EUR',
+  shadowOf: '',
+  setCurrency: () => void 0,
+  setShadowOf: () => void 0,
+  setShadowSlow: () => void 0
+});
 ShadowContext.displayName = 'ShadowContext';
 
-export function ShadowProvider({ children }) {
+export function ShadowProvider({ children }: { children: Children }) {
   const { userInfo } = useSelector((state: AppState) => state.userSignin);
   const { sessionCurrency } = useSelector((state: AppState) => state.currencyType);
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
@@ -26,11 +42,11 @@ export function ShadowProvider({ children }) {
 
   const setShadowSlow = useCallback((_sh) => debounceShadow(_sh), [debounceShadow]);
 
-  const value = { userInfo, currency, shadowOf, setCurrency, setShadowOf, setShadowSlow };
+  const value: ShadowType = { userInfo, currency, shadowOf, setCurrency, setShadowOf: setShadowOf, setShadowSlow };
   return <ShadowContext.Provider value={value}>{children}</ShadowContext.Provider>;
 }
 
-export function useShadow() {
+export function useShadow(): ShadowType {
   const context = useContext(ShadowContext);
   if (context === undefined) throw new Error('useShadow must be used within a ShadowProvider');
 

@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { useShadow } from 'src/hooks/useShadow';
 import { SHADOW } from 'src/constants';
 
-function ShadowWrapper({ header, children }) {
+function ShadowWrapper({ header, children }: { header?: JSX.Element; children?: Children }) {
   const { shadowOf, setShadowOf } = useShadow();
   const id = 'btn--close-sidebar';
   const isOpened = SHADOW.SIDEBAR === shadowOf;

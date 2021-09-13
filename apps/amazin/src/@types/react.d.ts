@@ -12,9 +12,20 @@ type InputEvent = React.FormEvent<HTMLInputElement>;
 
 type ChangeEvent = React.ChangeEventHandler<HTMLInputElement> & React.ChangeEventHandler<HTMLTextAreaElement>;
 
+type KeyEvent = KeyboardEventHandler<HTMLInputElement> & KeyboardEventHandler<HTMLTextAreaElement>;
+
 type EventType = any;
 
 type SelectType = {
   value: string | number;
   children?: Children;
 };
+
+type SetState = React.Dispatch<any>;
+
+type Ref<T> = LegacyRef<T | undefined> | undefined;
+
+// type Lazy = React.LazyExoticComponent<T extends React.ComponentType<any>,T>;
+type Lazy = React.LazyExoticComponent<any>;
+
+type LazyPromise = Promise<{ default: any }>;

@@ -23,8 +23,8 @@ function SearchInput({ input, setInput, setSuggests, submitSearch }) {
         name="q"
         autoComplete="off"
         value={input}
-        size="1"
-        tabIndex="1"
+        size={1}
+        tabIndex={1}
         aria-label="search input"
         onClick={onClickOrFocus}
         onFocus={onClickOrFocus}

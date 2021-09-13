@@ -3,11 +3,11 @@ import { useShadow } from 'src/hooks/useShadow';
 import { findSuggest } from 'src/utils';
 import { SHADOW } from 'src/constants';
 
-export function useSuggestBox(setSuggests) {
+export function useSuggestBox(setSuggests: SetState) {
   const { productList, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
-  const showBox = (input) => {
+  const showBox = (input?: string) => {
     setScopeOutline(0);
     if (!input) return;
 

@@ -1,6 +1,6 @@
 //lists for creating MenuItem([label, linkTo, className, signOutAction?])
 
-export function createSellerTemplate(userInfo) {
+export function createSellerTemplate(userInfo: UserType): MenuType {
   return [
     ['Profile'],
     ['Seller Profile', '/profile/seller'],

@@ -36,13 +36,18 @@ type VideoType = {
 
 type MovieType = VideoType & ProductType;
 
-type ProductListType = {
-  products: ProductType[];
-  page: number;
-  count: number;
-  category: string;
-  pages: number;
-};
+type ProductListType =
+  | {
+      products: ProductType[];
+      page: number;
+      count: number;
+      category: string;
+      pages: number;
+      loading?: boolean;
+      error?: string | undefined;
+      success?: boolean;
+    }
+  | undefined;
 
 /* only product name for search and suggest function */
 type PNameType = { name: string };

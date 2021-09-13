@@ -12,3 +12,8 @@ type Status = {
   error?: boolean;
   success?: boolean;
 };
+
+/* MenuItem props: label, to, className, extFunction */
+type ArgsType = [string, string?, string?, FnType?];
+
+type MenuType = ArgsType[];

@@ -2,7 +2,15 @@ import { memo } from 'react';
 import { useHistory } from 'react-router';
 import { useShadow } from 'src/hooks/useShadow';
 
-function InnerMenuItem({ label, to = '', className, extFunction, children }) {
+type PropType = {
+  label: string;
+  to?: string;
+  className?: string;
+  extFunction?: FnType;
+  children?: Children;
+};
+
+function InnerMenuItem({ label, to = '', className, extFunction, children }: PropType) {
   const history = useHistory();
   const { setShadowOf } = useShadow();
 
@@ -11,7 +19,7 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }) {
       return className ? <div>{label}</div> : <strong>{label}</strong>;
 
     case 'disabled':
-      return <div className="menu__link-item disabled" disabled children={label} />;
+      return <div className="menu__link-item disabled" children={label} />;
 
     case 'https://':
       return <a href={to} target="_blank" rel="noreferrer" children={label} />;
@@ -21,10 +29,10 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }) {
         <div
           className={'menu__link-item ' + className}
           aria-label={`${label} ${className}`}
-          onClick={(e) => {
+          onClick={(e: EventType) => {
             e.stopPropagation();
-            setShadowOf('');
-            if (extFunction) extFunction();
+            setShadowOf && setShadowOf('');
+            extFunction && extFunction();
             history.push(to);
           }}
         >

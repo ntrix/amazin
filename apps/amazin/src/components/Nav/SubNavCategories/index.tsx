@@ -4,8 +4,13 @@ import { useSelector } from 'react-redux';
 import SubNavItem from './SubNavItem';
 import LoadingOrError from 'src/components/LoadingOrError';
 
-function SubNavCategories({ first, ...props }) {
-  const productCategoryList = useSelector((state) => state.productCategoryList);
+type PropType = {
+  first: string;
+  props: Props;
+};
+
+function SubNavCategories({ first, ...props }: PropType) {
+  const productCategoryList = useSelector((state: AppState) => state.productCategoryList);
   const { categories = [] } = productCategoryList;
 
   return (

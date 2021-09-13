@@ -8,7 +8,7 @@ import OpenSidebarBtn from './OpenSidebarBtn';
 import LoadingOrError from 'src/components/LoadingOrError';
 
 function NavMain() {
-  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const productCategoryList = useSelector((state: AppState) => state.productCategoryList);
 
   return (
     <div className="nav-main row">
