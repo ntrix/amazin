@@ -17,6 +17,8 @@ type PropType = {
   ariaLabel?: string;
   children?: Children;
   type?: ButtonType;
+  disabled?: boolean;
+  onClick?: FnType;
   rest?: Props;
 };
 

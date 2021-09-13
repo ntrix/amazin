@@ -4,7 +4,13 @@ import { getImgUrl, pipe } from 'src/utils';
 import Button from 'src/components/Button';
 import CustomSelect from 'src/components/CustomSelect';
 
-function CartRowItem({ item, addHandler, removeHandler }) {
+type PropType = {
+  item: ItemType;
+  addHandler: FnType;
+  removeHandler: FnType;
+};
+
+function CartRowItem({ item, addHandler, removeHandler }: PropType) {
   const { product, name, price, image, qty, countInStock } = item;
 
   return (

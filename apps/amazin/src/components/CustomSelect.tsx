@@ -16,13 +16,15 @@ const Selects = ({ list }: { list: SelectType[] }) => (
 );
 
 type PropType = {
-  label: string | undefined;
-  wrapClass?: string | undefined;
-  optgroup?: string | undefined;
-  list?: SelectType[] | undefined;
-  max?: number | undefined;
-  small?: boolean | undefined;
-  props?: Props;
+  label?: string;
+  wrapClass?: string;
+  optgroup?: string;
+  list?: SelectType[];
+  max?: number;
+  small?: boolean;
+  rest?: Props;
+  value?: number;
+  onChange?: FnType;
 };
 
 export default function CustomSelect({
@@ -32,7 +34,7 @@ export default function CustomSelect({
   list,
   max,
   small = false,
-  ...props
+  ...rest
 }: PropType) {
   const selectList = list || createList(max || 1);
 
@@ -41,7 +43,7 @@ export default function CustomSelect({
       {!!label && <label htmlFor={label}>{label}</label>}
       <div className={'select-wrapper ' + wrapClass}>
         <div className={`sprite__caret${small ? '' : ' xl'}`} />
-        <select id={createId(optgroup || label)} className="tab__w6" {...props}>
+        <select id={createId(optgroup || label)} className="tab__w6" {...rest}>
           {optgroup ? (
             <optgroup label={optgroup}>
               <Selects list={selectList} />

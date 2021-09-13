@@ -6,19 +6,19 @@ import Header from 'src/layouts/Header';
 import CartTable from './CartTable';
 import SumCard from './SumCard';
 
-export default function CartScreen({ match, location: { search } }) {
+export default function CartScreen({ match, location: { search } }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const productId = match.params.id;
   const qty = search ? Number(search.split('=')[1]) : 1;
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state: AppState) => state.cart);
 
   useEffect(() => {
     if (productId) dispatch(addToCart(productId, qty));
   }, [dispatch, productId, qty]);
 
-  const addHandler = (...args) => dispatch(addToCart(...args));
+  const addHandler = (productId: string, qty: number) => dispatch(addToCart(productId, qty));
 
-  const removeHandler = (id) => dispatch(removeFromCart(id));
+  const removeHandler = (id: string) => dispatch(removeFromCart(id));
 
   return (
     <div className="screen--light row top">
