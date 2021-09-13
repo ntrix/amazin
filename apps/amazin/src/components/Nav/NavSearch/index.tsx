@@ -5,7 +5,7 @@ import { useOutsideClick } from './useOutsideClick';
 import SearchBox from './SearchBox';
 
 function NavSearch() {
-  const navSearchRef = useRef();
+  const navSearchRef: Ref<HTMLDivElement> = useRef<HTMLDivElement>();
   useOutsideClick(navSearchRef);
 
   return (

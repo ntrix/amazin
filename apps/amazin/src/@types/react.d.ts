@@ -20,3 +20,5 @@ type SelectType = {
 };
 
 type SetState = React.Dispatch<any>;
+
+type Ref<T> = LegacyRef<T | undefined> | undefined;
