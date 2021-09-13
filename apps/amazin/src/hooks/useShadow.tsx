@@ -7,7 +7,16 @@ import { useDebounce } from './useDebounce';
 const ShadowContext = createContext({});
 ShadowContext.displayName = 'ShadowContext';
 
-export function ShadowProvider({ children }) {
+type ShadowType = {
+  userInfo?: AppState;
+  currency?: AppState;
+  shadowOf?: AppState;
+  setCurrency?: SetState;
+  setShadowOf?: FnType;
+  setShadowSlow?: FnType;
+};
+
+export function ShadowProvider({ children }: { children: Children }) {
   const { userInfo } = useSelector((state: AppState) => state.userSignin);
   const { sessionCurrency } = useSelector((state: AppState) => state.currencyType);
   const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
@@ -26,11 +35,11 @@ export function ShadowProvider({ children }) {
 
   const setShadowSlow = useCallback((_sh) => debounceShadow(_sh), [debounceShadow]);
 
-  const value = { userInfo, currency, shadowOf, setCurrency, setShadowOf, setShadowSlow };
+  const value: ShadowType = { userInfo, currency, shadowOf, setCurrency, setShadowOf: setShadowOf, setShadowSlow };
   return <ShadowContext.Provider value={value}>{children}</ShadowContext.Provider>;
 }
 
-export function useShadow() {
+export function useShadow(): ShadowType {
   const context = useContext(ShadowContext);
   if (context === undefined) throw new Error('useShadow must be used within a ShadowProvider');
 

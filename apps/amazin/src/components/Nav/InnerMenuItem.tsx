@@ -11,7 +11,7 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }) {
       return className ? <div>{label}</div> : <strong>{label}</strong>;
 
     case 'disabled':
-      return <div className="menu__link-item disabled" disabled children={label} />;
+      return <div className="menu__link-item disabled" children={label} />;
 
     case 'https://':
       return <a href={to} target="_blank" rel="noreferrer" children={label} />;
@@ -23,8 +23,8 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }) {
           aria-label={`${label} ${className}`}
           onClick={(e) => {
             e.stopPropagation();
-            setShadowOf('');
-            if (extFunction) extFunction();
+            setShadowOf && setShadowOf('');
+            extFunction && extFunction();
             history.push(to);
           }}
         >

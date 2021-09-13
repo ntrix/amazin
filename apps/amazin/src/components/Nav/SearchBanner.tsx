@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-function SearchBanner({ list, children }) {
+function SearchBanner({ list, children }: { list: ProductListType; children: Children }) {
   const { products = null, page = 1, count = 0 } = list ?? {};
   const size = products?.length || 0;
   const fromItem = size * (page - 1);

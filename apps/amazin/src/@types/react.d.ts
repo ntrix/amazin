@@ -18,3 +18,5 @@ type SelectType = {
   value: string | number;
   children?: Children;
 };
+
+type SetState = React.Dispatch<any>;

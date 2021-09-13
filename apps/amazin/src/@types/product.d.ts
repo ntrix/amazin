@@ -42,6 +42,9 @@ type ProductListType = {
   count: number;
   category: string;
   pages: number;
+  loading?: boolean;
+  error?: string | undefined;
+  success?: boolean;
 };
 
 /* only product name for search and suggest function */
