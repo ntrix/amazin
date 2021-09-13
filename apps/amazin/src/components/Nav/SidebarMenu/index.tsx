@@ -18,7 +18,7 @@ import ShadowWrapper from './ShadowWrapper';
 
 function SidebarMenu() {
   const dispatch = useDispatch();
-  const { categories, loading, error } = useSelector((state) => state.productCategoryList);
+  const { categories, loading, error } = useSelector((state: AppState) => state.productCategoryList);
   const { currency, userInfo } = useShadow();
 
   const signOutHandler = useCallback(() => dispatch(signout()), [dispatch]);
@@ -27,7 +27,7 @@ function SidebarMenu() {
 
   return (
     <ShadowWrapper header={<SidebarHeader userName={getShortName(userInfo?.name)} />}>
-      <LoadingOrError statusOf={(loading, error)} />
+      <LoadingOrError statusOf={{ loading, error }} />
       {[
         ...sidebarBase,
         ...(categories?.map(NavCategoryAdapter) || []),

@@ -2,10 +2,10 @@ import { memo } from 'react';
 
 import MenuItem from '../MenuItem';
 
-function SidebarHeader({ userName, ...props }) {
+function SidebarHeader({ userName, ...rest }: { userName: string; rest?: Props }) {
   return (
     <ul>
-      <MenuItem label={'Hello, ' + userName} to="/profile" className="sidebar__header" {...props}>
+      <MenuItem label={'Hello, ' + userName} to="/profile" className="sidebar__header" {...rest}>
         <div className="sprite__user"></div>
       </MenuItem>
     </ul>
