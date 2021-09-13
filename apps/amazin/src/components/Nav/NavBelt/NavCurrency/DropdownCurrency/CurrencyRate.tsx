@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RATES_SOURCE } from 'src/constants';
 
-function CurrencyRate({ currency }) {
+function CurrencyRate({ currency }: { currency: string }) {
   return (
     <>
       <li className="list-label">Currency Calculator</li>
