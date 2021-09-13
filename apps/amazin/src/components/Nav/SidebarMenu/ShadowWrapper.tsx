@@ -11,7 +11,7 @@ function ShadowWrapper({ header, children }: { header?: JSX.Element; children?: 
   return (
     <>
       <aside className={`sidebar ${isOpened ? 'opened' : ''}`}>
-        <button id={id} onClick={() => setShadowOf && setShadowOf('')} aria-label="Close Sidebar">
+        <button id={id} onClick={() => setShadowOf('')} aria-label="Close Sidebar">
           <div className="sprite__close-btn"></div>
         </button>
 

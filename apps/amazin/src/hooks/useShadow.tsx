@@ -7,14 +7,20 @@ import { useDebounce } from './useDebounce';
 
 type ShadowType = {
   userInfo?: AppState;
-  currency?: string;
-  shadowOf?: string;
-  setCurrency?: SetState;
-  setShadowOf?: FnType;
-  setShadowSlow?: FnType;
+  currency: string;
+  shadowOf: string;
+  setCurrency: SetState;
+  setShadowOf: FnType;
+  setShadowSlow: FnType;
 };
 
-const ShadowContext = createContext<ShadowType>({ setShadowOf: () => void 0, setShadowSlow: () => void 0 });
+const ShadowContext = createContext<ShadowType>({
+  currency: 'EUR',
+  shadowOf: '',
+  setCurrency: () => void 0,
+  setShadowOf: () => void 0,
+  setShadowSlow: () => void 0
+});
 ShadowContext.displayName = 'ShadowContext';
 
 export function ShadowProvider({ children }: { children: Children }) {

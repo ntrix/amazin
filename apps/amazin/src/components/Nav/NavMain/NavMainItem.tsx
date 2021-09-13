@@ -17,7 +17,7 @@ function NavMainItem({ label = '', to = '/', children }: PropType) {
     <div className="nav-main__item">
       <div
         onClick={() => {
-          setShadowOf && setShadowOf('');
+          setShadowOf('');
           history.push(to);
         }}
       >

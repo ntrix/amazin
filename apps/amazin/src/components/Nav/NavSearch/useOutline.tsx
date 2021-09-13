@@ -2,16 +2,26 @@ import { createContext, useContext, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 type OutlineCtxType = {
-  productList?: ProductListType;
-  inputRef?: Ref<HTMLElement>;
-  outline?: boolean;
-  setOutline?: SetState;
-  scopeOutline?: number;
-  setScopeOutline?: SetState;
-  suggestBox?: boolean;
-  setSuggestBox?: SetState;
+  productList: PNameType[];
+  inputRef: Ref<HTMLElement>;
+  outline: boolean;
+  setOutline: SetState;
+  scopeOutline: number;
+  setScopeOutline: SetState;
+  suggestBox: boolean;
+  setSuggestBox: SetState;
 };
-const OutlineContext = createContext<OutlineCtxType>({});
+
+const OutlineContext = createContext<OutlineCtxType>({
+  productList: [],
+  inputRef: undefined,
+  outline: false,
+  setOutline: () => void 0,
+  scopeOutline: 0,
+  setScopeOutline: () => void 0,
+  suggestBox: false,
+  setSuggestBox: () => void 0
+});
 OutlineContext.displayName = 'OutlineContext';
 
 export function OutlineProvider({ children }) {
