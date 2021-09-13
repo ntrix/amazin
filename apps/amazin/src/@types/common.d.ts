@@ -17,3 +17,5 @@ type Status = {
 type ArgsType = [string, string?, string?, FnType?];
 
 type MenuType = ArgsType[];
+
+type ButtonType = 'button' | 'submit' | 'reset' | undefined;

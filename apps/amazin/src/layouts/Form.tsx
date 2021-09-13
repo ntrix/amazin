@@ -3,6 +3,7 @@ import LoadingOrError from '../components/LoadingOrError';
 import Button from '../components/Button';
 
 type PropType = {
+  onSubmit: FnType;
   header?: string | undefined;
   statusOf?: Status;
   children?: Children;
