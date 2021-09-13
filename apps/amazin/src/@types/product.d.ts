@@ -1,7 +1,8 @@
 type ReviewType = {
   name: string;
   comment: string;
-  rating: NumberString;
+  rating: number;
+  createdAt: string;
 };
 
 type ProductType = {

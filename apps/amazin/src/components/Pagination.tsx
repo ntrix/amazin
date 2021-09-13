@@ -1,8 +1,23 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-function Pagination({ getUrl, page, pages, className = '', help = false, LinkTo = (props) => <Link {...props} /> }) {
-  const getClass = (x) => `${x + 1 === page ? 'active' : ''} ${className}`;
+type PropType = {
+  getUrl: FnType;
+  page: string | undefined;
+  pages: string | undefined;
+  className?: string | undefined;
+  help?: boolean | undefined;
+  LinkTo: Children;
+};
+function Pagination({
+  getUrl,
+  page,
+  pages,
+  className = '',
+  help = false,
+  LinkTo = (props: Props) => <Link {...props} />
+}: PropType) {
+  const getClass = (x: number) => `${x + 1 === Number(page) ? 'active' : ''} ${className}`;
 
   return (
     <>

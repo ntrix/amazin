@@ -1,7 +1,7 @@
 import { CURR_FORMAT, SRC_URL, NO_IMAGE, KEY, NO_IMAGE_P } from '../constants';
 export { findSuggest } from './findSuggest';
 
-export const castArray = (strArray: string | string[]) => (Array.isArray(strArray) ? strArray : [strArray]);
+export const castArray = (strArray: unknown) => (Array.isArray(strArray) ? strArray : [strArray]);
 
 /* create #id for .css */
 export const createId = (text: string | undefined) => text?.split(' ').join('-').toLowerCase();
