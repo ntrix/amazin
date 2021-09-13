@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 import { pipe, savePath } from 'src/utils';
 
-function DropdownCurrencyItem({ label, currency }) {
+function DropdownCurrencyItem({ label, currency }: { label: string; currency: string }) {
   const history = useHistory();
 
   return (
