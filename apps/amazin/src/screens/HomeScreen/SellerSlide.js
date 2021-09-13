@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { LazyImg } from 'src/apis/suspenseAPI';
-import { SuspenseSeller } from 'src/components/CustomSuspense';
+import { SuspenseText } from 'src/components/CustomSuspense';
 
 export default function SellerSlide({
   seller: {
@@ -9,11 +9,11 @@ export default function SellerSlide({
   }
 }) {
   return (
-    <SuspenseSeller>
+    <SuspenseText text="Seller">
       <Link className="seller__card" to={`/seller/${_id}`}>
         <LazyImg className="seller__img" src={logo} alt={name} />
         <p className="legend">{name}</p>
       </Link>
-    </SuspenseSeller>
+    </SuspenseText>
   );
 }

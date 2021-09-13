@@ -13,12 +13,8 @@ export function SuspenseBanner(props: Props) {
   return <Suspense fallback={bannerFallback} {...props} />;
 }
 
-export function SuspenseSeller(props: Props) {
-  return <Suspense fallback={<h4>Seller</h4>} {...props} />;
-}
-
-export function SuspenseText(props: Props) {
-  return <Suspense fallback={<h3>Amazin' Amazim. Loading...</h3>} {...props} />;
+export function SuspenseText({ text = "Amazin' Amazim. Loading...", ...props }: { text: string; props: Props }) {
+  return <Suspense fallback={<h3>{text}</h3>} {...props} />;
 }
 
 export function SuspenseNull(props: Props) {

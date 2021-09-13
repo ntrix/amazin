@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { SuspenseSeller } from 'src/components/CustomSuspense';
+import { SuspenseText } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import Rating from 'src/components/Rating';
 /* don't show user {email} */
@@ -16,7 +16,7 @@ function SellerCard({
   return (
     <div className="card card__body m-0">
       <div className="row start p-1">
-        <SuspenseSeller children={<LazyImg className={size} src={seller.logo} alt={seller.name} />} />
+        <SuspenseText text="Seller" children={<LazyImg className={size} src={seller.logo} alt={seller.name} />} />
         <h2>{to ? <Link to={to}>{seller.name}</Link> : seller.name}</h2>
       </div>
 
