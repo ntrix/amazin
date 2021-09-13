@@ -41,7 +41,7 @@ function LoadingOrError({ statusOf, wrapClass = '', children, ...rest }: PropTyp
     return () => clearTimeout(timeoutId.current);
   }, [statusOf?.error]);
 
-  if (hideError) return 0;
+  if (hideError) return <>0</>;
   if (!wrapClass || !children) return <InnerBox {...props} />;
 
   return (
