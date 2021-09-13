@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { bannerFallback, ProductCardFallback, productListFallback } from './Fallbacks';
 import LoadingBox from './LoadingBox';
 
-export const delay = (time: number) => (promiseResult) =>
+export const delay = (time: number) => (promiseResult: unknown) =>
   new Promise((resolve) => setTimeout(() => resolve(promiseResult), time));
 
 export function SuspenseLoad(props: Props) {
@@ -13,12 +13,8 @@ export function SuspenseBanner(props: Props) {
   return <Suspense fallback={bannerFallback} {...props} />;
 }
 
-export function SuspenseSeller(props: Props) {
-  return <Suspense fallback={<h4>Seller</h4>} {...props} />;
-}
-
-export function SuspenseText(props: Props) {
-  return <Suspense fallback={<h3>Amazin' Amazim. Loading...</h3>} {...props} />;
+export function SuspenseText({ text = "Amazin' Amazim. Loading...", ...props }: { text: string; props: Props }) {
+  return <Suspense fallback={<h3>{text}</h3>} {...props} />;
 }
 
 export function SuspenseNull(props: Props) {
