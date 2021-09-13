@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-function SearchBtn({ submitSearch }) {
+function SearchBtn({ submitSearch }: { submitSearch: FnType }) {
   const handleKeyPress = (e: EventType) => {
     if (e?.key === 'Enter' || e?.key === ' ') submitSearch();
   };

@@ -24,3 +24,8 @@ type SelectType = {
 type SetState = React.Dispatch<any>;
 
 type Ref<T> = LegacyRef<T | undefined> | undefined;
+
+// type Lazy = React.LazyExoticComponent<T extends React.ComponentType<any>,T>;
+type Lazy = React.LazyExoticComponent<any>;
+
+type LazyPromise = Promise<{ default: any }>;

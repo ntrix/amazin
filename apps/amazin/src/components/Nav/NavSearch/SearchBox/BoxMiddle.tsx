@@ -5,9 +5,7 @@ import { SHADOW } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 import { useOutline } from '../useOutline';
 import SearchInput from './SearchInput';
-const SearchSuggests: React.LazyExoticComponent<any> = lazy(
-  (): Promise<{ default: any }> => import(/* webpackPrefetch: true */ './SearchSuggests')
-);
+const SearchSuggests: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './SearchSuggests'));
 
 function BoxMiddle(props: Props) {
   const [suggests, setSuggests] = useState([]);

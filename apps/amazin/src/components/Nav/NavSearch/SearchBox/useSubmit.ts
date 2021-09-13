@@ -9,7 +9,7 @@ export function useSubmit() {
   const { setShadowOf } = useShadow();
   const { setSuggestBox } = useOutline();
 
-  const handleSubmit = useCallback((e, input, activeCat) => {
+  const handleSubmit = useCallback((e: EventType, input: string, activeCat: string) => {
     e?.preventDefault();
     if (!input) return;
     setSuggestBox(false);
