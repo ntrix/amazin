@@ -4,7 +4,13 @@ import { useOutline } from '../useOutline';
 import { SEARCH } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 
-export default function SearchSuggests({ suggests, setSuggests, setInput }) {
+type PropType = {
+  suggests: PNameType[];
+  setSuggests: SetState;
+  setInput: SetState;
+};
+
+export default function SearchSuggests({ suggests, setSuggests, setInput }: PropType) {
   const { setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 

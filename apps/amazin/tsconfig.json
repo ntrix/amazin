@@ -4,10 +4,7 @@
     "rootDir": ".",
     "emitDecoratorMetadata": true,
     "importHelpers": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom", "es2015.promise"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "esModuleInterop": true,
@@ -21,9 +18,7 @@
     "sourceMap": true,
     "target": "es2015",
     "jsx": "react-jsx",
-    "types": [
-      "react"
-    ],
+    "types": ["react"],
     "module": "esNext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
@@ -34,10 +29,7 @@
     "strict": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "typeRoots": [
-      "./types",
-      "node_modules/@types"
-    ],
+    "typeRoots": ["./types", "node_modules/@types"],
     "strictNullChecks": true,
     "allowJs": true
   },
@@ -55,7 +47,5 @@
       "path": "./.storybook/tsconfig.json"
     }
   ],
-  "include": [
-    "../src"
-  ]
+  "include": ["../src"]
 }

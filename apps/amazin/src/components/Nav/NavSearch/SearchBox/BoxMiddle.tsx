@@ -5,9 +5,11 @@ import { SHADOW } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 import { useOutline } from '../useOutline';
 import SearchInput from './SearchInput';
-const SearchSuggests = lazy(() => import(/* webpackPrefetch: true */ './SearchSuggests'));
+const SearchSuggests: React.LazyExoticComponent<any> = lazy(
+  (): Promise<{ default: any }> => import(/* webpackPrefetch: true */ './SearchSuggests')
+);
 
-function BoxMiddle(props) {
+function BoxMiddle(props: Props) {
   const [suggests, setSuggests] = useState([]);
   const { suggestBox } = useOutline();
   const { shadowOf } = useShadow();
@@ -17,7 +19,7 @@ function BoxMiddle(props) {
       <SearchInput {...props} setSuggests={setSuggests} />
 
       <SuspenseNull>
-        {!!(props.input && suggests && suggestBox & (SHADOW.NAV_SEARCH === shadowOf)) && (
+        {!!(props.input && suggests && suggestBox && SHADOW.NAV_SEARCH === shadowOf) && (
           <div className="search__suggest">
             <ul children={<SearchSuggests suggests={suggests} setInput={props.setInput} setSuggests={setSuggests} />} />
           </div>
