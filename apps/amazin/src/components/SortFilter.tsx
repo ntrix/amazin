@@ -3,9 +3,9 @@ import { useHistory } from 'react-router';
 
 import { SORT } from '../constants';
 
-function SortFilter({ order, getUrl }) {
+function SortFilter({ order, getUrl }: { order: string; getUrl: FnType }) {
   const history = useHistory();
-  const changeFilter = (e) => history.push(getUrl({ order: e.target.value }));
+  const changeFilter = (e: EventType) => history.push(getUrl({ order: e.target.value }));
 
   return (
     <div className="sort__filter">

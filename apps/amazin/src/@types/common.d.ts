@@ -7,9 +7,6 @@ type OptionFns = {} & {
   selector?: OptFn;
 };
 
-type Props = any;
-type Children = any;
-
 type Status = {
   loading?: boolean;
   error?: boolean;

@@ -1,7 +1,14 @@
 import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
 
-export default function SuccessModal({ msg, back = '/', label = 'Back To Your Last Session', ...props }) {
+type PropType = {
+  msg?: string | undefined;
+  back?: string | undefined;
+  label?: string | undefined;
+  props?: Props;
+};
+
+export default function SuccessModal({ msg, back = '/', label = 'Back To Your Last Session', ...props }: PropType) {
   if (!msg) return null;
   /* TODO shadow under modal?? */
   return (

@@ -2,14 +2,22 @@ import { useSelector } from 'react-redux';
 
 import { Redirect, Route } from 'src/routes/SuspenseRoute';
 
-export default function PrivateRoute({ component: Component, ...rest }) {
-  const { userInfo } = useSelector((state) => state.userSignin);
-  const redirect = rest?.path?.slice(1) || '/';
+type PropType = {
+  component: ComponentType;
+  path: string;
+  rest?: Props;
+};
+
+export default function PrivateRoute({ component: Component, path, ...rest }: PropType) {
+  const { userInfo } = useSelector((state: AppState) => state.userSignin);
+  const redirect = path?.slice(1) || '/';
 
   return (
     <Route
       {...rest}
-      render={(props) => (userInfo ? <Component {...props} /> : <Redirect to={`/signin?redirect=${redirect}`} />)}
+      render={(props: Props) =>
+        userInfo ? <Component {...props} /> : <Redirect to={`/signin?redirect=${redirect}`} />
+      }
     />
   );
 }

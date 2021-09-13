@@ -1,8 +1,16 @@
 import { memo } from 'react';
 import { castArray } from 'src/utils';
 
-function MessageBox({ show = false, msg, variant, wrapClass = '', children }) {
-  if (!show && !msg?.length) return null;
+type PropType = {
+  show?: boolean | undefined;
+  msg?: string | boolean | undefined;
+  variant?: string | undefined;
+  wrapClass?: string | undefined;
+  children?: Children;
+};
+
+function MessageBox({ show = false, msg, variant, wrapClass = '', children }: PropType) {
+  if (!show && !msg) return null;
 
   const innerComponent = () => (
     <div className={`alert alert--${variant || 'info'}`}>

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 
-function PageRedirect({ label, to, children }) {
+type PropType = { label: string; to: string; children?: Children };
+
+function PageRedirect({ label, to, children }: PropType) {
   return (
     <div>
       <div className="mt-1">

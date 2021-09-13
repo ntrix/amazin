@@ -1,7 +1,15 @@
 import { memo } from 'react';
 
-function Rating({ rating, numReviews, caption, steps = 5 }) {
-  const isHalf = (test, className) => (test ? className : '');
+type PropType = {
+  rating: number | undefined;
+  numReviews?: number | undefined;
+  caption?: string | undefined;
+  steps?: number | undefined;
+};
+
+function Rating({ rating, numReviews = rating ? 1 : 0, caption = '', steps = 5 }) {
+  const isHalf = (test: boolean, className: string) => (test ? className : '');
+
   return (
     <div className="rating">
       <span>

@@ -1,16 +1,39 @@
 import { MAX_ITEM } from 'src/constants';
 import { createId } from 'src/utils';
 
-const createList = (max) => {
+const createList = (max: number) => {
   const _max = Math.min(MAX_ITEM, max);
   const list = Array(_max).fill(0);
   return list.map((_, key) => ({ value: key + 1 }));
 };
 
-const Selects = ({ list }) =>
-  list.map(({ value, children }) => <option key={value} value={value} children={children || value} />);
+const Selects = ({ list }: { list: SelectType[] }) => (
+  <>
+    {list.map(({ value, children }) => (
+      <option key={value} value={value} children={children || value} />
+    ))}
+  </>
+);
 
-export default function CustomSelect({ label, wrapClass = '', optgroup = '', list, max, small = false, ...props }) {
+type PropType = {
+  label: string | undefined;
+  wrapClass?: string | undefined;
+  optgroup?: string | undefined;
+  list?: SelectType[] | undefined;
+  max?: number | undefined;
+  small?: boolean | undefined;
+  props?: Props;
+};
+
+export default function CustomSelect({
+  label,
+  wrapClass = '',
+  optgroup = '',
+  list,
+  max,
+  small = false,
+  ...props
+}: PropType) {
   const selectList = list || createList(max || 1);
 
   return (
