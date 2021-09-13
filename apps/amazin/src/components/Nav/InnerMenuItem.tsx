@@ -21,7 +21,7 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }) {
         <div
           className={'menu__link-item ' + className}
           aria-label={`${label} ${className}`}
-          onClick={(e) => {
+          onClick={(e: EventType) => {
             e.stopPropagation();
             setShadowOf && setShadowOf('');
             extFunction && extFunction();

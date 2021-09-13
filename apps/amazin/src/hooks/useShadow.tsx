@@ -4,17 +4,18 @@ import { KEY } from 'src/constants';
 import { pipe, Storage } from 'src/utils';
 
 import { useDebounce } from './useDebounce';
-const ShadowContext = createContext({});
-ShadowContext.displayName = 'ShadowContext';
 
 type ShadowType = {
   userInfo?: AppState;
-  currency?: AppState;
-  shadowOf?: AppState;
+  currency?: string;
+  shadowOf?: string;
   setCurrency?: SetState;
   setShadowOf?: FnType;
   setShadowSlow?: FnType;
 };
+
+const ShadowContext = createContext<ShadowType>({ setShadowOf: () => void 0, setShadowSlow: () => void 0 });
+ShadowContext.displayName = 'ShadowContext';
 
 export function ShadowProvider({ children }: { children: Children }) {
   const { userInfo } = useSelector((state: AppState) => state.userSignin);
