@@ -4,7 +4,7 @@ import { useOutline } from '../../useOutline';
 import { CatLabel } from 'src/constants';
 import { useClickOrFocus } from './useClickFocus';
 
-function SearchCatScope({ activeCat }) {
+function SearchCatScope({ activeCat }: { activeCat: string }) {
   const { scopeOutline, setScopeOutline } = useOutline();
 
   const { onClickOrFocus } = useClickOrFocus();
@@ -15,7 +15,7 @@ function SearchCatScope({ activeCat }) {
 
   return (
     <div className="search-box__cat-scope" aria-label="category search scope">
-      <div className={wrapClass} tabIndex="1" onClick={onClickOrFocus} onFocus={onClickOrFocus} onBlur={doThenBlur}>
+      <div className={wrapClass} tabIndex={1} onClick={onClickOrFocus} onFocus={onClickOrFocus} onBlur={doThenBlur}>
         <div className="cat-scope--facade">
           <span>{CatLabel[activeCat] ?? activeCat}</span>
           <i className="fa fa-caret-down"></i>
