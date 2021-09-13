@@ -1,11 +1,13 @@
 import CustomInput from './CustomInput';
 
 type PropType = {
-  text: string | undefined;
-  onChange: ChangeEvent;
-  props: Props;
+  text: string;
+  props?: Props;
+  name?: string;
+  checked?: boolean;
+  hook?: [AppState, SetState];
 };
 
-export default function CustomRadio({ text, onChange, ...props }: PropType) {
+export default function CustomRadio({ text, ...props }: PropType) {
   return <CustomInput wrapClass="flex" type="radio" required text={text} {...props} />;
 }

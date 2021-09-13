@@ -41,7 +41,7 @@ const preloadedState = {
   cart: {
     cartItems: Storage[KEY.CART_ITEMS] || [],
     shippingAddress: Storage[KEY.SHIPPING_ADDRESS] || {},
-    paymentMethod: 'PayPal'
+    paymentMethod: 'Paypal'
   }
 };
 

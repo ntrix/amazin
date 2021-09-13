@@ -1,4 +1,4 @@
-export default function CheckoutSteps(props) {
+export default function CheckoutSteps(props: Props) {
   return (
     <div className="row checkout__steps">
       <div className={props.step1 ? 'active' : ''}>Sign-In</div>

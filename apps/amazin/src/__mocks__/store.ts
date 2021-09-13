@@ -5,7 +5,7 @@ import { KEY } from '../constants';
 
 const preloadedState = {
   cart: {
-    paymentMethod: 'PayPal',
+    paymentMethod: 'Paypal',
     shippingAddress: Storage[KEY.SHIPPING_ADDRESS] || {},
     cartItems: Storage[KEY.CART_ITEMS] || []
   },
