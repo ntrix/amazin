@@ -12,6 +12,8 @@ type InputEvent = React.FormEvent<HTMLInputElement>;
 
 type ChangeEvent = React.ChangeEventHandler<HTMLInputElement> & React.ChangeEventHandler<HTMLTextAreaElement>;
 
+type KeyEvent = KeyboardEventHandler<HTMLInputElement> & KeyboardEventHandler<HTMLTextAreaElement>;
+
 type EventType = any;
 
 type SelectType = {
