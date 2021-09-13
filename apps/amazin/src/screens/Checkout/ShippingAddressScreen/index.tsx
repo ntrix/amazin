@@ -4,14 +4,14 @@ import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import Button from 'src/components/Button';
 
-export default function ShippingAddressScreen({ history }) {
-  const { shipInfo, setShipInfo, locateOnMap, submitShipInfo } = useShipInfo(history);
+export default function ShippingAddressScreen({ history }: RouteOption) {
+  const { shipInfo, setShipInfo, locateOnMap, submitShipInfo } = useShipInfo({ history });
 
-  const setFullName = (fullName) => setShipInfo({ ...shipInfo, fullName });
-  const setAddress = (address) => setShipInfo({ ...shipInfo, address });
-  const setCity = (city) => setShipInfo({ ...shipInfo, city });
-  const setPostalCode = (postalCode) => setShipInfo({ ...shipInfo, postalCode });
-  const setCountry = (country) => setShipInfo({ ...shipInfo, country });
+  const setFullName = (fullName: string) => setShipInfo({ ...shipInfo, fullName });
+  const setAddress = (address: string) => setShipInfo({ ...shipInfo, address });
+  const setCity = (city: string) => setShipInfo({ ...shipInfo, city });
+  const setPostalCode = (postalCode: string) => setShipInfo({ ...shipInfo, postalCode });
+  const setCountry = (country: string) => setShipInfo({ ...shipInfo, country });
 
   return (
     <div className="screen--light">
