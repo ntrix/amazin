@@ -16,7 +16,8 @@ type PropType = {
   className?: string;
   ariaLabel?: string;
   children?: Children;
-  props?: Props;
+  type?: ButtonType;
+  rest?: Props;
 };
 
 function Button({
@@ -29,12 +30,12 @@ function Button({
   className = '',
   ariaLabel = label || className,
   children,
-  ...props
+  ...rest
 }: PropType) {
   const classNames = getClasses(primary, fill, xs) + 'mt-1 mb-2 ' + className;
 
   const child = (
-    <button className={classNames} aria-label={ariaLabel} {...props}>
+    <button className={classNames} aria-label={ariaLabel} {...rest}>
       {label || children}
     </button>
   );

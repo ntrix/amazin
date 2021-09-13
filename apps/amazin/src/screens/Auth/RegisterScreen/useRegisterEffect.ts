@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { register } from 'src/apis/userAPI';
 
-export function useRegisterEffect(location, history) {
+export function useRegisterEffect({ location, history }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const redirect = location.search ? location.search.split('=')[1] : '/';
-  const userRegister = useSelector((state) => state.userRegister);
+  const userRegister = useSelector((state: AppState) => state.userRegister);
 
   useEffect(() => {
     if (userRegister.userInfo) {
@@ -14,7 +14,7 @@ export function useRegisterEffect(location, history) {
     }
   }, [history, redirect, userRegister.userInfo]);
 
-  const submitRegister = (e, { name, email, password, confirmPassword }) => {
+  const submitRegister = (e: EventType, { name, email, password, confirmPassword }) => {
     e.preventDefault();
     dispatch(register(name, email, password, confirmPassword));
   };

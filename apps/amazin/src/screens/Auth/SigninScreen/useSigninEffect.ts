@@ -5,11 +5,11 @@ import { updateCurrencyRates } from 'src/apis/productAPI';
 import { signin, updateUserProfile } from 'src/apis/userAPI';
 import { pipe } from 'src/utils';
 
-export function useSigninEffect(location, history) {
+export function useSigninEffect({ location, history }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const redirect = location.search ? location.search.split('=')[1] : '/';
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
+  const userSignin = useSelector((state: AppState) => state.userSignin);
+  const { userInfo }: { userInfo: UserType } = userSignin;
 
   useEffect(() => {
     if (userInfo) {
@@ -18,7 +18,7 @@ export function useSigninEffect(location, history) {
       else
         dispatch(
           updateUserProfile({
-            userId: userInfo._id,
+            _id: userInfo._id,
             currency: pipe.currency
           })
         );
@@ -26,7 +26,7 @@ export function useSigninEffect(location, history) {
     }
   }, [dispatch, history, redirect, userInfo]);
 
-  const submitSignin = (e, { email, password }) => {
+  const submitSignin = (e: EventType, { email, password }) => {
     e.preventDefault();
     dispatch(signin(email, password));
   };
