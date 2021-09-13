@@ -8,7 +8,7 @@ type PropType = {
   label: string;
   text: string;
   className: string;
-  children: Children;
+  children?: Children;
 };
 
 function NavBtnFacade({ to, label, text, className, children }: PropType) {
