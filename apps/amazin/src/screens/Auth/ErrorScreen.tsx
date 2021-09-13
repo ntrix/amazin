@@ -1,6 +1,6 @@
 import ErrorBaseWithBtn from './ErrorBaseWithBtn';
 
-function ErrorScreen({ error }) {
+function ErrorScreen({ error }: { error: { message: string } }) {
   return (
     <div className="container">
       <div className="home-screen">

@@ -4,7 +4,14 @@ import Header from 'src/layouts/Header';
 
 const defaultTitle = 'SORRY! Something wrong happens!';
 
-function ErrorBaseWithBtn({ title = defaultTitle, subTitle = '', message, children }) {
+type PropType = {
+  title?: string;
+  subTitle?: string;
+  message?: string;
+  children?: Children;
+};
+
+function ErrorBaseWithBtn({ title = defaultTitle, subTitle = '', message, children }: PropType) {
   return (
     <>
       <div className="c-screen customer">
