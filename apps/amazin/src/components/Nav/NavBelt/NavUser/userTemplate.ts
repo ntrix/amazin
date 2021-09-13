@@ -1,6 +1,6 @@
 //lists for creating MenuItem([label, linkTo, className, signOutAction?])
 
-export function createUserTemplate(userInfo, signOutAction) {
+export function createUserTemplate(userInfo: UserType, signOutAction: FnType): MenuType {
   return [
     ['Informations'],
     ['Your Profile', '/profile'],
@@ -15,10 +15,7 @@ export function createUserTemplate(userInfo, signOutAction) {
     ['separator'],
     ['Account'],
     ['Change Password', '/profile/password'],
-    [
-      'Apply & Verify Your Seller Account',
-      userInfo?.isSeller ? 'disabled' : '/contact/subject/Seller'
-    ],
+    ['Apply & Verify Your Seller Account', userInfo?.isSeller ? 'disabled' : '/contact/subject/Seller'],
     ['Sign Out', '#signout', '', signOutAction]
   ];
 }

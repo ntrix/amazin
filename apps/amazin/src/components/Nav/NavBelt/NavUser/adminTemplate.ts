@@ -1,6 +1,6 @@
 //lists for creating MenuItem([label, linkTo, className, signOutAction?])
 
-export const adminTemplate = [
+export const adminTemplate: MenuType = [
   ['Admin'],
   ['User List', '/user-list'],
   ['separator'],

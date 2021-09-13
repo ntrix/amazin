@@ -14,8 +14,8 @@ export function useDropMenuCreator() {
   const { userInfo } = useShadow();
 
   const [userName, setUserName] = useState('');
-  const [userMenu, setUserMenu] = useState([]);
-  const [sellerMenu, setSellerMenu] = useState([]);
+  const [userMenu, setUserMenu] = useState<MenuType>([]);
+  const [sellerMenu, setSellerMenu] = useState<MenuType>([]);
 
   const signoutHandler = useCallback(() => dispatch(signout()), [dispatch]);
 
