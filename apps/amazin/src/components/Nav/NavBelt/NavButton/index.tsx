@@ -4,11 +4,11 @@ import { SuspenseNull } from 'src/components/CustomSuspense';
 import { useBtnControl } from './useBtnControl';
 import DropdownButton from './DropdownButton';
 
-function NavButton({ children, ...props }) {
+function NavButton({ children, ...rest }: Props) {
   const { onHover, handleClick, onBlur } = useBtnControl();
 
   return (
-    <DropdownButton tabIndex="2" onMouseEnter={onHover} onClick={handleClick} onMouseLeave={onBlur} {...props}>
+    <DropdownButton onMouseEnter={onHover} onClick={handleClick} onMouseLeave={onBlur} {...rest}>
       <SuspenseNull children={children} />
     </DropdownButton>
   );

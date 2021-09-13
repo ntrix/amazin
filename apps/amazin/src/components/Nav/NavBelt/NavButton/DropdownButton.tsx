@@ -1,5 +1,18 @@
 import { memo } from 'react';
 
+type PropType = {
+  wrapClass?: string;
+  line2Class?: string;
+  line2ExtClass?: string;
+  labels?: string;
+  children?: Children;
+  disabled?: boolean;
+  onMouseEnter?: FnType;
+  onClick?: FnType;
+  onMouseLeave?: FnType;
+  rest?: Props;
+};
+
 function DropdownButton({
   wrapClass = 'nav__user',
   line2Class = '',
@@ -7,12 +20,13 @@ function DropdownButton({
   labels = '',
   children,
   disabled = false,
-  ...props
-}) {
+  ...rest
+}: PropType) {
   const [line1 = '', line2 = '', line2Ext = ''] = labels.split('^');
   // classes:[wrapClass,[col1, [row11, row12]],[col2, [row21, row22]]]
+
   return (
-    <div className={`${wrapClass} ${disabled ? ' disabled dark' : ''} dropdown`} {...props}>
+    <div tabIndex={2} className={`${wrapClass} ${disabled ? ' disabled dark' : ''} dropdown`} {...rest}>
       <div>
         <div className="nav__line-1">{line1}</div>
         <div className={`${line2Class} nav__line-2`}>

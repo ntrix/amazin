@@ -3,7 +3,15 @@ import { useHistory } from 'react-router';
 
 import { savePath } from 'src/utils';
 
-function NavBtnFacade({ to, label, text, className, children }) {
+type PropType = {
+  to: string;
+  label: string;
+  text: string;
+  className: string;
+  children: Children;
+};
+
+function NavBtnFacade({ to, label, text, className, children }: PropType) {
   const history = useHistory();
 
   function handleClick() {
@@ -13,7 +21,7 @@ function NavBtnFacade({ to, label, text, className, children }) {
   const [line1, line2] = text.split('^');
 
   return (
-    <div className={'flex nav__' + label} tabIndex="2" aria-label={label} onClick={handleClick}>
+    <div className={'flex nav__' + label} tabIndex={2} aria-label={label} onClick={handleClick}>
       <div>
         {children}
         <div className={'sprite__' + label} />
