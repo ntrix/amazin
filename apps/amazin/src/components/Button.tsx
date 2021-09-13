@@ -1,15 +1,20 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
+type BooleanU = boolean | undefined;
+
+const getClasses = (primary: BooleanU, fill: BooleanU, xs: BooleanU) =>
+  [primary ? 'primary ' : '', fill ? 'col-fill ' : '', xs ? 'btn--xs ' : ''].join('');
+
 type PropType = {
-  to?: string | undefined;
-  label?: string | undefined;
-  wrapClass?: string | undefined;
-  primary?: boolean | undefined;
-  fill?: boolean | undefined;
-  xs?: boolean | undefined;
-  className?: string | undefined;
-  ariaLabel?: string | undefined;
+  to?: string;
+  label?: string;
+  wrapClass?: string;
+  primary?: BooleanU;
+  fill?: BooleanU;
+  xs?: BooleanU;
+  className?: string;
+  ariaLabel?: string;
   children?: Children;
   props?: Props;
 };
@@ -26,13 +31,7 @@ function Button({
   children,
   ...props
 }: PropType) {
-  const classNames = [
-    primary ? 'primary ' : '',
-    fill ? 'col-fill ' : '',
-    xs ? 'btn--xs ' : '',
-    'mt-1 mb-2 ',
-    className
-  ].join('');
+  const classNames = getClasses(primary, fill, xs) + 'mt-1 mb-2 ' + className;
 
   const child = (
     <button className={classNames} aria-label={ariaLabel} {...props}>
