@@ -8,18 +8,19 @@ declare global {
   type AppDispatch = typeof store.dispatch;
 
   type MatchParams = {
+    id: string;
     name: string;
   };
 
   type RouteProps<P> = {
-    match?: Match<P>;
+    match: Match<P>;
     location?: H.Location;
     history?: H.History;
     staticContext?: any;
   };
 
   type Match<P> = {
-    params?: P;
+    params: P;
     isExact?: boolean;
     path?: string;
     url?: string;

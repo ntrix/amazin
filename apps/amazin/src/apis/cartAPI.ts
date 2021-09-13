@@ -19,7 +19,7 @@ export const addToCart = (productId: string, qty: number) => async (dispatch: Ap
     return;
   }
   const { _id: product, ...rest } = data;
-  // product, name, image, price, countInStock, ship, deal, seller, qty
+  // product (_id), name, image, price, countInStock, ship, deal, seller, qty
   dispatch(cartActions._ADD_ITEM({ product, qty, ...rest }));
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
@@ -29,11 +29,11 @@ export const removeFromCart = (productId: string) => (dispatch: AppDispatch, get
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
-export const saveShippingAddress = (data) => (dispatch: AppDispatch) => {
+export const saveShippingAddress = (data: AddressType) => (dispatch: AppDispatch) => {
   dispatch(cartActions._SAVE_SHIPPING_ADDRESS(data));
   Storage[KEY.SHIPPING_ADDRESS] = data;
 };
 
-export const savePaymentMethod = (data) => (dispatch: AppDispatch) => {
+export const savePaymentMethod = (data: PaymentType) => (dispatch: AppDispatch) => {
   dispatch(cartActions._SAVE_PAYMENT_METHOD(data));
 };
