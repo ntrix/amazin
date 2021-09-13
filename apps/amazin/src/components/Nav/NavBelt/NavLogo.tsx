@@ -2,7 +2,7 @@ import { useHistory } from 'react-router';
 
 import Logo from 'src/img/a.svg';
 
-function NavLogo({ to }) {
+function NavLogo({ to }: { to: string }) {
   const history = useHistory();
 
   return (
