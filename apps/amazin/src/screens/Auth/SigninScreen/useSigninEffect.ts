@@ -5,7 +5,7 @@ import { updateCurrencyRates } from 'src/apis/productAPI';
 import { signin, updateUserProfile } from 'src/apis/userAPI';
 import { pipe } from 'src/utils';
 
-export function useSigninEffect({ location, history }: RouteProps<MatchParams>) {
+export function useSigninEffect({ location, history }: RouteOption) {
   const dispatch = useDispatch();
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const userSignin = useSelector((state: AppState) => state.userSignin);

@@ -14,10 +14,19 @@ declare global {
 
   type RouteProps<P> = {
     match: Match<P>;
+    location: H.Location;
+    history?: H.History;
+    staticContext?: any;
+  };
+
+  type RouteOpt<P> = {
+    match?: Match<P>;
     location?: H.Location;
     history?: H.History;
     staticContext?: any;
   };
+
+  type RouteOption = RouteOpt<MatchParams>;
 
   type Match<P> = {
     params: P;
