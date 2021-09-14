@@ -48,6 +48,9 @@ type PropType = {
   alt?: string | undefined;
   placeholder?: string | undefined;
   className?: string;
+  rest?: Props;
+  onMouseEnter?: FnType;
+  onClick?: FnType;
 };
 
 function LazyComponent(as: string) {

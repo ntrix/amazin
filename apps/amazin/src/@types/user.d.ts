@@ -22,7 +22,7 @@ type SellerType = {
 
 type UserType = {
   _id?: string;
-  name?: string;
+  name: string;
   email?: string;
   password?: string;
   isAdmin?: boolean;

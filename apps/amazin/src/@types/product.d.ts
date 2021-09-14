@@ -21,7 +21,7 @@ type ProductType = {
   countInStock?: number;
   rating?: number;
   numReviews?: number;
-  reviews?: ReviewType;
+  reviews?: ReviewType[];
 };
 
 type VideoType = {

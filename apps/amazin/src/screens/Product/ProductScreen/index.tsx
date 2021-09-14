@@ -9,11 +9,13 @@ import ProductReview from './ProductReview';
 import ProductInStock from './ProductInStock';
 import LoadingOrError from 'src/components/LoadingOrError';
 import BackBanner from './BackBanner';
-const ProductImages = lazy(() => import('./ProductImages'));
+const ProductImages: Lazy = lazy((): LazyPromise => import('./ProductImages'));
 
-function ProductScreen({ match: { params } }) {
+function ProductScreen({ match: { params } }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
-  const { product, success, loading, error } = useSelector((state) => state.productDetails);
+  const { product, success, loading, error }: ProductDetailType = useSelector(
+    (state: AppState) => state.productDetails
+  );
 
   useEffect(() => {
     dispatch(detailsProduct(params.id));

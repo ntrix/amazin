@@ -71,7 +71,7 @@ export const updateProduct = (product: ProductType) =>
 export const deleteProduct = (productId: string) =>
   axiosPrivate([productDeleteActions])('delete', `/api/products/${productId}`);
 
-export const createReview = (productId: ProductType, review: ReviewType) =>
+export const createReview = (productId: string, review: Partial<ReviewType>) =>
   axiosPrivate([productReviewCreateActions], {
     selector: (_data) => _data.review
   })('post', `/api/products/${productId}/reviews`, review);

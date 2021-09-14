@@ -5,7 +5,7 @@ import Rating from 'src/components/Rating';
 import Header from 'src/layouts/Header';
 import PriceTag from '../components/PriceTag';
 
-function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }) {
+function ProductDescription({ product: { name, rating, numReviews, deal, price, description }}:{product:ProductType} ) {
   return (
     <div className="col-1 mh-2">
       <Header label={name} />
