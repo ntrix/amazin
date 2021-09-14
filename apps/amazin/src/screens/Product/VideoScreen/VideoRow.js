@@ -14,18 +14,13 @@ function VideoRow({ label, genre, movies, portrait = false }) {
       <h2>{label || genre}</h2>
       {!!movies[genre] && (
         <Carousel
-          swipeable={true}
-          draggable={false}
-          showDots={false}
+          swipeable
+          infinite
+          keyBoardControl
           responsive={responsive}
-          infinite={true}
-          autoPlay={false}
-          keyBoardControl={true}
           customTransition="transform 300ms ease-in-out"
           transitionDuration={500}
           containerClass="carousel-container"
-          removeArrowOnDeviceType={[]}
-          dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
         >
           {movies[genre]?.map((movie, id) => (
