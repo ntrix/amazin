@@ -3,7 +3,7 @@ import MessageBox from 'src/components/MessageBox';
 import CartRowItem from './CartRowItem';
 
 type PropType = {
-  cart: { cartItems: CartType; error: string };
+  cart: { cartItems: ItemType[]; error: string };
   addHandler: FnType;
   removeHandler: FnType;
   rest?: Props;

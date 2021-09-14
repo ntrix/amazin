@@ -8,12 +8,19 @@ type AddressType = {
   lng?: number;
 };
 
-type OrderItem = ItemType & {
-  isDelivered: boolean;
-  deliveredAt: string;
+type ItemType = {
+  _id: string;
+  name: string;
+  qty: number;
+  price: number;
+  countInStock: number;
+  image: string;
+  seller: UserType;
+  product: ProductType;
+  ship: number;
 };
 
-type PaymentType = {
+type PaymentResultType = {
   id: string;
   status: string;
   update_time: string;
@@ -22,22 +29,15 @@ type PaymentType = {
   paidAt: string;
 };
 
-type PayMethodType = 'Paypal' | 'Stripe';
+type PaymentMethodType = 'Paypal' | 'Stripe';
 
-type OrderType = {
+type OrderType = CartType & {
   _id: string;
-  shippingAddress?: AddressType;
-  paymentMethod?: PayMethodType;
-  paymentResult?: PaymentType;
-  user: UserType;
-  seller?: SellerType;
-  itemsPrice?: number;
-  shippingPrice?: number;
-  taxPrice?: number;
   createdAt: string;
-  totalPrice: number;
+  orderItems: ItemType[];
   isPaid?: boolean;
   paidAt?: string;
+  paymentResult?: PaymentResultType;
   isDelivered?: boolean;
   deliveredAt?: string;
 };

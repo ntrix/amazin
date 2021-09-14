@@ -20,7 +20,7 @@ export default function OrderListScreen({ match }: RouteProps<MatchParams>) {
     dispatch(listOrders({ seller: sellerMode ? userInfo._id : '' }));
   }, [dispatch, sellerMode, orderDelete.success, userInfo._id]);
 
-  const deleteHandler = (order: OrderItem) => {
+  const deleteHandler = (order: OrderType) => {
     if (window.confirm('Are you sure to delete?')) {
       dispatch(deleteOrder(order._id));
     }

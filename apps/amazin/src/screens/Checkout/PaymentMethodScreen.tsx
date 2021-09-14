@@ -11,7 +11,7 @@ export default function PaymentMethodScreen({ history }: RouteOption) {
   const dispatch = useDispatch();
   const { shippingAddress, cartItems } = useSelector((state: AppState) => state.cart);
   if (!shippingAddress.address) history.push('/shipping');
-  const [paymentMethod, setPaymentMethod] = useSafeState<PayMethodType>('Paypal');
+  const [paymentMethod, setPaymentMethod] = useSafeState<PaymentMethodType>('Paypal');
 
   const submitHandler = (e: EventType) => {
     e.preventDefault();

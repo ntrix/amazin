@@ -12,7 +12,7 @@ import {
 import { KEY } from '../constants';
 import { Storage } from '../utils';
 
-export const createOrder = (order: OrderItem) =>
+export const createOrder = (order: OrderType) =>
   axiosPrivate([orderCreateActions], {
     successAction: cartActions._EMPTY,
     successHandler: () => (Storage[KEY.CART_ITEMS] = ''),
@@ -21,7 +21,7 @@ export const createOrder = (order: OrderItem) =>
 
 export const detailsOrder = (orderId: string) => axiosPrivate([orderDetailsActions])('get', `/api/orders/${orderId}`);
 
-export const payOrder = (order: OrderItem, paymentResult: PaymentType) =>
+export const payOrder = (order: OrderType, paymentResult: PaymentResultType) =>
   axiosPrivate([orderPayActions])('put', `/api/orders/${order._id}/pay`, paymentResult);
 
 export const listOrderMine = () => axiosPrivate([orderMineListActions])('get', '/api/orders/mine');

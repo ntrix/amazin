@@ -7,8 +7,8 @@ import OrderSumCard from '../OrderSumScreen/OrderSumCard';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Header from 'src/layouts/Header';
 
-export default function PlaceOrderScreen({ history }) {
-  const { cart, orderCreate, placeOrderHandler } = useCart(history);
+export default function PlaceOrderScreen({ history }: RouteOption) {
+  const { cart, orderCreate, placeOrderHandler } = useCart({ history });
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>

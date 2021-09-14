@@ -5,13 +5,13 @@ import { orderCreateActions } from 'src/slice/OrderSlice';
 import { createOrder } from 'src/apis/orderAPI';
 import { TAX } from 'src/constants';
 
-export function useCart(history) {
+export function useCart({ history }: RouteOption) {
   const dispatch = useDispatch();
-  const cart = { ...useSelector((state) => state.cart) };
+  const cart: CartType = { ...useSelector((state: AppState) => state.cart) };
   if (!cart.paymentMethod) history.push('/payment');
 
-  const orderCreate = useSelector((state) => state.orderCreate);
-  cart.itemsPrice = cart.cartItems?.reduce((a, c) => a + c.qty * c.price, 0);
+  const orderCreate = useSelector((state: AppState) => state.orderCreate);
+  cart.itemsPrice = cart.cartItems?.reduce((acc, item) => acc + item.qty * item.price, 0);
 
   //max ship price of any items
   const ship = Math.max(...cart.cartItems.map((i) => i.ship));
@@ -26,7 +26,7 @@ export function useCart(history) {
   useEffect(() => {
     if (!orderCreate || !orderCreate.success) return;
     history.push(`/order/${orderCreate.order._id}`);
-    dispatch(orderCreateActions._RESET());
+    dispatch(orderCreateActions._RESET(''));
   }, [dispatch, history, orderCreate]);
 
   return { cart, orderCreate, placeOrderHandler };

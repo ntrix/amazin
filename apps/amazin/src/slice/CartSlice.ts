@@ -6,7 +6,7 @@ const checkStock = ({ qty, countInStock }: ItemType, exItem: ItemType) => ({
   qty: Math.min(qty + exItem.qty, countInStock)
 });
 
-const updateItems = (cart: CartType, item: ItemType, exItem: ItemType) =>
+const updateItems = (cart: ItemType[], item: ItemType, exItem: ItemType) =>
   cart.map((ex) => (ex.product === exItem.product ? item : ex));
 
 export const { actions: cartActions, reducer: cartReducer } = createSlice(

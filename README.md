@@ -143,8 +143,8 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 ## Nx Amazin' Amazim Store
 
-This project was generated using [Nx](https://nx.dev).
+This project using [Nx](https://nx.dev).
 
-![https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png]
+![nx-logo](https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png)
 
 🔎 **Smart, Extensible Build Framework**

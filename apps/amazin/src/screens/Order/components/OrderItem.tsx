@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { getImgUrl, pipe } from 'src/utils';
 
-export default function OrderItem({ item }: { item: OrderItem }) {
+export default function OrderItem({ item }: { item: ItemType }) {
   return (
     <li>
       <div className="row">

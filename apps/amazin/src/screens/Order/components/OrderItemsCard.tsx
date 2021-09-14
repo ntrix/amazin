@@ -1,7 +1,7 @@
 import InfoCard from './InfoCard';
 import OrderItem from './OrderItem';
 
-export default function OrderItemsCard({ items }: { items: OrderItem[] }) {
+export default function OrderItemsCard({ items }: { items: ItemType[] }) {
   return (
     <InfoCard label="Order Items">
       <ul>
