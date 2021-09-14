@@ -15,7 +15,7 @@ import CustomInput from 'src/components/CustomInput';
 function ProductReview({ productId }: { productId: string }) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
-  const { product }: { product: ProductType } = useSelector((state: AppState) => state.productDetails);
+  const { product }: ProductDetailType = useSelector((state: AppState) => state.productDetails);
   const productReviewCreate = useSelector((state: AppState) => state.productReviewCreate);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
