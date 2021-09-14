@@ -7,33 +7,33 @@ import Form from 'src/layouts/Form';
 import ImageSection from './ImageSection';
 import CustomInput from 'src/components/CustomInput';
 
-export default function ProductEditScreen({ history, match }) {
+export default function ProductEditScreen({ history, match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const productId = match.params.id;
-  const productDetails = useSelector((state) => state.productDetails);
+  const productDetails: ProductDetailType = useSelector((state: AppState) => state.productDetails);
   const { product, loading, error } = productDetails;
-  const productUpdate = useSelector((state) => state.productUpdate);
+  const productUpdate: StatusType = useSelector((state: AppState) => state.productUpdate);
 
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [deal, setDeal] = useState('');
-  const [ship, setShip] = useState('');
-  const [video, setVideo] = useState('');
-  const [images, setImages] = useState([]);
-  const [category, setCategory] = useState('');
-  const [countInStock, setCountInStock] = useState('');
-  const [brand, setBrand] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState(product.name);
+  const [price, setPrice] = useState(product.price);
+  const [deal, setDeal] = useState(product.deal);
+  const [ship, setShip] = useState(product.ship);
+  const [video, setVideo] = useState(product.video);
+  const [images, setImages] = useState(product.image.split('^'));
+  const [category, setCategory] = useState(product.category);
+  const [countInStock, setCountInStock] = useState(product.countInStock);
+  const [brand, setBrand] = useState(product.brand);
+  const [description, setDescription] = useState(product.description);
 
   useEffect(() => {
     if (productUpdate.success) {
       history.push('/product-list');
-      dispatch(productUpdateActions._RESET());
+      dispatch(productUpdateActions._RESET(''));
       dispatch(detailsProduct(productId));
       return;
     }
     if (!product || product._id !== productId) {
-      dispatch(productUpdateActions._RESET());
+      dispatch(productUpdateActions._RESET(''));
       dispatch(detailsProduct(productId));
       return;
     }
@@ -49,12 +49,15 @@ export default function ProductEditScreen({ history, match }) {
     setDescription(product.description);
   }, [product, dispatch, productId, productUpdate.success, history]);
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: EventType) => {
     e.preventDefault();
     // TODO: dispatch update product
     const _id = productId;
     const image = images.join('^');
-    dispatch(updateProduct({ name, price, deal, ship, video, category, brand, countInStock, description, _id, image }));
+    const seller = product.seller;
+    dispatch(
+      updateProduct({ name, price, deal, ship, video, category, brand, countInStock, description, _id, image, seller })
+    );
   };
 
   return (
@@ -76,7 +79,7 @@ export default function ProductEditScreen({ history, match }) {
           <CustomInput text="Category" hook={[category, setCategory]} />
           <CustomInput text="Brand" hook={[brand, setBrand]} />
           <CustomInput text="Count In Stock" hook={[countInStock, setCountInStock]} />
-          <CustomInput text="Description" textarea rows="3" hook={[description, setDescription]} />
+          <CustomInput text="Description" textarea rows={3} hook={[description, setDescription]} />
         </Form>
       )}
     </div>

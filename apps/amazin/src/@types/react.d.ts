@@ -10,9 +10,13 @@ type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 
 type InputEvent = React.FormEvent<HTMLInputElement>;
 
-type ChangeEvent = React.ChangeEventHandler<HTMLInputElement> & React.ChangeEventHandler<HTMLTextAreaElement>;
+type ChangeEvent = React.ChangeEventHandler<HTMLInputElement> &
+  React.ChangeEventHandler<HTMLTextAreaElement> &
+  React.ChangeEventHandler<HTMLDivElement>;
 
-type KeyEvent = KeyboardEventHandler<HTMLInputElement> & KeyboardEventHandler<HTMLTextAreaElement>;
+type KeyEvent = KeyboardEventHandler<HTMLInputElement> &
+  KeyboardEventHandler<HTMLTextAreaElement> &
+  KeyboardEventHandler<HTMLDivElement>;
 
 type EventType = any;
 

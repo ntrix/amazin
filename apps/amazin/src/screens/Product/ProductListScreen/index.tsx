@@ -7,9 +7,11 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import Table from './Table';
 import Header from 'src/layouts/Header';
 
-export default function ProductListScreen({ history, match }) {
-  const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList(history, match);
-  const { products, page, pages, loading, error } = useSelector((state) => state.productList);
+export default function ProductListScreen({ history, match }: RouteProps<MatchParams>) {
+  const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList({ history, match });
+  const { products, page, pages, loading, error }: ProductListType = useSelector(
+    (state: AppState) => state.productList
+  );
 
   return (
     <div>
@@ -24,7 +26,7 @@ export default function ProductListScreen({ history, match }) {
         <Table
           header={['USER_ID', 'NAME', 'PRICE', 'CATEGORY', 'BRAND']}
           keys={['_id', 'name', 'price', 'category', 'brand']}
-          data={products}
+          products={products}
           deleteHandler={deleteHandler}
           to="/product/"
         />

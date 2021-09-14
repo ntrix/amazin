@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 type PropType = {
   getUrl: FnType;
-  page: string | undefined;
-  pages: string | undefined;
-  className?: string | undefined;
-  help?: boolean | undefined;
-  LinkTo: Children;
+  page?: string | number;
+  pages?: string | number;
+  className?: string;
+  help?: boolean;
+  LinkTo?: Children;
 };
 function Pagination({
   getUrl,
@@ -17,7 +17,9 @@ function Pagination({
   help = false,
   LinkTo = (props: Props) => <Link {...props} />
 }: PropType) {
-  const getClass = (x: number) => `${x + 1 === Number(page) ? 'active' : ''} ${className}`;
+  page = Number(page);
+  pages = Number(pages);
+  const getClass = (x: number) => `${x + 1 === page ? 'active' : ''} ${className}`;
 
   return (
     <>

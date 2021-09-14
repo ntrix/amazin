@@ -36,6 +36,10 @@ type VideoType = {
 
 type MovieType = VideoType & ProductType;
 
+type ProductDetailType = StatusType & {
+  product: ProductType;
+};
+
 type ProductListType = {
   products: ProductType[];
   page: number;

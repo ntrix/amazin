@@ -5,7 +5,13 @@ import { useImgFileHandlers, useImgLinkHandlers } from './useImageHandlers';
 import NewImageInput from './NewImageInput';
 import ImageRows from '../ImageRows';
 
-export default function ImageSection({ product, images, setImages }) {
+type PropType = {
+  product: ProductType;
+  images: string[];
+  setImages: SetState;
+};
+
+export default function ImageSection({ product, images, setImages }: PropType) {
   const [preview, setPreview] = useState('');
   const { uploadState, addImgs, deleteImg } = useImgFileHandlers(product, images, setImages);
   const { updateImgLink, moveUpImg, addImgOnEnter, getSrc } = useImgLinkHandlers(product, images, setImages);

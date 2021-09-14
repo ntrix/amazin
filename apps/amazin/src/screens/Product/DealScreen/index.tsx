@@ -6,7 +6,7 @@ import { useShadow } from 'src/hooks/useShadow';
 import { dummyMovies } from 'src/utils';
 import { useDealScreen } from './useDealScreen';
 import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
-import Carousel, { NAV, responsive } from 'src/constants';
+import Carousel, { CAROUSEL_CONFIG, NAV } from 'src/constants';
 import MessageBox from 'src/components/MessageBox';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
@@ -28,23 +28,7 @@ function DealScreen() {
     <>
       <SubNavCategories first={NAV.DEAL} category={cat.current} changeCat={changeCat} onPreload={preloadCat} />
       <div className={`deal-screen ${banner.current}`}>
-        <Carousel
-          swipeable={true}
-          draggable={true}
-          showDots={true}
-          responsive={responsive}
-          infinite={true}
-          autoPlay={!shadowOf}
-          autoPlaySpeed={3000}
-          keyBoardControl={true}
-          customTransition="transform 500ms ease-in-out"
-          transitionDuration={500}
-          centerMode={true}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={['mobile']}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-40-px"
-        >
+        <Carousel {...CAROUSEL_CONFIG} autoPlay={!shadowOf}>
           {(list?.products || dummyMovies).map((product, id) => (
             <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
           ))}

@@ -6,7 +6,7 @@ import { pipe, Storage } from 'src/utils';
 import { useDebounce } from './useDebounce';
 
 type ShadowType = {
-  userInfo?: AppState;
+  userInfo: UserInfoType;
   currency: string;
   shadowOf: string;
   setCurrency: SetState;
@@ -15,6 +15,7 @@ type ShadowType = {
 };
 
 const ShadowContext = createContext<ShadowType>({
+  userInfo: { token: '' },
   currency: 'EUR',
   shadowOf: '',
   setCurrency: () => void 0,
@@ -24,9 +25,9 @@ const ShadowContext = createContext<ShadowType>({
 ShadowContext.displayName = 'ShadowContext';
 
 export function ShadowProvider({ children }: { children: Children }) {
-  const { userInfo } = useSelector((state: AppState) => state.userSignin);
-  const { sessionCurrency } = useSelector((state: AppState) => state.currencyType);
-  const [currency, setCurrency] = useState(userInfo?.currency || pipe.currency);
+  const { userInfo }: { userInfo: UserInfoType } = useSelector((state: AppState) => state.userSignin);
+  const { sessionCurrency }: { sessionCurrency: string } = useSelector((state: AppState) => state.currencyType);
+  const [currency, setCurrency] = useState(userInfo?.currency ?? pipe.currency);
 
   useEffect(() => {
     pipe.setCurrency(userInfo?.currency || sessionCurrency || Storage[KEY.CURRENCY] || pipe.currency);

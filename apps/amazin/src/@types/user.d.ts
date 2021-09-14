@@ -21,7 +21,7 @@ type SellerType = {
 };
 
 type UserType = {
-  _id: string;
+  _id?: string;
   name?: string;
   email?: string;
   password?: string;
@@ -30,4 +30,8 @@ type UserType = {
   failLoginCount?: number;
   currency?: string;
   seller?: SellerType;
+};
+
+type UserInfoType = UserType & {
+  token: string;
 };

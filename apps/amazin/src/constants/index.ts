@@ -211,6 +211,7 @@ export const SWIPER_CONFIG = {
     clickable: true
   }
 };
+
 /* responsive resolutions for multi-carousel */
 export const responsive = {
   superLargeDesktop: {
@@ -238,6 +239,23 @@ export const responsive = {
     items: 1,
     slidesToSlide: 1
   }
+};
+
+export const CAROUSEL_CONFIG = {
+  swipeable: true,
+  draggable: true,
+  showDots: true,
+  infinite: true,
+  responsive,
+  autoPlaySpeed: 3000,
+  keyBoardControl: true,
+  customTransition: 'transform 300ms ease-in-out',
+  transitionDuration: 500,
+  centerMode: true,
+  containerClass: 'carousel-container',
+  removeArrowOnDeviceType: [],
+  dotListClass: 'custom-dot-list-style',
+  itemClass: 'carousel-item-padding-40-px'
 };
 
 export default Carousel;
