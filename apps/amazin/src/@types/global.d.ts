@@ -31,7 +31,7 @@ declare global {
   type Match<P> = {
     params: P;
     isExact?: boolean;
-    path?: string;
+    path: string;
     url?: string;
   };
 }
