@@ -46,6 +46,7 @@ type StatusType = {
   loading?: boolean;
   error?: string;
   success?: boolean;
+  msg?: string;
 };
 
 type OrderListType = StatusType & {

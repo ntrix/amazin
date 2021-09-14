@@ -12,6 +12,12 @@ type PropType = {
   wrapClass?: string;
   required?: boolean;
   rest?: Props;
+  name?: string;
+  multiple?: boolean;
+  onKeyUp?: KeyEvent;
+  rows?: number;
+  className?: string;
+  value?: string;
 };
 
 function CustomInput({
