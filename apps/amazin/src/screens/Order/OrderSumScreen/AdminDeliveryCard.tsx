@@ -4,10 +4,10 @@ import { useShadow } from 'src/hooks/useShadow';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Button from 'src/components/Button';
 
-export default function AdminDeliveryCard({ deliverHandler }) {
+export default function AdminDeliveryCard({ deliverHandler }: { deliverHandler: FnType }) {
   const { userInfo } = useShadow();
-  const { order } = useSelector((state) => state.orderDetails);
-  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { order } = useSelector((state: AppState) => state.orderDetails);
+  const orderDeliver = useSelector((state: AppState) => state.orderDeliver);
 
   const isTestSeller = userInfo?.isSeller && 'development' === process.env.REACT_APP_ENVIRONMENT;
 

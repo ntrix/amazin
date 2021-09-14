@@ -14,9 +14,9 @@ declare global {
 
   type RouteProps<P> = {
     match: Match<P>;
-    location: H.Location;
-    history: H.History;
-    staticContext: any;
+    location?: H.Location;
+    history?: H.History;
+    staticContext?: any;
   };
 
   type RouteOpt<P> = {

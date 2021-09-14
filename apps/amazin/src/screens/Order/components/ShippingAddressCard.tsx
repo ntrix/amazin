@@ -13,7 +13,7 @@ export default function ShippingAddressCard({ address: adr, order }: { address: 
           </RowLegend>
         </>
       )}
-      {order && <StatusBox textOf="Delivered" statusOf={order.isDelivered} when={order.deliveredAt} />}
+      {order && <StatusBox textOf="Delivered" isDone={order.isDelivered} when={order.deliveredAt} />}
     </InfoCard>
   );
 }

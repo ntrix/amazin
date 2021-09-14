@@ -2,7 +2,14 @@ import ListRow from '../components/ListRow';
 import Button from 'src/components/Button';
 import { TAX } from 'src/constants';
 
-export default function OrderSumCard({ order, tax = TAX * 100, placeOrderHandler, children }) {
+type PropType = {
+  order: OrderType;
+  tax?: number;
+  placeOrderHandler?: FnType;
+  children?: Children;
+};
+
+export default function OrderSumCard({ order, tax = TAX * 100, placeOrderHandler, children }: PropType) {
   return (
     <li className="card card__body">
       <ul className="min-20">

@@ -5,7 +5,7 @@ import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 const ProductCard = lazy(() => import(/* webpackPrefetch: true */ './ProductCard'));
 
-function ProductColumn({ productList: { products, loading, error } }) {
+function ProductColumn({ productList: { products, loading, error } }: { productList: ProductListType }) {
   return (
     <>
       <LoadingOrError statusOf={{ loading, error }} />
