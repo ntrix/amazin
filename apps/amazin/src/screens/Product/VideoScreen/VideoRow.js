@@ -1,9 +1,10 @@
 import { memo, useState } from 'react';
+import Carousel from 'react-multi-carousel';
 
 import { Suspense } from 'src/components/CustomSuspense';
 import { VideoCardFallBack } from 'src/components/Fallbacks';
 import VideoCard from './components/VideoCard';
-import Carousel, { responsive } from 'src/constants';
+import { responsive } from 'src/constants';
 import UTube from './components/UTube';
 
 function VideoRow({ label, genre, movies, portrait = false }) {

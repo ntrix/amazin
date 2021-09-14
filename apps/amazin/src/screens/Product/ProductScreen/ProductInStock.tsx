@@ -5,7 +5,12 @@ import CustomSelect from 'src/components/CustomSelect';
 import Button from 'src/components/Button';
 import RowLegend from 'src/components/RowLegend';
 
-function ProductInStock({ productId, product: { price, countInStock } }) {
+type PropType = {
+  productId: string;
+  product: ProductType;
+};
+
+function ProductInStock({ productId, product: { price, countInStock } }: PropType) {
   const [qty, setQty] = useState(1);
 
   return (
@@ -13,10 +18,10 @@ function ProductInStock({ productId, product: { price, countInStock } }) {
       <RowLegend label="Price" className="mt-1" children={<PriceNow price={price} />} />
 
       <RowLegend label="Status">
-        {countInStock > 0 ? <span className="success">In Stock</span> : <span className="danger">Unavailable</span>}
+        {countInStock ? <span className="success">In Stock</span> : <span className="danger">Unavailable</span>}
       </RowLegend>
 
-      {countInStock > 0 && (
+      {!!countInStock && (
         <>
           <RowLegend label="Quantity">
             <CustomSelect max={countInStock} value={qty} onChange={(e) => setQty(e.target.value)} />

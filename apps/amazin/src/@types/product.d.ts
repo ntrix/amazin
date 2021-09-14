@@ -21,7 +21,7 @@ type ProductType = {
   countInStock?: number;
   rating?: number;
   numReviews?: number;
-  reviews?: ReviewType;
+  reviews?: ReviewType[];
 };
 
 type VideoType = {
@@ -53,6 +53,16 @@ type ProductListType = {
 
 /* only product name for search and suggest function */
 type PNameType = { name: string };
+
+type Category = string;
+
+type ProductCategoriesType = StatusType & {
+  categories: Category[];
+};
+
+type FilterStringType = Record<'seller' | 'name' | 'category' | 'order', string>;
+type FilterNumberType = Record<'pageSize' | 'pageNumber' | 'deal' | 'min' | 'max' | 'rating', string | number>;
+type FilterOptType = Partial<FilterStringType & FilterNumberType>;
 
 type ResGetProductApi = Res & {
   data: {

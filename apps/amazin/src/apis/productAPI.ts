@@ -37,18 +37,7 @@ export const listProducts = ({
   min = 0.01,
   max = 0,
   rating = 0
-}: {
-  pageSize?: number | string;
-  pageNumber?: number | string;
-  seller?: number | string;
-  name?: number | string;
-  category?: number | string;
-  order?: number | string;
-  deal?: number | string;
-  min?: number | string;
-  max?: number | string;
-  rating?: number | string;
-}) => {
+}: FilterOptType) => {
   if (category === NAV.ALL) category = '';
   if (name === NAV.ALL) name = '';
   return axiosPublic([productListActions])(
@@ -71,7 +60,7 @@ export const updateProduct = (product: ProductType) =>
 export const deleteProduct = (productId: string) =>
   axiosPrivate([productDeleteActions])('delete', `/api/products/${productId}`);
 
-export const createReview = (productId: ProductType, review: ReviewType) =>
+export const createReview = (productId: string, review: Partial<ReviewType>) =>
   axiosPrivate([productReviewCreateActions], {
     selector: (_data) => _data.review
   })('post', `/api/products/${productId}/reviews`, review);

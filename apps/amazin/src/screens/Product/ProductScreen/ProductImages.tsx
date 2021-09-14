@@ -4,7 +4,7 @@ import { SuspenseLoad } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl } from 'src/utils';
 
-function ProductImages({ product: { image, _id } }) {
+function ProductImages({ product: { image, _id } }: { product: ProductType }) {
   const [active, setActive] = useState(0);
   const urls = (image ?? '').split('^').map((img) => getImgUrl(_id, img));
 
@@ -25,7 +25,7 @@ function ProductImages({ product: { image, _id } }) {
       </div>
 
       <div className="tab__rest">
-        <SuspenseLoad children={<LazyImg className="large" src={urls[active]} alt={active} />} />
+        <SuspenseLoad children={<LazyImg className="large" src={urls[active]} alt={String(active)} />} />
       </div>
     </div>
   );

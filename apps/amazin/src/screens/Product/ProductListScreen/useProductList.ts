@@ -10,7 +10,7 @@ export function useProductList({ history, match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const { pageNumber = '1' } = useParams();
   const { userInfo } = useShadow();
-  const productCreate: StatusType & { product: ProductType } = useSelector((state: AppState) => state.productCreate);
+  const productCreate: ProductDetailType = useSelector((state: AppState) => state.productCreate);
   const productDelete: StatusType = useSelector((state: AppState) => state.productDelete);
   // eslint-disable-next-line
 

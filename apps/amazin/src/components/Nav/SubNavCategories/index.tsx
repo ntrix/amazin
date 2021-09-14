@@ -8,6 +8,7 @@ type PropType = {
   first: string;
   rest?: Props;
   category?: string;
+  getUrl?: FnType;
   onPreload?: FnType;
   changeCat?: SetState;
 };
