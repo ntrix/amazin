@@ -6,7 +6,7 @@ export default function PaymentMethodCard({ payment, order }: { payment: Payment
   return (
     <InfoCard label="Payment">
       <RowLegend strong label="Method" children={payment} />
-      {order && <StatusBox textOf="Paid" statusOf={order.isPaid} when={order.paidAt} />}
+      {order && <StatusBox textOf="Paid" isDone={order.isPaid} when={order.paidAt} />}
     </InfoCard>
   );
 }

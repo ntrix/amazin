@@ -5,7 +5,7 @@ import axiosClient from 'src/apis/axiosClient';
 import { detailsOrder } from 'src/apis/orderAPI';
 import { orderDeliverActions, orderPayActions } from 'src/slice/OrderSlice';
 
-function createScript(data, setSdkReady) {
+function createScript(data: unknown, setSdkReady: SetState) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
@@ -16,13 +16,13 @@ function createScript(data, setSdkReady) {
   document.body.appendChild(script);
 }
 
-export function usePaypal(match) {
+export function usePaypal({ match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const orderId = match.params.id;
-  const orderDetails = useSelector((state) => state.orderDetails);
+  const orderDetails = useSelector((state: AppState) => state.orderDetails);
   const { order } = orderDetails;
-  const orderPay = useSelector((state) => state.orderPay);
-  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const orderPay = useSelector((state: AppState) => state.orderPay);
+  const orderDeliver = useSelector((state: AppState) => state.orderDeliver);
   const [sdkReady, setSdkReady] = useState(false);
 
   useEffect(() => {
@@ -32,8 +32,8 @@ export function usePaypal(match) {
     };
 
     if (!order || orderPay.success || orderDeliver.success || order._id !== orderId) {
-      dispatch(orderPayActions._RESET());
-      dispatch(orderDeliverActions._RESET());
+      dispatch(orderPayActions._RESET(''));
+      dispatch(orderDeliverActions._RESET(''));
       dispatch(detailsOrder(orderId));
       return;
     }

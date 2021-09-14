@@ -11,12 +11,12 @@ import PaymentMethodCard from '../components/PaymentMethodCard';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Header from 'src/layouts/Header';
 
-export default function OrderSumScreen({ match }) {
+export default function OrderSumScreen({ match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
-  const { order, loading, error } = useSelector((state) => state.orderDetails);
-  const { sdkReady } = usePaypal(match);
+  const { order, loading, error }: OrderDetailType = useSelector((state: AppState) => state.orderDetails);
+  const { sdkReady } = usePaypal({ match });
 
-  const paymentHandler = (paymentResult) => dispatch(payOrder(order, paymentResult));
+  const paymentHandler = (paymentResult: PaymentResultType) => dispatch(payOrder(order, paymentResult));
 
   const deliverHandler = () => dispatch(deliverOrder(order._id));
 

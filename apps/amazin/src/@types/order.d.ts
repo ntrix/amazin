@@ -42,9 +42,16 @@ type OrderType = CartType & {
   deliveredAt?: string;
 };
 
-type OrderListType = {
-  orders: OrderType[];
+type StatusType = {
   loading?: boolean;
   error?: string;
   success?: boolean;
+};
+
+type OrderListType = StatusType & {
+  orders: OrderType[];
+};
+
+type OrderDetailType = StatusType & {
+  order: OrderType;
 };
