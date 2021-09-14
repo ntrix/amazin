@@ -8,8 +8,8 @@ type ReviewType = {
 type ProductType = {
   _id: string;
   name: string;
-  seller?: UserType;
-  image?: string;
+  seller: UserType;
+  image: string;
   video?: string;
   brand?: string;
   category?: string;

@@ -3,16 +3,20 @@ import { Link } from 'react-router-dom';
 
 import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl, pipe, savePath } from 'src/utils';
-import { DUMMYSELLERS, NO_IMAGE_P } from 'src/constants';
+import { DUMMY_SELLER, NO_IMAGE_P } from 'src/constants';
 import Rating from 'src/components/Rating';
 import PriceTag from './PriceTag';
 
+type PropType = {
+  hasDeal?: boolean;
+  product: ProductType;
+};
 function ProductCard({
   hasDeal = false,
   product: { _id, name, image, rating, numReviews, price, deal, category, ship, seller }
-}) {
-  const imgs = image.split('^');
-  const imgUrl = getImgUrl(_id, imgs[!!hasDeal] || imgs[0] || NO_IMAGE_P);
+}: PropType) {
+  const images = image.split('^');
+  const imgUrl = getImgUrl(_id, images[Number(hasDeal)] || images[0] || NO_IMAGE_P);
 
   return (
     <div className="card flex">
@@ -44,7 +48,7 @@ function ProductCard({
                   <Link to={`/seller/${seller._id}`} className="row end text-right">
                     Seller & Store
                     <br />
-                    {seller?.seller?.name || DUMMYSELLERS.name}
+                    {seller?.seller?.name || DUMMY_SELLER.name}
                   </Link>
                 </div>
               </>

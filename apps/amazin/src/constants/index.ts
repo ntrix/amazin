@@ -193,10 +193,8 @@ export const VIDEO = {
 export const SWIPER_CONFIG = {
   spaceBetween: 20,
   navigation: true,
-  effect: 'coverflow',
   grabCursor: true,
   centeredSlides: true,
-  slidesPerView: 'auto',
   autoplay: {
     delay: 5000,
     disableOnInteraction: true
