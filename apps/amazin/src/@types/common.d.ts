@@ -9,7 +9,7 @@ type OptionFns = {} & {
 
 type Status = {
   loading?: boolean;
-  error?: boolean;
+  error?: string;
   success?: boolean;
 };
 

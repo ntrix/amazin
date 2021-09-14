@@ -14,7 +14,7 @@ type InnerPropType = {
 };
 
 function InnerBox({ statusOf = {}, errorMsg = '', xl = false, variant, children, ...rest }: InnerPropType) {
-  const { loading = false, error = false } = statusOf;
+  const { loading = false, error } = statusOf;
 
   if (loading) return <LoadingBox xl={xl} />;
   if (error) return <MessageBox msg={errorMsg || error} variant={variant ?? 'danger'} />;
