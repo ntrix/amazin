@@ -2,7 +2,7 @@ import StatusBox from '../OrderSumScreen/StatusBox';
 import InfoCard from './InfoCard';
 import RowLegend from 'src/components/RowLegend';
 
-export default function ShippingAddressCard({ address: adr, order }) {
+export default function ShippingAddressCard({ address: adr, order }: { address: AddressType; order?: OrderType }) {
   return (
     <InfoCard label="Shipping">
       {!!adr && (

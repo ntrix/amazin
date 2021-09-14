@@ -8,19 +8,19 @@ import OrderTable from './components/OrderTable';
 import Header from 'src/layouts/Header';
 import { useShadow } from 'src/hooks/useShadow';
 
-export default function OrderListScreen({ match }) {
+export default function OrderListScreen({ match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
   const sellerMode = match.path.indexOf('/seller') >= 0;
-  const orderList = useSelector((state) => state.orderList);
-  const orderDelete = useSelector((state) => state.orderDelete);
+  const orderList = useSelector((state: AppState) => state.orderList);
+  const orderDelete = useSelector((state: AppState) => state.orderDelete);
 
   useEffect(() => {
-    dispatch(orderDeleteActions._RESET());
+    dispatch(orderDeleteActions._RESET(''));
     dispatch(listOrders({ seller: sellerMode ? userInfo._id : '' }));
   }, [dispatch, sellerMode, orderDelete.success, userInfo._id]);
 
-  const deleteHandler = (order) => {
+  const deleteHandler = (order: OrderType) => {
     if (window.confirm('Are you sure to delete?')) {
       dispatch(deleteOrder(order._id));
     }

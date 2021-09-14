@@ -15,8 +15,8 @@ declare global {
   type RouteProps<P> = {
     match: Match<P>;
     location: H.Location;
-    history?: H.History;
-    staticContext?: any;
+    history: H.History;
+    staticContext: any;
   };
 
   type RouteOpt<P> = {
@@ -31,7 +31,7 @@ declare global {
   type Match<P> = {
     params: P;
     isExact?: boolean;
-    path?: string;
+    path: string;
     url?: string;
   };
 }

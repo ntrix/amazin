@@ -34,6 +34,6 @@ export const saveShippingAddress = (data: AddressType) => (dispatch: AppDispatch
   Storage[KEY.SHIPPING_ADDRESS] = data;
 };
 
-export const savePaymentMethod = (data: PayMethodType) => (dispatch: AppDispatch) => {
+export const savePaymentMethod = (data: PaymentMethodType) => (dispatch: AppDispatch) => {
   dispatch(cartActions._SAVE_PAYMENT_METHOD(data));
 };

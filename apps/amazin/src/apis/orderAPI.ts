@@ -21,7 +21,7 @@ export const createOrder = (order: OrderType) =>
 
 export const detailsOrder = (orderId: string) => axiosPrivate([orderDetailsActions])('get', `/api/orders/${orderId}`);
 
-export const payOrder = (order: OrderType, paymentResult: PaymentType) =>
+export const payOrder = (order: OrderType, paymentResult: PaymentResultType) =>
   axiosPrivate([orderPayActions])('put', `/api/orders/${order._id}/pay`, paymentResult);
 
 export const listOrderMine = () => axiosPrivate([orderMineListActions])('get', '/api/orders/mine');

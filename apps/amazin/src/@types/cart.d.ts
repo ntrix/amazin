@@ -1,12 +1,13 @@
-type ItemType = {
+type CartType = {
+  cartItems: ItemType[];
+  itemsPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+  taxPrice: number;
+  shippingAddress: AddressType;
+  paymentMethod: PaymentMethodType;
+  seller: SellerType;
+  user: UserType;
+  createdAt: string;
   _id: string;
-  name: string;
-  qty: number;
-  price: number;
-  countInStock: number;
-  image: string;
-  seller: UserType;
-  product: ProductType;
 };
-
-type CartType = ItemType[];
