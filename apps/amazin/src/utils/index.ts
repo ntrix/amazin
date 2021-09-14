@@ -134,7 +134,7 @@ export const sourceAdapter = (movies: MovieType[] | ProductType[], id?: number) 
 export const dummyProducts = sourceAdapter(Array(6).fill(1));
 
 /* create an array of 12 dummyMovies (a row) for videoRow(s) */
-export const dummyMovies = sourceAdapter(Array(12).fill(1));
+export const dummyMovies: MovieType[] = sourceAdapter(Array(12).fill(1));
 
 /* add absolute links or origin to image url or return a default */
 export const getImgUrl = (productId, imgName) => {

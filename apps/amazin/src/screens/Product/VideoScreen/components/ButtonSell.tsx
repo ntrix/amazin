@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useProductList } from '../../ProductListScreen/useProductList';
 
-export const SellerButton = (props) => (
+export const SellerButton = (props: Props) => (
   <button className="banner__button mh-2" {...props}>
     Sell This Movie
   </button>

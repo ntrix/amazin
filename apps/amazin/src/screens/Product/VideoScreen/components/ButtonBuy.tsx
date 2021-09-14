@@ -1,9 +1,14 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { sourceAdapter } from 'src/utils';
+import { dummyMovies } from 'src/utils';
 
-function ButtonBuy({ movie = sourceAdapter([1])[0], LinkTo = (props) => <Link {...props} /> }) {
+type PropType = {
+  movie?: MovieType;
+  LinkTo?: Children;
+};
+
+function ButtonBuy({ movie = dummyMovies[0], LinkTo = (props: Props) => <Link {...props} /> }: PropType) {
   return (
     <LinkTo
       disabled={!movie.seller}
