@@ -13,11 +13,11 @@ export function useMounted() {
   return mountedRef;
 }
 
-export function useSafeState(init: unknown) {
+export function useSafeState<T>(init: T): [T, FnType, Ref<boolean>, SetState] {
   const mountedRef = useMounted();
   const [state, setState] = useState(init);
 
-  const safeSetState = useCallback(
+  const safeSetState: FnType = useCallback(
     (newState) => {
       if (mountedRef.current) setState(newState);
     },

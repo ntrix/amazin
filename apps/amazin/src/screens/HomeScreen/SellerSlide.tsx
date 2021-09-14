@@ -2,12 +2,9 @@ import { Link } from 'react-router-dom';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import { SuspenseText } from 'src/components/CustomSuspense';
 
-export default function SellerSlide({
-  seller: {
-    seller: { logo, name },
-    _id
-  }
-}) {
+export default function SellerSlide({ user }: { user: UserType }) {
+  const { _id, logo, name } = user?.seller ?? { _id: '#', logo: '', name: 'no seller' };
+
   return (
     <SuspenseText text="Seller">
       <Link className="seller__card" to={`/seller/${_id}`}>

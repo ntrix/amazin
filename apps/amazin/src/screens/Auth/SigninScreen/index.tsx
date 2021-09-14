@@ -5,7 +5,7 @@ import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import PageRedirect from 'src/components/PageRedirect';
 
-export default function SigninScreen({ location, history }: RouteProps<MatchParams>) {
+export default function SigninScreen({ location, history }: RouteOption) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { redirect, userSignin, submitSignin } = useSigninEffect({ location, history });

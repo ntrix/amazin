@@ -13,8 +13,8 @@ export function SuspenseBanner(props: Props) {
   return <Suspense fallback={bannerFallback} {...props} />;
 }
 
-export function SuspenseText({ text = "Amazin' Amazim. Loading...", ...props }: { text: string; props: Props }) {
-  return <Suspense fallback={<h3>{text}</h3>} {...props} />;
+export function SuspenseText({ text = "Amazin' Amazim. Loading...", children }: { text?: string; children: Children }) {
+  return <Suspense fallback={<h3>{text}</h3>}>{children}</Suspense>;
 }
 
 export function SuspenseNull(props: Props) {

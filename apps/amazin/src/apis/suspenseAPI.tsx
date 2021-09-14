@@ -43,24 +43,25 @@ function preloadImage(src: string) {
 const sCached = {};
 
 type PropType = {
-  src: string;
+  src?: string;
   style?: CSSProperties | undefined;
   alt?: string | undefined;
   placeholder?: string | undefined;
+  className?: string;
 };
 
 function LazyComponent(as: string) {
-  return ({ src = NO_IMAGE, ...props }: PropType) => {
+  return ({ src = NO_IMAGE, ...rest }: PropType) => {
     if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
 
     return as === 'img' ? (
-      <img src={sCached[src]?.read() || src} alt={props.alt} {...props} />
+      <img src={sCached[src]?.read() || src} alt={rest.alt} {...rest} />
     ) : (
       <div
-        {...props}
+        {...rest}
         style={{
-          ...props.style,
-          backgroundImage: `url(${sCached[src].read() || props.placeholder})`
+          ...rest.style,
+          backgroundImage: `url(${sCached[src].read() || rest.placeholder})`
         }}
       />
     );

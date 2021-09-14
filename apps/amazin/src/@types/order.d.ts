@@ -16,3 +16,5 @@ type PaymentType = {
   update_time: string;
   email_address: string;
 };
+
+type PayMethodType = 'Paypal' | 'Stripe';

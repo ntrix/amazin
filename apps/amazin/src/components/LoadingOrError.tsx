@@ -26,6 +26,7 @@ type PropType = {
   wrapClass?: string | undefined;
   children?: Children;
   rest?: Props;
+  xl?: boolean;
 };
 
 function LoadingOrError({ statusOf, wrapClass = '', children, ...rest }: PropType) {

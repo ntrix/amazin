@@ -4,8 +4,8 @@ type ItemType = {
   qty: number;
   price: number;
   countInStock: number;
-  image?: string;
-  seller?: UserType;
+  image: string;
+  seller: UserType;
   product: ProductType;
 };
 

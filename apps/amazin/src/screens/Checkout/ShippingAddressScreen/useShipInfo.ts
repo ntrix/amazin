@@ -8,13 +8,13 @@ import { Storage } from 'src/utils';
 import { KEY } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 
-export function useShipInfo(history) {
+export function useShipInfo({ history }: RouteOption) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
   if (!userInfo) history.push('/signin');
 
-  const { address: mapAddress } = useSelector((state) => state.userAddressMap);
-  const { shippingAddress } = useSelector((state) => state.cart);
+  const { address: mapAddress } = useSelector((state: AppState) => state.userAddressMap);
+  const { shippingAddress }: { shippingAddress: AddressType } = useSelector((state: AppState) => state.cart);
   const [shipInfo, setShipInfo] = useSafeState(shippingAddress);
 
   const location = useLocation();

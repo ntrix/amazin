@@ -46,7 +46,7 @@ function DealScreen() {
           itemClass="carousel-item-padding-40-px"
         >
           {(list?.products || dummyMovies).map((product, id) => (
-            <SusProductCard key={id} children={<ProductCard hasDeal product={product} />} />
+            <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
           ))}
         </Carousel>
 
@@ -61,7 +61,7 @@ function DealScreen() {
           <div className="row center">
             <SusProductList>
               {list?.products?.map((product, id) => (
-                <SusProductCard key={id} children={<ProductCard hasDeal product={product} />} />
+                <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
               ))}
             </SusProductList>
           </div>

@@ -2,15 +2,15 @@ import { memo } from 'react';
 import { createId } from 'src/utils';
 
 type PropType = {
-  text?: string | undefined;
-  type?: string | undefined;
-  placeholder?: string | undefined;
+  text?: string;
+  type?: string;
+  placeholder?: string;
   hook?: StateType;
-  onChange?: ChangeEvent | undefined;
-  textarea?: boolean | undefined;
-  label?: string | undefined;
-  wrapClass?: string | undefined;
-  required?: boolean | undefined;
+  onChange?: ChangeEvent;
+  textarea?: boolean;
+  label?: string;
+  wrapClass?: string;
+  required?: boolean;
   rest?: Props;
 };
 
