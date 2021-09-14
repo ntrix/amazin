@@ -1,12 +1,13 @@
 import { lazy, memo, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import Carousel from 'react-multi-carousel';
 
 import './dealScreen.css';
 import { useShadow } from 'src/hooks/useShadow';
 import { dummyMovies } from 'src/utils';
 import { useDealScreen } from './useDealScreen';
+import { CAROUSEL_CONFIG, NAV } from 'src/constants';
 import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
-import Carousel, { CAROUSEL_CONFIG, NAV } from 'src/constants';
 import MessageBox from 'src/components/MessageBox';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
