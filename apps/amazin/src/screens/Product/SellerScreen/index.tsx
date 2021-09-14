@@ -12,16 +12,16 @@ import SearchBanner from 'src/components/Nav/SearchBanner';
 import LoadingOrError from 'src/components/LoadingOrError';
 import ProductColumn from '../components/ProductColumn';
 
-function SellerScreen({ match }) {
+function SellerScreen({ match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
-  const { pageNumber = 1, order: pOrder = SORT.BESTSELLING.OPT } = useParams();
+  const { pageNumber = '1', order: pOrder = SORT.BESTSELLING.OPT } = useParams();
   const sellerId = match.params.id;
-  const userDetails = useSelector((state) => state.userDetails);
+  const userDetails: UserDetailType = useSelector((state: AppState) => state.userDetails);
   const { user } = userDetails;
-  const productList = useSelector((state) => state.productList);
+  const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const { page, pages } = productList;
 
-  const getUrl = ({ order = pOrder, page: _page = pageNumber }) =>
+  const getUrl = ({ order = pOrder as string, page: _page = pageNumber as string }) =>
     `/seller/${sellerId}/order/${order}/pageNumber/${_page}`;
 
   useEffect(() => {

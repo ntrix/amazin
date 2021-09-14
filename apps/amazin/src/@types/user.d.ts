@@ -35,3 +35,7 @@ type UserType = {
 type UserInfoType = UserType & {
   token: string;
 };
+
+type UserDetailType = StatusType & {
+  user: UserType;
+};
