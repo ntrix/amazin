@@ -5,7 +5,7 @@ import { MAX_IMAGES } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 import { getImgUrl } from 'src/utils';
 
-const config = (userInfo) => ({
+const config = (userInfo: UserInfoType) => ({
   headers: {
     enctype: 'multipart/form-data',
     Authorization: `Bearer ${userInfo.token}`
@@ -29,7 +29,7 @@ export function useAsyncUpload(setImages: SetState) {
       setImages(images);
       setUploadState({ loading: false });
     } catch (error) {
-      if (error instanceof Error) setUploadState({ loading: false, error: error.message });
+      setUploadState({ loading: false, error: 'Upload error!' });
     }
   };
   return { uploadState, asyncUploadImgs };

@@ -24,11 +24,11 @@ export function useProductList({ history, match }: RouteProps<MatchParams>) {
     // (do not dispatch updated list, only use createHandler in VideoScreen ButtonSell )
     if (!match?.path) return;
     // only find results match seller id or all results for admin
-    const seller = match.path.indexOf('/seller') >= 0 ? userInfo._id : '';
+    const seller = match?.path?.indexOf('/seller') < 0 ? '' : userInfo._id;
 
     // min = 0 to find all products no matter what price it is (0.00) to edit
     dispatch(listProducts({ pageNumber, seller, min: '0' }));
-  }, [productCreate, productDelete.success, history, match.path, userInfo, pageNumber, dispatch]);
+  }, [productCreate, productDelete.success, history, match?.path, userInfo, pageNumber, dispatch]);
 
   const deleteHandler = (product: ProductType) =>
     window.confirm('Are you sure to delete?') && dispatch(deleteProduct(product._id));
