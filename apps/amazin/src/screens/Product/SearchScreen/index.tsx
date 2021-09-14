@@ -14,14 +14,16 @@ import ProductColumn from '../components/ProductColumn';
 
 function SearchScreen() {
   const { order, category, max, rating, getFilterUrl } = useSearchFilter();
-  const productList = useSelector((state) => state.productList);
+  const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const { page, pages } = productList;
 
   return (
     <div className="search-screen">
       <SubNavCategories first={NAV.ALL} category={category} getUrl={getFilterUrl} />
 
-      <SearchBanner list={productList} children={<SortFilter order={order} getUrl={getFilterUrl} />} />
+      <SearchBanner list={productList}>
+        <SortFilter order={order} getUrl={getFilterUrl} />
+      </SearchBanner>
 
       <div className="row top search-screen__result">
         <SearchFilterColumn searchFilters={{ category, max, rating }} getFilterUrl={getFilterUrl} />

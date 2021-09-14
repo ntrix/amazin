@@ -37,18 +37,7 @@ export const listProducts = ({
   min = 0.01,
   max = 0,
   rating = 0
-}: {
-  pageSize?: number | string;
-  pageNumber?: number | string;
-  seller?: number | string;
-  name?: number | string;
-  category?: number | string;
-  order?: number | string;
-  deal?: number | string;
-  min?: number | string;
-  max?: number | string;
-  rating?: number | string;
-}) => {
+}: FilterOptType) => {
   if (category === NAV.ALL) category = '';
   if (name === NAV.ALL) name = '';
   return axiosPublic([productListActions])(

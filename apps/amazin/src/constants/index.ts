@@ -54,6 +54,15 @@ export const LOCATION = {
   lng: 13.73514
 };
 
+/* Nav Menu label */
+export const NAV = {
+  ALL_CATEGORIES: 'All Categories',
+  ALL: 'All',
+  DEAL: 'Deals'
+};
+
+export const CatLabel = { [NAV.ALL]: NAV.ALL_CATEGORIES };
+
 /* Search box */
 export const SEARCH = { MAX_SUGGESTS: 12 };
 
@@ -63,7 +72,16 @@ export const SORT = {
   BESTSELLING: { OPT: 'bestselling', LABEL: 'Best Selling' },
   LOWEST: { OPT: 'lowest', LABEL: 'Price: Low to High' },
   HIGHEST: { OPT: 'highest', LABEL: 'Price: High to Low' },
-  TOPRATED: { OPT: 'toprated', LABEL: 'Avg. Rating' }
+  TOPRATED: { OPT: 'toprated', LABEL: 'Avg. Rating' },
+  DEFAULT_FILTER: <FilterOptType>{
+    name: NAV.ALL,
+    category: NAV.ALL,
+    order: 'bestselling',
+    min: 0.01,
+    max: 0,
+    rating: 0,
+    pageNumber: 1
+  }
 };
 
 /* Date format */
@@ -74,14 +92,6 @@ export const CURR_FORMAT = 2;
 
 /* Tax rate, Germany default 2019 */
 export const TAX = 0.19;
-
-/* Nav Menu label */
-export const NAV = {
-  ALL_CATEGORIES: 'All Categories',
-  ALL: 'All',
-  DEAL: 'Deals'
-};
-export const CatLabel = { [NAV.ALL]: NAV.ALL_CATEGORIES };
 
 /* price range filter width label name */
 export const prices = [0.01, 20, 50, 100, 200, 500, 1000, 2000, 5000].map((max, i, arr) => ({
