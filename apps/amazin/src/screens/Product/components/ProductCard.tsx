@@ -8,15 +8,15 @@ import Rating from 'src/components/Rating';
 import PriceTag from './PriceTag';
 
 type PropType = {
-  hasDeal?: boolean;
+  showDeal?: boolean;
   product: ProductType;
 };
 function ProductCard({
-  hasDeal = false,
+  showDeal = false,
   product: { _id, name, image, rating, numReviews, price, deal, category, ship, seller }
 }: PropType) {
   const images = image.split('^');
-  const imgUrl = getImgUrl(_id, images[Number(hasDeal)] || images[0] || NO_IMAGE_P);
+  const imgUrl = getImgUrl(_id, images[Number(showDeal)] || images[0] || NO_IMAGE_P);
 
   return (
     <div className="card flex">
@@ -33,9 +33,9 @@ function ProductCard({
           <Rating rating={rating} numReviews={numReviews}></Rating>
 
           <div>
-            <PriceTag price={price} deal={hasDeal} />
+            <PriceTag price={price} deal={showDeal ? deal : 0} />
 
-            {hasDeal ? (
+            {showDeal ? (
               <div>
                 <Link to={`/search/category/:${category}`} className="row">
                   Category: {category}

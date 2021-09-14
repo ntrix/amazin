@@ -15,8 +15,8 @@ type ProductType = {
   category?: string;
   subcategory?: string;
   description?: string;
-  price?: number;
-  deal?: number;
+  price: number;
+  deal: number;
   ship?: number;
   countInStock?: number;
   rating?: number;
