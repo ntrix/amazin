@@ -5,16 +5,16 @@ import BaseTable from 'src/layouts/BaseTable';
 type PropType = {
   header: string[];
   keys: string[];
-  products: ProductType[];
+  tabRows: ({ _id: string } & unknown)[];
   deleteHandler?: FnType;
   to?: string;
 };
 
-export default function Table({ header, keys, products, deleteHandler, to }: PropType) {
+export default function Table({ header, keys, tabRows, deleteHandler, to }: PropType) {
   return (
     <BaseTable
       header={header.map((h) => h.toUpperCase())}
-      body={products?.map((row) => (
+      body={tabRows?.map((row) => (
         <tr key={row._id}>
           {keys.map((col, id) => (
             <CheckCell key={`${row._id} ${id}`} children={row[col]} />

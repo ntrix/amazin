@@ -18,7 +18,7 @@ export default function UserListScreen() {
         <Table
           header={['USER_ID', 'NAME', 'EMAIL', 'SELLER', 'ADMIN']}
           keys={['_id', 'name', 'email', 'isSeller', 'isAdmin']}
-          data={userList.users}
+          tabRows={userList.users}
           deleteHandler={deleteHandler}
           to="/user/"
         />

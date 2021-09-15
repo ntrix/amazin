@@ -26,7 +26,7 @@ export default function ProductListScreen({ history, match }: RouteProps<MatchPa
         <Table
           header={['USER_ID', 'NAME', 'PRICE', 'CATEGORY', 'BRAND']}
           keys={['_id', 'name', 'price', 'category', 'brand']}
-          products={products}
+          tabRows={products}
           deleteHandler={deleteHandler}
           to="/product/"
         />
