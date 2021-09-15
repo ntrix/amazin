@@ -7,19 +7,19 @@ import MapSearchBox from './MapSearchBox';
 import MessageBox from 'src/components/MessageBox';
 import LoadingBox from 'src/components/LoadingBox';
 import { useSafeState } from 'src/hooks/useSafeState';
-const libs = ['places'];
+const libs = ['places'] as ('places' | 'drawing' | 'geometry' | 'localContext' | 'visualization')[];
 
-export default function MapScreen({ history }) {
+export default function MapScreen({ history }: RouteOption) {
   const [center, setCenter] = useSafeState(LOCATION);
   const [location, setLocation] = useSafeState(center);
   const [error, setError] = useSafeState('');
   const [info, setInfo] = useSafeState('');
-  const placeRef = useRef(null);
+  const placeRef = useRef<LocationType>(null);
 
   const mapAPI = useMapLocator(placeRef, setCenter, setLocation, setError);
   const { onLoadPlaces, onPlacesChanged, getUserCurrentLocation } = mapAPI;
   const { onLoad, onIdle, onMarkerLoad } = useMap(setLocation);
-  const { onConfirm, redirectBack } = useMapSubmit(history, setInfo, setError);
+  const { onConfirm, redirectBack } = useMapSubmit({ history }, setInfo, setError);
 
   const { googleApiKey } = useMapApiKey(getUserCurrentLocation, setError);
   if (!googleApiKey) return <LoadingBox xl />;
