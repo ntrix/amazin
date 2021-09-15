@@ -34,8 +34,8 @@ export default function VideoScreen() {
           <LoadingOrError xl statusOf={productList} />
           <MessageBox msg={productList?.products?.length < 1 && 'Sold Out/ No Product Found'} />
 
-          {TRENDING.includes(active) && <VideoRow genre={TRENDING} movies={externMovies} />}
-          {TOP_RATED.includes(active) && <VideoRow genre={TOP_RATED} movies={externMovies} />}
+          {!TRENDING.includes(active) && <VideoRow genre={TRENDING} movies={externMovies} />}
+          {!TOP_RATED.includes(active) && <VideoRow genre={TOP_RATED} movies={externMovies} />}
         </Suspense>
 
         <div className="banner__divider" />
