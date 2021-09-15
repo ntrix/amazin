@@ -38,7 +38,7 @@ export function ShadowProvider({ children }: { children: Children }) {
   const [debounceShadow, clearDebounce] = useDebounce(_setShadowOf);
 
   const setShadowOf = useCallback((_sh) => {
-    clearDebounce(_sh !== shadowOf ? _sh : undefined); // eslint-disable-next-line
+    clearDebounce(_sh !== shadowOf && _sh); // eslint-disable-next-line
   }, []);
 
   const setShadowSlow = useCallback((_sh) => debounceShadow(_sh), [debounceShadow]);
