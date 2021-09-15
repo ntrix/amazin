@@ -22,7 +22,7 @@ export default function ImageSection({ product, images, setImages }: PropType) {
     <>
       <div>
         <label htmlFor="image-1-cover">
-          Uploaded Images ({images.length} of {MAX_IMAGES})<p>(or extern Image Links here)</p>
+          Uploaded Images ({images?.length ?? 0} of {MAX_IMAGES})<p>(or extern Image Links here)</p>
         </label>
 
         <ImageRows images={images} setPreview={setPreview} imgHandlers={imgHandlers} />
@@ -32,7 +32,7 @@ export default function ImageSection({ product, images, setImages }: PropType) {
         <img alt="Preview" className="mt-1 medium" src={getSrc(preview)} />
       </div>
 
-      {images.length < MAX_IMAGES && <NewImageInput hook={[preview, setPreview]} imgHandlers={imgHandlers} />}
+      {images?.length < MAX_IMAGES && <NewImageInput hook={[preview, setPreview]} imgHandlers={imgHandlers} />}
     </>
   );
 }
