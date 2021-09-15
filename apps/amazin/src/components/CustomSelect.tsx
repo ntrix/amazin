@@ -23,7 +23,7 @@ type PropType = {
   max?: number;
   small?: boolean;
   rest?: Props;
-  value?: number;
+  value?: string | number;
   onChange?: FnType;
 };
 

@@ -6,8 +6,8 @@ import { useShadow } from 'src/hooks/useShadow';
 import LoadingOrError from 'src/components/LoadingOrError';
 import CustomSelect from 'src/components/CustomSelect';
 
-export default function ContactSubject({ hook: [subject, setSubject] }) {
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+export default function ContactSubject({ hook: [subject, setSubject] }: { hook: [string, SetState] }) {
+  const userUpdateProfile: StatusType = useSelector((state: AppState) => state.userUpdateProfile);
   const { subject: pSubject } = useParams();
   const { userInfo } = useShadow();
 
@@ -26,7 +26,7 @@ export default function ContactSubject({ hook: [subject, setSubject] }) {
         label="Subject"
         list={subjectOptions}
         value={subject}
-        onChange={(e) => setSubject(e.target.value)}
+        onChange={(e: EventType) => setSubject(e.target.value)}
       />
     </>
   );
