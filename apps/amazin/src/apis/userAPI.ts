@@ -41,11 +41,11 @@ export const signout = () => (dispatch: AppDispatch) => {
   document.location.href = '/signin';
 };
 
-export const publicDetailsSeller = (userId: string) => axiosPublic([userDetailsActions])('get', `/api/users/${userId}`);
+export const publicDetailsSeller = (_id: string) => axiosPublic([userDetailsActions])('get', `/api/users/${_id}`);
 
-export const detailsUser = (userId: string) => axiosPrivate([userDetailsActions])('get', `/api/users/${userId}`);
+export const detailsUser = (_id: string) => axiosPrivate([userDetailsActions])('get', `/api/users/${_id}`);
 
-export const updateUserProfile = (user: UserType & ReqLogin) =>
+export const updateUserProfile = (user: Partial<UserType & ReqLogin>) =>
   axiosPrivate([userUpdateProfileActions], {
     successAction: userSigninActions._SUCCESS,
     successHandler: (userInfo) => (Storage[KEY.USER_INFO] = userInfo)
@@ -56,6 +56,6 @@ export const updateUser = (user: UserType) =>
 
 export const listUsers = () => axiosPrivate([userListActions])('get', '/api/users');
 
-export const deleteUser = (userId: string) => axiosPrivate([userDeleteActions])('delete', `/api/users/${userId}`);
+export const deleteUser = (_id: string) => axiosPrivate([userDeleteActions])('delete', `/api/users/${_id}`);
 
 export const listTopSellers = () => axiosPublic([userTopSellerListActions])('get', '/api/users/top-sellers');
