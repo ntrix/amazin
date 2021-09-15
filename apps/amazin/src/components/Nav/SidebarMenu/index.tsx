@@ -14,7 +14,7 @@ import { shortName } from 'src/utils';
 import MenuItem, { NavCategoryAdapter, mapArgsToProps } from '../MenuItem';
 import SidebarHeader from './SidebarHeader';
 import LoadingOrError from 'src/components/LoadingOrError';
-import ShadowWrapper from './ShadowWrapper';
+import SidebarLayout from './SidebarLayout';
 
 function SidebarMenu() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function SidebarMenu() {
   const getShortName = useCallback((_s) => shortName(_s), []);
 
   return (
-    <ShadowWrapper header={<SidebarHeader userName={getShortName(userInfo?.name)} />}>
+    <SidebarLayout header={<SidebarHeader userName={getShortName(userInfo?.name)} />}>
       <LoadingOrError statusOf={{ loading, error }} />
       {[
         ...sidebarBase,
@@ -38,7 +38,7 @@ function SidebarMenu() {
       ].map((args, id) => (
         <MenuItem {...mapArgsToProps(args, id)} />
       ))}
-    </ShadowWrapper>
+    </SidebarLayout>
   );
 }
 

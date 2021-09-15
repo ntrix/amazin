@@ -389,7 +389,7 @@
 .shadow-of__navDrop {
   position: absolute;
   display: block;
-  top: 0;
+  top: 99px;
   bottom: 0;
   left: 0;
   right: 0;

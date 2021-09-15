@@ -1,12 +1,12 @@
 import { memo, useRef } from 'react';
 
-import { OutlineProvider } from './useOutline';
-import { useOutsideClick } from './useOutsideClick';
 import SearchBox from './SearchBox';
+// import { OutlineProvider } from './useOutline';
+//import { useOutsideClick } from './useOutsideClick';
 
 function NavSearch() {
   const navSearchRef: Ref<HTMLDivElement> = useRef<HTMLDivElement>();
-  useOutsideClick(navSearchRef);
+  // useOutsideClick(navSearchRef);
 
   return (
     <div ref={navSearchRef} className="nav__search">
@@ -15,14 +15,4 @@ function NavSearch() {
   );
 }
 
-const NavSearchMemo = memo(NavSearch);
-
-function NavSearchWithOutline() {
-  return (
-    <OutlineProvider>
-      <NavSearchMemo />
-    </OutlineProvider>
-  );
-}
-
-export default memo(NavSearchWithOutline);
+export default memo(NavSearch);
