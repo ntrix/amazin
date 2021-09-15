@@ -21,8 +21,8 @@ export default function CustomerScreen() {
       <div className="container">
         <h2>What can we assist you with today?</h2>
         <div className="c-boxes">
-          {customerMenuTemplate.map(mapCustomerCardProp).map((props) => (
-            <CustomerCard {...props} />
+          {customerMenuTemplate.map((args, id) => (
+            <CustomerCard key={id} {...mapCustomerCardProp(args)} />
           ))}
           <div className="separator mb-1"></div>
 
