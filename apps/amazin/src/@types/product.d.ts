@@ -36,6 +36,8 @@ type VideoType = {
 
 type MovieType = VideoType & ProductType;
 
+type MoviesType = {};
+
 type ProductDetailType = StatusType & {
   product: ProductType;
 };
@@ -83,3 +85,35 @@ type ResGetProductItemApi = Res & {
 type ResGetProductItem = ActionRedux & {
   payload: ResGetProductItemApi;
 };
+
+type LabelType =
+  | 'NETFLUX'
+  | 'Home'
+  | 'STORE'
+  | 'Action'
+  | 'Comedy'
+  | 'Horror'
+  | 'Romance'
+  | 'Documentaries'
+  | 'Trending'
+  | 'Top';
+
+type GenreType =
+  | 'NETFLUX ORIGINALS'
+  | 'Home'
+  | 'STORE'
+  | 'Action Movies'
+  | 'Comedy Movies'
+  | 'Horror Movies'
+  | 'Romance Movies'
+  | 'Documentaries'
+  | 'Trending Now'
+  | 'Top Rated';
+
+type SourceType = Exclude<GenreType, 'Home' | 'STORE'>;
+
+type MovieList<T> = Record<GenreType, T>;
+
+type MoviesOpt<T> = Partial<MovieList<T>>;
+
+type MoviesOptList = MoviesOpt<MovieType[]>;

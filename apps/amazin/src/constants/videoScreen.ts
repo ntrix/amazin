@@ -20,7 +20,7 @@ const _SOURCES = {
   [TOP_RATED]: `/movie/top_rated?api_key=${_API}&language=en-US`
 };
 
-const _videoNavLabels = Object.keys(_SOURCES);
+const _videoNavLabels = Object.keys(_SOURCES) as GenreType[];
 _videoNavLabels.splice(1, 0, HOME, STORE);
 
 export const VIDEO = {
