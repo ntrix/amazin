@@ -5,7 +5,7 @@ import Button from '../components/Button';
 type PropType = {
   onSubmit: FnType;
   header?: string | undefined;
-  statusOf?: Status;
+  statusOf?: StatusType;
   children?: Children;
   btn?: string | undefined;
   more?: Children;

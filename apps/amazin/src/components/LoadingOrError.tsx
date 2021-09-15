@@ -5,7 +5,7 @@ import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
 type InnerPropType = {
-  statusOf: Status;
+  statusOf: StatusType;
   errorMsg?: string | undefined;
   xl?: boolean | undefined;
   variant?: string | undefined;
@@ -22,7 +22,7 @@ function InnerBox({ statusOf = {}, errorMsg = '', xl = false, variant, children,
 }
 
 type PropType = {
-  statusOf: Status;
+  statusOf: StatusType;
   wrapClass?: string | undefined;
   children?: Children;
   rest?: Props;

@@ -6,6 +6,7 @@ type PropType = {
   back?: string | undefined;
   label?: string | undefined;
   props?: Props;
+  className?: string;
 };
 
 export default function SuccessModal({ msg, back = '/', label = 'Back To Your Last Session', ...props }: PropType) {

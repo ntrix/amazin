@@ -17,7 +17,7 @@ export const MAX_CART_QTY = 9999; // noway :)
 export const MAX_2DIGITS = 99;
 
 /* contact screen, mail server */
-export const MAIL_SERVER = process.env.REACT_APP_CONTACT_MAIL_SERVER;
+export const MAIL_SERVER = process.env.REACT_APP_CONTACT_MAIL_SERVER ?? '';
 
 export const HEADERS = { mode: 'cors', headers: { 'Content-Type': 'application/json' } };
 

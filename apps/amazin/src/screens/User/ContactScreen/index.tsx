@@ -11,24 +11,24 @@ export default function ContactScreen() {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [text, setText] = useState('');
-  const [status, setStatus] = useState({});
+  const [status, setStatus] = useState<StatusType>({});
   useContact(setName, setEmail, setSubject, setStatus);
   const { submitContact } = useSubmitContact(setStatus);
 
   return (
     <>
-      <SuccessModal className="form" msg={status.message} label="Back To Home Page" />
-      {!status.message && (
+      <SuccessModal className="form" msg={status.msg} label="Back To Home Page" />
+      {!status.msg && (
         <Form
           header="Contact Us"
           statusOf={status}
-          onSubmit={(e) => submitContact(e, { name, email, subject, text })}
+          onSubmit={(e: EventType) => submitContact(e, { name, email, subject, text })}
           btn="Send Your Message"
         >
           <CustomInput text="Your Name" hook={[name, setName]} />
           <CustomInput text="Email" type="email" hook={[email, setEmail]} />
           <ContactSubject hook={[subject, setSubject]} />
-          <CustomInput textarea rows="10" text="Your Message" hook={[text, setText]} />
+          <CustomInput textarea rows={10} text="Your Message" hook={[text, setText]} />
         </Form>
       )}
     </>

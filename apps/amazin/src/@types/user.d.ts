@@ -30,6 +30,7 @@ type UserType = {
   failLoginCount?: number;
   currency?: string;
   seller?: SellerType;
+  verify?: boolean;
 };
 
 type UserInfoType = UserType & {
@@ -38,4 +39,11 @@ type UserInfoType = UserType & {
 
 type UserDetailType = StatusType & {
   user: UserType;
+};
+
+type ContactType = {
+  name?: string;
+  email?: string;
+  subject?: string;
+  text?: string;
 };
