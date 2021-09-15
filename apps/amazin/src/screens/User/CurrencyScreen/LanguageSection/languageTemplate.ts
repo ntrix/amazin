@@ -1,4 +1,4 @@
-export const languageTemplate = [
+export const languageTemplate: string[][] = [
   ['Deutsch', 'DE', 'Übersetzen'],
   ['Nederlands', 'NL', 'Vertaling'],
   ['Polski', 'PL', 'Tłumaczenie'],
