@@ -6,15 +6,15 @@ import { userDetailsActions } from 'src/slice/UserSlice';
 
 export function useUserList() {
   const dispatch = useDispatch();
-  const userList = useSelector((state) => state.userList);
-  const userDelete = useSelector((state) => state.userDelete);
+  const userList = useSelector((state: AppState) => state.userList);
+  const userDelete = useSelector((state: AppState) => state.userDelete);
 
   useEffect(() => {
     dispatch(listUsers());
-    dispatch(userDetailsActions._RESET());
+    dispatch(userDetailsActions._RESET(''));
   }, [dispatch, userDelete.success]);
 
-  const deleteHandler = (user) => (window.confirm('Are you sure?') ? dispatch(deleteUser(user._id)) : null);
+  const deleteHandler = (user: UserType) => (window.confirm('Are you sure?') ? dispatch(deleteUser(user._id)) : null);
 
   return { userList, userDelete, deleteHandler };
 }
