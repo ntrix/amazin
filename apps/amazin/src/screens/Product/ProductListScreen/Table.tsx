@@ -14,7 +14,7 @@ export default function Table({ header, keys, products, deleteHandler, to }: Pro
   return (
     <BaseTable
       header={header.map((h) => h.toUpperCase())}
-      body={products.map((row) => (
+      body={products?.map((row) => (
         <tr key={row._id}>
           {keys.map((col, id) => (
             <CheckCell key={`${row._id} ${id}`} children={row[col]} />

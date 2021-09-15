@@ -14,16 +14,16 @@ export default function ProductEditScreen({ history, match }: RouteProps<MatchPa
   const { product, loading, error } = productDetails;
   const productUpdate: StatusType = useSelector((state: AppState) => state.productUpdate);
 
-  const [name, setName] = useState(product.name);
-  const [price, setPrice] = useState(product.price);
-  const [deal, setDeal] = useState(product.deal);
-  const [ship, setShip] = useState(product.ship);
-  const [video, setVideo] = useState(product.video);
-  const [images, setImages] = useState(product.image.split('^'));
-  const [category, setCategory] = useState(product.category);
-  const [countInStock, setCountInStock] = useState(product.countInStock);
-  const [brand, setBrand] = useState(product.brand);
-  const [description, setDescription] = useState(product.description);
+  const [name, setName] = useState(product?.name);
+  const [price, setPrice] = useState(product?.price);
+  const [deal, setDeal] = useState(product?.deal);
+  const [ship, setShip] = useState(product?.ship);
+  const [video, setVideo] = useState(product?.video);
+  const [images, setImages] = useState(product?.image?.split('^'));
+  const [category, setCategory] = useState(product?.category);
+  const [countInStock, setCountInStock] = useState(product?.countInStock);
+  const [brand, setBrand] = useState(product?.brand);
+  const [description, setDescription] = useState(product?.description);
 
   useEffect(() => {
     if (productUpdate.success) {

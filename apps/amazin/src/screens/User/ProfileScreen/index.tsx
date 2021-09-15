@@ -16,7 +16,7 @@ export default function ProfileScreen() {
   const [seller, setSeller] = useState<SellerType>(userDetails?.user?.seller ?? { name: 'not seller' });
 
   useEffect(() => {
-    if (userDetails?.user?.seller && !seller.logo) setSeller(userDetails?.user?.seller);
+    if (userDetails?.user?.seller) setSeller(userDetails?.user?.seller);
   }, [userDetails, setSeller]);
 
   return (
