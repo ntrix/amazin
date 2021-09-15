@@ -7,7 +7,14 @@ import VideoCard from './components/VideoCard';
 import { responsive } from 'src/constants';
 import UTube from './components/UTube';
 
-function VideoRow({ label, genre, movies, portrait = false }) {
+type PropType = {
+  label: LabelType;
+  genre: GenreType;
+  movies: MoviesOpt<MovieType[]>;
+  portrait?: boolean;
+};
+
+function VideoRow({ label, genre, movies, portrait = false }: PropType) {
   const [trailerUrl, setTrailerUrl] = useState('');
 
   return movies[genre]?.length ? (

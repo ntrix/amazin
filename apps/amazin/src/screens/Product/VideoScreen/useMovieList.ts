@@ -9,27 +9,27 @@ import { useSafeState } from 'src/hooks/useSafeState';
 import { dummyMovies, sourceAdapter } from 'src/utils';
 
 function fetchMovies() {
-  const movieGenres = Object.keys(VIDEO.SRC);
+  const movieGenres = Object.keys(VIDEO.SRC) as SourceType[];
 
   return Promise.all(
     movieGenres.map(async (genre) => {
       const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre]).catch();
       return [genre, sourceAdapter(data.results)];
     })
-  ).then(Object.fromEntries);
+  );
 }
 
 export function useMovieList() {
   const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
+  const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const { products } = productList;
-  const productCreate = useSelector((state) => state.productCreate);
-  const [stockMovies, setStockMovies, isMounted] = useSafeState({ [STORE]: dummyMovies });
-  const [externMovies, setExternMovies] = useState({ [STORE]: dummyMovies });
-  const [bannerMovies, setBannerMovies] = useState({});
+  const productCreate: ProductDetailType = useSelector((state: AppState) => state.productCreate);
+  const [stockMovies, setStockMovies, isMounted] = useSafeState<MoviesOptList>({ [STORE]: dummyMovies });
+  const [externMovies, setExternMovies] = useState<MoviesOptList>({ [STORE]: dummyMovies });
+  const [bannerMovies, setBannerMovies] = useState<MoviesOpt<MovieType>>({});
 
   useEffect(() => {
-    fetchMovies().then((movies) => (isMounted.current ? setExternMovies(movies) : null));
+    fetchMovies().then((movieList) => isMounted.current && setExternMovies(Object.fromEntries(movieList)));
   }, [isMounted]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export function useMovieList() {
     if (!isMounted.current || externMovies[STORE] === dummyMovies || stockMovies[STORE] === dummyMovies) return;
 
     const bannerMoviesArray = VIDEO.GENRES.map((genre) => {
-      const genreMovies = externMovies[genre] || stockMovies[STORE];
+      const genreMovies = externMovies[genre] || (stockMovies[STORE] as MovieType[]);
       return [genre, genreMovies[(Math.random() * genreMovies.length) | 0]];
     });
     setBannerMovies(Object.fromEntries(bannerMoviesArray));

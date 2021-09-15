@@ -1,10 +1,16 @@
 import { memo } from 'react';
 
-function VideoNavHeader({ labels, active, setActive }) {
+type PropType = {
+  genreLabels: GenreType[];
+  active: LabelType;
+  setActive: SetState;
+};
+
+function VideoNavHeader({ genreLabels, active, setActive }: PropType) {
   return (
     <nav className="m-header">
       <ul className="m-nav">
-        {labels.map((label, id) => (
+        {genreLabels.map((label, id) => (
           <li key={id} className={label === active ? ' active' : ''} onClick={() => setActive(label)}>
             {label.split(' ')[0]}
           </li>

@@ -10,16 +10,16 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
 import VideoNavHeader from './VideoNavHeader';
 import VideoBanner from './components/VideoBanner';
-const VideoRow = lazy(() => import(/* webpackPrefetch: true */ './VideoRow'));
+const VideoRow: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './VideoRow'));
 
 export default function VideoScreen() {
-  const [active, setActive] = useState(STORE);
+  const [active, setActive] = useState<LabelType>(STORE);
   const { externMovies, bannerMovies, stockMovies, productCreate, productList } = useMovieList();
 
   return (
     <div className="container--full video-screen">
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <SuspenseLoad children={<VideoNavHeader labels={VIDEO.GENRES} active={active} setActive={setActive} />} />
+        <SuspenseLoad children={<VideoNavHeader genreLabels={VIDEO.GENRES} active={active} setActive={setActive} />} />
         <LoadingOrError xl statusOf={productCreate} />
 
         <SuspenseBanner children={<VideoBanner movie={bannerMovies[active]} youtubeTrailer />} />
@@ -34,8 +34,8 @@ export default function VideoScreen() {
           <LoadingOrError xl statusOf={productList} />
           <MessageBox msg={productList?.products?.length < 1 && 'Sold Out/ No Product Found'} />
 
-          {active !== TRENDING && <VideoRow genre={TRENDING} movies={externMovies} />}
-          {active !== TOP_RATED && <VideoRow genre={TOP_RATED} movies={externMovies} />}
+          {TRENDING.includes(active) && <VideoRow genre={TRENDING} movies={externMovies} />}
+          {TOP_RATED.includes(active) && <VideoRow genre={TOP_RATED} movies={externMovies} />}
         </Suspense>
 
         <div className="banner__divider" />

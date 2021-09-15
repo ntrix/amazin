@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 export function useMounted() {
-  const mountedRef = useRef(false);
+  const mountedRef = useRef<boolean>(false);
 
   useLayoutEffect(() => {
     mountedRef.current = true;
@@ -13,7 +13,7 @@ export function useMounted() {
   return mountedRef;
 }
 
-export function useSafeState<T>(init: T): [T, FnType, Ref<boolean>, SetState] {
+export function useSafeState<T>(init: T): [T, FnType, React.MutableRefObject<boolean>, SetState] {
   const mountedRef = useMounted();
   const [state, setState] = useState(init);
 
