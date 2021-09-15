@@ -1,6 +1,16 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
 
+type PropType = {
+  img?: string;
+  label?: string;
+  line1?: string;
+  line2?: string;
+  to?: string;
+  className?: string;
+  baseUrl?: string;
+};
+
 function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }) {
   const history = useHistory();
 
@@ -22,14 +32,13 @@ function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' })
   );
 }
 
-export const mapCustomerCardProp = ([img, label, line1, line2, to, className = ''], key) => ({
+export const mapCustomerCardProp = ([img, label, line1, line2, to, className = '']: (string | undefined)[]) => ({
   img,
   label,
   line1,
   line2,
   to,
-  className,
-  key
+  className
 });
 
 export default memo(CustomerCard);

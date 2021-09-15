@@ -45,7 +45,7 @@ export const publicDetailsSeller = (userId: string) => axiosPublic([userDetailsA
 
 export const detailsUser = (userId: string) => axiosPrivate([userDetailsActions])('get', `/api/users/${userId}`);
 
-export const updateUserProfile = (user: UserType) =>
+export const updateUserProfile = (user: UserType & ReqLogin) =>
   axiosPrivate([userUpdateProfileActions], {
     successAction: userSigninActions._SUCCESS,
     successHandler: (userInfo) => (Storage[KEY.USER_INFO] = userInfo)

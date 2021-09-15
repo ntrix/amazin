@@ -1,6 +1,8 @@
 type ReqLogin = {
-  username: string;
+  email: string;
   password: string;
+  oldPassword?: string;
+  confirmPassword?: string;
 };
 
 type ResLoginApi = Res & {
@@ -21,7 +23,7 @@ type SellerType = {
 };
 
 type UserType = {
-  _id?: string;
+  _id: string;
   name: string;
   email?: string;
   password?: string;

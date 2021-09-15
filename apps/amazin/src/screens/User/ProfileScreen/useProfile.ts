@@ -17,8 +17,8 @@ export function useUserProfile({ user }) {
 
   useEffect(() => {
     if (!user) {
-      dispatch(userUpdateProfileActions._RESET());
-      dispatch(detailsUser(userInfo._id));
+      dispatch(userUpdateProfileActions._RESET(''));
+      dispatch(detailsUser(userInfo?._id));
       return;
     }
     setName(user.name);
@@ -26,26 +26,19 @@ export function useUserProfile({ user }) {
     setOldPassword('');
   }, [dispatch, userInfo._id, user]);
 
-  const submitUpdate = (e, updatedSellerInfo) => {
+  const submitUpdate = (e: EventType, seller?: SellerType) => {
     e.preventDefault();
-    const updatedInfo = { name, email, password, oldPassword, confirmPassword, userId: user._id };
-    dispatch(updateUserProfile({ ...updatedInfo, ...updatedSellerInfo }));
+    const updatedInfo: UserType & ReqLogin = {
+      name,
+      email,
+      password,
+      oldPassword,
+      confirmPassword,
+      _id: user._id,
+      seller
+    };
+    dispatch(updateUserProfile(updatedInfo));
   };
 
   return { name, setName, email, setEmail, setPassword, setOldPassword, setConfirmPassword, submitUpdate };
-}
-
-export function useSellerProfile({ user }) {
-  const [sellerName, setSellerName] = useState('');
-  const [sellerLogo, setSellerLogo] = useState('');
-  const [sellerDescription, setSellerDescription] = useState('');
-
-  useEffect(() => {
-    if (!user || !user.seller) return;
-    setSellerName(user.seller.name);
-    setSellerLogo(user.seller.logo);
-    setSellerDescription(user.seller.description);
-  }, [user]);
-
-  return { sellerName, setSellerName, sellerLogo, setSellerLogo, sellerDescription, setSellerDescription };
 }
