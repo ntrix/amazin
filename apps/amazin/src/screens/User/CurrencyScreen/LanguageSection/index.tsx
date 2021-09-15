@@ -11,7 +11,6 @@ export default function LanguageSection() {
         <div className="languages">
           <ul className="max-30">
             <LanguageOption className="active" label="English" short="EN" text="Translation" />
-            <li className="separator"></li>
 
             <LanguageOptions />
           </ul>

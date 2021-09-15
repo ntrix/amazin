@@ -1,4 +1,9 @@
-export default function LanguageOption({ label, short, text, className }) {
+export default function LanguageOption({
+  label,
+  short,
+  text,
+  className
+}: Partial<Record<'label' | 'short' | 'text' | 'className', string>>) {
   return (
     <li className={'language ' + className}>
       <div className="sprite__wrapper">
