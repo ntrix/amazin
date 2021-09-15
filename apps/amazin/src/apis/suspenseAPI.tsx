@@ -48,13 +48,14 @@ type PropType = {
   alt?: string | undefined;
   placeholder?: string | undefined;
   className?: string;
+  children?: Children;
   rest?: Props;
   onMouseEnter?: FnType;
   onClick?: FnType;
 };
 
 function LazyComponent(as: string) {
-  return ({ src = NO_IMAGE, ...rest }: PropType) => {
+  return ({ src = NO_IMAGE, children, ...rest }: PropType) => {
     if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
 
     return as === 'img' ? (
@@ -66,7 +67,9 @@ function LazyComponent(as: string) {
           ...rest.style,
           backgroundImage: `url(${sCached[src].read() || rest.placeholder})`
         }}
-      />
+      >
+        {children}
+      </div>
     );
   };
 }

@@ -8,6 +8,12 @@ import ButtonSell from './ButtonSell';
 import ButtonTrailer from './ButtonTrailer';
 import Header from 'src/layouts/Header';
 
+type PropType = {
+  movie: MovieType;
+  bottom?: boolean;
+  youtubeTrailer?: boolean;
+};
+
 function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
   const [trailerUrl, setTrailerUrl] = useState('');
   const description = movie?.description ? movie.description.slice(0, 150) + '..' : '';
@@ -27,7 +33,7 @@ function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
           {!bottom && (
             <>
               <div className="banner__buttons">
-                <ButtonTrailer movie={movie} hook={[trailerUrl, setTrailerUrl]} />
+                <ButtonTrailer movie={movie} trailerUrl={trailerUrl} setTrailerUrl={setTrailerUrl} />
                 <ButtonBuy movie={movie} />
                 <ButtonSell />
               </div>

@@ -1,15 +1,20 @@
 import { memo } from 'react';
 import movieTrailer from 'movie-trailer';
 
-import { sourceAdapter } from 'src/utils';
-const defaultMovie = sourceAdapter([1])[0];
+import { dummyMovies } from 'src/utils';
 
-function ButtonTrailer({ movie = defaultMovie, trailerUrl, setTrailerUrl }) {
+type PropType = {
+  movie?: MovieType;
+  trailerUrl: string;
+  setTrailerUrl: SetState;
+};
+
+function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: PropType) {
   const searchTrailer = async () => {
     if (trailerUrl) setTrailerUrl('');
     else
       movieTrailer(movie.name)
-        .then((url) => {
+        .then((url: string) => {
           const urlParams = new URLSearchParams(new URL(url).search);
           setTrailerUrl(urlParams.get('v'));
         })

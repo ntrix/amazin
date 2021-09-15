@@ -39,5 +39,5 @@ export function useProductList({ history, match }: RouteProps<MatchParams>) {
   const authUrl = ({ page: _page }: { page: number }) =>
     `/product-list${userInfo.isAdmin ? '' : '/seller'}/pageNumber/${_page}`;
 
-  return { authUrl, productCreate, productDelete, deleteHandler, createHandler };
+  return { userInfo, authUrl, productCreate, productDelete, deleteHandler, createHandler };
 }
