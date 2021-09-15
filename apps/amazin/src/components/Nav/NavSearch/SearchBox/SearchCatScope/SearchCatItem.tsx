@@ -11,8 +11,14 @@ type PropType = {
 };
 
 function SearchCatItem({ cat, isActive, setActiveCat }: PropType) {
-  const { inputRef, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
+  const { inputRef, setOutline, setScopeOutline, setSuggestBox } = useOutline();
+
+  const hideAllEffect = (e: EventType) => {
+    setSuggestBox(false);
+    setScopeOutline(0);
+    setOutline(false);
+  };
 
   return (
     <li
@@ -29,7 +35,6 @@ function SearchCatItem({ cat, isActive, setActiveCat }: PropType) {
         setSuggestBox(false);
         setShadowOf('');
       }}
-      onBlur={() => setScopeOutline(0)}
     >
       <i className="fa fa-check" /> {CatLabel[cat] ?? cat}
     </li>
