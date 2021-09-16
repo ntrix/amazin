@@ -6,7 +6,7 @@ const SearchCatDropdown = lazy(() => import(/* webpackPrefetch: true */ './Searc
 
 function BoxLeft(props: Props) {
   return (
-    <div className="row--left">
+    <div className="box__left">
       <SearchCatScope {...props} />
       <SuspenseNull children={<SearchCatDropdown {...props} />} />
     </div>

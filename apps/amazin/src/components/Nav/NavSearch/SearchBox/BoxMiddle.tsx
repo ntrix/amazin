@@ -13,7 +13,7 @@ function BoxMiddle(props: Props) {
   const { shadowOf } = useShadow();
 
   return (
-    <div className="row--fill">
+    <div className="box__middle--fill">
       <SearchInput {...props} setSuggests={setSuggests} />
 
       <SuspenseNull>

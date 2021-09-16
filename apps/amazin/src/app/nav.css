@@ -110,16 +110,16 @@
   box-shadow: 0 0 0px 3px #f806, 0 0 1px 3px #f3a847;
   z-index: 9000;
 }
-.row--left {
+.box__left {
   display: flex;
   position: static;
   width: auto;
 }
-.row--fill {
+.box__middle--fill {
   flex: 1 0 0;
   position: relative;
 }
-.row--right {
+.box__right {
   flex: 0 0 45px;
   display: flex;
 }
