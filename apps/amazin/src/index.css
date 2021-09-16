@@ -798,7 +798,7 @@ table th {
 .divider,
 .divider-inner {
   height: 44px;
-  margin-bottom: -18px;
+  /* margin-bottom: -18px; */
   background: -webkit-linear-gradient(to bottom, #0002, #0001 3px, #0000);
   background: linear-gradient(to bottom, #0002, #0001 3px, #0000);
   z-index: 0;
@@ -809,8 +809,8 @@ table th {
   width: 100%;
   height: 44px;
   background-color: #0000;
-  background: -webkit-linear-gradient(to right, #fff, #fff0, #fff);
-  background: linear-gradient(to right, #fff, #fff0, #fff);
+  background: -webkit-linear-gradient(to right, #fffb, #fff0, #fffb);
+  background: linear-gradient(to right, #fffb, #fff0, #fffb);
   z-index: 1;
 }
 
