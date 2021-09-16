@@ -23,10 +23,8 @@ function SidebarMenu() {
 
   const signOutHandler = useCallback(() => dispatch(signout()), [dispatch]);
 
-  const getShortName = useCallback((_s) => shortName(_s), []);
-
   return (
-    <SidebarLayout header={<SidebarHeader userName={getShortName(userInfo?.name)} />}>
+    <SidebarLayout header={<SidebarHeader userName={shortName(userInfo?.name)} />}>
       <LoadingOrError statusOf={{ loading, error }} />
       {[
         ...sidebarBase,

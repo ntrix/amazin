@@ -1,7 +1,7 @@
 import CustomInput from './CustomInput';
 
 type PropType = {
-  text: string | undefined;
+  text?: string;
   onChange: SetState;
   rest?: Props;
   checked?: boolean;

@@ -10,7 +10,7 @@ function SearchCatScope({ activeCat }: { activeCat: string }) {
 
   const clickHandler = () => {
     setOutline(false);
-    setScopeOutline(scopeOutline === Scope.hide ? Scope.facade : -scopeOutline);
+    setScopeOutline(scopeOutline === Scope.hide ? Scope.minimized : -scopeOutline);
     setSuggestBox(false);
     setShadowOf(SHADOW.SCOPE);
   };

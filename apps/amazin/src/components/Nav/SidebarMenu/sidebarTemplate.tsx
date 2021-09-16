@@ -12,7 +12,7 @@ export const sidebarBase = [
   ['Netflux Video', '/video']
 ];
 
-export function sidebarCurrencyCreator(currency = 'EUR') {
+export function sidebarCurrencyCreator(currency: CurrType = 'EUR') {
   return [
     ['separator'],
     ['Privacy & Setting'],
@@ -30,7 +30,7 @@ export function sidebarCurrencyCreator(currency = 'EUR') {
   ];
 }
 
-export function sidebarUserCreator(userName, signOutAction) {
+export function sidebarUserCreator(userName?: string, signOutAction?: FnType) {
   return [
     ['separator'],
     ['Your Account'],
@@ -42,7 +42,7 @@ export function sidebarUserCreator(userName, signOutAction) {
   ];
 }
 
-export function sidebarSellerCreator(isSeller) {
+export function sidebarSellerCreator(isSeller?: boolean) {
   return [
     ['separator'],
     ['Seller Account'],
@@ -54,7 +54,7 @@ export function sidebarSellerCreator(isSeller) {
   ];
 }
 
-export function sidebarAdminCreator(isAdmin) {
+export function sidebarAdminCreator(isAdmin?: boolean) {
   return [
     ['separator'],
     ['Administration'],

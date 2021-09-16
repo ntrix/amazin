@@ -2,9 +2,9 @@ import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
 
 type PropType = {
-  msg?: string | undefined;
-  back?: string | undefined;
-  label?: string | undefined;
+  msg?: string;
+  back?: string;
+  label?: string;
   props?: Props;
   className?: string;
 };

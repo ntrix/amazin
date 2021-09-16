@@ -1,13 +1,13 @@
 import { memo } from 'react';
 
 type PropType = {
-  rating: number | undefined;
-  numReviews?: number | undefined;
-  caption?: string | undefined;
-  steps?: number | undefined;
+  rating: number;
+  numReviews?: number;
+  caption?: string;
+  steps?: number;
 };
 
-function Rating({ rating, numReviews = rating ? 1 : 0, caption = '', steps = 5 }) {
+function Rating({ rating, numReviews = rating ? 1 : 0, caption = '', steps = 5 }: PropType) {
   const isHalf = (test: boolean, className: string) => (test ? className : '');
 
   return (

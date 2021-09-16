@@ -1,18 +1,16 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-type BooleanU = boolean | undefined;
-
-const getClasses = (primary: BooleanU, fill: BooleanU, xs: BooleanU) =>
+const getClasses = (primary?: boolean, fill?: boolean, xs?: boolean) =>
   [primary ? 'primary ' : '', fill ? 'col-fill ' : '', xs ? 'btn--xs ' : ''].join('');
 
 type PropType = {
   to?: string;
   label?: string;
   wrapClass?: string;
-  primary?: BooleanU;
-  fill?: BooleanU;
-  xs?: BooleanU;
+  primary?: boolean;
+  fill?: boolean;
+  xs?: boolean;
   className?: string;
   ariaLabel?: string;
   children?: Children;
