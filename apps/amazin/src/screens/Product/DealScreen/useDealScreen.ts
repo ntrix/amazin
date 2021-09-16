@@ -6,7 +6,7 @@ import { useDebounce } from 'src/hooks/useDebounce';
 import { listProducts } from 'src/apis/productAPI';
 import { NAV, SORT } from 'src/constants';
 
-export function usePreload(list: ProductListType, param: { order: string; pageNumber: string }) {
+export function usePreload(list: ProductListType, param: { order?: string; pageNumber?: string }) {
   const dispatch = useDispatch();
   const preloadingCat = useRef('');
   const { order = SORT.BESTSELLING.OPT, pageNumber = '1' } = param;

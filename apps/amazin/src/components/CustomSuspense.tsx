@@ -5,7 +5,16 @@ export const delay = (time: number) => (promiseResult: unknown) =>
   new Promise((resolve) => setTimeout(() => resolve(promiseResult), time));
 
 export function SuspenseLoad(props: Props) {
-  return <Suspense fallback={<div className="sprite__loading" />} {...props} />;
+  return (
+    <Suspense
+      fallback={
+        <>
+          Loading.. <span className="sprite__loading" />
+        </>
+      }
+      {...props}
+    />
+  );
 }
 
 export function SuspenseBanner(props: Props) {

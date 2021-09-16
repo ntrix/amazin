@@ -5,14 +5,26 @@ import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 import SellerRoute from './SellerRoute';
 
-const Screen404 = lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/Screen404'));
-const MapScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/MapScreen'));
-const OrderHistoryScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/OrderHistoryScreen'));
-const OrderListScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/OrderListScreen'));
-const ProductListScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/ProductListScreen'));
-const ProfileScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/ProfileScreen'));
-const UserEditScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/UserEditScreen'));
-const UserListScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/UserListScreen'));
+const Screen404: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/Screen404'));
+const MapScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/MapScreen'));
+const OrderHistoryScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Order/OrderHistoryScreen')
+);
+const OrderListScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Order/OrderListScreen')
+);
+const ProductListScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/ProductListScreen')
+);
+const ProfileScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/ProfileScreen')
+);
+const UserEditScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/UserEditScreen')
+);
+const UserListScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/UserListScreen')
+);
 
 export default function TokenRoutes() {
   return (

@@ -12,10 +12,10 @@ import MessageBox from 'src/components/MessageBox';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SortFilter from 'src/components/SortFilter';
-const ProductCard = lazy(() => import(/* webpackPrefetch: true */ '../components/ProductCard'));
+const ProductCard: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function DealScreen() {
-  const param = useParams();
+  const param: { category: string; order: string; pageNumber: string } = useParams();
   const banner = useRef('');
   const cat = useRef('');
   const { shadowOf } = useShadow();
