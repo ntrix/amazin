@@ -1,14 +1,14 @@
 import { useOutline } from '../../useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 import { findSuggest } from 'src/utils';
-import { SHADOW } from 'src/constants';
+import { Scope, SHADOW } from 'src/constants';
 
 export function useSuggestBox(setSuggests: SetState) {
   const { productList, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
   const showBox = (input?: string) => {
-    setScopeOutline(0);
+    setScopeOutline(Scope.hide);
     if (!input) return;
 
     const newSuggests = findSuggest(productList, input);

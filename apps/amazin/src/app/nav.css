@@ -718,6 +718,10 @@ button.open-sidebar:hover {
   background-color: #0008;
   z-index: 9008;
 }
+.scope.click-catcher {
+  background-color: #0000;
+  z-index: 0;
+}
 .sidebar .click-catcher {
   background-color: #000b;
 }
