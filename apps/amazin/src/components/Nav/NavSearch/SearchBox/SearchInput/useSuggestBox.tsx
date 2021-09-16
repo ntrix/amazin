@@ -19,9 +19,10 @@ export function useSuggestBox(setSuggests: SetState) {
     setSuggestBox(true);
   };
 
-  const hideBoxOnCallback = () => () => {
-    setOutline(false); // Wait to execute any click on Suggest Box, closes on callback
-    setSuggestBox(false);
+  const hideBoxOnCallback = () => {
+    setOutline(false);
+    // Wait to execute any click on Suggest Box, then closes/hides suggest box on callback
+    return () => setSuggestBox(false);
   };
 
   return { showBox, hideBoxOnCallback };
