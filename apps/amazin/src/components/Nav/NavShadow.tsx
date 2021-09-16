@@ -1,4 +1,4 @@
-import { SHADOW, SIDEBAR_CLOSE_BTN_ID } from 'src/constants';
+import { Scope, SHADOW, SIDEBAR_CLOSE_BTN_ID } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 import { useOutline } from './NavSearch/useOutline';
 
@@ -10,7 +10,7 @@ export default function NavShadow() {
 
   const hideAllEffect = (e: EventType) => {
     setSuggestBox(false);
-    setScopeOutline(0);
+    setScopeOutline(Scope.hide);
     setShadowOf('');
     setOutline(false);
   };
@@ -22,7 +22,7 @@ export default function NavShadow() {
         className={isOpened ? 'click-catcher' : ''}
         aria-label="close sidebar area"
       />
-      <div className={`shadow-of__${shadowOf}`} aria-label="nav shadow area" onClick={hideAllEffect} />
+      <div className={`shadow-of__ ${shadowOf}`} aria-label="nav shadow area" onClick={hideAllEffect} />
     </>
   );
 }
