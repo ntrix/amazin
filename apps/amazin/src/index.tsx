@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import store from './store';
@@ -17,24 +17,24 @@ import store from './store';
 // import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
 import App from './app';
-import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2');
-import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2');
-import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2');
-import(/* webpackPreload: true */ './fonts/FontAwesome.woff2');
+lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/FontAwesome.woff2'));
 
-import(/* webpackPreload: true */ './fonts/fonts.css');
-import(/* webpackPreload: true */ './index.css');
-import(/* webpackPreload: true */ './app/nav.css');
-import(/* webpackPreload: true */ './app/responsive.css');
-import(/* webpackPreload: true */ 'swiper/swiper-bundle.css');
-import(/* webpackPreload: true */ './fonts/font-awesome.css');
+lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/fonts.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './index.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './app/nav.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './app/responsive.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'swiper/swiper-bundle.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/font-awesome.css'));
 
-import(/* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css');
-import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css');
-import(/* webpackPreload: true */ './screens/Product/DealScreen/dealScreen.css');
-import(/* webpackPreload: true */ './screens/Product/ProductScreen/productScreen.css');
-import(/* webpackPreload: true */ './screens/User/CustomerScreen/customerScreen.css');
-import(/* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css');
+lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/Product/DealScreen/dealScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/Product/ProductScreen/productScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/User/CustomerScreen/customerScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css'));
 
 ReactDOM.render(
   <Provider store={store}>
