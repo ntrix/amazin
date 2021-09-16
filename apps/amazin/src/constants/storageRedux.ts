@@ -1,8 +1,8 @@
 /* localStorage and Redux */
 export const KEY: Record<string, StorageType> = {
-  USER_INFO: 'USER_INFO',
-  CART_ITEMS: 'CART_ITEMS',
-  SHIPPING_ADDRESS: 'SHIPPING_ADDRESS',
-  CURRENCY: 'CURRENCY',
-  HISTORY: 'HISTORY'
+  USER_INFO: 'userInfo',
+  CART_ITEMS: 'cartItems',
+  SHIPPING_ADDRESS: 'shippingAddress',
+  CURRENCY: 'currency',
+  HISTORY: 'history'
 };
