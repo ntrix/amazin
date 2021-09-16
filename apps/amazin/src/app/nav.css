@@ -110,16 +110,16 @@
   box-shadow: 0 0 0px 3px #f806, 0 0 1px 3px #f3a847;
   z-index: 9000;
 }
-.row--left {
+.box__left {
   display: flex;
   position: static;
   width: auto;
 }
-.row--fill {
+.box__middle--fill {
   flex: 1 0 0;
   position: relative;
 }
-.row--right {
+.box__right {
   flex: 0 0 45px;
   display: flex;
 }
@@ -384,20 +384,16 @@
   color: #ccc;
 }
 .shadow-of__ {
-  opacity: 0;
-}
-.shadow-of__navSearch,
-.shadow-of__navDrop {
-  position: absolute;
-  display: block;
-  top: 99px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  grid-area: main;
   background-color: #0008;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+.shadow-of__.navSearch,
+.shadow-of__.navDrop {
   opacity: 1;
   z-index: 9;
-  transition: opacity 0.6s ease-in-out;
 }
 
 .dropdown__menu {
@@ -721,6 +717,10 @@ button.open-sidebar:hover {
   left: 0;
   background-color: #0008;
   z-index: 9008;
+}
+.scope.click-catcher {
+  background-color: #0000;
+  z-index: 0;
 }
 .sidebar .click-catcher {
   background-color: #000b;

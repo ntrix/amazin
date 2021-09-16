@@ -37,3 +37,10 @@ export const CURR_FORMAT = 2;
 
 /* Tax rate, Germany default 2019 */
 export const TAX = 0.19;
+
+/* search box categories scope */
+export enum Scope {
+  facade = -1,
+  hide,
+  facadeDrop = 1
+}

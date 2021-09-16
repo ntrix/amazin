@@ -4,7 +4,7 @@ import SearchBtn from './SearchBtn';
 
 function BoxRight(props: Props) {
   return (
-    <div className="row--right">
+    <div className="box__right">
       <SearchBtn {...props} />
     </div>
   );

@@ -9,7 +9,7 @@ function SearchInput({ input, setInput, setSuggests, submitSearch }) {
   const { showBox, hideBoxOnCallback } = useSuggestBox(setSuggests);
   const { handleKeyInput } = useKeyInput(setInput, setSuggests, submitSearch);
 
-  const onClickOrFocus = () => {
+  const focusSuggestBox = () => {
     showBox(input);
     setOutline(true);
   };
@@ -26,8 +26,8 @@ function SearchInput({ input, setInput, setSuggests, submitSearch }) {
         size={1}
         tabIndex={1}
         aria-label="search input"
-        onClick={onClickOrFocus}
-        onFocus={onClickOrFocus}
+        onClick={focusSuggestBox}
+        onFocus={focusSuggestBox}
         onKeyUp={handleKeyInput}
         onChange={(e) => setInput(e.target.value)}
         onBlur={hideBoxOnCallback}
