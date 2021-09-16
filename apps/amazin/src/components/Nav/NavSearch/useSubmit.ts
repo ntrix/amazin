@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useOutline } from '../useOutline';
+import { useOutline } from './useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 
 export function useSubmit() {

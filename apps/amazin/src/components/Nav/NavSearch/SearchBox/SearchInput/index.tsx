@@ -4,7 +4,14 @@ import { useOutline } from '../../useOutline';
 import { useSuggestBox } from './useSuggestBox';
 import { useKeyInput } from './useKeyInput';
 
-function SearchInput({ input, setInput, setSuggests, submitSearch }) {
+type PropType = {
+  input: string;
+  setInput: SetState;
+  setSuggests: SetState;
+  submitSearch: SetState;
+};
+
+function SearchInput({ input, setInput, setSuggests, submitSearch }: PropType) {
   const { inputRef, setOutline } = useOutline();
   const { showBox, hideBoxOnCallback } = useSuggestBox(setSuggests);
   const { handleKeyInput } = useKeyInput(setInput, setSuggests, submitSearch);
@@ -31,7 +38,7 @@ function SearchInput({ input, setInput, setSuggests, submitSearch }) {
         onKeyUp={handleKeyInput}
         onChange={(e) => setInput(e.target.value)}
         onBlur={hideBoxOnCallback}
-      ></input>
+      />
     </div>
   );
 }

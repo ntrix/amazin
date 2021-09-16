@@ -1,16 +1,31 @@
-import { memo, useRef } from 'react';
+import { memo, useCallback, useState } from 'react';
 
-import SearchBox from './SearchBox';
-// import { OutlineProvider } from './useOutline';
-//import { useOutsideClick } from './useOutsideClick';
+import { NAV } from 'src/constants';
+import { useOutline } from './useOutline';
+import { useSubmit } from './useSubmit';
+import BoxLeft from './SearchBox/BoxLeft';
+import BoxMiddle from './SearchBox/BoxMiddle';
+import BoxRight from './SearchBox/BoxRight';
 
 function NavSearch() {
-  const navSearchRef: Ref<HTMLDivElement> = useRef<HTMLDivElement>();
-  // useOutsideClick(navSearchRef);
+  const [activeCat, setActiveCat] = useState(NAV.ALL);
+  const [input, setInput] = useState('');
+  const { outline } = useOutline();
+  const { handleSubmit } = useSubmit();
 
   return (
-    <div ref={navSearchRef} className="nav__search">
-      <SearchBox />
+    <div className="nav__search">
+      <form className={`search-box ${outline ? 'focus' : ''}`}>
+        <BoxLeft activeCat={activeCat} setActiveCat={setActiveCat} />
+
+        <BoxMiddle
+          input={input}
+          setInput={setInput}
+          submitSearch={(e: EventType) => handleSubmit(e, input, activeCat)}
+        />
+
+        <BoxRight submitSearch={(e: EventType) => handleSubmit(e, input, activeCat)} />
+      </form>
     </div>
   );
 }

@@ -7,7 +7,7 @@ export function useKeyInput(setInput: SetState, setSuggests: SetState, submitSea
   const { productList, setOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
-  const handleKeyInput: KeyEvent = ({ target: { value }, key }) => {
+  const handleKeyInput: FnType = ({ target: { value }, key }: EventType) => {
     switch (key) {
       case 'Enter':
         return submitSearch();
