@@ -35,7 +35,7 @@ type UserType = {
   verify?: boolean;
 };
 
-type UserInfoType = UserType & {
+type UserInfoType = Partial<UserType> & {
   token: string;
 };
 

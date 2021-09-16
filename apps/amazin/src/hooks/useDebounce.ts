@@ -18,7 +18,7 @@ export function useDebounce(fn: FnType, duration = 500) {
     (...args) => {
       clearTimeout(id.current);
       id.current = 0;
-      return args ? fn(...args) : null;
+      return args && fn && fn(...args);
     },
     [fn]
   );

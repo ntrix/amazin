@@ -1,12 +1,11 @@
 import { Suspense } from 'react';
 import { bannerFallback, ProductCardFallback, productListFallback } from './Fallbacks';
-import LoadingBox from './LoadingBox';
 
 export const delay = (time: number) => (promiseResult: unknown) =>
   new Promise((resolve) => setTimeout(() => resolve(promiseResult), time));
 
 export function SuspenseLoad(props: Props) {
-  return <Suspense fallback={<LoadingBox />} {...props} />;
+  return <Suspense fallback={<div className="sprite__loading" />} {...props} />;
 }
 
 export function SuspenseBanner(props: Props) {

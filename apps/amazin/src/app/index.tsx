@@ -15,7 +15,7 @@ import '../fonts/font-awesome.css';
 
 function App() {
   const dispatch = useDispatch();
-  const { shadowOf, setShadowOf } = useShadow();
+  const { shadowOf } = useShadow();
 
   useEffect(() => {
     dispatch(updateCurrencyRates());
@@ -26,11 +26,8 @@ function App() {
     <div className={`container--grid ${SHADOW.SIDEBAR === shadowOf ? 'scroll--off' : ''}`}>
       <BrowserRouter>
         <Nav />
-
         <main className="container">
           <SuspenseText children={<MainRoutes />} />
-
-          <div className={`shadow-of__${shadowOf}`} onClick={() => setShadowOf('')} />
         </main>
       </BrowserRouter>
 

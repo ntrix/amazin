@@ -196,6 +196,7 @@
 }
 .cat-scope__dropdown {
   position: absolute;
+  margin-top: 2px;
   padding: 4px 0;
   top: 36px;
   border-radius: 4px;
@@ -389,7 +390,7 @@
 .shadow-of__navDrop {
   position: absolute;
   display: block;
-  top: 0;
+  top: 99px;
   bottom: 0;
   left: 0;
   right: 0;
