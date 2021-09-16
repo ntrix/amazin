@@ -12,10 +12,10 @@ export const Storage = new Proxy(KEY, {
     try {
       return JSON.parse(localStorage.getItem(String(key)) ?? '');
     } catch (e) {
-      return localStorage.getItem(String(key));
+      return localStorage.getItem(String(key)) ?? '';
     }
   },
-  set(obj, key, value) {
+  set(obj, key, value: StorageType) {
     if (value === '') localStorage.removeItem(String(key));
     else localStorage.setItem(String(key), JSON.stringify(value));
     return true;
@@ -23,7 +23,7 @@ export const Storage = new Proxy(KEY, {
 });
 
 /* util for currency and all its pipes, rates, calculations, can use intl instead */
-const rates = {
+const rates: CurrRateType = {
   //default dummy rate
   EUR: 1,
   USD: 1.2,
@@ -32,7 +32,7 @@ const rates = {
   PLN: 5,
   CHF: 1.1
 };
-const longName = {
+const longName: CurrNameType = {
   GBP: 'GB Pounds',
   USD: 'US Dollar',
   PLN: 'Polish Zloty',
@@ -40,7 +40,7 @@ const longName = {
   CHF: 'Swiss France',
   EUR: 'Euro (Default)'
 };
-const symbol = {
+const symbol: CurrNameType = {
   GBP: '£',
   USD: '$',
   PLN: 'zł',
@@ -50,11 +50,11 @@ const symbol = {
 };
 
 type pipeType = {
-  rates: typeof rates;
-  longName: typeof longName;
-  symbol: typeof symbol;
-  currency: string;
-  currencies: string[];
+  rates: CurrRateType;
+  longName: CurrNameType;
+  symbol: CurrNameType;
+  currency: CurrType;
+  currencies: CurrType[];
   setCurrency: FnType;
   updateRates: FnType;
   getSymbol: FnType;
@@ -74,28 +74,28 @@ export const pipe: pipeType = {
   setCurrency(currency) {
     this.currency = currency;
   },
-  updateRates(newRates: number[]): void {
-    if (newRates?.length) this.currencies.map((c) => (this.rates[c] = newRates[c]));
+  updateRates(newRates: CurrRateType): void {
+    if (newRates?.EUR) this.currencies.map((c) => (this.rates[c] = newRates[c]));
   },
-  getSymbol(currency: string): string {
+  getSymbol(currency: CurrType): string {
     return this.symbol[currency || this.currency];
   },
-  getName(currency: string): number {
+  getName(currency: CurrType): string {
     return longName[currency || this.currency];
   },
-  getRate(currency: string): number {
+  getRate(currency: CurrType): number {
     return rates[currency || this.currency] || 1;
   },
-  getPrice(price = 0, rate: number | undefined): string {
+  getPrice(price = 0, rate?: number): string {
     return (price * (rate || this.getRate())).toFixed(CURR_FORMAT);
   },
-  getNote(price = 0, rate) {
+  getNote(price = 0, rate: number): string {
     return ((price * (rate || this.getRate())) | 0).toString();
   },
-  getCent(price = 0, rate) {
+  getCent(price = 0, rate: number): string {
     return (price * (rate || this.getRate())).toFixed(CURR_FORMAT).slice(-CURR_FORMAT);
   },
-  showPrice(price) {
+  showPrice(price: number): string {
     return `${this.getSymbol()} ${this.getPrice(price)}`;
   }
 };
@@ -137,7 +137,7 @@ export const dummyProducts = sourceAdapter(Array(6).fill(1));
 export const dummyMovies: MovieType[] = sourceAdapter(Array(12).fill(1));
 
 /* add absolute links or origin to image url or return a default */
-export const getImgUrl = (productId, imgName) => {
+export const getImgUrl = (productId: string, imgName: string) => {
   if (!imgName) return NO_IMAGE;
   // extern absolute Image Link? or embedded Image Link?
   return imgName.startsWith('http') || imgName.startsWith('/')
@@ -145,7 +145,7 @@ export const getImgUrl = (productId, imgName) => {
     : `${process.env.REACT_APP_IMG_BASE_URL}${productId}/${imgName}`;
 };
 
-export function shortName(userName: string | undefined, length?: number): string {
+export function shortName(userName?: string, length?: number): string {
   if (!userName?.length) return 'Sign In';
   if (!length) return userName;
   const name = userName.split(' ')[0];

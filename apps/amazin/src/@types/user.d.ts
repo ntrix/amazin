@@ -30,7 +30,7 @@ type UserType = {
   isAdmin?: boolean;
   isSeller?: boolean;
   failLoginCount?: number;
-  currency?: string;
+  currency?: CurrType;
   seller?: SellerType;
   verify?: boolean;
 };

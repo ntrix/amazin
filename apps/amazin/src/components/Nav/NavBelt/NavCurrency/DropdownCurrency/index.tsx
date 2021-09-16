@@ -4,7 +4,7 @@ import { pipe } from 'src/utils';
 import DropdownCurrencyItem from './DropdownCurrencyItem';
 import CurrencyRate from './CurrencyRate';
 
-function DropdownCurrency({ currency }: { currency: string }) {
+function DropdownCurrency({ currency }: { currency: CurrType }) {
   return (
     <ul className="dropdown__menu show">
       <li className="list-label">Change Currency</li>
