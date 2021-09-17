@@ -29,6 +29,7 @@ export const VIDEO = {
   SRC: _SOURCES,
   URL: 'https://api.themoviedb.org/3',
   BANNER: '/images/banner-fs.jpg.png',
+  DUMMY_TRAILER: 'k4D7cuDAvXE',
   EMPTY: [
     {
       name: '',

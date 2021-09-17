@@ -8,7 +8,7 @@ import { responsive } from 'src/constants';
 import UTube from './components/UTube';
 
 type PropType = {
-  label: LabelType;
+  label: string;
   genre: GenreType;
   movies: MoviesOpt<MovieType[]>;
   portrait?: boolean;

@@ -2,11 +2,12 @@ import { memo } from 'react';
 import movieTrailer from 'movie-trailer';
 
 import { dummyMovies } from 'src/utils';
+import { VIDEO } from 'src/constants';
 
 type PropType = {
   movie?: MovieType;
   trailerUrl: string;
-  setTrailerUrl: SetState;
+  setTrailerUrl: SetStateType<string>;
 };
 
 function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: PropType) {
@@ -16,9 +17,9 @@ function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: Pr
       movieTrailer(movie.name)
         .then((url: string) => {
           const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get('v'));
+          setTrailerUrl(urlParams.get('v') ?? VIDEO.DUMMY_TRAILER);
         })
-        .catch(() => setTrailerUrl(-1));
+        .catch(() => setTrailerUrl('error'));
   };
 
   if (trailerUrl)
