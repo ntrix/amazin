@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { register } from 'src/apis/userAPI';
 
-export function useRegisterEffect({ location, history }: RouteProps<MatchParams>) {
+export function useRegisterEffect(location: LocationProp, history: HistoryProp) {
   const dispatch = useDispatch();
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const userRegister = useSelector((state: AppState) => state.userRegister);

@@ -8,7 +8,7 @@ import Header from 'src/layouts/Header';
 
 export default function OrderHistoryScreen() {
   const dispatch = useDispatch();
-  const orderMineList = useSelector((state: AppState) => state.orderMineList);
+  const orderMineList: OrderListType = useSelector((state: AppState) => state.orderMineList);
 
   useEffect(() => {
     dispatch(listOrderMine());

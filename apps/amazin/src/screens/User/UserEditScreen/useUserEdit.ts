@@ -11,8 +11,8 @@ export function useUserEdit(
 ) {
   const dispatch = useDispatch();
   const paramUserId = match.params.id;
-  const { user, loading, error } = useSelector((state: AppState) => state.userDetails);
-  const userUpdate = useSelector((state: AppState) => state.userUpdate);
+  const { user, loading, error }: UserDetailType = useSelector((state: AppState) => state.userDetails);
+  const userUpdate: UserDetailType = useSelector((state: AppState) => state.userUpdate);
 
   useEffect(() => {
     if (userUpdate.success) {
