@@ -75,7 +75,7 @@ export function useMap(setLocation: SetState) {
   return { onLoad, onIdle, onMarkerLoad };
 }
 
-export function useMapSubmit({ history }: RouteOption, setInfo: SetState, setError: SetState) {
+export function useMapSubmit(history: HistoryProp, setInfo: SetState, setError: SetState) {
   const dispatch = useDispatch();
 
   const onConfirm = (placeRef: Ref<LocationType>, { lat, lng }: LocationType) => {

@@ -8,7 +8,7 @@ import Table from './Table';
 import Header from 'src/layouts/Header';
 
 export default function ProductListScreen({ history, match }: RouteProps<MatchParams>) {
-  const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList({ history, match });
+  const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList(history, match);
   const { products, page, pages, loading, error }: ProductListType = useSelector(
     (state: AppState) => state.productList
   );

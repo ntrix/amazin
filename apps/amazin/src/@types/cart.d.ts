@@ -1,4 +1,6 @@
 type CartType = {
+  _id: string;
+  createdAt: string;
   cartItems: ItemType[];
   itemsPrice: number;
   shippingPrice: number;
@@ -8,6 +10,4 @@ type CartType = {
   paymentMethod: PaymentMethodType;
   seller: SellerType;
   user: UserType;
-  createdAt: string;
-  _id: string;
 };

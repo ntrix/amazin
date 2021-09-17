@@ -16,7 +16,7 @@ function createScript(data: unknown, setSdkReady: SetState) {
   document.body.appendChild(script);
 }
 
-export function usePaypal({ match }: RouteProps<MatchParams>) {
+export function usePaypal(match: MatchProp) {
   const dispatch = useDispatch();
   const orderId = match.params.id;
   const orderDetails = useSelector((state: AppState) => state.orderDetails);

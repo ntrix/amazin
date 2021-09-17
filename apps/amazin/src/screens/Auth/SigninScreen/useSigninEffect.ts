@@ -5,7 +5,7 @@ import { updateCurrencyRates } from 'src/apis/productAPI';
 import { signin, updateUserProfile } from 'src/apis/userAPI';
 import { pipe } from 'src/utils';
 
-export function useSigninEffect({ location, history }: RouteOption) {
+export function useSigninEffect(location: LocationProp, history: HistoryProp) {
   const dispatch = useDispatch();
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const userSignin = useSelector((state: AppState) => state.userSignin);
@@ -26,7 +26,7 @@ export function useSigninEffect({ location, history }: RouteOption) {
     }
   }, [dispatch, history, redirect, userInfo]);
 
-  const submitSignin = (e: EventType, { email, password }) => {
+  const submitSignin = (e: EventType, { email, password }: Record<string, string>) => {
     e.preventDefault();
     dispatch(signin(email, password));
   };

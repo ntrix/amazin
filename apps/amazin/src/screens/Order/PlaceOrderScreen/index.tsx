@@ -7,8 +7,9 @@ import OrderSumCard from '../OrderSumScreen/OrderSumCard';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Header from 'src/layouts/Header';
 
-export default function PlaceOrderScreen({ history }: RouteOption) {
-  const { cart, orderCreate, placeOrderHandler } = useCart({ history });
+export default function PlaceOrderScreen({ history }: RouteProps<MatchParams>) {
+  const { cart, orderCreate, placeOrderHandler } = useCart(history);
+
   return (
     <div className="screen--light">
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -22,7 +23,7 @@ export default function PlaceOrderScreen({ history }: RouteOption) {
         </ul>
 
         <ul className="col-1">
-          <OrderSumCard order={cart} placeOrderHandler={placeOrderHandler}>
+          <OrderSumCard order={cart as OrderType} placeOrderHandler={placeOrderHandler}>
             <LoadingOrError xl statusOf={orderCreate} />
           </OrderSumCard>
         </ul>

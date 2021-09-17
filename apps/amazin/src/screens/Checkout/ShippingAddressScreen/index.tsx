@@ -4,8 +4,8 @@ import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import Button from 'src/components/Button';
 
-export default function ShippingAddressScreen({ history }: RouteOption) {
-  const { shipInfo, setShipInfo, locateOnMap, submitShipInfo } = useShipInfo({ history });
+export default function ShippingAddressScreen({ history }: RouteProps<MatchParams>) {
+  const { shipInfo, setShipInfo, locateOnMap, submitShipInfo } = useShipInfo(history);
 
   const setFullName = (fullName: string) => setShipInfo({ ...shipInfo, fullName });
   const setAddress = (address: string) => setShipInfo({ ...shipInfo, address });

@@ -12,26 +12,23 @@ declare global {
     name: string;
   };
 
-  type RouteProps<P> = {
-    match: Match<P>;
-    location?: H.Location;
-    history?: H.History;
-    staticContext?: any;
-  };
-
-  type RouteOpt<P> = {
-    match?: Match<P>;
-    location?: H.Location;
-    history?: H.History;
-    staticContext?: any;
-  };
-
-  type RouteOption = RouteOpt<MatchParams>;
-
   type Match<P> = {
     params: P;
     isExact?: boolean;
     path: string;
     url?: string;
   };
+
+  type RouteProps<P> = {
+    match: Match<P>;
+    location: H.Location;
+    history: H.History;
+    staticContext?: any;
+  };
+
+  type MatchProp = Match<MatchParams>;
+
+  type HistoryProp = H.History;
+
+  type LocationProp = H.Location;
 }

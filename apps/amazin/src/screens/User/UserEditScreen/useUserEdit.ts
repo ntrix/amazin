@@ -6,7 +6,8 @@ import { userUpdateActions } from 'src/slice/UserSlice';
 
 export function useUserEdit(
   [setName, setEmail, setIsSeller, setIsAdmin]: SetState[],
-  { history, match }: RouteProps<MatchParams>
+  history: HistoryProp,
+  match: MatchProp
 ) {
   const dispatch = useDispatch();
   const paramUserId = match.params.id;

@@ -6,9 +6,9 @@ import { createProduct, deleteProduct, listProducts } from 'src/apis/productAPI'
 import { useShadow } from 'src/hooks/useShadow';
 import { productCreateActions, productDeleteActions } from 'src/slice/ProductSlice';
 
-export function useProductList({ history, match }: RouteProps<MatchParams>) {
+export function useProductList(history: HistoryProp, match: MatchProp) {
   const dispatch = useDispatch();
-  const { pageNumber = '1' } = useParams();
+  const { pageNumber = '1' } = useParams<{ pageNumber: string }>();
   const { userInfo } = useShadow();
   const productCreate: ProductDetailType = useSelector((state: AppState) => state.productCreate);
   const productDelete: StatusType = useSelector((state: AppState) => state.productDelete);

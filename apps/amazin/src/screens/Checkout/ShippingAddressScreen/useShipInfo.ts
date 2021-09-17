@@ -8,7 +8,7 @@ import { Storage } from 'src/utils';
 import { KEY } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 
-export function useShipInfo({ history }: RouteOption) {
+export function useShipInfo(history: HistoryProp) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
   if (!userInfo) history.push('/signin');
@@ -28,7 +28,7 @@ export function useShipInfo({ history }: RouteOption) {
     setShipInfo(shippingAddress);
   }, [shippingAddress, setShipInfo]);
 
-  const submitShipInfo = (e) => {
+  const submitShipInfo = (e: EventType) => {
     e.preventDefault();
     const { lat, lng } = mapAddress ?? shipInfo;
 

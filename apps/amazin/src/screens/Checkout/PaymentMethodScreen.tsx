@@ -7,7 +7,7 @@ import Form from 'src/layouts/Form';
 import { useSafeState } from 'src/hooks/useSafeState';
 import CustomRadio from 'src/components/CustomRadio';
 
-export default function PaymentMethodScreen({ history }: RouteOption) {
+export default function PaymentMethodScreen(history: HistoryProp) {
   const dispatch = useDispatch();
   const { shippingAddress, cartItems } = useSelector((state: AppState) => state.cart);
   if (!shippingAddress.address) history.push('/shipping');

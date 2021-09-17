@@ -14,7 +14,7 @@ import Header from 'src/layouts/Header';
 export default function OrderSumScreen({ match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const { order, loading, error }: OrderDetailType = useSelector((state: AppState) => state.orderDetails);
-  const { sdkReady } = usePaypal({ match });
+  const { sdkReady } = usePaypal(match);
 
   const paymentHandler = (paymentResult: PaymentResultType) => dispatch(payOrder(order, paymentResult));
 

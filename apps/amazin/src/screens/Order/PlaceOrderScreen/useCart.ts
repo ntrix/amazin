@@ -5,7 +5,7 @@ import { orderCreateActions } from 'src/slice/OrderSlice';
 import { createOrder } from 'src/apis/orderAPI';
 import { TAX } from 'src/constants';
 
-export function useCart({ history }: RouteOption) {
+export function useCart(history: HistoryProp) {
   const dispatch = useDispatch();
   const cart: CartType = { ...useSelector((state: AppState) => state.cart) };
   if (!cart.paymentMethod) history.push('/payment');

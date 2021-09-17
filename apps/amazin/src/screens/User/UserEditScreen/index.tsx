@@ -11,7 +11,7 @@ export default function UserEditScreen({ history, match }: RouteProps<MatchParam
   const [isSeller, setIsSeller] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const editUser = useUserEdit([setName, setEmail, setIsSeller, setIsAdmin], { history, match });
+  const editUser = useUserEdit([setName, setEmail, setIsSeller, setIsAdmin], history, match);
   const { user, loading, error, userUpdate, submitUser } = editUser;
 
   return user ? (
