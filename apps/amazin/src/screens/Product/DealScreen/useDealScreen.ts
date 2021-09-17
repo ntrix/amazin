@@ -18,7 +18,10 @@ export function usePreload(list: ProductListType, param: { order?: string; pageN
 
   const [debouncePreload] = useDebounce(_preload);
 
-  const preloadCat = useCallback((category) => (list ? debouncePreload(category) : null), [list, debouncePreload]);
+  const preloadCat = useCallback(
+    (category: string) => (list ? debouncePreload(category) : null),
+    [list, debouncePreload]
+  );
 
   return { order, preloadingCat, preloadCat, debouncePreload };
 }
@@ -30,7 +33,7 @@ export function useDealScreen(cat: Ref<string>, param: { category: string; order
   const { order, preloadingCat, preloadCat, debouncePreload } = usePreload(list, param);
 
   const changeCat = useCallback(
-    (category) => {
+    (category: string) => {
       cat.current = category;
       setList(preloadingCat.current !== category ? null : productList);
       if (preloadingCat.current !== category) debouncePreload(category);

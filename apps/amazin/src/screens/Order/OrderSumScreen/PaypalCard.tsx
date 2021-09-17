@@ -10,8 +10,8 @@ type PropType = {
 };
 
 export default function PaypalCard({ sdkReady, successPaymentHandler }: PropType) {
-  const { order } = useSelector((state: AppState) => state.orderDetails);
-  const orderPay = useSelector((state: AppState) => state.orderPay);
+  const { order }: OrderDetailType = useSelector((state: AppState) => state.orderDetails);
+  const orderPay: StatusType = useSelector((state: AppState) => state.orderPay);
 
   if (!order || order.isPaid) return null;
 

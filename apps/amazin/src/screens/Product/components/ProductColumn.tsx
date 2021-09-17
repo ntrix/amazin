@@ -14,7 +14,7 @@ function ProductColumn({ productList: { products, loading, error } }: { productL
 
       <div className="row center">
         <SusProductList>
-          {products?.map((product: ProductType, id: number) => (
+          {products?.map((product, id) => (
             <SusProductCard key={id} children={<ProductCard product={product} />} />
           ))}
         </SusProductList>

@@ -19,10 +19,9 @@ function createScript(data: unknown, setSdkReady: SetState) {
 export function usePaypal(match: MatchProp) {
   const dispatch = useDispatch();
   const orderId = match.params.id;
-  const orderDetails = useSelector((state: AppState) => state.orderDetails);
-  const { order } = orderDetails;
-  const orderPay = useSelector((state: AppState) => state.orderPay);
-  const orderDeliver = useSelector((state: AppState) => state.orderDeliver);
+  const { order }: OrderDetailType = useSelector((state: AppState) => state.orderDetails);
+  const orderPay: StatusType = useSelector((state: AppState) => state.orderPay);
+  const orderDeliver: StatusType = useSelector((state: AppState) => state.orderDeliver);
   const [sdkReady, setSdkReady] = useState(false);
 
   useEffect(() => {
