@@ -20,7 +20,7 @@ function SellerScreen({ match: { params } }: RouteProps<MatchParams>) {
   const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const { page, pages } = productList;
 
-  const getUrl = ({ order = pOrder as string, page: _page = pageNumber as string }) =>
+  const getUrl = ({ order = pOrder, page: _page = pageNumber }) =>
     `/seller/${params.id}/order/${order}/pageNumber/${_page}`;
 
   useEffect(() => {
