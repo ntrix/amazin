@@ -13,7 +13,7 @@ export function useShipInfo(history: HistoryProp) {
   const { userInfo } = useShadow();
   if (!userInfo) history.push('/signin');
 
-  const { address: mapAddress } = useSelector((state: AppState) => state.userAddressMap);
+  const { address: mapAddress }: { address: AddressType } = useSelector((state: AppState) => state.userAddressMap);
   const { shippingAddress }: { shippingAddress: AddressType } = useSelector((state: AppState) => state.cart);
   const [shipInfo, setShipInfo] = useSafeState(shippingAddress);
 
