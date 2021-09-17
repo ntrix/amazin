@@ -8,7 +8,7 @@ import Table from './Table';
 import Header from 'src/layouts/Header';
 
 export default function ProductListScreen({ history, match }: RouteProps<MatchParams>) {
-  const { productCreate, productDelete, deleteHandler, createHandler, authUrl } = useProductList(history, match);
+  const { productCreate, productDelete, deleteHandler, createHandler, authPage } = useProductList(history, match);
   const { products, page, pages, loading, error }: ProductListType = useSelector(
     (state: AppState) => state.productList
   );
@@ -32,7 +32,7 @@ export default function ProductListScreen({ history, match }: RouteProps<MatchPa
         />
       )}
 
-      {!!products && <Pagination getUrl={authUrl} page={page} pages={pages} help />}
+      {!!products && <Pagination getUrl={authPage} page={page} pages={pages} help />}
     </div>
   );
 }

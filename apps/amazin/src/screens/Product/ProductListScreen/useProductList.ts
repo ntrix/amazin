@@ -36,8 +36,8 @@ export function useProductList(history: HistoryProp, match?: MatchProp) {
   const createHandler = () => dispatch(createProduct());
 
   // make authenticated url for pagination
-  const authUrl = ({ page: _page }: { page: number }) =>
+  const authPage = ({ page: _page }: { page: number }) =>
     `/product-list${userInfo.isAdmin ? '' : '/seller'}/pageNumber/${_page}`;
 
-  return { userInfo, authUrl, productCreate, productDelete, deleteHandler, createHandler };
+  return { userInfo, authPage, productCreate, productDelete, deleteHandler, createHandler };
 }
