@@ -3,7 +3,7 @@ import { castArray } from 'src/utils';
 
 type PropType = {
   show?: boolean;
-  msg?: string | boolean;
+  msg?: string | string[] | boolean;
   variant?: string;
   wrapClass?: string;
   children?: Children;

@@ -12,22 +12,21 @@ import SearchBanner from 'src/components/Nav/SearchBanner';
 import LoadingOrError from 'src/components/LoadingOrError';
 import ProductColumn from '../components/ProductColumn';
 
-function SellerScreen({ match }: RouteProps<MatchParams>) {
+function SellerScreen({ match: { params } }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
-  const { pageNumber = '1', order: pOrder = SORT.BESTSELLING.OPT } = useParams() as Record<string, string>;
-  const sellerId = match.params.id;
+  const { pageNumber = '1', order: pOrder = SORT.BESTSELLING.OPT }: Record<string, string> = useParams();
   const userDetails: UserDetailType = useSelector((state: AppState) => state.userDetails);
   const { user } = userDetails;
   const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const { page, pages } = productList;
 
-  const getUrl = ({ order = pOrder as string, page: _page = pageNumber as string }) =>
-    `/seller/${sellerId}/order/${order}/pageNumber/${_page}`;
+  const getUrl = ({ order = pOrder, page: _page = pageNumber }) =>
+    `/seller/${params.id}/order/${order}/pageNumber/${_page}`;
 
   useEffect(() => {
-    dispatch(publicDetailsSeller(sellerId));
-    dispatch(listProducts({ seller: sellerId, order: pOrder, pageNumber }));
-  }, [dispatch, sellerId, pOrder, pageNumber]);
+    dispatch(publicDetailsSeller(params.id));
+    dispatch(listProducts({ seller: params.id, order: pOrder, pageNumber }));
+  }, [dispatch, params.id, pOrder, pageNumber]);
 
   return (
     <div className="row top">
@@ -35,7 +34,7 @@ function SellerScreen({ match }: RouteProps<MatchParams>) {
 
       <div className="col-1 p-1">
         <LoadingOrError statusOf={userDetails} />
-        {!!user && <SellerCard user={user} size="medium" mail info />}
+        {!!user?.seller && <SellerCard seller={user.seller} size="medium" mail info />}
         <div className="card card__body m-0">
           <br />
           <SortFilter order={pOrder} getUrl={getUrl} />

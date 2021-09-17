@@ -4,8 +4,8 @@ import BaseTable from 'src/layouts/BaseTable';
 
 type PropType = {
   header: string[];
-  keys: string[];
-  tabRows: ({ _id: string } & unknown)[];
+  keys: TabHead[];
+  tabRows: TabRow[];
   deleteHandler?: FnType;
   to?: string;
 };
@@ -14,10 +14,10 @@ export default function Table({ header, keys, tabRows, deleteHandler, to }: Prop
   return (
     <BaseTable
       header={header.map((h) => h.toUpperCase())}
-      body={tabRows?.map((row) => (
-        <tr key={row._id}>
+      body={tabRows?.map((row, rowId) => (
+        <tr key={rowId}>
           {keys.map((col, id) => (
-            <CheckCell key={`${row._id} ${id}`} children={row[col]} />
+            <CheckCell key={`${rowId} ${id}`} children={row[col]} />
           ))}
 
           <td>

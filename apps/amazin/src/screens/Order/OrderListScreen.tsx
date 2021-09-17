@@ -12,19 +12,16 @@ export default function OrderListScreen({ match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
   const sellerMode = match.path.indexOf('/seller') >= 0;
-  const orderList = useSelector((state: AppState) => state.orderList);
-  const orderDelete = useSelector((state: AppState) => state.orderDelete);
+  const orderList: OrderListType = useSelector((state: AppState) => state.orderList);
+  const orderDelete: StatusType = useSelector((state: AppState) => state.orderDelete);
 
   useEffect(() => {
     dispatch(orderDeleteActions._RESET(''));
     dispatch(listOrders({ seller: sellerMode ? userInfo._id : '' }));
   }, [dispatch, sellerMode, orderDelete.success, userInfo._id]);
 
-  const deleteHandler = (order: OrderType) => {
-    if (window.confirm('Are you sure to delete?')) {
-      dispatch(deleteOrder(order._id));
-    }
-  };
+  const deleteHandler = (order: OrderType) =>
+    window.confirm('Are you sure to delete?') && dispatch(deleteOrder(order._id));
 
   return (
     <div>

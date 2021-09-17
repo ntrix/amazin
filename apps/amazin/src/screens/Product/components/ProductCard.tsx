@@ -48,7 +48,7 @@ function ProductCard({
                   <Link to={`/seller/${seller._id}`} className="row end text-right">
                     Seller & Store
                     <br />
-                    {seller?.seller?.name || DUMMY_SELLER.name}
+                    {seller?.seller?.name || DUMMY_SELLER.seller.name}
                   </Link>
                 </div>
               </>

@@ -38,7 +38,7 @@ export function useAsyncUpload(setImages: SetState) {
 export function useImgFileHandlers(product: ProductType, images: string[], setImages: SetState) {
   const { uploadState, asyncUploadImgs } = useAsyncUpload(setImages);
 
-  const addImgs = ({ target: { files } }) => {
+  const addImgs = ({ target: { files } }: EventType) => {
     const bodyFormData = new FormData();
     const maxFiles = Math.min(files.length, MAX_IMAGES - images.length);
 

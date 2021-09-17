@@ -16,18 +16,17 @@ function ProductReview({ productId }: { productId: string }) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
   const { product }: ProductDetailType = useSelector((state: AppState) => state.productDetails);
-  const productReviewCreate = useSelector((state: AppState) => state.productReviewCreate);
+  const productReviewCreate: StatusType = useSelector((state: AppState) => state.productReviewCreate);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
   useEffect(() => {
-    if (productReviewCreate.success) {
-      window.alert('Review Submitted Successfully');
-      setRating(0);
-      setComment('');
-      dispatch(productReviewCreateActions._RESET(''));
-      dispatch(detailsProduct(productId));
-    }
+    if (!productReviewCreate.success) return;
+    window.alert('Review Submitted Successfully');
+    setRating(0);
+    setComment('');
+    dispatch(productReviewCreateActions._RESET(''));
+    dispatch(detailsProduct(productId));
   }, [dispatch, productId, productReviewCreate.success]);
 
   const submitReview = (e: EventType) => {

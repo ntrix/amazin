@@ -20,3 +20,7 @@ type ArgsType = [string, string?, string?, FnType?];
 type MenuType = ArgsType[];
 
 type ButtonType = 'button' | 'submit' | 'reset' | undefined;
+
+type TabHead = '_id' | 'name' | 'email' | 'isSeller' | 'isAdmin' | 'price' | 'category' | 'brand';
+
+type TabRow = Partial<Record<TabHead, string | number | boolean>>;
