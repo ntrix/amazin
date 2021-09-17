@@ -12,7 +12,7 @@ type PropType = {
   movie?: MovieType;
   portrait?: boolean;
   trailerUrl: string;
-  setTrailerUrl: SetState;
+  setTrailerUrl: SetStateType<string>;
   children?: Children;
 };
 

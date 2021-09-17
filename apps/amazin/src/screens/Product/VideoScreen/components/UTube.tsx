@@ -1,4 +1,5 @@
 import YouTube from 'react-youtube';
+import { VIDEO } from 'src/constants';
 
 const opts = {
   height: '390',
@@ -14,7 +15,11 @@ export default function UTube({ trailerUrl }: { trailerUrl?: string }) {
 
   return (
     <div className="trailer__frame">
-      <YouTube className="movie__trailer" videoId={trailerUrl === '-1' ? 'k4D7cuDAvXE' : trailerUrl} opts={opts} />
+      <YouTube
+        className="movie__trailer"
+        videoId={trailerUrl === 'error' ? VIDEO.DUMMY_TRAILER : trailerUrl}
+        opts={opts}
+      />
     </div>
   );
 }

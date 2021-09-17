@@ -9,12 +9,12 @@ import ButtonTrailer from './ButtonTrailer';
 import Header from 'src/layouts/Header';
 
 type PropType = {
-  movie: MovieType;
+  movie?: MovieType;
   bottom?: boolean;
   youtubeTrailer?: boolean;
 };
 
-function VideoBanner({ movie, bottom = false, youtubeTrailer = false }) {
+function VideoBanner({ movie, bottom = false, youtubeTrailer = false }: PropType) {
   const [trailerUrl, setTrailerUrl] = useState('');
   const description = movie?.description ? movie.description.slice(0, 150) + '..' : '';
   const backgroundPosition = `center ${bottom ? '0' : 'center'}`;
