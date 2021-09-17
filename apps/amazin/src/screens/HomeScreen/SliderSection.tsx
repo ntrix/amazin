@@ -15,16 +15,12 @@ SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 const SwiperFallBack = <div className="swiper-container" />;
 
 function SliderSection() {
-  const {
-    users: sellers,
-    loading,
-    error
-  }: { users: UserType[] } & StatusType = useSelector((state: AppState) => state.userTopSellersList);
+  const { users: sellers, loading, error }: UserListType = useSelector((state: AppState) => state.userTopSellersList);
 
   return (
     <Suspense fallback={SwiperFallBack}>
       <Swiper {...SWIPER_CONFIG} effect="coverflow" slidesPerView="auto">
-        {(sellers || DUMMY_SELLERS).map((user: UserType, id: number) => (
+        {(sellers || DUMMY_SELLERS).map((user, id) => (
           <SwiperSlide key={id} children={<SellerSlide user={user} />} />
         ))}
       </Swiper>

@@ -10,6 +10,7 @@ type CartType = {
   paymentMethod: PaymentMethodType;
   seller: SellerType;
   user: UserType;
+  error?: string;
 };
 
 type CartDetailType = StatusType & {

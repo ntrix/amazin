@@ -10,7 +10,7 @@ export default function CartScreen({ match, location: { search } }: RouteProps<M
   const dispatch = useDispatch();
   const productId = match.params.id;
   const qty = search ? Number(search.split('=')[1]) : 1;
-  const cart = useSelector((state: AppState) => state.cart);
+  const cart = useSelector((state: { cart: CartType }) => state.cart);
 
   useEffect(() => {
     if (productId) dispatch(addToCart(productId, qty));

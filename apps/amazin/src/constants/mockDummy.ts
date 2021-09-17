@@ -16,7 +16,7 @@ export const DUMMY_USER: UserType = {
   name: 'Anonym User'
 };
 
-export const DUMMY_SELLER: UserType = {
+export const DUMMY_SELLER = {
   ...DUMMY_USER,
   isSeller: true,
   seller: { name: 'Anonym Seller', logo: NO_IMAGE } as SellerType

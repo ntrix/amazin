@@ -12,10 +12,10 @@ const updateItems = (cart: ItemType[], item: ItemType, exItem: ItemType) =>
 
 export const createReducers: FnType = () =>
   ({
-    _ADD_ITEM(state: AppState, action: SliceAction) {
-      const newItem = action.payload;
+    _ADD_ITEM(state: CartType, action: SliceAction) {
+      const newItem: ItemType = action.payload;
       const { cartItems } = state;
-      const exItem = cartItems.find((x: ItemType) => x.product === newItem.product);
+      const exItem = cartItems.find((x: ItemType) => x.product._id === newItem.product._id);
       // updates cartItems if new item added
       if (!exItem) return { ...state, error: '', cartItems: [...cartItems, newItem] };
 
@@ -24,26 +24,26 @@ export const createReducers: FnType = () =>
       newItem.qty = qty;
       return { ...state, error, cartItems: updateItems(cartItems, newItem, exItem) };
     },
-    _REMOVE_ITEM: (state: AppState, action: SliceAction) => ({
+    _REMOVE_ITEM: (state: CartType, action: SliceAction) => ({
       ...state,
       error: '',
       cartItems: state.cartItems.filter((x: ItemType) => x.product !== action.payload)
     }),
-    _SAVE_SHIPPING_ADDRESS: (state: AppState, action: SliceAction) => ({
+    _SAVE_SHIPPING_ADDRESS: (state: CartType, action: SliceAction) => ({
       ...state,
       shippingAddress: action.payload
     }),
-    _SAVE_PAYMENT_METHOD: (state: AppState, action: SliceAction) => ({
+    _SAVE_PAYMENT_METHOD: (state: CartType, action: SliceAction) => ({
       ...state,
       paymentMethod: action.payload
     }),
-    _ADD_ITEM_FAIL: (state: AppState, action: SliceAction) => ({
+    _ADD_ITEM_FAIL: (state: CartType, action: SliceAction) => ({
       ...state,
       error: action.payload
     }),
-    _EMPTY: (state: AppState) => ({ ...state, error: '', cartItems: [] })
+    _EMPTY: (state: CartType) => ({ ...state, error: '', cartItems: [] })
   } as SliceCaseReducers<unknown>);
 
 export const { actions: cartActions, reducer: cartReducer } = createSlice(
-  adapter('cart', { cartItems: [] }, createReducers())
+  adapter('cart', { cartItems: [] } as Partial<CartType>, createReducers())
 );

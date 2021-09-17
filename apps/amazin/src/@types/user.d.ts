@@ -14,9 +14,8 @@ type ResLoginApi = Res & {
 type ResLogin = ActionRedux | {};
 
 type SellerType = {
-  _id?: string;
   name: string;
-  logo?: string;
+  logo: string;
   description?: string;
   rating?: number;
   numReviews?: number;
@@ -41,6 +40,10 @@ type UserInfoType = Partial<UserType> & {
 
 type UserDetailType = StatusType & {
   user: UserType;
+};
+
+type UserListType = StatusType & {
+  users: UserType[];
 };
 
 type ContactType = {

@@ -30,7 +30,9 @@ function ProductScreen({ match: { params } }: RouteProps<MatchParams>) {
         <ProductDescription product={product} />
 
         <div className="col-1">
-          <SellerCard user={product.seller} to={`/seller/${product.seller._id}`} />
+          {!!product?.seller.seller && (
+            <SellerCard seller={product.seller.seller} to={`/seller/${product.seller._id}`} />
+          )}
           <ProductInStock productId={params.id} product={product} />
         </div>
       </div>
