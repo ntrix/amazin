@@ -11,3 +11,7 @@ type CartType = {
   seller: SellerType;
   user: UserType;
 };
+
+type CartDetailType = StatusType & {
+  cart: CartType;
+};

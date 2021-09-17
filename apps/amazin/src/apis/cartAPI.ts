@@ -5,14 +5,14 @@ import { Storage } from '../utils';
 
 export const addToCart = (productId: string, qty: number) => async (dispatch: AppDispatch, getState: AppState) => {
   const { data } = await axiosClient.get(`/api/products/${productId}`);
-  const { cart } = getState();
+  const { cart }: CartDetailType = getState();
   const { cartItems } = cart;
 
   if (cartItems.length > 0 && data.seller._id !== cartItems[0].seller._id) {
     dispatch(
       cartActions._ADD_ITEM_FAIL(
         `Can't Add Item Of Other Supplier. Buy Only From The Same Seller (${
-          cartItems[0].seller.seller.name || DUMMY_SELLER.name
+          cartItems[0].seller.seller?.name || DUMMY_SELLER.seller?.name
         }) in this order`
       )
     );
