@@ -6,12 +6,13 @@ import { userUpdateActions } from 'src/slice/UserSlice';
 
 export function useUserEdit(
   [setName, setEmail, setIsSeller, setIsAdmin]: SetState[],
-  { history, match }: RouteProps<MatchParams>
+  history: HistoryProp,
+  match: MatchProp
 ) {
   const dispatch = useDispatch();
   const paramUserId = match.params.id;
-  const { user, loading, error } = useSelector((state: AppState) => state.userDetails);
-  const userUpdate = useSelector((state: AppState) => state.userUpdate);
+  const { user, loading, error }: UserDetailType = useSelector((state: AppState) => state.userDetails);
+  const userUpdate: UserDetailType = useSelector((state: AppState) => state.userUpdate);
 
   useEffect(() => {
     if (userUpdate.success) {

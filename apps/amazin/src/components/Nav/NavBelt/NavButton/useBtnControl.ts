@@ -4,9 +4,9 @@ import { useShadow } from 'src/hooks/useShadow';
 export function useBtnControl() {
   const { setShadowOf, setShadowSlow } = useShadow();
 
-  const onHover = (e) => {
-    if (e.target !== document.activeElement) document.activeElement.blur();
+  const onHover = (e: EventType) => {
     // simulate focus as onClick
+    (document.activeElement as HTMLElement).blur();
     e.target.focus();
     setShadowSlow(SHADOW.NAV_DD);
   };
@@ -16,7 +16,7 @@ export function useBtnControl() {
   };
 
   const onBlur = () => {
-    if (document.body !== document.activeElement) document.activeElement.blur();
+    if (document.body !== document.activeElement) (document.activeElement as HTMLElement).blur();
     setShadowSlow('');
   };
   //TODO accessibility: isFocus & isEnterKeyPressed = onClick

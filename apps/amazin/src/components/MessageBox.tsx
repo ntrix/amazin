@@ -2,10 +2,10 @@ import { memo } from 'react';
 import { castArray } from 'src/utils';
 
 type PropType = {
-  show?: boolean | undefined;
-  msg?: string | boolean | undefined;
-  variant?: string | undefined;
-  wrapClass?: string | undefined;
+  show?: boolean;
+  msg?: string | boolean;
+  variant?: string;
+  wrapClass?: string;
   children?: Children;
 };
 

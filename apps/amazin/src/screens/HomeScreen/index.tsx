@@ -9,7 +9,7 @@ import SliderSection from './SliderSection';
 
 function HomeScreen() {
   const dispatch = useDispatch();
-  const { banner = 'home' } = useParams();
+  const { banner = 'home' }: { banner?: string } = useParams();
 
   useEffect(() => {
     dispatch(listTopSellers());

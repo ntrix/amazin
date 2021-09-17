@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { savePaymentMethod } from 'src/apis/cartAPI';
@@ -7,9 +6,9 @@ import Form from 'src/layouts/Form';
 import { useSafeState } from 'src/hooks/useSafeState';
 import CustomRadio from 'src/components/CustomRadio';
 
-export default function PaymentMethodScreen({ history }: RouteOption) {
+export default function PaymentMethodScreen({ history }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
-  const { shippingAddress, cartItems } = useSelector((state: AppState) => state.cart);
+  const { shippingAddress, cartItems }: CartType = useSelector((state: AppState) => state.cart);
   if (!shippingAddress.address) history.push('/shipping');
   const [paymentMethod, setPaymentMethod] = useSafeState<PaymentMethodType>('Paypal');
 

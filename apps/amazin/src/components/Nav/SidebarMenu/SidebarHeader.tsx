@@ -6,7 +6,7 @@ function SidebarHeader({ userName, ...rest }: { userName: string; rest?: Props }
   return (
     <ul>
       <MenuItem label={'Hello, ' + userName} to="/profile" className="sidebar__header" {...rest}>
-        <div className="sprite__user"></div>
+        <div className="sprite__user" />
       </MenuItem>
     </ul>
   );

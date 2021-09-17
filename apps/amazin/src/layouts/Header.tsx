@@ -1,7 +1,7 @@
 type PropType = {
-  label?: string | undefined;
-  title?: boolean | undefined;
-  p1?: boolean | undefined;
+  label?: string;
+  title?: boolean;
+  p1?: boolean;
   className?: string;
   children?: Children;
 };

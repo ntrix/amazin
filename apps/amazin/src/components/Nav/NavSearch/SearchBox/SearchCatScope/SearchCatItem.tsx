@@ -20,7 +20,7 @@ function SearchCatItem({ cat, isActive, setActiveCat }: PropType) {
       onClick={() => {
         if (isActive) {
           setOutline(false);
-          setScopeOutline(Scope.facade); // focus back to search scope facade
+          setScopeOutline(Scope.minimized); // focus back to search scope facade
           return;
         }
         inputRef.current.focus();

@@ -40,7 +40,7 @@ function preloadImage(src: string) {
   });
 }
 
-const sCached = {};
+const sCached: CacheType = {};
 
 type PropType = {
   src?: string;

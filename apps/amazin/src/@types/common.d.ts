@@ -11,7 +11,7 @@ type StatusType = {
   loading?: boolean;
   error?: string;
   success?: boolean;
-  msg?: string;
+  msg?: string | string[];
 };
 
 /* MenuItem props: label, to, className, extFunction */

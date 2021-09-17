@@ -15,7 +15,7 @@ function SearchCatDropdown({ activeCat, setActiveCat }: { activeCat: string; set
     dispatch(listAllProducts({ category: activeCat }));
   }, [activeCat, dispatch]);
 
-  return scopeOutline === Scope.facadeDrop && categories ? (
+  return scopeOutline === Scope.expanded && categories ? (
     <>
       <label
         className="scope click-catcher"

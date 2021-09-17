@@ -6,9 +6,9 @@ import MessageBox from './MessageBox';
 
 type InnerPropType = {
   statusOf: StatusType;
-  errorMsg?: string | undefined;
-  xl?: boolean | undefined;
-  variant?: string | undefined;
+  errorMsg?: string;
+  xl?: boolean;
+  variant?: string;
   children?: Children;
   rest?: Props;
 };
@@ -23,7 +23,7 @@ function InnerBox({ statusOf = {}, errorMsg = '', xl = false, variant, children,
 
 type PropType = {
   statusOf: StatusType;
-  wrapClass?: string | undefined;
+  wrapClass?: string;
   children?: Children;
   rest?: Props;
   xl?: boolean;
@@ -42,7 +42,7 @@ function LoadingOrError({ statusOf, wrapClass = '', children, ...rest }: PropTyp
     return () => clearTimeout(timeoutId.current);
   }, [statusOf?.error]);
 
-  if (hideError) return <>0</>;
+  if (hideError) return <> </>;
   if (!wrapClass || !children) return <InnerBox {...props} />;
 
   return (

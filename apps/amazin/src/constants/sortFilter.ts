@@ -8,15 +8,15 @@ export const SORT = {
   BESTSELLING: { OPT: BESTSELLING, LABEL: 'Best Selling' },
   LOWEST: { OPT: 'lowest', LABEL: 'Price: Low to High' },
   HIGHEST: { OPT: 'highest', LABEL: 'Price: High to Low' },
-  TOPRATED: { OPT: 'toprated', LABEL: 'Avg. Rating' },
-
-  DEFAULT_FILTER: {
-    name: NAV.ALL,
-    category: NAV.ALL,
-    order: BESTSELLING,
-    min: 0.01,
-    max: 0,
-    rating: 0,
-    pageNumber: 1
-  } as FilterOptType
+  TOPRATED: { OPT: 'toprated', LABEL: 'Avg. Rating' }
 };
+
+export const SORT_DEFAULT_FILTER = {
+  name: NAV.ALL,
+  category: NAV.ALL,
+  order: BESTSELLING,
+  min: 0.01,
+  max: 0,
+  rating: 0,
+  pageNumber: 1
+} as FilterOptType;

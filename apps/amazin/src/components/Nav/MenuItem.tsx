@@ -8,7 +8,7 @@ type PropType = {
   className?: string;
   extFunction?: FnType;
   children?: Children;
-  key: string;
+  key?: string;
 };
 
 export const mapArgsToProps = ([label, to, className, extFunction]: ArgsType, id: number) => ({
@@ -21,9 +21,9 @@ export const mapArgsToProps = ([label, to, className, extFunction]: ArgsType, id
 
 export const NavCategoryAdapter = (cat: string) => [cat, '/search/category/' + cat];
 
-function MenuItem({ label, ...props }: { label: string; props?: Props }) {
+function MenuItem({ label, ...rest }: PropType) {
   if (label === 'separator') return <li className="separator" />;
-  return <li children={<InnerMenuItem label={label} {...props} />} />;
+  return <li children={<InnerMenuItem label={label} {...rest} />} />;
 }
 
 export default memo(MenuItem, (prev, next) => prev.label === next.label);

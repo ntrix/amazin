@@ -7,7 +7,7 @@ export default function LanguageSection() {
       <div className="col-50p">
         <h2 className="title">Language Settings</h2>
         <p className="sub-title">Select the language you prefer for browsing, shopping, and communications.</p>
-
+        <br />
         <div className="languages">
           <ul className="max-30">
             <LanguageOption className="active" label="English" short="EN" text="Translation" />

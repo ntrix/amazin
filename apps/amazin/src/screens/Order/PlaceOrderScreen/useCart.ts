@@ -5,12 +5,12 @@ import { orderCreateActions } from 'src/slice/OrderSlice';
 import { createOrder } from 'src/apis/orderAPI';
 import { TAX } from 'src/constants';
 
-export function useCart({ history }: RouteOption) {
+export function useCart(history: HistoryProp) {
   const dispatch = useDispatch();
   const cart: CartType = { ...useSelector((state: AppState) => state.cart) };
   if (!cart.paymentMethod) history.push('/payment');
 
-  const orderCreate = useSelector((state: AppState) => state.orderCreate);
+  const orderCreate: OrderDetailType = useSelector((state: AppState) => state.orderCreate);
   cart.itemsPrice = cart.cartItems?.reduce((acc, item) => acc + item.qty * item.price, 0);
 
   //max ship price of any items

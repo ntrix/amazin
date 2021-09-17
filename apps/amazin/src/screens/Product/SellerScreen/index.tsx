@@ -14,7 +14,7 @@ import ProductColumn from '../components/ProductColumn';
 
 function SellerScreen({ match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
-  const { pageNumber = '1', order: pOrder = SORT.BESTSELLING.OPT } = useParams();
+  const { pageNumber = '1', order: pOrder = SORT.BESTSELLING.OPT } = useParams() as Record<string, string>;
   const sellerId = match.params.id;
   const userDetails: UserDetailType = useSelector((state: AppState) => state.userDetails);
   const { user } = userDetails;

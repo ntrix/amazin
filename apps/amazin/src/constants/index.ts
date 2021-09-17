@@ -40,7 +40,7 @@ export const TAX = 0.19;
 
 /* search box categories scope */
 export enum Scope {
-  facade = -1,
+  minimized = -1,
   hide,
-  facadeDrop = 1
+  expanded = 1
 }

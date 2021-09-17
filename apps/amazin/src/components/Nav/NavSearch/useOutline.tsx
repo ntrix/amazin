@@ -4,7 +4,7 @@ import { Scope } from 'src/constants';
 
 type OutlineCtxType = {
   productList: PNameType[];
-  inputRef: Ref<HTMLElement>;
+  inputRef: Ref<HTMLInputElement>;
   outline: boolean;
   setOutline: SetState;
   scopeOutline: Scope;
@@ -25,12 +25,12 @@ const OutlineContext = createContext<OutlineCtxType>({
 });
 OutlineContext.displayName = 'OutlineContext';
 
-export function OutlineProvider({ children }) {
+export function OutlineProvider({ children }: { children: Children }) {
   const { productList } = useSelector((state: AppState) => state.productListAll);
   const [outline, setOutline] = useState(false);
   const [scopeOutline, setScopeOutline] = useState(Scope.hide);
   const [suggestBox, setSuggestBox] = useState(false);
-  const inputRef = useRef<HTMLElement>();
+  const inputRef = useRef<HTMLInputElement>();
 
   const value: OutlineCtxType = {
     productList,

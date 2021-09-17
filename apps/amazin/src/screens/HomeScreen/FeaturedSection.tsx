@@ -9,7 +9,7 @@ const ProductCard: Lazy = lazy(
 );
 
 function FeaturedSection() {
-  const { products, loading, error } = useSelector((state: AppState) => state.productList);
+  const { products, loading, error }: ProductListType = useSelector((state: AppState) => state.productList);
 
   return (
     <>

@@ -8,12 +8,12 @@ import { Storage } from 'src/utils';
 import { KEY } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 
-export function useShipInfo({ history }: RouteOption) {
+export function useShipInfo(history: HistoryProp) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
   if (!userInfo) history.push('/signin');
 
-  const { address: mapAddress } = useSelector((state: AppState) => state.userAddressMap);
+  const { address: mapAddress }: { address: AddressType } = useSelector((state: AppState) => state.userAddressMap);
   const { shippingAddress }: { shippingAddress: AddressType } = useSelector((state: AppState) => state.cart);
   const [shipInfo, setShipInfo] = useSafeState(shippingAddress);
 
@@ -28,7 +28,7 @@ export function useShipInfo({ history }: RouteOption) {
     setShipInfo(shippingAddress);
   }, [shippingAddress, setShipInfo]);
 
-  const submitShipInfo = (e) => {
+  const submitShipInfo = (e: EventType) => {
     e.preventDefault();
     const { lat, lng } = mapAddress ?? shipInfo;
 

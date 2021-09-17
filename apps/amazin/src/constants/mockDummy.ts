@@ -10,16 +10,19 @@ export const NO_IMAGE_P = '/images/no-image-p.png';
 
 export const MAX_IMAGES = 8;
 
-/* create 5 placeholders for seller info */
-export const DUMMY_SELLER: SellerType = { name: 'Anonymous Seller', logo: NO_IMAGE };
-
+/* create dummy user, seller & 5 placeholders for seller info */
 export const DUMMY_USER: UserType = {
   _id: '#',
-  name: 'Anonymous User',
-  seller: DUMMY_SELLER
+  name: 'Anonym User'
 };
 
-export const DUMMYSELLERS = Array(5).fill(DUMMY_USER);
+export const DUMMY_SELLER: UserType = {
+  ...DUMMY_USER,
+  isSeller: true,
+  seller: { name: 'Anonym Seller', logo: NO_IMAGE } as SellerType
+};
+
+export const DUMMY_SELLERS: UserType[] = Array(5).fill(DUMMY_SELLER);
 
 /* create 5 placeholders for product info */
 // export const dummyProducts = Array(6).fill({

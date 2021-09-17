@@ -13,7 +13,7 @@ import {
 import { pipe } from '../utils';
 import { NAV } from '../constants';
 
-const updatePipe = (data: { rates: number[] }) =>
+const updatePipe = (data: { rates: CurrRateType }) =>
   pipe.currencies.forEach((c) => {
     if (data.rates && data.rates[c]) pipe.rates[c] = data.rates[c];
   });

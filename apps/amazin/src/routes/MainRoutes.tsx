@@ -4,24 +4,46 @@ import { Route, Switch } from 'src/routes/SuspenseRoute';
 import HomeScreen from '../screens/HomeScreen';
 import TokenRoutes from './TokenRoutes';
 
-const SigninScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/SigninScreen'));
-const CurrencyScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/CurrencyScreen'));
-const DealScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/DealScreen'));
-const RegisterScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Auth/RegisterScreen'));
-const SellerScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/SellerScreen'));
-const SearchScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/SearchScreen'));
-const VideoScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/VideoScreen'));
-const ProductScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/ProductScreen'));
-const ContactScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/ContactScreen'));
-const CustomerScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/User/CustomerScreen'));
-const CartScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Checkout/CartScreen'));
-const PaymentMethodScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Checkout/PaymentMethodScreen'));
-const ShippingAddressScreen = lazy(() =>
-  import(/* webpackPrefetch: true */ '../screens/Checkout/ShippingAddressScreen')
+const SigninScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/SigninScreen'));
+const CurrencyScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/CurrencyScreen')
 );
-const OrderSumScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/OrderSumScreen'));
-const PlaceOrderScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Order/PlaceOrderScreen'));
-const ProductEditScreen = lazy(() => import(/* webpackPrefetch: true */ '../screens/Product/ProductEditScreen'));
+const DealScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/DealScreen'));
+const RegisterScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/RegisterScreen')
+);
+const SellerScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/SellerScreen')
+);
+const SearchScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/SearchScreen')
+);
+const VideoScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/VideoScreen'));
+const ProductScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/ProductScreen')
+);
+const ContactScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/ContactScreen')
+);
+const CustomerScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/CustomerScreen')
+);
+const CartScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Checkout/CartScreen'));
+const PaymentMethodScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Checkout/PaymentMethodScreen')
+);
+const ShippingAddressScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Checkout/ShippingAddressScreen')
+);
+const OrderSumScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Order/OrderSumScreen')
+);
+const PlaceOrderScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Order/PlaceOrderScreen')
+);
+const ProductEditScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/ProductEditScreen')
+);
 
 export default function MainRoutes() {
   return (
