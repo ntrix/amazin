@@ -137,12 +137,15 @@ export const dummyProducts = sourceAdapter(Array(6).fill(1));
 export const dummyMovies: MovieType[] = sourceAdapter(Array(12).fill(1));
 
 /* add absolute links or origin to image url or return a default */
-export const getImgUrl = (productId: string, imgName: string) => {
+export const getImgUrl = (product: string | ProductType, imgName: string) => {
   if (!imgName) return NO_IMAGE;
+
+  /* !!! TODO !!! correct this on DB first, product | product._id */
+  const id = String(product);
   // extern absolute Image Link? or embedded Image Link?
   return imgName.startsWith('http') || imgName.startsWith('/')
     ? imgName
-    : `${process.env.REACT_APP_IMG_BASE_URL}${productId}/${imgName}`;
+    : `${process.env.REACT_APP_IMG_BASE_URL}${id}/${imgName}`;
 };
 
 export function shortName(userName?: string, length?: number): string {
