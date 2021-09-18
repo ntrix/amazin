@@ -11,6 +11,7 @@ import {
 } from '../slice/UserSlice';
 import { Storage } from '../utils';
 import { KEY } from '../constants';
+import { Method } from 'axios';
 
 export const register = (name: string, email: string, password: string, confirmPassword: string) =>
   axiosPublic([userRegisterActions], {
@@ -45,11 +46,12 @@ export const publicDetailsSeller = (_id: string) => axiosPublic([userDetailsActi
 
 export const detailsUser = (_id: string) => axiosPrivate([userDetailsActions])('get', `/api/users/${_id}`);
 
-export const updateUserProfile = (user: Partial<UserType & ReqLogin>) =>
+/* Types: UserType for contact form, ReqLogin for profile update with request login info. */
+export const updateUserProfile = (user: UserType & ReqLogin, method: Method | undefined = 'patch') =>
   axiosPrivate([userUpdateProfileActions], {
     successAction: userSigninActions._SUCCESS,
     successHandler: (userInfo) => (Storage[KEY.USER_INFO] = userInfo)
-  })('put', `/api/users/profile`, user);
+  })(method, `/api/users/profile`, user);
 
 export const updateUser = (user: UserType) =>
   axiosPrivate([userUpdateProfileActions, userUpdateActions])('put', `/api/users/${user._id}`, user);

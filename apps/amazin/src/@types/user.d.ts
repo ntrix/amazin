@@ -1,6 +1,6 @@
 type ReqLogin = {
   email: string;
-  password: string;
+  password?: string;
   oldPassword?: string;
   confirmPassword?: string;
 };

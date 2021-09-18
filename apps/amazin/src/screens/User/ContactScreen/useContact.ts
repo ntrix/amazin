@@ -31,16 +31,17 @@ export function useSubmitContact(setStatus: SetState) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
 
-  async function submitContact(e: EventType, contactData: ContactType) {
+  async function submitContact(e: EventType, contactInfo: ContactType) {
     e.preventDefault();
 
-    const error = compoundErrors(contactData);
+    const error = compoundErrors(contactInfo);
     if (error.length) return setStatus({ error });
+    const contact = contactInfo as UserType;
 
-    if ('Seller' === contactData.subject)
-      return dispatch(updateUserProfile({ _id: userInfo._id, name: userInfo.name, verify: true }));
+    if ('Seller' === contactInfo.subject)
+      return dispatch(updateUserProfile({ _id: userInfo._id, name: contact.name, email: contact.email, verify: true }));
 
-    asyncSendMessage(contactData, setStatus);
+    asyncSendMessage(contactInfo, setStatus);
     return dispatch(userUpdateProfileActions._RESET(''));
   }
 

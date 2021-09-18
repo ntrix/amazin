@@ -5,15 +5,12 @@ import { detailsUser, updateUserProfile } from 'src/apis/userAPI';
 import { useShadow } from 'src/hooks/useShadow';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 
-export function useUserProfile({ user }: { user: UserType }) {
+export function useUserProfile(user: UserType, setPasswords: SetStateType<(string | undefined)[]>) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     if (!user) {
@@ -23,22 +20,23 @@ export function useUserProfile({ user }: { user: UserType }) {
     }
     setName(user.name);
     setEmail(user.email);
-    setOldPassword('');
-  }, [dispatch, userInfo._id, user]);
+    setPasswords(['']);
+  }, [dispatch, userInfo._id, user, setPasswords]);
 
-  const submitUpdate = (e: EventType, seller?: SellerType) => {
+  const submitUpdate = (e: EventType, passwords: (string | undefined)[], seller?: SellerType) => {
     e.preventDefault();
+    const [oldPassword, password = user.password, confirmPassword] = passwords;
     const updatedInfo: UserType & ReqLogin = {
+      _id: user._id,
       name,
       email,
       password,
       oldPassword,
       confirmPassword,
-      _id: user._id,
       seller
     };
-    dispatch(updateUserProfile(updatedInfo));
+    dispatch(updateUserProfile(updatedInfo, 'put'));
   };
 
-  return { name, setName, email, setEmail, setPassword, setOldPassword, setConfirmPassword, submitUpdate };
+  return { name, setName, email, setEmail, submitUpdate };
 }
