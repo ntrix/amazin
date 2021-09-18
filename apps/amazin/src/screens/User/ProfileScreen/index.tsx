@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useUserProfile } from './useProfile';
+import { DUMMY_SELLER } from 'src/constants';
 import Form from 'src/layouts/Form';
 import UserProfileSection from './UserProfileSection';
 import SellerProfileSection from './SellerProfileSection';
@@ -13,7 +14,7 @@ export default function ProfileScreen() {
   const userDetails: UserDetailType = useSelector((state: AppState) => state.userDetails);
 
   const { submitUpdate, ...userProfileHooks } = useUserProfile(userDetails);
-  const [seller, setSeller] = useState<SellerType>(userDetails?.user?.seller ?? { name: 'not seller' });
+  const [seller, setSeller] = useState<SellerType>(userDetails?.user?.seller ?? DUMMY_SELLER.seller);
 
   useEffect(() => {
     if (userDetails?.user?.seller) setSeller(userDetails?.user?.seller);

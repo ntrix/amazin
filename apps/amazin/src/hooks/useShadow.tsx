@@ -9,7 +9,7 @@ type ShadowType = {
   userInfo: UserInfoType;
   currency: CurrType;
   shadowOf: string;
-  setCurrency: SetState;
+  setCurrency: SetStateType<CurrType>;
   setShadowOf: FnType;
   setShadowSlow: FnType;
 };

@@ -5,7 +5,7 @@ type PropType = {
   text?: string;
   type?: string;
   placeholder?: string;
-  hook?: StateType;
+  hook?: HookType<string> | HookType<string[]> | HookType<number> | [];
   onChange?: ChangeEvent;
   textarea?: boolean;
   label?: string;
@@ -18,6 +18,7 @@ type PropType = {
   rows?: number;
   className?: string;
   value?: string;
+  autoComplete?: string;
 };
 
 function CustomInput({

@@ -31,7 +31,7 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }: Pro
           aria-label={`${label} ${className}`}
           onClick={(e: EventType) => {
             e.stopPropagation();
-            setShadowOf && setShadowOf('');
+            setShadowOf('');
             extFunction && extFunction();
             history.push(to);
           }}

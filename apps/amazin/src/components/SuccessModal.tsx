@@ -2,7 +2,7 @@ import Button from 'src/components/Button';
 import MessageBox from 'src/components/MessageBox';
 
 type PropType = {
-  msg?: string;
+  msg?: string | string[];
   back?: string;
   label?: string;
   props?: Props;

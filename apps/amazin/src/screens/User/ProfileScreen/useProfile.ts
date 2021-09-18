@@ -5,7 +5,7 @@ import { detailsUser, updateUserProfile } from 'src/apis/userAPI';
 import { useShadow } from 'src/hooks/useShadow';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 
-export function useUserProfile({ user }) {
+export function useUserProfile({ user }: { user: UserType }) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
 
@@ -18,7 +18,7 @@ export function useUserProfile({ user }) {
   useEffect(() => {
     if (!user) {
       dispatch(userUpdateProfileActions._RESET(''));
-      dispatch(detailsUser(userInfo?._id));
+      dispatch(detailsUser(userInfo._id));
       return;
     }
     setName(user.name);
