@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 type PropType = {
   genreLabels: GenreType[];
-  active: GenreType;
+  active: LabelType;
   setActive: SetState;
 };
 

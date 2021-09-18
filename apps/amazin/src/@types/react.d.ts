@@ -27,10 +27,6 @@ type SelectType = {
 
 type SetState = React.Dispatch<any>;
 
-type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
-
-type UseStateType<T> = [T, React.Dispatch<React.SetStateAction<T>>];
-
 type RefHTML = React.MutableRefObject<HTMLElement | undefined>;
 
 type Ref<T> = LegacyRef<T | undefined> | undefined;

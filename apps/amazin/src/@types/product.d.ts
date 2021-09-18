@@ -86,6 +86,18 @@ type ResGetProductItem = ActionRedux & {
   payload: ResGetProductItemApi;
 };
 
+type LabelType =
+  | 'NETFLUX'
+  | 'Home'
+  | 'STORE'
+  | 'Action'
+  | 'Comedy'
+  | 'Horror'
+  | 'Romance'
+  | 'Documentaries'
+  | 'Trending'
+  | 'Top';
+
 type GenreType =
   | 'NETFLUX ORIGINALS'
   | 'Home'
