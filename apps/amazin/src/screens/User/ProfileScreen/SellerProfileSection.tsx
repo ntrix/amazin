@@ -5,13 +5,13 @@ import MessageBox from 'src/components/MessageBox';
 type PropType = {
   userDetails: UserDetailType;
   seller: SellerType;
-  setSeller: SetState;
+  setSeller: SetStateType<SellerType>;
 };
 
 export default function SellerProfileSection({ userDetails, seller, setSeller }: PropType) {
-  const setName = (name: string) => setSeller({ ...seller, name });
-  const setLogo = (logo: string) => setSeller({ ...seller, logo });
-  const setDescription = (description: string) => setSeller({ ...seller, description });
+  const setName: FnType = (name: string) => setSeller({ ...seller, name });
+  const setLogo: FnType = (logo: string) => setSeller({ ...seller, logo });
+  const setDescription: FnType = (description: string) => setSeller({ ...seller, description });
 
   return (
     <PrivateRoute path="/profile/seller" exact>

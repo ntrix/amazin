@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Redirect, Route } from 'src/routes/SuspenseRoute';
 
 type PropType = {
-  component: ComponentType;
+  component?: ComponentType;
   path: string;
   exact?: boolean;
   children?: Children;

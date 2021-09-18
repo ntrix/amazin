@@ -11,11 +11,11 @@ type PropType = {
   baseUrl?: string;
 };
 
-function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }) {
+function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }: PropType) {
   const history = useHistory();
 
   return (
-    <div className={`c-box ${className}`} onClick={() => history.push(to)}>
+    <div className={`c-box ${className}`} onClick={to ? () => history.push(to) : undefined}>
       <div className="c-box__inner">
         <div className="c-box__icon-wrapper">
           <img className="c-box__icon" src={`${baseUrl}/images/icon-${img}.png`} alt={'icon ' + img}></img>
