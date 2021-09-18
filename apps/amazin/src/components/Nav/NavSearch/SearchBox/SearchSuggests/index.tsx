@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
-
-import { useOutline } from '../useOutline';
+import { useOutline } from '../../useOutline';
 import { SEARCH } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
+import SuggestRow from './SuggestRow';
 
 type PropType = {
   suggests: PNameType[];
@@ -14,14 +13,13 @@ export default function SearchSuggests({ suggests, setSuggests, setInput }: Prop
   const { setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
-  return suggests?.slice(0, SEARCH.MAX_SUGGESTS).map((p, id) => (
+  return suggests?.slice(0, SEARCH.MAX_SUGGESTS).map((product, id) => (
     <li key={id}>
-      <Link
-        to={`/search/name/${p.name.replace(/(<b>)|(<\/b>)/g, '')}`}
-        dangerouslySetInnerHTML={{ __html: p.name }}
-        onClick={() => {
+      <SuggestRow
+        row={product.name}
+        onClick={(text) => {
           setSuggestBox(false);
-          setInput(p.name.replace(/(<b>)|(<\/b>)/g, ''));
+          setInput(text);
           setSuggests([]);
           setShadowOf('');
         }}
