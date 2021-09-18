@@ -7,8 +7,8 @@ import Form from 'src/layouts/Form';
 import PasswordSection from './PasswordSection';
 import SellerProfileSection from './SellerProfileSection';
 import CustomInput from 'src/components/CustomInput';
-import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
+import SuccessModal from 'src/components/SuccessModal';
 
 export default function ProfileScreen() {
   const userDetails: UserDetailType = useSelector((state: AppState) => state.userDetails);
@@ -21,6 +21,9 @@ export default function ProfileScreen() {
   useEffect(() => {
     if (userDetails?.user?.seller) setSeller(userDetails?.user?.seller);
   }, [userDetails, setSeller]);
+
+  if (userDetails?.user && userUpdateProfile.success)
+    return <SuccessModal className="form" msg="Profile Updated Successfully" label="Back To Home Page" />;
 
   return (
     <Form
@@ -40,10 +43,6 @@ export default function ProfileScreen() {
       )}
 
       <SellerProfileSection userDetails={userDetails} seller={seller} setSeller={setSeller} />
-
-      <MessageBox variant="success" show={userDetails?.user && userUpdateProfile.success}>
-        Profile Updated Successfully
-      </MessageBox>
     </Form>
   );
 }
