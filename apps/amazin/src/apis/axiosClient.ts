@@ -18,6 +18,8 @@ const checkDBError = (data: unknown) => {
   if (typeof data === 'string' && data.startsWith('<!')) throw new Error("Couldn't access Database Server!");
 };
 
+const getErrorMsg = (error?: ErrorType) => error?.response?.data?.message ?? error?.message;
+
 const axiosRedux =
   (authorization: boolean) =>
   (
@@ -39,7 +41,7 @@ const axiosRedux =
       if (successAction) dispatch(successAction(data));
       if (successHandler) successHandler(data);
     } catch (error) {
-      if (error instanceof Error) dispatch(actionByFail._FAIL(error.message));
+      dispatch(actionByFail._FAIL(getErrorMsg(error)));
     }
   };
 

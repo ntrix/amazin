@@ -1,3 +1,5 @@
+type ErrorType = any;
+
 type FnType = (...args: any) => ReturnType | void;
 
 type OptFn = FnType | undefined;
