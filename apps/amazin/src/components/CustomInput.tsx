@@ -18,6 +18,7 @@ type PropType = {
   rows?: number;
   className?: string;
   value?: string;
+  autoComplete?: string;
 };
 
 function CustomInput({

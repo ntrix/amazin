@@ -24,7 +24,7 @@ type SellerType = {
 type UserType = {
   _id: string;
   name: string;
-  email?: string;
+  email: string;
   password?: string;
   isAdmin?: boolean;
   isSeller?: boolean;
@@ -35,6 +35,7 @@ type UserType = {
 };
 
 type UserInfoType = Partial<UserType> & {
+  _id: string;
   token: string;
 };
 

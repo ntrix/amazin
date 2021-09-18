@@ -13,13 +13,14 @@ export const MAX_IMAGES = 8;
 /* create dummy user, seller & 5 placeholders for seller info */
 export const DUMMY_USER: UserType = {
   _id: '#',
-  name: 'Anonym User'
+  name: 'Anonym User',
+  email: 'a@d.c'
 };
 
 export const DUMMY_SELLER = {
   ...DUMMY_USER,
   isSeller: true,
-  seller: { name: 'Anonym Seller', logo: NO_IMAGE } as SellerType
+  seller: { name: 'Seller?', logo: NO_IMAGE } as SellerType
 };
 
 export const DUMMY_SELLERS: UserType[] = Array(5).fill(DUMMY_SELLER);
