@@ -13,10 +13,10 @@ export default function ContactSubject({ hook: [subject, setSubject] }: { hook: 
 
   const subjectOptions = subjectTemplate.map((opt) => ({ value: opt.split(' ')[0], children: opt }));
 
-  if (!userInfo.isAdmin && 'Admin' === pSubject)
+  if (!userInfo?.isAdmin && 'Admin' === pSubject)
     subjectOptions.push({ value: 'Admin', children: 'Apply To Be Administrator' });
 
-  if (!userInfo.isSeller && 'Seller' === pSubject)
+  if (!userInfo?.isSeller && 'Seller' === pSubject)
     subjectOptions.push({ value: 'Seller', children: 'Verify My Seller Account' });
 
   return (
