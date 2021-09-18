@@ -12,7 +12,7 @@ function ButtonBuy({ movie = dummyMovies[0], LinkTo = (props: Props) => <Link {.
   return (
     <LinkTo
       disabled={!movie.seller}
-      //is there any seller is selling this movie?
+      //is there any seller sells this movie?
       to={movie.seller ? `/cart/${movie._id}?qty=1` : `#`}
     >
       <button className="banner__button" disabled={!movie.seller}>

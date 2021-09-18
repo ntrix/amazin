@@ -13,7 +13,7 @@ import VideoBanner from './components/VideoBanner';
 const VideoRow: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './VideoRow'));
 
 export default function VideoScreen() {
-  const [active, setActive] = useState<GenreType>(STORE);
+  const [active, setActive] = useState<LabelType>(STORE);
   const { externMovies, bannerMovies, stockMovies, productCreate, productList } = useMovieList();
 
   return (
