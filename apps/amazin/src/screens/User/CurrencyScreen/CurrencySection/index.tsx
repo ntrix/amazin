@@ -10,7 +10,7 @@ export default function CurrencySection() {
     <>
       <div className="container currencies">
         <section className="col-50p">
-          {!!isChanged && <SuccessModal msg={`Currency has been changed to ${pipe.longName[currency]}`} back={back} />}
+          {isChanged && <SuccessModal msg={`Currency has been changed to ${pipe.longName[currency]}`} back={back} />}
           <CurrencyOptions currency={currency} setCurrency={setCurrency} />
 
           {currency !== 'EUR' && (

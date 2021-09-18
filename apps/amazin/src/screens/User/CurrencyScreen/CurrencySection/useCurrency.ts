@@ -12,13 +12,13 @@ import { KEY } from 'src/constants';
 
 export function useCurrency() {
   const dispatch = useDispatch();
-  const { cType: paramCurrency } = useParams();
+  const { cType: paramCurrency }: { cType: CurrType } = useParams();
   const { userInfo } = useShadow();
-  const [currency, setCurrency] = useState('');
+  const [currency, setCurrency] = useState<CurrType>('EUR');
   const [isChanged, setIsChanged] = useState(false);
 
   const SHOW_CURR = `${pipe.symbol[currency]} - ${currency} - ${pipe.longName[currency]}`;
-  const hist = Storage[KEY.HISTORY];
+  const hist: string = Storage[KEY.HISTORY];
   const back = !hist || hist.startsWith('/currency') ? '/' : hist;
 
   useEffect(() => {

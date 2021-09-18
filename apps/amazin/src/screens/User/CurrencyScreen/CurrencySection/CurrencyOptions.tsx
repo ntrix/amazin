@@ -1,8 +1,13 @@
 import CustomSelect from 'src/components/CustomSelect';
 import { pipe } from 'src/utils';
 
-export default function CurrencyOptions({ currency, setCurrency }) {
-  const handleChange = (e) => {
+type PropType = {
+  currency: CurrType;
+  setCurrency: SetStateType<CurrType>;
+};
+
+export default function CurrencyOptions({ currency, setCurrency }: PropType) {
+  const handleChange = (e: EventType) => {
     e.stopPropagation();
     setCurrency(e.target.value);
   };
