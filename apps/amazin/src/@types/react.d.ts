@@ -29,7 +29,7 @@ type SetState = React.Dispatch<any>;
 
 type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 
-type HookType<T> = [T, React.Dispatch<React.SetStateAction<T>>];
+type HookType<T> = [T | undefined, React.Dispatch<React.SetStateAction<T | undefined> | FnType>];
 
 type RefHTML = React.MutableRefObject<HTMLElement | undefined>;
 

@@ -8,7 +8,7 @@ import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
 const compoundErrors = ({ text, email, name }: ContactType) => {
-  const error = [] as string[];
+  const error: string[] = [];
   const validate = (isEmpty: boolean, msg: string) => isEmpty && error.push(msg);
 
   validate(!text, 'Please enter your message!');
@@ -49,9 +49,9 @@ export function useSubmitContact(setStatus: SetState) {
 
 export function useContact(setName: SetState, setEmail: SetState, setSubject: SetState, setStatus: SetState) {
   const dispatch = useDispatch();
-  const { subject: pSubject } = useParams();
+  const { subject: pSubject }: { subject: string } = useParams();
   const { userInfo } = useShadow();
-  const userUpdateProfile = useSelector((state: AppState) => state.userUpdateProfile);
+  const userUpdateProfile: StatusType = useSelector((state: AppState) => state.userUpdateProfile);
 
   useEffect(() => {
     setName(userInfo?.name);
