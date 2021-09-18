@@ -16,10 +16,12 @@ export const createReducers: FnType = () =>
       const newItem: ItemType = action.payload;
       const { cartItems } = state;
       const exItem = cartItems.find((x: ItemType) => x.product._id === newItem.product._id);
+
       // updates cartItems if new item added
       if (!exItem) return { ...state, error: '', cartItems: [...cartItems, newItem] };
 
       const { error, qty } = checkStock(newItem, exItem);
+
       // or just updates quantity if item is already exist in cartItems
       newItem.qty = qty;
       return { ...state, error, cartItems: updateItems(cartItems, newItem, exItem) };
