@@ -1,4 +1,4 @@
-import { lazy, memo, useEffect, useRef } from 'react';
+import { lazy, memo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 
@@ -15,15 +15,9 @@ import SortFilter from 'src/components/SortFilter';
 const ProductCard: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../components/ProductCard'));
 
 function DealScreen() {
-  const param: { category: string; order: string; pageNumber: string } = useParams();
-  const banner = useRef('');
-  const cat = useRef('');
   const { shadowOf } = useShadow();
-  const { order, list, preloadCat, changeCat } = useDealScreen(cat, param);
-
-  useEffect(() => {
-    banner.current = Math.random() < 0.5 ? 'screen--1' : '';
-  }, [cat, param]);
+  const { cat, banner, order, list, preloadCat, changeCat } = useDealScreen(useRef(''), useParams());
+  const sortOrderUrl = ({ order: _order }: { order: string }) => `/deal/category/all/order/${_order}/pageNumber/1`;
 
   return (
     <>
@@ -39,17 +33,13 @@ function DealScreen() {
 
         <h2 className="screen__title">Top Deals</h2>
         <div className="screen__featured">
-          <SearchBanner list={list}>
-            <SortFilter order={order} getUrl={({ order: _o }) => `/deal/category/all/order/${_o}/pageNumber/1`} />
-          </SearchBanner>
+          <SearchBanner list={list} children={<SortFilter order={order} getUrl={sortOrderUrl} />} />
 
-          <div className="row center">
-            <SusProductList>
-              {list?.products?.map((product, id) => (
-                <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
-              ))}
-            </SusProductList>
-          </div>
+          <SusProductList>
+            {list?.products?.map((product, id) => (
+              <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
+            ))}
+          </SusProductList>
         </div>
       </div>
     </>
