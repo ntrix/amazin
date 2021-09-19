@@ -25,6 +25,9 @@ const UserEditScreen: Lazy = lazy(
 const UserListScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/UserListScreen')
 );
+const ProductEditScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/ProductEditScreen')
+);
 
 export default function TokenRoutes() {
   return (
@@ -37,6 +40,8 @@ export default function TokenRoutes() {
       <AdminRoute path="/order-list" component={OrderListScreen} exact />
       <AdminRoute path="/user-list" component={UserListScreen} />
       <AdminRoute path="/user/:id/edit" component={UserEditScreen} />
+      <AdminRoute path="/product/:id/edit" component={ProductEditScreen} exact />
+      <SellerRoute path="/product/:id/edit" component={ProductEditScreen} exact />
       <SellerRoute path="/product-list/seller" component={ProductListScreen} exact />
       <SellerRoute path="/product-list/seller/pageNumber/:pageNumber" component={ProductListScreen} exact />
       <SellerRoute path="/order-list/seller" component={OrderListScreen} />

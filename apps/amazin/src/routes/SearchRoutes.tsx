@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 
 import { Route, Switch } from 'src/routes/SuspenseRoute';
+import TokenRoutes from './TokenRoutes';
 const DealScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/DealScreen'));
 const SearchScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/SearchScreen')
@@ -20,6 +21,7 @@ export default function SearchRoutes() {
         component={SearchScreen}
         exact
       />
+      <TokenRoutes />
     </Switch>
   );
 }
