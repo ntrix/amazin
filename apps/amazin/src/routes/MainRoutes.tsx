@@ -3,7 +3,6 @@ import { lazy } from 'react';
 import { Route, Switch } from 'src/routes/SuspenseRoute';
 import HomeScreen from '../screens/HomeScreen';
 import SearchRoutes from './SearchRoutes';
-import TokenRoutes from './TokenRoutes';
 
 const SigninScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/SigninScreen'));
 const CurrencyScreen: Lazy = lazy(
@@ -38,9 +37,6 @@ const OrderSumScreen: Lazy = lazy(
 const PlaceOrderScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Order/PlaceOrderScreen')
 );
-const ProductEditScreen: Lazy = lazy(
-  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/ProductEditScreen')
-);
 
 export default function MainRoutes() {
   return (
@@ -54,7 +50,6 @@ export default function MainRoutes() {
       <Route path="/seller/:id/order/:order/pageNumber/:pageNumber" component={SellerScreen} exact />
       <Route path="/cart/:id?" component={CartScreen} />
       <Route path="/product/:id" component={ProductScreen} exact />
-      <Route path="/product/:id/edit" component={ProductEditScreen} exact />
       <Route path="/signin" component={SigninScreen} exact />
       <Route path="/register" component={RegisterScreen} exact />
       <Route path="/shipping" component={ShippingAddressScreen} exact />
@@ -64,7 +59,6 @@ export default function MainRoutes() {
       <Route path="/banner/:banner" component={HomeScreen} exact />
       <Route path="/" component={HomeScreen} exact />
       <SearchRoutes />
-      <TokenRoutes />
     </Switch>
   );
 }
