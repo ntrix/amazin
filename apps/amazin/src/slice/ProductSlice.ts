@@ -2,14 +2,13 @@ import { adapter, createSlice, createReducers } from './ReduxToolKitClient';
 
 const rates = { EUR: 1, USD: 1.2, GBP: 0.9, CZK: 27, PLN: 5, CHF: 1.1 };
 
+const createCurrencyReducers: FnType = () =>
+  createReducers('...', {
+    _CHANGE: (state: AppState, action: SliceAction): FnType => ({ ...state, sessionCurrency: action.payload })
+  });
+
 export const { actions: currencyTypeActions, reducer: currencyTypeReducer } = createSlice(
-  adapter(
-    'currencyType',
-    { loading: true, rates },
-    createReducers('...', () => ({
-      _CHANGE: (state: AppState, action: SliceAction) => ({ ...state, sessionCurrency: action.payload })
-    }))
-  )
+  adapter('currencyType', { loading: true, rates }, createCurrencyReducers())
 );
 
 export const { actions: productListAllActions, reducer: productListAllReducer } = createSlice(

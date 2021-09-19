@@ -31,9 +31,11 @@ export function useCurrency() {
     Storage[KEY.CURRENCY] = currency;
     pipe.setCurrency(currency);
     dispatch(updateCurrencyRates());
-    if (userInfo) dispatch(updateUserProfile({ _id: userInfo._id, currency }));
     dispatch(currencyTypeActions._CHANGE(currency));
     setIsChanged(true);
+    if (!userInfo) return;
+    const { _id, name, email } = userInfo;
+    dispatch(updateUserProfile({ _id, name, email, currency }));
   };
 
   return { SHOW_CURR, back, currency, setCurrency, isChanged, submitChange };
