@@ -27,10 +27,15 @@ export function usePreload(list: ProductListType, param: { order?: string; pageN
 }
 
 export function useDealScreen(cat: Ref<string>, param: { category: string; order: string; pageNumber: string }) {
+  const { category: paramCat = NAV.DEAL } = param;
   const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const [list, setList] = useSafeState(productList);
-  const { category: paramCat = NAV.DEAL } = param;
+  const banner = useRef('');
   const { order, preloadingCat, preloadCat, debouncePreload } = usePreload(list, param);
+
+  useEffect(() => {
+    banner.current = Math.random() < 0.5 ? 'screen--1' : '';
+  }, [cat, param]);
 
   const changeCat = useCallback(
     (category: string) => {
@@ -46,5 +51,5 @@ export function useDealScreen(cat: Ref<string>, param: { category: string; order
     if (productList.success && cat.current === preloadingCat.current) setList(productList);
   }, [cat, paramCat, preloadingCat, productList, setList, changeCat]);
 
-  return { order, list, changeCat, preloadCat };
+  return { cat, banner, order, list, changeCat, preloadCat };
 }
