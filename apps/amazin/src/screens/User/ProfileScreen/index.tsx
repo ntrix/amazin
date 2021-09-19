@@ -25,13 +25,10 @@ export default function ProfileScreen() {
   if (userDetails?.user && userUpdateProfile.success)
     return <SuccessModal className="form" msg="Profile Updated Successfully" label="Back To Home Page" />;
 
+  const handleSubmit = (e: EventType) => submitUpdate(e, passwords, seller);
+
   return (
-    <Form
-      header="User Profile"
-      statusOf={userDetails}
-      onSubmit={(e) => submitUpdate(e, passwords, seller)}
-      btn="Update"
-    >
+    <Form header="User Profile" statusOf={userDetails} onSubmit={handleSubmit} btn="Update">
       <LoadingOrError xl statusOf={userUpdateProfile} />
 
       {!!userDetails?.user && (

@@ -26,16 +26,8 @@ export function useUserProfile(user: UserType, setPasswords: SetStateType<(strin
   const submitUpdate = (e: EventType, passwords: (string | undefined)[], seller?: SellerType) => {
     e.preventDefault();
     const [oldPassword, password = user.password, confirmPassword] = passwords;
-    const updatedInfo: UserType & ReqLogin = {
-      _id: user._id,
-      name,
-      email,
-      password,
-      oldPassword,
-      confirmPassword,
-      seller
-    };
-    dispatch(updateUserProfile(updatedInfo, 'put'));
+    const updatedInfo = { _id: user._id, name, email, password, oldPassword, confirmPassword, seller };
+    dispatch(updateUserProfile(updatedInfo as UserType & ReqLogin, 'put'));
   };
 
   return { name, setName, email, setEmail, submitUpdate };
