@@ -2,21 +2,18 @@ import { lazy } from 'react';
 
 import { Route, Switch } from 'src/routes/SuspenseRoute';
 import HomeScreen from '../screens/HomeScreen';
+import SearchRoutes from './SearchRoutes';
 import TokenRoutes from './TokenRoutes';
 
 const SigninScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/SigninScreen'));
 const CurrencyScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/CurrencyScreen')
 );
-const DealScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/DealScreen'));
 const RegisterScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/RegisterScreen')
 );
 const SellerScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/SellerScreen')
-);
-const SearchScreen: Lazy = lazy(
-  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/SearchScreen')
 );
 const VideoScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/VideoScreen'));
 const ProductScreen: Lazy = lazy(
@@ -58,25 +55,15 @@ export default function MainRoutes() {
       <Route path="/cart/:id?" component={CartScreen} />
       <Route path="/product/:id" component={ProductScreen} exact />
       <Route path="/product/:id/edit" component={ProductEditScreen} exact />
-      <Route path="/signin" component={SigninScreen} />
-      <Route path="/register" component={RegisterScreen} />
-      <Route path="/shipping" component={ShippingAddressScreen} />
-      <Route path="/payment" component={PaymentMethodScreen} />
-      <Route path="/place-order" component={PlaceOrderScreen} />
-      <Route path="/order/:id" component={OrderSumScreen} />
-      <Route path="/search/name/:name?" component={SearchScreen} exact />
-      <Route path="/search/category/:category" component={SearchScreen} exact />
-      <Route path="/search/category/:category/order/:order" component={SearchScreen} exact />
-      <Route path="/search/category/:category/name/:name" component={SearchScreen} exact />
-      <Route
-        path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
-        component={SearchScreen}
-        exact
-      />
-      <Route path="/deal" component={DealScreen} exact />
-      <Route path="/deal/category/:category/order/:order/pageNumber/:pageNumber" component={DealScreen} exact />
+      <Route path="/signin" component={SigninScreen} exact />
+      <Route path="/register" component={RegisterScreen} exact />
+      <Route path="/shipping" component={ShippingAddressScreen} exact />
+      <Route path="/payment" component={PaymentMethodScreen} exact />
+      <Route path="/place-order" component={PlaceOrderScreen} exact />
+      <Route path="/order/:id" component={OrderSumScreen} exact />
       <Route path="/banner/:banner" component={HomeScreen} exact />
       <Route path="/" component={HomeScreen} exact />
+      <SearchRoutes />
       <TokenRoutes />
     </Switch>
   );
