@@ -34,7 +34,9 @@ export const SusProductCard = ({ children }: { children: Children }) => (
 );
 
 export const SusProductList = ({ children }: { children: Children }) => (
-  <Suspense fallback={productListFallback}>{children}</Suspense>
+  <div className="row center">
+    <Suspense fallback={productListFallback}>{children}</Suspense>
+  </div>
 );
 
 export { Suspense };

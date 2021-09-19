@@ -12,13 +12,11 @@ function ProductColumn({ productList: { products, loading, error } }: { productL
 
       <MessageBox msg={products?.length < 1 && 'No Product Found'} />
 
-      <div className="row center">
-        <SusProductList>
-          {products?.map((product, id) => (
-            <SusProductCard key={id} children={<ProductCard product={product} />} />
-          ))}
-        </SusProductList>
-      </div>
+      <SusProductList>
+        {products?.map((product, id) => (
+          <SusProductCard key={id} children={<ProductCard product={product} />} />
+        ))}
+      </SusProductList>
     </>
   );
 }
