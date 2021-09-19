@@ -1,6 +1,6 @@
 import { useEffect, createContext, useContext, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { KEY } from 'src/constants';
+import { DUMMY_USER, KEY } from 'src/constants';
 import { pipe, Storage } from 'src/utils';
 
 import { useDebounce } from './useDebounce';
@@ -15,7 +15,7 @@ type ShadowType = {
 };
 
 const ShadowContext = createContext<ShadowType>({
-  userInfo: { token: '' },
+  userInfo: { ...DUMMY_USER, token: '' },
   currency: 'EUR',
   shadowOf: '',
   setCurrency: () => void 0,
