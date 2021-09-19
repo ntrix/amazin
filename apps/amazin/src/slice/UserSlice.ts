@@ -33,10 +33,12 @@ export const { actions: userTopSellerListActions, reducer: userTopSellerListRedu
   adapter('userTopSellerList', { loading: true }, createReducers('users'))
 );
 
+const createMapReducer: FnType = () => ({
+  _CONFIRM: (state: AppState, action: { payload: { type: string; address: AddressType } }) => ({
+    address: action.payload
+  })
+});
+
 export const { actions: userAddressMapActions, reducer: userAddressMapReducer } = createSlice(
-  adapter('userAddressMap', {}, () => ({
-    _CONFIRM: (state: AppState, action: { payload: { type: string; address: AddressType } }) => ({
-      address: action.payload
-    })
-  }))
+  adapter('userAddressMap', {}, createMapReducer())
 );
