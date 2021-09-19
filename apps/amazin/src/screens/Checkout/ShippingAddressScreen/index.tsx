@@ -7,11 +7,11 @@ import Button from 'src/components/Button';
 export default function ShippingAddressScreen({ history }: RouteProps<MatchParams>) {
   const { shipInfo, setShipInfo, locateOnMap, submitShipInfo } = useShipInfo(history);
 
-  const setFullName = (fullName: string) => setShipInfo({ ...shipInfo, fullName });
-  const setAddress = (address: string) => setShipInfo({ ...shipInfo, address });
-  const setCity = (city: string) => setShipInfo({ ...shipInfo, city });
-  const setPostalCode = (postalCode: string) => setShipInfo({ ...shipInfo, postalCode });
-  const setCountry = (country: string) => setShipInfo({ ...shipInfo, country });
+  const setFullName: FnType = (fullName: string) => setShipInfo({ ...shipInfo, fullName });
+  const setAddress: FnType = (address: string) => setShipInfo({ ...shipInfo, address });
+  const setCity: FnType = (city: string) => setShipInfo({ ...shipInfo, city });
+  const setPostalCode: FnType = (postalCode: string) => setShipInfo({ ...shipInfo, postalCode });
+  const setCountry: FnType = (country: string) => setShipInfo({ ...shipInfo, country });
 
   return (
     <div className="screen--light">

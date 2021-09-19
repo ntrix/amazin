@@ -26,7 +26,7 @@ function CustomInput({
   type = 'text',
   placeholder = `Enter ${text}`,
   hook: [state, setState] = [],
-  onChange,
+  onChange = setState && ((e: EventType) => setState(e.target.value)),
   textarea = false,
   label = text,
   wrapClass = '',
@@ -34,9 +34,8 @@ function CustomInput({
   ...rest
 }: PropType) {
   const id = createId(text); // create #id for .css
-  const handler = setState ? (e: EventType) => setState(e.target.value) : onChange;
   const value = type === 'button' || type === 'submit' ? text : state ?? '';
-  const props = { id, text, type, placeholder, value, onChange: handler, required, ...rest };
+  const props = { id, text, type, placeholder, value, onChange, required, ...rest };
 
   return (
     <div className={wrapClass}>
