@@ -93,24 +93,24 @@ I had to break the big task into smaller parts, do it step by step and enjoy lea
 Yes, **Learning by Doing** that's my approach. If you see a long path ahead, don't heap or run or give up, just divide the path(process) to steps and make (conquer) the first one, and then another one.
 I learned a lot of stuff, also renew and update my knowledge just by doing. You might too have a curiosity about the process of building the same scale app as well, but just let's do it.
 
-| Part | Description                                                       | Status    |
-| ---- | ----------------------------------------------------------------- | --------- |
-| 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas] | Done      |
-| 01b  | Backend v1: [Source][bev1], [Node][node], [Express][express]      | Done      |
-| 01c  | Backend Deploy: [Heroku][heroku] / Firebase                       | Done      |
-| 02a  | Frontend v1: [Source][fev1], [React][react], [Redux][redux]       | Done      |
-| 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done      |
-| 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done      |
-| 03b  | [Testing in React][testing]                                       | Doing     |
-| 03c  | E2E testing with [Cypress][cy]                                    | **Todo**  |
-| 04   | Performance & Experiment some [unstable React API][reactapi]      | Done      |
-| 05a  | [AWS Cloud Backend?][aws]                                         | **Todo**  |
-| 05b  | Backend [DB cache][redis]                                         | Doing     |
-| 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]           | **Todo**  |
-| ..   | ..                                                                | ..        |
-| 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs          | Done      |
-| 09b  | [Documentation][mdx]                                              | Doing     |
-| 09c  | Migration to TypeScript                                           | **DOING** |
+| Part | Description                                                       | Status   |
+| ---- | ----------------------------------------------------------------- | -------- |
+| 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas] | Done     |
+| 01b  | Backend v1: [Source][bev1], [Node][node], [Express][express]      | Done     |
+| 01c  | Backend Deploy: [Heroku][heroku] / Firebase                       | Done     |
+| 02a  | Frontend v1: [Source][fev1], [React][react], [Redux][redux]       | Done     |
+| 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
+| 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
+| 03b  | [Testing in React][testing]                                       | Doing    |
+| 03c  | E2E testing with [Cypress][cy]                                    | **Todo** |
+| 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
+| 05a  | [AWS Cloud Backend?][aws]                                         | **Todo** |
+| 05b  | Backend [DB cache][redis]                                         | Doing    |
+| 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]           | **Todo** |
+| ..   | ..                                                                | ..       |
+| 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs          | Done     |
+| 09b  | [Documentation][mdx]                                              | Doing    |
+| 09c  | Migration to TypeScript                                           | **Done** |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
