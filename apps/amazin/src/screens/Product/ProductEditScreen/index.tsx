@@ -69,7 +69,7 @@ export default function ProductEditScreen({ history, match }: RouteProps<MatchPa
           onSubmit={submitHandler}
           btn="Update"
         >
-          <CustomInput text="Name" hook={[name, setName]} />
+          <CustomInput text="Product Name" hook={[name, setName]} />
           <CustomInput text="Price" hook={[price, setPrice]} />
           <CustomInput text="Ship" hook={[ship, setShip]} />
           <CustomInput text="Deal" hook={[deal, setDeal]} />

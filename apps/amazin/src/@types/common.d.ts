@@ -9,6 +9,8 @@ type OptionFns = {} & {
   selector?: OptFn;
 };
 
+type MsgVariants = 'success' | 'danger' | 'info' | '';
+
 type StatusType = {
   loading?: boolean;
   error?: string;

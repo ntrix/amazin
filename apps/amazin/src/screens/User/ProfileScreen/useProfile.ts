@@ -21,6 +21,9 @@ export function useUserProfile(user: UserType, setPasswords: SetStateType<(strin
     setName(user.name);
     setEmail(user.email);
     setPasswords(['']);
+    return () => {
+      dispatch(userUpdateProfileActions._RESET(''));
+    };
   }, [dispatch, userInfo._id, user, setPasswords]);
 
   const submitUpdate = (e: EventType, passwords: (string | undefined)[], seller?: SellerType) => {

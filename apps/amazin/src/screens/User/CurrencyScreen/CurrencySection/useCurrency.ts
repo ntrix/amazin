@@ -25,6 +25,9 @@ export function useCurrency() {
     setIsChanged(false);
     setCurrency(paramCurrency || pipe.currency);
     if (!userInfo?._id) dispatch(userUpdateProfileActions._RESET(''));
+    return () => {
+      dispatch(userUpdateProfileActions._RESET(''));
+    };
   }, [userInfo?._id, paramCurrency, dispatch]);
 
   const submitChange = () => {

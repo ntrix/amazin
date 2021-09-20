@@ -23,4 +23,8 @@ function MessageBox({ show = false, msg, variant, wrapClass = '', children }: Pr
   return !wrapClass ? innerComponent() : <div className={wrapClass}>{innerComponent()}</div>;
 }
 
+export function MessageLine({ msg, variant = 0 }: { msg: string[]; variant: number }) {
+  return <div className={`alert xs alert--${['', 'success'][variant] ?? 'danger'}`}>{msg[variant]}</div>;
+}
+
 export default memo(MessageBox);

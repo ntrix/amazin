@@ -527,6 +527,10 @@ img.large {
   box-sizing: border-box;
   list-style-type: none;
 }
+.alert.xs {
+  margin: 1px 0 !important;
+  padding: 0 1rem 2px;
+}
 .alert--info {
   color: #131a21;
   background-color: #ceeaed;
@@ -559,6 +563,9 @@ img.large {
 }
 .form label {
   margin: 1rem 0;
+}
+.xs label {
+  margin-top: 0;
 }
 .form [type='radio'],
 .form [type='checkbox'] {

@@ -25,10 +25,10 @@ export default function ContactScreen() {
           onSubmit={(e: EventType) => submitContact(e, { name, email, subject, text })}
           btn="Send Your Message"
         >
-          <CustomInput text="Your Name" hook={[name, setName]} />
+          <CustomInput text="Your Name" type="name" hook={[name, setName]} />
           <CustomInput text="Email" type="email" hook={[email, setEmail]} />
           <ContactSubject hook={[subject, setSubject]} />
-          <CustomInput textarea rows={10} text="Your Message" hook={[text, setText]} />
+          <CustomInput textarea rows={10} text="Your Message" type="message" hook={[text, setText]} />
         </Form>
       )}
     </>
