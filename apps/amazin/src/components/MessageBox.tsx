@@ -1,25 +1,30 @@
 import { memo } from 'react';
+import { castArray } from 'src/utils';
 
 type PropType = {
   show?: boolean;
   msg?: string | string[] | boolean;
-  variant?: MsgVariants;
+  variant?: string;
   wrapClass?: string;
-  xs?: boolean;
   children?: Children;
 };
 
-function MessageBox({ show = false, msg, variant = 'info', wrapClass = '', xs = false, children }: PropType) {
+function MessageBox({ show = false, msg, variant, wrapClass = '', children }: PropType) {
   if (!show && !msg) return null;
-  const message = msg || children;
 
   const innerComponent = () => (
-    <div className={`alert alert--${variant} ${['', 'xs'][Number(xs)]}`}>
-      {Array.isArray(message) ? message.map((row, id) => <li key={id}>{row}</li>) : message}
+    <div className={`alert alert--${variant || 'info'}`}>
+      {castArray(msg || children).map((row, id) => (
+        <li key={id}>{row}</li>
+      ))}
     </div>
   );
 
   return !wrapClass ? innerComponent() : <div className={wrapClass}>{innerComponent()}</div>;
+}
+
+export function MessageLine({ msg, variant = 0 }: { msg: string[]; variant: number }) {
+  return <div className={`alert xs alert--${['', 'success'][variant] ?? 'danger'}`}>{msg[variant]}</div>;
 }
 
 export default memo(MessageBox);

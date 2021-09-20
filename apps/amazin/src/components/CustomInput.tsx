@@ -2,7 +2,7 @@ import { forwardRef, memo, useRef, useState } from 'react';
 import { validateRules } from 'src/constants';
 
 import { createId } from 'src/utils';
-import MessageBox from './MessageBox';
+import { MessageLine } from './MessageBox';
 
 type PropType = {
   text?: string;
@@ -62,19 +62,17 @@ function ValidateInput({ type, hook = [], ...rest }: PropType) {
   const regEx = new RegExp(validateRule.RegEx, 'g');
 
   const input = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-  const [valid, setValid] = useState(-1);
+  const [variant, setVariant] = useState(0);
   const props = { ref: input, wrapClass: 'xs m-0', type, hook, required: true, ...rest };
 
   return (
     <>
-      <Input {...props} onFocus={() => setValid(-1)} onBlur={() => setValid(Number(regEx.test(value)))} />
-      {valid < 0 ? (
-        <div className="alert xs">{'\xa0'}</div>
-      ) : (
-        <MessageBox xs variant={['danger', 'success'][valid] as MsgVariants} show>
-          {value ? [validateRule.msg, '✓'][valid] : rest.text + ' is required!'}
-        </MessageBox>
-      )}
+      <Input
+        {...props}
+        onFocus={() => setVariant(0)}
+        onBlur={() => setVariant(value === '' ? 3 : 1 + Number(!regEx.test(value)))}
+      />
+      <MessageLine variant={variant} msg={['\xa0', '✓', validateRule.msg, rest.text + ' is required!']} />
     </>
   );
 }
