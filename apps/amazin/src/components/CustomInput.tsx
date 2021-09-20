@@ -62,17 +62,17 @@ function ValidateInput({ type, hook = [], ...rest }: PropType) {
   const regEx = new RegExp(validateRule.RegEx, 'g');
 
   const input = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-  const [isValid, setIsValid] = useState<boolean>();
+  const [valid, setValid] = useState(-1);
   const props = { ref: input, wrapClass: 'xs m-0', type, hook, required: true, ...rest };
 
   return (
     <>
-      <Input {...props} onFocus={() => setIsValid(undefined)} onBlur={() => setIsValid(regEx.test(value))} />
-      {isValid === undefined ? (
+      <Input {...props} onFocus={() => setValid(-1)} onBlur={() => setValid(Number(regEx.test(value)))} />
+      {valid < 0 ? (
         <div className="alert xs">{'\xa0'}</div>
       ) : (
-        <MessageBox xs variant={isValid ? 'success' : 'danger'} show>
-          {value ? (isValid ? '✓' : validateRule.msg) : rest.text + ' is required!'}
+        <MessageBox xs variant={['danger', 'success'][valid] as MsgVariants} show>
+          {value ? [validateRule.msg, '✓'][valid] : rest.text + ' is required!'}
         </MessageBox>
       )}
     </>

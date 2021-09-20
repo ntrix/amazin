@@ -14,7 +14,7 @@ function MessageBox({ show = false, msg, variant = 'info', wrapClass = '', xs = 
   const message = msg || children;
 
   const innerComponent = () => (
-    <div className={`alert alert--${variant} ${xs ? 'xs' : ''}`}>
+    <div className={`alert alert--${variant} ${['', 'xs'][Number(xs)]}`}>
       {Array.isArray(message) ? message.map((row, id) => <li key={id}>{row}</li>) : message}
     </div>
   );
