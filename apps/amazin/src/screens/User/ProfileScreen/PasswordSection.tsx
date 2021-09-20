@@ -19,7 +19,16 @@ export default function PasswordSection({
       </PrivateRoute>
 
       <CustomInput text="Password" type="password" hook={[passwords[1], setPassword(1)]} />
-      <CustomInput text="Confirm Password" type="password" autoComplete="off" hook={[passwords[2], setPassword(2)]} />
+
+      <PrivateRoute path="/profile/password" exact>
+        <CustomInput
+          wrapClass="flex-col"
+          text="Confirm Password"
+          type="password"
+          autoComplete="off"
+          hook={[passwords[2], setPassword(2)]}
+        />
+      </PrivateRoute>
     </>
   );
 }

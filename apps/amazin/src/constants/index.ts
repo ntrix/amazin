@@ -1,5 +1,6 @@
 export * from './carousel';
 export * from './swiper';
+export * from './validateRules';
 export * from './videoScreen';
 export * from './productReview';
 export * from './sortFilter';
