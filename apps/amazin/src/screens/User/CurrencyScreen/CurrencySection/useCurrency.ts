@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 
 import { updateCurrencyRates } from 'src/apis/productAPI';
@@ -10,25 +9,23 @@ import { useShadow } from 'src/hooks/useShadow';
 import { Storage, pipe } from 'src/utils';
 import { KEY } from 'src/constants';
 
-export function useCurrency() {
+export function useCurrency({ pCurrency }: { pCurrency: CurrType }) {
   const dispatch = useDispatch();
-  const { cType: paramCurrency }: { cType: CurrType } = useParams();
   const { userInfo } = useShadow();
   const [currency, setCurrency] = useState<CurrType>('EUR');
   const [isChanged, setIsChanged] = useState(false);
 
-  const SHOW_CURR = `${pipe.symbol[currency]} - ${currency} - ${pipe.longName[currency]}`;
   const hist: string = Storage[KEY.HISTORY];
   const back = !hist || hist.startsWith('/currency') ? '/' : hist;
 
   useEffect(() => {
     setIsChanged(false);
-    setCurrency(paramCurrency || pipe.currency);
+    setCurrency(pCurrency || pipe.currency);
     if (!userInfo?._id) dispatch(userUpdateProfileActions._RESET(''));
     return () => {
       dispatch(userUpdateProfileActions._RESET(''));
     };
-  }, [userInfo?._id, paramCurrency, dispatch]);
+  }, [userInfo?._id, pCurrency, dispatch]);
 
   const submitChange = () => {
     Storage[KEY.CURRENCY] = currency;
@@ -41,5 +38,5 @@ export function useCurrency() {
     dispatch(updateUserProfile({ _id, name, email, currency }));
   };
 
-  return { SHOW_CURR, back, currency, setCurrency, isChanged, submitChange };
+  return { back, currency, setCurrency, isChanged, submitChange };
 }

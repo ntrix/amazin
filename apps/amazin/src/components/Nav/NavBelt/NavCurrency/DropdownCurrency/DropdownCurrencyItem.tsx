@@ -12,7 +12,7 @@ function DropdownCurrencyItem({ label, currency }: { label: CurrType; currency: 
         className={`menu__link-item ${label === currency ? 'active' : ''}`}
         onClick={() => {
           savePath('/curr')();
-          history.push('/currency/cType/' + label);
+          history.push('/currency/pCurrency/' + label);
         }}
       >
         <div className="sprite__wrapper">

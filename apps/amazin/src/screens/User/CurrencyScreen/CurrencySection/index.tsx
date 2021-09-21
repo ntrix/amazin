@@ -1,3 +1,5 @@
+import { useParams } from 'react-router';
+
 import { pipe } from 'src/utils';
 import { useCurrency } from './useCurrency';
 import Button from 'src/components/Button';
@@ -5,7 +7,10 @@ import CurrencyOptions from './CurrencyOptions';
 import SuccessModal from 'src/components/SuccessModal';
 
 export default function CurrencySection() {
-  const { SHOW_CURR, back, currency, setCurrency, isChanged, submitChange } = useCurrency();
+  const { back, currency, setCurrency, isChanged, submitChange } = useCurrency(useParams());
+
+  const CUR = `${pipe.symbol[currency]} - ${currency} - ${pipe.longName[currency]}`;
+
   return (
     <>
       <div className="container currencies">
@@ -15,7 +20,7 @@ export default function CurrencySection() {
 
           {currency !== 'EUR' && (
             <p>
-              {`Note: You will be shown prices in ${SHOW_CURR} on Amazin as a reference only. You may or may not be able to pay in ${SHOW_CURR} see more details during checkout.`}
+              {`Note: You will be shown prices in ${CUR} on Amazin as a reference only. You may or may not be able to pay in ${CUR} see more details during checkout.`}
             </p>
           )}
         </section>
