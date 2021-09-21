@@ -41,7 +41,7 @@ const PlaceOrderScreen: Lazy = lazy(
 export default function MainRoutes() {
   return (
     <Switch>
-      <Route path="/currency/cType/:cType" component={CurrencyScreen} exact />
+      <Route path="/currency/pCurrency/:pCurrency" component={CurrencyScreen} exact />
       <Route path="/customer" component={CustomerScreen} exact />
       <Route path="/contact" component={ContactScreen} exact />
       <Route path="/contact/subject/:subject" component={ContactScreen} exact />
