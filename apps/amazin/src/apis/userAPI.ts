@@ -49,7 +49,7 @@ export const detailsUser = (_id: string) => axiosPrivate([userDetailsActions])('
 /* Types: UserType for contact form, ReqLogin for profile update with request login info. */
 export const updateUserProfile = (user: UserType & ReqLogin, method: Method | undefined = 'patch') =>
   axiosPrivate([userUpdateProfileActions], {
-    successAction: userSigninActions._SUCCESS,
+    successAction: userDetailsActions._SUCCESS,
     successHandler: (userInfo) => (Storage[KEY.USER_INFO] = userInfo)
   })(method, `/api/users/profile`, user);
 
