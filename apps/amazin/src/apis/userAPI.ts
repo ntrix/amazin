@@ -1,4 +1,5 @@
-import { axiosPublic, axiosPrivate } from './axiosClient';
+import { Method } from 'axios';
+import { axios, axiosPublic, axiosPrivate } from './axiosClient';
 import {
   userRegisterActions,
   userSigninActions,
@@ -11,7 +12,7 @@ import {
 } from '../slice/UserSlice';
 import { Storage } from '../utils';
 import { KEY } from '../constants';
-import { Method } from 'axios';
+import { MAIL_SERVER, HEADERS } from 'src/constants';
 
 export const register = (name: string, email: string, password: string, confirmPassword: string) =>
   axiosPublic([userRegisterActions], {
@@ -61,3 +62,15 @@ export const listUsers = () => axiosPrivate([userListActions])('get', '/api/user
 export const deleteUser = (_id: string) => axiosPrivate([userDeleteActions])('delete', `/api/users/${_id}`);
 
 export const listTopSellers = () => axiosPublic([userTopSellerListActions])('get', '/api/users/top-sellers');
+
+/* this contact will not be sent to redux store since MAIL_SERVER is different origin */
+export const sendContactMessage = (contactData: ContactType, setStatus: SetState) => async (dispatch: AppDispatch) => {
+  setStatus({ loading: true, msg: 'Your message is being sent.' });
+  try {
+    await axios.post(MAIL_SERVER, contactData, { headers: { ...HEADERS, body: JSON.stringify(contactData) } });
+    setStatus({ msg: 'Thank you! Your message has been sent.' });
+  } catch (error) {
+    if (error instanceof Error) setStatus({ error: [error.message] });
+  }
+  dispatch(userUpdateProfileActions._RESET(''));
+};
