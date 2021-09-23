@@ -7,17 +7,17 @@ import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
-const compoundErrors = ({ name, email, text }: ContactType) => {
+const validate = ({ name, email, text }: ContactType) => {
   const error: string[] = [];
-  const validate = (isEmpty: boolean, msg: string) => isEmpty && error.push(msg);
+  const checkField = (isEmpty: boolean, msg: string) => isEmpty && error.push(msg);
 
-  validate(!name, 'Please enter your name!');
-  validate(!email, 'Please enter your email!');
+  checkField(!name, 'Please enter your name!');
+  checkField(!email, 'Please enter your email!');
 
   const validateRule = validateRules['message'];
   const regEx = new RegExp(validateRule.RegEx, 'g');
-  validate(!text, 'Please enter your message!');
-  !!text && validate(!regEx.test(text), validateRule.msg);
+  checkField(!text, 'Please enter your message!');
+  !!text && checkField(!regEx.test(text), validateRule.msg);
 
   return error;
 };
@@ -41,7 +41,7 @@ export function useSubmitContact(setStatus: SetState) {
   async function submitContact(e: EventType, contactInfo: ContactType) {
     e.preventDefault();
 
-    const error = compoundErrors(contactInfo);
+    const error = validate(contactInfo);
     if (error.length) return setStatus({ error });
     const contact = contactInfo as UserType;
 
