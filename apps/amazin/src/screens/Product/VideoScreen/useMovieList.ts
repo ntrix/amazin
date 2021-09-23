@@ -35,8 +35,9 @@ export function useExternMovies() {
   return { externMovies };
 }
 
-export function useBannerMovies(stockMovies: MoviesOptList, externMovies: MoviesOptList) {
+export function useBannerMovies(stockMovies: MoviesOptList) {
   const [bannerMovies, setBannerMovies, isMounted] = useSafeState<MoviesOpt<MovieType>>({});
+  const { externMovies } = useExternMovies();
 
   useEffect(() => {
     if (!isMounted.current || externMovies[STORE] === dummyMovies || stockMovies[STORE] === dummyMovies) return;
@@ -48,5 +49,5 @@ export function useBannerMovies(stockMovies: MoviesOptList, externMovies: Movies
     setBannerMovies(Object.fromEntries(bannerMoviesArray));
   }, [isMounted, externMovies, stockMovies, setBannerMovies]);
 
-  return { bannerMovies };
+  return { externMovies, bannerMovies };
 }
