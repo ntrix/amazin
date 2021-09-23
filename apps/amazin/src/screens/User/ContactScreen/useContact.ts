@@ -2,22 +2,28 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { axios } from 'src/apis/axiosClient';
-import { MAIL_SERVER, HEADERS } from 'src/constants';
+import { MAIL_SERVER, HEADERS, validateRules } from 'src/constants';
 import { updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
-const compoundErrors = ({ text, email, name }: ContactType) => {
+const compoundErrors = ({ name, email, text }: ContactType) => {
   const error: string[] = [];
   const validate = (isEmpty: boolean, msg: string) => isEmpty && error.push(msg);
 
-  validate(!text, 'Please enter your message!');
-  validate(!email, 'Please enter your email!');
   validate(!name, 'Please enter your name!');
+  validate(!email, 'Please enter your email!');
+
+  const validateRule = validateRules['message'];
+  const regEx = new RegExp(validateRule.RegEx, 'g');
+  validate(!text, 'Please enter your message!');
+  !!text && validate(!regEx.test(text), validateRule.msg);
+
   return error;
 };
 
-const asyncSendMessage = async (contactData: ContactType, setStatus: SetState) => {
+/* this contact will not be sent to redux store since MAIL_SERVER is different */
+const sendContactMessage = (contactData: ContactType, setStatus: SetState) => async (dispatch: AppDispatch) => {
   setStatus({ loading: true, msg: 'Your message is being sent.' });
   try {
     await axios.post(MAIL_SERVER, contactData, { headers: { ...HEADERS, body: JSON.stringify(contactData) } });
@@ -25,6 +31,7 @@ const asyncSendMessage = async (contactData: ContactType, setStatus: SetState) =
   } catch (error) {
     if (error instanceof Error) setStatus({ error: [error.message] });
   }
+  dispatch(userUpdateProfileActions._RESET(''));
 };
 
 export function useSubmitContact(setStatus: SetState) {
@@ -41,8 +48,7 @@ export function useSubmitContact(setStatus: SetState) {
     if ('Seller' === contactInfo.subject)
       return dispatch(updateUserProfile({ _id: userInfo._id, name: contact.name, email: contact.email, verify: true }));
 
-    asyncSendMessage(contactInfo, setStatus);
-    return dispatch(userUpdateProfileActions._RESET(''));
+    dispatch(sendContactMessage(contactInfo, setStatus));
   }
 
   return { submitContact };
