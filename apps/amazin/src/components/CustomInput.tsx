@@ -78,7 +78,7 @@ function ValidateInput({ type, hook = [], ...rest }: PropType) {
 }
 
 function CustomInput(props: PropType) {
-  const rule = (props.type || props.text || '').toLowerCase();
+  const rule = props.type || props?.text?.toLowerCase() || '';
   const hasRules = Object.keys(validateRules).includes(rule);
 
   return hasRules ? <ValidateInput {...props} type={rule} /> : <Input {...props} />;

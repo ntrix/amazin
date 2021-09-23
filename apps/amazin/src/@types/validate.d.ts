@@ -1,4 +1,4 @@
-type RuleName = 'name' | 'email' | 'password' | 'address' | 'tel' | 'zip' | 'message';
+type RuleName = 'name' | 'email' | 'password' | 'address' | 'city' | 'tel' | 'postalCode' | 'message';
 
 type RuleType = { RegEx: string; msg: string };
 
