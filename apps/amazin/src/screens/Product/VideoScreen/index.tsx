@@ -5,7 +5,7 @@ import './videoScreen.css';
 import { HOME, IN_STOCK, NETFLUX, STORE, TOP_RATED, TRENDING, VIDEO } from 'src/constants';
 import { SuspenseBanner, SuspenseLoad, Suspense } from 'src/components/CustomSuspense';
 import { ErrorFallback, VideoListFallBack } from 'src/components/Fallbacks';
-import { useMovieList } from './useMovieList';
+import { useBannerMovies, useExternMovies, useStockMovies } from './useMovieList';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
 import VideoNavHeader from './VideoNavHeader';
@@ -14,7 +14,9 @@ const VideoRow: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true *
 
 export default function VideoScreen() {
   const [active, setActive] = useState<GenreType>(STORE);
-  const { externMovies, bannerMovies, stockMovies, productCreate, productList } = useMovieList();
+  const { productList, productCreate, stockMovies } = useStockMovies();
+  const { externMovies } = useExternMovies();
+  const { bannerMovies } = useBannerMovies(stockMovies, externMovies);
 
   return (
     <div className="container--full video-screen">
