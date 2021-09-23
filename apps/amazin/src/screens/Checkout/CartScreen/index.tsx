@@ -1,24 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { addToCart, removeFromCart } from 'src/apis/cartAPI';
+import { useCart } from './useCart';
 import Header from 'src/layouts/Header';
 import CartTable from './CartTable';
 import SumCard from './SumCard';
 
-export default function CartScreen({ match, location: { search } }: RouteProps<MatchParams>) {
-  const dispatch = useDispatch();
-  const productId = match.params.id;
-  const qty = search ? Number(search.split('=')[1]) : 1;
-  const cart = useSelector((state: { cart: CartType }) => state.cart);
-
-  useEffect(() => {
-    if (productId) dispatch(addToCart(productId, qty));
-  }, [dispatch, productId, qty]);
-
-  const addHandler = (productId: string, qty: number) => dispatch(addToCart(productId, qty));
-
-  const removeHandler = (id: string) => dispatch(removeFromCart(id));
+export default function CartScreen(props: RouteProps<MatchParams>) {
+  const { cart, addHandler, removeHandler } = useCart(props);
 
   return (
     <div className="screen--light row top">
