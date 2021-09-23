@@ -7,7 +7,8 @@ export const validateRules: RulesType = {
     RegEx: `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,32}$`
   },
   address: { msg: 'Invalid address', RegEx: `[a-zA-Z0-9_-]` },
+  city: { msg: 'Invalid city', RegEx: `[a-zA-Z0-9_-]` },
   tel: { msg: 'Only numbers and dashes are allowed', RegEx: `[0-9-]` },
-  zip: { msg: 'Only numbers!', RegEx: `[0-9]{5}` },
+  postalCode: { msg: 'Only 5 numbers!', RegEx: `^[0-9]{5}$` },
   message: { msg: 'Your message should be at least 50 characters long!', RegEx: `.{50,}` }
 };

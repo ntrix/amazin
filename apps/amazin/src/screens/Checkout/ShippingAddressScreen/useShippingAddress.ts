@@ -8,14 +8,29 @@ import { Storage } from 'src/utils';
 import { KEY } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 
-export function useShipInfo(history: HistoryProp) {
+export function useShipInfo() {
+  const { shippingAddress }: { shippingAddress: AddressType } = useSelector((state: AppState) => state.cart);
+  const [shipInfo, setShipInfo] = useSafeState(shippingAddress);
+
+  useEffect(() => {
+    setShipInfo(shippingAddress);
+  }, [shippingAddress, setShipInfo]);
+
+  const createHook: FnType = (key: keyof AddressType) => [
+    shipInfo[key],
+    (value: string | number) => setShipInfo({ ...shipInfo, [key]: value })
+  ];
+
+  return { shipInfo, createHook };
+}
+
+export function useShippingAddress(history: HistoryProp) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
   if (!userInfo) history.push('/signin');
 
   const { address: mapAddress }: { address: AddressType } = useSelector((state: AppState) => state.userAddressMap);
-  const { shippingAddress }: { shippingAddress: AddressType } = useSelector((state: AppState) => state.cart);
-  const [shipInfo, setShipInfo] = useSafeState(shippingAddress);
+  const { shipInfo, createHook } = useShipInfo();
 
   const location = useLocation();
   const locateOnMap = () => {
@@ -23,10 +38,6 @@ export function useShipInfo(history: HistoryProp) {
     Storage[KEY.HISTORY] = location.pathname;
     history.push('/map');
   };
-
-  useEffect(() => {
-    setShipInfo(shippingAddress);
-  }, [shippingAddress, setShipInfo]);
 
   const submitShipInfo = (e: EventType) => {
     e.preventDefault();
@@ -38,5 +49,5 @@ export function useShipInfo(history: HistoryProp) {
     }
   };
 
-  return { shipInfo, setShipInfo, locateOnMap, submitShipInfo };
+  return { createHook, locateOnMap, submitShipInfo };
 }

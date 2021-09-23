@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useRegisterEffect } from './useRegisterEffect';
+import { useRegister } from './useRegister';
 import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import PageRedirect from 'src/components/PageRedirect';
@@ -10,7 +10,7 @@ export default function RegisterScreen({ location, history }: RouteProps<MatchPa
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { redirect, userRegister, submitRegister } = useRegisterEffect(location, history);
+  const { redirect, userRegister, submitRegister } = useRegister(location, history);
 
   return (
     <Form

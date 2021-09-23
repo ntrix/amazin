@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './videoScreen.css';
@@ -7,23 +7,37 @@ import { STORE, VIDEO } from 'src/constants';
 import { useSafeState } from 'src/hooks/useSafeState';
 import { dummyMovies } from 'src/utils';
 
-export function useMovieList() {
+export function useStockMovies() {
   const dispatch = useDispatch();
   const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const { products } = productList;
   const productCreate: ProductDetailType = useSelector((state: AppState) => state.productCreate);
-  const [stockMovies, setStockMovies, isMounted] = useSafeState<MoviesOptList>({ [STORE]: dummyMovies });
-  const [externMovies, setExternMovies] = useState<MoviesOptList>({ [STORE]: dummyMovies });
-  const [bannerMovies, setBannerMovies] = useState<MoviesOpt<MovieType>>({});
+  const [stockMovies, setStockMovies] = useSafeState<MoviesOptList>({ [STORE]: dummyMovies });
 
   useEffect(() => {
-    listExtMovies().then((movieList) => isMounted.current && setExternMovies(Object.fromEntries(movieList)));
-  }, [isMounted]);
-
-  useEffect(() => {
-    if (products?.every(({ seller }) => seller?._id === VIDEO.SELLER)) setStockMovies({ [STORE]: products });
-    else dispatch(listProducts({ seller: VIDEO.SELLER, category: 'Video', pageSize: 11, order: 'oldest' }));
+    if (products?.every(({ seller }) => seller?._id === VIDEO.SELLER)) {
+      setStockMovies({ [STORE]: products });
+      return;
+    }
+    dispatch(listProducts({ seller: VIDEO.SELLER, category: 'Video', pageSize: 11, order: 'oldest' }));
   }, [products, setStockMovies, dispatch]);
+
+  return { productList, productCreate, stockMovies };
+}
+
+export function useExternMovies() {
+  const [externMovies, setExternMovies] = useSafeState<MoviesOptList>({ [STORE]: dummyMovies });
+
+  useEffect(() => {
+    listExtMovies().then((movieList) => setExternMovies(Object.fromEntries(movieList)));
+  }, [setExternMovies]);
+
+  return { externMovies };
+}
+
+export function useBannerMovies(stockMovies: MoviesOptList) {
+  const [bannerMovies, setBannerMovies, isMounted] = useSafeState<MoviesOpt<MovieType>>({});
+  const { externMovies } = useExternMovies();
 
   useEffect(() => {
     if (!isMounted.current || externMovies[STORE] === dummyMovies || stockMovies[STORE] === dummyMovies) return;
@@ -35,5 +49,5 @@ export function useMovieList() {
     setBannerMovies(Object.fromEntries(bannerMoviesArray));
   }, [isMounted, externMovies, stockMovies, setBannerMovies]);
 
-  return { productList, productCreate, externMovies, stockMovies, bannerMovies };
+  return { externMovies, bannerMovies };
 }
