@@ -1,36 +1,25 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { axios } from 'src/apis/axiosClient';
-import { MAIL_SERVER, HEADERS, validateRules } from 'src/constants';
-import { updateUserProfile } from 'src/apis/userAPI';
+
+import { validateRules } from 'src/constants';
+import { sendContactMessage, updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
-const compoundErrors = ({ name, email, text }: ContactType) => {
+const validate = ({ name, email, text }: ContactType) => {
   const error: string[] = [];
-  const validate = (isEmpty: boolean, msg: string) => isEmpty && error.push(msg);
+  const checkField = (isEmpty: boolean, msg: string) => isEmpty && error.push(msg);
 
-  validate(!name, 'Please enter your name!');
-  validate(!email, 'Please enter your email!');
+  checkField(!name, 'Please enter your name!');
+  checkField(!email, 'Please enter your email!');
 
   const validateRule = validateRules['message'];
   const regEx = new RegExp(validateRule.RegEx, 'g');
-  validate(!text, 'Please enter your message!');
-  !!text && validate(!regEx.test(text), validateRule.msg);
-  return error;
-};
+  checkField(!text, 'Please enter your message!');
+  !!text && checkField(!regEx.test(text), validateRule.msg);
 
-/* this contact will not be sent to redux store since MAIL_SERVER is different */
-const sendContactMessage = (contactData: ContactType, setStatus: SetState) => async (dispatch: AppDispatch) => {
-  setStatus({ loading: true, msg: 'Your message is being sent.' });
-  try {
-    await axios.post(MAIL_SERVER, contactData, { headers: { ...HEADERS, body: JSON.stringify(contactData) } });
-    setStatus({ msg: 'Thank you! Your message has been sent.' });
-  } catch (error) {
-    if (error instanceof Error) setStatus({ error: [error.message] });
-  }
-  dispatch(userUpdateProfileActions._RESET(''));
+  return error;
 };
 
 export function useSubmitContact(setStatus: SetState) {
@@ -40,7 +29,7 @@ export function useSubmitContact(setStatus: SetState) {
   async function submitContact(e: EventType, contactInfo: ContactType) {
     e.preventDefault();
 
-    const error = compoundErrors(contactInfo);
+    const error = validate(contactInfo);
     if (error.length) return setStatus({ error });
     const contact = contactInfo as UserType;
 
