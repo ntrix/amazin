@@ -1,23 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
 import './videoScreen.css';
-import { listProducts } from 'src/apis/productAPI';
+import { listExtMovies, listProducts } from 'src/apis/productAPI';
 import { STORE, VIDEO } from 'src/constants';
 import { useSafeState } from 'src/hooks/useSafeState';
-import { dummyMovies, sourceAdapter } from 'src/utils';
-
-function fetchMovies() {
-  const movieGenres = Object.keys(VIDEO.SRC) as SourceType[];
-
-  return Promise.all(
-    movieGenres.map(async (genre) => {
-      const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre]).catch();
-      return [genre, sourceAdapter(data.results)];
-    })
-  );
-}
+import { dummyMovies } from 'src/utils';
 
 export function useMovieList() {
   const dispatch = useDispatch();
@@ -29,7 +17,7 @@ export function useMovieList() {
   const [bannerMovies, setBannerMovies] = useState<MoviesOpt<MovieType>>({});
 
   useEffect(() => {
-    fetchMovies().then((movieList) => isMounted.current && setExternMovies(Object.fromEntries(movieList)));
+    listExtMovies().then((movieList) => isMounted.current && setExternMovies(Object.fromEntries(movieList)));
   }, [isMounted]);
 
   useEffect(() => {

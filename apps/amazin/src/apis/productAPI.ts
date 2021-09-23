@@ -1,4 +1,4 @@
-import { axiosPublic, axiosPrivate } from './axiosClient';
+import { axios, axiosPublic, axiosPrivate } from './axiosClient';
 import {
   currencyTypeActions,
   productListAllActions,
@@ -10,8 +10,8 @@ import {
   productDeleteActions,
   productReviewCreateActions
 } from '../slice/ProductSlice';
-import { pipe } from '../utils';
-import { NAV } from '../constants';
+import { NAV, VIDEO } from 'src/constants';
+import { pipe, sourceAdapter } from 'src/utils';
 
 const updatePipe = (data: { rates: CurrRateType }) =>
   pipe.currencies.forEach((c) => {
@@ -64,3 +64,11 @@ export const createReview = (productId: string, review: Partial<ReviewType>) =>
   axiosPrivate([productReviewCreateActions], {
     selector: (_data) => _data.review
   })('post', `/api/products/${productId}/reviews`, review);
+
+export const listExtMovies = () =>
+  Promise.all(
+    (Object.keys(VIDEO.SRC) as SourceType[]).map(async (genre) => {
+      const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre]).catch();
+      return [genre, sourceAdapter(data.results)];
+    })
+  );
