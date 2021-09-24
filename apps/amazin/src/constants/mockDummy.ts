@@ -23,7 +23,9 @@ export const DUMMY_SELLER = {
   seller: { name: 'Seller?', logo: NO_IMAGE } as SellerType
 };
 
-export const DUMMY_SELLERS: UserType[] = Array(5).fill(DUMMY_SELLER);
+export const DUMMY_SELLERS: UserType[] = Array(5)
+  .fill(0)
+  .map((_, id) => ({ ...DUMMY_SELLER, _id: String(id) }));
 
 /* create 5 placeholders for product info */
 // export const dummyProducts = Array(6).fill({
