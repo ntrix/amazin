@@ -21,7 +21,7 @@ export default function ImageRows({
   return images?.length ? (
     <>
       {images.map((img, id) => (
-        <div key={id} className="row img-row">
+        <div key={img} className="row img-row">
           <img className="small" src={getSrc(img)} alt={createLabel(id)} onMouseEnter={() => setPreview(img)} />
           <CustomInput
             text={createLabel(id)}

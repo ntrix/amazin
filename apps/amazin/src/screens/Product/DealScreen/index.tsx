@@ -24,8 +24,8 @@ function DealScreen() {
       <SubNavCategories first={NAV.DEAL} category={cat.current} changeCat={changeCat} onPreload={preloadCat} />
       <div className={`deal-screen ${banner.current}`}>
         <Carousel {...CAROUSEL_CONFIG} autoPlay={!shadowOf}>
-          {(list?.products || dummyMovies).map((product, id) => (
-            <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
+          {(list?.products || dummyMovies).map((product) => (
+            <SusProductCard key={product._id} children={<ProductCard showDeal product={product} />} />
           ))}
         </Carousel>
 
@@ -36,8 +36,8 @@ function DealScreen() {
           <SearchBanner list={list} children={<SortFilter order={order} getUrl={sortOrderUrl} />} />
 
           <SusProductList>
-            {list?.products?.map((product, id) => (
-              <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
+            {list?.products?.map((product) => (
+              <SusProductCard key={product._id} children={<ProductCard showDeal product={product} />} />
             ))}
           </SusProductList>
         </div>
