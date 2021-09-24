@@ -1,5 +1,5 @@
-type RuleName = 'name' | 'email' | 'password' | 'address' | 'city' | 'tel' | 'postalCode' | 'message';
+type RuleName = 'name' | 'email' | 'password' | 'address' | 'city' | 'tel' | 'postalCode' | 'message' | 'required';
 
-type RuleType = { RegEx: string; msg: string };
+type RuleType = [string, string];
 
-type RulesType = Record<RuleName, RuleType>;
+type RuleListType = Record<RuleName, RuleType[]>;
