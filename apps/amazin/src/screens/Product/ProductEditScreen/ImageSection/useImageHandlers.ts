@@ -12,58 +12,58 @@ const config = (userInfo: UserInfoType) => ({
   }
 });
 
-export function useAsyncUpload(setImages: SetState) {
+export function useAsyncUpload(product: ProductType, setImages: SetState) {
   const { userInfo } = useShadow();
   const [uploadState, setUploadState] = useState<StatusType>({ loading: false });
 
-  const asyncUploadImgs = async (images: string[], bodyFormData: FormData, msg?: string, method?: string) => {
+  const asyncImgHandler: FnType = async (imgUrls: string[], bodyFormData: FormData, uploadMessage?: string) => {
     setUploadState({ loading: true });
+    bodyFormData.append('productId', product._id);
+
     try {
-      if (method === 'post') {
-        const { data: newImgUrls } = await axiosClient.post('/api/uploads', bodyFormData, config(userInfo));
-        setImages([...images, ...newImgUrls]);
-        setUploadState({ loading: false, msg });
-        return;
+      if (uploadMessage) {
+        // POST method for upload
+        const { data: uploadedImgUrls } = await axiosClient.post('/api/uploads', bodyFormData, config(userInfo));
+        setImages([...imgUrls, ...uploadedImgUrls]);
+      } else {
+        // PATCH method for delete
+        await axiosClient.patch('/api/uploads', bodyFormData, config(userInfo));
+        setImages(imgUrls);
       }
-      await axiosClient.patch('/api/uploads', bodyFormData, config(userInfo));
-      setImages(images);
-      setUploadState({ loading: false });
+      setUploadState({ loading: false, msg: uploadMessage });
     } catch (error) {
       setUploadState({ loading: false, error: 'Upload error!' });
     }
   };
-  return { uploadState, asyncUploadImgs };
+  return { uploadState, asyncImgHandler };
 }
 
-export function useImgFileHandlers(product: ProductType, images: string[], setImages: SetState) {
-  const { uploadState, asyncUploadImgs } = useAsyncUpload(setImages);
-
-  const addImgs = ({ target: { files } }: EventType) => {
+export function useImgFileHandlers(imgUrls: string[], asyncImgHandler: FnType) {
+  const addImages = ({ target: { files } }: EventType) => {
     const bodyFormData = new FormData();
-    const maxFiles = Math.min(files.length, MAX_IMAGES - images.length);
+    const maxFiles = Math.min(files.length, MAX_IMAGES - imgUrls.length);
 
     for (let i = 0; i < maxFiles; i++) bodyFormData.append('images', files[i]);
-    bodyFormData.append('productId', product._id);
-    asyncUploadImgs(images, bodyFormData, `${maxFiles} Images successfully uploaded!`, 'post');
+    asyncImgHandler(imgUrls, bodyFormData, `${maxFiles} Images successfully uploaded!`);
   };
 
   const deleteImg = (e: EventType, id: number) => {
     e.preventDefault();
     if (!window.confirm('Do you really want to delete this image?')) return;
+
     /* TODO: delete image on cloudinary and update immediately to DB */
-    const newImages = images.filter((_, i) => i !== id);
+    const newImgUrls = imgUrls.filter((_, i) => i !== id);
     const bodyFormData = new FormData();
-    bodyFormData.append('imgLink', images[id]);
-    bodyFormData.append('productId', product._id);
-    bodyFormData.append('image', newImages.join('^'));
-    asyncUploadImgs(newImages, bodyFormData);
+    bodyFormData.append('imgLink', imgUrls[id]);
+    bodyFormData.append('image', newImgUrls.join('^'));
+    asyncImgHandler(newImgUrls, bodyFormData);
   };
-  return { uploadState, addImgs, deleteImg };
+  return { addImages, deleteImg };
 }
 
-export function useImgLinkHandlers(product: ProductType, images: string[], setImages: SetState) {
+export function useImgLinkHandlers(product: ProductType, imgUrls: string[], setImages: SetState) {
   const updateImgLink = (e: EventType, id: number) => {
-    const newImgs = images.slice(0);
+    const newImgs = imgUrls.slice(0);
     newImgs[id] = e.target.value;
     setImages(newImgs);
   };
@@ -71,12 +71,12 @@ export function useImgLinkHandlers(product: ProductType, images: string[], setIm
   const moveUpImg = (e: EventType, id: number) => {
     e.preventDefault();
     if (id < 1) return;
-    const newImgs = images.slice(0);
+    const newImgs = imgUrls.slice(0);
     [newImgs[id], newImgs[id - 1]] = [newImgs[id - 1], newImgs[id]];
     setImages(newImgs);
   };
 
-  const addImgOnEnter = (e: EventType, img: string) => e.key === 'Enter' && setImages([...images, img]);
+  const addImgOnEnter = (e: EventType, img: string) => e.key === 'Enter' && setImages([...imgUrls, img]);
 
   const getSrc = (img: string) => getImgUrl(product._id, img);
 

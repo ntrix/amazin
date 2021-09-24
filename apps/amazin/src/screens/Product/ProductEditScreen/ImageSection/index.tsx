@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { MAX_IMAGES } from 'src/constants';
-import { useImgFileHandlers, useImgLinkHandlers } from './useImageHandlers';
+import { useAsyncUpload, useImgFileHandlers, useImgLinkHandlers } from './useImageHandlers';
 import NewImageInput from './NewImageInput';
 import ImageRows from '../ImageRows';
 
@@ -13,10 +13,11 @@ type PropType = {
 
 export default function ImageSection({ product, images, setImages }: PropType) {
   const [preview, setPreview] = useState('');
-  const { uploadState, addImgs, deleteImg } = useImgFileHandlers(product, images, setImages);
+  const { uploadState, asyncImgHandler } = useAsyncUpload(product, setImages);
+  const { addImages, deleteImg } = useImgFileHandlers(images, asyncImgHandler);
   const { updateImgLink, moveUpImg, addImgOnEnter, getSrc } = useImgLinkHandlers(product, images, setImages);
 
-  const imgHandlers = { uploadState, addImgs, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getSrc };
+  const imgHandlers = { uploadState, addImages, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getSrc };
 
   return (
     <>
