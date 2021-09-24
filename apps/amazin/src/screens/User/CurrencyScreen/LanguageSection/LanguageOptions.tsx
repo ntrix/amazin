@@ -5,8 +5,8 @@ export default function LanguageOptions() {
   return (
     <>
       <li className="separator" />
-      {languageTemplate.map(([label, short, text], id) => (
-        <LanguageOption key={id} label={label} short={short} text={text} className="disabled" />
+      {languageTemplate.map(([label, short, text]) => (
+        <LanguageOption key={label} label={label} short={short} text={text} className="disabled" />
       ))}
     </>
   );
