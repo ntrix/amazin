@@ -25,21 +25,21 @@ function SearchFilterColumn({ searchFilters: { category = NAV.ALL, max = 0, rati
     <div className="search__filter">
       <ul>
         <FilterLabel label="Department" />
-        <LoadingOrError statusOf={productCategoryList} />
         <ListItem filter={{ category: NAV.ALL }} isActive={NAV.ALL === category} text="Any" />
-        {productCategoryList.categories?.map((_cat, id) => (
-          <ListItem key={id} filter={{ category: _cat }} isActive={_cat === category} text={_cat} />
+        {productCategoryList.categories?.map((_cat) => (
+          <ListItem key={_cat} filter={{ category: _cat }} isActive={_cat === category} text={_cat} />
         ))}
+        <LoadingOrError statusOf={productCategoryList} />
 
         <FilterLabel label="Price" />
-        {prices.map((p, id) => (
-          <ListItem key={id} filter={{ min: p.min, max: p.max }} isActive={`${p.max}` === `${max}`} text={p.name} />
+        {prices.map((p) => (
+          <ListItem key={p.name} filter={{ min: p.min, max: p.max }} isActive={`${p.max}` === `${max}`} text={p.name} />
         ))}
 
         <FilterLabel label="Avg. Customer Review" />
-        {ratings.map((r, id) => (
-          <ListItem key={id} filter={{ rating: r.rating }} isActive={`${r.rating}` === `${rating}`}>
-            <Rating caption={' & up'} rating={r.rating}></Rating>
+        {ratings.map((r) => (
+          <ListItem key={r.rating} filter={{ rating: r.rating }} isActive={`${r.rating}` === `${rating}`}>
+            <Rating caption={' & up'} rating={r.rating} />
           </ListItem>
         ))}
       </ul>
