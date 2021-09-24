@@ -20,8 +20,8 @@ function SubNavCategories({ first, ...rest }: PropType) {
   return (
     <header className="screen__header">
       <ul className="cat-nav">
-        {[first, ...categories].map((_cat, id) => (
-          <SubNavItem key={id} _cat={_cat} {...rest} />
+        {[first, ...categories].map((_cat) => (
+          <SubNavItem key={_cat} _cat={_cat} {...rest} />
         ))}
 
         <LoadingOrError statusOf={productCategoryList} />

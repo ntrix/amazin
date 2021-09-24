@@ -13,9 +13,9 @@ function SortFilter({ order = SORT.BESTSELLING.OPT, getUrl }: { order?: string; 
       <div className="sprite__caret"></div>
       <select id="filter__options" value={order} onChange={changeFilter}>
         <optgroup label="Sort by:">
-          {Object.values(SORT).map((filter, id) => (
-            <option value={filter.OPT} key={id}>
-              {filter.LABEL}
+          {Object.values(SORT).map(({ OPT, LABEL }) => (
+            <option value={OPT} key={OPT}>
+              {LABEL}
             </option>
           ))}
         </optgroup>

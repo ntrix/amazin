@@ -15,8 +15,8 @@ function NavMain() {
       <div className="nav__left" children={<OpenSidebarBtn />} />
       <div className="nav__fill">
         {[...navMainTemplate, ...(productCategoryList?.categories?.slice(0, 9).map(NavCategoryAdapter) || [])].map(
-          ([label, to], id) => (
-            <NavMainItem label={label} to={to} key={id} />
+          ([label, to]) => (
+            <NavMainItem label={label} to={to} key={label} />
           )
         )}
         <LoadingOrError statusOf={productCategoryList} />
