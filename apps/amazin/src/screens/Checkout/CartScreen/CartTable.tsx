@@ -21,8 +21,8 @@ export default function CartTable({ cart: { cartItems, error }, ...rest }: PropT
       ) : (
         <table className="table">
           <tbody>
-            {cartItems.map((item, id) => (
-              <CartRowItem key={id} item={item} {...rest} />
+            {cartItems.map((item) => (
+              <CartRowItem key={item.product as string} item={item} {...rest} />
             ))}
           </tbody>
         </table>

@@ -15,7 +15,7 @@ export const createReducers: FnType = () =>
     _ADD_ITEM(state: CartType, action: SliceAction) {
       const newItem: ItemType = action.payload;
       const { cartItems } = state;
-      const exItem = cartItems.find((x: ItemType) => x.product._id === newItem.product._id);
+      const exItem = cartItems.find((x: ItemType) => x.product === newItem.product);
 
       // updates cartItems if new item added
       if (!exItem) return { ...state, error: '', cartItems: [...cartItems, newItem] };
