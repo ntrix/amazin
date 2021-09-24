@@ -8,16 +8,17 @@ import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
 const validate = ({ name, email, text }: ContactType) => {
-  const error: string[] = [];
-  const checkField = (isEmpty: boolean, msg: string) => isEmpty && error.push(msg);
+  let error = '';
 
-  checkField(!name, 'Please enter your name!');
-  checkField(!email, 'Please enter your email!');
+  const checkField = (type: RuleName, value = '') => {
+    const rules = validateRules[type];
+    const hasError = rules.some(([_, rule]) => !new RegExp(rule).test(value));
+    if (hasError) error = ' Something wrong happened!';
+  };
 
-  const validateRule = validateRules['message'];
-  const regEx = new RegExp(validateRule.RegEx, 'g');
-  checkField(!text, 'Please enter your message!');
-  !!text && checkField(!regEx.test(text), validateRule.msg);
+  checkField('name', name);
+  checkField('email', email);
+  checkField('message', text);
 
   return error;
 };

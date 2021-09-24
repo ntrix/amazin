@@ -58,30 +58,27 @@ const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, PropType>(
 
 function ValidateInput({ type, hook = [], ...rest }: PropType) {
   const [value = ''] = hook as HookType<string>;
-  const validateRule = validateRules[type as RuleName];
-  const regEx = new RegExp(validateRule.RegEx, 'g');
+  const rules = validateRules[type as RuleName];
+  const regExs = rules.map(([msg, rule]) => [msg, new RegExp(rule)] as [string, RegExp]);
 
   const input = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-  const [variant, setVariant] = useState(0);
+  const [variant, setVariant] = useState<string>('unTouched');
   const props = { ref: input, wrapClass: 'xs m-0', type, hook, required: true, ...rest };
+  const newVar = regExs.reduce((acc, [msg, regEx]) => acc + (acc ? ',' : '') + (!regEx.test(value) ? msg : ''), '');
 
   return (
     <>
-      <Input
-        {...props}
-        onFocus={() => setVariant(0)}
-        onBlur={() => setVariant(value === '' ? 3 : 1 + Number(!regEx.test(value)))}
-      />
-      <MessageLine variant={variant} msg={['\xa0', '✓', validateRule.msg, rest.text + ' is required!']} />
+      <Input {...props} onFocus={() => setVariant('unTouched')} onBlur={() => setVariant(newVar)} />
+      <MessageLine msg={{ unTouched: '\xa0', '': '✓' }[variant] ?? variant} />
     </>
   );
 }
 
 function CustomInput(props: PropType) {
-  const rule = props.type || props?.text?.toLowerCase() || '';
-  const hasRules = Object.keys(validateRules).includes(rule);
+  const type = props.type || props?.text?.toLowerCase() || '';
+  const hasRules = Object.keys(validateRules).includes(type);
 
-  return hasRules ? <ValidateInput {...props} type={rule} /> : <Input {...props} />;
+  return hasRules ? <ValidateInput {...props} type={type} /> : <Input {...props} />;
 }
 
 export default memo(CustomInput);

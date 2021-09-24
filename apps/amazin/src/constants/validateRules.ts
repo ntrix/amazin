@@ -1,14 +1,28 @@
-/* TODO more generic rules */
-export const validateRules: RulesType = {
-  name: { msg: 'Name must be 2-50 characters long', RegEx: `^[a-zA-Z]+[a-zA-Z-_ ]{2,50}$` },
-  email: { msg: 'Invalid email', RegEx: `^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$` },
-  password: {
-    msg: 'Password must have 8-32 letters and include digit, lowercase and uppercase characters',
-    RegEx: `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,32}$`
-  },
-  address: { msg: 'Invalid address', RegEx: `[a-zA-Z0-9_-]` },
-  city: { msg: 'Invalid city', RegEx: `[a-zA-Z0-9_-]` },
-  tel: { msg: 'Only numbers and dashes are allowed', RegEx: `[0-9-]` },
-  postalCode: { msg: 'Only 5 numbers!', RegEx: `^[0-9]{5}$` },
-  message: { msg: 'Your message should be at least 50 characters long!', RegEx: `.{50,}` }
+const required: [string, string] = [' This field is required', '^.{1,}'];
+
+export const validateRules: RuleListType = {
+  name: [
+    required,
+    [' Name must must have 2-50 letters', `^.{2,50}$`],
+    [' only characters and dashes are allowed', `^[a-zA-Z]+[a-zA-Z- ]`]
+  ],
+  email: [required, [' Email is invalid', `^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$`]],
+  password: [
+    required,
+    [' Password must have 8-32 letters', `^.{8,32}$`],
+    [
+      ' must have at least one digit, lowercase and uppercase characters',
+      `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]`
+    ]
+  ],
+  address: [required, [' Address is invalid', `[a-zA-Z0-9_-]`]],
+  city: [required, [' City is invalid', `[a-zA-Z0-9_-]`]],
+  tel: [
+    required,
+    [' Telephone should have 6.20 digits', `^.{6,20}$`],
+    [' only numbers and dashes are allowed', `[0-9-]`]
+  ],
+  postalCode: [required, [' Postal code should have 5 numbers!', `^.{5}$`], [' only numbers are allowed', `^[0-9]`]],
+  message: [required, [' Message should have at least 20 characters long!', `.{20,}`]],
+  required: [required]
 };
