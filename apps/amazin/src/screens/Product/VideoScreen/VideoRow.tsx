@@ -32,7 +32,7 @@ function VideoRow({ label, genre, movies, portrait = false }: PropType) {
           itemClass="carousel-item-padding-40-px"
         >
           {movies[genre]?.map((movie, id) => (
-            <Suspense key={id} fallback={<VideoCardFallBack portrait={portrait} />}>
+            <Suspense key={movie._id ?? id} fallback={<VideoCardFallBack portrait={portrait} />}>
               <VideoCard movie={movie} portrait={portrait} trailerUrl={trailerUrl} setTrailerUrl={setTrailerUrl} />
             </Suspense>
           ))}

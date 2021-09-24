@@ -10,8 +10,8 @@ function VideoNavHeader({ genreLabels, active, setActive }: PropType) {
   return (
     <nav className="m-header">
       <ul className="m-nav">
-        {genreLabels.map((label, id) => (
-          <li key={id} className={label === active ? ' active' : ''} onClick={() => setActive(label)}>
+        {genreLabels.map((label) => (
+          <li key={label} className={label === active ? ' active' : ''} onClick={() => setActive(label)}>
             {label.split(' ')[0]}
           </li>
         ))}

@@ -24,8 +24,8 @@ function SearchCatDropdown({ activeCat, setActiveCat }: { activeCat: string; set
       />
       <div className="cat-scope__dropdown">
         <ul className="dropdown__list">
-          {[NAV.ALL, ...categories].map((cat, key) => (
-            <SearchCatItem key={key} cat={cat} isActive={activeCat === cat} setActiveCat={setActiveCat} />
+          {[NAV.ALL, ...categories].map((cat) => (
+            <SearchCatItem key={cat} cat={cat} isActive={activeCat === cat} setActiveCat={setActiveCat} />
           ))}
         </ul>
       </div>

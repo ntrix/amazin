@@ -13,8 +13,8 @@ function ProductColumn({ productList: { products, loading, error } }: { productL
       <MessageBox msg={products?.length < 1 && 'No Product Found'} />
 
       <SusProductList>
-        {products?.map((product, id) => (
-          <SusProductCard key={id} children={<ProductCard product={product} />} />
+        {products?.map((product) => (
+          <SusProductCard key={product._id} children={<ProductCard product={product} />} />
         ))}
       </SusProductList>
     </>

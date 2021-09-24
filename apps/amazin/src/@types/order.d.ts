@@ -6,7 +6,7 @@ type ItemType = {
   countInStock: number;
   image: string;
   seller: UserType;
-  product: ProductType;
+  product: ProductType | string;
   ship: number;
 };
 

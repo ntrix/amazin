@@ -5,8 +5,8 @@ export default function OrderItemsCard({ items }: { items: ItemType[] }) {
   return (
     <InfoCard label="Order Items">
       <ul>
-        {items?.map((item, id) => (
-          <OrderItem key={id} item={item} />
+        {items?.map((item) => (
+          <OrderItem key={item.product as string} item={item} />
         ))}
       </ul>
     </InfoCard>

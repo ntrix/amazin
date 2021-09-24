@@ -11,8 +11,8 @@ function DropdownCurrency({ currency }: { currency: CurrType }) {
       <DropdownCurrencyItem label="EUR" currency={currency} />
       <li className="separator ml-1"></li>
 
-      {pipe.currencies.slice(1).map((label, id) => (
-        <DropdownCurrencyItem key={id} label={label} currency={currency} />
+      {pipe.currencies.slice(1).map((label) => (
+        <DropdownCurrencyItem key={label} label={label} currency={currency} />
       ))}
       <li className="separator" />
 

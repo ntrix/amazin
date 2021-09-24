@@ -19,15 +19,15 @@ function DealScreen() {
   const { cat, banner, order, list, preloadCat, changeCat } = useDealScreen(useRef(''), useParams());
   const sortOrderUrl = ({ order: _order }: { order: string }) => `/deal/category/all/order/${_order}/pageNumber/1`;
 
+  const Products = (list?.products || dummyMovies).map((product) => (
+    <SusProductCard key={product._id} children={<ProductCard showDeal product={product} />} />
+  ));
+
   return (
     <>
       <SubNavCategories first={NAV.DEAL} category={cat.current} changeCat={changeCat} onPreload={preloadCat} />
       <div className={`deal-screen ${banner.current}`}>
-        <Carousel {...CAROUSEL_CONFIG} autoPlay={!shadowOf}>
-          {(list?.products || dummyMovies).map((product, id) => (
-            <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
-          ))}
-        </Carousel>
+        <Carousel {...CAROUSEL_CONFIG} autoPlay={!shadowOf} children={Products} />
 
         <MessageBox msg={list?.products?.length < 1 && 'No Deals On This Category!'} />
 
@@ -35,11 +35,7 @@ function DealScreen() {
         <div className="screen__featured">
           <SearchBanner list={list} children={<SortFilter order={order} getUrl={sortOrderUrl} />} />
 
-          <SusProductList>
-            {list?.products?.map((product, id) => (
-              <SusProductCard key={id} children={<ProductCard showDeal product={product} />} />
-            ))}
-          </SusProductList>
+          <SusProductList children={!!list?.products && Products} />
         </div>
       </div>
     </>
