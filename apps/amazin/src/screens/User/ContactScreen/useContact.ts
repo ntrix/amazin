@@ -2,26 +2,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
-import { validateRules } from 'src/constants';
+import { validateAll } from 'src/utils';
 import { sendContactMessage, updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
-
-const validate = ({ name, email, text }: ContactType) => {
-  let error = '';
-
-  const checkField = (type: RuleName, value = '') => {
-    const rules = validateRules[type];
-    const hasError = rules.some(([_, rule]) => !new RegExp(rule).test(value));
-    if (hasError) error = ' Something wrong happened!';
-  };
-
-  checkField('name', name);
-  checkField('email', email);
-  checkField('message', text);
-
-  return error;
-};
 
 export function useSubmitContact(setStatus: SetState) {
   const dispatch = useDispatch();
@@ -30,12 +14,12 @@ export function useSubmitContact(setStatus: SetState) {
   async function submitContact(e: EventType, contactInfo: ContactType) {
     e.preventDefault();
 
-    const error = validate(contactInfo);
-    if (error.length) return setStatus({ error });
-    const contact = contactInfo as UserType;
+    const error = validateAll(contactInfo);
+    if (error) return setStatus({ error });
 
+    const { name, email } = contactInfo as UserType;
     if ('Seller' === contactInfo.subject)
-      return dispatch(updateUserProfile({ _id: userInfo._id, name: contact.name, email: contact.email, verify: true }));
+      return dispatch(updateUserProfile({ _id: userInfo._id, name, email, verify: true }));
 
     dispatch(sendContactMessage(contactInfo, setStatus));
   }

@@ -1,12 +1,13 @@
-import { forwardRef, memo, useRef, useState } from 'react';
+import { forwardRef, memo, useState } from 'react';
 import { validateRules } from 'src/constants';
 
-import { createId } from 'src/utils';
+import { createId, validate } from 'src/utils';
 import { MessageLine } from './MessageBox';
 
 type PropType = {
   text?: string;
   type?: string;
+  rule?: string;
   placeholder?: string;
   hook?: HookType<string> | HookType<string[]> | HookType<number> | [];
   onChange?: ChangeEvent;
@@ -56,29 +57,31 @@ const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, PropType>(
   }
 );
 
-function ValidateInput({ type, hook = [], ...rest }: PropType) {
+function ValidateInput({ rule = '', hook = [], ...rest }: PropType) {
   const [value = ''] = hook as HookType<string>;
-  const rules = validateRules[type as RuleName];
-  const regExs = rules.map(([msg, rule]) => [msg, new RegExp(rule)] as [string, RegExp]);
 
-  const input = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-  const [variant, setVariant] = useState<string>('unTouched');
-  const props = { ref: input, wrapClass: 'xs m-0', type, hook, required: true, ...rest };
-  const newVar = regExs.reduce((acc, [msg, regEx]) => acc + (acc ? ',' : '') + (!regEx.test(value) ? msg : ''), '');
+  const [validMsg, setValidMsg] = useState('\xa0');
 
   return (
     <>
-      <Input {...props} onFocus={() => setVariant('unTouched')} onBlur={() => setVariant(newVar)} />
-      <MessageLine msg={{ unTouched: '\xa0', '': '✓' }[variant] ?? variant} />
+      <Input
+        wrapClass="xs m-0"
+        hook={hook}
+        {...rest}
+        required
+        onFocus={() => setValidMsg('\xa0')}
+        onBlur={() => setValidMsg(validate(rule, value) || '✓')}
+      />
+      <MessageLine msg={validMsg} />
     </>
   );
 }
 
 function CustomInput(props: PropType) {
-  const type = props.type || props?.text?.toLowerCase() || '';
-  const hasRules = Object.keys(validateRules).includes(type);
+  const rule = props.type || props?.text?.toLowerCase() || '';
+  const hasRules = Object.keys(validateRules).includes(rule);
 
-  return hasRules ? <ValidateInput {...props} type={type} /> : <Input {...props} />;
+  return hasRules ? <ValidateInput {...props} rule={rule} /> : <Input {...props} />;
 }
 
 export default memo(CustomInput);

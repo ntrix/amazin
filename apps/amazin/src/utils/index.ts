@@ -8,6 +8,7 @@ export * from './debounce';
 export * from './throttle';
 export * from './shortName';
 export * from './findSuggest';
+export * from './validate';
 
 export const castArray = (strArray: unknown) => (Array.isArray(strArray) ? strArray : [strArray]);
 

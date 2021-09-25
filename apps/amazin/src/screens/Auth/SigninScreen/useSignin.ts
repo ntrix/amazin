@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { updateCurrencyRates } from 'src/apis/productAPI';
 import { signin, updateUserProfile } from 'src/apis/userAPI';
-import { pipe } from 'src/utils';
+import { pipe, validateAll } from 'src/utils';
 
 export function useSignin(location: LocationProp, history: HistoryProp) {
   const dispatch = useDispatch();
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const userSignin = useSelector((state: AppState) => state.userSignin);
   const { userInfo }: { userInfo: UserType } = userSignin;
+  const [status, setStatus] = useState<StatusType>();
 
   useEffect(() => {
     if (!userInfo) return;
@@ -25,8 +26,10 @@ export function useSignin(location: LocationProp, history: HistoryProp) {
 
   const submitSignin = (e: EventType, { email, password }: Record<string, string>) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    const error = validateAll({ email, password });
+    if (error) setStatus({ error });
+    else dispatch(signin(email, password));
   };
 
-  return { redirect, userSignin, submitSignin };
+  return { redirect, status, userSignin, submitSignin };
 }
