@@ -24,7 +24,9 @@ function MessageBox({ show = false, msg, variant, wrapClass = '', children }: Pr
 }
 
 export function MessageLine({ msg }: { msg: string }) {
-  return <div className={`alert xs alert--${{ '✓': 'success', '\xa0': '' }[msg] ?? 'danger'}`}>{msg}</div>;
+  return (
+    <div className={`alert xs alert--${{ '✓': ' success bold text-right', '\xa0': '' }[msg] ?? 'danger'}`}>{msg}</div>
+  );
 }
 
 export default memo(MessageBox);

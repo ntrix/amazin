@@ -1,26 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { validateRules } from 'src/constants';
+
+import { validate } from 'src/utils';
 import { sendContactMessage, updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
-const validate = ({ name, email, text }: ContactType) => {
-  let error = '';
-
-  const checkField = (type: RuleName, value = '') => {
-    const rules = validateRules[type];
-    const hasError = rules.some(([_, rule]) => !new RegExp(rule).test(value));
-    if (hasError) error = ' Something wrong happened!';
-  };
-
-  checkField('name', name);
-  checkField('email', email);
-  checkField('message', text);
-
-  return error;
-};
+const validateAll = ({ name, email, text }: ContactType) =>
+  validate('name', name) + validate('email', email) + validate('message', text);
 
 export function useSubmitContact(setStatus: SetState) {
   const dispatch = useDispatch();
@@ -29,8 +17,7 @@ export function useSubmitContact(setStatus: SetState) {
   async function submitContact(e: EventType, contactInfo: ContactType) {
     e.preventDefault();
 
-    const error = validate(contactInfo);
-    if (error.length) return setStatus({ error });
+    if (validateAll(contactInfo)) return setStatus({ error: 'Please double check the required (*) information!' });
     const contact = contactInfo as UserType;
 
     if ('Seller' === contactInfo.subject)

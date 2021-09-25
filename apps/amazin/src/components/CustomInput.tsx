@@ -1,7 +1,7 @@
-import { forwardRef, memo, useRef, useState } from 'react';
+import { forwardRef, memo, useState } from 'react';
 import { validateRules } from 'src/constants';
 
-import { createId } from 'src/utils';
+import { createId, validate } from 'src/utils';
 import { MessageLine } from './MessageBox';
 
 type PropType = {
@@ -58,18 +58,14 @@ const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, PropType>(
 
 function ValidateInput({ type, hook = [], ...rest }: PropType) {
   const [value = ''] = hook as HookType<string>;
-  const rules = validateRules[type as RuleName];
-  const regExs = rules.map(([msg, rule]) => [msg, new RegExp(rule)] as [string, RegExp]);
 
-  const input = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-  const [variant, setVariant] = useState<string>('unTouched');
-  const props = { ref: input, wrapClass: 'xs m-0', type, hook, required: true, ...rest };
-  const newVar = regExs.reduce((acc, [msg, regEx]) => acc + (acc ? ',' : '') + (!regEx.test(value) ? msg : ''), '');
+  const [message, setMessage] = useState('\xa0');
+  const props = { wrapClass: 'xs m-0', type, hook, required: true, ...rest };
 
   return (
     <>
-      <Input {...props} onFocus={() => setVariant('unTouched')} onBlur={() => setVariant(newVar)} />
-      <MessageLine msg={{ unTouched: '\xa0', '': '✓' }[variant] ?? variant} />
+      <Input {...props} onFocus={() => setMessage('\xa0')} onBlur={() => setMessage(validate(type, value) || '✓')} />
+      <MessageLine msg={message} />
     </>
   );
 }
