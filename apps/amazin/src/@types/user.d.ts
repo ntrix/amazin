@@ -51,5 +51,5 @@ type ContactType = {
   name?: string;
   email?: string;
   subject?: string;
-  text?: string;
+  message?: string;
 };

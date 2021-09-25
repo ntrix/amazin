@@ -2,13 +2,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
-import { validate } from 'src/utils';
+import { validateAll } from 'src/utils';
 import { sendContactMessage, updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
-
-const validateAll = ({ name, email, text }: ContactType) =>
-  validate('name', name) + validate('email', email) + validate('message', text);
 
 export function useSubmitContact(setStatus: SetState) {
   const dispatch = useDispatch();
