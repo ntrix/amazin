@@ -12,4 +12,6 @@ export const validate = (type: string, value = '') => {
 };
 
 export const validateAll = (validRules: ValidateType) =>
-  Object.keys(validRules).some((rule) => validate(rule, validRules[rule as RuleName]));
+  Object.keys(validRules).some((rule) => validate(rule, validRules[rule as RuleName]))
+    ? 'Please double check the required (*) information!'
+    : '';

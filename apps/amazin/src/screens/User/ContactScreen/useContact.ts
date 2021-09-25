@@ -14,11 +14,12 @@ export function useSubmitContact(setStatus: SetState) {
   async function submitContact(e: EventType, contactInfo: ContactType) {
     e.preventDefault();
 
-    if (validateAll(contactInfo)) return setStatus({ error: 'Please double check the required (*) information!' });
-    const contact = contactInfo as UserType;
+    const error = validateAll(contactInfo);
+    if (error) return setStatus({ error });
 
+    const { name, email } = contactInfo as UserType;
     if ('Seller' === contactInfo.subject)
-      return dispatch(updateUserProfile({ _id: userInfo._id, name: contact.name, email: contact.email, verify: true }));
+      return dispatch(updateUserProfile({ _id: userInfo._id, name, email, verify: true }));
 
     dispatch(sendContactMessage(contactInfo, setStatus));
   }

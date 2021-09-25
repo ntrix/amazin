@@ -1,5 +1,14 @@
 const required: [string, string] = [' This field is required.', '^.{1,}'];
 
+const password: RuleType[] = [
+  required,
+  [' Password must have 8-32 letters', `^.{8,32}$`],
+  [
+    ' Password must have at least one digit, lowercase and uppercase characters',
+    `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]`
+  ]
+];
+
 export const validateRules: RuleListType = {
   name: [
     required,
@@ -7,14 +16,9 @@ export const validateRules: RuleListType = {
     [' Name should be only characters and dashes.', `^[a-zA-Z]+[a-zA-Z- ]`]
   ],
   email: [required, [' Email is invalid!', `^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$`]],
-  password: [
-    required,
-    [' Password must have 8-32 letters', `^.{8,32}$`],
-    [
-      ' Password must have at least one digit, lowercase and uppercase characters',
-      `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]`
-    ]
-  ],
+  password,
+  confirmPassword: password,
+  oldPassword: password,
   address: [required, [' Address is invalid!', `[a-zA-Z0-9_-]`]],
   city: [required, [' City is invalid!', `[a-zA-Z0-9_-]`]],
   tel: [
