@@ -8,13 +8,13 @@ import PageRedirect from 'src/components/PageRedirect';
 export default function SigninScreen({ location, history }: RouteProps<MatchParams>) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { redirect, userSignin, submitSignin } = useSignin(location, history);
+  const { redirect, status, userSignin, submitSignin } = useSignin(location, history);
 
   return (
     <Form
       onSubmit={(e) => submitSignin(e, { email, password })}
       header="Sign In"
-      statusOf={userSignin}
+      statusOf={status || userSignin}
       btn="Sign In"
       more={
         <PageRedirect to={`/register?redirect=${redirect}`} label="New customer?">
