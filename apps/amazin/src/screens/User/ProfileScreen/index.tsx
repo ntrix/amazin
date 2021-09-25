@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useUserProfile } from './useProfile';
-import { DUMMY_SELLER } from 'src/constants';
+import { useSellerProfile, useUserProfile } from './useProfile';
 import Form from 'src/layouts/Form';
 import PasswordSection from './PasswordSection';
 import SellerProfileSection from './SellerProfileSection';
@@ -11,21 +10,16 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import SuccessModal from 'src/components/SuccessModal';
 
 export default function ProfileScreen() {
-  const userDetails: UserDetailType = useSelector((state: AppState) => state.userDetails);
   const userUpdateProfile: StatusType = useSelector((state: AppState) => state.userUpdateProfile);
 
   const [passwords, setPasswords] = useState(['', undefined]);
+  const { seller, setSeller, userDetails } = useSellerProfile();
   const { name, setName, email, setEmail, submitUpdate } = useUserProfile(userDetails?.user, setPasswords);
-  const [seller, setSeller] = useState<SellerType>(userDetails?.user?.seller ?? DUMMY_SELLER.seller);
 
-  useEffect(() => {
-    if (userDetails?.user?.seller) setSeller(userDetails?.user?.seller);
-  }, [userDetails, setSeller]);
+  const handleSubmit = (e: EventType) => submitUpdate(e, passwords, seller);
 
   if (userDetails?.user && userUpdateProfile.success)
     return <SuccessModal className="form" msg="Profile Updated Successfully" label="Back To Home Page" />;
-
-  const handleSubmit = (e: EventType) => submitUpdate(e, passwords, seller);
 
   return (
     <Form header="User Profile" statusOf={userDetails} onSubmit={handleSubmit} btn="Update">
