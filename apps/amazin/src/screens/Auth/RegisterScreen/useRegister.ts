@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { register } from 'src/apis/userAPI';
+import { userRegisterActions } from 'src/slice/UserSlice';
+import { validateAll } from 'src/utils';
 
 export function useRegister(location: LocationProp, history: HistoryProp) {
   const dispatch = useDispatch();
@@ -9,14 +11,16 @@ export function useRegister(location: LocationProp, history: HistoryProp) {
   const userRegister = useSelector((state: AppState) => state.userRegister);
 
   useEffect(() => {
-    if (userRegister.userInfo) {
-      history.push(redirect);
-    }
+    if (userRegister.userInfo) history.push(redirect);
   }, [history, redirect, userRegister.userInfo]);
 
   const submitRegister = (e: EventType, { name, email, password, confirmPassword }: Record<string, string>) => {
     e.preventDefault();
-    dispatch(register(name, email, password, confirmPassword));
+
+    const error = validateAll({ name, email, password, confirmPassword });
+
+    if (error) dispatch(userRegisterActions._FAIL(error));
+    else dispatch(register(name, email, password, confirmPassword));
   };
 
   return { redirect, userRegister, submitRegister };
