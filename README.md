@@ -43,7 +43,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 ### Backend Stack
 
-![Tech Stack Backtend][stackbe]
+![Tech Stack Backend][stackbe]
 
 - [Node JS][node]
 - [Express JS][express]
@@ -73,7 +73,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 | ---------------------------- | -------------------------------- |
 | ![amazim.store QR][qramazim] | ![amazin.ntien.com QR][qramazin] |
 
-![Amazon Clone built with React and Node][demo]
+![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
 
 ### Source code
 
@@ -133,13 +133,41 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [qramazin]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazin.ntien.com.png
 [amazin-story]: https://ntrix.github.io/amazin-story/
 [amazin-story-vercel]: https://amazin-story.vercel.app/
-[demo]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/amazim-react-demo-ntien.gif
+[nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
 
 ## Code Climate
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/c63323239801d458e190/maintainability)](https://codeclimate.com/github/ntrix/amazin/maintainability)
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c63323239801d458e190/test_coverage)](https://codeclimate.com/github/ntrix/amazin/test_coverage)
+
+## Demo
+
+### Sort Filter Search Nav SideNav
+
+![Sort Filter Search Nav SideNav][sort-filter-search-nav-side-nav]
+
+### Screen SubNav SearchFilter Pagination
+
+![Screen SubNav SearchFilter Pagination][screen-sub-nav-search-filter-pagination]
+
+### Responsive
+
+![Responsive][responsive]
+
+### Currency Shipping Payment Contact Profile Validate
+
+![Currency Shipping Payment Contact Profile Validate][currency-shipping-payment-contact-profile-validate]
+
+### Content Management Product Image User Order
+
+![Content Management Product Image User Order][content-management-product-image-user-order]
+
+[content-management-product-image-user-order]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Content%20Management%20Product%20Image%20User%20Order.gif
+[currency-shipping-payment-contact-profile-validate]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Currency%20Shipping%20Payment%20Contact%20Profile%20Validate.gif
+[responsive]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Responsive.gif
+[screen-sub-nav-search-filter-pagination]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Screen%20SubNav%20SearchFilter%20Pagination.gif
+[sort-filter-search-nav-side-nav]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Sort%20Filter%20Search%20Nav%20SideNav.gif
 
 ## Nx Amazin' Amazim Store
 
