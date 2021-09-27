@@ -15,7 +15,7 @@ export const validateRules: RuleListType = {
     [' Name must must have 2-50 letters.', `^.{2,50}$`],
     [' Name should be only characters and dashes.', `^[a-zA-Z]+[a-zA-Z- ]`]
   ],
-  email: [required, [' Email is invalid!', `^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]+$`]],
+  email: [required, [' Email is invalid!', `^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+[.][a-zA-Z0-9-.]{2,}$`]],
   password,
   confirmPassword: password,
   oldPassword: password,
