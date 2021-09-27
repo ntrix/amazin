@@ -1,6 +1,5 @@
 import { memo, lazy } from 'react';
 import { useShadow } from 'src/hooks/useShadow';
-import { Lazy } from 'swiper';
 
 import NavButton from '../NavButton';
 const DropdownCurrency: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './DropdownCurrency'));
