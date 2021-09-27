@@ -19,7 +19,7 @@ This is the collection of components that I wrote for [amazim.store][amazim], in
 - Cards
 - And more to come ..
 
-[https://ntrix.github.io/amazin-story/][amazin-story] or [https://amazin-story.vercel.app/][amazin-story-vercel]
+[https://ntrix.github.io/amazin-story/][amazin-story] or [https://amazin-storybook.vercel.app/][amazin-story-vercel]
 
 ## What is Amazim?
 
@@ -132,7 +132,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [qramazim]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazim.store.png
 [qramazin]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazin.ntien.com.png
 [amazin-story]: https://ntrix.github.io/amazin-story/
-[amazin-story-vercel]: https://amazin-story.vercel.app/
+[amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
 
 ## Code Climate
