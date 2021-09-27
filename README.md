@@ -43,7 +43,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 ### Backend Stack
 
-![Tech Stack Backtend][stackbe]
+![Tech Stack Backend][stackbe]
 
 - [Node JS][node]
 - [Express JS][express]
