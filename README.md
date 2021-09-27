@@ -143,23 +143,23 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 ## Demo
 
-### Sort Filter Search Nav SideNav
+### Sort, Filter, Search, Nav, SideNav
 
 ![Sort Filter Search Nav SideNav][sort-filter-search-nav-side-nav]
 
-### Screen SubNav SearchFilter Pagination
+### Screen, SubNav, SearchFilter, Pagination
 
 ![Screen SubNav SearchFilter Pagination][screen-sub-nav-search-filter-pagination]
 
-### Responsive
+### Responsive any size
 
 ![Responsive][responsive]
 
-### Currency Shipping Payment Contact Profile Validate
+### Currency, Shipping, Payment, Contact, Profile, Validate
 
 ![Currency Shipping Payment Contact Profile Validate][currency-shipping-payment-contact-profile-validate]
 
-### Content Management Product Image User Order
+### Content, Management, Product, Image, User, Order
 
 ![Content Management Product Image User Order][content-management-product-image-user-order]
 
