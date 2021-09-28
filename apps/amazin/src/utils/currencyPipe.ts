@@ -43,6 +43,7 @@ type pipeType = {
   getCent: FnType;
   showPrice: FnType;
 };
+
 export const pipe: pipeType = {
   rates,
   longName,
@@ -50,30 +51,30 @@ export const pipe: pipeType = {
   currency: 'EUR',
   currencies: ['EUR', 'GBP', 'USD', 'PLN', 'CZK', 'CHF'],
   setCurrency(currency) {
-    this.currency = currency;
+    pipe.currency = currency;
   },
   updateRates(newRates: CurrRateType): void {
-    if (newRates?.EUR) this.currencies.map((c) => (this.rates[c] = newRates[c]));
+    if (newRates?.EUR) pipe.currencies.forEach((c) => (pipe.rates[c] = newRates[c]));
   },
-  getSymbol(currency: CurrType): string {
-    return this.symbol[currency || this.currency];
+  getSymbol(currency: CurrType = pipe.currency): string {
+    return pipe.symbol[currency];
   },
-  getName(currency: CurrType): string {
-    return longName[currency || this.currency];
+  getName(currency: CurrType = pipe.currency): string {
+    return longName[currency];
   },
-  getRate(currency: CurrType): number {
-    return rates[currency || this.currency] || 1;
+  getRate(currency: CurrType = pipe.currency): number {
+    return rates[currency] || 1;
   },
-  getPrice(price = 0, rate?: number): string {
-    return (price * (rate || this.getRate())).toFixed(CURR_FORMAT);
+  getPrice(price = 0, rate = pipe.getRate()): string {
+    return (price * rate).toFixed(CURR_FORMAT);
   },
-  getNote(price = 0, rate: number): string {
-    return ((price * (rate || this.getRate())) | 0).toString();
+  getNote(price = 0, rate = pipe.getRate()): string {
+    return ((price * rate) | 0).toString();
   },
-  getCent(price = 0, rate: number): string {
-    return (price * (rate || this.getRate())).toFixed(CURR_FORMAT).slice(-CURR_FORMAT);
+  getCent(price = 0, rate = pipe.getRate()): string {
+    return (price * rate).toFixed(CURR_FORMAT).slice(-CURR_FORMAT);
   },
   showPrice(price: number): string {
-    return `${this.getSymbol()} ${this.getPrice(price)}`;
+    return `${pipe.getSymbol()} ${pipe.getPrice(price)}`;
   }
 };

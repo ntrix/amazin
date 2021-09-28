@@ -1,0 +1,15 @@
+@baseUrl = http://localhost:5000/api/
+
+# @name getAllProducts
+
+@token = Bearer adminToken
+
+@DB_key = you_guess_it
+
+GET {{baseUrl}}products/admin-backup-my-db/{{DB_key}}
+Authorization: {{token}}
+###
+
+GET {{baseUrl}}products/admin-change-my-db/{{DB_key}}
+Authorization: {{token}}
+###

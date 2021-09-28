@@ -3,7 +3,7 @@ import Button from 'src/components/Button';
 import BaseTable from 'src/layouts/BaseTable';
 
 export default function OrderTable({ orderList, deleteHandler }: { orderList: OrderListType; deleteHandler?: FnType }) {
-  const header = ['USER_ID', 'DATE', 'TOTAL', 'PAID', 'DELIVERED'];
+  const header = ['ORDER_ID', 'DATE', 'TOTAL', 'PAID', 'DELIVERED'];
   if (deleteHandler) header.splice(1, 0, 'USER');
 
   return (

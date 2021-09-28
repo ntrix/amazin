@@ -1,6 +1,6 @@
 .deal-screen {
-  background: -webkit-linear-gradient(to bottom, #fbf4e4 15%, #fbf4e400 40%);
-  background: linear-gradient(to bottom, #fbf4e4 15%, #fbf4e400 40%);
+  background: -webkit-linear-gradient(to bottom, var(--bk-deal-screen) 15%, var(--bk-deal-screen-0) 40%);
+  background: linear-gradient(to bottom, var(--bk-deal-screen) 15%, var(--bk-deal-screen-0) 40%);
 }
 .deal-screen .carousel-container {
   height: 50rem;
@@ -23,7 +23,7 @@
   padding: 0 3rem;
   border-radius: 0;
   top: 0;
-  text-shadow: 2px 2px 2px #111;
+  text-shadow: 2px 2px 2px var(--rgb-111);
 }
 .deal-screen .react-multiple-carousel__arrow:not(.disabled, [disabled]) {
   background: transparent;
@@ -35,13 +35,13 @@
   margin-top: 2rem;
 }
 .deal-screen .screen__featured {
-  background: -webkit-linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
-  background: linear-gradient(to bottom, #fbf4e400 0%, #fbf4e4 30%);
+  background: -webkit-linear-gradient(to bottom, var(--bk-deal-screen-0) 0%, var(--bk-deal-screen) 30%);
+  background: linear-gradient(to bottom, var(--bk-deal-screen-0) 0%, var(--bk-deal-screen) 30%);
 }
 .deal-screen .price.strike {
   font-size: 14px;
   font-weight: 400;
-  color: #444;
+  color: var(--rgb-444);
 }
 
 .deal-screen .placeholder,
