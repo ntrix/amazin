@@ -1,5 +1,5 @@
 .c-screen {
-  background: #fff;
+  background: var(--white-f);
   margin: 0;
 }
 .c-screen * {
@@ -41,7 +41,7 @@
   margin-bottom: 26px;
   box-sizing: border-box;
   border-radius: 8px;
-  border: thin solid #0002;
+  border: thin solid var(--black-2);
   margin-right: 15px;
   flex: 1 1 25rem;
 }
@@ -50,12 +50,12 @@
   padding: 1rem;
 }
 .c-box.disabled {
-  border: thin solid #0001 !important;
+  border: thin solid var(--black-1) !important;
 }
 .c-box:not(.disabled):hover {
-  color: #c45500;
-  background: -webkit-linear-gradient(#fff, #f3f3f3);
-  background: linear-gradient(#fff, #f3f3f3);
+  color: var(--active-dark);
+  background: -webkit-linear-gradient(var(--white-f), var(--white-f3));
+  background: linear-gradient(var(--white-f), var(--white-f3));
   cursor: pointer;
 }
 .c-box__icon-wrapper {
@@ -77,7 +77,7 @@
   margin: 0;
   font-size: 13px;
   line-height: 19px;
-  color: #565959;
+  color: var(--rgb-555);
 }
 .c-box__text li {
   margin-top: 0;

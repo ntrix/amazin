@@ -23,9 +23,10 @@
 }
 .product > button {
   margin-top: 1rem;
-  color: #111;
-  background: #f0c14b;
-  border: thin solid #a88734 #9c7e31 #846a29;
+  color: var(--rgb-111);
+  background: var(--primary-2);
+  border: var(--border-active);
+  border-color: var(--border-active-colors);
 }
 .product__price {
   margin-top: 0.5rem;
@@ -43,11 +44,11 @@ textarea#comment {
 .product__thumbnail {
   max-width: 5rem;
   width: 100%;
-  border: thin solid #a4a4a4;
+  border: thin solid var(--rgb-aaa);
   margin-bottom: 1rem;
 }
 img.active {
-  box-shadow: 0 0 3px 2px #f19833;
+  box-shadow: 0 0 3px 2px var(--primary-3);
 }
 
 /* PRODUCT EDIT */

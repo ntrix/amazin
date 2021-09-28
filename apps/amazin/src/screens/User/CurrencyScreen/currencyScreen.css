@@ -41,10 +41,10 @@ select#select-currency {
 #select-currency optgroup {
   font-style: normal;
   font-weight: 400;
-  color: #aaa;
+  color: var(--rgb-aaa);
 }
 #select-currency option {
-  color: #000;
+  color: var(--black-f);
 }
 .btn--xs {
   padding: 6px 11px;

@@ -1,10 +1,10 @@
 .video-screen {
-  background-color: #0e171e;
+  background-color: var(--bk-video-screen);
   display: flex;
   flex-direction: column;
 }
 .m-header {
-  color: #fff;
+  color: var(--white-f);
   background: #1b2530;
   height: 6rem;
 }
@@ -15,11 +15,11 @@
   margin-top: 9px;
   font-size: 17px;
   font-weight: 400;
-  color: #a4a4a4;
+  color: var(--rgb-aaa);
 }
 /* Netflux */
 .m-nav li:first-child {
-  color: #eaeded;
+  color: var(--white-ed);
   font-size: 20px;
   font-weight: 600;
   margin: 0.5rem 6rem 0 23px;
@@ -29,14 +29,14 @@
   cursor: pointer;
 }
 .m-nav li:hover {
-  color: #fff;
+  color: var(--white-f);
 }
 .m-nav li:not(:first-child).active {
-  color: #fff;
+  color: var(--white-f);
   text-decoration: underline;
 }
 .banner {
-  color: #fff;
+  color: var(--white-f);
   object-fit: cover;
   height: 448px;
   position: relative;
@@ -51,7 +51,7 @@
 .banner__title {
   font-size: 48px;
   font-weight: 800;
-  text-shadow: 0 0 10px #000;
+  text-shadow: 0 0 10px var(--black-f);
 }
 
 .banner__description {
@@ -66,16 +66,16 @@
 .banner--fade-bottom {
   margin-top: -8rem;
   height: 15rem;
-  background-image: -webkit-linear-gradient(to bottom, #2220, #222a, #0e171e);
-  background-image: linear-gradient(to bottom, #2220, #222a, #0e171e);
+  background-image: -webkit-linear-gradient(to bottom, var(--rgb-222-0), var(--rgb-222-a), var(--bk-video-screen));
+  background-image: linear-gradient(to bottom, var(--rgb-222-0), var(--rgb-222-a), var(--bk-video-screen));
 }
 .banner__divider {
   padding: 6rem;
 }
 .banner--fade-top {
   height: 6rem;
-  background-image: -webkit-linear-gradient(to top, #2220, #222a, #0e171e);
-  background-image: linear-gradient(to top, #2220, #222a, #0e171e);
+  background-image: -webkit-linear-gradient(to top, var(--rgb-222-0), var(--rgb-222-a), var(--bk-video-screen));
+  background-image: linear-gradient(to top, var(--rgb-222-0), var(--rgb-222-a), var(--bk-video-screen));
 }
 .banner__button {
   font-weight: 700;
@@ -85,27 +85,27 @@
   border: none;
   outline: none;
   cursor: pointer;
-  color: #fff;
-  background: #222;
-  background: -webkit-linear-gradient(to bottom, #000, #444);
-  background: linear-gradient(to bottom, #000, #444);
+  color: var(--white-f);
+  background: var(--rgb-222);
+  background: -webkit-linear-gradient(to bottom, var(--black-f), var(--rgb-444));
+  background: linear-gradient(to bottom, var(--black-f), var(--rgb-444));
 }
 .banner__button:not([disabled]):hover {
-  color: #000;
-  background: #ccc;
-  background: -webkit-linear-gradient(to bottom, #aaa, #eee);
-  background: linear-gradient(to bottom, #aaa, #eee);
+  color: var(--black-f);
+  background: var(--rgb-ccc);
+  background: -webkit-linear-gradient(to bottom, var(--rgb-aaa), var(--rgb-eee));
+  background: linear-gradient(to bottom, var(--rgb-aaa), var(--rgb-eee));
   transition: all 0.2s;
 }
 .banner__button[disabled] {
-  background: #666 !important;
-  background: -webkit-linear-gradient(to bottom, #444, #888) !important;
-  background: linear-gradient(to bottom, #444, #888) !important;
-  color: #222 !important;
+  background: var(--rgb-666) !important;
+  background: -webkit-linear-gradient(to bottom, var(--rgb-444), var(--rgb-888)) !important;
+  background: linear-gradient(to bottom, var(--rgb-444), var(--rgb-888)) !important;
+  color: var(--rgb-222) !important;
   cursor: default;
 }
 .banner__button[disabled] * {
-  color: #222 !important;
+  color: var(--rgb-222) !important;
 }
 
 .m-row {
@@ -144,8 +144,8 @@
   height: 180px;
   width: 320px;
   border-radius: 6px;
-  color: #fff;
-  border: 2px solid #44a9e200;
+  color: var(--white-f);
+  border: 2px solid var(--blue-4-0);
   transition: border 0.01s linear, transform 0.2s ease-in;
   overflow: hidden;
 }
@@ -154,9 +154,9 @@
   width: 253px;
 }
 .m-card:not(.fallback):hover {
-  border: 2px solid #44a9e2;
+  border: 2px solid var(--blue-4);
   border-bottom: transparent;
-  background: #44a9e2;
+  background: var(--blue-4);
   transition: all 0.2s ease-in;
   opacity: 1;
   z-index: 1;
@@ -183,8 +183,8 @@
 }
 .m-card:hover .m-card__background {
   margin-top: -100px;
-  background: -webkit-linear-gradient(to bottom, #0000, #0e171e 30%);
-  background: linear-gradient(to bottom, #0000, #0e171e 30%);
+  background: -webkit-linear-gradient(to bottom, var(--black-0), var(--bk-video-screen) 30%);
+  background: linear-gradient(to bottom, var(--black-0), var(--bk-video-screen) 30%);
   /* transition: opacity 0.15s cubic-bezier(.08,.82,.17,1),border 0.01s linear, margin 0.7s cubic-bezier(.68,-0.55,.27,1.55); */
   transition: opacity 0.5s linear, margin 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), 1s;
   opacity: 1;
@@ -192,8 +192,8 @@
 }
 .m-card--portrait:hover .m-card__background {
   margin-top: -350px;
-  background: -webkit-linear-gradient(to bottom, #0000 25%, #0e171e 58%);
-  background: linear-gradient(to bottom, #0000 25%, #0e171e 58%);
+  background: -webkit-linear-gradient(to bottom, var(--black-0) 25%, var(--bk-video-screen) 58%);
+  background: linear-gradient(to bottom, var(--black-0) 25%, var(--bk-video-screen) 58%);
 }
 .m-card:hover .m-card__text {
   margin: 20px;
@@ -223,7 +223,7 @@
   margin-top: 150px;
   font-weight: 700;
   font-size: 15px;
-  text-shadow: 0 1px 2px #000, 0px 2px 4px #000, 0 4px 8px #000;
+  text-shadow: 0 1px 2px var(--black-f), 0px 2px 4px var(--black-f), 0 4px 8px var(--black-f);
 }
 .m-card--portrait .m-card__name {
   margin-top: 350px;
@@ -251,7 +251,7 @@
   right: 2rem;
 }
 .m-card__rating {
-  color: #44a9e2;
+  color: var(--blue-4);
   line-height: 3;
 }
 .trailer__frame {
