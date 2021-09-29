@@ -1,7 +1,7 @@
 import store, { rootReducer } from 'src/store';
 import { RouteComponentProps } from 'react-router';
 import * as H from 'history';
-
+import { ObjectID } from 'mongodb';
 declare global {
   type AppState = ReturnType<typeof rootReducer>;
   // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
@@ -31,4 +31,6 @@ declare global {
   type HistoryProp = H.History;
 
   type LocationProp = H.Location;
+
+  type IDType = ObjectID;
 }
