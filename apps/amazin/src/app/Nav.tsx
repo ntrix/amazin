@@ -3,10 +3,10 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import './nav.css';
 import { SuspenseNull, SuspenseText } from 'src/components/CustomSuspense';
-import { OutlineProvider } from 'src/components/Nav/NavSearch/useOutline';
-import NavBelt from 'src/components/Nav/NavBelt';
-import NavMain from 'src/components/Nav/NavMain';
+import OutlineProvider from 'src/components/Nav/NavSearch/useOutline';
 import NavShadow from 'src/components/Nav/NavShadow';
+const NavBelt: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Nav/NavBelt'));
+const NavMain: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Nav/NavMain'));
 const ErrorScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ 'src/screens/Auth/ErrorScreen'));
 const SidebarMenu: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Nav/SidebarMenu'));
 
