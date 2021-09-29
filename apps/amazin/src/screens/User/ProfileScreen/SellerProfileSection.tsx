@@ -5,7 +5,7 @@ import MessageBox from 'src/components/MessageBox';
 type PropType = {
   userDetails: UserDetailType;
   seller: SellerType;
-  setSeller: SetStateType<SellerType>;
+  setSeller: FnType;
 };
 
 export default function SellerProfileSection({ userDetails, seller, setSeller }: PropType) {
