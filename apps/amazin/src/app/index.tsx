@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import '../index.css';
 import { SuspenseText } from 'src/components/CustomSuspense';
 import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
-import { ShadowProvider, useShadow } from '../hooks/useShadow';
+import ShadowProvider, { useShadow } from '../hooks/useShadow';
 import { SHADOW } from '../constants';
 import Nav from './Nav';
 import MainRoutes from '../routes/MainRoutes';

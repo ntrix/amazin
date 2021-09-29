@@ -25,7 +25,7 @@ const OutlineContext = createContext<OutlineCtxType>({
 });
 OutlineContext.displayName = 'OutlineContext';
 
-export function OutlineProvider({ children }: { children: Children }) {
+function OutlineProvider({ children }: { children: Children }) {
   const { productList } = useSelector((state: AppState) => state.productListAll);
   const [outline, setOutline] = useState(false);
   const [scopeOutline, setScopeOutline] = useState(Scope.hide);
@@ -52,3 +52,5 @@ export function useOutline() {
 
   return context;
 }
+
+export default OutlineProvider;

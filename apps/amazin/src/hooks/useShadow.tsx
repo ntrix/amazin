@@ -24,9 +24,10 @@ const ShadowContext = createContext<ShadowType>({
 });
 ShadowContext.displayName = 'ShadowContext';
 
-export function ShadowProvider({ children }: { children: Children }) {
+function ShadowProvider({ children }: { children: Children }) {
   const { userInfo }: { userInfo: UserInfoType } = useSelector((state: AppState) => state.userSignin);
   const { sessionCurrency }: { sessionCurrency: CurrType } = useSelector((state: AppState) => state.currencyType);
+
   const [currency, setCurrency] = useState(userInfo?.currency ?? pipe.currency);
 
   useEffect(() => {
@@ -53,3 +54,5 @@ export function useShadow(): ShadowType {
 
   return context;
 }
+
+export default ShadowProvider;
