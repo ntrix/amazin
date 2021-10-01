@@ -26,6 +26,20 @@ This is the collection of components that I wrote for [amazim.store][amazim], in
 This is not only an online shop/platform/clone of Amazon, Netflix or something else built with a js-framework,
 but also a long term example experimenting some **modern**, **real-world**, **maybe unstable** React APIs, Nx, Mobile friendly PWA and also some Backend technologies in my spare time.
 
+### Features
+
+- Authenticate users via JWT (login, register, logout button on settings page)
+- Sort, Search, Nav, Side Nav, Sub Nav Categories, Search Filter, Search Suggest, Pagination, Multi Currencies, Map Location, Payment, Customer Contact Form, User Profile Update, Validations (Both Backend & Frontend Side)
+- Management of Content (Images, Videos), Products, Users, Orders:
+- _CRUD User(s) (sign up & settings page)_
+- _CRUD Product(s)_
+- _CRUD Orders(s)_
+- _CRUD Reviews of Product (no updating required)_
+- _GET and display filtered paginated lists of articles_
+- _Backoffice (as Admin/Seller) User and Product-catalogues Management_
+- Amazon’s style UI, responsive, cross browser, PWA ready
+- And more ..
+
 ## Tech stack: MERN & Co
 
 ### Frontend Stack
