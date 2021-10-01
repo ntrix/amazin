@@ -6,11 +6,11 @@ type OutlineCtxType = {
   productList: PNameType[];
   inputRef: Ref<HTMLInputElement>;
   outline: boolean;
-  setOutline: SetState;
+  setOutline: SetStateType<boolean>;
   scopeOutline: Scope;
-  setScopeOutline: SetState;
+  setScopeOutline: SetStateType<Scope>;
   suggestBox: boolean;
-  setSuggestBox: SetState;
+  setSuggestBox: SetStateType<boolean>;
 };
 
 const OutlineContext = createContext<OutlineCtxType>({
