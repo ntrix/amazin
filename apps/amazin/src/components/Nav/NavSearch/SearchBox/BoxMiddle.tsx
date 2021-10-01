@@ -8,7 +8,7 @@ import SearchInput from './SearchInput';
 const SearchSuggests: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './SearchSuggests'));
 
 function BoxMiddle(props: Props) {
-  const [suggests, setSuggests] = useState([]);
+  const [suggests, setSuggests] = useState<PNameType[]>([]);
   const { suggestBox } = useOutline();
   const { shadowOf } = useShadow();
 
@@ -17,7 +17,7 @@ function BoxMiddle(props: Props) {
       <SearchInput {...props} setSuggests={setSuggests} />
 
       <SuspenseNull>
-        {!!(props.input && suggests && suggestBox && SHADOW.NAV_SEARCH === shadowOf) && (
+        {!!(props.input && suggests.length && suggestBox && SHADOW.NAV_SEARCH === shadowOf) && (
           <div className="search__suggest">
             <ul children={<SearchSuggests suggests={suggests} setInput={props.setInput} setSuggests={setSuggests} />} />
           </div>

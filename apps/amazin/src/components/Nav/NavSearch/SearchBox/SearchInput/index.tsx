@@ -6,9 +6,9 @@ import { useKeyInput } from './useKeyInput';
 
 type PropType = {
   input: string;
-  setInput: SetState;
-  setSuggests: SetState;
-  submitSearch: SetState;
+  setInput: SetStateType<string>;
+  setSuggests: SetStateType<PNameType[]>;
+  submitSearch: FnType;
 };
 
 function SearchInput({ input, setInput, setSuggests, submitSearch }: PropType) {
