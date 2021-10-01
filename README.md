@@ -1,4 +1,4 @@
-# Welcome to Amazin' Amazim Storybook
+# Welcome to Amazin' Amazim Store
 
 ## A React Amazon (& Netflix & ...) Clone Project
 
@@ -93,7 +93,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 Frontend: [github.com/ntrix/amazin][fenx]
 
-Frontend (old version): [github.com/ntrix/amazin/tree/org-cra][fev1]
+Frontend (old version, MVP Frontend & Backend): [github.com/ntrix/amazin/tree/org-cra][mvp1]
 
 Backend: [github.com/ntrix/amazin-be][bev1]
 
@@ -112,7 +112,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas] | Done     |
 | 01b  | Backend v1: [Source][bev1], [Node][node], [Express][express]      | Done     |
 | 01c  | Backend Deploy: [Heroku][heroku] / Firebase                       | Done     |
-| 02a  | Frontend v1: [Source][fev1], [React][react], [Redux][redux]       | Done     |
+| 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]       | Done     |
 | 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
 | 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
 | 03b  | [Testing in React][testing]                                       | Doing    |
@@ -128,7 +128,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
-[fev1]: https://github.com/ntrix/amazin/tree/org-cra
+[mvp1]: https://github.com/ntrix/amazin/tree/org-cra
 [fenx]: https://github.com/ntrix/amazin
 [testing]: https://testing-library.com/
 [reactapi]: https://reactjs.org/docs/concurrent-mode-suspense.html
