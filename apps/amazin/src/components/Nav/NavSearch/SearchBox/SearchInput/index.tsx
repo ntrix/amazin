@@ -6,15 +6,14 @@ import { useKeyInput } from './useKeyInput';
 
 type PropType = {
   input: string;
-  setInput: SetState;
-  setSuggests: SetState;
-  submitSearch: SetState;
+  setInput: SetStateType<string>;
+  submitSearch: FnType;
 };
 
-function SearchInput({ input, setInput, setSuggests, submitSearch }: PropType) {
+function SearchInput({ input, setInput, submitSearch }: PropType) {
   const { inputRef, setOutline } = useOutline();
-  const { showBox, hideBoxOnCallback } = useSuggestBox(setSuggests);
-  const { handleKeyInput } = useKeyInput(setInput, setSuggests, submitSearch);
+  const { showBox, hideBoxOnCallback } = useSuggestBox();
+  const { handleKeyInput } = useKeyInput(setInput, submitSearch);
 
   const focusSuggestBox = () => {
     showBox(input);
