@@ -1,4 +1,4 @@
-# Welcome to Amazin' Amazim Storybook
+# Welcome to Amazin' Amazim Store
 
 ## A React Amazon (& Netflix & ...) Clone Project
 
@@ -25,6 +25,20 @@ This is the collection of components that I wrote for [amazim.store][amazim], in
 
 This is not only an online shop/platform/clone of Amazon, Netflix or something else built with a js-framework,
 but also a long term example experimenting some **modern**, **real-world**, **maybe unstable** React APIs, Nx, Mobile friendly PWA and also some Backend technologies in my spare time.
+
+### Features
+
+- Authenticate users via JWT (login, register, logout button on settings page)
+- Sort, Search, Nav, Side Nav, Sub Nav Categories, Search Filter, Search Suggest, Pagination, Multi Currencies, Map Location, Payment, Customer Contact Form, User Profile Update, Validations (Both Backend & Frontend Side)
+- Management of Content (Images, Videos), Products, Users, Orders:
+- _CRUD User(s) (sign up & settings page)_
+- _CRUD Product(s)_
+- _CRUD Orders(s)_
+- _CRUD Reviews of Product (no updating required)_
+- _GET and display filtered paginated lists of articles_
+- _Backoffice (as Admin/Seller) User and Product-catalogues Management_
+- Amazon’s style UI, responsive, cross browser, PWA ready
+- And more ..
 
 ## Tech stack: MERN & Co
 
@@ -79,7 +93,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 Frontend: [github.com/ntrix/amazin][fenx]
 
-Frontend (old version): [github.com/ntrix/amazin/tree/org-cra][fev1]
+Frontend (old version, MVP Frontend & Backend): [github.com/ntrix/amazin/tree/org-cra][mvp1]
 
 Backend: [github.com/ntrix/amazin-be][bev1]
 
@@ -98,7 +112,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas] | Done     |
 | 01b  | Backend v1: [Source][bev1], [Node][node], [Express][express]      | Done     |
 | 01c  | Backend Deploy: [Heroku][heroku] / Firebase                       | Done     |
-| 02a  | Frontend v1: [Source][fev1], [React][react], [Redux][redux]       | Done     |
+| 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]       | Done     |
 | 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
 | 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
 | 03b  | [Testing in React][testing]                                       | Doing    |
@@ -114,7 +128,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
-[fev1]: https://github.com/ntrix/amazin/tree/org-cra
+[mvp1]: https://github.com/ntrix/amazin/tree/org-cra
 [fenx]: https://github.com/ntrix/amazin
 [testing]: https://testing-library.com/
 [reactapi]: https://reactjs.org/docs/concurrent-mode-suspense.html
@@ -168,6 +182,10 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [responsive]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Responsive.gif
 [screen-sub-nav-search-filter-pagination]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Screen%20SubNav%20SearchFilter%20Pagination.gif
 [sort-filter-search-nav-side-nav]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Sort%20Filter%20Search%20Nav%20SideNav.gif
+
+## Preview video
+
+[![Preview video on youtube](https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/preview-video-on-youtube.png)](https://www.youtube.com/watch?v=7GNQKYdpDHQ)
 
 ## Nx Amazin' Amazim Store
 
