@@ -38,3 +38,7 @@ export function findSuggest(productList: PNameType[], keyword: string) {
 
   return result.sort((a, b) => getPriority(b.name, keyword) - getPriority(a.name, keyword));
 }
+
+export const splitBoldTexts = (text: string) => text?.replace(/\//g, '')?.split('<b>');
+
+export const getPlainText = (text: string) => splitBoldTexts(text)?.join('');

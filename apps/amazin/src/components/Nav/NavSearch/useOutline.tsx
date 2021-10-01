@@ -4,6 +4,10 @@ import { Scope } from 'src/constants';
 
 type OutlineCtxType = {
   productList: PNameType[];
+  suggests: PNameType[];
+  setSuggests: SetStateType<PNameType[]>;
+  activeSuggest: number;
+  setActiveSuggest: SetStateType<number>;
   inputRef: Ref<HTMLInputElement>;
   outline: boolean;
   setOutline: SetStateType<boolean>;
@@ -15,6 +19,10 @@ type OutlineCtxType = {
 
 const OutlineContext = createContext<OutlineCtxType>({
   productList: [],
+  suggests: [],
+  setSuggests: () => void 0,
+  activeSuggest: -1,
+  setActiveSuggest: () => void 0,
   inputRef: undefined,
   outline: false,
   setOutline: () => void 0,
@@ -27,6 +35,8 @@ OutlineContext.displayName = 'OutlineContext';
 
 function OutlineProvider({ children }: { children: Children }) {
   const { productList } = useSelector((state: AppState) => state.productListAll);
+  const [suggests, setSuggests] = useState<PNameType[]>([]);
+  const [activeSuggest, setActiveSuggest] = useState(-1);
   const [outline, setOutline] = useState(false);
   const [scopeOutline, setScopeOutline] = useState(Scope.hide);
   const [suggestBox, setSuggestBox] = useState(false);
@@ -34,6 +44,10 @@ function OutlineProvider({ children }: { children: Children }) {
 
   const value: OutlineCtxType = {
     productList,
+    suggests,
+    setSuggests,
+    activeSuggest,
+    setActiveSuggest,
     inputRef,
     outline,
     setOutline,
