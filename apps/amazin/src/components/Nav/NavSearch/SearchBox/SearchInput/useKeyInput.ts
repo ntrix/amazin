@@ -3,7 +3,11 @@ import { useShadow } from 'src/hooks/useShadow';
 import { findSuggest } from 'src/utils';
 import { SHADOW } from 'src/constants';
 
-export function useKeyInput(setInput: SetState, setSuggests: SetState, submitSearch: FnType) {
+export function useKeyInput(
+  setInput: SetStateType<string>,
+  setSuggests: SetStateType<PNameType[]>,
+  submitSearch: FnType
+) {
   const { productList, setOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
