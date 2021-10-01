@@ -12,6 +12,7 @@ export function useSubmit() {
   const handleSubmit = useCallback((e: EventType, input: string, activeCat: string) => {
     e?.preventDefault();
     if (!input) return;
+
     setSuggestBox(false);
     setShadowOf('');
     history.push(`/search/category/${activeCat}/name/${input}`); // eslint-disable-next-line

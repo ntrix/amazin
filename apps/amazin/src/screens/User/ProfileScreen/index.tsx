@@ -14,7 +14,7 @@ export default function ProfileScreen({ location }: RouteProps<MatchParams>) {
 
   const [passwords, setPasswords] = useState(['', undefined]);
   const { seller, setSeller, userDetails, submitUpdate } = useSellerProfile(location);
-  const { name, setName, email, setEmail } = useUserProfile(userDetails?.user, setPasswords);
+  const { name, setName, email, setEmail } = useUserProfile(location, userDetails?.user, setPasswords);
 
   const handleSubmit = (e: EventType) => submitUpdate(e, name, email, passwords);
 

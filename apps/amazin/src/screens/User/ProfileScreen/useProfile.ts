@@ -6,7 +6,11 @@ import { useShadow } from 'src/hooks/useShadow';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { validateAll } from 'src/utils';
 
-export function useUserProfile(user: UserType, setPasswords: SetStateType<(string | undefined)[]>) {
+export function useUserProfile(
+  location: LocationProp,
+  user: UserType,
+  setPasswords: SetStateType<(string | undefined)[]>
+) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
 
@@ -28,7 +32,7 @@ export function useUserProfile(user: UserType, setPasswords: SetStateType<(strin
     return () => {
       dispatch(userUpdateProfileActions._RESET(''));
     };
-  }, [dispatch]);
+  }, [dispatch, location]);
 
   return { name, setName, email, setEmail };
 }
@@ -41,7 +45,7 @@ export function useSellerProfile(location: LocationProp) {
   const [seller, setSeller] = useState(user?.seller);
 
   useEffect(() => {
-    if (user?.seller) setSeller(user.seller);
+    setSeller(user?.seller);
   }, [user, location]);
 
   const submitUpdate = (e: EventType, name: string, email: string, passwords: (string | undefined)[]) => {
@@ -49,14 +53,11 @@ export function useSellerProfile(location: LocationProp) {
     if (!user) return;
 
     const [oldPassword, password = user.password, confirmPassword] = passwords;
-    const updateUser: UserType & ReqLogin = { _id: user._id, name, email, password, isSeller: user?.isSeller };
-    if (oldPassword) updateUser.oldPassword = oldPassword;
-    if (confirmPassword) updateUser.confirmPassword = confirmPassword;
-    if (user?.isSeller) updateUser.seller = seller || user?.seller;
+    const updateUser: UserType & ReqLogin = { _id: user._id, name, email, password, seller: seller || user.seller };
 
     const error = validateAll(updateUser);
     if (error) dispatch(userUpdateProfileActions._FAIL(error));
-    else dispatch(updateUserProfile(updateUser, 'put'));
+    else dispatch(updateUserProfile({ ...updateUser, isSeller: user.isSeller, oldPassword, confirmPassword }, 'put'));
   };
 
   return { userDetails, seller, setSeller, submitUpdate };

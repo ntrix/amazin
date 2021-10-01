@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useState } from 'react';
 
 import { NAV } from 'src/constants';
 import { useOutline } from './useOutline';
