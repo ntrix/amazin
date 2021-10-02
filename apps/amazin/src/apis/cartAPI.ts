@@ -3,7 +3,7 @@ import { cartActions } from '../slice/CartSlice';
 import { KEY, DUMMY_SELLER } from '../constants';
 import { Storage } from '../utils';
 
-export const addToCart = (productId: string, qty: number) => async (dispatch: AppDispatch, getState: AppState) => {
+export const addToCart = (productId: string, qty: number) => async (dispatch: AppDispatch, getState: FnType) => {
   const { data } = await axiosClient.get(`/api/products/${productId}`);
   const { cart }: CartDetailType = getState();
   const { cartItems } = cart;
@@ -24,7 +24,7 @@ export const addToCart = (productId: string, qty: number) => async (dispatch: Ap
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
-export const removeFromCart = (productId: string) => (dispatch: AppDispatch, getState: AppState) => {
+export const removeFromCart = (productId: string) => (dispatch: AppDispatch, getState: FnType) => {
   dispatch(cartActions._REMOVE_ITEM(productId));
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
