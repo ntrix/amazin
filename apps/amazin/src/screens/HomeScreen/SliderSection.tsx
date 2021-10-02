@@ -21,7 +21,9 @@ function SliderSection() {
     <Suspense fallback={SwiperFallBack}>
       <Swiper {...SWIPER_CONFIG} effect="coverflow" slidesPerView="auto">
         {(sellers || DUMMY_SELLERS).map((user) => (
-          <SwiperSlide key={user._id} children={<SellerSlide user={user} />} />
+          <SwiperSlide key={user._id}>
+            <SellerSlide user={user} />
+          </SwiperSlide>
         ))}
       </Swiper>
       <MessageBox show={sellers?.length < 1}>No Seller Found</MessageBox>

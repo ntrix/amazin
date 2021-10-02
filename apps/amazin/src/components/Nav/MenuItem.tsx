@@ -23,7 +23,11 @@ export const NavCategoryAdapter = (cat: string) => [cat, '/search/category/' + c
 
 function MenuItem({ label, ...rest }: PropType) {
   if (label === 'separator') return <li className="separator" />;
-  return <li children={<InnerMenuItem label={label} {...rest} />} />;
+  return (
+    <li>
+      <InnerMenuItem label={label} {...rest} />
+    </li>
+  );
 }
 
 export default memo(MenuItem, (prev, next) => prev.label === next.label);
