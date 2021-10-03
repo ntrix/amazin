@@ -1,5 +1,5 @@
-import { SellerBaseRoute } from './SellerRoute';
+import { SellerBaseRoute, SellerBaseRouteProps } from './SellerRoute';
 
-export default function AdminRoute(props: Props) {
-  return <SellerBaseRoute userRole="isAdmin" {...props} />;
+export default function AdminRoute(props: SellerBaseRouteProps) {
+  return <SellerBaseRoute {...props} userRole="isAdmin" />;
 }

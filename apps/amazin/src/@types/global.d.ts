@@ -26,6 +26,16 @@ declare global {
     staticContext?: any;
   };
 
+  type RenderProps = RouteComponentProps<any>;
+
+  type RouterProps = {
+    path: string;
+    exact?: boolean;
+    component?: React.ComponentType<RenderProps> | React.ComponentType<any> | any;
+    render?: (props: RenderProps) => React.ReactNode | React.ComponentType<RenderProps>;
+    children?: ((props: RouteChildrenProps<any>) => React.ReactNode) | React.ReactNode;
+  };
+
   type MatchProp = Match<MatchParams>;
 
   type HistoryProp = H.History;
