@@ -19,11 +19,7 @@ function BoxMiddle(props: SearchSuggestsProps & SearchInputProps) {
 
       <SuspenseNull>
         {!!(props.input && suggests.length && suggestBox && SHADOW.NAV_SEARCH === shadowOf) && (
-          <div className="search__suggest">
-            <ul>
-              <SearchSuggests suggests={suggests} setInput={props.setInput} setSuggests={setSuggests} />
-            </ul>
-          </div>
+          <SearchSuggests suggests={suggests} setInput={props.setInput} setSuggests={setSuggests} />
         )}
       </SuspenseNull>
     </div>
