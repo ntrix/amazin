@@ -25,8 +25,6 @@ type SelectType = {
   children?: Children;
 };
 
-type SetState = React.Dispatch<any>;
-
 type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 
 type HookType<T> = [
