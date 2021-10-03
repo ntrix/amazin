@@ -20,16 +20,13 @@ function SearchCatScope({ activeCat }: SearchCatScopeProps) {
     setShadowOf(SHADOW.SCOPE);
   };
 
+  const focusHandler = () => scopeOutline === Scope.hide && clickHandler();
+
   const wrapClass = `cat-scope ${scopeOutline === Scope.hide ? '' : 'focus'}`;
 
   return (
     <div className="search-box__cat-scope" aria-label="category search scope">
-      <div
-        className={wrapClass}
-        tabIndex={1}
-        onClick={clickHandler}
-        onFocus={() => scopeOutline === Scope.hide && clickHandler()}
-      >
+      <div className={wrapClass} tabIndex={1} onClick={clickHandler} onFocus={focusHandler}>
         <div className="cat-scope--facade">
           <span>{CatLabel[activeCat] ?? activeCat}</span>
           <i className="fa fa-caret-down"></i>
