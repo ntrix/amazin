@@ -54,8 +54,6 @@ type ProductListType = {
 };
 
 /* only product name for search and suggest function */
-type PNameType = { name: string };
-
 type Category = string;
 
 type ProductCategoriesType = StatusType & {

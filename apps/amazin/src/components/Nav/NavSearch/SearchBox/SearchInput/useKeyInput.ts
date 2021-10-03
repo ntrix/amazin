@@ -5,7 +5,7 @@ import { SHADOW } from 'src/constants';
 
 export function useKeyInput(
   setInput: SetStateType<string>,
-  setSuggests: SetStateType<PNameType[]>,
+  setSuggests: SetStateType<{ name: string }[]>,
   submitSearch: FnType
 ) {
   const { productList, setOutline, setSuggestBox } = useOutline();

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Scope } from 'src/constants';
 
 type OutlineCtxType = {
-  productList: PNameType[];
+  productList: { name: string }[];
   inputRef: Ref<HTMLInputElement>;
   outline: boolean;
   setOutline: SetStateType<boolean>;

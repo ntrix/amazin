@@ -18,8 +18,9 @@ function getPriority(str: string, word: string) {
   return priority;
 }
 
+type PType = { name: string };
 /* find suggestions util. for NavSearch's dropdown suggest productList */
-export function findSuggest(productList: PNameType[], keyword: string) {
+export function findSuggest(productList: PType[], keyword: string) {
   if (!productList || !keyword) return [];
 
   keyword = keyword.slice(0, 49);
@@ -32,7 +33,7 @@ export function findSuggest(productList: PNameType[], keyword: string) {
 
   const cleanUp = (name: string) => name.replace(regKey, replacer).replace(EMPTY_GROUP, '');
   const result = productList.reduce(
-    (acc: PNameType[], { name }: PNameType) => (regKey.test(name) ? acc.concat({ name: cleanUp(name) }) : acc),
+    (acc: PType[], { name }: PType) => (regKey.test(name) ? acc.concat({ name: cleanUp(name) }) : acc),
     []
   );
 
