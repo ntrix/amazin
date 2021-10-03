@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-type PropType = {
+export type DropdownButtonProps = {
   wrapClass?: string;
   line2Class?: string;
   line2ExtClass?: string;
@@ -21,7 +21,7 @@ function DropdownButton({
   children,
   disabled = false,
   ...rest
-}: PropType) {
+}: DropdownButtonProps) {
   const [line1 = '', line2 = '', line2Ext = ''] = labels.split('^');
   // classes:[wrapClass,[col1, [row11, row12]],[col2, [row21, row22]]]
 
