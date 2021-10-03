@@ -1,15 +1,15 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
 
-type PropType = {
-  _cat: string | undefined;
+export type SubNavItemProps = {
+  _cat?: string;
   category?: string;
   getUrl?: FnType;
   onPreload?: FnType;
   changeCat?: SetState;
 };
 
-function SubNavItem({ _cat, category, getUrl, onPreload, changeCat }: PropType) {
+function SubNavItem({ _cat, category, getUrl, onPreload, changeCat }: SubNavItemProps) {
   const history = useHistory();
 
   return (
