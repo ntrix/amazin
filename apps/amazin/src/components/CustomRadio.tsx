@@ -5,9 +5,9 @@ type PropType = {
   rest?: RestProps;
   name?: string;
   checked?: boolean;
-  hook?: [AppState, SetState];
+  hook?: [string, SetStateType<string>];
 };
 
 export default function CustomRadio({ text, ...rest }: PropType) {
-  return <CustomInput wrapClass="flex" type="radio" required text={text} {...rest} />;
+  return <CustomInput wrapClass="flex" type="radio" text={text} {...rest} />;
 }

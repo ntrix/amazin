@@ -6,7 +6,7 @@ import { useOutline } from '../../useOutline';
 
 export type SearchCatScopeProps = {
   activeCat: string;
-  setActiveCat: SetState;
+  setActiveCat: SetStateType<string>;
 };
 
 function SearchCatScope({ activeCat }: SearchCatScopeProps) {

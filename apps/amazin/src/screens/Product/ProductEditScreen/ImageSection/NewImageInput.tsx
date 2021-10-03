@@ -3,7 +3,7 @@ import MessageBox from 'src/components/MessageBox';
 import CustomInput from 'src/components/CustomInput';
 
 type PropType = {
-  hook: [string, SetState];
+  hook: [string, SetStateType<string>];
   imgHandlers: {
     uploadState: StatusType;
     addImages: FnType;

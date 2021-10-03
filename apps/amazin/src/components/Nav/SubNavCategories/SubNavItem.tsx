@@ -6,10 +6,10 @@ export type SubNavItemProps = {
   category?: string;
   getUrl?: FnType;
   onPreload?: FnType;
-  changeCat?: SetState;
+  changeCat?: SetStateType<string>;
 };
 
-function SubNavItem({ _cat, category, getUrl, onPreload, changeCat }: SubNavItemProps) {
+function SubNavItem({ _cat = '', category, getUrl, onPreload, changeCat }: SubNavItemProps) {
   const history = useHistory();
 
   return (

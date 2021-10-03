@@ -13,7 +13,7 @@ export function useMounted() {
   return mountedRef;
 }
 
-export function useSafeState<T>(init: T): [T, FnType, React.MutableRefObject<boolean>, SetState] {
+export function useSafeState<T>(init: T): [T, FnType, React.MutableRefObject<boolean>, SetStateType<T>] {
   const mountedRef = useMounted();
   const [state, setState] = useState(init);
 

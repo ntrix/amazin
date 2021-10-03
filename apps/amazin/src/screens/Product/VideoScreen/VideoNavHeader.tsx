@@ -3,7 +3,7 @@ import { memo } from 'react';
 type PropType = {
   genreLabels: GenreType[];
   active: GenreType;
-  setActive: SetState;
+  setActive: SetStateType<GenreType>;
 };
 
 function VideoNavHeader({ genreLabels, active, setActive }: PropType) {

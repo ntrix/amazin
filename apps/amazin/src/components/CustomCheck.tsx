@@ -2,7 +2,7 @@ import CustomInput from './CustomInput';
 
 type PropType = {
   text?: string;
-  onChange: SetState;
+  onChange: SetStateType<boolean | undefined>;
   rest?: RestProps;
   checked?: boolean;
 };
