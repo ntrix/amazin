@@ -5,7 +5,7 @@ import { Redirect, Route } from 'src/routes/SuspenseRoute';
 type PropType = {
   component: ComponentType;
   userRole: 'isAdmin' | 'isSeller';
-  rest?: Props;
+  rest?: RestProps;
   path?: string;
 };
 

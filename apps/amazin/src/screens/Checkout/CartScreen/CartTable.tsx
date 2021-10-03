@@ -6,7 +6,7 @@ type PropType = {
   cart: CartType;
   addHandler: FnType;
   removeHandler: FnType;
-  rest?: Props;
+  rest?: RestProps;
 };
 
 export default function CartTable({ cart: { cartItems, error }, ...rest }: PropType) {

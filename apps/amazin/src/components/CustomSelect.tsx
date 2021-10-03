@@ -22,7 +22,7 @@ type PropType = {
   list?: SelectType[];
   max?: number;
   small?: boolean;
-  rest?: Props;
+  rest?: RestProps;
   value?: string | number;
   onChange?: FnType;
 };

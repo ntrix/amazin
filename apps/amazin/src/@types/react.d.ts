@@ -1,4 +1,4 @@
-type Props = any;
+type RestProps = any;
 
 type Children = React.ReactNode[] & ReactElement<unknown, string | JSXElementConstructor<any>>; // React.ReactChild | React.ReactChild[] | null | undefined;
 

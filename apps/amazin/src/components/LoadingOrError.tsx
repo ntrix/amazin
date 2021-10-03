@@ -10,7 +10,7 @@ type InnerPropType = {
   xl?: boolean;
   variant?: string;
   children?: Children;
-  rest?: Props;
+  rest?: RestProps;
 };
 
 function InnerBox({ statusOf = {}, errorMsg = '', xl = false, variant, children, ...rest }: InnerPropType) {
@@ -25,7 +25,7 @@ type PropType = {
   statusOf: StatusType;
   wrapClass?: string;
   children?: Children;
-  rest?: Props;
+  rest?: RestProps;
   xl?: boolean;
 };
 

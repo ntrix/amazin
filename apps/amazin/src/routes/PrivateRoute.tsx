@@ -7,7 +7,7 @@ type PropType = {
   path: string;
   exact?: boolean;
   children?: Children;
-  rest?: Props;
+  rest?: RestProps;
 };
 
 export default function PrivateRoute({ component: Component, children, path, ...rest }: PropType) {

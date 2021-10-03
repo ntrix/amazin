@@ -49,7 +49,7 @@ type PropType = {
   placeholder?: string;
   className?: string;
   children?: Children;
-  rest?: Props;
+  rest?: RestProps;
   onMouseEnter?: FnType;
   onClick?: FnType;
 };

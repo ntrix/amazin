@@ -17,7 +17,7 @@ type PropType = {
   label?: string;
   wrapClass?: string;
   required?: boolean;
-  rest?: Props;
+  rest?: RestProps;
   name?: string;
   multiple?: boolean;
   onKeyUp?: KeyEvent;

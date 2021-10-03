@@ -10,7 +10,7 @@ type PropType = {
   onMouseEnter?: FnType;
   onClick?: FnType;
   onMouseLeave?: FnType;
-  rest?: Props;
+  rest?: RestProps;
 };
 
 function DropdownButton({

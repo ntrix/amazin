@@ -4,7 +4,7 @@ type PropType = {
   to?: string;
   text?: string;
   children?: Children;
-  rest?: Props;
+  rest?: RestProps;
   isActive?: boolean;
 };
 

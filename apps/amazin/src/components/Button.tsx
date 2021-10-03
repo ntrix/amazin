@@ -17,7 +17,7 @@ type PropType = {
   type?: ButtonType;
   disabled?: boolean;
   onClick?: FnType;
-  rest?: Props;
+  rest?: RestProps;
 };
 
 function Button({
