@@ -4,7 +4,12 @@ import { CatLabel, Scope, SHADOW } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 import { useOutline } from '../../useOutline';
 
-function SearchCatScope({ activeCat }: { activeCat: string }) {
+export type SearchCatScopeProps = {
+  activeCat: string;
+  setActiveCat: SetState;
+};
+
+function SearchCatScope({ activeCat }: SearchCatScopeProps) {
   const { setShadowOf } = useShadow();
   const { setOutline, scopeOutline, setScopeOutline, setSuggestBox } = useOutline();
 

@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
-import SearchBtn from './SearchBtn';
+import SearchBtn, { SearchBtnProps } from './SearchBtn';
 
-function BoxRight(props: Props) {
+function BoxRight(props: SearchBtnProps) {
   return (
     <div className="box__right">
       <SearchBtn {...props} />

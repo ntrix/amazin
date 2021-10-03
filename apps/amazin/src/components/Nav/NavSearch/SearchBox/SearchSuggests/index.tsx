@@ -3,13 +3,13 @@ import { SEARCH } from 'src/constants';
 import { useShadow } from 'src/hooks/useShadow';
 import SuggestRow from './SuggestRow';
 
-type PropType = {
+export type SearchSuggestsProps = {
   suggests: PNameType[];
   setSuggests: SetStateType<PNameType[]>;
   setInput: SetStateType<string>;
 };
 
-export default function SearchSuggests({ suggests, setSuggests, setInput }: PropType) {
+export default function SearchSuggests({ suggests, setSuggests, setInput }: SearchSuggestsProps) {
   const { setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
