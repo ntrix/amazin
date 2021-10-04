@@ -3,13 +3,13 @@ import { useHistory } from 'react-router';
 
 import { useShadow } from 'src/hooks/useShadow';
 
-type PropType = {
+export type NavMainItemProps = {
   label?: string;
   to?: string;
   children?: Children;
 };
 
-function NavMainItem({ label = '', to = '/', children }: PropType) {
+function NavMainItem({ label = '', to = '/', children }: NavMainItemProps) {
   const history = useHistory();
   const { setShadowOf } = useShadow();
 

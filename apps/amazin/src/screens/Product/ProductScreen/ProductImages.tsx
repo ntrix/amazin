@@ -1,10 +1,11 @@
 import { memo, useState } from 'react';
 
+import { DescriptionProps } from './ProductDescription';
 import { SuspenseLoad } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl } from 'src/utils';
 
-function ProductImages({ product: { image, _id } }: { product: ProductType }) {
+function ProductImages({ product: { image, _id } }: DescriptionProps) {
   const [active, setActive] = useState(0);
   const urls = (image ?? '').split('^').map((img) => getImgUrl(_id, img));
 

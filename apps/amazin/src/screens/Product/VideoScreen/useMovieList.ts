@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './videoScreen.css';
 import { listExtMovies, listProducts } from 'src/apis/productAPI';
-import { STORE, VIDEO } from 'src/constants';
+import { MoviesOpt, MoviesOptList, MovieType, STORE, VIDEO } from 'src/constants';
 import { useSafeState } from 'src/hooks/useSafeState';
 import { dummyMovies } from 'src/utils';
 

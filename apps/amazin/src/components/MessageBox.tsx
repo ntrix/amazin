@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { castArray } from 'src/utils';
 
-type PropType = {
+export type MessageBoxProps = {
   show?: boolean;
   msg?: string | string[] | boolean;
   variant?: string;
@@ -9,7 +9,7 @@ type PropType = {
   children?: Children;
 };
 
-function MessageBox({ show = false, msg, variant, wrapClass = '', children }: PropType) {
+function MessageBox({ show = false, msg, variant, wrapClass = '', children }: MessageBoxProps) {
   if (!show && !msg) return null;
 
   const innerComponent = () => (

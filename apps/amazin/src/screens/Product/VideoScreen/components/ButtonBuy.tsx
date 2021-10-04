@@ -1,14 +1,15 @@
 import { memo } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 
+import { MovieType } from 'src/constants';
 import { dummyMovies } from 'src/utils';
 
-type PropType = {
+export type ButtonBuyProps = {
   movie?: MovieType;
   LinkTo?: Children;
 };
 
-function ButtonBuy({ movie = dummyMovies[0], LinkTo = (props: LinkProps) => <Link {...props} /> }: PropType) {
+function ButtonBuy({ movie = dummyMovies[0], LinkTo = (props: LinkProps) => <Link {...props} /> }: ButtonBuyProps) {
   return (
     <LinkTo
       disabled={!movie.seller}

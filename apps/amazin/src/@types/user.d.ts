@@ -5,14 +5,6 @@ type ReqLogin = {
   confirmPassword?: string;
 };
 
-type ResLoginApi = Res & {
-  data: {
-    access_token: string;
-  };
-};
-
-type ResLogin = ActionRedux | {};
-
 type SellerType = {
   name: string;
   logo: string;

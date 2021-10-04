@@ -24,20 +24,6 @@ type ProductType = {
   reviews?: ReviewType[];
 };
 
-type VideoType = {
-  title?: string;
-  original_title?: string;
-  poster_path?: string;
-  backdrop_path?: string;
-  vote_average?: number;
-  vote_count?: number;
-  overview?: string;
-};
-
-type MovieType = VideoType & ProductType;
-
-type MoviesType = {};
-
 type ProductDetailType = StatusType & {
   product: ProductType;
 };
@@ -54,52 +40,6 @@ type ProductListType = {
 };
 
 /* only product name for search and suggest function */
-type Category = string;
-
 type ProductCategoriesType = StatusType & {
-  categories: Category[];
+  categories: string[];
 };
-
-type FilterStringType = Record<'seller' | 'name' | 'category' | 'order', string>;
-type FilterNumberType = Record<'pageSize' | 'pageNumber' | 'deal' | 'min' | 'max' | 'rating', string | number>;
-type FilterOptType = Partial<FilterStringType & FilterNumberType>;
-
-type ResGetProductApi = Res & {
-  data: {
-    products: ProductType[];
-  };
-};
-
-type ResGetProduct = ActionRedux & {
-  payload: ResGetProductApi;
-};
-
-type ResGetProductItemApi = Res & {
-  data: {
-    product: ProductType;
-  };
-};
-
-type ResGetProductItem = ActionRedux & {
-  payload: ResGetProductItemApi;
-};
-
-type GenreType =
-  | 'NETFLUX ORIGINALS'
-  | 'Home'
-  | 'STORE'
-  | 'Action Movies'
-  | 'Comedy Movies'
-  | 'Horror Movies'
-  | 'Romance Movies'
-  | 'Documentaries'
-  | 'Trending Now'
-  | 'Top Rated';
-
-type SourceType = Exclude<GenreType, 'Home' | 'STORE'>;
-
-type MovieList<T> = Record<GenreType, T>;
-
-type MoviesOpt<T> = Partial<MovieList<T>>;
-
-type MoviesOptList = MoviesOpt<MovieType[]>;

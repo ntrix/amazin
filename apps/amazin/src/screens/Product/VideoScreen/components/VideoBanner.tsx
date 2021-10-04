@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 
-import { VIDEO } from 'src/constants';
+import { MovieType, VIDEO } from 'src/constants';
 import { LazyBackground } from 'src/apis/suspenseAPI';
 import UTube from './UTube';
 import ButtonBuy from './ButtonBuy';
@@ -8,13 +8,13 @@ import ButtonSell from './ButtonSell';
 import ButtonTrailer from './ButtonTrailer';
 import Header from 'src/layouts/Header';
 
-type PropType = {
+export type VideoBannerProps = {
   movie?: MovieType;
   bottom?: boolean;
   youtubeTrailer?: boolean;
 };
 
-function VideoBanner({ movie, bottom = false, youtubeTrailer = false }: PropType) {
+function VideoBanner({ movie, bottom = false, youtubeTrailer = false }: VideoBannerProps) {
   const [trailerUrl, setTrailerUrl] = useState('');
   const description = movie?.description ? movie.description.slice(0, 150) + '..' : '';
   const backgroundPosition = `center ${bottom ? '0' : 'center'}`;

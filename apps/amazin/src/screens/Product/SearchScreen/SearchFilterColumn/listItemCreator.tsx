@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 
-type PropType = {
-  to?: string;
+import { FilterOptType } from 'src/constants';
+
+type ItemProps = {
+  to?: ToType;
   text?: string;
   children?: Children;
   rest?: RestProps;
   isActive?: boolean;
 };
 
-export default function Item({ to, isActive = false, text, children, ...rest }: PropType) {
+export default function Item({ to, isActive = false, text, children, ...rest }: ItemProps) {
   return (
     <li>
       <Link {...rest} className={isActive ? 'active' : ''} to={to}>
@@ -19,5 +21,5 @@ export default function Item({ to, isActive = false, text, children, ...rest }: 
 }
 
 export function createListItem(getUrlFunction: FnType) {
-  return ({ filter, ...rest }: { filter: FilterOptType } & PropType) => <Item {...rest} to={getUrlFunction(filter)} />;
+  return ({ filter, ...rest }: { filter: FilterOptType } & ItemProps) => <Item {...rest} to={getUrlFunction(filter)} />;
 }

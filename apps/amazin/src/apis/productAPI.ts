@@ -10,7 +10,7 @@ import {
   productDeleteActions,
   productReviewCreateActions
 } from '../slice/ProductSlice';
-import { NAV, VIDEO } from 'src/constants';
+import { FilterOptType, NAV, SourceType, VIDEO } from 'src/constants';
 import { pipe, sourceAdapter } from 'src/utils';
 
 const updatePipe = (data: { rates: CurrRateType }) =>

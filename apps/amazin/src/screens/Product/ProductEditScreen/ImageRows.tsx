@@ -1,6 +1,6 @@
 import CustomInput from 'src/components/CustomInput';
 
-type PropType = {
+export type ImageRowsProps = {
   images: string[];
   setPreview: SetStateType<string>;
   imgHandlers: {
@@ -15,7 +15,7 @@ export default function ImageRows({
   images,
   setPreview,
   imgHandlers: { uploadState, deleteImg, updateImgLink, moveUpImg, getSrc }
-}: PropType) {
+}: ImageRowsProps) {
   const createLabel = (id: number) => `Image ${id + 1}. ${['COVER', '[DEAL]'][id] || ''}`;
 
   return images?.length ? (

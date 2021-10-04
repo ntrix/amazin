@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const getClasses = (primary?: boolean, fill?: boolean, xs?: boolean) =>
   [primary ? 'primary ' : '', fill ? 'col-fill ' : '', xs ? 'btn--xs ' : ''].join('');
 
-type PropType = {
+export type ButtonProps = {
   to?: string;
   label?: string;
   wrapClass?: string;
@@ -31,7 +31,7 @@ function Button({
   ariaLabel = label || className,
   children,
   ...rest
-}: PropType) {
+}: ButtonProps) {
   const classNames = getClasses(primary, fill, xs) + 'mt-1 mb-2 ' + className;
 
   const child = (

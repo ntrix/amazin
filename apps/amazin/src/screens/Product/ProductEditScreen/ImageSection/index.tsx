@@ -5,13 +5,13 @@ import { useAsyncUpload, useImgFileHandlers, useImgLinkHandlers } from './useIma
 import NewImageInput from './NewImageInput';
 import ImageRows from '../ImageRows';
 
-type PropType = {
+export type ImageSectionProps = {
   product: ProductType;
   images: string[];
   setImages: SetStateType<string[]>;
 };
 
-export default function ImageSection({ product, images, setImages }: PropType) {
+export default function ImageSection({ product, images, setImages }: ImageSectionProps) {
   const [preview, setPreview] = useState('');
   const { uploadState, asyncImgHandler } = useAsyncUpload(product, setImages);
   const { addImages, deleteImg } = useImgFileHandlers(images, asyncImgHandler);

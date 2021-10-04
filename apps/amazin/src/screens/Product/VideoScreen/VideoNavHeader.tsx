@@ -1,12 +1,14 @@
 import { memo } from 'react';
 
-type PropType = {
+import { GenreType } from 'src/constants';
+
+export type VideoNavHeaderProps = {
   genreLabels: GenreType[];
   active: GenreType;
   setActive: SetStateType<GenreType>;
 };
 
-function VideoNavHeader({ genreLabels, active, setActive }: PropType) {
+function VideoNavHeader({ genreLabels, active, setActive }: VideoNavHeaderProps) {
   return (
     <nav className="m-header">
       <ul className="m-nav">

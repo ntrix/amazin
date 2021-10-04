@@ -5,11 +5,11 @@ import Rating from 'src/components/Rating';
 import Header from 'src/layouts/Header';
 import PriceTag from '../components/PriceTag';
 
-type PropType = {
+export type DescriptionProps = {
   product: ProductType;
 };
 
-function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }: PropType) {
+function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }: DescriptionProps) {
   return (
     <div className="col-1 mh-2">
       <Header label={name} />

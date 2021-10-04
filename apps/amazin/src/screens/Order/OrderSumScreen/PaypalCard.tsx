@@ -4,12 +4,12 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import LoadingBox from 'src/components/LoadingBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 
-type PropType = {
+export type PaypalCardProps = {
   sdkReady: boolean;
   successPaymentHandler: FnType;
 };
 
-export default function PaypalCard({ sdkReady, successPaymentHandler }: PropType) {
+export default function PaypalCard({ sdkReady, successPaymentHandler }: PaypalCardProps) {
   const { order }: OrderDetailType = useSelector((state: AppState) => state.orderDetails);
   const orderPay: StatusType = useSelector((state: AppState) => state.orderPay);
 

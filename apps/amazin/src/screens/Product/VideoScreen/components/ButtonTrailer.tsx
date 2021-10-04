@@ -2,15 +2,15 @@ import { memo } from 'react';
 import movieTrailer from 'movie-trailer';
 
 import { dummyMovies } from 'src/utils';
-import { VIDEO } from 'src/constants';
+import { MovieType, VIDEO } from 'src/constants';
 
-type PropType = {
+export type ButtonTrailerProps = {
   movie?: MovieType;
   trailerUrl: string;
   setTrailerUrl: SetStateType<string>;
 };
 
-function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: PropType) {
+function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: ButtonTrailerProps) {
   const searchTrailer = async () => {
     if (trailerUrl) setTrailerUrl('');
     else

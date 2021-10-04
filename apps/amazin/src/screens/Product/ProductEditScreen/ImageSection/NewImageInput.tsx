@@ -2,7 +2,7 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
 import CustomInput from 'src/components/CustomInput';
 
-type PropType = {
+export type NewImageInputProps = {
   hook: [string, SetStateType<string>];
   imgHandlers: {
     uploadState: StatusType;
@@ -11,7 +11,10 @@ type PropType = {
   };
 };
 
-export default function NewImageInput({ hook, imgHandlers: { uploadState, addImages, addImgOnEnter } }: PropType) {
+export default function NewImageInput({
+  hook,
+  imgHandlers: { uploadState, addImages, addImgOnEnter }
+}: NewImageInputProps) {
   return (
     <div>
       Add

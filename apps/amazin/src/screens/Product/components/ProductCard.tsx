@@ -7,14 +7,14 @@ import { DUMMY_SELLER, NO_IMAGE_P } from 'src/constants';
 import Rating from 'src/components/Rating';
 import PriceTag from './PriceTag';
 
-type PropType = {
+export type ProductCardProps = {
   showDeal?: boolean;
   product: ProductType;
 };
 function ProductCard({
   showDeal = false,
   product: { _id, name, image, rating, numReviews, price, deal, category, ship, seller }
-}: PropType) {
+}: ProductCardProps) {
   const images = image.split('^');
   const imgUrl = getImgUrl(_id, images[Number(showDeal)] || images[0] || NO_IMAGE_P);
 

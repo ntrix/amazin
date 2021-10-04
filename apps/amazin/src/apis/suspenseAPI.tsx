@@ -42,7 +42,7 @@ function preloadImage(src: string) {
 
 const sCached: CacheType = {};
 
-type PropType = {
+export type LazyProps = {
   src?: string;
   style?: CSSProperties;
   alt?: string;
@@ -55,7 +55,7 @@ type PropType = {
 };
 
 function LazyComponent(as: string) {
-  return ({ src = NO_IMAGE, children, ...rest }: PropType) => {
+  return ({ src = NO_IMAGE, children, ...rest }: LazyProps) => {
     if (!sCached[src]) sCached[src] = createSuspenseAPI(preloadImage(src));
 
     return as === 'img' ? (
