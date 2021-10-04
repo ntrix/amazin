@@ -9,7 +9,11 @@ import CustomSelect from 'src/components/CustomSelect';
 import MessageBox from 'src/components/MessageBox';
 import ReviewCard from 'src/components/ReviewCard';
 
-function ProductReview({ productId }: { productId: string }) {
+export type ProductReviewProps = {
+  productId: string;
+};
+
+function ProductReview({ productId }: ProductReviewProps) {
   const { userInfo, product, status, rating, onRating, comment, onComment, submitReview } = useReview(productId);
 
   return (
