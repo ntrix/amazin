@@ -1,20 +1,17 @@
-import CustomInput from './CustomInput';
+import CustomInput, { InputProps } from './CustomInput';
 
-type PropType = {
-  text?: string;
+export type CustomCheckProps = InputProps & {
   onChange: SetStateType<boolean | undefined>;
-  rest?: RestProps;
-  checked?: boolean;
 };
 
-export default function CustomCheck({ text, onChange, ...rest }: PropType) {
+export default function CustomCheck({ text, onChange, ...rest }: CustomCheckProps) {
   return (
     <CustomInput
       wrapClass="flex"
       type="checkbox"
       text={text}
-      onChange={(e: EventType) => onChange(e.target.checked)}
       {...rest}
+      onChange={(e: EventType) => onChange(e.target.checked)}
     />
   );
 }

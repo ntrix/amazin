@@ -1,5 +1,6 @@
 import { MAX_ITEM } from 'src/constants';
 import { createId } from 'src/utils';
+import { InputProps } from './CustomInput';
 
 const createList = (max: number) => {
   const _max = Math.min(MAX_ITEM, max);
@@ -15,16 +16,11 @@ const Selects = ({ list }: { list: SelectType[] }) => (
   </>
 );
 
-type PropType = {
-  label?: string;
-  wrapClass?: string;
+export type CustomSelectProps = InputProps & {
   optgroup?: string;
   list?: SelectType[];
   max?: number;
   small?: boolean;
-  rest?: RestProps;
-  value?: string | number;
-  onChange?: FnType;
 };
 
 export default function CustomSelect({
@@ -35,7 +31,7 @@ export default function CustomSelect({
   max,
   small = false,
   ...rest
-}: PropType) {
+}: CustomSelectProps) {
   const selectList = list || createList(max || 1);
 
   return (

@@ -4,13 +4,13 @@ import { validateRules } from 'src/constants';
 import { createId, validate } from 'src/utils';
 import { MessageLine } from './MessageBox';
 
-type PropType = {
+export type InputProps = {
   text?: string;
   type?: string;
   rule?: string;
   placeholder?: string;
   hook?: HookType<string> | HookType<string[]> | HookType<number> | [];
-  onChange?: ChangeEvent;
+  onChange?: FnType;
   onFocus?: FnType;
   onBlur?: FnType;
   textarea?: boolean;
@@ -25,9 +25,10 @@ type PropType = {
   className?: string;
   value?: string;
   autoComplete?: string;
+  checked?: boolean;
 };
 
-const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, PropType>(
+const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, InputProps>(
   (
     {
       text,
@@ -40,7 +41,7 @@ const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, PropType>(
       wrapClass = '',
       required,
       ...rest
-    }: PropType,
+    }: InputProps,
     ref
   ) => {
     const id = createId(text); // create #id for .css
@@ -57,7 +58,7 @@ const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, PropType>(
   }
 );
 
-function ValidateInput({ rule = '', hook = [], ...rest }: PropType) {
+function ValidateInput({ rule = '', hook = [], ...rest }: InputProps) {
   const [value = ''] = hook as HookType<string>;
 
   const [validMsg, setValidMsg] = useState('\xa0');
@@ -77,7 +78,7 @@ function ValidateInput({ rule = '', hook = [], ...rest }: PropType) {
   );
 }
 
-function CustomInput(props: PropType) {
+function CustomInput(props: InputProps) {
   const rule = props.type || props?.text?.toLowerCase() || '';
   const hasRules = Object.keys(validateRules).includes(rule);
 
