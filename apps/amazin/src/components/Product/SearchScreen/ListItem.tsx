@@ -10,7 +10,7 @@ type ItemProps = {
   isActive?: boolean;
 };
 
-export default function Item({ to, isActive = false, text, children, ...rest }: ItemProps) {
+export default function ListItem({ to, isActive = false, text, children, ...rest }: ItemProps) {
   return (
     <li>
       <Link {...rest} className={isActive ? 'active' : ''} to={to}>
@@ -21,5 +21,7 @@ export default function Item({ to, isActive = false, text, children, ...rest }: 
 }
 
 export function createListItem(getUrlFunction: FnType) {
-  return ({ filter, ...rest }: { filter: FilterOptType } & ItemProps) => <Item {...rest} to={getUrlFunction(filter)} />;
+  return ({ filter, ...rest }: { filter: FilterOptType } & ItemProps) => (
+    <ListItem {...rest} to={getUrlFunction(filter)} />
+  );
 }
