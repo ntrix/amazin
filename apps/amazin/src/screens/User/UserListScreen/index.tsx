@@ -1,5 +1,5 @@
 import { useUserList } from './useUserList';
-import Table from '../../Product/ProductListScreen/Table';
+import Table from 'src/components/Product/ProductListScreen/Table';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
 import Header from 'src/layouts/Header';

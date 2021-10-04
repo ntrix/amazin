@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { MAX_IMAGES } from 'src/constants';
 import { useAsyncUpload, useImgFileHandlers, useImgLinkHandlers } from './useImageHandlers';
-import NewImageInput from './NewImageInput';
-import ImageRows from '../ImageRows';
+import NewImageInput from 'src/components/Product/ProductEditScreen/NewImageInput';
+import ImageRows from 'src/components/Product/ProductEditScreen/ImageRows';
 
 export type ImageSectionProps = {
   product: ProductType;

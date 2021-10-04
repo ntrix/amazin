@@ -10,7 +10,7 @@ import Pagination from 'src/components/Pagination';
 import SortFilter from 'src/components/SortFilter';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import LoadingOrError from 'src/components/LoadingOrError';
-import ProductColumn from '../components/ProductColumn';
+import ProductColumn from 'src/components/Product/ProductColumn';
 
 function SellerScreen({ match: { params } }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();

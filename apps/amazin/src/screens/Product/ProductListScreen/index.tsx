@@ -4,7 +4,7 @@ import { useProductList } from './useProductList';
 import Pagination from 'src/components/Pagination';
 import Button from 'src/components/Button';
 import LoadingOrError from 'src/components/LoadingOrError';
-import Table from './Table';
+import Table from 'src/components/Product/ProductListScreen/Table';
 import Header from 'src/layouts/Header';
 
 export default function ProductListScreen({ history, match }: RouteProps<MatchParams>) {

@@ -3,9 +3,7 @@ import { lazy, memo } from 'react';
 import { SuspenseLoad, SusProductCard } from 'src/components/CustomSuspense';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
-const ProductCard: Lazy = lazy(
-  (): LazyPromise => import(/* webpackPrefetch: true */ '../../screens/Product/components/ProductCard')
-);
+const ProductCard: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../Product/ProductCard'));
 
 function FeaturedSection({ products, loading, error }: ProductListType) {
   return (
