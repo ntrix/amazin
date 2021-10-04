@@ -1,7 +1,7 @@
 import { pipe } from 'src/utils';
-import PriceNow from './PriceNow';
+import PriceNow, { PriceNowProps } from './PriceNow';
 
-export default function PriceTag({ price, deal = 0 }: { price: number; deal?: number }) {
+export default function PriceTag({ price, deal = 0 }: PriceNowProps) {
   return (
     <div>
       <PriceNow price={price} deal={deal} />

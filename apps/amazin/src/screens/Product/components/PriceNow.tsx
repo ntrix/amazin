@@ -1,6 +1,11 @@
 import { pipe } from 'src/utils';
 
-export default function PriceNow({ price, deal = 0 }: { price: number; deal?: number }) {
+export type PriceNowProps = {
+  price: number;
+  deal?: number;
+};
+
+export default function PriceNow({ price, deal = 0 }: PriceNowProps) {
   return (
     <span className={`price ${deal ? 'danger' : ''}`}>
       <sup>{pipe.getSymbol()}</sup>
