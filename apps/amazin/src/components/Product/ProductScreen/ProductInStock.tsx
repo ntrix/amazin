@@ -1,13 +1,14 @@
 import { memo, useState } from 'react';
 
 import { DescriptionProps } from './ProductDescription';
-import { ProductReviewProps } from './ProductReview';
 import PriceNow from 'src/components/Product/PriceNow';
 import CustomSelect from 'src/components/CustomSelect';
 import Button from 'src/components/Button';
 import RowLegend from 'src/components/RowLegend';
 
-export type ProductInStockProps = DescriptionProps & ProductReviewProps;
+export type ProductInStockProps = DescriptionProps & {
+  productId: string;
+};
 
 function ProductInStock({ productId, product: { price, countInStock } }: ProductInStockProps) {
   const [qty, setQty] = useState(1);
