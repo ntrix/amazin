@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useProductList } from '../../ProductListScreen/useProductList';
+import { useProductList } from 'src/screens/Product/ProductListScreen/useProductList';
 
 type Props = {
   disabled?: boolean;
