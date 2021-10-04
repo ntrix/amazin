@@ -27,7 +27,7 @@ function CartRowItem({ item, addHandler, removeHandler }: CartRowItemProps) {
         <CustomSelect
           max={countInStock}
           value={qty ?? 1}
-          onChange={(e) => addHandler(product, Number(e.target.value - qty))}
+          onChange={(e: EventType) => addHandler(product, Number(e.target.value - qty))}
         />
       </td>
       <td className="tab__w6">{pipe.showPrice(price)}</td>

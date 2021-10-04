@@ -1,7 +1,7 @@
 import { useCart } from './useCart';
 import Header from 'src/layouts/Header';
-import CartTable from './CartTable';
-import SumCard from './SumCard';
+import CartTable from 'src/components/Checkout/CartScreen/CartTable';
+import SumCard from 'src/components/Checkout/CartScreen/SumCard';
 
 export default function CartScreen(props: RouteProps<MatchParams>) {
   const { cart, addHandler, removeHandler } = useCart(props);
