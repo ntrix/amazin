@@ -5,7 +5,7 @@ import CustomInput from 'src/components/CustomInput';
 export type NewImageInputProps = {
   hook: [string, SetStateType<string>];
   imgHandlers: {
-    uploadState: StatusType;
+    uploadStatus: StatusType;
     addImages: FnType;
     addImgOnEnter: FnType;
   };
@@ -13,7 +13,7 @@ export type NewImageInputProps = {
 
 export default function NewImageInput({
   hook,
-  imgHandlers: { uploadState, addImages, addImgOnEnter }
+  imgHandlers: { uploadStatus, addImages, addImgOnEnter }
 }: NewImageInputProps) {
   return (
     <div>
@@ -21,8 +21,8 @@ export default function NewImageInput({
       <CustomInput text="New Images" wrapClass="flex-col" name="images" type="file" multiple onChange={addImages} />
       Or
       <CustomInput text="Image Link" wrapClass="flex-col" hook={hook} onKeyUp={addImgOnEnter} />
-      <LoadingOrError statusOf={uploadState} />
-      <MessageBox variant="info" msg={uploadState.msg} />
+      <LoadingOrError statusOf={uploadStatus} />
+      <MessageBox variant="info" msg={uploadStatus.msg} />
     </div>
   );
 }

@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { detailsProduct, updateProduct } from 'src/apis/productAPI';
 import { productUpdateActions } from 'src/slice/ProductSlice';
+import { useImageHandlers } from './useImageHandlers';
 import Form from 'src/layouts/Form';
-import ImageSection from './ImageSection';
 import CustomInput from 'src/components/CustomInput';
+import ImageSection from 'src/components/Product/ProductEditScreen/ImageSection';
 
+/* TODO extract logic to custom hook useProductEdit */
 export default function ProductEditScreen({ history, match }: RouteProps<MatchParams>) {
   const dispatch = useDispatch();
   const productId = match.params.id;
@@ -24,6 +26,7 @@ export default function ProductEditScreen({ history, match }: RouteProps<MatchPa
   const [countInStock, setCountInStock] = useState(product?.countInStock);
   const [brand, setBrand] = useState(product?.brand);
   const [description, setDescription] = useState(product?.description);
+  const imageSectionProps = useImageHandlers(product, images, setImages);
 
   useEffect(() => {
     if (productUpdate.success) {
@@ -74,7 +77,7 @@ export default function ProductEditScreen({ history, match }: RouteProps<MatchPa
           <CustomInput text="Ship" hook={[ship, setShip]} />
           <CustomInput text="Deal" hook={[deal, setDeal]} />
 
-          <ImageSection product={product} images={images} setImages={setImages} />
+          <ImageSection images={images} imgHandlers={imageSectionProps} />
           <CustomInput text="Video Link or Youtube VID" hook={[video, setVideo]} />
           <CustomInput text="Category" hook={[category, setCategory]} />
           <CustomInput text="Brand" hook={[brand, setBrand]} />
