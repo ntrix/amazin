@@ -1,12 +1,12 @@
 import { pipe } from 'src/utils';
 
-type PropType = {
+export type ListRowProps = {
   label: string;
   toShow: number;
   active?: boolean;
 };
 
-export default function ListRow({ label, toShow, active }: PropType) {
+export default function ListRow({ label, toShow, active }: ListRowProps) {
   if (!toShow && toShow !== 0) return null;
 
   return (
