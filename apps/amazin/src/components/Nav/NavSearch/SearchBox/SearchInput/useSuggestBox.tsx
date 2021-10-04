@@ -3,7 +3,7 @@ import { useShadow } from 'src/hooks/useShadow';
 import { findSuggest } from 'src/utils';
 import { Scope, SHADOW } from 'src/constants';
 
-export function useSuggestBox(setSuggests: SetStateType<PNameType[]>) {
+export function useSuggestBox(setSuggests: SetStateType<{ name: string }[]>) {
   const { productList, setOutline, setScopeOutline, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 

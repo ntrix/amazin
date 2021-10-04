@@ -9,7 +9,7 @@ import { useOutline } from '../useOutline';
 const SearchSuggests: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './SearchSuggests'));
 
 function BoxMiddle(props: SearchSuggestsProps & SearchInputProps) {
-  const [suggests, setSuggests] = useState<PNameType[]>([]);
+  const [suggests, setSuggests] = useState<{ name: string }[]>([]);
   const { suggestBox } = useOutline();
   const { shadowOf } = useShadow();
 

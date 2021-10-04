@@ -4,8 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { detailsUser, updateUser } from 'src/apis/userAPI';
 import { userUpdateActions } from 'src/slice/UserSlice';
 
+type SetStates = [
+  SetStateType<string>,
+  SetStateType<string>,
+  SetStateType<boolean | undefined>,
+  SetStateType<boolean | undefined>
+];
+
 export function useUserEdit(
-  [setName, setEmail, setIsSeller, setIsAdmin]: SetState[],
+  [setName, setEmail, setIsSeller, setIsAdmin]: SetStates,
   history: HistoryProp,
   match: MatchProp
 ) {

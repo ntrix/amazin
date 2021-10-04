@@ -2,7 +2,7 @@ import CustomInput from 'src/components/CustomInput';
 
 type PropType = {
   images: string[];
-  setPreview: SetState;
+  setPreview: SetStateType<string>;
   imgHandlers: {
     uploadState: StatusType;
     deleteImg: FnType;

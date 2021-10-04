@@ -7,7 +7,7 @@ import { sendContactMessage, updateUserProfile } from 'src/apis/userAPI';
 import { userUpdateProfileActions } from 'src/slice/UserSlice';
 import { useShadow } from 'src/hooks/useShadow';
 
-export function useSubmitContact(setStatus: SetState) {
+export function useSubmitContact(setStatus: SetStateType<StatusType>) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
 
@@ -27,7 +27,12 @@ export function useSubmitContact(setStatus: SetState) {
   return { submitContact };
 }
 
-export function useContact(setName: SetState, setEmail: SetState, setSubject: SetState, setStatus: SetState) {
+export function useContact(
+  setName: SetStateType<string>,
+  setEmail: SetStateType<string>,
+  setSubject: SetStateType<string>,
+  setStatus: SetStateType<StatusType>
+) {
   const dispatch = useDispatch();
   const { subject: pSubject }: { subject: string } = useParams();
   const { userInfo } = useShadow();

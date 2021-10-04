@@ -12,7 +12,7 @@ const config = (userInfo: UserInfoType) => ({
   }
 });
 
-export function useAsyncUpload(product: ProductType, setImages: SetState) {
+export function useAsyncUpload(product: ProductType, setImages: SetStateType<string[]>) {
   const { userInfo } = useShadow();
   const [uploadState, setUploadState] = useState<StatusType>({ loading: false });
 
@@ -61,19 +61,19 @@ export function useImgFileHandlers(imgUrls: string[], asyncImgHandler: FnType) {
   return { addImages, deleteImg };
 }
 
-export function useImgLinkHandlers(product: ProductType, imgUrls: string[], setImages: SetState) {
+export function useImgLinkHandlers(product: ProductType, imgUrls: string[], setImages: SetStateType<string[]>) {
   const updateImgLink = (e: EventType, id: number) => {
-    const newImgs = imgUrls.slice(0);
-    newImgs[id] = e.target.value;
-    setImages(newImgs);
+    const newImgUrls = imgUrls.slice(0);
+    newImgUrls[id] = e.target.value;
+    setImages(newImgUrls);
   };
 
   const moveUpImg = (e: EventType, id: number) => {
     e.preventDefault();
     if (id < 1) return;
-    const newImgs = imgUrls.slice(0);
-    [newImgs[id], newImgs[id - 1]] = [newImgs[id - 1], newImgs[id]];
-    setImages(newImgs);
+    const newImgUrls = imgUrls.slice(0);
+    [newImgUrls[id], newImgUrls[id - 1]] = [newImgUrls[id - 1], newImgUrls[id]];
+    setImages(newImgUrls);
   };
 
   const addImgOnEnter = (e: EventType, img: string) => e.key === 'Enter' && setImages([...imgUrls, img]);

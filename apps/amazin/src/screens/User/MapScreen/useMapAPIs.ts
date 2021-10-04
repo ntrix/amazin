@@ -8,7 +8,7 @@ import { KEY } from 'src/constants';
 import { Storage } from 'src/utils';
 
 /* TODO extract to common/shared hooks only for getting Api Key */
-export function useMapApiKey(getUserCurrentLocation: FnType, setError: SetState) {
+export function useMapApiKey(getUserCurrentLocation: FnType, setStatus: SetStateType<StatusType>) {
   const [googleApiKey, setGoogleApiKey] = useSafeState('');
 
   useEffect(() => {
@@ -20,18 +20,18 @@ export function useMapApiKey(getUserCurrentLocation: FnType, setError: SetState)
       })();
     } catch (err) {
       /* TODO errors report to server, websocket */
-      setError(err);
+      setStatus({ error: String(err) });
     }
-  }, [setError, getUserCurrentLocation, setGoogleApiKey]);
+  }, [setStatus, getUserCurrentLocation, setGoogleApiKey]);
 
   return { googleApiKey };
 }
 
 export function useMapLocator(
   placeRef: Ref<LocationType>,
-  setCenter: SetState,
-  setLocation: SetState,
-  setError: SetState
+  setCenter: SetStateType<LocationType>,
+  setLocation: SetStateType<LocationType>,
+  setStatus: SetStateType<StatusType>
 ) {
   const onLoadPlaces = (place: LocationType) => {
     placeRef.current = place;
@@ -44,7 +44,7 @@ export function useMapLocator(
       setLocation({ lat: lat(), lng: lng() });
     } catch (err) {
       /* TODO errors report to server, websocket */
-      setError(err);
+      setStatus({ error: String(err) });
     }
   };
 
@@ -55,12 +55,12 @@ export function useMapLocator(
           setCenter({ lat, lng });
           setLocation({ lat, lng });
         })
-      : setError('Geolocation os not supported by this browser');
+      : setStatus({ error: 'Geolocation os not supported by this browser' });
 
   return { onLoadPlaces, onPlacesChanged, getUserCurrentLocation };
 }
 
-export function useMap(setLocation: SetState) {
+export function useMap(setLocation: SetStateType<LocationType>) {
   const markerRef = useRef<LocationType>({});
   const onMarkerLoad = (marker: LocationType) => (markerRef.current = marker);
 
@@ -75,17 +75,17 @@ export function useMap(setLocation: SetState) {
   return { onLoad, onIdle, onMarkerLoad };
 }
 
-export function useMapSubmit(history: HistoryProp, setInfo: SetState, setError: SetState) {
+export function useMapSubmit(history: HistoryProp, setStatus: SetStateType<StatusType>) {
   const dispatch = useDispatch();
 
   const onConfirm = (placeRef: Ref<LocationType>, { lat, lng }: LocationType) => {
     const places = placeRef.current.getPlaces();
-    if (places?.length !== 1) return setError('Please enter your address');
+    if (places?.length !== 1) return setStatus({ error: 'Please enter your address' });
 
     const { formatted_address: address, name, vicinity, id: googleAddressId } = places[0];
     dispatch(userAddressMapActions._CONFIRM({ lat, lng, address, name, vicinity, googleAddressId }));
 
-    setInfo('location selected successfully.');
+    setStatus({ msg: 'location selected successfully.' });
     history.push('/shipping');
     return null;
   };

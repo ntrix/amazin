@@ -7,7 +7,7 @@ import { CatLabel, Scope } from 'src/constants';
 type PropType = {
   cat: string;
   isActive?: boolean;
-  setActiveCat: SetState;
+  setActiveCat: SetStateType<string>;
 };
 
 function SearchCatItem({ cat, isActive, setActiveCat }: PropType) {

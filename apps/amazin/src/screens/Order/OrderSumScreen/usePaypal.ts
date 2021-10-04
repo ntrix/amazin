@@ -5,7 +5,7 @@ import axiosClient from 'src/apis/axiosClient';
 import { detailsOrder } from 'src/apis/orderAPI';
 import { orderDeliverActions, orderPayActions } from 'src/slice/OrderSlice';
 
-function createScript(data: unknown, setSdkReady: SetState) {
+function createScript(data: unknown, setSdkReady: SetStateType<boolean>) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;

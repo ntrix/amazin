@@ -7,7 +7,7 @@ import { useKeyInput } from './useKeyInput';
 export type SearchInputProps = {
   input: string;
   setInput: SetStateType<string>;
-  setSuggests: SetStateType<PNameType[]>;
+  setSuggests: SetStateType<{ name: string }[]>;
   submitSearch: FnType;
 };
 

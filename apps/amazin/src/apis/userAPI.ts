@@ -64,13 +64,14 @@ export const deleteUser = (_id: string) => axiosPrivate([userDeleteActions])('de
 export const listTopSellers = () => axiosPublic([userTopSellerListActions])('get', '/api/users/top-sellers');
 
 /* this contact will not be sent to redux store since MAIL_SERVER is different origin */
-export const sendContactMessage = (contactData: ContactType, setStatus: SetState) => async (dispatch: AppDispatch) => {
-  setStatus({ loading: true, msg: 'Your message is being sent.' });
-  try {
-    await axios.post(MAIL_SERVER, contactData, { headers: { ...HEADERS, body: JSON.stringify(contactData) } });
-    setStatus({ msg: 'Thank you! Your message has been sent.' });
-  } catch (error) {
-    if (error instanceof Error) setStatus({ error: [error.message] });
-  }
-  dispatch(userUpdateProfileActions._RESET(''));
-};
+export const sendContactMessage =
+  (contactData: ContactType, setStatus: SetStateType<StatusType>) => async (dispatch: AppDispatch) => {
+    setStatus({ loading: true, msg: 'Your message is being sent.' });
+    try {
+      await axios.post(MAIL_SERVER, contactData, { headers: { ...HEADERS, body: JSON.stringify(contactData) } });
+      setStatus({ msg: 'Thank you! Your message has been sent.' });
+    } catch (error) {
+      if (error instanceof Error) setStatus({ error: error.message });
+    }
+    dispatch(userUpdateProfileActions._RESET(''));
+  };

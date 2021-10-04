@@ -6,8 +6,8 @@ import { useShadow } from 'src/hooks/useShadow';
 import SuggestRow from './SuggestRow';
 
 export type SearchSuggestsProps = {
-  suggests: PNameType[];
-  setSuggests: SetStateType<PNameType[]>;
+  suggests: { name: string }[];
+  setSuggests: SetStateType<{ name: string }[]>;
   setInput: SetStateType<string>;
 };
 

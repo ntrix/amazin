@@ -8,7 +8,7 @@ import ImageRows from '../ImageRows';
 type PropType = {
   product: ProductType;
   images: string[];
-  setImages: SetState;
+  setImages: SetStateType<string[]>;
 };
 
 export default function ImageSection({ product, images, setImages }: PropType) {
