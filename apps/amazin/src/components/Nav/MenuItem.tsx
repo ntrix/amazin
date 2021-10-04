@@ -1,15 +1,6 @@
 import { memo } from 'react';
 
-import InnerMenuItem from './InnerMenuItem';
-
-type PropType = {
-  label: string;
-  to?: string;
-  className?: string;
-  extFunction?: FnType;
-  children?: Children;
-  key?: string;
-};
+import InnerMenuItem, { MenuItemProps } from './InnerMenuItem';
 
 export const mapArgsToProps = ([label, to, className, extFunction]: ArgsType, id: number) => ({
   label,
@@ -21,7 +12,11 @@ export const mapArgsToProps = ([label, to, className, extFunction]: ArgsType, id
 
 export const NavCategoryAdapter = (cat: string) => [cat, '/search/category/' + cat];
 
-function MenuItem({ label, ...rest }: PropType) {
+type Props = MenuItemProps & {
+  key?: string;
+};
+
+function MenuItem({ label, ...rest }: Props) {
   if (label === 'separator') return <li className="separator" />;
   return (
     <li>

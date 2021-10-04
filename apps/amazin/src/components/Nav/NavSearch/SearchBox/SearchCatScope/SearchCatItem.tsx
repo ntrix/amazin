@@ -1,24 +1,23 @@
 import { memo } from 'react';
 
+import { SearchCatScopeProps } from '.';
 import { useOutline } from '../../useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 import { CatLabel, Scope } from 'src/constants';
 
-type PropType = {
+export type SearchCatItemProps = SearchCatScopeProps & {
   cat: string;
-  isActive?: boolean;
-  setActiveCat: SetStateType<string>;
 };
 
-function SearchCatItem({ cat, isActive, setActiveCat }: PropType) {
+function SearchCatItem({ cat, activeCat, setActiveCat }: SearchCatItemProps) {
   const { setShadowOf } = useShadow();
   const { inputRef, setOutline, setScopeOutline, setSuggestBox } = useOutline();
 
   return (
     <li
-      className={`category ${isActive ? 'active' : ''}`}
+      className={`category ${activeCat === cat ? 'active' : ''}`}
       onClick={() => {
-        if (isActive) {
+        if (activeCat === cat) {
           setOutline(false);
           setScopeOutline(Scope.minimized); // focus back to search scope facade
           return;

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 import { savePath } from 'src/utils';
 
-type PropType = {
+export type IconButtonProps = {
   to: string;
   label: string;
   text: string;
@@ -11,7 +11,7 @@ type PropType = {
   children?: Children;
 };
 
-function NavBtnFacade({ to, label, text, className, children }: PropType) {
+function IconButton({ to, label, text, className, children }: IconButtonProps) {
   const history = useHistory();
 
   function handleClick() {
@@ -34,4 +34,4 @@ function NavBtnFacade({ to, label, text, className, children }: PropType) {
   );
 }
 
-export default memo(NavBtnFacade);
+export default memo(IconButton);
