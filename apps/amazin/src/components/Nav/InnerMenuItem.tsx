@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useHistory } from 'react-router';
 import { useShadow } from 'src/hooks/useShadow';
 
-type PropType = {
+export type MenuItemProps = {
   label: string;
   to?: string;
   className?: string;
@@ -10,7 +10,7 @@ type PropType = {
   children?: Children;
 };
 
-function InnerMenuItem({ label, to = '', className, extFunction, children }: PropType) {
+function InnerMenuItem({ label, to = '', className, extFunction, children }: MenuItemProps) {
   const history = useHistory();
   const { setShadowOf } = useShadow();
 
