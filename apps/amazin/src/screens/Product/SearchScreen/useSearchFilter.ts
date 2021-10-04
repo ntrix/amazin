@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { listProducts } from 'src/apis/productAPI';
-import { SORT_DEFAULT_FILTER } from 'src/constants';
+import { FilterOptType, SORT_DEFAULT_FILTER } from 'src/constants';
 
 export function useSearchFilter() {
   const dispatch = useDispatch();

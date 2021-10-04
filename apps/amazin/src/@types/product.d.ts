@@ -60,10 +60,6 @@ type ProductCategoriesType = StatusType & {
   categories: Category[];
 };
 
-type FilterStringType = Record<'seller' | 'name' | 'category' | 'order', string>;
-type FilterNumberType = Record<'pageSize' | 'pageNumber' | 'deal' | 'min' | 'max' | 'rating', string | number>;
-type FilterOptType = Partial<FilterStringType & FilterNumberType>;
-
 type ResGetProductApi = Res & {
   data: {
     products: ProductType[];

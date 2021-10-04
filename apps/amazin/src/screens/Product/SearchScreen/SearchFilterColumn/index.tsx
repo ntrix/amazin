@@ -2,22 +2,27 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { createListItem } from './listItemCreator';
-import { NAV, prices, ratings } from 'src/constants';
+import { FilterOptType, NAV, prices, ratings } from 'src/constants';
 import Rating from 'src/components/Rating';
 import LoadingOrError from 'src/components/LoadingOrError';
 
-const FilterLabel = ({ label, children }: { label?: string; children?: Children }) => (
+type FilterLabelProps = {
+  label?: string;
+  children?: Children;
+};
+
+const FilterLabel = ({ label, children }: FilterLabelProps) => (
   <li>
     <h4 className="mt-2">{label || children}</h4>
   </li>
 );
 
-type PropType = {
+export type FilterProps = {
   searchFilters: FilterOptType;
   getFilterUrl: FnType;
 };
 
-function SearchFilterColumn({ searchFilters: { category = NAV.ALL, max = 0, rating = 0 }, getFilterUrl }: PropType) {
+function SearchFilterColumn({ searchFilters: { category = NAV.ALL, max = 0, rating = 0 }, getFilterUrl }: FilterProps) {
   const productCategoryList: ProductCategoriesType = useSelector((state: AppState) => state.productCategoryList);
   const ListItem = memo(createListItem(getFilterUrl));
 
