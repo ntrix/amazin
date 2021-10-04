@@ -1,4 +1,4 @@
-import ErrorBaseWithBtn from './ErrorBaseWithBtn';
+import ErrorBaseWithBtn from 'src/components/Auth/SigninScreen/ErrorBaseWithBtn';
 
 function ErrorScreen({ error }: { error: { message: string } }) {
   return (
