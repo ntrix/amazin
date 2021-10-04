@@ -34,7 +34,7 @@ export const { actions: userTopSellerListActions, reducer: userTopSellerListRedu
 );
 
 const createMapReducer: FnType = () => ({
-  _CONFIRM: (state: AppState, action: { payload: { type: string; address: AddressType } }) => ({
+  _CONFIRM: (_: AppState, action: { payload: { type: string; address: AddressType } }) => ({
     address: action.payload
   })
 });

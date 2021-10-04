@@ -7,7 +7,7 @@ export const createReducers: (
   overwriteReducers?: SliceCaseReducers<unknown>
 ) => SliceCaseReducers<unknown> = (stateKeyName = '', overwriteReducers) => ({
   _REQUEST: () => ({ loading: true }),
-  _SUCCESS: (state: AppState, action: ActionRedux) => {
+  _SUCCESS: (_: AppState, action: ActionRedux) => {
     // noname saved state?
     return stateKeyName === '...'
       ? {
@@ -21,7 +21,7 @@ export const createReducers: (
           success: true
         };
   },
-  _FAIL: (state: AppState, action: ActionRedux) => ({
+  _FAIL: (_: AppState, action: ActionRedux) => ({
     loading: false,
     error: action.payload
   }),
