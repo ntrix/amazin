@@ -1,9 +1,9 @@
-type PropType = {
+type Props = {
   redirectBack: FnType;
   onConfirm: FnType;
 };
 
-export default function MapSearchBox({ redirectBack, onConfirm }: PropType) {
+export default function MapSearchBox({ redirectBack, onConfirm }: Props) {
   return (
     <div className="address-box col-fill">
       <button className="danger btn-left" onClick={redirectBack}>

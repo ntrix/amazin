@@ -10,7 +10,7 @@ export type InputProps = {
   rule?: string;
   placeholder?: string;
   hook?: HookType<string> | HookType<string[]> | HookType<number> | [];
-  onChange?: FnType;
+  onChange?: FnType | SetStateType<unknown>;
   onFocus?: FnType;
   onBlur?: FnType;
   textarea?: boolean;

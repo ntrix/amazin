@@ -1,12 +1,12 @@
 import CustomSelect from 'src/components/CustomSelect';
 import { pipe } from 'src/utils';
 
-type PropType = {
+export type CurrencyOptionsProps = {
   currency: CurrType;
   setCurrency: SetStateType<CurrType>;
 };
 
-export default function CurrencyOptions({ currency, setCurrency }: PropType) {
+export default function CurrencyOptions({ currency, setCurrency }: CurrencyOptionsProps) {
   const handleChange = (e: EventType) => {
     e.stopPropagation();
     setCurrency(e.target.value);
