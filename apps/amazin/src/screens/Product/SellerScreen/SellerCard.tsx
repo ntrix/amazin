@@ -5,7 +5,7 @@ import { SuspenseText } from 'src/components/CustomSuspense';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import Rating from 'src/components/Rating';
 
-type PropType = {
+type SellerCardProps = {
   seller: SellerType;
   size?: string;
   to?: string;
@@ -17,7 +17,14 @@ type PropType = {
 /* don't show user {email} */
 const DUMMY_EMAIL = 'a@b.cd';
 
-function SellerCard({ seller, size = 'small mr-1', to = '', rating = true, mail = false, info = false }: PropType) {
+function SellerCard({
+  seller,
+  size = 'small mr-1',
+  to = '',
+  rating = true,
+  mail = false,
+  info = false
+}: SellerCardProps) {
   return (
     <div className="card card__body m-0">
       <div className="row start p-1">
