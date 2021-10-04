@@ -1,12 +1,12 @@
 import MessageBox from 'src/components/MessageBox';
 
-type PropType = {
+export type StatusBoxProps = {
   textOf: string;
   isDone?: boolean;
   when?: string;
 };
 
-export default function StatusBox({ textOf, isDone, when }: PropType) {
+export default function StatusBox({ textOf, isDone, when }: StatusBoxProps) {
   return (
     <>
       <MessageBox variant="success" show={isDone}>
