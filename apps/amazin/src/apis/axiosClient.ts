@@ -5,7 +5,7 @@ const axiosClient = axios.create({
   headers: { mode: 'cors' }
 });
 
-const getTokenHeader = (authorization: boolean, getState: AppState) =>
+const getTokenHeader = (authorization: boolean, getState: FnType) =>
   !authorization
     ? undefined
     : {
@@ -27,7 +27,7 @@ const axiosRedux =
     { successAction, successHandler, selector = (d) => d }: OptionFns = {}
   ) =>
   (method: Method | undefined = 'get', url = '', requestData?: unknown) =>
-  async (dispatch: AppDispatch, getState: AppState) => {
+  async (dispatch: AppDispatch, getState: FnType) => {
     const headers = getTokenHeader(authorization, getState);
     url = process.env.REACT_APP_BACKEND_URL + url;
 

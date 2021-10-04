@@ -37,5 +37,9 @@ function App() {
 }
 
 export default function AppWithShadow() {
-  return <ShadowProvider children={<App />} />;
+  return (
+    <ShadowProvider>
+      <App />
+    </ShadowProvider>
+  );
 }

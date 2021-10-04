@@ -5,14 +5,22 @@ import Rating from 'src/components/Rating';
 import Header from 'src/layouts/Header';
 import PriceTag from '../components/PriceTag';
 
-function ProductDescription({ product: { name, rating, numReviews, deal, price, description }}:{product:ProductType} ) {
+type PropType = {
+  product: ProductType;
+};
+
+function ProductDescription({ product: { name, rating, numReviews, deal, price, description } }: PropType) {
   return (
     <div className="col-1 mh-2">
       <Header label={name} />
       <ul>
-        <li children={<Rating rating={rating} numReviews={numReviews} />} />
+        <li>
+          <Rating rating={rating} numReviews={numReviews} />
+        </li>
 
-        <li children={<PriceTag price={price} deal={deal} />} />
+        <li>
+          <PriceTag price={price} deal={deal} />
+        </li>
 
         <li>
           <b>Description:</b>

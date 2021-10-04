@@ -14,24 +14,19 @@ type PropType = {
   info?: boolean;
 };
 
-function SellerCard({
-  /* don't show user {email} */
-  seller,
-  size = 'small mr-1',
-  to = '',
-  rating = true,
-  mail = false,
-  info = false
-}: PropType) {
+/* don't show user {email} */
+const DUMMY_EMAIL = 'a@b.cd';
+
+function SellerCard({ seller, size = 'small mr-1', to = '', rating = true, mail = false, info = false }: PropType) {
   return (
     <div className="card card__body m-0">
       <div className="row start p-1">
         <SuspenseText text="Seller" children={<LazyImg className={size} src={seller?.logo} alt={seller?.name} />} />
-        <h2>{to ? <Link to={to}>{seller?.name}</Link> : seller?.name}</h2>
+        <h2>{to ? <Link to={to} children={seller?.name} /> : seller?.name}</h2>
       </div>
 
       {!!rating && <Rating rating={seller?.rating} numReviews={seller?.numReviews} />}
-      {!!mail && <div children={<a href={`mailto:${'a@b.c'}`}>Contact Seller</a>} />}
+      {!!mail && <div children={<a href={`mailto:${DUMMY_EMAIL}`}>Contact Seller</a>} />}
       {!!info && <div>{seller?.description}</div>}
     </div>
   );
