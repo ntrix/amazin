@@ -6,7 +6,7 @@ export type SubNavItemProps = {
   category?: string;
   getUrl?: FnType;
   onPreload?: FnType;
-  changeCat?: SetStateType<string>;
+  changeCat?: FnType;
 };
 
 function SubNavItem({ _cat = '', category, getUrl, onPreload, changeCat }: SubNavItemProps) {

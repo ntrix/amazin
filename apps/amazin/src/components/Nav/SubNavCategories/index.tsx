@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 import SubNavItem, { SubNavItemProps } from './SubNavItem';
 import LoadingOrError from 'src/components/LoadingOrError';
 
-type Props = {
+type Props = SubNavItemProps & {
   first: string;
-  rest?: SubNavItemProps;
 };
 
 function SubNavCategories({ first, ...rest }: Props) {
