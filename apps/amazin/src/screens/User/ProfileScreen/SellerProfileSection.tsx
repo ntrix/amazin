@@ -2,13 +2,13 @@ import PrivateRoute from 'src/routes/PrivateRoute';
 import CustomInput from 'src/components/CustomInput';
 import MessageBox from 'src/components/MessageBox';
 
-type PropType = {
+export type SellerProfileProps = {
   userDetails: UserDetailType;
   seller: SellerType;
   setSeller: FnType;
 };
 
-export default function SellerProfileSection({ userDetails, seller, setSeller }: PropType) {
+export default function SellerProfileSection({ userDetails, seller, setSeller }: SellerProfileProps) {
   const setName: FnType = (name: string) => setSeller({ ...seller, name });
   const setLogo: FnType = (logo: string) => setSeller({ ...seller, logo });
   const setDescription: FnType = (description: string) => setSeller({ ...seller, description });
