@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
 
-type PropType = {
+export type CustomerCardProps = {
   img?: string;
   label?: string;
   line1?: string;
@@ -11,7 +11,7 @@ type PropType = {
   baseUrl?: string;
 };
 
-function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }: PropType) {
+function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }: CustomerCardProps) {
   const history = useHistory();
 
   return (
