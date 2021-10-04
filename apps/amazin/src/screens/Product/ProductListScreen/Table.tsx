@@ -2,7 +2,7 @@ import Button from 'src/components/Button';
 import CheckCell from 'src/components/CheckCell';
 import BaseTable from 'src/layouts/BaseTable';
 
-type PropType = {
+export type TableProps = {
   header: string[];
   keys: TabHead[];
   tabRows: TabRow[];
@@ -10,7 +10,7 @@ type PropType = {
   to?: string;
 };
 
-export default function Table({ header, keys, tabRows, deleteHandler, to }: PropType) {
+export default function Table({ header, keys, tabRows, deleteHandler, to }: TableProps) {
   return (
     <BaseTable
       header={header.map((h) => h.toUpperCase())}
