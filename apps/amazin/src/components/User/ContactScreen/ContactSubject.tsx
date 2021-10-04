@@ -1,13 +1,16 @@
 import { useParams } from 'react-router';
-import { useSelector } from 'react-redux';
 
 import { subjectTemplate } from './SubjectTemplate';
 import { useShadow } from 'src/hooks/useShadow';
 import LoadingOrError from 'src/components/LoadingOrError';
 import CustomSelect from 'src/components/CustomSelect';
 
-export default function ContactSubject({ hook: [subject, setSubject] }: { hook: HookType<string> }) {
-  const userUpdateProfile: StatusType = useSelector((state: AppState) => state.userUpdateProfile);
+type Props = {
+  hook: HookType<string>;
+  updateStatus: StatusType;
+};
+
+export default function ContactSubject({ hook: [subject, setSubject], updateStatus }: Props) {
   const { subject: pSubject }: { subject?: string } = useParams();
   const { userInfo } = useShadow();
 
@@ -21,7 +24,7 @@ export default function ContactSubject({ hook: [subject, setSubject] }: { hook: 
 
   return (
     <>
-      <LoadingOrError xl statusOf={userUpdateProfile} />
+      <LoadingOrError xl statusOf={updateStatus} />
       <CustomSelect
         label="Subject"
         list={subjectOptions}
