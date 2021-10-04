@@ -4,7 +4,7 @@ const rates = { EUR: 1, USD: 1.2, GBP: 0.9, CZK: 27, PLN: 5, CHF: 1.1 };
 
 const createCurrencyReducers: FnType = () =>
   createReducers('...', {
-    _CHANGE: (state: AppState, action: SliceAction): FnType => ({ ...state, sessionCurrency: action.payload })
+    _CHANGE: (state: AppState, action: ActionRedux): FnType => ({ ...state, sessionCurrency: action.payload })
   });
 
 export const { actions: currencyTypeActions, reducer: currencyTypeReducer } = createSlice(

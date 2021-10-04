@@ -1,5 +1,5 @@
 type ActionRedux = {
-  types: string;
+  type: string;
   payload?: any;
 };
 

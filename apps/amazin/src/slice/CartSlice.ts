@@ -10,9 +10,9 @@ const checkStock = ({ qty, countInStock }: ItemType, exItem: ItemType) => ({
 const updateItems = (cart: ItemType[], item: ItemType, exItem: ItemType) =>
   cart.map((ex) => (ex.product === exItem.product ? item : ex));
 
-export const createReducers: FnType = () =>
+export const createReducers: () => SliceCaseReducers<unknown> = () =>
   ({
-    _ADD_ITEM(state: CartType, action: SliceAction) {
+    _ADD_ITEM(state: CartType, action: ActionRedux) {
       const newItem: ItemType = action.payload;
       const { cartItems } = state;
       const exItem = cartItems.find((x: ItemType) => x.product === newItem.product);
@@ -26,20 +26,20 @@ export const createReducers: FnType = () =>
       newItem.qty = qty;
       return { ...state, error, cartItems: updateItems(cartItems, newItem, exItem) };
     },
-    _REMOVE_ITEM: (state: CartType, action: SliceAction) => ({
+    _REMOVE_ITEM: (state: CartType, action: ActionRedux) => ({
       ...state,
       error: '',
       cartItems: state.cartItems.filter((x: ItemType) => x.product !== action.payload)
     }),
-    _SAVE_SHIPPING_ADDRESS: (state: CartType, action: SliceAction) => ({
+    _SAVE_SHIPPING_ADDRESS: (state: CartType, action: ActionRedux) => ({
       ...state,
       shippingAddress: action.payload
     }),
-    _SAVE_PAYMENT_METHOD: (state: CartType, action: SliceAction) => ({
+    _SAVE_PAYMENT_METHOD: (state: CartType, action: ActionRedux) => ({
       ...state,
       paymentMethod: action.payload
     }),
-    _ADD_ITEM_FAIL: (state: CartType, action: SliceAction) => ({
+    _ADD_ITEM_FAIL: (state: CartType, action: ActionRedux) => ({
       ...state,
       error: action.payload
     }),
