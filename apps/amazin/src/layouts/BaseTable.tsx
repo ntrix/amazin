@@ -1,6 +1,6 @@
-type PropType = { header: string[]; body: Children };
+export type BaseTableProps = { header: string[]; body: Children };
 
-export default function BaseTable({ header: labels, body }: PropType) {
+export default function BaseTable({ header: labels, body }: BaseTableProps) {
   return (
     <table className="table">
       <thead>

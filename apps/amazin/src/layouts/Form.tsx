@@ -2,19 +2,19 @@ import Header from 'src/layouts/Header';
 import LoadingOrError from '../components/LoadingOrError';
 import Button from '../components/Button';
 
-type PropType = {
+export type FormProps = {
   onSubmit: FnType;
-  header?: string | undefined;
+  header?: string;
   statusOf?: StatusType;
   children?: Children;
-  btn?: string | undefined;
+  btn?: string;
   more?: Children;
-  props?: RestProps;
+  rest?: RestProps;
 };
 
-export default function Form({ header, statusOf, children, btn, more, ...props }: PropType) {
+export default function Form({ header, statusOf, children, btn, more, ...rest }: FormProps) {
   return (
-    <form className="form" {...props}>
+    <form className="form" {...rest}>
       {header && <Header label={header} />}
       {statusOf && <LoadingOrError statusOf={statusOf} />}
       {children}
