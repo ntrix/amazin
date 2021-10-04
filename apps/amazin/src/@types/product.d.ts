@@ -40,28 +40,6 @@ type ProductListType = {
 };
 
 /* only product name for search and suggest function */
-type Category = string;
-
 type ProductCategoriesType = StatusType & {
-  categories: Category[];
-};
-
-type ResGetProductApi = Res & {
-  data: {
-    products: ProductType[];
-  };
-};
-
-type ResGetProduct = ActionRedux & {
-  payload: ResGetProductApi;
-};
-
-type ResGetProductItemApi = Res & {
-  data: {
-    product: ProductType;
-  };
-};
-
-type ResGetProductItem = ActionRedux & {
-  payload: ResGetProductItemApi;
+  categories: string[];
 };
