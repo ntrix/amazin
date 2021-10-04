@@ -5,18 +5,15 @@ import { dummyMovies, getImgUrl } from 'src/utils';
 import { LazyImg } from 'src/apis/suspenseAPI';
 import { ImgFallback } from 'src/components/Fallbacks';
 import ButtonBuy from './ButtonBuy';
-import ButtonTrailer from './ButtonTrailer';
+import ButtonTrailer, { ButtonTrailerProps } from './ButtonTrailer';
 import Rating from 'src/components/Rating';
 
-type PropType = {
-  movie?: MovieType;
+export type VideoCardProps = ButtonTrailerProps & {
   portrait?: boolean;
-  trailerUrl: string;
-  setTrailerUrl: SetStateType<string>;
   children?: Children;
 };
 
-export function VideoCard({ movie = dummyMovies[0], portrait, trailerUrl, setTrailerUrl, children }: PropType) {
+export function VideoCard({ movie = dummyMovies[0], trailerUrl, setTrailerUrl, portrait, children }: VideoCardProps) {
   return (
     <div className={`m-card ${portrait ? 'm-card--portrait' : ''}`}>
       <Suspense fallback={<ImgFallback portrait={portrait} />}>

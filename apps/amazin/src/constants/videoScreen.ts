@@ -1,4 +1,36 @@
 /* VideoScreen */
+export type VideoType = {
+  title?: string;
+  original_title?: string;
+  poster_path?: string;
+  backdrop_path?: string;
+  vote_average?: number;
+  vote_count?: number;
+  overview?: string;
+};
+
+export type MovieType = VideoType & ProductType;
+
+export type GenreType =
+  | 'NETFLUX ORIGINALS'
+  | 'Home'
+  | 'STORE'
+  | 'Action Movies'
+  | 'Comedy Movies'
+  | 'Horror Movies'
+  | 'Romance Movies'
+  | 'Documentaries'
+  | 'Trending Now'
+  | 'Top Rated';
+
+export type SourceType = Exclude<GenreType, 'Home' | 'STORE'>;
+
+export type MovieList<T> = Record<GenreType, T>;
+
+export type MoviesOpt<T> = Partial<MovieList<T>>;
+
+export type MoviesOptList = MoviesOpt<MovieType[]>;
+
 export const SRC_URL = 'https://image.tmdb.org/t/p/original/';
 export const TRENDING = 'Trending Now';
 export const TOP_RATED = 'Top Rated';

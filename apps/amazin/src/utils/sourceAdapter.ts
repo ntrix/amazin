@@ -1,8 +1,10 @@
-import { NO_IMAGE, NO_IMAGE_P, SRC_URL } from 'src/constants';
+import { MovieType, NO_IMAGE, NO_IMAGE_P, SRC_URL } from 'src/constants';
 
 /* Adapter pattern (or create placeholders, create default values if movie products are not exists) for video movies source from 3rd party API */
 const getUrl = (url: string | undefined) => (url ? SRC_URL + url : '');
+
 const getName = (m: MovieType) => m.name || m.title || m.original_title || 'Product Name';
+
 const getImage = (m: MovieType) =>
   m.image ||
   `${getUrl(m.poster_path)}${m.backdrop_path ? '^' : ''}${getUrl(m.backdrop_path)}` ||

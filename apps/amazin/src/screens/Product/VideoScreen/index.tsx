@@ -2,7 +2,7 @@ import { lazy, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import './videoScreen.css';
-import { HOME, IN_STOCK, NETFLUX, STORE, TOP_RATED, TRENDING, VIDEO } from 'src/constants';
+import { GenreType, HOME, IN_STOCK, NETFLUX, STORE, TOP_RATED, TRENDING, VIDEO } from 'src/constants';
 import { SuspenseBanner, SuspenseLoad, Suspense } from 'src/components/CustomSuspense';
 import { ErrorFallback, VideoListFallBack } from 'src/components/Fallbacks';
 import { useBannerMovies, useStockMovies } from './useMovieList';
