@@ -1,4 +1,4 @@
-import ButtonBuy from '../../screens/Product/VideoScreen/components/ButtonBuy';
+import ButtonBuy from 'src/components/Product/VideoScreen/components/ButtonBuy';
 
 export default {
   title: 'Components/Screens/Product/Video Screen/Button Buy',
