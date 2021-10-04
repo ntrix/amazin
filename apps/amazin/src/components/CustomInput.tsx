@@ -23,7 +23,7 @@ export type InputProps = {
   onKeyUp?: KeyEvent;
   rows?: number;
   className?: string;
-  value?: string;
+  value?: string | number;
   autoComplete?: string;
   checked?: boolean;
 };

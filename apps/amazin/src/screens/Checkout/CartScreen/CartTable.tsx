@@ -1,15 +1,12 @@
 import { Link } from 'react-router-dom';
 import MessageBox from 'src/components/MessageBox';
-import CartRowItem from './CartRowItem';
+import CartRowItem, { CartRowItemProps } from './CartRowItem';
 
-type PropType = {
+export type CartTableProps = CartRowItemProps & {
   cart: CartType;
-  addHandler: FnType;
-  removeHandler: FnType;
-  rest?: RestProps;
 };
 
-export default function CartTable({ cart: { cartItems, error }, ...rest }: PropType) {
+export default function CartTable({ cart: { cartItems, error }, ...rest }: CartTableProps) {
   return (
     <>
       <MessageBox msg={error} variant="danger" />
@@ -22,7 +19,7 @@ export default function CartTable({ cart: { cartItems, error }, ...rest }: PropT
         <table className="table">
           <tbody>
             {cartItems.map((item) => (
-              <CartRowItem key={item.product as string} item={item} {...rest} />
+              <CartRowItem key={item.product as string} {...rest} item={item} />
             ))}
           </tbody>
         </table>
