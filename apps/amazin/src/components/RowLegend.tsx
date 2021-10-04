@@ -1,11 +1,11 @@
-type PropType = {
+export type RowLegendProps = {
   label: string;
   className?: string;
   strong?: boolean;
   children?: Children;
 };
 
-export default function RowLegend({ label, className = '', strong = false, children }: PropType) {
+export default function RowLegend({ label, className = '', strong = false, children }: RowLegendProps) {
   return (
     <div className={'row ' + className}>
       {strong ? (
