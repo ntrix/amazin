@@ -36,7 +36,7 @@ export function useUserEdit(
     } // eslint-disable-next-line
   }, [user, userUpdate.success, paramUserId, history, dispatch]);
 
-  const submitUser = (name: string, email: string, isSeller: boolean, isAdmin: boolean) => (e: EventType) => {
+  const submitUser = (name: string, email: string, isSeller?: boolean, isAdmin?: boolean) => (e: EventType) => {
     e.preventDefault();
     dispatch(updateUser({ name, email, isSeller, isAdmin, _id: paramUserId }));
   };

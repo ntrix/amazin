@@ -8,8 +8,8 @@ import CustomCheck from 'src/components/CustomCheck';
 export default function UserEditScreen({ history, match }: RouteProps<MatchParams>) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [isSeller, setIsSeller] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSeller, setIsSeller] = useState<boolean>();
+  const [isAdmin, setIsAdmin] = useState<boolean>();
 
   const editUser = useUserEdit([setName, setEmail, setIsSeller, setIsAdmin], history, match);
   const { user, loading, error, userUpdate, submitUser } = editUser;
