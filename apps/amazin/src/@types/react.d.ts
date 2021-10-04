@@ -40,3 +40,5 @@ type Ref<T> = LegacyRef<T | undefined> | undefined;
 type Lazy = React.LazyExoticComponent<any>;
 
 type LazyPromise = Promise<{ default: any }>;
+
+type ToType = LocationDescriptor<unknown> | ((location: Location<unknown>) => LocationDescriptor<unknown>);
