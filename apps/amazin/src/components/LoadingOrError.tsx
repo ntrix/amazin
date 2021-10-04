@@ -1,35 +1,23 @@
-import { memo, cloneElement, useEffect, useRef, useState } from 'react';
+import { cloneElement, useEffect, useRef, useState } from 'react';
 
 import { SHOW_ERROR_TIMEOUT } from '../constants';
 import LoadingBox from './LoadingBox';
-import MessageBox from './MessageBox';
+import MessageBox, { MessageBoxProps } from './MessageBox';
 
-type InnerPropType = {
+export type LoadingOrErrorProps = Omit<MessageBoxProps, 'show'> & {
   statusOf: StatusType;
-  errorMsg?: string;
   xl?: boolean;
-  variant?: string;
-  children?: Children;
-  rest?: RestProps;
 };
 
-function InnerBox({ statusOf = {}, errorMsg = '', xl = false, variant, children, ...rest }: InnerPropType) {
+function InnerBox({ statusOf = {}, msg = '', xl = false, variant, children, ...rest }: LoadingOrErrorProps) {
   const { loading = false, error } = statusOf;
 
   if (loading) return <LoadingBox xl={xl} />;
-  if (error) return <MessageBox msg={errorMsg || error} variant={variant ?? 'danger'} />;
+  if (error) return <MessageBox msg={msg || error} variant={variant ?? 'danger'} />;
   return children ? cloneElement(children, Object.assign(children.props, rest)) : null;
 }
 
-type PropType = {
-  statusOf: StatusType;
-  wrapClass?: string;
-  children?: Children;
-  rest?: RestProps;
-  xl?: boolean;
-};
-
-function LoadingOrError({ statusOf, wrapClass = '', children, ...rest }: PropType) {
+function LoadingOrError({ statusOf, wrapClass = '', children, ...rest }: LoadingOrErrorProps) {
   const [hideError, setHideError] = useState(false);
   const timeoutId = useRef(0);
   const props = { statusOf, children, ...rest };
