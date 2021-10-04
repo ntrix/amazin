@@ -4,7 +4,7 @@ import { bannerFallback, ProductCardFallback, productListFallback } from './Fall
 export const delay = (time: number) => (promiseResult: unknown) =>
   new Promise((resolve) => setTimeout(() => resolve(promiseResult), time));
 
-export function SuspenseLoad(props: Props) {
+export function SuspenseLoad({ children }: { children: Children }) {
   return (
     <Suspense
       fallback={
@@ -12,21 +12,22 @@ export function SuspenseLoad(props: Props) {
           Loading.. <span className="sprite__loading" />
         </>
       }
-      {...props}
-    />
+    >
+      {children}
+    </Suspense>
   );
 }
 
-export function SuspenseBanner(props: Props) {
-  return <Suspense fallback={bannerFallback} {...props} />;
+export function SuspenseBanner({ children }: { children: Children }) {
+  return <Suspense fallback={bannerFallback}>{children}</Suspense>;
 }
 
 export function SuspenseText({ text = "Amazin' Amazim. Loading...", children }: { text?: string; children: Children }) {
   return <Suspense fallback={<h3>{text}</h3>}>{children}</Suspense>;
 }
 
-export function SuspenseNull(props: Props) {
-  return <Suspense fallback={null} {...props} />;
+export function SuspenseNull({ children }: { children: Children }) {
+  return <Suspense fallback={null}>{children}</Suspense>;
 }
 
 export const SusProductCard = ({ children }: { children: Children }) => (

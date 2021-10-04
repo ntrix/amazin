@@ -4,14 +4,14 @@ import { useOutline } from '../../useOutline';
 import { useSuggestBox } from './useSuggestBox';
 import { useKeyInput } from './useKeyInput';
 
-type PropType = {
+export type SearchInputProps = {
   input: string;
   setInput: SetStateType<string>;
   setSuggests: SetStateType<PNameType[]>;
   submitSearch: FnType;
 };
 
-function SearchInput({ input, setInput, setSuggests, submitSearch }: PropType) {
+function SearchInput({ input, setInput, setSuggests, submitSearch }: SearchInputProps) {
   const { inputRef, setOutline } = useOutline();
   const { showBox, hideBoxOnCallback } = useSuggestBox(setSuggests);
   const { handleKeyInput } = useKeyInput(setInput, setSuggests, submitSearch);

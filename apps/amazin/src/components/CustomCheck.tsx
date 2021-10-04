@@ -3,7 +3,7 @@ import CustomInput from './CustomInput';
 type PropType = {
   text?: string;
   onChange: SetState;
-  rest?: Props;
+  rest?: RestProps;
   checked?: boolean;
 };
 

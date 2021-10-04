@@ -22,9 +22,9 @@ function createSuspenseAPI(promise: PromiseLike<string>) {
   };
 }
 
-function subscribeResource(state: AppState) {
+function subscribeResource(state: AppState & StatusType) {
   return {
-    read(props: unknown) {
+    read(props: keyof AppState) {
       if (state.loading) throw new Promise(() => void 0);
       if (state.error) throw state.error;
       return state[props] || props;
@@ -44,12 +44,12 @@ const sCached: CacheType = {};
 
 type PropType = {
   src?: string;
-  style?: CSSProperties | undefined;
-  alt?: string | undefined;
-  placeholder?: string | undefined;
+  style?: CSSProperties;
+  alt?: string;
+  placeholder?: string;
   className?: string;
   children?: Children;
-  rest?: Props;
+  rest?: RestProps;
   onMouseEnter?: FnType;
   onClick?: FnType;
 };

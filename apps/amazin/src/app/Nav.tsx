@@ -22,7 +22,9 @@ function Nav() {
         </header>
         <NavShadow />
       </OutlineProvider>
-      <SuspenseNull children={<SidebarMenu />} />
+      <SuspenseNull>
+        <SidebarMenu />
+      </SuspenseNull>
     </ErrorBoundary>
   );
 }

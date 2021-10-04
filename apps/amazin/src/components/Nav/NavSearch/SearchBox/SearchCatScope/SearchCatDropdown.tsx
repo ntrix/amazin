@@ -1,12 +1,13 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { SearchCatScopeProps } from '.';
 import { listAllProducts } from 'src/apis/productAPI';
 import { useOutline } from '../../useOutline';
 import { NAV, Scope } from 'src/constants';
 import SearchCatItem from './SearchCatItem';
 
-function SearchCatDropdown({ activeCat, setActiveCat }: { activeCat: string; setActiveCat: SetState }) {
+function SearchCatDropdown({ activeCat, setActiveCat }: SearchCatScopeProps) {
   const dispatch = useDispatch();
   const { categories } = useSelector((state: AppState) => state.productCategoryList);
   const { scopeOutline, setScopeOutline } = useOutline();

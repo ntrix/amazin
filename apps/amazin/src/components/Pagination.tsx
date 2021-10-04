@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 
-type PropType = {
+export type PaginationProps = {
   getUrl: FnType;
   page?: string | number;
   pages?: string | number;
@@ -15,8 +15,8 @@ function Pagination({
   pages,
   className = '',
   help = false,
-  LinkTo = (props: Props) => <Link {...props} />
-}: PropType) {
+  LinkTo = (props: LinkProps) => <Link {...props} />
+}: PaginationProps) {
   page = Number(page);
   pages = Number(pages);
   const getClass = (x: number) => `${x + 1 === page ? 'active' : ''} ${className}`;

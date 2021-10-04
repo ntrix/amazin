@@ -1,19 +1,15 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 
-import SubNavItem from './SubNavItem';
+import SubNavItem, { SubNavItemProps } from './SubNavItem';
 import LoadingOrError from 'src/components/LoadingOrError';
 
-type PropType = {
+type Props = {
   first: string;
-  rest?: Props;
-  category?: string;
-  getUrl?: FnType;
-  onPreload?: FnType;
-  changeCat?: SetState;
+  rest?: SubNavItemProps;
 };
 
-function SubNavCategories({ first, ...rest }: PropType) {
+function SubNavCategories({ first, ...rest }: Props) {
   const productCategoryList = useSelector((state: AppState) => state.productCategoryList);
   const { categories = [] } = productCategoryList;
 

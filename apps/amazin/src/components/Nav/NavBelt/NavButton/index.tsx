@@ -2,9 +2,9 @@ import { memo } from 'react';
 
 import { SuspenseNull } from 'src/components/CustomSuspense';
 import { useBtnControl } from './useBtnControl';
-import DropdownButton from './DropdownButton';
+import DropdownButton, { DropdownButtonProps } from './DropdownButton';
 
-function NavButton({ children, ...rest }: Props) {
+function NavButton({ children, ...rest }: DropdownButtonProps) {
   const { onHover, handleClick, onBlur } = useBtnControl();
 
   return (

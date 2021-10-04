@@ -5,7 +5,7 @@ type PropType = {
   msg?: string | string[];
   back?: string;
   label?: string;
-  props?: Props;
+  props?: RestProps;
   className?: string;
 };
 

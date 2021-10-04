@@ -1,16 +1,18 @@
 import { lazy, memo } from 'react';
 
+import SearchCatScope, { SearchCatScopeProps } from './SearchCatScope';
 import { SuspenseNull } from 'src/components/CustomSuspense';
-import SearchCatScope from './SearchCatScope';
 const SearchCatDropdown: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ './SearchCatScope/SearchCatDropdown')
 );
 
-function BoxLeft(props: Props) {
+function BoxLeft(props: SearchCatScopeProps) {
   return (
     <div className="box__left">
       <SearchCatScope {...props} />
-      <SuspenseNull children={<SearchCatDropdown {...props} />} />
+      <SuspenseNull>
+        <SearchCatDropdown {...props} />
+      </SuspenseNull>
     </div>
   );
 }

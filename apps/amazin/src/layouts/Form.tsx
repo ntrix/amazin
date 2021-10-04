@@ -9,7 +9,7 @@ type PropType = {
   children?: Children;
   btn?: string | undefined;
   more?: Children;
-  props?: Props;
+  props?: RestProps;
 };
 
 export default function Form({ header, statusOf, children, btn, more, ...props }: PropType) {
