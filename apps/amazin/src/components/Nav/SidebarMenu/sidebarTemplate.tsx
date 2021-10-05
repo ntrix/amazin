@@ -8,6 +8,9 @@ export const sidebarBase = [
   ['New Releases', '/search/category/All/order/' + SORT.NEWEST.OPT],
   ['Home Page', '/'],
   ['separator'],
+  ['Instruction'],
+  ['Quick Tutor!', process.env.REACT_APP_USER_TOUR],
+  ['separator'],
   ['Categories'],
   ['Netflux Video', '/video']
 ];
