@@ -10,8 +10,8 @@ import { SHADOW } from '../constants';
 import Nav from './Nav';
 import MainRoutes from '../routes/MainRoutes';
 import './responsive.css';
-import '../fonts/fonts.css';
-import '../fonts/font-awesome.css';
+import '../assets/fonts/fonts.css';
+import '../assets/fonts/font-awesome.css';
 
 function App() {
   const dispatch = useDispatch();
