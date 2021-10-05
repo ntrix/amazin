@@ -11,7 +11,7 @@ export function createSellerTemplate(userInfo: UserInfoType): MenuType {
     ['Sold Order List', '/order-list/seller'],
     ['separator'],
     ['Assistant'],
-    ['International Shipping Courier', 'disabled'],
-    ['Sell Statistics', 'disabled']
+    ['International Shipping Courier', 'disabled NOT IMPLEMENTED'],
+    ['Sell Statistics Chart', 'disabled NOT IMPLEMENTED']
   ];
 }

@@ -10,7 +10,7 @@ export function createUserTemplate(userInfo: UserInfoType, signOutAction: FnType
     ['Orders'],
     ['Your Order History', '/order-history'],
     ['Your Payment Method', '/payment'],
-    ['Returns', 'disabled'],
+    ['Returns', 'disabled NOT IMPLEMENTED'],
     ['Contact Us', '/contact/subject/Orders'],
     ['separator'],
     ['Account'],

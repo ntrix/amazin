@@ -1,6 +1,13 @@
 export const customerMenuTemplate = [
   ['order', 'Your Orders', 'Track parcels', 'Edit or cancel orders', '/order-history'],
-  ['return', 'Returns & Refunds', 'Return or exchange items', 'Print return mailing labels', '', 'disabled'],
+  [
+    'return',
+    'Returns & Refunds',
+    'Return or exchange items',
+    'Print return mailing labels',
+    '',
+    'disabled NOT IMPLEMENTED'
+  ],
   ['digital', 'Address Management', 'Find local address', 'Check shipping service', '/shipping'],
   ['video', 'Your Video Account', 'Kid account control', 'Parenting discussion', '/video'],
   ['payment', 'Payment Options', 'Add or edit payment methods', 'Change your currency', '/currency/pCurrency/EUR'],

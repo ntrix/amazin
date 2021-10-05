@@ -16,14 +16,14 @@ export function sidebarCurrencyCreator(currency: CurrType = 'EUR') {
   return [
     ['separator'],
     ['Privacy & Setting'],
-    ['Your Favorite List', 'disabled'],
+    ['Your Favorite List', 'disabled NOT IMPLEMENTED'],
     ['', '/currency/pCurrency/' + currency, 'sprite flag xl ' + currency, savePath('/curr')],
     [pipe.longName[currency], '/currency/pCurrency/' + currency, 'pl-8', savePath('/curr')],
     ['Currency Setting', '/currency/pCurrency/EUR', '', savePath('/curr')],
     ['Your Browsing History', 'disabled'],
     ['Shipping Address', '/shipping'],
     ['Orders & Returns', '/order-history'],
-    ['Statistics / AB Testing', 'disabled'],
+    ['Statistics / AB Testing', 'disabled NOT IMPLEMENTED'],
     ['FAQ & Help', '/contact/subject/FAQ'],
     [''],
     ['separator']
