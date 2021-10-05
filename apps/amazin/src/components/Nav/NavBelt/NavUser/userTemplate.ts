@@ -2,10 +2,12 @@
 
 export function createUserTemplate(userInfo: UserInfoType, signOutAction: FnType): MenuType {
   return [
-    ['Informations'],
+    ['Information'],
     ['Your Profile', '/profile'],
     ['Your Shipping Addresses', '/shipping'],
     ['FAQs & Generals', '/customer'],
+    ['Quick Tutor', process.env.REACT_APP_USER_TOUR],
+    ['Community', process.env.REACT_APP_COMMUNITY],
     ['separator'],
     ['Orders'],
     ['Your Order History', '/order-history'],
