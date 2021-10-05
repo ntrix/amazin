@@ -20,7 +20,7 @@ export function sidebarCurrencyCreator(currency: CurrType = 'EUR') {
   return [
     ['separator'],
     ['Privacy & Setting'],
-    ['Your Favorite List', 'disabled NOT IMPLEMENTED'],
+    ['Your Favorite List', 'disabled TODO: NOT AVAILABLE'],
     ['', '/currency/pCurrency/' + currency, 'sprite flag xl ' + currency, savePath('/curr')],
     [pipe.longName[currency], '/currency/pCurrency/' + currency, 'pl-8', savePath('/curr')],
     ['Currency Setting', '/currency/pCurrency/EUR', '', savePath('/curr')],
