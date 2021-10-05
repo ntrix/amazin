@@ -1,4 +1,4 @@
-import { SellerButton } from '../../screens/Product/VideoScreen/components/ButtonSell';
+import { SellerButton } from 'src/components/Product/VideoScreen/components/ButtonSell';
 
 export default {
   title: 'Components/Screens/Product/Video Screen/Button Sell',

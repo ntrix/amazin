@@ -5,12 +5,14 @@ import './videoScreen.css';
 import { GenreType, HOME, IN_STOCK, NETFLUX, STORE, TOP_RATED, TRENDING, VIDEO } from 'src/constants';
 import { SuspenseBanner, SuspenseLoad, Suspense } from 'src/components/CustomSuspense';
 import { ErrorFallback, VideoListFallBack } from 'src/components/Fallbacks';
-import { useBannerMovies, useStockMovies } from './useMovieList';
+import { useBannerMovies, useStockMovies } from 'src/screens/Product/VideoScreen/useMovieList';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
-import VideoNavHeader from './VideoNavHeader';
-import VideoBanner from './components/VideoBanner';
-const VideoRow: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './VideoRow'));
+import VideoNavHeader from 'src/components/Product/VideoScreen/VideoNavHeader';
+import VideoBanner from 'src/components/Product/VideoScreen/components/VideoBanner';
+const VideoRow: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Product/VideoScreen/VideoRow')
+);
 
 export default function VideoScreen() {
   const [active, setActive] = useState<GenreType>(STORE);

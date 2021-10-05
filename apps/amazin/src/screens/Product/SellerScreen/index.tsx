@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import { listProducts } from 'src/apis/productAPI';
 import { publicDetailsSeller } from 'src/apis/userAPI';
 import { SORT } from 'src/constants';
-import SellerCard from './SellerCard';
+import SellerCard from 'src/components/Product/SellerScreen/SellerCard';
 import Pagination from 'src/components/Pagination';
 import SortFilter from 'src/components/SortFilter';
 import SearchBanner from 'src/components/Nav/SearchBanner';

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { NAV } from 'src/constants';
 import { useSearchFilter } from './useSearchFilter';
-import SearchFilterColumn from './SearchFilterColumn';
+import SearchFilterColumn from 'src/components/Product/SearchScreen/SearchFilterColumn';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import SortFilter from 'src/components/SortFilter';
@@ -14,8 +14,9 @@ import ProductColumn from 'src/components/Product/ProductColumn';
 
 function SearchScreen() {
   const { order, category, max, rating, getFilterUrl } = useSearchFilter();
+  const filter = { category, max, rating };
   const productList: ProductListType = useSelector((state: AppState) => state.productList);
-  const { page, pages } = productList;
+  const categoryList: ProductCategoriesType = useSelector((state: AppState) => state.productCategoryList);
 
   return (
     <div className="search-screen">
@@ -26,14 +27,14 @@ function SearchScreen() {
       </SearchBanner>
 
       <div className="row top search-screen__result">
-        <SearchFilterColumn searchFilters={{ category, max, rating }} getFilterUrl={getFilterUrl} />
+        <SearchFilterColumn searchFilters={filter} getFilterUrl={getFilterUrl} categoryList={categoryList} />
         <div className="col-9">
           <div className="row center search__results">
             <ProductColumn productList={productList} />
 
             <div className="row divider-inner" />
           </div>
-          <Pagination getUrl={getFilterUrl} page={page} pages={pages} help />
+          <Pagination getUrl={getFilterUrl} page={productList.page} pages={productList.pages} help />
         </div>
       </div>
     </div>

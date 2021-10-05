@@ -7,7 +7,7 @@ import { detailsProduct } from 'src/apis/productAPI';
 import { SuspenseLoad } from 'src/components/CustomSuspense';
 import LoadingOrError from 'src/components/LoadingOrError';
 import BackBanner from 'src/components/Product/BackBanner';
-import SellerCard from '../SellerScreen/SellerCard';
+import SellerCard from 'src/components/Product/SellerScreen/SellerCard';
 import ProductInStock from 'src/components/Product/ProductScreen/ProductInStock';
 import ProductDescription from 'src/components/Product/ProductScreen/ProductDescription';
 import ProductReview from 'src/components/Product/ProductScreen/ProductReview';

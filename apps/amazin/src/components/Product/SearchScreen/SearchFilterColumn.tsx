@@ -1,7 +1,6 @@
 import { memo } from 'react';
-import { useSelector } from 'react-redux';
 
-import { createListItem } from './listItemCreator';
+import { createListItem } from 'src/components/Product/SearchScreen/ListItem';
 import { FilterOptType, NAV, prices, ratings } from 'src/constants';
 import Rating from 'src/components/Rating';
 import LoadingOrError from 'src/components/LoadingOrError';
@@ -20,10 +19,11 @@ const FilterLabel = ({ label, children }: FilterLabelProps) => (
 export type FilterProps = {
   searchFilters: FilterOptType;
   getFilterUrl: FnType;
+  categoryList: ProductCategoriesType;
 };
 
-function SearchFilterColumn({ searchFilters: { category = NAV.ALL, max = 0, rating = 0 }, getFilterUrl }: FilterProps) {
-  const productCategoryList: ProductCategoriesType = useSelector((state: AppState) => state.productCategoryList);
+function SearchFilterColumn({ searchFilters, getFilterUrl, categoryList }: FilterProps) {
+  const { category = NAV.ALL, max = 0, rating = 0 } = searchFilters;
   const ListItem = memo(createListItem(getFilterUrl));
 
   return (
@@ -31,10 +31,10 @@ function SearchFilterColumn({ searchFilters: { category = NAV.ALL, max = 0, rati
       <ul>
         <FilterLabel label="Department" />
         <ListItem filter={{ category: NAV.ALL }} isActive={NAV.ALL === category} text="Any" />
-        {productCategoryList.categories?.map((_cat) => (
+        {categoryList.categories?.map((_cat) => (
           <ListItem key={_cat} filter={{ category: _cat }} isActive={_cat === category} text={_cat} />
         ))}
-        <LoadingOrError statusOf={productCategoryList} />
+        <LoadingOrError statusOf={categoryList} />
 
         <FilterLabel label="Price" />
         {prices.map((p) => (
