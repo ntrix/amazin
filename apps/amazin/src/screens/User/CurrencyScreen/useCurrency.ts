@@ -40,3 +40,5 @@ export function useCurrency({ pCurrency }: { pCurrency: CurrType }) {
 
   return { back, currency, setCurrency, isChanged, submitChange };
 }
+
+export type CurrencyProps = ReturnType<typeof useCurrency>;

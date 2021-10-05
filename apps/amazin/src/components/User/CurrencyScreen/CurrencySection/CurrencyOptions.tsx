@@ -12,9 +12,9 @@ export default function CurrencyOptions({ currency, setCurrency }: CurrencyOptio
     setCurrency(e.target.value);
   };
 
-  const currencies = pipe.currencies.map((c) => ({
-    value: c,
-    children: `${pipe.symbol[c]} - ${c} - ${pipe.longName[c]}`
+  const currencies = pipe.currencies.map((cur) => ({
+    value: cur,
+    children: `${pipe.symbol[cur]} - ${cur} - ${pipe.longName[cur]}`
   }));
 
   return (
