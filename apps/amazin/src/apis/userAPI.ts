@@ -48,9 +48,9 @@ export const publicDetailsSeller = (_id: string) => axiosPublic([userDetailsActi
 export const detailsUser = (_id: string) => axiosPrivate([userDetailsActions])('get', `/api/users/${_id}`);
 
 /* Types: UserType for contact form, ReqLogin for profile update with request login info. */
-export const updateUserProfile = (user: UserType & ReqLogin, method: Method | undefined = 'patch') =>
+export const updateUserProfile = (user: UserType & ReqLogin, method: Method = 'patch') =>
   axiosPrivate([userUpdateProfileActions], {
-    successAction: userDetailsActions._SUCCESS,
+    successAction: method !== 'patch' ? userDetailsActions._SUCCESS : userSigninActions._SUCCESS,
     successHandler: (userInfo) => (Storage[KEY.USER_INFO] = userInfo)
   })(method, `/api/users/profile`, user);
 
