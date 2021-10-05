@@ -9,7 +9,8 @@ export const sidebarBase = [
   ['Home Page', '/'],
   ['separator'],
   ['Instruction'],
-  ['Quick Tutor!', process.env.REACT_APP_USER_TOUR],
+  ['Quick Tutor', process.env.REACT_APP_USER_TOUR],
+  ['Community', process.env.REACT_APP_COMMUNITY],
   ['separator'],
   ['Categories'],
   ['Netflux Video', '/video']
@@ -67,7 +68,7 @@ export function sidebarAdminCreator(isAdmin?: boolean) {
     [''],
     ['separator'],
     ['separator'],
-    ['#contact developer', 'disabled'],
+    ['#contact developer', process.env.REACT_APP_CONTACT],
     [''],
     ['separator'],
     ['separator']
