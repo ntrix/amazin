@@ -1,8 +1,8 @@
 import './customerScreen.css';
-import { customerMenuTemplate } from './customerMenuTemplate';
 import { useShadow } from 'src/hooks/useShadow';
-import CustomerCard, { mapCustomerCardProp } from './CustomerCard';
-import CustomerHelpSection from './CustomerHelpSection';
+import { customerMenuTemplate } from 'src/components/User/CustomerScreen/customerMenuTemplate';
+import CustomerCard, { mapCustomerCardProp } from 'src/components/User/CustomerScreen/CustomerCard';
+import CustomerHelpSection from 'src/components/User/CustomerScreen/CustomerHelpSection';
 import Header from 'src/layouts/Header';
 
 export default function CustomerScreen() {

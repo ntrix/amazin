@@ -1,7 +1,5 @@
-import { customerMenuTemplate } from '../../screens/User/CustomerScreen/customerMenuTemplate';
-import CustomerCard, {
-  mapCustomerCardProp
-} from '../../screens/User/CustomerScreen/CustomerCard';
+import { customerMenuTemplate } from 'src/components/User/CustomerScreen/customerMenuTemplate';
+import CustomerCard, { mapCustomerCardProp } from 'src/components/User/CustomerScreen/CustomerCard';
 
 export default {
   title: 'Components/Screens/User/Customer Card',
