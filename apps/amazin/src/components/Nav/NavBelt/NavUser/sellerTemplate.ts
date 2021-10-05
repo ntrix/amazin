@@ -12,6 +12,9 @@ export function createSellerTemplate(userInfo: UserInfoType): MenuType {
     ['separator'],
     ['Assistant'],
     ['International Shipping Courier', 'disabled NOT IMPLEMENTED'],
-    ['Sell Statistics Chart', 'disabled NOT IMPLEMENTED']
+    ['Statistics Chart', process.env.REACT_APP_RATES_CHART],
+    ['separator'],
+    ['Instruction'],
+    ['Quick Tutor!', process.env.REACT_APP_SELLER_TOUR]
   ];
 }

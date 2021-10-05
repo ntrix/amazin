@@ -9,5 +9,5 @@ export const adminTemplate: MenuType = [
   ['Order Database', '/order-list'],
   ['separator'],
   ['Instruction'],
-  ['Quick Tutor!', 'https://www.youtube.com/watch?v=7GNQKYdpDHQ']
+  ['Admin Tour', process.env.REACT_APP_ADMIN_TOUR]
 ];
