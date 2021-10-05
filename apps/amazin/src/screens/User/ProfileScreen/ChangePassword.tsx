@@ -1,11 +1,11 @@
 import PrivateRoute from 'src/routes/PrivateRoute';
 import CustomInput from 'src/components/CustomInput';
 
-export type PasswordSectionProps = {
+export type ChangePasswordProps = {
   hook: [(string | undefined)[], SetStateType<(string | undefined)[]>];
 };
 
-export default function PasswordSection({ hook: [passwords, setPasswords] }: PasswordSectionProps) {
+export default function ChangePassword({ hook: [passwords, setPasswords] }: ChangePasswordProps) {
   const setPassword: FnType = (id: number) => (pw: string) => {
     const _passwords = passwords.slice(0);
     _passwords[id] = pw;
