@@ -8,6 +8,7 @@ export function createSellerTemplate(userInfo: UserInfoType): MenuType {
     ['separator'],
     ['Listing'],
     ['Product Lists & Catalogues', '/product-list/seller'],
+    ['Retour Orders', 'disabled NOT IMPLEMENTED'],
     ['Sold Order List', '/order-list/seller'],
     ['separator'],
     ['Assistant'],
@@ -15,6 +16,6 @@ export function createSellerTemplate(userInfo: UserInfoType): MenuType {
     ['Statistics Chart', process.env.REACT_APP_RATES_CHART],
     ['separator'],
     ['Instruction'],
-    ['Quick Tutor!', process.env.REACT_APP_SELLER_TOUR]
+    ['Seller Tour', process.env.REACT_APP_SELLER_TOUR]
   ];
 }
