@@ -618,9 +618,7 @@
 }
 .nav-main__item > * {
   display: block;
-  padding: 4px 1rem 6px;
   width: 100%;
-  min-width: 6rem;
 
   font-size: 15px;
   letter-spacing: -0.5px;
@@ -635,6 +633,9 @@
   width: 100%;
   padding-top: 4px;
   cursor: pointer;
+}
+.nav__left .nav-main__item > div {
+  padding: 0 1rem;
 }
 .nav__left .nav-main__item b {
   font-weight: 700;
@@ -652,6 +653,10 @@
 }
 .nav__fill .nav-main__item {
   max-width: 18rem;
+}
+.nav__fill .nav-main__item > * {
+  min-width: 6rem;
+  padding: 4px 1rem 6px;
 }
 .nav__right {
   -webkit-flex: 0 0 auto;
