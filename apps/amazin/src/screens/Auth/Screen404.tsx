@@ -1,6 +1,6 @@
 import ErrorBaseWithBtn from 'src/components/Auth/SigninScreen/ErrorBaseWithBtn';
 import { LazyImg } from 'src/apis/suspenseAPI';
-import NotFoundGIF from 'src/img/travoltaNotFound.gif';
+import NotFoundGIF from 'src/assets/img/travoltaNotFound.gif';
 
 const errorMessage = 'The requested page could not be found! Please check the URL or use the search function.';
 
