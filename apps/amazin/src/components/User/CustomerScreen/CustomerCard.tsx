@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
+import Tooltip from 'src/components/Tooltip';
 
 export type CustomerCardProps = {
   img?: string;
@@ -16,18 +17,20 @@ function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }:
 
   return (
     <div className={`c-box ${className}`} onClick={to ? () => history.push(to) : undefined}>
-      <div className="c-box__inner">
-        <div className="c-box__icon-wrapper">
-          <img className="c-box__icon" src={`${baseUrl}/images/icon-${img}.png`} alt={'icon ' + img}></img>
+      <Tooltip text={className?.slice(9)}>
+        <div className="c-box__inner">
+          <div className="c-box__icon-wrapper">
+            <img className="c-box__icon" src={`${baseUrl}/images/icon-${img}.png`} alt={'icon ' + img}></img>
+          </div>
+          <div className="c-box__info">
+            <h3 className="c-box__label">{label}</h3>
+            <ul className="c-box__text">
+              <li>{line1}</li>
+              <li>{line2}</li>
+            </ul>
+          </div>
         </div>
-        <div className="c-box__info">
-          <h3 className="c-box__label">{label}</h3>
-          <ul className="c-box__text">
-            <li>{line1}</li>
-            <li>{line2}</li>
-          </ul>
-        </div>
-      </div>
+      </Tooltip>
     </div>
   );
 }

@@ -918,3 +918,39 @@ table th {
   display: flex;
   flex-direction: column-reverse;
 }
+
+/* tool tip */
+.tooltip-container {
+  position: relative;
+  z-index: 9;
+  background: var(--white-f);
+}
+
+.tooltip-box {
+  position: absolute;
+  padding: 3px;
+  border-radius: 3px;
+  bottom: calc(100% + 3px);
+  display: none;
+  background: var(--primary-1);
+  background: -webkit-linear-gradient(bottom, var(--primary-1), var(--secondary-1));
+  background: linear-gradient(to top, var(--primary-1), var(--secondary-1));
+  color: var(--black-f);
+  z-index: 99;
+}
+
+.tooltip-box.visible {
+  display: block;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--primary-2) transparent transparent transparent;
+}
+.NOT.IMPLEMENTED {
+  cursor: not-allowed !important;
+}

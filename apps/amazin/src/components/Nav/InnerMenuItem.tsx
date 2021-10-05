@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useHistory } from 'react-router';
 import { useShadow } from 'src/hooks/useShadow';
+import Tooltip from '../Tooltip';
 
 export type MenuItemProps = {
   label: string;
@@ -19,7 +20,7 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }: Men
       return className ? <div>{label}</div> : <strong>{label}</strong>;
 
     case 'disabled':
-      return <div className="menu__link-item disabled" children={label} />;
+      return <Tooltip text={to.slice(9)} children={<div className={'menu__link-item ' + to} children={label} />} />;
 
     case 'https://':
       return <a href={to} target="_blank" rel="noreferrer" children={label} />;
