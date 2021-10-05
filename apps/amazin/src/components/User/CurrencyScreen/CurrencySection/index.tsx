@@ -1,14 +1,10 @@
-import { useParams } from 'react-router';
-
+import { CurrencyProps } from 'src/screens/User/CurrencyScreen/useCurrency';
 import { pipe } from 'src/utils';
-import { useCurrency } from './useCurrency';
 import Button from 'src/components/Button';
 import CurrencyOptions from './CurrencyOptions';
 import SuccessModal from 'src/components/SuccessModal';
 
-export default function CurrencySection() {
-  const { back, currency, setCurrency, isChanged, submitChange } = useCurrency(useParams());
-
+export default function CurrencySection({ back, currency, setCurrency, isChanged, submitChange }: CurrencyProps) {
   const CUR = `${pipe.symbol[currency]} - ${currency} - ${pipe.longName[currency]}`;
 
   return (
