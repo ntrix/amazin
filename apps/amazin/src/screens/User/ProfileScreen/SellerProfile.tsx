@@ -8,7 +8,7 @@ export type SellerProfileProps = {
   setSeller: FnType;
 };
 
-export default function SellerProfileSection({ userDetails, seller, setSeller }: SellerProfileProps) {
+export default function SellerProfile({ userDetails, seller, setSeller }: SellerProfileProps) {
   const setName: FnType = (name: string) => setSeller({ ...seller, name });
   const setLogo: FnType = (logo: string) => setSeller({ ...seller, logo });
   const setDescription: FnType = (description: string) => setSeller({ ...seller, description });

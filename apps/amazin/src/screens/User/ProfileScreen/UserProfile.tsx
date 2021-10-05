@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 
 import { useSellerProfile, useUserProfile } from './useProfile';
 import Form from 'src/layouts/Form';
-import PasswordSection from './PasswordSection';
-import SellerProfileSection from './SellerProfileSection';
+import ChangePassword from './ChangePassword';
+import SellerProfile from './SellerProfile';
 import CustomInput from 'src/components/CustomInput';
 import LoadingOrError from 'src/components/LoadingOrError';
 import SuccessModal from 'src/components/SuccessModal';
 
-export default function ProfileScreen({ location }: RouteProps<MatchParams>) {
+export default function UserProfile({ location }: RouteProps<MatchParams>) {
   const userUpdateProfile: StatusType = useSelector((state: AppState) => state.userUpdateProfile);
 
   const [passwords, setPasswords] = useState(['', undefined]);
@@ -29,11 +29,11 @@ export default function ProfileScreen({ location }: RouteProps<MatchParams>) {
         <>
           <CustomInput text="Name" hook={[name, setName]} />
           <CustomInput text="Email" type="email" hook={[email, setEmail]} />
-          <PasswordSection hook={[passwords, setPasswords]} />
+          <ChangePassword hook={[passwords, setPasswords]} />
         </>
       )}
 
-      {seller && <SellerProfileSection userDetails={userDetails} seller={seller} setSeller={setSeller} />}
+      {seller && <SellerProfile userDetails={userDetails} seller={seller} setSeller={setSeller} />}
     </Form>
   );
 }

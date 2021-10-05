@@ -16,8 +16,8 @@ const OrderListScreen: Lazy = lazy(
 const ProductListScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/ProductListScreen')
 );
-const ProfileScreen: Lazy = lazy(
-  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/ProfileScreen')
+const UserProfile: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/ProfileScreen/UserProfile')
 );
 const UserEditScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/UserEditScreen')
@@ -33,7 +33,7 @@ export default function TokenRoutes() {
   return (
     <Switch>
       <PrivateRoute path="/order-history" component={OrderHistoryScreen} />
-      <PrivateRoute path="/profile" component={ProfileScreen} />
+      <PrivateRoute path="/profile" component={UserProfile} />
       <PrivateRoute path="/map" component={MapScreen} />
       <AdminRoute path="/product-list" component={ProductListScreen} exact />
       <AdminRoute path="/product-list/pageNumber/:pageNumber" component={ProductListScreen} exact />
@@ -45,7 +45,7 @@ export default function TokenRoutes() {
       <SellerRoute path="/product-list/seller" component={ProductListScreen} exact />
       <SellerRoute path="/product-list/seller/pageNumber/:pageNumber" component={ProductListScreen} exact />
       <SellerRoute path="/order-list/seller" component={OrderListScreen} />
-      <Route component={Screen404} exact />
+      <Route path="" component={Screen404} exact />
     </Switch>
   );
 }

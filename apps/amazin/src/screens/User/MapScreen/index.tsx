@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from '@react-googl
 
 import { LOCATION } from 'src/constants';
 import { useMapApiKey, useMap, useMapLocator, useMapSubmit } from './useMapAPIs';
-import MapSearchBox from './MapSearchBox';
+import MapSearchBox from 'src/components/User/MapScreen/MapSearchBox';
 import LoadingBox from 'src/components/LoadingBox';
 import { useSafeState } from 'src/hooks/useSafeState';
 import LoadingOrError from 'src/components/LoadingOrError';
