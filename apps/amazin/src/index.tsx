@@ -17,17 +17,17 @@ import store from './store';
 // import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
 import App from './app';
-lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/AmazonEmber_W_SBd.woff2'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/AmazonEmber_W_He.woff2'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/AmazonEmber_W_Bd.woff2'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/FontAwesome.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/AmazonEmber_W_SBd.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/AmazonEmber_W_He.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/AmazonEmber_W_Bd.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/FontAwesome.woff2'));
 
-lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/fonts.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/fonts.css'));
 lazy((): LazyPromise => import(/* webpackPreload: true */ './index.css'));
 lazy((): LazyPromise => import(/* webpackPreload: true */ './app/nav.css'));
 lazy((): LazyPromise => import(/* webpackPreload: true */ './app/responsive.css'));
 lazy((): LazyPromise => import(/* webpackPreload: true */ 'swiper/swiper-bundle.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './fonts/font-awesome.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/font-awesome.css'));
 
 lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css'));
 lazy((): LazyPromise => import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css'));
