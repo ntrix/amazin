@@ -1,5 +1,5 @@
 import { useShippingAddress } from './useShippingAddress';
-import CheckoutSteps from '../CheckoutSteps';
+import CheckoutSteps from 'src/components/Checkout/CheckoutSteps';
 import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import Button from 'src/components/Button';

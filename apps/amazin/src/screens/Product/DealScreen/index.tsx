@@ -12,7 +12,9 @@ import MessageBox from 'src/components/MessageBox';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SortFilter from 'src/components/SortFilter';
-const ProductCard: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../components/ProductCard'));
+const ProductCard: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Product/ProductCard')
+);
 
 function DealScreen() {
   const { shadowOf } = useShadow();

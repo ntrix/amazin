@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import MessageBox from 'src/components/MessageBox';
 import CartRowItem, { CartRowItemProps } from './CartRowItem';
 
-export type CartTableProps = CartRowItemProps & {
+export type CartTableProps = Omit<CartRowItemProps, 'item'> & {
   cart: CartType;
 };
 

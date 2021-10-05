@@ -1,9 +1,8 @@
 import { memo } from 'react';
 
-import './productScreen.css';
 import Rating from 'src/components/Rating';
 import Header from 'src/layouts/Header';
-import PriceTag from '../components/PriceTag';
+import PriceTag from 'src/components/Product/PriceTag';
 
 export type DescriptionProps = {
   product: ProductType;

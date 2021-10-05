@@ -1,11 +1,11 @@
 import { useCart } from './useCart';
+import CheckoutSteps from 'src/components/Checkout/CheckoutSteps';
+import Header from 'src/layouts/Header';
 import OrderItemsCard from '../components/OrderItemsCard';
 import ShippingAddressCard from '../components/ShippingAddressCard';
 import PaymentMethodCard from '../components/PaymentMethodCard';
-import CheckoutSteps from '../../Checkout/CheckoutSteps';
 import OrderSumCard from '../OrderSumScreen/OrderSumCard';
 import LoadingOrError from 'src/components/LoadingOrError';
-import Header from 'src/layouts/Header';
 
 export default function PlaceOrderScreen({ history }: RouteProps<MatchParams>) {
   const { cart, orderCreate, placeOrderHandler } = useCart(history);

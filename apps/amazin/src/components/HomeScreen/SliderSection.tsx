@@ -1,11 +1,10 @@
 import { memo } from 'react';
-import { useSelector } from 'react-redux';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+import 'swiper/swiper-bundle.css';
 import { Suspense } from 'src/components/CustomSuspense';
 import { DUMMY_SELLERS, SWIPER_CONFIG } from 'src/constants';
 import SwiperCore, { Autoplay, EffectCoverflow, Navigation, Pagination, Scrollbar } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css';
 import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
 import SellerSlide from './SellerSlide';
@@ -14,9 +13,7 @@ SwiperCore.use([Navigation, EffectCoverflow, Scrollbar, Autoplay, Pagination]);
 
 const SwiperFallBack = <div className="swiper-container" />;
 
-function SliderSection() {
-  const { users: sellers, loading, error }: UserListType = useSelector((state: AppState) => state.userTopSellersList);
-
+function SliderSection({ users: sellers, loading, error }: UserListType) {
   return (
     <Suspense fallback={SwiperFallBack}>
       <Swiper {...SWIPER_CONFIG} effect="coverflow" slidesPerView="auto">

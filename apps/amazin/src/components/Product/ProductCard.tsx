@@ -5,7 +5,7 @@ import { LazyImg } from 'src/apis/suspenseAPI';
 import { getImgUrl, pipe, savePath } from 'src/utils';
 import { DUMMY_SELLER, NO_IMAGE_P } from 'src/constants';
 import Rating from 'src/components/Rating';
-import PriceTag from './PriceTag';
+import PriceTag from 'src/components/Product/PriceTag';
 
 export type ProductCardProps = {
   showDeal?: boolean;

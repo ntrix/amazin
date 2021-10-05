@@ -8,7 +8,7 @@ import SubNavCategories from 'src/components/Nav/SubNavCategories';
 import SearchBanner from 'src/components/Nav/SearchBanner';
 import SortFilter from 'src/components/SortFilter';
 import Pagination from 'src/components/Pagination';
-import ProductColumn from '../components/ProductColumn';
+import ProductColumn from 'src/components/Product/ProductColumn';
 
 /* this is New Releases Screen at first */
 

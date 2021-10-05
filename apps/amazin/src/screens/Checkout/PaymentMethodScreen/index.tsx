@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { savePaymentMethod } from 'src/apis/cartAPI';
-import CheckoutSteps from './CheckoutSteps';
+import CheckoutSteps from 'src/components/Checkout/CheckoutSteps';
 import Form from 'src/layouts/Form';
 import { useSafeState } from 'src/hooks/useSafeState';
 import CustomRadio from 'src/components/CustomRadio';

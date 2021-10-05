@@ -4,7 +4,7 @@ export type ImageRowsProps = {
   images: string[];
   setPreview: SetStateType<string>;
   imgHandlers: {
-    uploadState: StatusType;
+    uploadStatus: StatusType;
     deleteImg: FnType;
     updateImgLink: FnType;
     moveUpImg: FnType;
@@ -14,7 +14,7 @@ export type ImageRowsProps = {
 export default function ImageRows({
   images,
   setPreview,
-  imgHandlers: { uploadState, deleteImg, updateImgLink, moveUpImg, getSrc }
+  imgHandlers: { uploadStatus, deleteImg, updateImgLink, moveUpImg, getSrc }
 }: ImageRowsProps) {
   const createLabel = (id: number) => `Image ${id + 1}. ${['COVER', '[DEAL]'][id] || ''}`;
 
@@ -30,10 +30,10 @@ export default function ImageRows({
             value={img}
             onChange={(e: EventType) => updateImgLink(e, id)}
           />
-          <button onClick={(e) => deleteImg(e, id)} disabled={uploadState.loading}>
+          <button onClick={(e) => deleteImg(e, id)} disabled={uploadStatus.loading}>
             <i className="fa danger fa-close" />
           </button>
-          <button disabled={uploadState.loading} onClick={(e) => moveUpImg(e, id)}>
+          <button disabled={uploadStatus.loading} onClick={(e) => moveUpImg(e, id)}>
             <i className="tab__w3 success fa fa-arrow-circle-up" />
           </button>
         </div>

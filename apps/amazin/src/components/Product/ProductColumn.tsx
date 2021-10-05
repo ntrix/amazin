@@ -3,7 +3,9 @@ import { memo, lazy } from 'react';
 import { SusProductCard, SusProductList } from 'src/components/CustomSuspense';
 import MessageBox from 'src/components/MessageBox';
 import LoadingOrError from 'src/components/LoadingOrError';
-const ProductCard: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ './ProductCard'));
+const ProductCard: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Product/ProductCard')
+);
 
 function ProductColumn({ productList: { products, loading, error } }: { productList: ProductListType }) {
   return (

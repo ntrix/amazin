@@ -14,10 +14,10 @@ const config = (userInfo: UserInfoType) => ({
 
 export function useAsyncUpload(product: ProductType, setImages: SetStateType<string[]>) {
   const { userInfo } = useShadow();
-  const [uploadState, setUploadState] = useState<StatusType>({ loading: false });
+  const [uploadStatus, setUploadStatus] = useState<StatusType>({ loading: false });
 
   const asyncImgHandler: FnType = async (imgUrls: string[], bodyFormData: FormData, uploadMessage?: string) => {
-    setUploadState({ loading: true });
+    setUploadStatus({ loading: true });
     bodyFormData.append('productId', product._id);
 
     try {
@@ -30,12 +30,12 @@ export function useAsyncUpload(product: ProductType, setImages: SetStateType<str
         await axiosClient.patch('/api/uploads', bodyFormData, config(userInfo));
         setImages(imgUrls);
       }
-      setUploadState({ loading: false, msg: uploadMessage });
+      setUploadStatus({ loading: false, msg: uploadMessage });
     } catch (error) {
-      setUploadState({ loading: false, error: 'Upload error!' });
+      setUploadStatus({ loading: false, error: 'Upload error!' });
     }
   };
-  return { uploadState, asyncImgHandler };
+  return { uploadStatus, asyncImgHandler };
 }
 
 export function useImgFileHandlers(imgUrls: string[], asyncImgHandler: FnType) {
@@ -82,3 +82,13 @@ export function useImgLinkHandlers(product: ProductType, imgUrls: string[], setI
 
   return { updateImgLink, moveUpImg, addImgOnEnter, getSrc };
 }
+
+export function useImageHandlers(product: ProductType, imgUrls: string[], setImages: SetStateType<string[]>) {
+  const { uploadStatus, asyncImgHandler } = useAsyncUpload(product, setImages);
+  const { addImages, deleteImg } = useImgFileHandlers(imgUrls, asyncImgHandler);
+  const { updateImgLink, moveUpImg, addImgOnEnter, getSrc } = useImgLinkHandlers(product, imgUrls, setImages);
+
+  return { uploadStatus, addImages, deleteImg, updateImgLink, moveUpImg, addImgOnEnter, getSrc };
+}
+
+export type ImageSectionProps = ReturnType<typeof useImageHandlers>;
