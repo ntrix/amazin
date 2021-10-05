@@ -1,7 +1,14 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { splitBoldTexts } from 'src/utils';
 
-export default function SuggestRow({ row, onClick }: { row: string; onClick: FnType }) {
-  const cells = row.replace(/\//g, '').split('<b>');
+export type SuggestRowProps = {
+  row: string;
+  onClick: FnType;
+};
+
+function SuggestRow({ row, onClick }: SuggestRowProps) {
+  const cells = splitBoldTexts(row);
   const text = cells.join('');
   return (
     <Link
@@ -16,3 +23,5 @@ export default function SuggestRow({ row, onClick }: { row: string; onClick: FnT
     </Link>
   );
 }
+
+export default memo(SuggestRow);

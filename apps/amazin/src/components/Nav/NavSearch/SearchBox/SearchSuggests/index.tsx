@@ -6,13 +6,11 @@ import { useShadow } from 'src/hooks/useShadow';
 import SuggestRow from './SuggestRow';
 
 export type SearchSuggestsProps = {
-  suggests: { name: string }[];
-  setSuggests: SetStateType<{ name: string }[]>;
   setInput: SetStateType<string>;
 };
 
-function SearchSuggests({ suggests, setSuggests, setInput }: SearchSuggestsProps) {
-  const { setSuggestBox } = useOutline();
+function SearchSuggests({ setInput }: SearchSuggestsProps) {
+  const { activeSuggest, suggests, setSuggests, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
   return (
@@ -21,7 +19,7 @@ function SearchSuggests({ suggests, setSuggests, setInput }: SearchSuggestsProps
         {suggests?.slice(0, SEARCH.MAX_SUGGESTS).map(
           (product, id) =>
             !!product && (
-              <li key={id}>
+              <li key={id} className={activeSuggest === id ? 'active' : ''}>
                 <SuggestRow
                   row={product.name}
                   onClick={(text) => {
