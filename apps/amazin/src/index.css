@@ -935,6 +935,8 @@ table th {
   background: var(--primary-1);
   background: -webkit-linear-gradient(bottom, var(--primary-1), var(--secondary-1));
   background: linear-gradient(to top, var(--primary-1), var(--secondary-1));
+  border: solid 1px;
+  border-color: var(--border-silver-colors);
   color: var(--black-f);
   z-index: 99;
 }
@@ -945,12 +947,13 @@ table th {
 
 .tooltip-arrow {
   position: absolute;
-  bottom: -1rem;
-  left: 50%;
-  border-width: 5px;
+  bottom: -14px;
+  left: calc(50% - 6px);
+  border-width: 6px;
   border-style: solid;
   border-color: var(--primary-2) transparent transparent transparent;
 }
+.NOT.AVAILABLE,
 .NOT.IMPLEMENTED {
   cursor: not-allowed !important;
 }

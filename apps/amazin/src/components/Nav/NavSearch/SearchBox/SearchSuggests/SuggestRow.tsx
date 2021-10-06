@@ -1,11 +1,20 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { splitBoldTexts } from 'src/utils';
 
-export default function SuggestRow({ row, onClick }: { row: string; onClick: FnType }) {
-  const cells = row.replace(/\//g, '').split('<b>');
+export type SuggestRowProps = {
+  row: string;
+  onClick: FnType;
+  onMouseEnter: FnType;
+};
+
+function SuggestRow({ row, onClick, onMouseEnter }: SuggestRowProps) {
+  const cells = splitBoldTexts(row);
   const text = cells.join('');
   return (
     <Link
       to={`/search/name/${text}`}
+      onMouseEnter={onMouseEnter}
       onClick={() => {
         onClick(text);
       }}
@@ -16,3 +25,5 @@ export default function SuggestRow({ row, onClick }: { row: string; onClick: FnT
     </Link>
   );
 }
+
+export default memo(SuggestRow);

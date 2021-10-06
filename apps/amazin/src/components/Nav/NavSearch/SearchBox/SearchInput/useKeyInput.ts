@@ -1,35 +1,62 @@
 import { useOutline } from '../../useOutline';
 import { useShadow } from 'src/hooks/useShadow';
-import { findSuggest } from 'src/utils';
-import { SHADOW } from 'src/constants';
+import { findSuggest, getPlainText } from 'src/utils';
+import { SEARCH, SHADOW } from 'src/constants';
 
-export function useKeyInput(
-  setInput: SetStateType<string>,
-  setSuggests: SetStateType<{ name: string }[]>,
-  submitSearch: FnType
-) {
-  const { productList, setOutline, setSuggestBox } = useOutline();
+const LAST_SUGGEST = SEARCH.MAX_SUGGESTS - 1;
+
+export function useInput(setInput: SetStateType<string>, submitSearch: FnType) {
+  const { productList, suggests, setSuggests, activeSuggest, setActiveSuggest, setOutline } = useOutline();
   const { setShadowOf } = useShadow();
 
-  const handleKeyInput: FnType = ({ target: { value }, key }: EventType) => {
-    switch (key) {
-      case 'Enter':
-        return submitSearch();
-
-      case 'Escape':
-        setSuggestBox(false);
-        return setShadowOf('');
-
-      default:
-    }
+  const handleCharInput: FnType = (value: string) => {
     const newSuggests = findSuggest(productList, value);
     setSuggests(newSuggests);
-    setSuggestBox(true);
+    setActiveSuggest(Math.min(activeSuggest, newSuggests.length - 1));
     setInput(value);
     if (!newSuggests.length) return setShadowOf('');
 
     setShadowOf(SHADOW.NAV_SEARCH);
     return setOutline(true);
+  };
+
+  const handleEnterKey: FnType = (e) => {
+    if (activeSuggest < 0) submitSearch();
+    else setInput(getPlainText(suggests?.[activeSuggest]?.name.slice(0, 50)));
+    e.stopPropagation();
+    setActiveSuggest(-1);
+  };
+
+  return { handleCharInput, handleEnterKey };
+}
+
+export function useKeyInput(setInput: SetStateType<string>, submitSearch: FnType) {
+  const { suggests, activeSuggest, setActiveSuggest, setSuggestBox } = useOutline();
+  const { handleCharInput, handleEnterKey } = useInput(setInput, submitSearch);
+  const { setShadowOf } = useShadow();
+
+  const handleKeyInput: FnType = (e: EventType) => {
+    if (!e.target.value) return;
+    setSuggestBox(true);
+
+    switch (e.key) {
+      case 'ArrowDown':
+        return suggests.length && setActiveSuggest(Math.min(activeSuggest + 1, LAST_SUGGEST, suggests.length - 1));
+
+      case 'ArrowUp':
+        return suggests.length && setActiveSuggest(Math.max(activeSuggest - 1, 0));
+
+      case 'Enter':
+        return handleEnterKey(e);
+
+      case 'Escape':
+        setSuggestBox(false);
+        setActiveSuggest(-1);
+        return setShadowOf('');
+
+      default:
+        handleCharInput(e.target.value);
+    }
   };
 
   return { handleKeyInput };
