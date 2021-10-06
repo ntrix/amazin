@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useUserEdit } from './useUserEdit';
+import { useUserEdit, useUserSubmit } from './useUserEdit';
 import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import CustomCheck from 'src/components/CustomCheck';
@@ -11,8 +11,8 @@ export default function UserEditScreen({ history, match }: RouteProps<MatchParam
   const [isSeller, setIsSeller] = useState<boolean>();
   const [isAdmin, setIsAdmin] = useState<boolean>();
 
-  const editUser = useUserEdit([setName, setEmail, setIsSeller, setIsAdmin], history, match);
-  const { user, loading, error, userUpdate, submitUser } = editUser;
+  const { user, loading, error } = useUserEdit({ setName, setEmail, setIsSeller, setIsAdmin }, match);
+  const { userUpdate, submitUser } = useUserSubmit(history, match);
 
   return user ? (
     <Form
