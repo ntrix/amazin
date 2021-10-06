@@ -28,8 +28,9 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }: Men
     default:
       return (
         <div
-          className={'menu__link-item ' + className}
-          aria-label={`${label} ${className}`}
+          className={`menu__link-item ${className ?? ''}`}
+          aria-label={`menuitem link ${label ?? className}`}
+          role="button"
           onClick={(e: EventType) => {
             e.stopPropagation();
             setShadowOf('');

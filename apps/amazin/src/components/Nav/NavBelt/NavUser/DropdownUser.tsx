@@ -6,7 +6,7 @@ import MenuItem, { mapArgsToProps } from '../../MenuItem';
 function DropdownUser({ ddMenuList }: { ddMenuList: MenuType }) {
   const { shadowOf } = useShadow();
   return (
-    <ul className={`dropdown__menu ${SHADOW.NAV_DD === shadowOf ? 'show' : ''}`}>
+    <ul className={`dropdown__menu ${SHADOW.NAV_DD === shadowOf ? 'show' : ''}`} role="presentation">
       {ddMenuList.map((args, id) => (
         <MenuItem {...mapArgsToProps(args, id)} />
       ))}

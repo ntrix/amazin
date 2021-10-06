@@ -8,7 +8,7 @@ export default function NavShadow() {
 
   const isOpened = SHADOW.SIDEBAR === shadowOf;
 
-  const hideAllEffect = (e: EventType) => {
+  const hideAllEffect = () => {
     setSuggestBox(false);
     setScopeOutline(Scope.hide);
     setShadowOf('');
@@ -22,7 +22,7 @@ export default function NavShadow() {
         className={isOpened ? 'click-catcher' : ''}
         aria-label="close sidebar area"
       />
-      <div className={`shadow-of__ ${shadowOf}`} aria-label="nav shadow area" onClick={hideAllEffect} />
+      <div className={`shadow-of__ ${shadowOf}`} role="presentation" onClick={hideAllEffect} />
     </>
   );
 }
