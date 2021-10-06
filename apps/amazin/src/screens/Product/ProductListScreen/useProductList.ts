@@ -12,7 +12,6 @@ export function useProductList(history: HistoryProp, match?: MatchProp) {
   const { userInfo } = useShadow();
   const productCreate: ProductDetailType = useSelector((state: AppState) => state.productCreate);
   const productDelete: StatusType = useSelector((state: AppState) => state.productDelete);
-  // eslint-disable-next-line
 
   useEffect(() => {
     if (productCreate.success) {

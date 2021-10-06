@@ -27,14 +27,13 @@ export function useUserEdit(
       history.push('/user-list');
     }
 
-    if (!user) dispatch(detailsUser(paramUserId));
-    else {
+    if (user) {
       setName(user.name);
       setEmail(user.email);
       setIsSeller(user.isSeller);
       setIsAdmin(user.isAdmin);
-    } // eslint-disable-next-line
-  }, [user, userUpdate.success, paramUserId, history, dispatch]);
+    } else dispatch(detailsUser(paramUserId));
+  }, [user, userUpdate.success, paramUserId, history, dispatch, setName, setEmail, setIsSeller, setIsAdmin]);
 
   const submitUser = (name: string, email: string, isSeller?: boolean, isAdmin?: boolean) => (e: EventType) => {
     e.preventDefault();
