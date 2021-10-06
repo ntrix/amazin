@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Scope } from 'src/constants';
 
-type OutlineCtxType = {
+export type OutlineCtxType = {
   productList: { name: string }[];
   suggests: { name: string }[];
   setSuggests: SetStateType<{ name: string }[]>;
@@ -17,20 +17,7 @@ type OutlineCtxType = {
   setSuggestBox: SetStateType<boolean>;
 };
 
-const OutlineContext = createContext<OutlineCtxType>({
-  productList: [],
-  suggests: [],
-  setSuggests: () => void 0,
-  activeSuggest: -1,
-  setActiveSuggest: () => void 0,
-  inputRef: undefined,
-  outline: false,
-  setOutline: () => void 0,
-  scopeOutline: Scope.hide,
-  setScopeOutline: () => void 0,
-  suggestBox: false,
-  setSuggestBox: () => void 0
-});
+const OutlineContext = createContext<OutlineCtxType | undefined>(undefined);
 OutlineContext.displayName = 'OutlineContext';
 
 function OutlineProvider({ children }: { children: Children }) {

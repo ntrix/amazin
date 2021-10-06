@@ -1,11 +1,11 @@
 import { useEffect, createContext, useContext, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { DUMMY_USER, KEY } from 'src/constants';
+import { KEY } from 'src/constants';
 import { pipe, Storage } from 'src/utils';
 
 import { useDebounce } from './useDebounce';
 
-type ShadowType = {
+export type ShadowType = {
   userInfo: UserInfoType;
   currency: CurrType;
   shadowOf: string;
@@ -14,14 +14,7 @@ type ShadowType = {
   setShadowSlow: FnType;
 };
 
-const ShadowContext = createContext<ShadowType>({
-  userInfo: { ...DUMMY_USER, token: '' },
-  currency: 'EUR',
-  shadowOf: '',
-  setCurrency: () => void 0,
-  setShadowOf: () => void 0,
-  setShadowSlow: () => void 0
-});
+const ShadowContext = createContext<ShadowType | undefined>(undefined);
 ShadowContext.displayName = 'ShadowContext';
 
 function ShadowProvider({ children }: { children: Children }) {
