@@ -15,7 +15,12 @@ function NavSearch() {
 
   return (
     <div className="nav__search">
-      <form className={`search-box ${outline ? 'focus' : ''}`}>
+      <form
+        className={`search-box ${outline ? 'focus' : ''}`}
+        onSubmit={(e: EventType) => {
+          e.preventDefault();
+        }}
+      >
         <BoxLeft activeCat={activeCat} setActiveCat={setActiveCat} />
 
         <BoxMiddle

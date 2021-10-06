@@ -5,14 +5,16 @@ import { splitBoldTexts } from 'src/utils';
 export type SuggestRowProps = {
   row: string;
   onClick: FnType;
+  onMouseEnter: FnType;
 };
 
-function SuggestRow({ row, onClick }: SuggestRowProps) {
+function SuggestRow({ row, onClick, onMouseEnter }: SuggestRowProps) {
   const cells = splitBoldTexts(row);
   const text = cells.join('');
   return (
     <Link
       to={`/search/name/${text}`}
+      onMouseEnter={onMouseEnter}
       onClick={() => {
         onClick(text);
       }}

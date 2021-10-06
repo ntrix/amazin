@@ -10,7 +10,7 @@ export type SearchSuggestsProps = {
 };
 
 function SearchSuggests({ setInput }: SearchSuggestsProps) {
-  const { activeSuggest, suggests, setSuggests, setSuggestBox } = useOutline();
+  const { activeSuggest, setActiveSuggest, suggests, setSuggests, setSuggestBox } = useOutline();
   const { setShadowOf } = useShadow();
 
   return (
@@ -25,9 +25,11 @@ function SearchSuggests({ setInput }: SearchSuggestsProps) {
                   onClick={(text) => {
                     setSuggestBox(false);
                     setInput(text);
+                    setActiveSuggest(-1);
                     setSuggests([]);
                     setShadowOf('');
                   }}
+                  onMouseEnter={() => setActiveSuggest(id)}
                 />
               </li>
             )
