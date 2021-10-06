@@ -23,8 +23,8 @@ export default function UserEditScreen({ history, match }: RouteProps<MatchParam
     >
       <CustomInput text="Name" hook={[name, setName]} />
       <CustomInput text="Email" type="email" hook={[email, setEmail]} />
-      <CustomCheck text="Seller Account" checked={isSeller} onChange={setIsSeller} />
-      <CustomCheck text="Administrator" checked={isAdmin} onChange={setIsAdmin} />
+      <CustomCheck text="Seller Account" checked={!!isSeller} onChange={setIsSeller} />
+      <CustomCheck text="Administrator" checked={!!isAdmin} onChange={setIsAdmin} />
     </Form>
   ) : null;
 }
