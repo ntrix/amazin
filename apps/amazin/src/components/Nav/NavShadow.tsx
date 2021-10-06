@@ -22,7 +22,7 @@ export default function NavShadow() {
         className={isOpened ? 'click-catcher' : ''}
         aria-label="close sidebar area"
       />
-      <div className={`shadow-of__ ${shadowOf}`} aria-label="nav shadow area" onClick={hideAllEffect} />
+      <div className={`shadow-of__ ${shadowOf}`} role="presentation" onClick={hideAllEffect} />
     </>
   );
 }
