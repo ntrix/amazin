@@ -1,4 +1,4 @@
-import { forwardRef, memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { validateRules } from 'src/constants';
 
 import { createId, validate } from 'src/utils';
@@ -28,35 +28,30 @@ export type InputProps = {
   checked?: boolean;
 };
 
-const Input = forwardRef<Ref<HTMLInputElement | HTMLTextAreaElement>, InputProps>(
-  (
-    {
-      text,
-      type = 'text',
-      placeholder = `Enter ${text}`,
-      hook: [state = '', setState] = [],
-      onChange,
-      textarea = false,
-      label = text,
-      wrapClass = '',
-      required,
-      ...rest
-    }: InputProps,
-    ref
-  ) => {
-    const id = createId(text); // create #id for .css
-    const handler = setState ? (e: EventType) => setState(e.target.value) : onChange;
-    const value = ['button', 'submit'].includes(type) ? text : state;
-    const props = { id, text, type, placeholder, value, onChange: handler, required, ...rest };
+export function Input({
+  text,
+  type = 'text',
+  placeholder = `Enter ${text}`,
+  hook: [state = '', setState] = [],
+  onChange,
+  textarea = false,
+  label = text,
+  wrapClass = '',
+  required,
+  ...rest
+}: InputProps) {
+  const id = createId(text); // create #id for .css
+  const handler = setState ? (e: EventType) => setState(e.target.value) : onChange;
+  const value = ['button', 'submit'].includes(type) ? text : state;
+  const props = { id, text, type, placeholder, value, onChange: handler, required, ...rest };
 
-    return (
-      <div className={wrapClass}>
-        {label !== 'none' && <label htmlFor={id}>{label + (required ? ' *' : ' ')}</label>}
-        {textarea ? <textarea ref={ref} {...props} /> : <input ref={ref} {...props} />}
-      </div>
-    );
-  }
-);
+  return (
+    <div className={wrapClass}>
+      {label !== 'none' && <label htmlFor={id}>{label + (required ? ' *' : ' ')}</label>}
+      {textarea ? <textarea {...props} /> : <input {...props} />}
+    </div>
+  );
+}
 
 function ValidateInput({ rule = '', hook = [], ...rest }: InputProps) {
   const [value = ''] = hook as HookType<string>;
