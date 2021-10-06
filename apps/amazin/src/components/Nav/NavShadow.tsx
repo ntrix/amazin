@@ -8,7 +8,7 @@ export default function NavShadow() {
 
   const isOpened = SHADOW.SIDEBAR === shadowOf;
 
-  const hideAllEffect = (e: EventType) => {
+  const hideAllEffect = () => {
     setSuggestBox(false);
     setScopeOutline(Scope.hide);
     setShadowOf('');

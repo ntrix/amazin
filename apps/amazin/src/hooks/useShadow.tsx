@@ -31,11 +31,14 @@ function ShadowProvider({ children }: { children: Children }) {
   const [shadowOf, _setShadowOf] = useState('');
   const [debounceShadow, clearDebounce] = useDebounce(_setShadowOf);
 
-  const setShadowOf = useCallback((_sh) => {
-    clearDebounce(_sh !== shadowOf && _sh); // eslint-disable-next-line
-  }, []);
+  const setShadowOf = useCallback(
+    (shadow) => {
+      clearDebounce((_shadowOf: string) => shadow !== _shadowOf && shadow);
+    },
+    [clearDebounce]
+  );
 
-  const setShadowSlow = useCallback((_sh) => debounceShadow(_sh), [debounceShadow]);
+  const setShadowSlow = useCallback((shadow) => debounceShadow(shadow), [debounceShadow]);
 
   const value: ShadowType = { userInfo, currency, shadowOf, setCurrency, setShadowOf: setShadowOf, setShadowSlow };
   return <ShadowContext.Provider value={value}>{children}</ShadowContext.Provider>;
