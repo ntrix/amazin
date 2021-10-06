@@ -21,7 +21,7 @@ function IconButton({ to, label, text, className, children }: IconButtonProps) {
   const [line1, line2] = text.split('^');
 
   return (
-    <div className={'flex nav__' + label} tabIndex={2} aria-label={label} onClick={handleClick}>
+    <div className={'flex nav__' + label} tabIndex={2} aria-label={label} role="button" onClick={handleClick}>
       <div>
         {children}
         <div className={'sprite__' + label} />
