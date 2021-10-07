@@ -1,20 +1,20 @@
-import { useEffect, createContext, useContext, useState, useCallback } from 'react';
+import { useEffect, createContext, useContext, useState, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { KEY } from 'src/constants';
+import { KEY, ShadowType } from 'src/constants';
 import { pipe, Storage } from 'src/utils';
 
 import { useDebounce } from './useDebounce';
 
-export type ShadowType = {
+export type ShadowContextType = {
   userInfo: UserInfoType;
   currency: CurrType;
-  shadowOf: string;
+  shadowOf: ShadowType;
   setCurrency: SetStateType<CurrType>;
   setShadowOf: FnType;
   setShadowSlow: FnType;
 };
 
-const ShadowContext = createContext<ShadowType | undefined>(undefined);
+const ShadowContext = createContext<ShadowContextType | undefined>(undefined);
 ShadowContext.displayName = 'ShadowContext';
 
 function ShadowProvider({ children }: { children: Children }) {
@@ -28,23 +28,27 @@ function ShadowProvider({ children }: { children: Children }) {
     setCurrency(pipe.currency);
   }, [userInfo?.currency, sessionCurrency]);
 
-  const [shadowOf, _setShadowOf] = useState('');
+  const [shadowOf, _setShadowOf] = useState<ShadowType>('');
   const [debounceShadow, clearDebounce] = useDebounce(_setShadowOf);
 
-  const setShadowOf = useCallback(
-    (shadow) => {
-      clearDebounce((_shadowOf: string) => shadow !== _shadowOf && shadow);
-    },
-    [clearDebounce]
-  );
+  const { current: setShadowOf } = useRef((shadow: ShadowType) => {
+    clearDebounce(shadow !== shadowOf && shadow);
+  });
 
   const setShadowSlow = useCallback((shadow) => debounceShadow(shadow), [debounceShadow]);
 
-  const value: ShadowType = { userInfo, currency, shadowOf, setCurrency, setShadowOf: setShadowOf, setShadowSlow };
+  const value: ShadowContextType = {
+    userInfo,
+    currency,
+    shadowOf,
+    setCurrency,
+    setShadowOf,
+    setShadowSlow
+  };
   return <ShadowContext.Provider value={value}>{children}</ShadowContext.Provider>;
 }
 
-export function useShadow(): ShadowType {
+export function useShadow(): ShadowContextType {
   const context = useContext(ShadowContext);
   if (context === undefined) throw new Error('useShadow must be used within a ShadowProvider');
 
