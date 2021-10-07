@@ -9,7 +9,7 @@ export function useInput(setInput: SetStateType<string>, submitSearch: FnType) {
   const { productList, suggests, setSuggests, activeSuggest, setActiveSuggest, setOutline } = useOutline();
   const { setShadowOf } = useShadow();
 
-  const handleCharInput: FnType = (value: string) => {
+  const handleInput: FnType = (value: string) => {
     const newSuggests = findSuggest(productList, value);
     setSuggests(newSuggests);
     setActiveSuggest(Math.min(activeSuggest, newSuggests.length - 1));
@@ -27,12 +27,12 @@ export function useInput(setInput: SetStateType<string>, submitSearch: FnType) {
     setActiveSuggest(-1);
   };
 
-  return { handleCharInput, handleEnterKey };
+  return { handleInput, handleEnterKey };
 }
 
 export function useKeyInput(setInput: SetStateType<string>, submitSearch: FnType) {
   const { suggests, activeSuggest, setActiveSuggest, setSuggestBox } = useOutline();
-  const { handleCharInput, handleEnterKey } = useInput(setInput, submitSearch);
+  const { handleInput, handleEnterKey } = useInput(setInput, submitSearch);
   const { setShadowOf } = useShadow();
 
   const handleKeyInput: FnType = (e: EventType) => {
@@ -53,10 +53,9 @@ export function useKeyInput(setInput: SetStateType<string>, submitSearch: FnType
         setSuggestBox(false);
         setActiveSuggest(-1);
         return setShadowOf('');
-
-      default:
-        handleCharInput(e.target.value);
     }
+    handleInput(e.target.value);
+    setSuggestBox(true);
   };
 
   return { handleKeyInput };

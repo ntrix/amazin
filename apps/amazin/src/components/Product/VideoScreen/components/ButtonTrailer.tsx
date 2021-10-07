@@ -2,10 +2,10 @@ import { memo } from 'react';
 import movieTrailer from 'movie-trailer';
 
 import { dummyMovies } from 'src/utils';
-import { MovieType, VIDEO } from 'src/constants';
+import { VIDEO, VideoType } from 'src/constants';
 
 export type ButtonTrailerProps = {
-  movie?: MovieType;
+  movie?: VideoType & ProductType;
   trailerUrl: string;
   setTrailerUrl: SetStateType<string>;
 };

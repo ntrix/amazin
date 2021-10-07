@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 
-import { MovieType } from 'src/constants';
+import { VideoType } from 'src/constants';
 import { dummyMovies } from 'src/utils';
 
 export type ButtonBuyProps = {
-  movie?: MovieType;
+  movie?: VideoType & ProductType;
   LinkTo?: Children;
 };
 
