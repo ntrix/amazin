@@ -55,7 +55,6 @@ export function useKeyInput(setInput: SetStateType<string>, submitSearch: FnType
         return setShadowOf('');
     }
     handleInput(e.target.value);
-    setSuggestBox(true);
   };
 
   return { handleKeyInput };

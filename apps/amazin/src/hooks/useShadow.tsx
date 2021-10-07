@@ -42,7 +42,7 @@ function ShadowProvider({ children }: { children: Children }) {
     currency,
     shadowOf,
     setCurrency,
-    setShadowOf: setShadowOf,
+    setShadowOf,
     setShadowSlow
   };
   return <ShadowContext.Provider value={value}>{children}</ShadowContext.Provider>;
