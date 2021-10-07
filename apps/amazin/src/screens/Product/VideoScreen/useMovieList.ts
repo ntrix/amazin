@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './videoScreen.css';
 import { listExtMovies, listProducts } from 'src/apis/productAPI';
-import { MoviesOpt, MoviesOptList, MovieType, STORE, VIDEO } from 'src/constants';
+import { MoviesOpt, MoviesOptList, STORE, VIDEO, VideoType } from 'src/constants';
 import { useSafeState } from 'src/hooks/useSafeState';
 import { dummyMovies } from 'src/utils';
 
@@ -36,14 +36,14 @@ export function useExternMovies() {
 }
 
 export function useBannerMovies(stockMovies: MoviesOptList) {
-  const [bannerMovies, setBannerMovies, isMounted] = useSafeState<MoviesOpt<MovieType>>({});
+  const [bannerMovies, setBannerMovies, isMounted] = useSafeState<MoviesOpt<VideoType & ProductType>>({});
   const { externMovies } = useExternMovies();
 
   useEffect(() => {
     if (!isMounted.current || externMovies[STORE] === dummyMovies || stockMovies[STORE] === dummyMovies) return;
 
     const bannerMoviesArray = VIDEO.GENRES.map((genre) => {
-      const genreMovies = externMovies[genre] || (stockMovies[STORE] as MovieType[]);
+      const genreMovies = externMovies[genre] || (stockMovies[STORE] as (VideoType & ProductType)[]);
       return [genre, genreMovies[(Math.random() * genreMovies.length) | 0]];
     });
     setBannerMovies(Object.fromEntries(bannerMoviesArray));

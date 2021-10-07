@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 
-import { MovieType, VIDEO } from 'src/constants';
+import { VIDEO, VideoType } from 'src/constants';
 import { LazyBackground } from 'src/apis/suspenseAPI';
 import UTube from './UTube';
 import ButtonBuy from './ButtonBuy';
@@ -9,7 +9,7 @@ import ButtonTrailer from './ButtonTrailer';
 import Header from 'src/layouts/Header';
 
 export type VideoBannerProps = {
-  movie?: MovieType;
+  movie?: VideoType & ProductType;
   bottom?: boolean;
   youtubeTrailer?: boolean;
 };

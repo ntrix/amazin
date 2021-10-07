@@ -4,13 +4,13 @@ import Carousel from 'react-multi-carousel';
 import { Suspense } from 'src/components/CustomSuspense';
 import { VideoCardFallBack } from 'src/components/Fallbacks';
 import VideoCard from './components/VideoCard';
-import { GenreType, MoviesOpt, MovieType, responsive } from 'src/constants';
+import { GenreType, MoviesOpt, responsive, VideoType } from 'src/constants';
 import UTube from './components/UTube';
 
 export type VideoRowProps = {
   label: string;
   genre: GenreType;
-  movies: MoviesOpt<MovieType[]>;
+  movies: MoviesOpt<(VideoType & ProductType)[]>;
   portrait?: boolean;
 };
 

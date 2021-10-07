@@ -9,8 +9,6 @@ export type VideoType = {
   overview?: string;
 };
 
-export type MovieType = VideoType & ProductType;
-
 export type GenreType =
   | 'NETFLUX ORIGINALS'
   | 'Home'
@@ -29,7 +27,7 @@ export type MovieList<T> = Record<GenreType, T>;
 
 export type MoviesOpt<T> = Partial<MovieList<T>>;
 
-export type MoviesOptList = MoviesOpt<MovieType[]>;
+export type MoviesOptList = MoviesOpt<(VideoType & ProductType)[]>;
 
 export const SRC_URL = 'https://image.tmdb.org/t/p/original/';
 export const TRENDING = 'Trending Now';
