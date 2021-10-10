@@ -2,16 +2,15 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import '../index.css';
+import './app.css';
+import 'src/assets/fonts/fonts.css';
+import 'src/assets/fonts/font-awesome.css';
 import { SuspenseText } from 'src/components/CustomSuspense';
 import { listProductCategories, updateCurrencyRates } from '../apis/productAPI';
-import ShadowProvider, { useShadow } from '../hooks/useShadow';
-import { SHADOW } from '../constants';
-import Nav from './Nav';
-import MainRoutes from '../routes/MainRoutes';
-import './responsive.css';
-import '../assets/fonts/fonts.css';
-import '../assets/fonts/font-awesome.css';
+import { SHADOW } from 'src/constants';
+import ShadowProvider, { useShadow } from 'src/hooks/useShadow';
+import Nav from 'src/components/Nav';
+import MainRoutes from 'src/routes/MainRoutes';
 
 function App() {
   const dispatch = useDispatch();

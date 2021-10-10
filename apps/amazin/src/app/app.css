@@ -351,7 +351,7 @@ select {
   top: 4px;
   width: 18px;
   height: 18px;
-  background: url('./assets/img/nav-sprite.png') -170px -105px;
+  background: url('src/assets/img/nav-sprite.png') -170px -105px;
   opacity: 0.7;
   pointer-events: none;
 }
@@ -577,13 +577,13 @@ img.large {
   display: inline-block;
   height: 13px;
   width: 16px;
-  background: url('./assets/img/load-xs.gif');
+  background: url('src/assets/img/load-xs.gif');
 }
 .sprite__loading--xl {
   display: inline-block;
   height: 52px;
   width: 64px;
-  background: url('./assets/img/load.gif');
+  background: url('src/assets/img/load.gif');
 }
 .bold {
   font-weight: bold;
@@ -717,14 +717,14 @@ table th {
   width: 100%;
   height: 100%;
   max-height: 110vh;
-  background: url('./assets/img/banner-bestseller.jpg') center 0 no-repeat;
+  background: url('src/assets/img/banner-bestseller.jpg') center 0 no-repeat;
   z-index: -1;
 }
 .home__banner.bestseller {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url('./assets/img/banner-fs.jpg') center 0 no-repeat;
+  background: url('src/assets/img/banner-fs.jpg') center 0 no-repeat;
   z-index: -1;
 }
 

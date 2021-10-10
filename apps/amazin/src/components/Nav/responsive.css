@@ -68,7 +68,7 @@
     left: unset;
   }
 }
-/* >= cell-phone lanscape*/
+/* >= cell-phone landscape */
 @media (max-width: 567px) {
   .nav-belt {
     padding: 0;
@@ -97,7 +97,7 @@
     left: 0;
   }
 }
-/* Mobile-xs portrait*/
+/* Mobile-xs portrait */
 @media (max-width: 400px) {
   #root {
     width: 100%;
@@ -108,6 +108,6 @@
   .sprite__loading--xl {
     height: 13px;
     width: 16px;
-    background: url('../assets/img/load-xs.gif');
+    background: url('src/assets/img/load-xs.gif');
   }
 }
