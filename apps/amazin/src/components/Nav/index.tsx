@@ -2,6 +2,7 @@ import { memo, lazy } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import './nav.css';
+import './responsive.css';
 import { SuspenseNull, SuspenseText } from 'src/components/CustomSuspense';
 import OutlineProvider from 'src/components/Nav/NavSearch/useOutline';
 import NavShadow from 'src/components/Nav/NavShadow';

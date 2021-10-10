@@ -17,24 +17,24 @@ import store from './store';
 // import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
 import App from './app';
-lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/AmazonEmber_W_SBd.woff2'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/AmazonEmber_W_He.woff2'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/AmazonEmber_W_Bd.woff2'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/FontAwesome.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/assets/fonts/AmazonEmber_W_SBd.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/assets/fonts/AmazonEmber_W_He.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/assets/fonts/AmazonEmber_W_Bd.woff2'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/assets/fonts/FontAwesome.woff2'));
 
-lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/fonts.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './index.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './app/nav.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './app/responsive.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/assets/fonts/fonts.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/app/app.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/components/Nav/nav.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/components/Nav/responsive.css'));
 lazy((): LazyPromise => import(/* webpackPreload: true */ 'swiper/swiper-bundle.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './assets/fonts/font-awesome.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/assets/fonts/font-awesome.css'));
 
-lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/Product/VideoScreen/videoScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/screens/Product/VideoScreen/videoScreen.css'));
 lazy((): LazyPromise => import(/* webpackPreload: true */ 'react-multi-carousel/lib/styles.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/Product/DealScreen/dealScreen.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/Product/ProductScreen/productScreen.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/User/CustomerScreen/customerScreen.css'));
-lazy((): LazyPromise => import(/* webpackPreload: true */ './screens/User/CurrencyScreen/currencyScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/screens/Product/DealScreen/dealScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/screens/Product/ProductScreen/productScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/screens/User/CustomerScreen/customerScreen.css'));
+lazy((): LazyPromise => import(/* webpackPreload: true */ 'src/screens/User/CurrencyScreen/currencyScreen.css'));
 
 ReactDOM.render(
   <Provider store={store}>
@@ -58,7 +58,7 @@ if ('serviceWorker' in navigator) {
 
 // // Catch routing errors, like if the user is offline
 // setCatchHandler(async ({ event }) => {
-//   // Return the precached offline page if a document is being requested
+//   // Return the pre-cached offline page if a document is being requested
 //   if (event.request.destination === 'document') {
 //     return matchPrecache('/');
 //   }
@@ -95,7 +95,7 @@ if ('serviceWorker' in navigator) {
 //   })
 // );
 
-// // Cache page navigations (html) with a Network First strategy
+// // Cache page navigation (html) with a Network First strategy
 // registerRoute(
 //   // Check to see if the request is a navigation to a new page
 //   ({ request }) => request.mode === 'navigate', // || request.destination === 'document',
