@@ -11,7 +11,7 @@ export type ButtonTrailerProps = {
 };
 
 function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: ButtonTrailerProps) {
-  const searchTrailer = async () => {
+  const searchTrailer = () => {
     if (trailerUrl) setTrailerUrl('');
     else
       movieTrailer(movie.name)
