@@ -24,16 +24,16 @@ export const addToCart = (productId: string, qty: number) => async (dispatch: Ap
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
-export const removeFromCart = (productId: string) => (dispatch: AppDispatch, getState: FnType) => {
+export const removeFromCart = (productId: string) => (dispatch: AppDispatch, getState: FnType): void  => {
   dispatch(cartActions._REMOVE_ITEM(productId));
   Storage[KEY.CART_ITEMS] = getState().cart.cartItems;
 };
 
-export const saveShippingAddress = (data: AddressType) => (dispatch: AppDispatch) => {
+export const saveShippingAddress = (data: AddressType) => (dispatch: AppDispatch): void  => {
   dispatch(cartActions._SAVE_SHIPPING_ADDRESS(data));
   Storage[KEY.SHIPPING_ADDRESS] = data;
 };
 
-export const savePaymentMethod = (data: PaymentMethodType) => (dispatch: AppDispatch) => {
+export const savePaymentMethod = (data: PaymentMethodType) => (dispatch: AppDispatch): void  => {
   dispatch(cartActions._SAVE_PAYMENT_METHOD(data));
 };
