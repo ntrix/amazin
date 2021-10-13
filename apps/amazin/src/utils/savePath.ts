@@ -4,6 +4,6 @@ import { Storage } from '.';
 /* save current path to localStorage, no need to save path on the same screen */
 export const savePath =
   (exceptionStartWith = '@') =>
-  () => {
+  (): void  => {
     if (!window.location.pathname.startsWith(exceptionStartWith)) Storage[KEY.HISTORY] = window.location.pathname;
   };

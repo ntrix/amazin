@@ -35,7 +35,7 @@ export const signin = (email: string, password: string) =>
     }
   );
 
-export const signout = () => (dispatch: AppDispatch) => {
+export const signout = () => (dispatch: AppDispatch): void  => {
   Storage[KEY.USER_INFO] = '';
   Storage[KEY.CART_ITEMS] = '';
   Storage[KEY.SHIPPING_ADDRESS] = '';

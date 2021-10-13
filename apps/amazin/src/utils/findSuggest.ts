@@ -42,4 +42,4 @@ export function findSuggest(productList: PType[], keyword: string) {
 
 export const splitBoldTexts = (text: string) => text?.replace(/\//g, '')?.split('<b>');
 
-export const getPlainText = (text: string) => splitBoldTexts(text)?.join('');
+export const getPlainText = (text: string): string  => splitBoldTexts(text)?.join('');
