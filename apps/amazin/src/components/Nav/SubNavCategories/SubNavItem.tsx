@@ -18,8 +18,8 @@ function SubNavItem({ _cat = '', category, getUrl, onPreload, changeCat }: SubNa
       onMouseEnter={onPreload ? () => onPreload(_cat) : undefined}
       onFocus={onPreload ? () => onPreload(_cat) : undefined}
       onClick={() => {
-        changeCat && changeCat(_cat);
-        getUrl && history.push(getUrl({ category: _cat, page: 1 }));
+        if (typeof changeCat === 'function') changeCat(_cat);
+        if (typeof getUrl === 'function') history.push(getUrl({ category: _cat, page: 1 }));
       }}
     >
       {_cat}

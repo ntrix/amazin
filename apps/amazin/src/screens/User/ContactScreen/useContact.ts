@@ -11,7 +11,7 @@ export function useSubmitContact(setStatus: SetStateType<StatusType>) {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
 
-  async function submitContact(e: EventType, contactInfo: ContactType) {
+  function submitContact(e: EventType, contactInfo: ContactType) {
     e.preventDefault();
 
     const error = validateAll(contactInfo);
