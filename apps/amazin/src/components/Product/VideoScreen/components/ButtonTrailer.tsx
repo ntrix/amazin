@@ -11,7 +11,7 @@ export type ButtonTrailerProps = {
 };
 
 function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: ButtonTrailerProps) {
-  const searchTrailer = async () => {
+  const searchTrailer = () => {
     if (trailerUrl) setTrailerUrl('');
     else
       movieTrailer(movie.name)
@@ -25,7 +25,7 @@ function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: Bu
   if (trailerUrl)
     return (
       <button className="banner__button" onClick={() => setTrailerUrl('')}>
-        <i className="fa fa-stop"></i> Close
+        <i className="fa fa-stop" /> Close
       </button>
     );
 

@@ -12,7 +12,7 @@ function SearchBtn({ submitSearch }: SearchBtnProps) {
   return (
     <div className="search__btn" tabIndex={1} aria-label="Go" onClick={submitSearch} onKeyUp={handleKeyPress}>
       <span className="sprite__search-btn">
-        <input type="submit" value="Go"></input>
+        <input type="submit" value="Go" />
       </span>
     </div>
   );

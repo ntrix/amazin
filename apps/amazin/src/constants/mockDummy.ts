@@ -17,7 +17,7 @@ export const DUMMY_USER: UserType = {
   email: 'a@d.c'
 };
 
-export const DUMMY_SELLER = {
+export const DUMMY_SELLER: UserType = {
   ...DUMMY_USER,
   isSeller: true,
   seller: { name: 'Seller?', logo: NO_IMAGE } as SellerType

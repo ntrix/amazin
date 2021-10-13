@@ -20,7 +20,7 @@ function HomeScreen() {
 
   return (
     <div className="home-screen">
-      <div className={`home__banner ${banner}`}></div>
+      <div className={`home__banner ${banner}`} />
       <Header title className="home-screen__title" label="Top Sellers, Top Products" />
       <SliderSection {...sellerList} />
       <FeaturedSection {...productList} />
