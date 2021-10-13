@@ -34,7 +34,7 @@ function InnerMenuItem({ label, to = '', className, extFunction, children }: Men
           onClick={(e: EventType) => {
             e.stopPropagation();
             setShadowOf('');
-            extFunction && extFunction();
+            typeof extFunction === 'function' && extFunction();
             history.push(to);
           }}
         >
