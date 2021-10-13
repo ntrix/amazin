@@ -6,7 +6,11 @@ import { useDebounce } from 'src/hooks/useDebounce';
 import { listProducts } from 'src/apis/productAPI';
 import { NAV, SORT } from 'src/constants';
 
-export function usePreload(list: ProductListType, param: { order?: string; pageNumber?: string }) {
+export function usePreload(list: ProductListType, param: { order?: string; pageNumber?: string }): {order: any;
+preloadingCat: error;
+preloadCat: error;
+debouncePreload: error;
+}  {
   const dispatch = useDispatch();
   const preloadingCat = useRef('');
   const { order = SORT.BESTSELLING.OPT, pageNumber = '1' } = param;
@@ -26,7 +30,13 @@ export function usePreload(list: ProductListType, param: { order?: string; pageN
   return { order, preloadingCat, preloadCat, debouncePreload };
 }
 
-export function useDealScreen(cat: Ref<string>, param: { category: string; order: string; pageNumber: string }) {
+export function useDealScreen(cat: Ref<string>, param: { category: string; order: string; pageNumber: string }): {cat: any;
+banner: error;
+order: any;
+list: error;
+changeCat: error;
+preloadCat: error;
+}  {
   const { category: paramCat = NAV.DEAL } = param;
   const productList: ProductListType = useSelector((state: AppState) => state.productList);
   const [list, setList] = useSafeState(productList);

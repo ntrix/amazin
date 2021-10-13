@@ -10,7 +10,11 @@ export function useUserProfile(
   location: LocationProp,
   user: UserType,
   setPasswords: SetStateType<(string | undefined)[]>
-) {
+): {name: error;
+setName: error;
+email: error;
+setEmail: error;
+}  {
   const dispatch = useDispatch();
   const { userInfo } = useShadow();
 

@@ -8,7 +8,8 @@ import { KEY } from 'src/constants';
 import { Storage } from 'src/utils';
 
 /* TODO extract to common/shared hooks only for getting Api Key */
-export function useMapApiKey(getUserCurrentLocation: FnType, setStatus: SetStateType<StatusType>) {
+export function useMapApiKey(getUserCurrentLocation: FnType, setStatus: SetStateType<StatusType>): {googleApiKey: error;
+}  {
   const [googleApiKey, setGoogleApiKey] = useSafeState('');
 
   useEffect(() => {

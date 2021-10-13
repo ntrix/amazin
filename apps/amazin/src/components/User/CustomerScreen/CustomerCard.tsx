@@ -35,7 +35,13 @@ function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }:
   );
 }
 
-export const mapCustomerCardProp = ([img, label, line1, line2, to, className = '']: (string | undefined)[]) => ({
+export const mapCustomerCardProp = ([img, label, line1, line2, to, className = '']: (string | undefined)[]): {img: string;
+label: string;
+line1: string;
+line2: string;
+to: string;
+className: string;
+}  => ({
   img,
   label,
   line1,

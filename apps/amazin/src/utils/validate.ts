@@ -11,7 +11,7 @@ export const validate = (type: string, value = '') => {
   return errorCombinedMessage;
 };
 
-export const validateAll = (validRules: ValidateType) =>
+export const validateAll = (validRules: ValidateType): string | string  =>
   Object.keys(validRules).some((rule) => validate(rule, validRules[rule as RuleName]))
     ? 'Please double check the required (*) information!'
     : '';

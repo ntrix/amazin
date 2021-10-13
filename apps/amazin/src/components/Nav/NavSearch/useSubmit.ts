@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { useOutline } from './useOutline';
 import { useShadow } from 'src/hooks/useShadow';
 
-export function useSubmit() {
+export function useSubmit(): {handleSubmit: error;
+}  {
   const history = useHistory();
   const { setShadowOf } = useShadow();
   const { setActiveSuggest, setSuggestBox } = useOutline();

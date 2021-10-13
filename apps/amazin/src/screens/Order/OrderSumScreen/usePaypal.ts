@@ -16,7 +16,8 @@ function createScript(data: unknown, setSdkReady: SetStateType<boolean>) {
   document.body.appendChild(script);
 }
 
-export function usePaypal(match: MatchProp) {
+export function usePaypal(match: MatchProp): {sdkReady: error;
+}  {
   const dispatch = useDispatch();
   const orderId = match.params.id;
   const { order }: OrderDetailType = useSelector((state: AppState) => state.orderDetails);

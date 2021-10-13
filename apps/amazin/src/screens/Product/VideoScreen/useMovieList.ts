@@ -25,7 +25,8 @@ export function useStockMovies() {
   return { productList, productCreate, stockMovies };
 }
 
-export function useExternMovies() {
+export function useExternMovies(): {externMovies: error;
+}  {
   const [externMovies, setExternMovies] = useSafeState<MoviesOptList>({ [STORE]: dummyMovies });
 
   useEffect(() => {
@@ -35,7 +36,9 @@ export function useExternMovies() {
   return { externMovies };
 }
 
-export function useBannerMovies(stockMovies: MoviesOptList) {
+export function useBannerMovies(stockMovies: MoviesOptList): {externMovies: error;
+bannerMovies: error;
+}  {
   const [bannerMovies, setBannerMovies, isMounted] = useSafeState<MoviesOpt<VideoType & ProductType>>({});
   const { externMovies } = useExternMovies();
 
