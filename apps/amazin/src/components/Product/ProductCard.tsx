@@ -30,7 +30,7 @@ function ProductCard({
             <h2>{name}</h2>
           </Link>
 
-          <Rating rating={rating} numReviews={numReviews}></Rating>
+          <Rating rating={rating} numReviews={numReviews} />
 
           <div>
             <PriceTag price={price} deal={showDeal ? deal : 0} />

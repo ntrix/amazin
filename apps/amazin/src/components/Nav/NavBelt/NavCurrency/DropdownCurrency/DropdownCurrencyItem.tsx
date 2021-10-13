@@ -16,7 +16,7 @@ function DropdownCurrencyItem({ label, currency }: { label: CurrType; currency: 
         }}
       >
         <div className="sprite__wrapper">
-          <div className="sprite circle"></div>
+          <div className="sprite circle" />
           <span>{pipe.longName[label]}</span>
         </div>
       </div>

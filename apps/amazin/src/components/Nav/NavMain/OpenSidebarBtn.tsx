@@ -8,7 +8,7 @@ function OpenSidebarBtn() {
 
   return (
     <div className="open-sidebar nav-main__item flex" onClick={() => setShadowOf(SHADOW.SIDEBAR)}>
-      <div className="sprite__bars"></div>
+      <div className="sprite__bars" />
       <b>All</b>
     </div>
   );

@@ -25,7 +25,7 @@ function ButtonTrailer({ movie = dummyMovies[0], trailerUrl, setTrailerUrl }: Bu
   if (trailerUrl)
     return (
       <button className="banner__button" onClick={() => setTrailerUrl('')}>
-        <i className="fa fa-stop"></i> Close
+        <i className="fa fa-stop" /> Close
       </button>
     );
 

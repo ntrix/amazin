@@ -14,7 +14,7 @@ function CurrencyRate({ currency }: { currency: string }) {
       <li className="list-label">
         <a href={RATES_SOURCE} target="_blank" rel="noreferrer">
           <div className="sprite__wrapper">
-            <div className={`sprite flag xl ${currency}`}></div>
+            <div className={`sprite flag xl ${currency}`} />
             <span>Exchange Reference Rates</span>
           </div>
         </a>

@@ -12,7 +12,7 @@ export default function PlaceOrderScreen({ history }: RouteProps<MatchParams>) {
 
   return (
     <div className="screen--light">
-      <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+      <CheckoutSteps step1 step2 step3 step4 />
 
       <Header p1 label="Place Order" />
       <div className="row top">
