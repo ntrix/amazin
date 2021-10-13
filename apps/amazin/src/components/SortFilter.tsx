@@ -10,7 +10,7 @@ function SortFilter({ order = SORT.BESTSELLING.OPT, getUrl }: { order?: string; 
   return (
     <div className="sort__filter">
       <label htmlFor="filter__options">Sort by</label>
-      <div className="sprite__caret"></div>
+      <div className="sprite__caret" />
       <select id="filter__options" value={order} onChange={changeFilter}>
         <optgroup label="Sort by:">
           {Object.values(SORT).map(({ OPT, LABEL }) => (

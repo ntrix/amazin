@@ -20,7 +20,7 @@ function CustomerCard({ img, label, line1, line2, to, className, baseUrl = '' }:
       <Tooltip text={className?.slice(9)}>
         <div className="c-box__inner">
           <div className="c-box__icon-wrapper">
-            <img className="c-box__icon" src={`${baseUrl}/images/icon-${img}.png`} alt={'icon ' + img}></img>
+            <img className="c-box__icon" src={`${baseUrl}/images/icon-${img}.png`} alt={'icon ' + img} />
           </div>
           <div className="c-box__info">
             <h3 className="c-box__label">{label}</h3>

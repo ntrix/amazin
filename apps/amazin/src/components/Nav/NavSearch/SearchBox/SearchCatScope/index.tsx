@@ -29,7 +29,7 @@ function SearchCatScope({ activeCat }: SearchCatScopeProps) {
       <div className={wrapClass} tabIndex={1} onClick={clickHandler} onFocus={focusHandler}>
         <div className="cat-scope--facade">
           <span>{CatLabel[activeCat] ?? activeCat}</span>
-          <i className="fa fa-caret-down"></i>
+          <i className="fa fa-caret-down" />
         </div>
       </div>
     </div>

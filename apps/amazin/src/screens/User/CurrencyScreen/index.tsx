@@ -11,7 +11,7 @@ export default function CurrencyScreen() {
   return (
     <div className="c-screen currency">
       <LanguageSection />
-      <div className="divider-inner"></div>
+      <div className="divider-inner" />
       <CurrencySection {...currencyProps} />
     </div>
   );

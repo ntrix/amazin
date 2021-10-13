@@ -34,7 +34,7 @@ export default function MapScreen({ history }: RouteProps<MatchParams>) {
             <MapSearchBox redirectBack={redirectBack} onConfirm={() => onConfirm(placeRef, location)} />
           </StandaloneSearchBox>
 
-          <Marker position={location} onLoad={onMarkerLoad}></Marker>
+          <Marker position={location} onLoad={onMarkerLoad} />
         </GoogleMap>
       </LoadScript>
     </div>

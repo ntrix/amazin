@@ -16,7 +16,7 @@ export default function CustomerScreen() {
           We’ll walk you through fixing most things here or connect you to someone if you need more help.
         </h3>
       </header>
-      <div className="divider"></div>
+      <div className="divider" />
 
       <div className="container">
         <h2>What can we assist you with today?</h2>
@@ -24,7 +24,7 @@ export default function CustomerScreen() {
           {customerMenuTemplate.map((args, id) => (
             <CustomerCard key={id} {...mapCustomerCardProp(args)} />
           ))}
-          <div className="separator mb-1"></div>
+          <div className="separator mb-1" />
 
           <CustomerHelpSection />
         </div>
