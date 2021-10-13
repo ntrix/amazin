@@ -10,7 +10,7 @@ function CustomerHelpSection() {
         </h3>
       </label>
 
-      <input type="text" id="search-faq"></input>
+      <input type="text" id="search-faq" />
 
       <Header label="Browse Help Topics " />
       <h2>In construction</h2>

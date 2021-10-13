@@ -17,7 +17,7 @@ function ButtonBuy({ movie = dummyMovies[0], LinkTo = (props: LinkProps) => <Lin
       to={movie.seller ? `/cart/${movie._id}?qty=1` : `#`}
     >
       <button className="banner__button" disabled={!movie.seller}>
-        <i className="fa fa-shopping-cart"></i> Buy[Rent]
+        <i className="fa fa-shopping-cart" /> Buy[Rent]
       </button>
     </LinkTo>
   );

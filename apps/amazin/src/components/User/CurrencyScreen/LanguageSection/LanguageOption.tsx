@@ -7,7 +7,7 @@ export default function LanguageOption({
   return (
     <li className={'language ' + className}>
       <div className="sprite__wrapper">
-        <div className="sprite circle"></div>
+        <div className="sprite circle" />
         <span>
           {label} - {short} - <i>{text}</i>
         </span>
