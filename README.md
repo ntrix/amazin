@@ -194,3 +194,12 @@ This project using [Nx](https://nx.dev).
 ![nx-logo](https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png)
 
 🔎 **Smart, Extensible Build Framework**
+
+🔎 **How to run this project**
+
+Have your Nx CLI installed:
+`npm install -g nx`
+
+Add `SKIP_PREFLIGHT_CHECK=true` to `.env` if needed
+
+`npm start`
