@@ -19,6 +19,8 @@ jobs:
         run: npm ci
 
       - name: Run tests with coverage
+        env:
+          SKIP_PREFLIGHT_CHECK: 'true'
         run: npx nx test amazin --coverage --skip-nx-cache
 
       - name: Publish coverage to Code Climate
