@@ -23,10 +23,9 @@ jobs:
           SKIP_PREFLIGHT_CHECK: 'true'
         run: npx nx test amazin --coverage --skip-nx-cache
 
-      - name: Publish coverage to Code Climate
-        uses: paambaati/codeclimate-action@v9
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - name: Publish coverage to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          coverageLocations: |
-            ${{ github.workspace }}/apps/amazin/coverage/lcov.info:lcov
+          files: ./apps/amazin/coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
