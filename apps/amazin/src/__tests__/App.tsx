@@ -13,7 +13,7 @@ test('renders mock App', () => {
 test('renders app and check some important components', async () => {
   render(<App />, { wrapper: AppProviders });
   expect(screen.getByAltText(/logo amazin/i)).toBeInTheDocument();
-  expect(screen.getByLabelText(/address locator/i)).toBeInTheDocument();
+  expect(screen.getByLabelText(/^locator$/i)).toBeInTheDocument();
   expect(screen.getByLabelText(/category search/i)).toBeInTheDocument();
   expect(screen.getByLabelText(/search input/i)).toBeInTheDocument();
   expect(screen.getByDisplayValue(/go/i)).toBeInTheDocument();
