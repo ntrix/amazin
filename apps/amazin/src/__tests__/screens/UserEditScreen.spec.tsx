@@ -6,11 +6,12 @@ import thunk from 'redux-thunk';
 
 import UserEditScreen from '../../screens/User/UserEditScreen';
 import { rootReducer } from '../../store';
-import * as userAPI from '../../apis/userAPI';
+import { detailsUser, updateUser } from '../../apis/userAPI';
 
 jest.mock('../../apis/userAPI');
 
-const mockedUserAPI = userAPI as jest.Mocked<typeof userAPI>;
+const mockedDetailsUser = detailsUser as jest.MockedFunction<typeof detailsUser>;
+const mockedUpdateUser = updateUser as jest.MockedFunction<typeof updateUser>;
 
 function renderScreen(preloadedState: Partial<AppState>) {
   const store = configureStore({ reducer: rootReducer, preloadedState, middleware: [thunk] });
@@ -28,8 +29,8 @@ function renderScreen(preloadedState: Partial<AppState>) {
 
 describe('UserEditScreen', () => {
   beforeEach(() => {
-    mockedUserAPI.detailsUser.mockReturnValue((() => undefined) as never);
-    mockedUserAPI.updateUser.mockReturnValue((() => undefined) as never);
+    mockedDetailsUser.mockReturnValue((() => undefined) as never);
+    mockedUpdateUser.mockReturnValue((() => undefined) as never);
   });
 
   test('pre-fills the form from the user already loaded in the store', () => {
@@ -40,7 +41,7 @@ describe('UserEditScreen', () => {
 
     expect(screen.getByLabelText(/^Name/)).toHaveValue('Ada Lovelace');
     expect(screen.getByLabelText(/^Email/)).toHaveValue('ada@example.com');
-    expect(mockedUserAPI.detailsUser).not.toHaveBeenCalled();
+    expect(mockedDetailsUser).not.toHaveBeenCalled();
   });
 
   test('submitting the form dispatches updateUser with the edited values', () => {
@@ -52,7 +53,7 @@ describe('UserEditScreen', () => {
     fireEvent.change(screen.getByLabelText(/^Name/), { target: { value: 'Ada L.' } });
     fireEvent.click(screen.getByRole('button', { name: /update/i }));
 
-    expect(mockedUserAPI.updateUser).toHaveBeenCalledWith(
+    expect(mockedUpdateUser).toHaveBeenCalledWith(
       expect.objectContaining({ _id: 'user-1', name: 'Ada L.', email: 'ada@example.com' })
     );
   });
