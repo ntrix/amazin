@@ -7,5 +7,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   modulePaths: ['<rootDir>'],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   coverageDirectory: '../../coverage/apps/amazin',
 };
