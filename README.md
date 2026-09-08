@@ -115,7 +115,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]       | Done     |
 | 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
 | 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
-| 03b  | [Testing in React][testing]                                       | Doing    |
+| 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR | Doing    |
 | 03c  | E2E testing with [Cypress][cy]                                    | **Todo** |
 | 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
 | 05a  | [AWS Cloud Backend?][aws]                                         | **Todo** |
@@ -152,6 +152,8 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 ## Test Coverage
 
 [![codecov](https://codecov.io/github/ntrix/amazin/branch/nx/badge.svg)](https://codecov.io/github/ntrix/amazin)
+
+Unit tests (utils, redux slices, hooks, screens) now run on every push/PR via GitHub Actions, with coverage reported to Codecov. (Previously reported to Code Climate, which shut down its Test Coverage product in 2025.)
 
 ## Demo
 
