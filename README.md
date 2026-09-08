@@ -154,11 +154,21 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 ## Test Coverage
 
-Unit tests (utils, redux slices, hooks, screens) now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
+Unit tests now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
 
-- 18 new unit tests added across utils, redux slices, hooks and screens, plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
+- 30 new test files (156 tests total), plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
 - Jest now runs consistently both via `nx test` and directly from the IDE
-- ~31% statement coverage as a first pass — E2E (Cypress) is not yet written and isn't counted in this number
+- ~51% line coverage — E2E (Cypress) is not yet written and isn't counted in this number
+
+Organized around the app's own 4-layer frontend architecture (Screen → Hook → Redux → API):
+
+| Layer | Covers | Test files |
+| ----- | ------ | ---------- |
+| 1. UI — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
+| 2. Hooks — shared custom hooks | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
+| 3. State — Redux slices | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
+| 4. API — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
+| Shared utilities (used across all 4 layers) | Form validation, search ranking, currency formatting, image URLs | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath` |
 
 ## Demo
 
