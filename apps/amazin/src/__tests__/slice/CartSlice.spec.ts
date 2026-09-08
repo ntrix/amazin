@@ -74,3 +74,23 @@ describe('cartReducer - _EMPTY', () => {
     expect(result.error).toBe('');
   });
 });
+
+describe('cartReducer - _SAVE_PAYMENT_METHOD', () => {
+  test('stores the chosen payment method', () => {
+    const state = { cartItems: [] } as Partial<CartType>;
+    const result = cartReducer(state, cartActions._SAVE_PAYMENT_METHOD('Paypal'));
+    expect(result.paymentMethod).toBe('Paypal');
+  });
+});
+
+describe('cartReducer - _ADD_ITEM_FAIL', () => {
+  test('stores the error message without touching the existing cart items', () => {
+    const existing = makeItem({ product: 'product-1' });
+    const state = { cartItems: [existing] } as Partial<CartType>;
+
+    const result = cartReducer(state, cartActions._ADD_ITEM_FAIL('Out of stock'));
+
+    expect(result.error).toBe('Out of stock');
+    expect(result.cartItems).toEqual([existing]);
+  });
+});
