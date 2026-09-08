@@ -118,7 +118,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]       | Done     |
 | 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
 | 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
-| 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR | Doing    |
+| 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR | Done     |
 | 03c  | E2E testing with [Cypress][cy]                                    | **Todo** |
 | 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
 | 05a  | [AWS Cloud Backend?][aws]                                         | **Todo** |
@@ -158,16 +158,16 @@ Unit tests now run on every push/PR via GitHub Actions, with coverage reported t
 
 - 30 new test files (156 tests total), plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
 - Jest now runs consistently both via `nx test` and directly from the IDE
-- ~51% line coverage — E2E (Cypress) is not yet written and isn't counted in this number
+- ~51% line coverage
 
-Organized around the app's own 4-layer frontend architecture (Screen → Hook → Redux → API):
+Organized around a Clean Architecture-style 4-layer split (Presentation → Application → Domain → Infrastructure):
 
 | Layer | Covers | Test files |
 | ----- | ------ | ---------- |
-| 1. UI — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
-| 2. Hooks — shared custom hooks | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
-| 3. State — Redux slices | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
-| 4. API — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
+| 1. Presentation — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
+| 2. Application — hooks orchestrating business logic | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
+| 3. Domain — Redux slices (app state) | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
+| 4. Infrastructure — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
 | Shared utilities (used across all 4 layers) | Form validation, search ranking, currency formatting, image URLs | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath` |
 
 ## Demo
