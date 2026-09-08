@@ -149,11 +149,9 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
 
-## Code Climate
+## Test Coverage
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/c63323239801d458e190/maintainability)](https://codeclimate.com/github/ntrix/amazin/maintainability)
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/c63323239801d458e190/test_coverage)](https://codeclimate.com/github/ntrix/amazin/test_coverage)
+[![codecov](https://codecov.io/github/ntrix/amazin/branch/nx/badge.svg)](https://codecov.io/github/ntrix/amazin)
 
 ## Demo
 
