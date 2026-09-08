@@ -1,5 +1,8 @@
 # Welcome to Amazin' Amazim Store
 
+[![CI](https://github.com/ntrix/amazin/actions/workflows/test.yml/badge.svg)](https://github.com/ntrix/amazin/actions/workflows/test.yml)
+[![codecov](https://codecov.io/github/ntrix/amazin/branch/nx/badge.svg)](https://codecov.io/github/ntrix/amazin)
+
 ## A React Amazon (& Netflix & ...) Clone Project
 
 ## What is Storybook?
@@ -151,9 +154,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 ## Test Coverage
 
-[![codecov](https://codecov.io/github/ntrix/amazin/branch/nx/badge.svg)](https://codecov.io/github/ntrix/amazin)
-
-Unit tests (utils, redux slices, hooks, screens) now run on every push/PR via GitHub Actions, with coverage reported to Codecov. (Previously reported to Code Climate, which shut down its Test Coverage product in 2025.)
+Unit tests (utils, redux slices, hooks, screens) now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
 
 ## Demo
 
