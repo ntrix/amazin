@@ -40,6 +40,10 @@ describe('userAPI', () => {
       password: 'Secret123',
       confirmPassword: 'Secret123'
     });
+
+    const { successHandler } = mockedAxiosPublic.mock.calls[0][1] as { successHandler: (d: unknown) => void };
+    successHandler({ _id: 'u1' });
+    expect(Storage[KEY.USER_INFO]).toEqual({ _id: 'u1' });
   });
 
   test('signin posts to /api/users/signin with the credentials', () => {
@@ -47,6 +51,10 @@ describe('userAPI', () => {
 
     expect(mockedAxiosPublic).toHaveBeenCalledWith([userSigninActions], expect.objectContaining({ successHandler: expect.any(Function) }));
     expect(mockInnerCall).toHaveBeenCalledWith('post', '/api/users/signin', { email: 'ada@example.com', password: 'Secret123' });
+
+    const { successHandler } = mockedAxiosPublic.mock.calls[0][1] as { successHandler: (d: unknown) => void };
+    successHandler({ _id: 'u2' });
+    expect(Storage[KEY.USER_INFO]).toEqual({ _id: 'u2' });
   });
 
   test('signout clears the local storage keys and resets the sign-in state', () => {
@@ -73,6 +81,10 @@ describe('userAPI', () => {
       expect.objectContaining({ successAction: userSigninActions._SUCCESS })
     );
     expect(mockInnerCall).toHaveBeenCalledWith('patch', '/api/users/profile', { _id: 'u1', name: 'Ada', email: 'ada@example.com' });
+
+    const { successHandler } = mockedAxiosPrivate.mock.calls[0][1] as { successHandler: (d: unknown) => void };
+    successHandler({ _id: 'u1', name: 'Ada Updated' });
+    expect(Storage[KEY.USER_INFO]).toEqual({ _id: 'u1', name: 'Ada Updated' });
   });
 
   test('updateUserProfile reports success to the details slice for any other method', () => {
