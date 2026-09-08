@@ -156,6 +156,10 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 
 Unit tests (utils, redux slices, hooks, screens) now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
 
+- 18 new unit tests added across utils, redux slices, hooks and screens, plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
+- Jest now runs consistently both via `nx test` and directly from the IDE
+- ~31% statement coverage as a first pass — E2E (Cypress) is not yet written and isn't counted in this number
+
 ## Demo
 
 ### Sort, Filter, Search, Nav, SideNav
