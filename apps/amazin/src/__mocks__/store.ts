@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { Storage } from '../utils';
 import { KEY } from '../constants';
+import { rootReducer } from '../store';
 
 const preloadedState = {
   cart: {
@@ -13,7 +14,7 @@ const preloadedState = {
 };
 
 const store = configureStore({
-  reducer: {},
+  reducer: rootReducer,
   preloadedState,
   devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk]
