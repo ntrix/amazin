@@ -20,6 +20,8 @@ import {
   orderDeleteActions,
   orderDeliverActions
 } from '../../slice/OrderSlice';
+import { Storage } from '../../utils';
+import { KEY } from '../../constants';
 
 const mockedAxiosPrivate = axiosPrivate as jest.MockedFunction<typeof axiosPrivate>;
 
@@ -39,6 +41,11 @@ describe('orderAPI', () => {
       expect.objectContaining({ successAction: cartActions._EMPTY, selector: expect.any(Function) })
     );
     expect(mockInnerCall).toHaveBeenCalledWith('post', '/api/orders', { _id: 'o1' });
+
+    Storage[KEY.CART_ITEMS] = [{ product: 'p1' }];
+    const { successHandler } = mockedAxiosPrivate.mock.calls[0][1] as { successHandler: () => void };
+    successHandler();
+    expect(Storage[KEY.CART_ITEMS]).toBe('');
   });
 
   test('detailsOrder fetches a single order', () => {

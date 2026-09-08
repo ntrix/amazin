@@ -1,12 +1,34 @@
 jest.mock('../../apis/axiosClient');
 
-import { axios, axiosPublic } from '../../apis/axiosClient';
-import { updateCurrencyRates, listAllProducts, listProducts, listExtMovies } from '../../apis/productAPI';
-import { currencyTypeActions, productListAllActions, productListActions } from '../../slice/ProductSlice';
+import { axios, axiosPublic, axiosPrivate } from '../../apis/axiosClient';
+import {
+  updateCurrencyRates,
+  listAllProducts,
+  listProducts,
+  listExtMovies,
+  listProductCategories,
+  detailsProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  createReview
+} from '../../apis/productAPI';
+import {
+  currencyTypeActions,
+  productListAllActions,
+  productListActions,
+  productCategoryListActions,
+  productDetailsActions,
+  productCreateActions,
+  productUpdateActions,
+  productDeleteActions,
+  productReviewCreateActions
+} from '../../slice/ProductSlice';
 import { pipe } from '../../utils/currencyPipe';
 import { VIDEO } from '../../constants';
 
 const mockedAxiosPublic = axiosPublic as jest.MockedFunction<typeof axiosPublic>;
+const mockedAxiosPrivate = axiosPrivate as jest.MockedFunction<typeof axiosPrivate>;
 const mockedAxiosGet = axios.get as jest.MockedFunction<typeof axios.get>;
 
 describe('productAPI', () => {
@@ -16,6 +38,7 @@ describe('productAPI', () => {
   beforeEach(() => {
     mockInnerCall = jest.fn(() => Promise.resolve());
     mockedAxiosPublic.mockReturnValue(mockInnerCall as never);
+    mockedAxiosPrivate.mockReturnValue(mockInnerCall as never);
   });
 
   afterEach(() => {
@@ -65,5 +88,44 @@ describe('productAPI', () => {
     mockedAxiosGet.mockRejectedValue(new Error('network down'));
 
     await expect(listExtMovies()).rejects.toThrow('network down');
+  });
+
+  test('listProductCategories fetches the category list', () => {
+    listProductCategories();
+    expect(mockedAxiosPublic).toHaveBeenCalledWith([productCategoryListActions]);
+    expect(mockInnerCall).toHaveBeenCalledWith('get', '/api/products/categories');
+  });
+
+  test('detailsProduct fetches a single product', () => {
+    detailsProduct('p1');
+    expect(mockedAxiosPublic).toHaveBeenCalledWith([productDetailsActions]);
+    expect(mockInnerCall).toHaveBeenCalledWith('get', '/api/products/p1');
+  });
+
+  test('createProduct posts a new blank product', () => {
+    createProduct();
+    expect(mockedAxiosPrivate).toHaveBeenCalledWith([productCreateActions], expect.objectContaining({ selector: expect.any(Function) }));
+    expect(mockInnerCall).toHaveBeenCalledWith('post', '/api/products');
+  });
+
+  test('updateProduct puts the product to its own endpoint', () => {
+    updateProduct({ _id: 'p1', name: 'Widget' } as never);
+    expect(mockedAxiosPrivate).toHaveBeenCalledWith([productUpdateActions]);
+    expect(mockInnerCall).toHaveBeenCalledWith('put', '/api/products/p1', { _id: 'p1', name: 'Widget' });
+  });
+
+  test('deleteProduct deletes the given product', () => {
+    deleteProduct('p1');
+    expect(mockedAxiosPrivate).toHaveBeenCalledWith([productDeleteActions]);
+    expect(mockInnerCall).toHaveBeenCalledWith('delete', '/api/products/p1');
+  });
+
+  test('createReview posts a review under the product', () => {
+    createReview('p1', { rating: 5, comment: 'Great' } as never);
+    expect(mockedAxiosPrivate).toHaveBeenCalledWith(
+      [productReviewCreateActions],
+      expect.objectContaining({ selector: expect.any(Function) })
+    );
+    expect(mockInnerCall).toHaveBeenCalledWith('post', '/api/products/p1/reviews', { rating: 5, comment: 'Great' });
   });
 });
