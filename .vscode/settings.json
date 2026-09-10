@@ -1,4 +1,8 @@
 {
   "prettier.printWidth": 120,
-  "editor.bracketPairColorization.enabled": true
+  "editor.bracketPairColorization.enabled": true,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "ntrix",
+    "projectKey": "ntrix_amazin"
+  }
 }

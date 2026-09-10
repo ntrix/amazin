@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/ntrix/amazin/actions/workflows/test.yml/badge.svg)](https://github.com/ntrix/amazin/actions/workflows/test.yml)
 [![codecov](https://codecov.io/github/ntrix/amazin/branch/nx/badge.svg)](https://codecov.io/github/ntrix/amazin)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ntrix_amazin&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ntrix_amazin)
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/new_code?id=ntrix_amazin)
 
 ## A React Amazon (& Netflix & ...) Clone Project
 
