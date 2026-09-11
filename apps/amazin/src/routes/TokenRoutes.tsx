@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import { Route, Switch } from 'src/routes/SuspenseRoute';
 import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
-import SellerRoute from './SellerRoute';
+import SellerRoute, { SellerBaseRoute } from './SellerRoute';
 
 const Screen404: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/Screen404'));
 const MapScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ '../screens/User/MapScreen'));
@@ -40,8 +40,12 @@ export default function TokenRoutes() {
       <AdminRoute path="/order-list" component={OrderListScreen} exact />
       <AdminRoute path="/user-list" component={UserListScreen} />
       <AdminRoute path="/user/:id/edit" component={UserEditScreen} />
-      <AdminRoute path="/product/:id/edit" component={ProductEditScreen} exact />
-      <SellerRoute path="/product/:id/edit" component={ProductEditScreen} exact />
+      <SellerBaseRoute
+        path="/product/:id/edit"
+        userRole={['isAdmin', 'isSeller']}
+        component={ProductEditScreen}
+        exact
+      />
       <SellerRoute path="/product-list/seller" component={ProductListScreen} exact />
       <SellerRoute path="/product-list/seller/pageNumber/:pageNumber" component={ProductListScreen} exact />
       <SellerRoute path="/order-list/seller" component={OrderListScreen} />
