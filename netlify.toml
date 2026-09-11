@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "apps/amazin/build"
+
+[build.environment]
+  NODE_VERSION = "24"
+  SKIP_PREFLIGHT_CHECK = "true"
+  NODE_OPTIONS = "--openssl-legacy-provider"
+  REACT_APP_BACKEND_URL = "https://amazin-be.onrender.com"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
