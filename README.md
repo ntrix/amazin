@@ -58,7 +58,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - UI modules:
   - [Swiper][swiper]
   - ...
-- [Vercel][vercel]
+- [Netlify][netlify]
 
 ### Backend Stack
 
@@ -82,6 +82,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 [mongo]: https://www.mongodb.com/
 [mongoose]: https://mongoosejs.com/
 [vercel]: https://vercel.com/
+[netlify]: https://www.netlify.com/
 [heroku]: https://www.heroku.com/
 [render]: https://render.com/
 [codecov]: https://codecov.io/
@@ -91,9 +92,9 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 ### Live demo, PWA, QR code
 
-| **[amazim.store][amazim]**   | **[amazin.ntien.com][amazin]**   |
-| ---------------------------- | -------------------------------- |
-| ![amazim.store QR][qramazim] | ![amazin.ntien.com QR][qramazin] |
+| **[amazim.netlify.app][amazim]**   | **[amazin.tiennguyen.de][amazin]**   |
+| ----------------------------------- | ------------------------------------- |
+| ![amazim.netlify.app QR][qramazim] | ![amazin.tiennguyen.de QR][qramazin] |
 
 ![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
 
@@ -125,6 +126,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 01f  | Backend fixes on Render — full detail in [amazin-be][bev1]        | Done     |
 | 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]       | Done     |
 | 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
+| 02c  | Vercel disabled → migrated to [Netlify][netlify]                  | Done     |
 | 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
 | 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR | Done     |
 | 03c  | E2E testing with [Cypress][cy]                                    | **Todo** |
@@ -149,14 +151,14 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [swagger]: https://swagger.io/
 [stackfe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/nx-react-cy-redux-swiper-vercel-1000.png
 [stackbe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/mongo-express-react-node-atlas-mongoose-heroku-1000.png
-[amazim]: https://amazim.store/
-[amazin]: https://amazin.ntien.com/
+[amazim]: https://amazim.netlify.app/
+[amazin]: https://amazin.tiennguyen.de/
 [aws]: https://aws.com/
 [redis]: https://redis.com/
 [profiler]: https://reactjs.org/docs/profiler.html
 [mdx]: https://mdxjs.com/
-[qramazim]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazim.store.png
-[qramazin]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazin.ntien.com.png
+[qramazim]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazim.netlify.app.png
+[qramazin]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/qrcode.amazin.tiennguyen.de.png
 [amazin-story]: https://ntrix.github.io/amazin-story/
 [amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
