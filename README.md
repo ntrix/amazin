@@ -18,9 +18,15 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 ![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
 
-### Search that feels like Amazon's
+### Search & UI/UX details that feel like the real thing
 
-Type any letters in order — not just a prefix — and the nav search bar filters live as you type: matched characters get highlighted inline, results are ranked so the tightest match rises to the top, and the whole suggestion dropdown is fully keyboard-navigable (`↑`/`↓` to cycle, `Enter` to pick, `Esc` to dismiss) — the same interaction pattern as Amazon's own search-suggest box.
+- **Search-suggest**: type any letters in order (not just a prefix) and the nav search bar filters live as you type — matches highlighted inline, ranked so the tightest match rises to the top, fully keyboard-navigable (`↑`/`↓`, `Enter`, `Esc`) — same interaction pattern as Amazon's own search box
+- **Sidebar**: opens with a spring-style overshoot easing (`cubic-bezier` > 1) — slides past its resting position and settles back, not a plain linear slide
+- **Nav bar**: every segment (logo, search, dropdowns, cart) gets a highlighted border on hover/focus, matching Amazon's own nav affordance
+- **Netflux (video screen)**: hovering a movie card expands it over its neighbors, Netflix-style; trailers play from real YouTube (`react-youtube` + auto-search by title, with a graceful fallback)
+- **Currency switcher**: real country-flag sprites and a live exchange-rate reference link — and it actually reprices every product shown, not just the dropdown
+- **Accessibility**: `aria-label`/`role`/`tabIndex` throughout the interactive nav elements, full keyboard navigation (arrows, Enter, Escape)
+- **One shared state governs every overlay** (sidebar, dropdowns, search-suggest) via Context — opening one closes the others automatically, avoiding overlapping-overlay bugs, debounced for smooth toggling
 
 ### Features
 
