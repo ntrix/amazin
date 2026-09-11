@@ -122,8 +122,8 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 01c  | Backend Deploy: [Heroku][heroku] / Firebase                       | Done     |
 | 01d  | Heroku account deleted (long inactivity) → migrated to Cyclic.sh (serverless) | Done     |
 | 01e  | Cyclic.sh shut down (2024) → migrated to [Render][render] (free tier) | Done     |
-| 01f  | Backend fixes on Render: Node `12.x`→`24.x`, JWT secret bug, `ERR_HTTP_HEADERS_SENT` crash — full detail in [amazin-be][bev1] | Done     |
-| 01g  | Connect frontend to new Render backend URL (`REACT_APP_BACKEND_URL`) | Doing    |
+| 01f  | Backend fixes on Render — full detail in [amazin-be][bev1]        | Done     |
+| 01g  | Connect frontend to new Render backend URL                        | Doing    |
 | 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]       | Done     |
 | 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
 | 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
