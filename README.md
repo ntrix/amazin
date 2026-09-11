@@ -168,7 +168,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 02c  | Vercel disabled → migrated to [Netlify][netlify]                  | Done     |
 | 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
 | 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR | Done     |
-| 03c  | E2E testing with [Cypress][cy]                                    | **Todo** |
+| 03c  | E2E testing with [Cypress][cy]:<br>- purchase flow (register → browse → cart → checkout → order)<br>- seller flow (register → seller verification → create product) | Done     |
 | 03d  | Code quality tooling: [Codecov][codecov] (coverage, replacing Code Climate — shut down 2025) + [SonarQube Cloud][sonar] (code smells, replacing DeepSource) | Done     |
 | 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
 | 05a  | ~~[AWS Cloud Backend?][aws] (no free tier anymore)~~ — use Render instead | Done     |
