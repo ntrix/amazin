@@ -18,6 +18,26 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 ![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
 
+### Search & UI/UX details that feel like the real thing
+
+- **Search-suggest**: type any letters in order (not just a prefix) and the nav search bar filters live as you type — matches highlighted inline, ranked so the tightest match rises to the top, fully keyboard-navigable (`↑`/`↓`, `Enter`, `Esc`) — same interaction pattern as Amazon's own search box
+- **Sidebar**: opens with a spring-style overshoot easing (`cubic-bezier` > 1) — slides past its resting position and settles back, not a plain linear slide
+- **Nav bar**: every segment (logo, search, dropdowns, cart) gets a highlighted border on hover/focus, matching Amazon's own nav affordance
+- **Netflux (video screen)**: hovering a movie card expands it over its neighbors, Netflix-style; trailers play from real YouTube (`react-youtube` + auto-search by title, with a graceful fallback)
+- **Currency switcher**: real country-flag sprites and a live exchange-rate reference link — and it actually reprices every product shown, not just the dropdown
+- **Accessibility**: `aria-label`/`role`/`tabIndex` throughout the interactive nav elements, full keyboard navigation (arrows, Enter, Escape)
+- **One shared state governs every overlay** (sidebar, dropdowns, search-suggest) via Context — opening one closes the others automatically, avoiding overlapping-overlay bugs, debounced for smooth toggling
+- **Installable as a mobile app** (`manifest.json`, home-screen icon) — offline caching scaffolded via service worker but not yet populated, so call it semi-PWA
+- Also a small Easter egg on invalid routes — a 404 page with a bit of personality
+
+### Frontend architecture worth a second look
+
+- **Hand-rolled Suspense resource cache** (`apis/suspenseAPI.tsx`) — implements the throw-a-pending-promise contract Suspense itself relies on, so every image is preloaded exactly once app-wide, not just wrapped in `React.lazy`
+- **A homemade "RTK Query" precursor** (`axiosClient.ts`'s `axiosRedux` + `ReduxToolKitClient.ts`) — one factory generates the `_REQUEST/_SUCCESS/_FAIL` thunk and reducer for every slice, replacing what would otherwise be near-duplicated boilerplate across cart/order/product/user
+- **Hover *and* focus prefetch on category nav** — data loads before the click, debounced so a fast mouse sweep doesn't fire a dozen requests, and wired to `onFocus` too so keyboard users get the same perceived-performance boost
+- **Per-route resilience**: code-splitting with prefetch hints, an error boundary around every route so one screen failing can't take down the app, and skeleton loaders shaped like the real content instead of a generic spinner
+- **Declarative, data-driven form validation** (`validateRules.ts`) — every field is a `[message, regex]` table row, not imperative per-field code, so adding a new validated field never touches the validation logic itself
+
 ### Features
 
 - Authenticate users via JWT (login, register, logout button on settings page)
