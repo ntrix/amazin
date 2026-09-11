@@ -27,6 +27,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - **Currency switcher**: real country-flag sprites and a live exchange-rate reference link — and it actually reprices every product shown, not just the dropdown
 - **Accessibility**: `aria-label`/`role`/`tabIndex` throughout the interactive nav elements, full keyboard navigation (arrows, Enter, Escape)
 - **One shared state governs every overlay** (sidebar, dropdowns, search-suggest) via Context — opening one closes the others automatically, avoiding overlapping-overlay bugs, debounced for smooth toggling
+- **Installable as a mobile app** (`manifest.json`, home-screen icon) — offline caching scaffolded via service worker but not yet populated, so call it semi-PWA
 - Also a small Easter egg on invalid routes — a 404 page with a bit of personality
 
 ### Features
