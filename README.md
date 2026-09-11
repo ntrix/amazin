@@ -7,29 +7,16 @@
 
 ## A React Amazon (& Netflix & ...) Clone Project
 
-## What is Storybook?
-
-Storybook is a tool for UI development. It makes development faster and easier by isolating components.
-This allows you to work on one component at a time. You can develop entire UIs without needing to start up a complex dev stack, force certain data into your database, or navigate around your application.
-
-## What is [Amazin' Amazim Storybook][amazin-story]
-
-This is the collection of components that I wrote for [amazim.store][amazim], includes
-
-- Buttons
-- Input
-- Rating
-- Pagination
-- MessageBox
-- Cards
-- And more to come ..
-
-[https://ntrix.github.io/amazin-story/][amazin-story] or [https://amazin-storybook.vercel.app/][amazin-story-vercel]
-
-## What is Amazim?
-
 This is not only an online shop/platform/clone of Amazon, Netflix or something else built with a js-framework,
 but also a long term example experimenting some **modern**, **real-world**, **maybe unstable** React APIs, Nx, Mobile friendly PWA and also some Backend technologies in my spare time.
+
+## Live demo, PWA, QR code
+
+| **[amazim.netlify.app][amazim]**   | **[amazin.tiennguyen.de][amazin]**   |
+| ----------------------------------- | ------------------------------------- |
+| ![amazim.netlify.app QR][qramazim] | ![amazin.tiennguyen.de QR][qramazin] |
+
+![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
 
 ### Features
 
@@ -88,23 +75,55 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 [codecov]: https://codecov.io/
 [sonar]: https://sonarcloud.io/
 
-## Working application
+## Test Coverage
 
-### Live demo, PWA, QR code
+Unit tests now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
 
-| **[amazim.netlify.app][amazim]**   | **[amazin.tiennguyen.de][amazin]**   |
-| ----------------------------------- | ------------------------------------- |
-| ![amazim.netlify.app QR][qramazim] | ![amazin.tiennguyen.de QR][qramazin] |
+- 30 new test files (156 tests total), plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
+- Jest now runs consistently both via `nx test` and directly from the IDE
+- ~51% line coverage
 
-![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
+Organized around a Clean Architecture-style 4-layer split (Presentation → Application → Domain → Infrastructure):
 
-### Source code
+| Layer | Covers | Test files |
+| ----- | ------ | ---------- |
+| 1. Presentation — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
+| 2. Application — hooks orchestrating business logic | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
+| 3. Domain — Redux slices (app state) | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
+| 4. Infrastructure — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
+| Shared utilities (used across all 4 layers) | Form validation, search ranking, currency formatting, image URLs | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath` |
 
-Frontend: [github.com/ntrix/amazin][fenx]
+## Demo
 
-Frontend (old version, MVP Frontend & Backend): [github.com/ntrix/amazin/tree/org-cra][mvp1]
+### Sort, Filter, Search, Nav, SideNav
 
-Backend: [github.com/ntrix/amazin-be][bev1]
+![Sort Filter Search Nav SideNav][sort-filter-search-nav-side-nav]
+
+### Screen, SubNav, SearchFilter, Pagination
+
+![Screen SubNav SearchFilter Pagination][screen-sub-nav-search-filter-pagination]
+
+### Responsive any size
+
+![Responsive][responsive]
+
+### Currency, Shipping, Payment, Contact, Profile, Validate
+
+![Currency Shipping Payment Contact Profile Validate][currency-shipping-payment-contact-profile-validate]
+
+### Content, Management, Product, Image, User, Order
+
+![Content Management Product Image User Order][content-management-product-image-user-order]
+
+[content-management-product-image-user-order]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Content%20Management%20Product%20Image%20User%20Order.gif
+[currency-shipping-payment-contact-profile-validate]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Currency%20Shipping%20Payment%20Contact%20Profile%20Validate.gif
+[responsive]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Responsive.gif
+[screen-sub-nav-search-filter-pagination]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Screen%20SubNav%20SearchFilter%20Pagination.gif
+[sort-filter-search-nav-side-nav]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Sort%20Filter%20Search%20Nav%20SideNav.gif
+
+## Preview video
+
+[![Preview video on youtube](https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/preview-video-on-youtube.png)](https://www.youtube.com/watch?v=7GNQKYdpDHQ)
 
 ## Learning by Doing
 
@@ -163,55 +182,17 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
 
-## Test Coverage
+## Source code
 
-Unit tests now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
+Frontend: [github.com/ntrix/amazin][fenx]
 
-- 30 new test files (156 tests total), plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
-- Jest now runs consistently both via `nx test` and directly from the IDE
-- ~51% line coverage
+Frontend (old version, MVP Frontend & Backend): [github.com/ntrix/amazin/tree/org-cra][mvp1]
 
-Organized around a Clean Architecture-style 4-layer split (Presentation → Application → Domain → Infrastructure):
+Backend: [github.com/ntrix/amazin-be][bev1]
 
-| Layer | Covers | Test files |
-| ----- | ------ | ---------- |
-| 1. Presentation — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
-| 2. Application — hooks orchestrating business logic | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
-| 3. Domain — Redux slices (app state) | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
-| 4. Infrastructure — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
-| Shared utilities (used across all 4 layers) | Form validation, search ranking, currency formatting, image URLs | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath` |
+## Storybook
 
-## Demo
-
-### Sort, Filter, Search, Nav, SideNav
-
-![Sort Filter Search Nav SideNav][sort-filter-search-nav-side-nav]
-
-### Screen, SubNav, SearchFilter, Pagination
-
-![Screen SubNav SearchFilter Pagination][screen-sub-nav-search-filter-pagination]
-
-### Responsive any size
-
-![Responsive][responsive]
-
-### Currency, Shipping, Payment, Contact, Profile, Validate
-
-![Currency Shipping Payment Contact Profile Validate][currency-shipping-payment-contact-profile-validate]
-
-### Content, Management, Product, Image, User, Order
-
-![Content Management Product Image User Order][content-management-product-image-user-order]
-
-[content-management-product-image-user-order]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Content%20Management%20Product%20Image%20User%20Order.gif
-[currency-shipping-payment-contact-profile-validate]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Currency%20Shipping%20Payment%20Contact%20Profile%20Validate.gif
-[responsive]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Responsive.gif
-[screen-sub-nav-search-filter-pagination]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Screen%20SubNav%20SearchFilter%20Pagination.gif
-[sort-filter-search-nav-side-nav]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Sort%20Filter%20Search%20Nav%20SideNav.gif
-
-## Preview video
-
-[![Preview video on youtube](https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/preview-video-on-youtube.png)](https://www.youtube.com/watch?v=7GNQKYdpDHQ)
+[Amazin' Amazim Storybook][amazin-story] is the isolated UI component library behind this app (Buttons, Input, Rating, Pagination, MessageBox, Cards, ...), browsable at [ntrix.github.io/amazin-story][amazin-story] or [amazin-storybook.vercel.app][amazin-story-vercel].
 
 ## Nx Amazin' Amazim Store
 
