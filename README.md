@@ -30,6 +30,14 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - **Installable as a mobile app** (`manifest.json`, home-screen icon) — offline caching scaffolded via service worker but not yet populated, so call it semi-PWA
 - Also a small Easter egg on invalid routes — a 404 page with a bit of personality
 
+### Frontend architecture worth a second look
+
+- **Hand-rolled Suspense resource cache** (`apis/suspenseAPI.tsx`) — implements the throw-a-pending-promise contract Suspense itself relies on, so every image is preloaded exactly once app-wide, not just wrapped in `React.lazy`
+- **A homemade "RTK Query" precursor** (`axiosClient.ts`'s `axiosRedux` + `ReduxToolKitClient.ts`) — one factory generates the `_REQUEST/_SUCCESS/_FAIL` thunk and reducer for every slice, replacing what would otherwise be near-duplicated boilerplate across cart/order/product/user
+- **Hover *and* focus prefetch on category nav** — data loads before the click, debounced so a fast mouse sweep doesn't fire a dozen requests, and wired to `onFocus` too so keyboard users get the same perceived-performance boost
+- **Per-route resilience**: code-splitting with prefetch hints, an error boundary around every route so one screen failing can't take down the app, and skeleton loaders shaped like the real content instead of a generic spinner
+- **Declarative, data-driven form validation** (`validateRules.ts`) — every field is a `[message, regex]` table row, not imperative per-field code, so adding a new validated field never touches the validation logic itself
+
 ### Features
 
 - Authenticate users via JWT (login, register, logout button on settings page)
