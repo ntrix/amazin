@@ -123,7 +123,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR | Done     |
 | 03c  | E2E testing with [Cypress][cy]                                    | **Todo** |
 | 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
-| 05a  | [AWS Cloud Backend?][aws]                                         | **Todo** |
+| 05a  | ~~[AWS Cloud Backend?][aws] (no free tier anymore)~~ — use Render instead | Done     |
 | 05b  | Backend [DB cache][redis]                                         | Doing    |
 | 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]           | **Todo** |
 | ..   | ..                                                                | ..       |
