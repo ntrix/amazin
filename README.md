@@ -18,6 +18,10 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 ![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
 
+### Search that feels like Amazon's
+
+Type any letters in order — not just a prefix — and the nav search bar filters live as you type: matched characters get highlighted inline, results are ranked so the tightest match rises to the top, and the whole suggestion dropdown is fully keyboard-navigable (`↑`/`↓` to cycle, `Enter` to pick, `Esc` to dismiss) — the same interaction pattern as Amazon's own search-suggest box.
+
 ### Features
 
 - Authenticate users via JWT (login, register, logout button on settings page)
