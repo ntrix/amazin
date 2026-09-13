@@ -77,8 +77,8 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - [Mongo DB][mongo]
 - [Mongoose][mongoose]
 - [Mongo DB Atlas][atlas]
-- [Heroku][heroku]
-- [optional AWS][aws]
+- [Docker][docker] (multi-stage build, non-root user)
+- Deployed on [Render][render] (passive failover) and [AWS ECS Fargate][aws] behind an Application Load Balancer
 
 [nx]: https://nx.dev/
 [react]: https://reactjs.org/
@@ -92,6 +92,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 [netlify]: https://www.netlify.com/
 [heroku]: https://www.heroku.com/
 [render]: https://render.com/
+[docker]: https://www.docker.com/
 [codecov]: https://codecov.io/
 [sonar]: https://sonarcloud.io/
 
@@ -171,13 +172,16 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 03c  | E2E testing with [Cypress][cy]:<br>- purchase flow (register → browse → cart → checkout → order)<br>- seller flow (register → seller verification → create product) | Done     |
 | 03d  | Code quality tooling: [Codecov][codecov] (coverage, replacing Code Climate — shut down 2025) + [SonarQube Cloud][sonar] (code smells, replacing DeepSource) | Done     |
 | 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
-| 05a  | ~~[AWS Cloud Backend?][aws] (no free tier anymore)~~ — use Render instead | Done     |
+| 05a  | ~~[AWS Cloud Backend?][aws] (no free tier anymore)~~ — used [Render][render] instead; revisited in 10a-10c | Done     |
 | 05b  | Backend [DB cache][redis]                                         | Doing    |
 | 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]           | **Todo** |
 | ..   | ..                                                                | ..       |
 | 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs          | Done     |
 | 09b  | [Documentation][mdx]                                              | Doing    |
 | 09c  | Migration to TypeScript                                           | **Done** |
+| 10a  | Backend containerized with [Docker][docker] (multi-stage build) — full detail in [amazin-be][bev1] | Done |
+| 10b  | Backend migrated to AWS ECS Fargate + ALB, HTTPS via `api.tiennguyen.de` — [Render][render] kept running as a passive failover | Done |
+| 10c  | `netlify.toml` stopped hard-coding the backend URL — the Netlify dashboard env var is now the single source of truth | Done |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
@@ -192,7 +196,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [stackbe]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/mongo-express-react-node-atlas-mongoose-heroku-1000.png
 [amazim]: https://amazim.netlify.app/
 [amazin]: https://amazin.tiennguyen.de/
-[aws]: https://aws.com/
+[aws]: https://aws.amazon.com/fargate/
 [redis]: https://redis.com/
 [profiler]: https://reactjs.org/docs/profiler.html
 [mdx]: https://mdxjs.com/
