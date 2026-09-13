@@ -182,6 +182,8 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 10a  | Backend containerized with [Docker][docker] (multi-stage build) — full detail in [amazin-be][bev1] | Done |
 | 10b  | Backend migrated to AWS ECS Fargate + ALB, HTTPS via `api.tiennguyen.de` — [Render][render] kept running as a passive failover | Done |
 | 10c  | `netlify.toml` stopped hard-coding the backend URL — the Netlify dashboard env var is now the single source of truth | Done |
+| 10d  | Backend: CloudWatch Alarms (unhealthy target, 5xx errors) → SNS email — full detail in [amazin-be][bev1] | Done |
+| 10e  | Backend: GitHub Actions CI/CD (build → ECR → ECS deploy) via OIDC, no AWS keys stored in GitHub | Done |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
@@ -205,6 +207,45 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [amazin-story]: https://ntrix.github.io/amazin-story/
 [amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
+
+## Architecture (backend)
+
+How this frontend's backend is deployed since the AWS migration — full write-up in [amazin-be][bev1]:
+
+```mermaid
+flowchart TB
+  GitHub["GitHub: push to main"] --> Actions["GitHub Actions<br/>OIDC role"]
+  Actions -->|"push image"| ECR[("ECR")]
+  Actions -->|"register + deploy"| Service
+
+  DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
+  ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
+
+  Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
+  ALB -->|forwards| TG["Target Group"]
+  TG -->|"routes by IP"| Task["Fargate Task"]
+  Task -->|queries| Mongo[("MongoDB Atlas")]
+  Service["ECS Service"] -->|"launches, restarts"| Task
+  Service -->|registers| TG
+
+  Role["IAM Execution Role"] -. "task assumes" .-> Task
+  Role -. "pulls image" .-> ECR
+  Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
+  Role -. "reads secrets" .-> SSM[("SSM + KMS")]
+
+  TG -. watches .-> Alarms["CloudWatch Alarms"]
+  Alarms --> SNS["SNS Topic"]
+  SNS --> Email([Email])
+
+  Render[["Render<br/>unchanged, passive failover"]]
+
+  subgraph VPC["VPC · eu-central-1"]
+    ALB
+    TG
+    Task
+    Service
+  end
+```
 
 ## Source code
 
