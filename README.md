@@ -182,6 +182,8 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 10a  | Backend containerized with [Docker][docker] (multi-stage build) — full detail in [amazin-be][bev1] | Done |
 | 10b  | Backend migrated to AWS ECS Fargate + ALB, HTTPS via `api.tiennguyen.de` — [Render][render] kept running as a passive failover | Done |
 | 10c  | `netlify.toml` stopped hard-coding the backend URL — the Netlify dashboard env var is now the single source of truth | Done |
+| 10d  | Backend: CloudWatch Alarms (unhealthy target, 5xx errors) → SNS email — full detail in [amazin-be][bev1] | Done |
+| 10e  | Backend: GitHub Actions CI/CD (build → ECR → ECS deploy) via OIDC, no AWS keys stored in GitHub | Done |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
@@ -205,6 +207,45 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [amazin-story]: https://ntrix.github.io/amazin-story/
 [amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
+
+## Architecture (backend)
+
+How this frontend's backend is deployed since the AWS migration — full write-up in [amazin-be][bev1]:
+
+```mermaid
+flowchart TB
+  GitHub["GitHub: push to main"] --> Actions["GitHub Actions<br/>OIDC role"]
+  Actions -->|"push image"| ECR[("ECR")]
+  Actions -->|"register + deploy"| Service
+
+  DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
+  ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
+
+  Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
+  ALB -->|forwards| TG["Target Group"]
+  TG -->|"routes by IP"| Task["Fargate Task"]
+  Task -->|queries| Mongo[("MongoDB Atlas")]
+  Service["ECS Service"] -->|"launches, restarts"| Task
+  Service -->|registers| TG
+
+  Role["IAM Execution Role"] -. "task assumes" .-> Task
+  Role -. "pulls image" .-> ECR
+  Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
+  Role -. "reads secrets" .-> SSM[("SSM + KMS")]
+
+  TG -. watches .-> Alarms["CloudWatch Alarms"]
+  Alarms --> SNS["SNS Topic"]
+  SNS --> Email([Email])
+
+  Render[["Render<br/>unchanged, passive failover"]]
+
+  subgraph VPC["VPC · eu-central-1"]
+    ALB
+    TG
+    Task
+    Service
+  end
+```
 
 ## Source code
 
@@ -231,6 +272,19 @@ This project using [Nx](https://nx.dev).
 Have your Nx CLI installed:
 `npm install -g nx`
 
-Add `SKIP_PREFLIGHT_CHECK=true` to `.env` if needed
+Create a `.env` file with the variables below, then `npm start`
 
-`npm start`
+| Variable | What it's for | Where to get it |
+| -------- | -------------- | ---------------- |
+| `REACT_APP_BACKEND_URL` | Base URL of the backend API | Your running [amazin-be][bev1] instance (Render, or the AWS endpoint) |
+| `REACT_APP_API_KEY` | Movie/TV data for the Netflux screen | [The Movie Database (TMDB)](https://www.themoviedb.org/) free account → **Settings → API** → request an API key |
+| `REACT_APP_IMG_BASE_URL` | Base URL product images are served from | The same [Cloudinary](https://cloudinary.com/) account as the backend's `CD_NAME` — `https://res.cloudinary.com/<cloud_name>/image/upload/` |
+| `REACT_APP_ENVIRONMENT` | `development` or `production` | Not a service — set by you |
+| `REACT_APP_CONTACT_MAIL_SERVER` | Where the contact form POSTs directly (a different origin than the usual API client) | The backend's contact endpoint — same host as `REACT_APP_BACKEND_URL` |
+| `REACT_APP_SELLER` | Mongo `_id` of the seller whose products populate the Netflux/video catalog | Look up (or seed) a seller user in your MongoDB Atlas cluster and copy its `_id` |
+| `REACT_APP_RATES_SOURCE` | Attribution link shown next to the currency rate | Any URL — e.g. your `RATES_API_KEY` provider's site (see [amazin-be][bev1]) |
+| `REACT_APP_RATES_CHART` | "Statistics Chart" link in the seller nav | Any URL you want that link to open |
+| `REACT_APP_COMMUNITY` | "Community" sidebar link | Any URL (Discord, forum, ...) |
+| `REACT_APP_CONTACT` | "#contact developer" sidebar link | Any URL |
+| `REACT_APP_USER_TOUR` / `REACT_APP_ADMIN_TOUR` / `REACT_APP_SELLER_TOUR` | "Quick Tutor" / "Admin Tour" / "Seller Tour" links, per role | Any URL — e.g. a demo video, not a service |
+| `SKIP_PREFLIGHT_CHECK` | Silences CRA's strict dependency-version check | Not a service — just set to `true` |
