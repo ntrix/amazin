@@ -24,9 +24,18 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "prepare": "husky"
   },
   "private": true,
+  "lint-staged": {
+    "apps/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "**/*.{js,jsx,ts,tsx,json,css,md}": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "@react-google-maps/api": "^2.2.0",
     "@reduxjs/toolkit": "^1.6.1",
@@ -58,6 +67,8 @@
     "@babel/preset-env": "7.12.13",
     "@babel/preset-react": "7.12.13",
     "@babel/preset-typescript": "7.12.13",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@nrwl/cli": "12.5.8",
     "@nrwl/eslint-plugin-nx": "12.5.8",
     "@nrwl/jest": "12.5.8",
@@ -91,7 +102,9 @@
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-react": "7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^9.1.7",
     "jest": "^27.2.0",
+    "lint-staged": "^15.5.2",
     "prettier": "^2.3.1",
     "react-app-rewired": "^2.1.8",
     "react-scripts": "^4.0.3",
