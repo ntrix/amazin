@@ -1,5 +1,3 @@
-jest.mock('../../apis/axiosClient');
-
 import { axiosPrivate } from '../../apis/axiosClient';
 import {
   createOrder,
@@ -22,6 +20,8 @@ import {
 } from '../../slice/OrderSlice';
 import { Storage } from '../../utils';
 import { KEY } from '../../constants';
+
+jest.mock('../../apis/axiosClient');
 
 const mockedAxiosPrivate = axiosPrivate as jest.MockedFunction<typeof axiosPrivate>;
 

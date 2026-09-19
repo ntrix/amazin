@@ -1,10 +1,10 @@
-jest.mock('../../apis/axiosClient');
-
 import axiosClient from '../../apis/axiosClient';
 import { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod } from '../../apis/cartAPI';
 import { cartActions } from '../../slice/CartSlice';
 import { Storage } from '../../utils';
 import { KEY } from '../../constants';
+
+jest.mock('../../apis/axiosClient');
 
 const mockedGet = axiosClient.get as jest.MockedFunction<typeof axiosClient.get>;
 

@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { axiosPublic, axiosPrivate } from '../../apis/axiosClient';
+
 jest.mock('axios', () => {
   const mockAxiosInstance = jest.fn();
   return {
@@ -5,9 +8,6 @@ jest.mock('axios', () => {
     default: Object.assign(mockAxiosInstance, { create: jest.fn(() => mockAxiosInstance) })
   };
 });
-
-import axios from 'axios';
-import { axiosPublic, axiosPrivate } from '../../apis/axiosClient';
 
 const mockedAxios = axios as unknown as jest.Mock;
 

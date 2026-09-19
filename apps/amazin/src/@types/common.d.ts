@@ -3,7 +3,7 @@ type ErrorType = any;
 type FnType = (...args: any) => ReturnType | void;
 
 type OptFn = FnType | undefined;
-type OptionFns = {} & {
+type OptionFns = {
   successAction?: OptFn;
   successHandler?: OptFn;
   selector?: OptFn;

@@ -27,7 +27,15 @@
           "executor": "@nrwl/workspace:run-commands",
           "outputs": [],
           "options": {
-            "command": "node ../../node_modules/.bin/eslint src/**/*.js",
+            "command": "node ../../node_modules/.bin/eslint src --ext .js,.jsx,.ts,.tsx",
+            "cwd": "apps/amazin"
+          }
+        },
+        "typecheck": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "node ../../node_modules/.bin/tsc --noEmit -p tsconfig.json",
             "cwd": "apps/amazin"
           }
         },

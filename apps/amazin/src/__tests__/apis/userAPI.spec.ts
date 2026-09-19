@@ -1,5 +1,3 @@
-jest.mock('../../apis/axiosClient');
-
 import { axios, axiosPublic, axiosPrivate } from '../../apis/axiosClient';
 import {
   register,
@@ -13,6 +11,8 @@ import {
 import { userRegisterActions, userSigninActions, userDetailsActions, userUpdateProfileActions, userUpdateActions } from '../../slice/UserSlice';
 import { Storage } from '../../utils';
 import { KEY } from '../../constants';
+
+jest.mock('../../apis/axiosClient');
 
 const mockedAxiosPublic = axiosPublic as jest.MockedFunction<typeof axiosPublic>;
 const mockedAxiosPrivate = axiosPrivate as jest.MockedFunction<typeof axiosPrivate>;

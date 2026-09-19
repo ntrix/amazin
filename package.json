@@ -8,6 +8,7 @@
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
+    "typecheck": "nx run amazin:typecheck",
     "e2e": "cypress run --config-file apps/amazin-e2e/cypress.config.ts",
     "e2e:open": "cypress open --config-file apps/amazin-e2e/cypress.config.ts",
     "affected:apps": "nx affected:apps",

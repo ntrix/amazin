@@ -1,4 +1,5 @@
 /// <reference types="node" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference -- CRA global ambient types, `import` here would turn this into a module and drop global scope
 /// <reference types="react" />
 /// <reference types="react-dom" />
 
