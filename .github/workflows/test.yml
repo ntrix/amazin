@@ -93,6 +93,11 @@ jobs:
       - name: Wait for backend
         run: npx --yes wait-on@7 http://localhost:5050/api/config/paypal --timeout 60000
 
+      - name: Seed test data
+        run: |
+          curl -sf http://localhost:5050/api/users/seed
+          curl -sf http://localhost:5050/api/products/admin-seed-my-db
+
       - name: Build frontend
         env:
           REACT_APP_BACKEND_URL: http://localhost:5050
