@@ -21,8 +21,8 @@ describe('Purchase flow: register -> browse -> cart -> checkout -> order', () =>
       .click({ force: true });
     cy.location('pathname').should('match', /^\/product\//);
 
-    cy.contains('button', 'Add to Cart').click();
-    cy.location('pathname').should('match', /^\/cart\//);
+    cy.contains('button', 'Add to Cart').should('be.visible').click();
+    cy.location('pathname', { timeout: 10000 }).should('match', /^\/cart\//);
 
     cy.contains('button', 'Proceed to Buy').click();
 
@@ -36,7 +36,8 @@ describe('Purchase flow: register -> browse -> cart -> checkout -> order', () =>
     });
     cy.location('pathname', { timeout: 10000 }).should('eq', '/shipping');
 
-    cy.get('#full-name').clear().type(name);
+    cy.get('#full-name').clear();
+    cy.get('#full-name').type(name);
     cy.get('#address').type('1 Test Street');
     cy.get('#city').type('Test City');
     cy.get('#postal-code').type('12345');
