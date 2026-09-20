@@ -96,6 +96,51 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 [codecov]: https://codecov.io/
 [sonar]: https://sonarcloud.io/
 
+## Architecture (backend)
+
+How this frontend's backend is deployed since the AWS migration — full write-up in [amazin-be][bev1]:
+
+```mermaid
+flowchart TB
+  GitHub["GitHub: push to main"] --> Actions["GitHub Actions<br/>OIDC role"]
+  Actions -->|"push image"| ECR[("ECR")]
+  Actions -->|"register + deploy"| Service
+
+  DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
+  ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
+
+  Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
+  ALB -->|forwards| TG["Target Group"]
+  TG -->|"routes by IP"| Task["Fargate Task"]
+  Task -->|queries| Mongo[("MongoDB Atlas")]
+  Service["ECS Service"] -->|"launches, restarts"| Task
+  Service -->|registers| TG
+
+  Role["IAM Execution Role"] -. "task assumes" .-> Task
+  Role -. "pulls image" .-> ECR
+  Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
+  Role -. "reads secrets" .-> SSM[("SSM + KMS")]
+
+  TG -. watches .-> Alarms["CloudWatch Alarms"]
+  Alarms --> SNS["SNS Topic"]
+  SNS --> Email([Email])
+
+  Task -. "unhandled errors" .-> Sentry[("Sentry")]
+  Task -. "APM traces" .-> NewRelic[("New Relic")]
+  Task -. "docs (planned)" .-> OpenAPI["/api-docs"]
+  Sentry -. "alerts (planned)" .-> Slack[("Slack")]
+  Sentry -. alerts .-> Email
+
+  Render[["Render<br/>unchanged, passive failover"]]
+
+  subgraph VPC["VPC · eu-central-1"]
+    ALB
+    TG
+    Task
+    Service
+  end
+```
+
 ## Test Coverage
 
 Unit tests now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
@@ -210,48 +255,6 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [amazin-story]: https://ntrix.github.io/amazin-story/
 [amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
-
-## Architecture (backend)
-
-How this frontend's backend is deployed since the AWS migration — full write-up in [amazin-be][bev1]:
-
-```mermaid
-flowchart TB
-  GitHub["GitHub: push to main"] --> Actions["GitHub Actions<br/>OIDC role"]
-  Actions -->|"push image"| ECR[("ECR")]
-  Actions -->|"register + deploy"| Service
-
-  DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
-  ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
-
-  Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
-  ALB -->|forwards| TG["Target Group"]
-  TG -->|"routes by IP"| Task["Fargate Task"]
-  Task -->|queries| Mongo[("MongoDB Atlas")]
-  Service["ECS Service"] -->|"launches, restarts"| Task
-  Service -->|registers| TG
-
-  Role["IAM Execution Role"] -. "task assumes" .-> Task
-  Role -. "pulls image" .-> ECR
-  Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
-  Role -. "reads secrets" .-> SSM[("SSM + KMS")]
-
-  TG -. watches .-> Alarms["CloudWatch Alarms"]
-  Alarms --> SNS["SNS Topic"]
-  SNS --> Email([Email])
-
-  Task -. "unhandled errors" .-> Sentry[("Sentry")]
-  Task -. "APM traces" .-> NewRelic[("New Relic")]
-
-  Render[["Render<br/>unchanged, passive failover"]]
-
-  subgraph VPC["VPC · eu-central-1"]
-    ALB
-    TG
-    Task
-    Service
-  end
-```
 
 ## Source code
 
