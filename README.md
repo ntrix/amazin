@@ -113,6 +113,7 @@ flowchart TB
   GitHubBE["GitHub: BE push to main<br/><b>amazin-be</b>"] --> ActionsBE["GitHub BE Actions<br/>OIDC role"]
   ActionsBE -->|"push image"| ECR[("ECR")]
   ActionsBE -->|"register + deploy"| Service
+  GitHubBE -.->|"native auto-deploy"| Render
 
   DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
   ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
