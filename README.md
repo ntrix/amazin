@@ -109,14 +109,14 @@ flowchart TB
   DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
   ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
 
-  Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
+  ~~~Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
   ALB -->|forwards| TG["Target Group"]
   TG -->|"routes by IP"| Task["Fargate Task"]
   Task -->|queries| Mongo[("MongoDB Atlas")]
   Service["ECS Service"] -->|"launches, restarts"| Task
   Service -->|registers| TG
 
-  Role["IAM Execution Role"] -. "task assumes" .-> Task
+  ~~~Role["IAM Execution Role"] -. "task assumes" .-> Task
   Role -. "pulls image" .-> ECR
   Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
   Role -. "reads secrets" .-> SSM[("SSM + KMS")]
