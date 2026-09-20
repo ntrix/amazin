@@ -50,6 +50,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - _GET and display filtered paginated lists of articles_
 - _Backoffice (as Admin/Seller) User and Product-catalogues Management_
 - Amazon’s style UI, responsive, cross browser, PWA ready
+- Client-side error tracking via [Sentry][sentry] — every route/component error boundary reports to Sentry, not just logged to console
 - And more ..
 
 ## Tech stack: MERN & Co
@@ -62,6 +63,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - [React][react] — UI library
 - [Redux Toolkit][redux] — state management
 - [Cypress][cy] — E2E testing
+- [Sentry][sentry] — client-side error tracking
 - UI modules:
   - [Swiper][swiper] — carousels/sliders
   - ...
@@ -188,7 +190,8 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
 | 05a  | ~~[AWS Cloud Backend?][aws] (no free tier anymore)~~ — used [Render][render] instead; revisited in 10a-10c | Done     |
 | 05b  | Backend [DB cache][redis]                                         | Doing    |
-| 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]           | **Todo** |
+| 06   | Client-side error tracking with [Sentry][sentry] — every route/component `ErrorBoundary` reports via `onError` | Done |
+| 07   | AB Testing [(React Profiler?)][profiler]                          | **Todo** |
 | ..   | ..                                                                | ..       |
 | 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs          | Done     |
 | 09b  | [Documentation][mdx]                                              | Doing    |
@@ -314,5 +317,6 @@ Create a `.env` file with the variables below, then `npm start`
 | `REACT_APP_RATES_CHART` | "Statistics Chart" link in the seller nav | Any URL you want that link to open |
 | `REACT_APP_COMMUNITY` | "Community" sidebar link | Any URL (Discord, forum, ...) |
 | `REACT_APP_CONTACT` | "#contact developer" sidebar link | Any URL |
+| `REACT_APP_SENTRY_DSN` | Client-side error tracking | [Sentry](https://sentry.io/) free plan → create a **React** project (separate from `amazin-be`'s Node one) → DSN shown on setup; optional, skipped if unset |
 | `REACT_APP_USER_TOUR` / `REACT_APP_ADMIN_TOUR` / `REACT_APP_SELLER_TOUR` | "Quick Tutor" / "Admin Tour" / "Seller Tour" links, per role | Any URL — e.g. a demo video, not a service |
 | `SKIP_PREFLIGHT_CHECK` | Silences CRA's strict dependency-version check | Not a service — just set to `true` |

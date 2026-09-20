@@ -6,6 +6,7 @@ import './responsive.css';
 import { SuspenseNull, SuspenseText } from 'src/components/CustomSuspense';
 import OutlineProvider from 'src/components/Nav/NavSearch/useOutline';
 import NavShadow from 'src/components/Nav/NavShadow';
+import Sentry from 'src/utils/sentry';
 const NavBelt: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Nav/NavBelt'));
 const NavMain: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Nav/NavMain'));
 const ErrorScreen: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: true */ 'src/screens/Auth/ErrorScreen'));
@@ -13,7 +14,7 @@ const SidebarMenu: Lazy = lazy((): LazyPromise => import(/* webpackPrefetch: tru
 
 function Nav() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorScreen}>
+    <ErrorBoundary FallbackComponent={ErrorScreen} onError={(error) => Sentry.captureException(error)}>
       <OutlineProvider>
         <header id="nav-bar">
           <SuspenseText>
