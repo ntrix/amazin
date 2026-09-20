@@ -10,6 +10,7 @@ import LoadingOrError from 'src/components/LoadingOrError';
 import MessageBox from 'src/components/MessageBox';
 import VideoNavHeader from 'src/components/Product/VideoScreen/VideoNavHeader';
 import VideoBanner from 'src/components/Product/VideoScreen/components/VideoBanner';
+import Sentry from 'src/utils/sentry';
 const VideoRow: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ 'src/components/Product/VideoScreen/VideoRow')
 );
@@ -21,7 +22,7 @@ export default function VideoScreen() {
 
   return (
     <div className="container--full video-screen">
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={(error) => Sentry.captureException(error)}>
         <SuspenseLoad children={<VideoNavHeader genreLabels={VIDEO.GENRES} active={active} setActive={setActive} />} />
 
         <SuspenseBanner children={<VideoBanner movie={bannerMovies[active]} youtubeTrailer />} />

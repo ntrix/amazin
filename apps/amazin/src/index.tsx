@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import store from './store';
+import './utils/sentry';
 // import * as serviceWorker from './serviceWorker';
 
 // import { registerRoute, setCatchHandler } from 'workbox-routing';
