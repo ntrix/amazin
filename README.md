@@ -184,6 +184,9 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 10c  | `netlify.toml` stopped hard-coding the backend URL — the Netlify dashboard env var is now the single source of truth | Done |
 | 10d  | Backend: CloudWatch Alarms (unhealthy target, 5xx errors) → SNS email — full detail in [amazin-be][bev1] | Done |
 | 10e  | Backend: GitHub Actions CI/CD (build → ECR → ECS deploy) via OIDC, no AWS keys stored in GitHub | Done |
+| 11a  | Pre-commit tooling (Husky + lint-staged + commitlint) + a real lint/typecheck gate in CI (the old lint target silently matched zero files) | Done |
+| 11b  | E2E specs (03c) wired into GitHub Actions — real MongoDB + backend + production build, seeded, both flows headless on every push | Done |
+| 11c  | Backend: logging, error handling, migrations, atomic stock checks, doubled test suite — full detail in [amazin-be][bev1] | Done |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
