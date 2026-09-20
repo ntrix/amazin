@@ -42,3 +42,86 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e # v8.2.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  e2e:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout amazin
+        uses: actions/checkout@v4
+
+      - name: Checkout amazin-be
+        uses: actions/checkout@v4
+        with:
+          repository: ntrix/amazin-be
+          path: amazin-be
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Install backend dependencies
+        working-directory: amazin-be
+        run: npm ci
+
+      - name: Start backend
+        working-directory: amazin-be
+        env:
+          PORT: '5050'
+          MONGODB_URL: mongodb://localhost:27017/e2e
+          JWT_SECRET_A: e2e-test-secret
+          CORS_ORIGINS: http://localhost:3000
+          NODE_ENV: test
+        run: |
+          node server.js > /tmp/backend.log 2>&1 &
+          echo $! > /tmp/backend.pid
+          sleep 5
+          if ! kill -0 "$(cat /tmp/backend.pid)" 2>/dev/null; then
+            cat /tmp/backend.log
+            exit 1
+          fi
+
+      - name: Wait for backend
+        run: npx --yes wait-on@7 http://localhost:5050/api/config/paypal --timeout 60000
+
+      - name: Build frontend
+        env:
+          REACT_APP_BACKEND_URL: http://localhost:5050
+          SKIP_PREFLIGHT_CHECK: 'true'
+          NODE_OPTIONS: --openssl-legacy-provider
+        run: npm run build -- --skip-nx-cache
+
+      - name: Serve frontend
+        run: |
+          npx --yes serve@14 -s apps/amazin/build -l 3000 > /tmp/frontend.log 2>&1 &
+          echo $! > /tmp/frontend.pid
+          sleep 3
+          if ! kill -0 "$(cat /tmp/frontend.pid)" 2>/dev/null; then
+            cat /tmp/frontend.log
+            exit 1
+          fi
+
+      - name: Wait for frontend
+        run: npx --yes wait-on@7 http://localhost:3000 --timeout 30000
+
+      - name: Run e2e tests
+        run: npm run e2e
+
+      - name: Show backend/frontend logs
+        if: always()
+        run: |
+          echo "::group::backend log"
+          cat /tmp/backend.log || true
+          echo "::endgroup::"
+          echo "::group::frontend log"
+          cat /tmp/frontend.log || true
+          echo "::endgroup::"
