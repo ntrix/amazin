@@ -65,7 +65,9 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - UI modules:
   - [Swiper][swiper] — carousels/sliders
   - ...
-- [Netlify][netlify] — hosting/CDN
+- [GitHub Actions][ghactions] — CI/CD, push image to hosts
+- [Netlify][netlify] — hosting/CDN (active frontend)
+- [Vercel][vercel] — hosting/CDN (suspense, standby)
 
 ### Backend Stack
 
@@ -78,7 +80,10 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 - [Mongoose][mongoose] — ODM
 - [MongoDB Atlas][atlas] — managed cloud database
 - [Docker][docker] — containerization (multi-stage build, non-root user)
-- Deployed on [Render][render] (passive failover) and [AWS ECS Fargate][aws] behind an Application Load Balancer
+- [GitHub Actions][ghactions] — CI/CD (OIDC role, no long-lived AWS keys)
+- Deployed on [Render][render] (passive failover) and [AWS ECS Fargate][aws] (ECR, ALB, IAM, CloudWatch, SNS — full detail in Architecture below)
+- [Sentry][sentry] — error tracking
+- [New Relic][newrelic] — APM / performance monitoring
 
 [nx]: https://nx.dev/
 [react]: https://reactjs.org/
@@ -95,6 +100,9 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 [docker]: https://www.docker.com/
 [codecov]: https://codecov.io/
 [sonar]: https://sonarcloud.io/
+[ghactions]: https://github.com/features/actions
+[sentry]: https://sentry.io/
+[newrelic]: https://newrelic.com/
 
 ## Architecture (backend)
 
