@@ -242,6 +242,9 @@ flowchart TB
 
   Task -. "unhandled errors" .-> Sentry[("Sentry")]
   Task -. "APM traces" .-> NewRelic[("New Relic")]
+  Sentry -. alerts .-> Email
+  Sentry -. "alerts (planned)" .-> Slack[("Slack")]
+  Task -. "docs (planned)" .-> OpenAPI["/api-docs"]
 
   Render[["Render<br/>unchanged, passive failover"]]
 
