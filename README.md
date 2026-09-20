@@ -137,6 +137,10 @@ flowchart TB
   Alarms --> SNS["SNS Topic"]
   SNS --> Email([Email])
 
+  Task -. "image upload" .-> Cloudinary[("Cloudinary")]
+  Task -. "contact/alert email" .-> SendGrid[("SendGrid")]
+  Task -. "currency rates" .-> Rates[("exchangeratesapi.io")]
+
   Task -. "unhandled errors" .-> Sentry[("Sentry")]
   Task -. "APM traces" .-> NewRelic[("New Relic")]
   Task -. "docs (planned)" .-> OpenAPI["OpenAPI<br>/api-docs"]
@@ -144,6 +148,8 @@ flowchart TB
   Sentry -. alerts .-> Email
   NewRelic -. alerts .-> Slack
   NewRelic -. alerts .-> Email
+
+  GitHubStory["GitHub: amazin-story push<br/><i>separate repo</i>"] -.->|"manual deploy"| Storybook(["Storybook<br/>design system"])
 
   Render[["Render<br/><i>passive failover, unchanged</i>"]]
 
