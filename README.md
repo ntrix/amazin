@@ -141,7 +141,7 @@ flowchart TB
   Task -. "docs (planned)" .-> OpenAPI["OpenAPI<br>/api-docs"]
   Sentry -. "alerts (planned)" .-> Slack[("Slack")]
   Sentry -. alerts .-> Email
-  NewRelic -. "alerts (planned)" .-> Slack
+  NewRelic -. alerts .-> Slack
   NewRelic -. alerts .-> Email
 
   Render[["Render<br/><i>passive failover, unchanged</i>"]]
