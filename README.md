@@ -102,14 +102,17 @@ How this frontend's backend is deployed since the AWS migration — full write-u
 
 ```mermaid
 flowchart TB
-  GitHub["GitHub: push to main"] --> Actions["GitHub Actions<br/>OIDC role"]
-  Actions -->|"push image"| ECR[("ECR")]
-  Actions -->|"register + deploy"| Service
+  GitHubBE["GitHub: BE push to main<br/><b>amazin-be</b>"] --> ActionsBE["GitHub BE Actions<br/>OIDC role"]
+  ActionsBE -->|"push image"| ECR[("ECR")]
+  ActionsBE -->|"register + deploy"| Service
 
   DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
   ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
 
-  ~~~Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
+  GitHubFE["GitHub: FE push to nx<br/><b>amazin</b>"] --> ActionsFE["GitHub FE Actions"]
+  ActionsFE -->|"push image"| Netlify(["Netlify<br/><b>active frontend</b>"]) .->|"?"| Render
+  Netlify -->|"HTTPS :443"| ALB["ALB"]
+  ActionsFE -->|"push image"| Vercel(["Vercel<br/><i>suspense</i>"]) -->|"HTTPS :443"| Render
   ALB -->|forwards| TG["Target Group"]
   TG -->|"routes by IP"| Task["Fargate Task"]
   Task -->|queries| Mongo[("MongoDB Atlas")]
@@ -127,11 +130,13 @@ flowchart TB
 
   Task -. "unhandled errors" .-> Sentry[("Sentry")]
   Task -. "APM traces" .-> NewRelic[("New Relic")]
-  Task -. "docs (planned)" .-> OpenAPI["/api-docs"]
+  Task -. "docs (planned)" .-> OpenAPI["OpenAPI<br>/api-docs"]
   Sentry -. "alerts (planned)" .-> Slack[("Slack")]
   Sentry -. alerts .-> Email
+  NewRelic -. "alerts (planned)" .-> Slack
+  NewRelic -. alerts .-> Email
 
-  Render[["Render<br/>unchanged, passive failover"]]
+  Render[["Render<br/><i>passive failover, unchanged</i>"]]
 
   subgraph VPC["VPC · eu-central-1"]
     ALB
