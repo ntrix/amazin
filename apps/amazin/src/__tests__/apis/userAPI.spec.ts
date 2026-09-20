@@ -6,9 +6,15 @@ import {
   detailsUser,
   updateUserProfile,
   updateUser,
-  sendContactMessage
+  sendContactMessage,
 } from '../../apis/userAPI';
-import { userRegisterActions, userSigninActions, userDetailsActions, userUpdateProfileActions, userUpdateActions } from '../../slice/UserSlice';
+import {
+  userRegisterActions,
+  userSigninActions,
+  userDetailsActions,
+  userUpdateProfileActions,
+  userUpdateActions,
+} from '../../slice/UserSlice';
 import { Storage } from '../../utils';
 import { KEY } from '../../constants';
 
@@ -38,7 +44,7 @@ describe('userAPI', () => {
       name: 'Ada',
       email: 'ada@example.com',
       password: 'Secret123',
-      confirmPassword: 'Secret123'
+      confirmPassword: 'Secret123',
     });
 
     const { successHandler } = mockedAxiosPublic.mock.calls[0][1] as { successHandler: (d: unknown) => void };
@@ -49,22 +55,44 @@ describe('userAPI', () => {
   test('signin posts to /api/users/signin with the credentials', () => {
     signin('ada@example.com', 'Secret123');
 
-    expect(mockedAxiosPublic).toHaveBeenCalledWith([userSigninActions], expect.objectContaining({ successHandler: expect.any(Function) }));
-    expect(mockInnerCall).toHaveBeenCalledWith('post', '/api/users/signin', { email: 'ada@example.com', password: 'Secret123' });
+    expect(mockedAxiosPublic).toHaveBeenCalledWith(
+      [userSigninActions],
+      expect.objectContaining({ successHandler: expect.any(Function) })
+    );
+    expect(mockInnerCall).toHaveBeenCalledWith('post', '/api/users/signin', {
+      email: 'ada@example.com',
+      password: 'Secret123',
+    });
 
     const { successHandler } = mockedAxiosPublic.mock.calls[0][1] as { successHandler: (d: unknown) => void };
     successHandler({ _id: 'u2' });
     expect(Storage[KEY.USER_INFO]).toEqual({ _id: 'u2' });
   });
 
-  test('signout clears the local storage keys and resets the sign-in state', () => {
+  test('signout clears the local storage keys and resets the sign-in state', async () => {
     Storage[KEY.USER_INFO] = { _id: 'u1' };
     const dispatch = jest.fn();
+    const getState = jest.fn(() => ({ userSignin: { userInfo: undefined } }));
 
-    signout()(dispatch);
+    await signout()(dispatch, getState as never);
 
     expect(Storage[KEY.USER_INFO]).toBe('');
     expect(dispatch).toHaveBeenCalledWith(userSigninActions._RESET(''));
+  });
+
+  test('signout revokes the refresh token server-side when a token is present', async () => {
+    Storage[KEY.USER_INFO] = { _id: 'u1' };
+    const dispatch = jest.fn();
+    const getState = jest.fn(() => ({ userSignin: { userInfo: { token: 'access-token' } } }));
+    mockedAxiosPost.mockResolvedValueOnce({} as never);
+
+    await signout()(dispatch, getState as never);
+
+    expect(mockedAxiosPost).toHaveBeenCalledWith(
+      expect.stringContaining('/api/users/logout'),
+      null,
+      expect.objectContaining({ headers: { Authorization: 'Bearer access-token' } })
+    );
   });
 
   test('detailsUser fetches a single user through the authenticated client', () => {
@@ -80,7 +108,11 @@ describe('userAPI', () => {
       [userUpdateProfileActions],
       expect.objectContaining({ successAction: userSigninActions._SUCCESS })
     );
-    expect(mockInnerCall).toHaveBeenCalledWith('patch', '/api/users/profile', { _id: 'u1', name: 'Ada', email: 'ada@example.com' });
+    expect(mockInnerCall).toHaveBeenCalledWith('patch', '/api/users/profile', {
+      _id: 'u1',
+      name: 'Ada',
+      email: 'ada@example.com',
+    });
 
     const { successHandler } = mockedAxiosPrivate.mock.calls[0][1] as { successHandler: (d: unknown) => void };
     successHandler({ _id: 'u1', name: 'Ada Updated' });
