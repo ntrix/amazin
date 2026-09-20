@@ -96,55 +96,55 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 [codecov]: https://codecov.io/
 [sonar]: https://sonarcloud.io/
 
-## Test Coverage
+## Architecture (backend)
 
-Unit tests now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
+How this frontend's backend is deployed since the AWS migration — full write-up in [amazin-be][bev1]:
 
-- 30 new test files (156 tests total), plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
-- Jest now runs consistently both via `nx test` and directly from the IDE
-- ~51% line coverage
+```mermaid
+flowchart TB
+  GitHubBE["GitHub: BE push to main<br/><b>amazin-be</b>"] --> ActionsBE["GitHub BE Actions<br/>OIDC role"]
+  ActionsBE -->|"push image"| ECR[("ECR")]
+  ActionsBE -->|"register + deploy"| Service
 
-Organized around a Clean Architecture-style 4-layer split (Presentation → Application → Domain → Infrastructure):
+  DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
+  ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
 
-| Layer | Covers | Test files |
-| ----- | ------ | ---------- |
-| 1. Presentation — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
-| 2. Application — hooks orchestrating business logic | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
-| 3. Domain — Redux slices (app state) | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
-| 4. Infrastructure — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
-| Shared utilities (used across all 4 layers) | Form validation, search ranking, currency formatting, image URLs | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath` |
+  GitHubFE["GitHub: FE push to nx<br/><b>amazin</b>"] --> ActionsFE["GitHub FE Actions"]
+  ActionsFE -->|"push image"| Netlify(["Netlify<br/><b>active frontend</b>"]) .->|"?"| Render
+  Netlify -->|"HTTPS :443"| ALB["ALB"]
+  ActionsFE -->|"push image"| Vercel(["Vercel<br/><i>suspense</i>"]) -->|"HTTPS :443"| Render
+  ALB -->|forwards| TG["Target Group"]
+  TG -->|"routes by IP"| Task["Fargate Task"]
+  Task -->|queries| Mongo[("MongoDB Atlas")]
+  Service["ECS Service"] -->|"launches, restarts"| Task
+  Service -->|registers| TG
 
-## Demo
+  ~~~Role["IAM Execution Role"] -. "task assumes" .-> Task
+  Role -. "pulls image" .-> ECR
+  Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
+  Role -. "reads secrets" .-> SSM[("SSM + KMS")]
 
-### Sort, Filter, Search, Nav, SideNav
+  TG -. watches .-> Alarms["CloudWatch Alarms"]
+  Alarms --> SNS["SNS Topic"]
+  SNS --> Email([Email])
 
-![Sort Filter Search Nav SideNav][sort-filter-search-nav-side-nav]
+  Task -. "unhandled errors" .-> Sentry[("Sentry")]
+  Task -. "APM traces" .-> NewRelic[("New Relic")]
+  Task -. "docs (planned)" .-> OpenAPI["OpenAPI<br>/api-docs"]
+  Sentry -. "alerts (planned)" .-> Slack[("Slack")]
+  Sentry -. alerts .-> Email
+  NewRelic -. "alerts (planned)" .-> Slack
+  NewRelic -. alerts .-> Email
 
-### Screen, SubNav, SearchFilter, Pagination
+  Render[["Render<br/><i>passive failover, unchanged</i>"]]
 
-![Screen SubNav SearchFilter Pagination][screen-sub-nav-search-filter-pagination]
-
-### Responsive any size
-
-![Responsive][responsive]
-
-### Currency, Shipping, Payment, Contact, Profile, Validate
-
-![Currency Shipping Payment Contact Profile Validate][currency-shipping-payment-contact-profile-validate]
-
-### Content, Management, Product, Image, User, Order
-
-![Content Management Product Image User Order][content-management-product-image-user-order]
-
-[content-management-product-image-user-order]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Content%20Management%20Product%20Image%20User%20Order.gif
-[currency-shipping-payment-contact-profile-validate]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Currency%20Shipping%20Payment%20Contact%20Profile%20Validate.gif
-[responsive]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Responsive.gif
-[screen-sub-nav-search-filter-pagination]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Screen%20SubNav%20SearchFilter%20Pagination.gif
-[sort-filter-search-nav-side-nav]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Sort%20Filter%20Search%20Nav%20SideNav.gif
-
-## Preview video
-
-[![Preview video on youtube](https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/preview-video-on-youtube.png)](https://www.youtube.com/watch?v=7GNQKYdpDHQ)
+  subgraph VPC["VPC · eu-central-1"]
+    ALB
+    TG
+    Task
+    Service
+  end
+```
 
 ## Learning by Doing
 
@@ -211,47 +211,55 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 [amazin-story-vercel]: https://amazin-storybook.vercel.app/
 [nav currency search suggest category filter]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Nav%20Currency%20Search%20Suggest%20Category%20Filter.gif
 
-## Architecture (backend)
+## Demo
 
-How this frontend's backend is deployed since the AWS migration — full write-up in [amazin-be][bev1]:
+### Sort, Filter, Search, Nav, SideNav
 
-```mermaid
-flowchart TB
-  GitHub["GitHub: push to main"] --> Actions["GitHub Actions<br/>OIDC role"]
-  Actions -->|"push image"| ECR[("ECR")]
-  Actions -->|"register + deploy"| Service
+![Sort Filter Search Nav SideNav][sort-filter-search-nav-side-nav]
 
-  DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
-  ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
+### Screen, SubNav, SearchFilter, Pagination
 
-  Netlify(["Netlify<br/>this frontend"]) -->|"HTTPS :443"| ALB["ALB"]
-  ALB -->|forwards| TG["Target Group"]
-  TG -->|"routes by IP"| Task["Fargate Task"]
-  Task -->|queries| Mongo[("MongoDB Atlas")]
-  Service["ECS Service"] -->|"launches, restarts"| Task
-  Service -->|registers| TG
+![Screen SubNav SearchFilter Pagination][screen-sub-nav-search-filter-pagination]
 
-  Role["IAM Execution Role"] -. "task assumes" .-> Task
-  Role -. "pulls image" .-> ECR
-  Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
-  Role -. "reads secrets" .-> SSM[("SSM + KMS")]
+### Responsive any size
 
-  TG -. watches .-> Alarms["CloudWatch Alarms"]
-  Alarms --> SNS["SNS Topic"]
-  SNS --> Email([Email])
+![Responsive][responsive]
 
-  Task -. "unhandled errors" .-> Sentry[("Sentry")]
-  Task -. "APM traces" .-> NewRelic[("New Relic")]
+### Currency, Shipping, Payment, Contact, Profile, Validate
 
-  Render[["Render<br/>unchanged, passive failover"]]
+![Currency Shipping Payment Contact Profile Validate][currency-shipping-payment-contact-profile-validate]
 
-  subgraph VPC["VPC · eu-central-1"]
-    ALB
-    TG
-    Task
-    Service
-  end
-```
+### Content, Management, Product, Image, User, Order
+
+![Content Management Product Image User Order][content-management-product-image-user-order]
+
+[content-management-product-image-user-order]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Content%20Management%20Product%20Image%20User%20Order.gif
+[currency-shipping-payment-contact-profile-validate]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Currency%20Shipping%20Payment%20Contact%20Profile%20Validate.gif
+[responsive]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Responsive.gif
+[screen-sub-nav-search-filter-pagination]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Screen%20SubNav%20SearchFilter%20Pagination.gif
+[sort-filter-search-nav-side-nav]: https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/gif/Sort%20Filter%20Search%20Nav%20SideNav.gif
+
+## Preview video
+
+[![Preview video on youtube](https://raw.githubusercontent.com/ntrix/amazin/nx/apps/amazin/src/stories/img/preview-video-on-youtube.png)](https://www.youtube.com/watch?v=7GNQKYdpDHQ)
+
+## Test Coverage
+
+Unit tests now run on every push/PR via GitHub Actions, with coverage reported to Codecov (badges at the top of this page). Previously reported to Code Climate, which shut down its Test Coverage product in 2025.
+
+- 30 new test files (156 tests total), plus 2 pre-existing tests fixed (silent regressions that had gone unnoticed for lack of CI)
+- Jest now runs consistently both via `nx test` and directly from the IDE
+- ~51% line coverage
+
+Organized around a Clean Architecture-style 4-layer split (Presentation → Application → Domain → Infrastructure):
+
+| Layer | Covers | Test files |
+| ----- | ------ | ---------- |
+| 1. Presentation — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
+| 2. Application — hooks orchestrating business logic | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
+| 3. Domain — Redux slices (app state) | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
+| 4. Infrastructure — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
+| Shared utilities (used across all 4 layers) | Form validation, search ranking, currency formatting, image URLs | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath` |
 
 ## Source code
 
