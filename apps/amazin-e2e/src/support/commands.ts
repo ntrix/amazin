@@ -17,7 +17,12 @@ Cypress.Commands.add('register', (name, email, password) => {
 });
 
 Cypress.Commands.add('login', (email, password) => {
-  cy.get('#email').clear().type(email);
-  cy.get('#password').clear().type(password);
+  // called right after a client-side redirect to /signin (a lazy-loaded
+  // route) rather than a full page visit, so the chunk may still be
+  // loading - give it more room than the default command timeout
+  cy.get('#email', { timeout: 10000 }).clear();
+  cy.get('#email').type(email);
+  cy.get('#password').clear();
+  cy.get('#password').type(password);
   cy.contains('button', 'Sign In').click();
 });
