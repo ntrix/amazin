@@ -139,7 +139,6 @@ flowchart TB
 
   Task -. "image upload" .-> Cloudinary[("Cloudinary")]
   Task -. "contact/alert email" .-> SendGrid[("SendGrid")]
-  Task -. "currency rates" .-> Rates[("exchangeratesapi.io")]
 
   Task -. "unhandled errors" .-> Sentry[("Sentry")]
   Task -. "APM traces" .-> NewRelic[("New Relic")]
@@ -149,7 +148,7 @@ flowchart TB
   NewRelic -. alerts .-> Slack
   NewRelic -. alerts .-> Email
 
-  GitHubStory["GitHub: amazin-story push<br/><i>separate repo</i>"] -.->|"manual deploy"| Storybook(["Storybook<br/>design system"])
+  GitHubStory["GitHub: amazin-story push<br/><i>separate repo</i>"] -.-> Storybook(["Storybook<br/>design system"])
 
   Render[["Render<br/><i>passive failover, unchanged</i>"]]
 
