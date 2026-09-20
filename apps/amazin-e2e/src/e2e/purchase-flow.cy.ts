@@ -26,14 +26,12 @@ describe('Purchase flow: register -> browse -> cart -> checkout -> order', () =>
 
     cy.contains('button', 'Proceed to Buy').click();
 
-    // this always routes through /signin?redirect=shipping even when
-    // already authenticated - if the form is shown, sign back in with the
-    // same credentials to follow the redirect through to /shipping
-    cy.location('pathname').then((path) => {
-      if (path === '/signin') {
-        cy.login(email, password);
-      }
-    });
+    // routes through /signin?redirect=shipping, but since we're already
+    // authenticated (client-side navigation, Redux state persists) the
+    // signin screen's own effect immediately redirects through to
+    // /shipping - real-browser timing measured this at <100ms, faster
+    // than any Cypress command can reliably observe the intermediate
+    // /signin state, so don't try to catch and re-submit that form
     cy.location('pathname', { timeout: 10000 }).should('eq', '/shipping');
 
     cy.get('#full-name').clear();
