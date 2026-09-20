@@ -13,7 +13,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 ## Live demo, PWA, QR code
 
 | **[amazim.netlify.app][amazim]**   | **[amazin.tiennguyen.de][amazin]**   |
-| ---------------------------------- | ------------------------------------ |
+| ----------------------------------- | ------------------------------------- |
 | ![amazim.netlify.app QR][qramazim] | ![amazin.tiennguyen.de QR][qramazin] |
 
 ![Amazon Clone built with React and Node demo Nav Currency Search Suggest Category Filter][nav currency search suggest category filter]
@@ -34,7 +34,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 - **Hand-rolled Suspense resource cache** (`apis/suspenseAPI.tsx`) — implements the throw-a-pending-promise contract Suspense itself relies on, so every image is preloaded exactly once app-wide, not just wrapped in `React.lazy`
 - **A homemade "RTK Query" precursor** (`axiosClient.ts`'s `axiosRedux` + `ReduxToolKitClient.ts`) — one factory generates the `_REQUEST/_SUCCESS/_FAIL` thunk and reducer for every slice, replacing what would otherwise be near-duplicated boilerplate across cart/order/product/user
-- **Hover _and_ focus prefetch on category nav** — data loads before the click, debounced so a fast mouse sweep doesn't fire a dozen requests, and wired to `onFocus` too so keyboard users get the same perceived-performance boost
+- **Hover *and* focus prefetch on category nav** — data loads before the click, debounced so a fast mouse sweep doesn't fire a dozen requests, and wired to `onFocus` too so keyboard users get the same perceived-performance boost
 - **Per-route resilience**: code-splitting with prefetch hints, an error boundary around every route so one screen failing can't take down the app, and skeleton loaders shaped like the real content instead of a generic spinner
 - **Declarative, data-driven form validation** (`validateRules.ts`) — every field is a `[message, regex]` table row, not imperative per-field code, so adding a new validated field never touches the validation logic itself
 
@@ -106,13 +106,13 @@ Unit tests now run on every push/PR via GitHub Actions, with coverage reported t
 
 Organized around a Clean Architecture-style 4-layer split (Presentation → Application → Domain → Infrastructure):
 
-| Layer                                               | Covers                                                                                                                                                  | Test files                                                                                                                                                                     |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Layer | Covers | Test files |
+| ----- | ------ | ---------- |
 | 1. Presentation — screens, components, route guards | Sign in/up, contact, shipping, currency forms; `Rating`, `Pagination`, `MessageBox`, `BaseTable`; `PrivateRoute`/`SellerRoute`/`AdminRoute` auth guards | `SigninScreen`, `RegisterScreen`, `ContactScreen`, `ShippingAddressScreen`, `CurrencyScreen`, `Rating`, `Pagination`, `MessageBox`, `BaseTable`, `PrivateRoute`, `SellerRoute` |
-| 2. Application — hooks orchestrating business logic | Debouncing, DOM portals, nav-search keyboard handling                                                                                                   | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState`                                                                                                 |
-| 3. Domain — Redux slices (app state)                | Cart/user reducers, the generic reducer factory shared by every slice                                                                                   | `CartSlice`, `UserSlice`, `ReduxToolKitClient`                                                                                                                                 |
-| 4. Infrastructure — data access / thunks            | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper                                                                                  | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI`                                                                                                   |
-| Shared utilities (used across all 4 layers)         | Form validation, search ranking, currency formatting, image URLs                                                                                        | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath`                                                                        |
+| 2. Application — hooks orchestrating business logic | Debouncing, DOM portals, nav-search keyboard handling | `useDebounce`, `useDoThenDebounce`, `usePortal`, `useKeyInput`, `useSafeState` |
+| 3. Domain — Redux slices (app state) | Cart/user reducers, the generic reducer factory shared by every slice | `CartSlice`, `UserSlice`, `ReduxToolKitClient` |
+| 4. Infrastructure — data access / thunks | The shared `axiosRedux` thunk factory, and every REST endpoint wrapper | `axiosClient`, `userAPI`, `cartAPI`, `orderAPI`, `productAPI`, `suspenseAPI` |
+| Shared utilities (used across all 4 layers) | Form validation, search ranking, currency formatting, image URLs | `validate`, `debounce`, `findSuggest`, `currencyPipe`, `throttle`, `getImgUrl`, `shortName`, `savePath` |
 
 ## Demo
 
@@ -156,37 +156,37 @@ I had to break the big task into smaller parts, do it step by step and enjoy lea
 Yes, **Learning by Doing** that's my approach. If you see a long path ahead, don't heap or run or give up, just divide the path(process) to steps and make (conquer) the first one, and then another one.
 I learned a lot of stuff, also renew and update my knowledge just by doing. You might too have a curiosity about the process of building the same scale app as well, but just let's do it.
 
-| Part | Description                                                                                                                                                         | Status   |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas]                                                                                                   | Done     |
-| 01b  | Backend v1: [Source][bev1], [Node][node], [Express][express]                                                                                                        | Done     |
-| 01c  | Backend Deploy: [Heroku][heroku] / Firebase                                                                                                                         | Done     |
-| 01d  | Heroku account deleted (long inactivity) → migrated to Cyclic.sh (serverless)                                                                                       | Done     |
-| 01e  | Cyclic.sh shut down (2024) → migrated to [Render][render] (free tier)                                                                                               | Done     |
-| 01f  | Backend fixes on Render — full detail in [amazin-be][bev1]                                                                                                          | Done     |
-| 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]                                                                                                         | Done     |
-| 02b  | Frontend Deploy: [Vercel][vercel]                                                                                                                                   | Done     |
-| 02c  | Vercel disabled → migrated to [Netlify][netlify]                                                                                                                    | Done     |
-| 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                                                                                                                  | Done     |
-| 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR                                                                              | Done     |
+| Part | Description                                                       | Status   |
+| ---- | ----------------------------------------------------------------- | -------- |
+| 01a  | Database: [Mongo DB][mongo], [Mongoose][mongoose], [Atlas][atlas] | Done     |
+| 01b  | Backend v1: [Source][bev1], [Node][node], [Express][express]      | Done     |
+| 01c  | Backend Deploy: [Heroku][heroku] / Firebase                       | Done     |
+| 01d  | Heroku account deleted (long inactivity) → migrated to Cyclic.sh (serverless) | Done     |
+| 01e  | Cyclic.sh shut down (2024) → migrated to [Render][render] (free tier) | Done     |
+| 01f  | Backend fixes on Render — full detail in [amazin-be][bev1]        | Done     |
+| 02a  | Frontend v1: [Source][mvp1], [React][react], [Redux][redux]       | Done     |
+| 02b  | Frontend Deploy: [Vercel][vercel]                                 | Done     |
+| 02c  | Vercel disabled → migrated to [Netlify][netlify]                  | Done     |
+| 03a  | Frontend v3: [Source][fenx], Migration to [Nx][nx]                | Done     |
+| 03b  | [Testing in React][testing]: unit tests (utils, redux, hooks, screens) + CI on push/PR | Done     |
 | 03c  | E2E testing with [Cypress][cy]:<br>- purchase flow (register → browse → cart → checkout → order)<br>- seller flow (register → seller verification → create product) | Done     |
-| 03d  | Code quality tooling: [Codecov][codecov] (coverage, replacing Code Climate — shut down 2025) + [SonarQube Cloud][sonar] (code smells, replacing DeepSource)         | Done     |
-| 04   | Performance & Experiment some [unstable React API][reactapi]                                                                                                        | Done     |
-| 05a  | ~~[AWS Cloud Backend?][aws] (no free tier anymore)~~ — used [Render][render] instead; revisited in 10a-10c                                                          | Done     |
-| 05b  | Backend [DB cache][redis]                                                                                                                                           | Doing    |
-| 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]                                                                                                             | **Todo** |
-| ..   | ..                                                                                                                                                                  | ..       |
-| 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs                                                                                                            | Done     |
-| 09b  | [Documentation][mdx]                                                                                                                                                | Doing    |
-| 09c  | Migration to TypeScript                                                                                                                                             | **Done** |
-| 10a  | Backend containerized with [Docker][docker] (multi-stage build) — full detail in [amazin-be][bev1]                                                                  | Done     |
-| 10b  | Backend migrated to AWS ECS Fargate + ALB, HTTPS via `api.tiennguyen.de` — [Render][render] kept running as a passive failover                                      | Done     |
-| 10c  | `netlify.toml` stopped hard-coding the backend URL — the Netlify dashboard env var is now the single source of truth                                                | Done     |
-| 10d  | Backend: CloudWatch Alarms (unhealthy target, 5xx errors) → SNS email — full detail in [amazin-be][bev1]                                                            | Done     |
-| 10e  | Backend: GitHub Actions CI/CD (build → ECR → ECS deploy) via OIDC, no AWS keys stored in GitHub                                                                     | Done     |
-| 11a  | Pre-commit tooling (Husky + lint-staged + commitlint) + a real lint/typecheck gate in CI (the old lint target silently matched zero files)                          | Done     |
-| 11b  | E2E specs (03c) wired into GitHub Actions — real MongoDB + backend + production build, seeded, both flows headless on every push                                    | Done     |
-| 11c  | Backend: logging, error handling, migrations, atomic stock checks, doubled test suite — full detail in [amazin-be][bev1]                                            | Done     |
+| 03d  | Code quality tooling: [Codecov][codecov] (coverage, replacing Code Climate — shut down 2025) + [SonarQube Cloud][sonar] (code smells, replacing DeepSource) | Done     |
+| 04   | Performance & Experiment some [unstable React API][reactapi]      | Done     |
+| 05a  | ~~[AWS Cloud Backend?][aws] (no free tier anymore)~~ — used [Render][render] instead; revisited in 10a-10c | Done     |
+| 05b  | Backend [DB cache][redis]                                         | Doing    |
+| 06   | AB Testing, Error Tracing [(React Profiler?)][profiler]           | **Todo** |
+| ..   | ..                                                                | ..       |
+| 09a  | [StoryBook UI Components][storybook], isolate UI/UI libs          | Done     |
+| 09b  | [Documentation][mdx]                                              | Doing    |
+| 09c  | Migration to TypeScript                                           | **Done** |
+| 10a  | Backend containerized with [Docker][docker] (multi-stage build) — full detail in [amazin-be][bev1] | Done |
+| 10b  | Backend migrated to AWS ECS Fargate + ALB, HTTPS via `api.tiennguyen.de` — [Render][render] kept running as a passive failover | Done |
+| 10c  | `netlify.toml` stopped hard-coding the backend URL — the Netlify dashboard env var is now the single source of truth | Done |
+| 10d  | Backend: CloudWatch Alarms (unhealthy target, 5xx errors) → SNS email — full detail in [amazin-be][bev1] | Done |
+| 10e  | Backend: GitHub Actions CI/CD (build → ECR → ECS deploy) via OIDC, no AWS keys stored in GitHub | Done |
+| 11a  | Pre-commit tooling (Husky + lint-staged + commitlint) + a real lint/typecheck gate in CI (the old lint target silently matched zero files) | Done |
+| 11b  | E2E specs (03c) wired into GitHub Actions — real MongoDB + backend + production build, seeded, both flows headless on every push | Done |
+| 11c  | Backend: logging, error handling, migrations, atomic stock checks, doubled test suite — full detail in [amazin-be][bev1] | Done |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
@@ -277,17 +277,17 @@ Have your Nx CLI installed:
 
 Create a `.env` file with the variables below, then `npm start`
 
-| Variable                                                                 | What it's for                                                                        | Where to get it                                                                                                                             |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `REACT_APP_BACKEND_URL`                                                  | Base URL of the backend API                                                          | Your running [amazin-be][bev1] instance (Render, or the AWS endpoint)                                                                       |
-| `REACT_APP_API_KEY`                                                      | Movie/TV data for the Netflux screen                                                 | [The Movie Database (TMDB)](https://www.themoviedb.org/) free account → **Settings → API** → request an API key                             |
-| `REACT_APP_IMG_BASE_URL`                                                 | Base URL product images are served from                                              | The same [Cloudinary](https://cloudinary.com/) account as the backend's `CD_NAME` — `https://res.cloudinary.com/<cloud_name>/image/upload/` |
-| `REACT_APP_ENVIRONMENT`                                                  | `development` or `production`                                                        | Not a service — set by you                                                                                                                  |
-| `REACT_APP_CONTACT_MAIL_SERVER`                                          | Where the contact form POSTs directly (a different origin than the usual API client) | The backend's contact endpoint — same host as `REACT_APP_BACKEND_URL`                                                                       |
-| `REACT_APP_SELLER`                                                       | Mongo `_id` of the seller whose products populate the Netflux/video catalog          | Look up (or seed) a seller user in your MongoDB Atlas cluster and copy its `_id`                                                            |
-| `REACT_APP_RATES_SOURCE`                                                 | Attribution link shown next to the currency rate                                     | Any URL — e.g. your `RATES_API_KEY` provider's site (see [amazin-be][bev1])                                                                 |
-| `REACT_APP_RATES_CHART`                                                  | "Statistics Chart" link in the seller nav                                            | Any URL you want that link to open                                                                                                          |
-| `REACT_APP_COMMUNITY`                                                    | "Community" sidebar link                                                             | Any URL (Discord, forum, ...)                                                                                                               |
-| `REACT_APP_CONTACT`                                                      | "#contact developer" sidebar link                                                    | Any URL                                                                                                                                     |
-| `REACT_APP_USER_TOUR` / `REACT_APP_ADMIN_TOUR` / `REACT_APP_SELLER_TOUR` | "Quick Tutor" / "Admin Tour" / "Seller Tour" links, per role                         | Any URL — e.g. a demo video, not a service                                                                                                  |
-| `SKIP_PREFLIGHT_CHECK`                                                   | Silences CRA's strict dependency-version check                                       | Not a service — just set to `true`                                                                                                          |
+| Variable | What it's for | Where to get it |
+| -------- | -------------- | ---------------- |
+| `REACT_APP_BACKEND_URL` | Base URL of the backend API | Your running [amazin-be][bev1] instance (Render, or the AWS endpoint) |
+| `REACT_APP_API_KEY` | Movie/TV data for the Netflux screen | [The Movie Database (TMDB)](https://www.themoviedb.org/) free account → **Settings → API** → request an API key |
+| `REACT_APP_IMG_BASE_URL` | Base URL product images are served from | The same [Cloudinary](https://cloudinary.com/) account as the backend's `CD_NAME` — `https://res.cloudinary.com/<cloud_name>/image/upload/` |
+| `REACT_APP_ENVIRONMENT` | `development` or `production` | Not a service — set by you |
+| `REACT_APP_CONTACT_MAIL_SERVER` | Where the contact form POSTs directly (a different origin than the usual API client) | The backend's contact endpoint — same host as `REACT_APP_BACKEND_URL` |
+| `REACT_APP_SELLER` | Mongo `_id` of the seller whose products populate the Netflux/video catalog | Look up (or seed) a seller user in your MongoDB Atlas cluster and copy its `_id` |
+| `REACT_APP_RATES_SOURCE` | Attribution link shown next to the currency rate | Any URL — e.g. your `RATES_API_KEY` provider's site (see [amazin-be][bev1]) |
+| `REACT_APP_RATES_CHART` | "Statistics Chart" link in the seller nav | Any URL you want that link to open |
+| `REACT_APP_COMMUNITY` | "Community" sidebar link | Any URL (Discord, forum, ...) |
+| `REACT_APP_CONTACT` | "#contact developer" sidebar link | Any URL |
+| `REACT_APP_USER_TOUR` / `REACT_APP_ADMIN_TOUR` / `REACT_APP_SELLER_TOUR` | "Quick Tutor" / "Admin Tour" / "Seller Tour" links, per role | Any URL — e.g. a demo video, not a service |
+| `SKIP_PREFLIGHT_CHECK` | Silences CRA's strict dependency-version check | Not a service — just set to `true` |
