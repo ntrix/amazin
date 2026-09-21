@@ -129,8 +129,9 @@ flowchart TB
   Task -->|queries| Mongo[("MongoDB Atlas")]
   Service["ECS Service"] -->|"launches, restarts"| Task
   Service -->|registers| TG
+  Netlify -. "unhandled FE errors" .-> Sentry
 
-  ~~~Role["IAM Execution Role"] -. "task assumes" .-> Task
+  Role["IAM Execution Role"] -. "task assumes" .-> Task
   Role -. "pulls image" .-> ECR
   Role -. "writes logs" .-> Logs[("CloudWatch Logs")]
   Role -. "reads secrets" .-> SSM[("SSM + KMS")]
@@ -142,13 +143,13 @@ flowchart TB
   Task -. "image upload" .-> Cloudinary[("Cloudinary")]
   Task -. "contact/alert email" .-> SendGrid[("SendGrid")]
 
-  Task -. "unhandled errors" .-> Sentry[("Sentry")]
-  Task -. "APM traces" .-> NewRelic[("New Relic")]
-  Task -. "docs (planned)" .-> OpenAPI["OpenAPI<br>/api-docs"]
-  Sentry -. "alerts (planned)" .-> Slack[("Slack")]
+  Sentry -. alerts .-> Slack[("Slack")]
   Sentry -. alerts .-> Email
   NewRelic -. alerts .-> Slack
   NewRelic -. alerts .-> Email
+  Task -. "unhandled BE errors" .-> Sentry[("Sentry<br>double layer")]
+  Task -. "APM traces" .-> NewRelic[("New Relic")]
+  Task -. "docs (planned)" .-> OpenAPI["OpenAPI<br>/api-docs"]
 
   GitHubStory["GitHub: amazin-story push<br/><i>separate repo</i>"] -.-> Storybook(["Storybook<br/>design system"])
 
