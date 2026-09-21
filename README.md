@@ -68,8 +68,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
   - [Swiper][swiper] — carousels/sliders
   - ...
 - [GitHub Actions][ghactions] — CI/CD, push image to hosts
-- [Netlify][netlify] — hosting/CDN (active frontend)
-- [Vercel][vercel] — hosting/CDN (suspense, standby)
+- [Render][render] — hosting/CDN (active frontend, static site, custom domain `amazin.tiennguyen.de`) — previously Vercel (suspended, unresolved), then Netlify (free build-minutes exhausted)
 
 ### Backend Stack
 
@@ -120,16 +119,16 @@ flowchart TB
   DNS["Namecheap DNS<br/>api.tiennguyen.de"] -. CNAME .-> ALB
   ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
 
-  GitHubFE["GitHub: FE push to nx<br/><b>amazin</b>"] --> ActionsFE["GitHub FE Actions"]
-  ActionsFE -->|"push image"| Netlify(["Netlify<br/><b>active frontend</b>"]) .->|"?"| Render
-  Netlify -->|"HTTPS :443"| ALB["ALB"]
-  ActionsFE -->|"push image"| Vercel(["Vercel<br/><i>suspense</i>"]) -->|"HTTPS :443"| Render
+  GitHubFE["GitHub: FE push to nx<br/><b>amazin</b>"] --> ActionsFE["GitHub FE Actions<br/>CI"]
+  GitHubFE -.->|"native auto-deploy"| RenderFE(["Render<br/><b>active frontend, static site</b>"])
+  DNSFE["Namecheap DNS<br/>amazin.tiennguyen.de"] -. "CNAME<br/>Render-managed TLS" .-> RenderFE
+  RenderFE -->|"HTTPS :443"| ALB["ALB"]
   ALB -->|forwards| TG["Target Group"]
   TG -->|"routes by IP"| Task["Fargate Task"]
   Task -->|queries| Mongo[("MongoDB Atlas")]
   Service["ECS Service"] -->|"launches, restarts"| Task
   Service -->|registers| TG
-  Netlify -. "unhandled FE errors" .-> Sentry
+  RenderFE -. "unhandled FE errors" .-> Sentry
 
   Role["IAM Execution Role"] -. "task assumes" .-> Task
   Role -. "pulls image" .-> ECR
@@ -153,7 +152,7 @@ flowchart TB
 
   GitHubStory["GitHub: amazin-story push<br/><i>separate repo</i>"] -.-> Storybook(["Storybook<br/>design system"])
 
-  Render[["Render<br/><i>passive failover, unchanged</i>"]]
+  Render[["Render<br/><i>BE passive failover, unchanged</i>"]]
 
   subgraph VPC["VPC · eu-central-1"]
     ALB
@@ -205,6 +204,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 11a  | Pre-commit tooling (Husky + lint-staged + commitlint) + a real lint/typecheck gate in CI (the old lint target silently matched zero files) | Done |
 | 11b  | E2E specs (03c) wired into GitHub Actions — real MongoDB + backend + production build, seeded, both flows headless on every push | Done |
 | 11c  | Backend: logging, error handling, migrations, atomic stock checks, doubled test suite — full detail in [amazin-be][bev1] | Done |
+| 11d  | Frontend hosting: Vercel suspended (unresolved) and Netlify free build-minutes exhausted at the same time — migrated to [Render][render] Static Site, custom domain `amazin.tiennguyen.de` kept via a DNS CNAME switch (Render provisions its own TLS cert, no ACM needed unlike the ALB) | Done |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
