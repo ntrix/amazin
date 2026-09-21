@@ -145,7 +145,7 @@ flowchart TB
   Task -. "unhandled errors" .-> Sentry[("Sentry")]
   Task -. "APM traces" .-> NewRelic[("New Relic")]
   Task -. "docs (planned)" .-> OpenAPI["OpenAPI<br>/api-docs"]
-  Sentry -. "alerts (planned)" .-> Slack[("Slack")]
+  Sentry -. alerts .-> Slack[("Slack")]
   Sentry -. alerts .-> Email
   NewRelic -. alerts .-> Slack
   NewRelic -. alerts .-> Email
