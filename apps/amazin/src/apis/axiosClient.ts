@@ -1,8 +1,17 @@
 import axios, { Method } from 'axios';
+import store from 'src/store';
+import { userSigninActions } from 'src/slice/UserSlice';
+import { Storage } from 'src/utils';
+import { KEY } from 'src/constants';
+
+// so the browser sends the httpOnly refresh-token cookie cross-origin (FE and
+// BE are on different domains) to every request, not just the refresh call
+axios.defaults.withCredentials = true;
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
-  headers: { mode: 'cors' }
+  headers: { mode: 'cors' },
+  withCredentials: true,
 });
 
 const getTokenHeader = (authorization: boolean, getState: FnType) =>
@@ -10,7 +19,7 @@ const getTokenHeader = (authorization: boolean, getState: FnType) =>
     ? undefined
     : {
         Authorization: `Bearer ${getState()?.userSignin?.userInfo?.token}`,
-        mode: 'cors'
+        mode: 'cors',
       };
 
 const checkDBError = (data: unknown) => {
@@ -19,6 +28,61 @@ const checkDBError = (data: unknown) => {
 };
 
 const getErrorMsg = (error?: ErrorType) => error?.response?.data?.message ?? error?.message;
+
+const REFRESH_URL = '/api/users/refresh';
+const AUTH_URLS_NOT_TO_RETRY = ['/api/users/signin', '/api/users/register', REFRESH_URL];
+
+function forceSignOut() {
+  Storage[KEY.USER_INFO] = '';
+  store.dispatch(userSigninActions._RESET(''));
+  document.location.href = '/signin';
+}
+
+// concurrent 401s (e.g. several API calls in flight at once) share one
+// in-flight refresh instead of each rotating the refresh cookie themselves
+let refreshPromise: Promise<string | null> | null = null;
+
+function refreshAccessToken(): Promise<string | null> {
+  if (!refreshPromise) {
+    refreshPromise = axios
+      .post(process.env.REACT_APP_BACKEND_URL + REFRESH_URL, null, { withCredentials: true })
+      .then(({ data }: { data: { token: string } }) => {
+        const userInfo = store.getState().userSignin?.userInfo;
+        const updated = { ...userInfo, token: data.token };
+        Storage[KEY.USER_INFO] = updated;
+        store.dispatch(userSigninActions._SUCCESS(updated));
+        return data.token;
+      })
+      .catch(() => {
+        forceSignOut();
+        return null;
+      })
+      .finally(() => {
+        refreshPromise = null;
+      });
+  }
+  return refreshPromise;
+}
+
+// an expired 15-minute access token shouldn't force a re-login - silently
+// refresh once via the httpOnly cookie and retry the request that 401'd
+axios.interceptors.response.use(
+  (response) => response,
+  async (error: ErrorType) => {
+    const config = error?.config as (typeof error.config & { _retry?: boolean }) | undefined;
+    const isAuthEndpoint = AUTH_URLS_NOT_TO_RETRY.some((url) => config?.url?.includes(url));
+
+    if (error?.response?.status === 401 && config && !config._retry && !isAuthEndpoint) {
+      config._retry = true;
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        config.headers = { ...config.headers, Authorization: `Bearer ${newToken}` };
+        return axios(config);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 const axiosRedux =
   (authorization: boolean) =>

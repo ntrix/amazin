@@ -79,6 +79,7 @@ jobs:
           PORT: '5050'
           MONGODB_URL: mongodb://localhost:27017/e2e
           JWT_SECRET_A: e2e-test-secret
+          JWT_REFRESH_SECRET: e2e-test-refresh-secret
           CORS_ORIGINS: http://localhost:3000
           NODE_ENV: test
         run: |
