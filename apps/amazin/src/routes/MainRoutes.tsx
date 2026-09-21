@@ -11,6 +11,9 @@ const CurrencyScreen: Lazy = lazy(
 const RegisterScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/RegisterScreen')
 );
+const OAuthCallbackScreen: Lazy = lazy(
+  (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Auth/OAuthCallbackScreen')
+);
 const SellerScreen: Lazy = lazy(
   (): LazyPromise => import(/* webpackPrefetch: true */ '../screens/Product/SellerScreen')
 );
@@ -52,6 +55,7 @@ export default function MainRoutes() {
       <Route path="/product/:id" component={ProductScreen} exact />
       <Route path="/signin" component={SigninScreen} exact />
       <Route path="/register" component={RegisterScreen} exact />
+      <Route path="/oauth-callback" component={OAuthCallbackScreen} exact />
       <Route path="/shipping" component={ShippingAddressScreen} exact />
       <Route path="/payment" component={PaymentMethodScreen} exact />
       <Route path="/place-order" component={PlaceOrderScreen} exact />
