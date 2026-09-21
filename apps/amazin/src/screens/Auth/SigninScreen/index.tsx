@@ -4,6 +4,7 @@ import { useSignin } from './useSignin';
 import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import PageRedirect from 'src/components/PageRedirect';
+import OAuthButtons from 'src/components/OAuthButtons';
 
 export default function SigninScreen({ location, history }: RouteProps<MatchParams>) {
   const [email, setEmail] = useState('');
@@ -17,9 +18,12 @@ export default function SigninScreen({ location, history }: RouteProps<MatchPara
       statusOf={status || userSignin}
       btn="Sign In"
       more={
-        <PageRedirect to={`/register?redirect=${redirect}`} label="New customer?">
-          <b>Create your account</b>
-        </PageRedirect>
+        <>
+          <OAuthButtons />
+          <PageRedirect to={`/register?redirect=${redirect}`} label="New customer?">
+            <b>Create your account</b>
+          </PageRedirect>
+        </>
       }
     >
       <CustomInput text="Email" type="email" required hook={[email, setEmail]} />

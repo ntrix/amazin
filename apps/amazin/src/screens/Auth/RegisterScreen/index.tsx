@@ -4,6 +4,7 @@ import { useRegister } from './useRegister';
 import Form from 'src/layouts/Form';
 import CustomInput from 'src/components/CustomInput';
 import PageRedirect from 'src/components/PageRedirect';
+import OAuthButtons from 'src/components/OAuthButtons';
 
 export default function RegisterScreen({ location, history }: RouteProps<MatchParams>) {
   const [name, setName] = useState('');
@@ -19,9 +20,12 @@ export default function RegisterScreen({ location, history }: RouteProps<MatchPa
       onSubmit={(e) => submitRegister(e, { name, email, password, confirmPassword })}
       btn="Register"
       more={
-        <PageRedirect label="Already have an account?" to={`/signin?redirect=${redirect}`}>
-          <b>Sign-In</b>
-        </PageRedirect>
+        <>
+          <OAuthButtons />
+          <PageRedirect label="Already have an account?" to={`/signin?redirect=${redirect}`}>
+            <b>Sign-In</b>
+          </PageRedirect>
+        </>
       }
     >
       <CustomInput text="Name" required hook={[name, setName]} />
