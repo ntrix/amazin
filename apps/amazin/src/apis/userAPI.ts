@@ -8,7 +8,7 @@ import {
   userUpdateActions,
   userListActions,
   userDeleteActions,
-  userTopSellerListActions
+  userTopSellerListActions,
 } from '../slice/UserSlice';
 import { Storage } from '../utils';
 import { KEY } from '../constants';
@@ -17,12 +17,12 @@ import { MAIL_SERVER, HEADERS } from 'src/constants';
 export const register = (name: string, email: string, password: string, confirmPassword: string) =>
   axiosPublic([userRegisterActions], {
     successAction: userSigninActions._SUCCESS,
-    successHandler: (_data) => (Storage[KEY.USER_INFO] = _data)
+    successHandler: (_data) => (Storage[KEY.USER_INFO] = _data),
   })('post', '/api/users/register', {
     name,
     email,
     password,
-    confirmPassword
+    confirmPassword,
   });
 
 export const signin = (email: string, password: string) =>
@@ -31,17 +31,32 @@ export const signin = (email: string, password: string) =>
     '/api/users/signin',
     {
       email,
-      password
+      password,
     }
   );
 
-export const signout = () => (dispatch: AppDispatch): void  => {
-  Storage[KEY.USER_INFO] = '';
-  Storage[KEY.CART_ITEMS] = '';
-  Storage[KEY.SHIPPING_ADDRESS] = '';
-  dispatch(userSigninActions._RESET(''));
-  document.location.href = '/signin';
-};
+export const signout =
+  () =>
+  async (dispatch: AppDispatch, getState: FnType): Promise<void> => {
+    // best-effort: revoke the refresh token server-side so it can't be reused,
+    // but a network hiccup shouldn't block signing out locally
+    const token = getState()?.userSignin?.userInfo?.token;
+    if (token) {
+      try {
+        await axios.post(process.env.REACT_APP_BACKEND_URL + '/api/users/logout', null, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } catch {
+        // ignore - local sign-out still proceeds below
+      }
+    }
+
+    Storage[KEY.USER_INFO] = '';
+    Storage[KEY.CART_ITEMS] = '';
+    Storage[KEY.SHIPPING_ADDRESS] = '';
+    dispatch(userSigninActions._RESET(''));
+    document.location.href = '/signin';
+  };
 
 export const publicDetailsSeller = (_id: string) => axiosPublic([userDetailsActions])('get', `/api/users/${_id}`);
 
@@ -51,7 +66,7 @@ export const detailsUser = (_id: string) => axiosPrivate([userDetailsActions])('
 export const updateUserProfile = (user: UserType & ReqLogin, method: Method = 'patch') =>
   axiosPrivate([userUpdateProfileActions], {
     successAction: method !== 'patch' ? userDetailsActions._SUCCESS : userSigninActions._SUCCESS,
-    successHandler: (userInfo) => (Storage[KEY.USER_INFO] = userInfo)
+    successHandler: (userInfo) => (Storage[KEY.USER_INFO] = userInfo),
   })(method, `/api/users/profile`, user);
 
 export const updateUser = (user: UserType) =>

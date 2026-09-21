@@ -5,7 +5,12 @@ jest.mock('axios', () => {
   const mockAxiosInstance = jest.fn();
   return {
     __esModule: true,
-    default: Object.assign(mockAxiosInstance, { create: jest.fn(() => mockAxiosInstance) })
+    default: Object.assign(mockAxiosInstance, {
+      create: jest.fn(() => mockAxiosInstance),
+      post: jest.fn(),
+      defaults: {},
+      interceptors: { response: { use: jest.fn() } },
+    }),
   };
 });
 
@@ -15,7 +20,7 @@ function makeActions(name: string) {
   return {
     _REQUEST: jest.fn(() => ({ type: `${name}/_REQUEST` })),
     _SUCCESS: jest.fn((payload) => ({ type: `${name}/_SUCCESS`, payload })),
-    _FAIL: jest.fn((payload) => ({ type: `${name}/_FAIL`, payload }))
+    _FAIL: jest.fn((payload) => ({ type: `${name}/_FAIL`, payload })),
   };
 }
 
@@ -40,7 +45,10 @@ describe('axiosPublic / axiosPrivate', () => {
     mockedAxios.mockResolvedValueOnce({ data: {} });
     const actions = makeActions('thing');
 
-    await axiosPublic([actions])('get', '/api/things')(jest.fn(), jest.fn(() => ({})));
+    await axiosPublic([actions])('get', '/api/things')(
+      jest.fn(),
+      jest.fn(() => ({}))
+    );
 
     expect(mockedAxios).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ headers: undefined }));
   });
@@ -65,7 +73,10 @@ describe('axiosPublic / axiosPrivate', () => {
     const successHandler = jest.fn();
     const dispatch = jest.fn();
 
-    await axiosPublic([actions], { successAction, successHandler })('get', '/api/things')(dispatch, jest.fn(() => ({})));
+    await axiosPublic([actions], { successAction, successHandler })('get', '/api/things')(
+      dispatch,
+      jest.fn(() => ({}))
+    );
 
     expect(successHandler).toHaveBeenCalledWith({ id: 7 });
     expect(dispatch).toHaveBeenCalledWith(successAction({ id: 7 }));
@@ -76,7 +87,10 @@ describe('axiosPublic / axiosPrivate', () => {
     const actions = makeActions('thing');
     const dispatch = jest.fn();
 
-    await axiosPublic([actions])('get', '/api/things')(dispatch, jest.fn(() => ({})));
+    await axiosPublic([actions])('get', '/api/things')(
+      dispatch,
+      jest.fn(() => ({}))
+    );
 
     expect(dispatch).toHaveBeenCalledWith(actions._FAIL('Not found'));
   });
@@ -86,7 +100,10 @@ describe('axiosPublic / axiosPrivate', () => {
     const actions = makeActions('thing');
     const dispatch = jest.fn();
 
-    await axiosPublic([actions])('get', '/api/things')(dispatch, jest.fn(() => ({})));
+    await axiosPublic([actions])('get', '/api/things')(
+      dispatch,
+      jest.fn(() => ({}))
+    );
 
     expect(dispatch).toHaveBeenCalledWith(actions._FAIL("Couldn't access Database Server!"));
   });

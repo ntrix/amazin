@@ -40,7 +40,7 @@ but also a long term example experimenting some **modern**, **real-world**, **ma
 
 ### Features
 
-- Authenticate users via JWT (login, register, logout button on settings page)
+- Authenticate users via JWT — short-lived access token, httpOnly-cookie refresh token silently retried on expiry, revoked server-side on logout (login, register, logout button on settings page)
 - Sort, Search, Nav, Side Nav, Sub Nav Categories, Search Filter, Search Suggest, Pagination, Multi Currencies, Map Location, Payment, Customer Contact Form, User Profile Update, Validations (Both Backend & Frontend Side)
 - Management of Content (Images, Videos), Products, Users, Orders:
 - _CRUD User(s) (sign up & settings page)_
