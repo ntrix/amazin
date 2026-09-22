@@ -95,6 +95,22 @@ describe('axios 401 refresh interceptor', () => {
     expect(mockDispatch).toHaveBeenCalledWith(userSigninActions._RESET(''));
   });
 
+  test('fills in _id/name/email from the access token claims when there is no prior userInfo (OAuth first login)', async () => {
+    // simulates landing on /oauth-callback with nothing in redux/localStorage yet
+    mockGetState.mockReset().mockReturnValue({ userSignin: {} });
+    const claims = { _id: 'u1', name: 'Ada Lovelace', email: 'ada@example.com', isAdmin: false, isSeller: false };
+    const fakeJwt = `header.${btoa(JSON.stringify(claims))}.signature`;
+    mockedAxios.post.mockResolvedValueOnce({ data: { token: fakeJwt } });
+    mockedAxios.mockResolvedValueOnce({ data: { retried: true } });
+
+    const error = { response: { status: 401 }, config: { url: '/api/orders', headers: {} } };
+    await errorInterceptor(error);
+
+    expect(mockDispatch).toHaveBeenCalledWith(
+      userSigninActions._SUCCESS(expect.objectContaining({ ...claims, token: fakeJwt }))
+    );
+  });
+
   test('only issues one refresh call for concurrent 401s', async () => {
     mockedAxios.post.mockResolvedValueOnce({ data: { token: 'new-token' } });
     mockedAxios.mockResolvedValue({ data: {} });

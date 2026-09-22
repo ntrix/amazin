@@ -38,6 +38,21 @@ function forceSignOut() {
   document.location.href = '/signin';
 }
 
+// The access token's own payload carries _id/name/email/isAdmin/isSeller
+// (see auth/token.js's userClaims) - decoding it fills those in when there's
+// no prior userInfo to spread from (OAuth's first-ever refresh call, landing
+// on /oauth-callback with nothing in Redux yet). Existing userInfo fields
+// still win where both exist, so a normal silent-refresh-on-401 for an
+// already-signed-in user is unaffected (e.g. `currency`, which isn't a JWT
+// claim, is only ever known from userInfo).
+function decodeAccessTokenClaims(token: string): Partial<UserType> {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return {};
+  }
+}
+
 // concurrent 401s (e.g. several API calls in flight at once) share one
 // in-flight refresh instead of each rotating the refresh cookie themselves
 let refreshPromise: Promise<string | null> | null = null;
@@ -48,7 +63,7 @@ function refreshAccessToken(): Promise<string | null> {
       .post(process.env.REACT_APP_BACKEND_URL + REFRESH_URL, null, { withCredentials: true })
       .then(({ data }: { data: { token: string } }) => {
         const userInfo = store.getState().userSignin?.userInfo;
-        const updated = { ...userInfo, token: data.token };
+        const updated = { ...decodeAccessTokenClaims(data.token), ...userInfo, token: data.token };
         Storage[KEY.USER_INFO] = updated;
         store.dispatch(userSigninActions._SUCCESS(updated));
         return data.token;
