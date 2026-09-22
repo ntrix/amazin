@@ -83,7 +83,14 @@ export const sendContactMessage =
   (contactData: ContactType, setStatus: SetStateType<StatusType>) => async (dispatch: AppDispatch) => {
     setStatus({ loading: true, msg: 'Your message is being sent.' });
     try {
-      await axios.post(MAIL_SERVER, contactData, { headers: { ...HEADERS, body: JSON.stringify(contactData) } });
+      // withCredentials: false - MAIL_SERVER is a third party, not our own
+      // backend; axios.defaults.withCredentials = true (axiosClient.ts) is
+      // global and would otherwise attach it here too, which a browser
+      // rejects outright against a wildcard Access-Control-Allow-Origin.
+      await axios.post(MAIL_SERVER, contactData, {
+        headers: { ...HEADERS, body: JSON.stringify(contactData) },
+        withCredentials: false,
+      });
       setStatus({ msg: 'Thank you! Your message has been sent.' });
     } catch (error) {
       if (error instanceof Error) setStatus({ error: error.message });

@@ -147,6 +147,18 @@ describe('userAPI', () => {
     expect(dispatch).toHaveBeenCalledWith(userUpdateProfileActions._RESET(''));
   });
 
+  test('sendContactMessage never sends credentials to the mail server (third party, not our backend)', async () => {
+    mockedAxiosPost.mockResolvedValueOnce({} as never);
+
+    await sendContactMessage({ name: 'Ada', email: 'ada@example.com', message: 'hi' } as never, jest.fn())(jest.fn());
+
+    expect(mockedAxiosPost).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.anything(),
+      expect.objectContaining({ withCredentials: false })
+    );
+  });
+
   test('sendContactMessage reports the error message when sending fails', async () => {
     mockedAxiosPost.mockRejectedValueOnce(new Error('Network down'));
     const setStatus = jest.fn();
