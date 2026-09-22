@@ -9,7 +9,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  createReview
+  createReview,
 } from '../../apis/productAPI';
 import {
   currencyTypeActions,
@@ -20,12 +20,14 @@ import {
   productCreateActions,
   productUpdateActions,
   productDeleteActions,
-  productReviewCreateActions
+  productReviewCreateActions,
 } from '../../slice/ProductSlice';
 import { pipe } from '../../utils/currencyPipe';
 import { VIDEO } from '../../constants';
+import Sentry from '../../utils/sentry';
 
 jest.mock('../../apis/axiosClient');
+jest.mock('../../utils/sentry', () => ({ __esModule: true, default: { captureException: jest.fn() } }));
 
 const mockedAxiosPublic = axiosPublic as jest.MockedFunction<typeof axiosPublic>;
 const mockedAxiosPrivate = axiosPrivate as jest.MockedFunction<typeof axiosPrivate>;
@@ -48,7 +50,10 @@ describe('productAPI', () => {
   test('updateCurrencyRates requests the rates and updates the pipe rates on success', () => {
     updateCurrencyRates();
 
-    expect(mockedAxiosPublic).toHaveBeenCalledWith([currencyTypeActions], expect.objectContaining({ successHandler: expect.any(Function) }));
+    expect(mockedAxiosPublic).toHaveBeenCalledWith(
+      [currencyTypeActions],
+      expect.objectContaining({ successHandler: expect.any(Function) })
+    );
     expect(mockInnerCall).toHaveBeenCalledWith('get', '/api/config/rates');
 
     const { successHandler } = mockedAxiosPublic.mock.calls[0][1] as { successHandler: (d: unknown) => void };
@@ -64,10 +69,7 @@ describe('productAPI', () => {
   test('listProducts treats "All" category and name as no filter', () => {
     listProducts({ category: 'All', name: 'All' } as never);
     expect(mockedAxiosPublic).toHaveBeenCalledWith([productListActions]);
-    expect(mockInnerCall).toHaveBeenCalledWith(
-      'get',
-      expect.stringContaining('&name=&category=')
-    );
+    expect(mockInnerCall).toHaveBeenCalledWith('get', expect.stringContaining('&name=&category='));
   });
 
   test('listExtMovies fetches every configured genre and adapts the results', async () => {
@@ -81,13 +83,14 @@ describe('productAPI', () => {
     expect(adapted[0].name).toBe('A Movie');
   });
 
-  // NOTE: `.catch()` here has no handler (see src/apis/productAPI.ts), so it does nothing —
-  // a single failing genre still rejects the whole Promise.all instead of degrading gracefully.
-  // This test documents that real, currently-existing behavior.
-  test('a single failing genre request rejects the whole listExtMovies call', async () => {
+  test('a single failing genre degrades to an empty list for that genre instead of rejecting the whole call', async () => {
     mockedAxiosGet.mockRejectedValue(new Error('network down'));
 
-    await expect(listExtMovies()).rejects.toThrow('network down');
+    const result = await listExtMovies();
+
+    expect(result).toHaveLength(Object.keys(VIDEO.SRC).length);
+    result.forEach(([, adapted]) => expect(adapted).toEqual([]));
+    expect(Sentry.captureException).toHaveBeenCalledTimes(Object.keys(VIDEO.SRC).length);
   });
 
   test('listProductCategories fetches the category list', () => {
@@ -104,7 +107,10 @@ describe('productAPI', () => {
 
   test('createProduct posts a new blank product', () => {
     createProduct();
-    expect(mockedAxiosPrivate).toHaveBeenCalledWith([productCreateActions], expect.objectContaining({ selector: expect.any(Function) }));
+    expect(mockedAxiosPrivate).toHaveBeenCalledWith(
+      [productCreateActions],
+      expect.objectContaining({ selector: expect.any(Function) })
+    );
     expect(mockInnerCall).toHaveBeenCalledWith('post', '/api/products');
   });
 

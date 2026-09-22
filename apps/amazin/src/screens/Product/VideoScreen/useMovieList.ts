@@ -6,6 +6,7 @@ import { listExtMovies, listProducts } from 'src/apis/productAPI';
 import { MoviesOpt, MoviesOptList, STORE, VIDEO, VideoType } from 'src/constants';
 import { useSafeState } from 'src/hooks/useSafeState';
 import { dummyMovies } from 'src/utils';
+import Sentry from 'src/utils/sentry';
 
 export function useStockMovies() {
   const dispatch = useDispatch();
@@ -29,7 +30,9 @@ export function useExternMovies() {
   const [externMovies, setExternMovies] = useSafeState<MoviesOptList>({ [STORE]: dummyMovies });
 
   useEffect(() => {
-    listExtMovies().then((movieList) => setExternMovies(Object.fromEntries(movieList)));
+    listExtMovies()
+      .then((movieList) => setExternMovies(Object.fromEntries(movieList)))
+      .catch((error) => Sentry.captureException(error));
   }, [setExternMovies]);
 
   return { externMovies };

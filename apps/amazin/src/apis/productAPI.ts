@@ -8,10 +8,11 @@ import {
   productCreateActions,
   productUpdateActions,
   productDeleteActions,
-  productReviewCreateActions
+  productReviewCreateActions,
 } from '../slice/ProductSlice';
 import { FilterOptType, NAV, SourceType, VIDEO } from 'src/constants';
 import { pipe, sourceAdapter } from 'src/utils';
+import Sentry from 'src/utils/sentry';
 
 const updatePipe = (data: { rates: CurrRateType }) =>
   pipe.currencies.forEach((c) => {
@@ -36,7 +37,7 @@ export const listProducts = ({
   deal = 0,
   min = 0.01,
   max = 0,
-  rating = 0
+  rating = 0,
 }: FilterOptType) => {
   if (category === NAV.ALL) category = '';
   if (name === NAV.ALL) name = '';
@@ -62,13 +63,23 @@ export const deleteProduct = (productId: string) =>
 
 export const createReview = (productId: string, review: Partial<ReviewType>) =>
   axiosPrivate([productReviewCreateActions], {
-    selector: (_data) => _data.review
+    selector: (_data) => _data.review,
   })('post', `/api/products/${productId}/reviews`, review);
 
+// Each genre fails independently - previously a bare `.catch()` (no handler)
+// on one genre's request left `data` undefined, and reading `data.results`
+// threw, rejecting the whole Promise.all and wiping out every other genre's
+// row too. Also silent: no Sentry report, so a config problem (e.g. a
+// missing/invalid REACT_APP_API_KEY) looked identical to "no movies today".
 export const listExtMovies = () =>
   Promise.all(
     (Object.keys(VIDEO.SRC) as SourceType[]).map(async (genre) => {
-      const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre]).catch();
-      return [genre, sourceAdapter(data.results)];
+      try {
+        const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre]);
+        return [genre, sourceAdapter(data.results)];
+      } catch (error) {
+        Sentry.captureException(error);
+        return [genre, []];
+      }
     })
   );
