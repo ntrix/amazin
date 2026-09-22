@@ -83,6 +83,17 @@ describe('productAPI', () => {
     expect(adapted[0].name).toBe('A Movie');
   });
 
+  test('listExtMovies never sends credentials to TMDB (third party, not our backend)', async () => {
+    mockedAxiosGet.mockResolvedValue({ data: { results: [] } } as never);
+
+    await listExtMovies();
+
+    expect(mockedAxiosGet).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ withCredentials: false })
+    );
+  });
+
   test('a single failing genre degrades to an empty list for that genre instead of rejecting the whole call', async () => {
     mockedAxiosGet.mockRejectedValue(new Error('network down'));
 

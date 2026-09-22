@@ -75,7 +75,12 @@ export const listExtMovies = () =>
   Promise.all(
     (Object.keys(VIDEO.SRC) as SourceType[]).map(async (genre) => {
       try {
-        const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre]);
+        // axios.defaults.withCredentials = true (axiosClient.ts) is global -
+        // TMDB is a third party, not our backend, and must not get it: a
+        // browser rejects a credentialed request outright when the server's
+        // Access-Control-Allow-Origin is the wildcard "*", which is exactly
+        // what TMDB returns, so this call would otherwise fail every time.
+        const { data } = await axios.get(VIDEO.URL + VIDEO.SRC[genre], { withCredentials: false });
         return [genre, sourceAdapter(data.results)];
       } catch (error) {
         Sentry.captureException(error);
