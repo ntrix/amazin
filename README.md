@@ -205,6 +205,7 @@ I learned a lot of stuff, also renew and update my knowledge just by doing. You 
 | 11b  | E2E specs (03c) wired into GitHub Actions — real MongoDB + backend + production build, seeded, both flows headless on every push | Done |
 | 11c  | Backend: logging, error handling, migrations, atomic stock checks, doubled test suite — full detail in [amazin-be][bev1] | Done |
 | 11d  | Frontend hosting: Vercel suspended (unresolved) and Netlify free build-minutes exhausted at the same time — migrated to [Render][render] Static Site, custom domain `amazin.tiennguyen.de` kept via a DNS CNAME switch (Render provisions its own TLS cert, no ACM needed unlike the ALB) | Done |
+| 11e  | Fixed client-side routes 404ing on refresh: unlike Netlify/Vercel, Render Static Sites don't read a `_redirects` file — the SPA rewrite (`/* → /index.html`) has to be a Rewrite Rule set in the Render dashboard's **Redirects/Rewrites** tab instead | Done |
 
 [atlas]: https://www.mongodb.com/cloud/atlas
 [bev1]: https://github.com/ntrix/amazin-be
