@@ -123,6 +123,9 @@ flowchart TB
   GitHubFE -.->|"native auto-deploy"| RenderFE(["Render<br/><b>active frontend, static site</b>"])
   DNSFE["Namecheap DNS<br/>amazin.tiennguyen.de"] -. "CNAME<br/>Render-managed TLS" .-> RenderFE
   RenderFE -->|"HTTPS :443"| ALB["ALB"]
+  GitHubFE -.->|"native auto-deploy"| VercelStaging(["Vercel<br/><i>staging, 2nd project<br/>(1st project abuse-flagged by Vercel, orphaned)</i>"])
+  DNSStaging["Namecheap DNS<br/>amazin-staging.tiennguyen.de"] -. "CNAME<br/>Vercel-managed TLS" .-> VercelStaging
+  VercelStaging -. "unhandled FE errors" .-> Sentry
   ALB -->|forwards| TG["Target Group"]
   TG -->|"routes by IP"| Task["Fargate Task"]
   Task -->|queries| Mongo[("MongoDB Atlas")]
