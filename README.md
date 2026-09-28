@@ -123,7 +123,7 @@ flowchart TB
   GitHubFE -.->|"native auto-deploy"| RenderFE(["Render<br/><b>active frontend, static site</b>"])
   DNSFE["Namecheap DNS<br/>amazin.tiennguyen.de"] -. "CNAME<br/>Render-managed TLS" .-> RenderFE
   RenderFE -->|"HTTPS :443"| ALB["ALB"]
-  GitHubFE -.->|"native auto-deploy"| VercelStaging(["Vercel<br/><i>staging, 2nd project<br/>(1st project abuse-flagged by Vercel, orphaned)</i>"])
+  GitHubFE -.->|"native auto-deploy"| VercelStaging(["Vercel<br/>amazin-staging"])
   DNSStaging["Namecheap DNS<br/>amazin-staging.tiennguyen.de"] -. "CNAME<br/>Vercel-managed TLS" .-> VercelStaging
   VercelStaging -. "unhandled FE errors" .-> Sentry
   ALB -->|forwards| TG["Target Group"]
@@ -156,6 +156,7 @@ flowchart TB
   GitHubStory["GitHub: amazin-story push<br/><i>separate repo</i>"] -.-> Storybook(["Storybook<br/>design system"])
 
   Render[["Render<br/><i>BE passive failover, unchanged</i>"]]
+  Netlify[["Netlify<br/><i>suspended</i>"]]
 
   subgraph VPC["VPC · eu-central-1"]
     ALB
