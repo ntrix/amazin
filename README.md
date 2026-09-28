@@ -120,9 +120,10 @@ flowchart TB
   ACM["ACM Certificate<br/>*.tiennguyen.de"] -. "TLS cert" .-> ALB
 
   GitHubFE["GitHub: FE push to nx<br/><b>amazin</b>"] --> ActionsFE["GitHub FE Actions<br/>CI"]
-  GitHubFE -.->|"native auto-deploy"| RenderFE(["Render<br/><b>active frontend, static site</b>"])
-  DNSFE["Namecheap DNS<br/>amazin.tiennguyen.de"] -. "CNAME<br/>Render-managed TLS" .-> RenderFE
+  GitHubFE -.->|"native auto-deploy"| RenderFE(["Render<br/><b>amazin.tiennguyen.de</b>"])
   RenderFE -->|"HTTPS :443"| ALB["ALB"]
+  GitHubFE -.->|"native auto-deploy"| VercelStaging(["Vercel<br/><b>amazin-staging.tiennguyen.de</b>"])
+  VercelStaging -. "unhandled FE errors" .-> Sentry
   ALB -->|forwards| TG["Target Group"]
   TG -->|"routes by IP"| Task["Fargate Task"]
   Task -->|queries| Mongo[("MongoDB Atlas")]
@@ -153,6 +154,7 @@ flowchart TB
   GitHubStory["GitHub: amazin-story push<br/><i>separate repo</i>"] -.-> Storybook(["Storybook<br/>design system"])
 
   Render[["Render<br/><i>BE passive failover, unchanged</i>"]]
+  Netlify[["Netlify<br/><i>suspended</i>"]]
 
   subgraph VPC["VPC · eu-central-1"]
     ALB
